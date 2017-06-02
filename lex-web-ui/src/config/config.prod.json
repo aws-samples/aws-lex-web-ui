@@ -1,0 +1,20 @@
+{
+  "cognito": {
+    "poolId": ""
+  },
+  "lex": {
+    "initialText": "You can ask me for help ordering flowers. Just type \"I Would Like To Order Flowers\" or click on the mic and say it.",
+    "initialSpeechInstruction": "Say 'I would like to Order Flowers' to get started."
+  },
+  "polly": {
+    "voiceId": "Salli"
+  },
+  "ui": {
+    "parentOrigin": "",
+    "pageTitle": "Order Flowers Bot",
+    "toolbarTitle": "Order Flowers"
+  },
+  "recorder": {
+    "preset": "speech_recognition"
+  }
+}

@@ -1,0 +1,39 @@
+.lex-chat {
+  bottom: 0;
+  box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.25);
+  display: none; /* hidden by default changed once iframe is loaded */
+  margin-bottom: 0px;
+  margin-left: 2px;
+  margin-right: 5vw;
+  margin-top: 2px;
+  max-width: 66vw;
+  min-height:66vh; /* dynamically changed on iframe maximize/minimize */
+  min-width: 33vw;
+  position: fixed;
+  right: 0;
+  z-index: 2147483637; /* max z-index (2147483647) - 10 */
+}
+
+.lex-chat--show {
+  display: flex;
+}
+
+.lex-chat--minimize {
+  height: 48px;
+  min-height: 48px;
+  max-height: 48px;
+  max-width: 30vw;
+  min-width: 20vw;
+}
+
+/* hide on very small resolutions */
+@media only screen and (max-width: 400px) {
+  .lex-chat {
+    display: none!important;
+  }
+}
+
+.lex-chat iframe {
+  overflow: hidden;
+  width: 100%;
+}

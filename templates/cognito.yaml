@@ -1,0 +1,75 @@
+Description: >
+    This template deploys a Cognito identity pool. It also deploys an
+    IAM role which is attached to the identity pool for unauthenticated
+    identities.
+
+Parameters:
+    CognitoIdentityPoolName:
+        Type: String
+        Description: Cognito identity pool name.
+        Default: identity pool
+        MinLength: 1
+        MaxLength: 128
+        AllowedPattern: '^[\w ]+$'
+        ConstraintDescription: Alphanumeric and spaces.
+
+    LexBotName:
+        Type: String
+        Description: Lex bot name used to build IAM policy
+        Default: OrderFlowers
+
+Resources:
+    CognitoIdentityPool:
+        Type: AWS::Cognito::IdentityPool
+        Properties:
+            IdentityPoolName: !Ref CognitoIdentityPoolName
+            AllowUnauthenticatedIdentities: true
+
+    CognitoIdentityPoolSetRole:
+        Type: AWS::Cognito::IdentityPoolRoleAttachment
+        Properties:
+            IdentityPoolId: !Ref CognitoIdentityPool
+            Roles:
+                unauthenticated: !GetAtt CognitoUnauthRole.Arn
+
+    CognitoUnauthRole:
+        Type: AWS::IAM::Role
+        Properties:
+            Path: /
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Principal:
+                          Federated: cognito-identity.amazonaws.com
+                      Effect: Allow
+                      Action:
+                          - sts:AssumeRoleWithWebIdentity
+                      Condition:
+                          StringEquals:
+                              cognito-identity.amazonaws.com:aud: !Ref CognitoIdentityPool
+                          ForAnyValue:StringLike:
+                              cognito-identity.amazonaws.com:amr: unauthenticated
+            Policies:
+                - PolicyName: PollySynth
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - polly:SynthesizeSpeech
+                            Resource: '*'
+                - PolicyName: LexPost
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - lex:PostText
+                                - lex:PostContent
+                            Resource:
+                                - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
+
+Outputs:
+    CognitoIdentityPoolId:
+        Description: Cognito identity pool id.
+        Value: !Ref CognitoIdentityPool

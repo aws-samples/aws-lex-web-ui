@@ -1,0 +1,249 @@
+Description: |
+    Master Lex Web UI CloudFormation template.
+    It deploys:
+        - A CodeCommit Repository containg the source code in this project
+          and a CodeBuild project, Lambda functions to initialize the repo
+        - A deployment pipeline using CodePipeline and CodeBuild
+        - An S3 buckets to hold build artifacts and the web application
+        - Optional Lambda function to delete S3 buckets
+        - A Cognito Identity Pool for unauthenticated identities
+        - CloudWatch Logs groups related to Lambda functions
+        - Associated IAM roles
+
+Parameters:
+    BotName:
+        Description: >
+            Name of an existing Lex Bot to be used by the web ui.
+        Type: String
+        Default: OrderFlowers
+        MinLength: 2
+        MaxLength: 50
+        AllowedPattern: '^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)'
+        ConstraintDescription: >
+            Must conform with the permitted Lex Bot name pattern.
+
+    CodeCommitRepoName:
+        Type: String
+        Description: >
+            Name of CodeCommit repository to be created. Used as the
+            source for the pipeline and to automate deployments of the
+            web app. It is initialized with source artifacts from the
+            bootstrap S3 bucket. Must be unique per region.
+        Default: lex-web-ui
+        MinLength: 1
+        MaxLength: 100
+        AllowedPattern: '^[\w\.-]+$'
+        ConstraintDescription: Alphanumeric, dot and dash.
+
+    CodePipelineName:
+        Type: String
+        Description: >
+            Name of CodePipeline pipeline to be created. Used to manage
+            the build and deployment of the web application. Must be
+            unique per region.
+        Default: lex-web-ui
+        MinLength: 1
+        MaxLength: 100
+        AllowedPattern: '[A-Za-z0-9.@\-_]+'
+        ConstraintDescription: Alphanumeric, dot, dash, underscore and @.
+
+    CodeBuildName:
+        Type: String
+        Description: >
+            Name of the CodeBuild project to be created. Used for building
+            the web app with the pipeline. Must be unique per region.
+        Default: lex-web-ui
+        MinLength: 2
+        MaxLength: 255
+        AllowedPattern: '^[A-Za-z0-9][A-Za-z0-9\-_]{1,254}$'
+        ConstraintDescription: >
+            Should start with Alphanumeric. May contain alphanumeric, undescore
+            and dash.
+
+    WebAppParentOrigin:
+        Type: String
+        Description: >
+            Browser origin (e.g. http://mysite.example.com:8080) of an
+            existing site that is allowed to send/receive data and events
+            from the web ui in an iframe setup. This is an optional
+            parameter. If left empty, an S3 bucket will be created to
+            host a sample parent site embedding the webapp as an iframe.
+        Default: ''
+        AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
+        ConstraintDescription: Empty or valid browser origin
+
+    CognitoIdentityPoolId:
+        Type: String
+        Description: >
+            Id of an existing Cognito Identity Pool. This is an optional
+            parameter. If left empty, a Cognito Identity Pool will be
+            automatically created. The pool ID is used by the web ui
+            to get AWS credentials for making calls to Lex and Polly.
+        Default: ''
+        AllowedPattern: '(^$|^[\w-]+:[0-9a-f-]+$)'
+        ConstraintDescription: Empty or a valid Cognito Identity Pool ID
+
+    CognitoIdentityPoolName:
+        Type: String
+        Description: >
+            Name of Cognito identity pool to be created to provide
+            AWS credentials to the web ui. Only used if the
+            CognitoIdentityPoolId parameter is left empty (default).
+        Default: Lex Web UI
+        MinLength: 1
+        MaxLength: 128
+        AllowedPattern: '^[\w ]+$'
+        ConstraintDescription: Alphanumeric and spaces.
+
+    CleanupBuckets:
+        Type: String
+        Default: true
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, buckets created for the Pipeline and to store the
+            web application will be deleted on CloudFormation stack delete.
+            If set to False, S3 buckets will be retained.
+
+Metadata:
+    AWS::CloudFormation::Interface:
+        ParameterGroups:
+            - Label:
+                default: Lex Bot Configuration Parameters
+              Parameters:
+                  - BotName
+            - Label:
+                default: Deployment Pipeline Parameters
+              Parameters:
+                  - CodePipelineName
+                  - CodeCommitRepoName
+                  - CodeBuildName
+                  - CleanupBuckets
+            - Label:
+                default: Web Application Parameters
+              Parameters:
+                  - WebAppParentOrigin
+            - Label:
+                default: Cognito Parameters
+              Parameters:
+                  - CognitoIdentityPoolId
+                  - CognitoIdentityPoolName
+
+Mappings:
+    CustomVariables:
+        # Sub-templates and source artifacts are hosted in this bucket.
+        # The content of this bucket is maintained outside of this template
+        # by using the Makefile under the build directory of this project.
+        # See the README.md for instructions on how to use your own bucket.
+        BootstrapBucket:
+            Value: aws-bigdata-blog
+        BootstrapPrefix:
+            Value: artifacts/aws-lex-web-ui/artifacts
+        BootstrapSrcObject:
+            Value: src.zip
+
+Conditions:
+    NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
+    NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
+
+Resources:
+    CognitoIdentityPool:
+        Type: AWS::CloudFormation::Stack
+        Condition: NeedsCognito
+        Properties:
+            TimeoutInMinutes: 15
+            TemplateURL: !Sub
+                - "https://s3.amazonaws.com/${Bucket}/${Path}/templates/cognito.yaml"
+                - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
+                  Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
+            Parameters:
+                CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
+                LexBotName: !Ref BotName
+
+    CodeCommitRepo:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TimeoutInMinutes: 15
+            TemplateURL: !Sub
+                - "https://s3.amazonaws.com/${Bucket}/${Path}/templates/coderepo.yaml"
+                - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
+                  Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
+            Parameters:
+                BotName: !Ref BotName
+                CodeBuildName: !Sub "${CodeCommitRepoName}-init"
+                CodeCommitRepoName: !Ref CodeCommitRepoName
+                CognitoIdentityPoolId:
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
+                      - !Ref CognitoIdentityPoolId
+                SourceBucket: !Sub
+                    - "${Bucket}"
+                    - Bucket:
+                        !FindInMap [CustomVariables, BootstrapBucket, Value]
+                SourceObject: !Sub
+                    - "${Prefix}/src.zip"
+                    - Prefix:
+                        !FindInMap [CustomVariables, BootstrapPrefix, Value]
+                CustomResourceCodeObject: !Sub
+                    - "${Prefix}/custom-resources.zip"
+                    - Prefix:
+                        !FindInMap [CustomVariables, BootstrapPrefix, Value]
+
+    Pipeline:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: !Sub
+                - "https://s3.amazonaws.com/${Bucket}/${Path}/templates/pipeline.yaml"
+                - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
+                  Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
+            Parameters:
+                BotName: !Ref BotName
+                CodePipelineName: !Ref CodePipelineName
+                CodeCommitRepoName: !GetAtt CodeCommitRepo.Outputs.CodeCommitRepoName
+                CodeBuildName: !Ref CodeBuildName
+                CognitoIdentityPoolId:
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
+                      - !Ref CognitoIdentityPoolId
+                ParentOrigin: !Ref WebAppParentOrigin
+                CustomResourceCodeBucket: !Sub
+                    - "${Bucket}"
+                    - Bucket:
+                        !FindInMap [CustomVariables, BootstrapBucket, Value]
+                CustomResourceCodeObject: !Sub
+                    - "${Prefix}/custom-resources.zip"
+                    - Prefix:
+                        !FindInMap [CustomVariables, BootstrapPrefix, Value]
+                CleanupBuckets: !Ref CleanupBuckets
+
+Outputs:
+    CodeCommitRepoUrl:
+        Description: CodeCommit repository clone URL
+        Value: !GetAtt CodeCommitRepo.Outputs.CodeCommitRepoUrl
+
+    PipelineUrl:
+        Description: >
+            Monitor the pipeline URL to see when the application has been fully
+            built and deployed.
+        Value: !Sub "https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline.Outputs.PipelineName}"
+
+    WebAppUrl:
+        Description: >
+            URL of the stand-alone sample web application.
+            This page will be available after the pipeline completes.
+        Value: !GetAtt Pipeline.Outputs.WebAppUrl
+
+    ParentPageUrl:
+        Description: >
+            URL of the iframe based sample web application
+            This page will be available after the pipeline completes.
+        Value: !GetAtt Pipeline.Outputs.ParentPageUrl
+        Condition: NeedsParentOrigin
+
+    CognitoIdentityPoolId:
+        Description: Cognito Identity Pool Id
+        Value: !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
+        Condition: NeedsCognito
