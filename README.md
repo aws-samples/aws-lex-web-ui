@@ -30,6 +30,7 @@ sample application running both as stand-alone and embedded in an iframe.
 ## CloudFormation Stack
 ### Diagram
 Here is a diagram of the CloudFormation stack created by this project:
+
 <img src="./img/cfn-stack.png" width=640>
 
 ### CloudFormation Resources
@@ -124,6 +125,7 @@ git clone URL from the `CodeCommitRepoUrl` output variable of the
 master stack.
 
 Here is a diagram of the DeploymentPipeline:
+
 <img src="./img/pipeline.png" width=640>
 
 ## Directory Structure
@@ -143,6 +145,7 @@ Lex bot using text or voice with any webRTC capable browser.
 
 The interface interacts with AWS services directly from the browser. Here is
 a diagram of how the application works:
+
 <img src="./img/webapp-diagram.png" width=640>
 
 For details about the web app, see the accompanying
@@ -150,6 +153,7 @@ For details about the web app, see the accompanying
 [lex-web-ui](lex-web-ui) directory.
 
 Here is a screenshot of it:
+
 <img src="./img/webapp-screenshot.png" width=640>
 
 # How do I ...?
