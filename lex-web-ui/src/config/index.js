@@ -1,6 +1,17 @@
 /*
- * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- */
+Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License"). You may
+not use this file except in compliance with the License. A copy of the
+License is located at
+
+    http://aws.amazon.com/apache2.0/
+
+or in the "license" file accompanying this file. This file is distributed
+on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
 
 /**
  * Application configuration management.
@@ -71,14 +82,14 @@ const configDefault = {
 
   lex: {
     // Lex bot name
-    botName: 'OrderFlowers',
+    botName: 'WebUiOrderFlowers',
 
     // Lex bot alias/version
     botAlias: '$LATEST',
 
     // instruction message shown in the UI
     initialText: 'You can ask me for help ordering flowers. ' +
-      'Just type "Order flowers" or click on the mic and say it.',
+      'Just type "order flowers" or click on the mic and say it.',
 
     // instructions spoken when mic is clicked
     initialSpeechInstruction: 'Say "Order Flowers" to get started',

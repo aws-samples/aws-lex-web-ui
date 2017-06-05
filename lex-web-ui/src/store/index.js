@@ -1,6 +1,17 @@
 /*
- * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- */
+Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License"). You may
+not use this file except in compliance with the License. A copy of the
+License is located at
+
+    http://aws.amazon.com/apache2.0/
+
+or in the "license" file accompanying this file. This file is distributed
+on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
 
 /* global Audio atob Blob document URL */
 /* eslint no-console: ["error", { allow: ["info", "warn", "error"] }] */
@@ -793,8 +804,18 @@ export default new Vuex.Store({
       };
       // simulate response card in sessionAttributes
       // used mainly for postContent which doesn't support response cards
-      if ('appContext' in lexState && lexState.appContext.responseCard) {
-        lexStateDefault.responseCard = lexState.appContext.responseCard;
+      if ('sessionAttributes' in lexState &&
+        'appContext' in lexState.sessionAttributes
+      ) {
+        try {
+          const appContext = JSON.parse(lexState.sessionAttributes.appContext);
+          if ('responseCard' in appContext) {
+            lexStateDefault.responseCard =
+              lexState.sessionAttributtes.appContext.responseCard;
+          }
+        } catch (e) {
+          return Promise.reject('error parsing appContext in sessionAttributes');
+        }
       }
       context.commit('updateLexState', { ...lexStateDefault, ...lexState });
       if (context.state.isRunningEmbedded) {

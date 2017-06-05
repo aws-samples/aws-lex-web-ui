@@ -124,7 +124,7 @@ Resources:
             Code:
                 S3Bucket: !Ref SourceBucket
                 S3Key: !Ref CustomResourceCodeObject
-            Handler: coderepo-build.handler
+            Handler: codebuild-start.handler
             Role: !GetAtt CodeBuildStarterLambdaRole.Arn
             Runtime: python2.7
             Timeout: 120
