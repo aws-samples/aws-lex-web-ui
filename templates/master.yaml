@@ -24,6 +24,19 @@ Parameters:
         ConstraintDescription: >
             Must conform with the permitted Lex Bot name pattern.
 
+    BotNamePrefix:
+        Type: String
+        Description: >
+            Prefix to add to Lex resource names when using the sample bot.
+            Ignored if you provide your own bot. Must conform to the
+            permitted Lex Bot name syntax (alpha characters).
+        Default: WebUi
+        MinLength: 3
+        MaxLength: 32
+        AllowedPattern: '^[a-zA-Z\._]+$'
+        ConstraintDescription: >
+            Must conform with the permitted Lex Bot name pattern.
+
     ShouldDeleteBot:
         Type: String
         Default: true
@@ -134,6 +147,7 @@ Metadata:
                 default: Lex Bot Configuration Parameters
               Parameters:
                   - BotName
+                  - BotNamePrefix
                   - ShouldDeleteBot
             - Label:
                 default: Cognito Parameters
@@ -174,6 +188,7 @@ Resources:
                 - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
                   Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
             Parameters:
+                NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 CustomResourceCodeBucket: !Sub
                     - "${Bucket}"
