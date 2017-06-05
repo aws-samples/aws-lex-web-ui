@@ -121,7 +121,7 @@
                 "contentType": "PlainText"
               }
             ],
-            "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"/static/img/flowers.jpeg\",\"subTitle\":\"Pick a Flower Type\",\"title\":\"Flower Types\",\"buttons\":[{\"text\":\"Roses\",\"value\":\"roses\"},{\"text\":\"Lilies\",\"value\":\"lilies\"},{\"text\":\"Tulips\",\"value\":\"tulips\"}]}]}"
+            "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"https://s3.amazonaws.com/aws-bigdata-blog/artifacts/aws-lex-web-ui/artifacts/flowers.jpeg\",\"subTitle\":\"Pick a Flower Type\",\"title\":\"Flower Types\",\"buttons\":[{\"text\":\"Roses\",\"value\":\"roses\"},{\"text\":\"Lilies\",\"value\":\"lilies\"},{\"text\":\"Tulips\",\"value\":\"tulips\"}]}]}"
           }
         },
         {
