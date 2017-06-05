@@ -67,8 +67,8 @@ upload-src-zip: $(SRC_ZIP) | $(OUT)
 RESPONSE_CARD_IMAGE := ../lex-web-ui/static/img/flowers.jpeg
 upload-response-card-image: $(RESPONSE_CARD_IMAGE) | $(OUT)
 	@echo "[INFO] uploading response card image"
-	aws s3 cp --acl public-read \
-		"$(OUT)/$(SRC_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/flowers.jpeg" \
+	aws s3 cp --acl public-read --content-type 'image/jpg' \
+		"$(RESPONSE_CARD_IMAGE)" "s3://$(BOOTSTRAP_BUCKET_PATH)/flowers.jpeg" \
 		| tee -a "$(OUT)/$(@)"
 
 clean:
