@@ -35,8 +35,10 @@ upload-templates: $(TEMPLATES) | $(OUT)
 CUSTOM_RESOURCES_DIR := $(TEMPLATES_DIR)/custom-resources
 
 # zip cfn custom resource lambda files
+BOT_DEFINITION_FILE := $(CUSTOM_RESOURCES_DIR)/bot-definition.json
 CUSTOM_RESOURCES_ZIP := custom-resources.zip
 CUSTOM_RESOURCES_FILES := $(wildcard $(CUSTOM_RESOURCES_DIR)/*.py)
+CUSTOM_RESOURCES_FILES += $(BOT_DEFINITION_FILE)
 $(CUSTOM_RESOURCES_ZIP): $(CUSTOM_RESOURCES_FILES) | $(OUT)
 	@echo "[INFO] Creating custom resource Lambda zip file"
 	zip -u -j "$(OUT)/$(CUSTOM_RESOURCES_ZIP)" $(CUSTOM_RESOURCES_FILES)

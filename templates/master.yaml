@@ -5,8 +5,9 @@ Description: |
           and a CodeBuild project, Lambda functions to initialize the repo
         - A deployment pipeline using CodePipeline and CodeBuild
         - An S3 buckets to hold build artifacts and the web application
+        - Optional Lex Bot (based on OrderFlowers example)
+        - Optional Cognito Identity Pool for unauthenticated identities
         - Optional Lambda function to delete S3 buckets
-        - A Cognito Identity Pool for unauthenticated identities
         - CloudWatch Logs groups related to Lambda functions
         - Associated IAM roles
 
@@ -14,13 +15,26 @@ Parameters:
     BotName:
         Description: >
             Name of an existing Lex Bot to be used by the web ui.
+            This is an optional parameter. If left empty, a Bot based
+            on the OrderFlowers sample will be automatically created.
         Type: String
-        Default: OrderFlowers
-        MinLength: 2
+        Default: ''
         MaxLength: 50
-        AllowedPattern: '^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)'
+        AllowedPattern: '(^$|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_))'
         ConstraintDescription: >
             Must conform with the permitted Lex Bot name pattern.
+
+    ShouldDeleteBot:
+        Type: String
+        Default: true
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, the Lex bot and associated resources will
+            be deleted when the stack is deleted. Otherwise, the bot
+            will be preserved. Only applies if the bot is created by
+            this stack.
 
     CodeCommitRepoName:
         Type: String
@@ -110,10 +124,6 @@ Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
             - Label:
-                default: Lex Bot Configuration Parameters
-              Parameters:
-                  - BotName
-            - Label:
                 default: Deployment Pipeline Parameters
               Parameters:
                   - CodePipelineName
@@ -121,14 +131,19 @@ Metadata:
                   - CodeBuildName
                   - CleanupBuckets
             - Label:
-                default: Web Application Parameters
+                default: Lex Bot Configuration Parameters
               Parameters:
-                  - WebAppParentOrigin
+                  - BotName
+                  - ShouldDeleteBot
             - Label:
                 default: Cognito Parameters
               Parameters:
                   - CognitoIdentityPoolId
                   - CognitoIdentityPoolName
+            - Label:
+                default: Web Application Parameters
+              Parameters:
+                  - WebAppParentOrigin
 
 Mappings:
     CustomVariables:
@@ -144,22 +159,46 @@ Mappings:
             Value: src.zip
 
 Conditions:
+    NeedsBot: !Equals [!Ref BotName, '']
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
 
 Resources:
+    Bot:
+        Type: AWS::CloudFormation::Stack
+        Condition: NeedsBot
+        Properties:
+            TimeoutInMinutes: 15
+            TemplateURL: !Sub
+                - "https://s3.amazonaws.com/${Bucket}/${Path}/templates/lexbot.yaml"
+                - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
+                  Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
+            Parameters:
+                ShouldDeleteBot: !Ref ShouldDeleteBot
+                CustomResourceCodeBucket: !Sub
+                    - "${Bucket}"
+                    - Bucket:
+                        !FindInMap [CustomVariables, BootstrapBucket, Value]
+                CustomResourceCodeObject: !Sub
+                    - "${Prefix}/custom-resources.zip"
+                    - Prefix:
+                        !FindInMap [CustomVariables, BootstrapPrefix, Value]
+
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
         Condition: NeedsCognito
         Properties:
-            TimeoutInMinutes: 15
             TemplateURL: !Sub
                 - "https://s3.amazonaws.com/${Bucket}/${Path}/templates/cognito.yaml"
                 - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
                   Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
             Parameters:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
-                LexBotName: !Ref BotName
+                LexBotName:
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotName
+                      - !Ref BotName
 
     CodeCommitRepo:
         Type: AWS::CloudFormation::Stack
@@ -170,7 +209,11 @@ Resources:
                 - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
                   Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
             Parameters:
-                BotName: !Ref BotName
+                BotName:
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotName
+                      - !Ref BotName
                 CodeBuildName: !Sub "${CodeCommitRepoName}-init"
                 CodeCommitRepoName: !Ref CodeCommitRepoName
                 CognitoIdentityPoolId:
@@ -199,7 +242,11 @@ Resources:
                 - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
                   Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
             Parameters:
-                BotName: !Ref BotName
+                BotName:
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotName
+                      - !Ref BotName
                 CodePipelineName: !Ref CodePipelineName
                 CodeCommitRepoName: !GetAtt CodeCommitRepo.Outputs.CodeCommitRepoName
                 CodeBuildName: !Ref CodeBuildName
@@ -220,6 +267,12 @@ Resources:
                 CleanupBuckets: !Ref CleanupBuckets
 
 Outputs:
+    BotName:
+        Condition: NeedsBot
+        Description: >
+            Name of the Lex bot created by the stack
+        Value: !GetAtt Bot.Outputs.BotName
+
     CodeCommitRepoUrl:
         Description: CodeCommit repository clone URL
         Value: !GetAtt CodeCommitRepo.Outputs.CodeCommitRepoUrl

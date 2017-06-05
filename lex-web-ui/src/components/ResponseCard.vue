@@ -82,6 +82,10 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  min-width: 50vw;
+  max-width: 75vw;
+}
 .card__row--actions.button-row {
   justify-content: center;
 }
@@ -89,6 +93,7 @@ export default {
   /* prefer to contain the image rather than cover (which can clip it) */
   background-size: contain!important;
   margin: 0.33em;
+  min-height: 30vh;
 }
 .btn.btn--disabled {
   opacity: 1;

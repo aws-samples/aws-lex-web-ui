@@ -804,8 +804,18 @@ export default new Vuex.Store({
       };
       // simulate response card in sessionAttributes
       // used mainly for postContent which doesn't support response cards
-      if ('appContext' in lexState && lexState.appContext.responseCard) {
-        lexStateDefault.responseCard = lexState.appContext.responseCard;
+      if ('sessionAttributes' in lexState &&
+        'appContext' in lexState.sessionAttributes
+      ) {
+        try {
+          const appContext = JSON.parse(lexState.sessionAttributes.appContext);
+          if ('responseCard' in appContext) {
+            lexStateDefault.responseCard =
+              lexState.sessionAttributtes.appContext.responseCard;
+          }
+        } catch (e) {
+          return Promise.reject('error parsing appContext in sessionAttributes');
+        }
       }
       context.commit('updateLexState', { ...lexStateDefault, ...lexState });
       if (context.state.isRunningEmbedded) {

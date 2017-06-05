@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.5.0] - 2017-06-05
+### Added
+- Ability to deploy a sample bot based on the OrderFlowers sample
+ from the Lex [Create an Amazon Lex Bot (Console)](http://docs.aws.amazon.com/lex/latest/dg/gs-bp-create-bot.html)
+ documentation.
+- Added npm 5 package-lock.json file for more deterministic builds
+- Copyrights and Apache license
+
+### Changed
+- Bumped dependency versions
+- Default bot name using prefix
+- Changed name of Lambda handler of CloudFormation custom resource for
+  CodeBuild starter
+
+### Fix
+- Response Card rendering and sizing issues
+
 ## [0.4.1] - 2017-06-01
 ### Added
 - Copyrights and Apache license

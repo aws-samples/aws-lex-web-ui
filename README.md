@@ -11,21 +11,16 @@ web interface.
 1. Click this CloudFormation button to launch your own copy of the sample
 application stack in the us-east-1 (N. Virginia) AWS region:
 [![cloudformation-launch-stack](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=lex-web-ui&templateURL=https://s3.amazonaws.com/aws-bigdata-blog/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml)
-2. Create the `OrderFlowers` bot in your account by following the
-instructions here:
-[Create an Amazon Lex Bot (Console)](http://docs.aws.amazon.com/lex/latest/dg/gs-bp-create-bot.html)
-If you already have the OrderFlowers bot in your account, you can skip
-this step. The stack defaults to use this bot but you can also provide
-a different bot name in the CloudFormation parameter or change it later.
-3. Once the status of all the CloudFormation stacks is `CREATE_COMPLETE`,
+2. Once the status of all the CloudFormation stacks is `CREATE_COMPLETE`,
 click on the `PipelineUrl` link in the output section of the master
 stack. This will take you to the CodePipeline console. You can monitor
 the progress of the deployment pipeline from there. It takes up to 20
 minutes to build and deploy the application.
-4. Once the pipeline has deployed successfully, go back to the output section
-of the master CloudFormation stack and click on the `ParentPageUrl` link. You
-can also browse to the `WebAppUrl` link. Those links will take you to the
-sample application running both as stand-alone and embedded in an iframe.
+3. Once the pipeline has deployed successfully, go back to the
+output section of the master CloudFormation stack and click on the
+`ParentPageUrl` link. You can also browse to the `WebAppUrl` link. Those
+links will take you to the sample application running as an embedded
+iframe or as a stand-alone web application respectively.
 
 ## CloudFormation Stack
 ### Diagram
@@ -36,6 +31,9 @@ Here is a diagram of the CloudFormation stack created by this project:
 ### CloudFormation Resources
 The CloudFormation stack creates the following resources in your AWS account:
 
+- A [Amazon Lex](http://docs.aws.amazon.com/lex/latest/dg/what-is.html)
+bot. You can optionally pass the bot name of an existing one to avoid
+creating a new one.
 - A [Cognito Identity Pool](http://docs.aws.amazon.com/cognito/latest/developerguide/identity-pools.html)
 used to pass temporary AWS credentials to the web app. You can optionally
 pass the ID of an existing Cognito Identity Pool to avoid creating a
@@ -65,6 +63,7 @@ CloudFormation templates used to create these stacks:
 | Template | Description |
 | --- | --- |
 | [templates/master.yaml](templates/master.yaml) | This is the master template used to deploy all the stacks. It uses nested sub-templates to include the ones listed below. |
+| [templates/lexbot.yaml](templates/lexbot.yaml) | Lex bot and associated resources (i.e. intents and slot types). |
 | [templates/cognito.yaml](templates/cognito.yaml) | Cognito Identity Pool and IAM role for unauthenticated identity access. |
 | [templates/coderepo.yaml](templates/coderepo.yaml) | CodeCommit repo dynamically initialized with the files in this repo using CodeBuild and a custom resource. |
 | [templates/pipeline.yaml](templates/pipeline.yaml) | Continuous deployment pipeline of the Lex Web UI Application using CodePipeline and CodeBuild. The pipeline takes the source from CodeCommit, builds the Lex web UI application using CodeBuild and deploys the app to an S3 bucket. |
@@ -75,7 +74,16 @@ and a brief explanation of each one. You can take the default values of
 most of the CloudFormation parameters. The parameters that you may need
 to modify are:
 
-- `BotName`: Name of pre-existing Lex bot. Defaults to sample `OrderFlowers`
+- `BotName`: Name of pre-existing Lex bot. This is an optional parameter.
+  If left empty, a sample bot will be created based on the
+  [OrderFlowers](http://docs.aws.amazon.com/lex/latest/dg/gs-bp.html)
+  bot in the Lex
+  [Getting Started](http://docs.aws.amazon.com/lex/latest/dg/gs-console.html)
+  documentation.
+- `CognitoIdentityPoolId`: Id of an existing Cognito Identity Pool.
+  This is an optional parameter. If left empty, a Cognito Identity Pool
+  will be automatically created. The pool ID is used by the web ui to
+  get AWS credentials for making calls to Lex and Polly.
 - `ParentOrigin`: [Origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
   of the parent window. Only needed if you wish to embed the web app
   into an existing site using an iframe. The origin is used to control
