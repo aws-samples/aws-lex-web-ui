@@ -8,14 +8,22 @@ automatically build and deploy a sample
 web interface.
 
 ## Launching
-1. Click this CloudFormation button to launch your own copy of the sample
-application stack in the us-east-1 (N. Virginia) AWS region:
-[![cloudformation-launch-stack](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=lex-web-ui&templateURL=https://s3.amazonaws.com/aws-bigdata-blog/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml)
-2. Once the status of all the CloudFormation stacks is `CREATE_COMPLETE`,
-click on the `PipelineUrl` link in the output section of the master
-stack. This will take you to the CodePipeline console. You can monitor
-the progress of the deployment pipeline from there. It takes up to 20
-minutes to build and deploy the application.
+To deploy a CloudFormation stack with a working demo of the application,
+follow the steps below:
+
+1. Click the following CloudFormation button to launch your own copy of
+the sample application stack in the us-east-1 (N. Virginia) AWS region:
+[![cloudformation-launch-stack](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=lex-web-ui&templateURL=https://s3.amazonaws.com/aws-bigdata-blog/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml).
+You can accept the defaults in the CloudFormation Create Stack Wizard up
+until the last step. At the last step, when prompted to create the stack,
+select the checkmark that says: "I acknowledge that AWS CloudFormation
+might create IAM resources with custom names". It takes about 10 minutes
+for the CloudFormation stacks to got to `CREATE_COMPLETE` status.
+2. Once the status of all the CloudFormation stacks
+is `CREATE_COMPLETE`, click on the `PipelineUrl` link in the output
+section of the master stack.  This will take you to the CodePipeline
+console. You can monitor the progress of the deployment pipeline from
+there. It takes about 10 minutes to build and deploy the application.
 3. Once the pipeline has deployed successfully, go back to the
 output section of the master CloudFormation stack and click on the
 `ParentPageUrl` link. You can also browse to the `WebAppUrl` link. Those
