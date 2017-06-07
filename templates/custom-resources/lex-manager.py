@@ -301,7 +301,7 @@ if __name__ == '__main__':
     import sys
     import argparse
     # test lambda handler from shell with -t
-    if sys.argv[1] == '-t':
+    if len(sys.argv) > 1 and sys.argv[1] == '-t':
         test_handler()
     # otherwise call main and parse arguments
     else:

@@ -217,3 +217,46 @@ stack (these are retained for troubleshooting purposes).
 The S3 buckets created by the stacks are deleted by default. If you wish
 to retain the data in these buckets, you should set the `CleanupBuckets`
 parameter to false in the master stack.
+
+## Use or deploy my own bot?
+The `BotName` CloudFormation parameter can be used to point the
+stack to an existing bot. In the application, you can also change
+the config files or pass parameters to it (see the application
+[README](lex-web-ui/README.md) file for details).
+
+If you want to make changes to the sample
+bot deployed by the stack, you can edit the
+[bot-definition.json](templates/custom-resources/bot-definition.json)
+file. This file is used by the
+[lex-manager.py](templates/custom-resources/lex-manager.py) which is
+run in Lambda by a CloudFormation Custom Resource in the bot stack.
+The bot definition is in a JSON file tha contains all the resources
+associated with the bot including intents and slot types.
+
+The lex-manager.py script can be also used as a stand-alone shell script.
+It allows to export existing bots (including associated resources like
+intents and slot types) into the a JSON file. The same script can be
+used to import a bot definition into an accout or to recursively delete
+a bot and associated resources. Here is the script usage:
+
+```shell
+$ python lex-manager.py  -h
+usage: lex-manager.py [-h] [-i [file] | -e [botname] | -d botname]
+
+Lex bot manager. Import, export or delete a Lex bot. Used to
+import/export/delete Lex bots and associated resources (i.e. intents, slot
+types).
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i [file], --import [file]
+                        Import bot definition from file into account. Defaults
+                        to: bot-definition.json
+  -e [botname], --export [botname]
+                        Export bot definition as JSON to stdout Defaults to
+                        reading the botname from the definition file: bot-
+                        definition.json
+  -d botname, --delete botname
+                        Deletes the bot passed as argument and its associated
+                        resources.
+```
