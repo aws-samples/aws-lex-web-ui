@@ -239,7 +239,7 @@ intents and slot types) into the a JSON file. The same script can be
 used to import a bot definition into an accout or to recursively delete
 a bot and associated resources. Here is the script usage:
 
-``shell
+```shell
 $ python lex-manager.py  -h
 usage: lex-manager.py [-h] [-i [file] | -e [botname] | -d botname]
 
