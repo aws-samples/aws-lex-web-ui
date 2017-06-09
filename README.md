@@ -7,6 +7,23 @@ automatically build and deploy a sample
 [Amazon Lex](https://aws.amazon.com/lex/)
 web interface.
 
+## Web UI Application
+The sample chatbot web user interface can be used to interact with an
+Amazon Lex bot using text or voice with a webRTC capable browser.
+
+The interface interacts with AWS services directly from the browser. Here
+is a diagram of how the application works:
+
+<img src="./img/webapp-diagram.png" width=640>
+
+For details about the web app, see the accompanying
+[README](lex-web-ui/README.md) file and the source under the
+[lex-web-ui](lex-web-ui) directory.
+
+Here is a screenshot of it:
+
+<img src="./img/webapp-screenshot.png" width=640>
+
 ## Launching
 To deploy a CloudFormation stack with a working demo of the application,
 follow the steps below:
@@ -154,24 +171,6 @@ This project contains the following main directories:
  |__ templates             # cloudformation templates and related lambda functions
     |__ custom-resources   # lambda functions used in cfn custom resources
 ```
-
-## Web UI Application
-The sample chatbot web user interface can be used to interact with any
-Lex bot using text or voice with any webRTC capable browser.
-
-The interface interacts with AWS services directly from the browser. Here is
-a diagram of how the application works:
-
-<img src="./img/webapp-diagram.png" width=640>
-
-For details about the web app, see the accompanying
-[README](lex-web-ui/README.md) file and the source under the
-[lex-web-ui](lex-web-ui) directory.
-
-Here is a screenshot of it:
-
-<img src="./img/webapp-screenshot.png" width=640>
-
 # How do I ...?
 
 ## Use or deploy my own bot?
@@ -188,7 +187,7 @@ file. This file is used by the
 run in Lambda by a CloudFormation Custom Resource in the bot stack
 created by the
 [lexbot.yaml](templates/lexbot.yaml) template.
-The bot definition is in a JSON file tha contains all the resources
+The bot definition is in a JSON file that contains all the resources
 associated with the bot including intents and slot types.
 
 The lex-manager.py script can be also used as a stand-alone shell script.
