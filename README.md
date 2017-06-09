@@ -218,6 +218,18 @@ optional arguments:
                         resources.
 ```
 
+## Delete the CloudFormation stacks?
+The resources created by this stack can be easily removed from your
+account by deleting the master CloudFormation stack. The master stack
+is the one that was first created using the "Launch Stack" button. By
+deleting this stack, the rest of the sub-stacks and resources will be
+deleted with the exception of the CloudWatch Logs groups created by the
+stack (these are retained for troubleshooting purposes).
+
+The S3 buckets created by the stacks are deleted by default. If you wish
+to retain the data in these buckets, you should set the `CleanupBuckets`
+parameter to false in the master stack.
+
 ## Deploy Using My Own Bootstrap S3 Bucket
 The source used to bootstrap the CodeCommit repo created by CloudFormation
 is dynamically downloaded from a predefined S3 bucket. If you want
