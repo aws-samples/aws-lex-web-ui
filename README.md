@@ -1,4 +1,4 @@
-# Sample Lex Web Interface
+# Sample Amazon Lex Web Interface
 
 ## Overview
 This repository provides a set of
