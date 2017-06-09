@@ -104,8 +104,8 @@ this point, the master stack will reference the resources in the output
 section. Here is a list of the output variables:
 
 - `PipelineUrl`: Link to CodePipeline in the AWS console.  After the stack
-is successfully launched, the pipeline automatically starts the build
-and deployment process You can click on this link to monitor the pipeline.
+is successfully launched, the pipeline automatically starts the build and
+deployment process. You can click on this link to monitor the pipeline.
 - `CodeCommitRepoUrl`: CodeCommit repository clone URL. You can clone
 the repo using this link and push changes to it to have the pipeline
 build and deploy the web app
@@ -140,7 +140,7 @@ CodeCommit to push changes to this repo. You can obtain the CodeCommit
 git clone URL from the `CodeCommitRepoUrl` output variable of the
 master stack.
 
-Here is a diagram of the DeploymentPipeline:
+Here is a diagram of the deployment pipeline:
 
 <img src="./img/pipeline.png" width=640>
 
@@ -174,6 +174,51 @@ Here is a screenshot of it:
 
 # How do I ...?
 
+## Use or deploy my own bot?
+The `BotName` CloudFormation parameter can be used to point the
+stack to an existing bot. In the application, you can also change
+the configuration files or pass parameters to it (see the application
+[README](lex-web-ui/README.md) file for details).
+
+If you want to make changes to the sample
+bot deployed by the stack, you can edit the
+[bot-definition.json](templates/custom-resources/bot-definition.json)
+file. This file is used by the
+[lex-manager.py](templates/custom-resources/lex-manager.py) which is
+run in Lambda by a CloudFormation Custom Resource in the bot stack
+created by the
+[lexbot.yaml](templates/lexbot.yaml) template.
+The bot definition is in a JSON file tha contains all the resources
+associated with the bot including intents and slot types.
+
+The lex-manager.py script can be also used as a stand-alone shell script.
+It allows to export existing bots (including associated resources like
+intents and slot types) into a JSON file. The same script can be
+used to import a bot definition into an account or to recursively delete
+a bot and associated resources. Here is the script usage:
+
+```
+$ python lex-manager.py  -h
+usage: lex-manager.py [-h] [-i [file] | -e [botname] | -d botname]
+
+Lex bot manager. Import, export or delete a Lex bot. Used to
+import/export/delete Lex bots and associated resources (i.e. intents, slot
+types).
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i [file], --import [file]
+                        Import bot definition from file into account. Defaults
+                        to: bot-definition.json
+  -e [botname], --export [botname]
+                        Export bot definition as JSON to stdout Defaults to
+                        reading the botname from the definition file: bot-
+                        definition.json
+  -d botname, --delete botname
+                        Deletes the bot passed as argument and its associated
+                        resources.
+```
+
 ## Deploy Using My Own Bootstrap S3 Bucket
 The source used to bootstrap the CodeCommit repo created by CloudFormation
 is dynamically downloaded from a predefined S3 bucket. If you want
@@ -204,59 +249,4 @@ commands (from the root of the repository):
 ```shell
 cd build
 make upload # requires a properly configured aws cli installation
-```
-
-## Delete the CloudFormation stacks?
-The resources created by this stack can be easily removed from your
-account by deleting the master CloudFormation stack. The master stack
-is the one that was first created using the "Launch Stack" button. By
-deleting this stack, the rest of the sub-stacks and resources will be
-deleted with the exception of the CloudWatch Logs groups created by the
-stack (these are retained for troubleshooting purposes).
-
-The S3 buckets created by the stacks are deleted by default. If you wish
-to retain the data in these buckets, you should set the `CleanupBuckets`
-parameter to false in the master stack.
-
-## Use or deploy my own bot?
-The `BotName` CloudFormation parameter can be used to point the
-stack to an existing bot. In the application, you can also change
-the config files or pass parameters to it (see the application
-[README](lex-web-ui/README.md) file for details).
-
-If you want to make changes to the sample
-bot deployed by the stack, you can edit the
-[bot-definition.json](templates/custom-resources/bot-definition.json)
-file. This file is used by the
-[lex-manager.py](templates/custom-resources/lex-manager.py) which is
-run in Lambda by a CloudFormation Custom Resource in the bot stack.
-The bot definition is in a JSON file tha contains all the resources
-associated with the bot including intents and slot types.
-
-The lex-manager.py script can be also used as a stand-alone shell script.
-It allows to export existing bots (including associated resources like
-intents and slot types) into the a JSON file. The same script can be
-used to import a bot definition into an accout or to recursively delete
-a bot and associated resources. Here is the script usage:
-
-```shell
-$ python lex-manager.py  -h
-usage: lex-manager.py [-h] [-i [file] | -e [botname] | -d botname]
-
-Lex bot manager. Import, export or delete a Lex bot. Used to
-import/export/delete Lex bots and associated resources (i.e. intents, slot
-types).
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -i [file], --import [file]
-                        Import bot definition from file into account. Defaults
-                        to: bot-definition.json
-  -e [botname], --export [botname]
-                        Export bot definition as JSON to stdout Defaults to
-                        reading the botname from the definition file: bot-
-                        definition.json
-  -d botname, --delete botname
-                        Deletes the bot passed as argument and its associated
-                        resources.
 ```
