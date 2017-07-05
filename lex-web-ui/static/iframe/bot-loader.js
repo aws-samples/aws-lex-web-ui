@@ -207,7 +207,7 @@
       IdentityPoolId: config.aws.cognitoPoolId,
     });
 
-    return Promise.resolve();
+    return AWS.config.credentials.getPromise()
   }
 
   /**
