@@ -4,10 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.6.0] - 2017-07-07
+### Added
+- Added the ability to pass dynamic configuration from parent page to the
+  bot loader via an event
+- Added response cards object display to sample parent page
+
+### Changed
+- Bot loader script now uses its own credential variable instead of setting
+  it into the global AWS object
+- Bumped AWS SDK version in bot loader
+- Added functionality to remove event handlers in bot loader for events that
+  only fire once
+
+### Fixed
+- Typos, invalid links and display issues in README files
+
+## [0.5.2] - 2017-07-05
+### Fixed
+- Credential loading issue in parent bot-loader.js
+
 ## [0.5.1] - 2017-06-06
 ### Changed
 - Copyrights and Amazon software license
-  
+
 ## [0.5.0] - 2017-06-05
 ### Added
 - Ability to deploy a sample bot based on the OrderFlowers sample

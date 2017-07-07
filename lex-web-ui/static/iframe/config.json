@@ -1,5 +1,6 @@
 {
   "iframeOrigin": "http://localhost:8080",
+  "configEventTimeOutInMs": 10000,
   "aws": {
     "cognitoPoolId": "",
     "region": "us-east-1"

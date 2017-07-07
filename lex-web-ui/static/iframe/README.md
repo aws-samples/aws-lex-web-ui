@@ -1,13 +1,13 @@
-###Overview
+### Overview
 The chatbot UI can be embedded in an existing web site by loading it as
 an iframe. This includes embedding it in a cross-origin setup where the
 chatbot is served from a server, S3 bucket or CloudFront distribution
 in a domain that is different from the hosting web site.
 
 If you want to know more about the chatbot UI component, please refer to
-its [README](https://github.com/awslabs/aws-lex-web-ui/lex-web-ui) file.
+its [README](https://github.com/awslabs/aws-lex-web-ui/blob/master/lex-web-ui/README.md) file.
 
-###Adding the ChatBot UI to your Website
+### Adding the ChatBot UI to your Website
 This project provides a sample JavaScript loader
 [bot-loader.js](./bot-loader.js") and CSS file [bot.css](./bot.css)
 that can be used to add the chatbot to an existing web site using a
@@ -22,12 +22,12 @@ tags to your web page:
   <script src="https://myboturl.example.com/static/iframe/bot-loader.js"></script>
 ```
 
-###Passing Data Between Parent and ChatBot UI
-The chatbot iframe supports passing data to and from the hosting site. This
-is done using the JavaScript
+### Passing Data Between Parent Page and ChatBot UI
+The chatbot iframe supports passing data to and from the hosting parent
+page. This is done using the JavaScript
 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
-call. This enables use cases such as passing credentials from
-the parent hosting site to the chat iframe or passing events (e.g.
+call. This mechanism enables use cases such as passing credentials
+from the parent hosting site to the chat iframe or passing events (e.g.
 windows resize) from the chat window to the parent window.
 
 The chatbot iframe sends Lex bot state update events to the parent
@@ -36,18 +36,32 @@ of the bot. The bot-loader.js script relays these messages back to the
 parent by emitting the `updatelexstate` events. The event object will
 contain the Lex state variables in the `details.state` field.
 
-###Configuration
-####Parent Configuration
-The parent page configuration is held in a JSON config file:
-[config.json](./config.json). This file is loaded by
-the bot-loader.js script. Here's an example of the file format:
-```json
+### Configuration
+#### Parent Configuration File
+The [bot-loader.js](./bot-loader.js) script loads its initial
+configuration from the JSON config file: [config.json](./config.json).
+This file is meant to be used as the build-time configuration of the
+bot-loader.js script. It serves as the base config so the root level
+keys in the JSON object should not be removed.
+
+NOTE: The values in this file may be overwritten by environmental
+variables in the build process.
+
+Here's an example of the file format:
+```
   {
+    // iframe origin - see: Cross Origin Configuration section below
     "iframeOrigin": "http://localhost:8080",
+
+    // time to wait for the config event in ms
+    "configEventTimeOutInMs": 10000,
+
+    // used to initialize the AWS SDK and Cognito
     "aws": {
       "cognitoPoolId": "us-east-1:deadbeef-cac0-babe-abcd-abcdef01234",
       "region": "us-east-1"
     }
+    // chatbot UI configuration passed from parent - see: ChatBot UI Configuration section below
     "iframeConfig": {
       ...
       "lex": {
@@ -59,35 +73,67 @@ the bot-loader.js script. Here's an example of the file format:
   }
 ```
 
-####ChatBot UI Configuration
-The chatbot UI has a local build-time config (see:
-`src/config/config.prod.json`). You can also pass or override this
-configuration from the parent site via two mechanisms:
+#### Parent Event Configuration
+The parent page can also set the bot loader configuration via an
+event. The bot-loader.js script emits the `receivelexconfig` event which
+signals to the parent that it is ready to receive a configuration
+object. At which point, the bot-loader.js script will wait a 10
+seconds timeout (by default) to receive a event named `loadlexconfig`.
+The timeout is controlled by the `configEventTimeOutInMs` field in
+the config JSON file. The event object contains the config in the
+`detail.config` field.
 
-- **ChatBot UI Configuration from File.** The parent
-[config.json](./config.json) file contains the `iframeConfig` field
-which is passed to the chatbot UI. This configuration is dynamically
-sent to the chatbot UI as a response of the the `onInitIframeConfig`
-event. The values delivered via this mechanism override the chatbot
-ui local config files and URL config parameter.
-- **ChatBot Configuration form URL Parameter.** The chatbot UI
-configuration can be initialized using the `config` URL parameter. Your
-application can dynamically add the parameter to the URL This is supported
-both in iframe and stand-alone mode of the chatbot UI. This config URL
-parameter should follow the same JSON structure of the `configDefault`
-object in the `src/config/index.js` file. This parameter should be a JSON
-serialized and URL encoded string. Values from this parameter override
-the ones from the chatbot ui local config files. For example to change
-the initialText config field, you can use a URL like this:
-`https://mybucket.s3.amazonaws.com/index.html#/?config=%7B%22lex%22%3A%7B%22initialText%22%3A%22Ask%20me%20a%20question%22%7D%7D`
+The configuration from the JSON file is merged with the value for this
+event. The values received via this event take precedence over the
+JSON file.
 
-####Cross Origin Configuration
+For example, to pass the browser
+[user agent](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorID/userAgent),
+you can add code to your site along the lines of:
+```javascript
+document.addEventListener('receivelexconfig', onReceiveLexConfig, false);
+
+function onReceiveLexConfig() {
+  document.removeEventListener('receivelexconfig', onReceiveLexConfig, false);
+  var config = {
+    iframeConfig: {
+      lex: {
+        sessionAttributes: {
+          userAgent: navigator.userAgent,
+        },
+      },
+    },
+  };
+
+  var event = new CustomEvent('loadlexconfig', { detail: { config: config } });
+  document.dispatchEvent(event);
+}
+```
+
+#### ChatBot UI Configuration
+The chatbot UI has its own configuration (see the
+[README](https://github.com/awslabs/aws-lex-web-ui/blob/master/lex-web-ui/README.md#configuration-and-customization)
+for details.  You can also pass or override the chatbot UI configuration
+from the parent site via the following mechanisms:
+
+1. **Config Object.** The parent configuration config object (either from
+the [config.json](./config.json) file or passed via the `loadlexconfig`
+event) contains the `iframeConfig` field which is passed to the chatbot
+UI. This configuration is dynamically sent to the chatbot UI as a
+response of the the `onInitIframeConfig` event. The values delivered
+via this mechanism override the chatbot UI local config files and URL
+config parameter.
+2. **URL Parameter.** The chatbot UI configuration can be initialized using
+the `config` URL parameter. For details, see the
+[URL Parameter](https://github.com/awslabs/aws-lex-web-ui/blob/master/lex-web-ui/README.md#url-parameter)
+section. NOTE: the bot-loader.js script does not use URL parameters.
+
+#### Cross Origin Configuration
 If the chatbot UI is hosted on a different
 [Origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
 from the parent window, you need to configure the `iframeOrigin` field
-in the parent config.json file to point to the origin of the iframe. This
+in the parent `config.json` file to point to the origin of the iframe. This
 origin configuration is used to control which sites can communicate with
 the iframe. Conversely, you would need to configure the `ui.parentOrigin`
 field in the iframe config. The origin configuration of this sample page
 was done at build time by the CloudFormation stack that created it.
-

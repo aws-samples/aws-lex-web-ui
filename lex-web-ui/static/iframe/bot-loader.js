@@ -29,7 +29,7 @@
 
     // AWS SDK script dynamically added to the DOM
     // https://github.com/aws/aws-sdk-js
-    sdkLink: 'https://sdk.amazonaws.com/js/aws-sdk-2.60.0.min.js',
+    sdkLink: 'https://sdk.amazonaws.com/js/aws-sdk-2.82.0.min.js',
   };
 
   /*
@@ -53,6 +53,7 @@
   var iframe;
   var container;
   var messageHandler = {};
+  var credentials;
 
   if (isSupported()) {
     // initialize iframe once the DOM is loaded
@@ -78,7 +79,10 @@
   }
 
   function main() {
-    loadConfig(configUrl)
+    loadConfigFromJsonFile(configUrl)
+    .then(function loadConfigFromEventPromise(conf) {
+        return loadConfigFromEvent(conf);
+    })
     .then(function assignConfig(conf) {
       config = conf;
       return Promise.resolve();
@@ -124,8 +128,8 @@
   /**
    * Loads the bot config from a JSON file URL
    */
-  function loadConfig(url) {
-    return new Promise(function loadConfigPromise(resolve, reject) {
+  function loadConfigFromJsonFile(url) {
+    return new Promise(function loadConfigFromJsonFilePromise(resolve, reject) {
       var xhr = new XMLHttpRequest();
       xhr.open('GET', url);
       xhr.responseType = 'json';
@@ -146,6 +150,75 @@
       xhr.send();
     });
   };
+
+  /**
+   * Loads dynamic bot config from an event
+   * Merges it with the config passed as parameter
+   */
+  function loadConfigFromEvent(conf) {
+    return new Promise(function waitForConfigEvent(resolve, reject) {
+      var timeoutInMs = conf.configEventTimeOutInMs || 10000;
+
+      var timeoutId = setTimeout(onConfigEventTimeout, timeoutInMs);
+      document.addEventListener('loadlexconfig', onConfigEventLoaded, false);
+
+      var intervalId = setInterval(emitReceiveEvent, 500);
+      // signal that we are ready to receive the dynamic config
+      function emitReceiveEvent() {
+        var event = new Event('receivelexconfig');
+        document.dispatchEvent(event);
+      };
+
+      function onConfigEventLoaded(evt) {
+        clearTimeout(timeoutId);
+        clearInterval(intervalId);
+        document.removeEventListener('loadlexconfig', onConfigEventLoaded, false);
+
+        if (evt && ('detail' in evt) && evt.detail && ('config' in evt.detail)) {
+          var evtConfig = evt.detail.config;
+          var mergedConfig = mergeConfig(conf, evtConfig);
+          return resolve(mergedConfig);
+        } else {
+          return reject('malformed config event: ' + JSON.stringify(evt));
+        }
+      };
+
+      function onConfigEventTimeout() {
+        clearInterval(intervalId);
+        document.removeEventListener('loadlexconfig', onConfigEventLoaded, false);
+        return reject('config event timed out');
+      };
+    });
+
+    /**
+     * Merges config objects. The initial set of keys to merge are driven by
+     * the baseConfig. The srcConfig values override the baseConfig ones.
+     */
+    function mergeConfig(baseConfig, srcConfig) {
+      // use the baseConfig first level keys as the base for merging
+      return Object.keys(baseConfig)
+      .map(function (key) {
+        var mergedConfig = {};
+        var value = baseConfig[key];
+        if (key in srcConfig) {
+          value = (typeof baseConfig[key] === 'object') ?
+            // recursively merge sub-objects in both directions
+            Object.assign(
+              mergeConfig(srcConfig[key], baseConfig[key]),
+              mergeConfig(baseConfig[key], srcConfig[key]),
+            ) :
+            srcConfig[key];
+        }
+        mergedConfig[key] = value;
+        return mergedConfig;
+      })
+      .reduce(function (merged, configItem) {
+          return Object.assign({}, merged, configItem);
+        },
+        {}
+      );
+    };
+  }
 
   /**
    * Adds a div container to document body which will wrap the chat bot iframe
@@ -202,12 +275,12 @@
       return Promise.reject('unable to find AWS object');
     }
 
-    AWS.config.region = config.aws.region;
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: config.aws.cognitoPoolId,
-    });
+    credentials = new AWS.CognitoIdentityCredentials(
+      { IdentityPoolId: config.aws.cognitoPoolId },
+      { region: config.aws.region },
+    );
 
-    return Promise.resolve();
+    return credentials.getPromise()
   }
 
   /**
@@ -220,21 +293,21 @@
       console.log('[INFO] found existing identity ID: ', identityId);
     }
 
-    if (!('getPromise' in AWS.config.credentials)) {
+    if (!('getPromise' in credentials)) {
       console.error('getPromise not found in credentials');
       return Promise.reject('getPromise not found in credentials');
     }
 
-    return AWS.config.credentials.getPromise()
+    return credentials.getPromise()
     .then(function storeIdentityId() {
       console.log('[INFO] storing identity ID:',
-        AWS.config.credentials.identityId
+        credentials.identityId
       );
-      localStorage.setItem('cognitoid', AWS.config.credentials.identityId);
+      localStorage.setItem('cognitoid', credentials.identityId);
       identityId = localStorage.getItem('cognitoid');
     })
     .then(function getCredentialsPromise() {
-      return Promise.resolve(AWS.config.credentials);
+      return Promise.resolve(credentials);
     });
   }
 
@@ -261,6 +334,7 @@
 
       function onIframeLoaded(evt) {
         clearTimeout(timeoutId);
+        iframeElement.removeEventListener('load', onIframeLoaded, false);
         toggleShowUi();
         return resolve(iframeElement);
       };
