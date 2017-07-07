@@ -70,25 +70,30 @@
 
       <div class="row">
         <div class="col-md-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Lex Response Card</div>
+            <div class="panel-body">
+              <div>
+                <pre id="response-card"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
           <div class="panel panel-warning">
             <div class="panel-heading">NOTE</div>
             <div class="panel-body">
               <p>
               This test application is setup by the CloudFormation template in
               the <a href="https://github.com/awslabs/aws-lex-web-ui">aws-lex-web-ui</a>
-              project. The CloudFormation stack should create the associated config and
-              resources (e.g. Cognito Identity Pool).
+              project.
               </p>
 
-              <p>
-              Before using this sample application, you need a working Lex bot.
-              You can create one by following create the instructions here:
-              <a href="http://docs.aws.amazon.com/lex/latest/dg/gs-bp-create-bot.html">
-                Create an Amazon Lex Bot (Console)</a>.
-              </p>
-              <p>
-              Expand the <a href="./index.html#embedding">
-                ChatBot UI Embedding Instructions</a> section below for details.
+              Expand the <a href="./index.html#embedding">ChatBot UI Embedding Instructions</a>
+              section below for details about integrating it into an existing site.
               </p>
             </div>
           </div>
@@ -137,18 +142,42 @@
           console.error('failed to load README.md');
         });
 
-        // add bot update event handler
-        $(document).on('updatelexstate', function OnUpdateLexState(evt) {
+        // Event handler called when the chatbot ui is ready to receive the
+        // dynamic config.
+        // Send dynamic config/parameter (e.g. username, geolocation) to the
+        // chatbot ui from here
+        $(document).one('receivelexconfig', function onReceiveLexConfig() {
+          // this config object should be a valid aws-lex-webui configuration
+          // values here will override the ones in the JSON config
+          var config = {
+            iframeConfig: {
+              lex: {
+                sessionAttributes: {
+                },
+              },
+            },
+          };
+
+          // emit bot config event
+          // jquery can't trigger native events so use vanilla JS
+          var event = new CustomEvent('loadlexconfig', { detail: { config: config } });
+          document.dispatchEvent(event);
+        });
+
+        // bot update event handler
+        $(document).on('updatelexstate', function onUpdateLexState(evt) {
           var slots = {};
           var dialogState = {};
           var intentName = '';
           var sessionAttributes = {};
+          var responseCard = {};
 
           if (evt && ('detail' in evt) && evt.detail && ('state' in evt.detail)) {
             slots = evt.detail.state.slots;
             dialogState = evt.detail.state.dialogState;
             intentName = evt.detail.state.intentName || intentName;
             sessionAttributes = evt.detail.state.sessionAttributes || sessionAttributes;
+            responseCard = evt.detail.state.responseCard || responseCard;
           }
           if (!slots || !dialogState) {
             console.warn('updatelexstate event is missing slot or dialogState field');
@@ -157,6 +186,7 @@
           $('#dialog-state').text(dialogState);
           $('#intent-name').text(intentName);
           $('#session-attributes').text(JSON.stringify(sessionAttributes, null, 2));
+          $('#response-card').text(JSON.stringify(responseCard, null, 2));
 
           var $slotsContainerReplacement = $('<div>', { id: 'slots' });
           Object.keys(slots).forEach(function updateOrder(slotName, index) {

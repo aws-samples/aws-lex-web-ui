@@ -124,7 +124,7 @@ environment.  The files follow this directory structure:
 
 Here's an example of the `config.dev.json` file:
 
-```json
+```
 {
   "cognito": {
     "poolId": "us-east-1:deadbeef-cac0-babe-abcd-abcdef01234",
@@ -168,7 +168,7 @@ played back. The chatbot UI provides options to control the playback.
 For example, you can allow to interrupt the playback of long responses and
 fine tune the various values associated with interruptions:
 
-```json
+```
 ...
 lex: {
 
