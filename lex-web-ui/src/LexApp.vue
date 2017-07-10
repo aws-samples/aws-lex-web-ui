@@ -41,7 +41,7 @@ export default {
         this.$store.state.config.ui.parentOrigin,
       );
       if (!document.referrer
-          .startsWith(this.$store.state.config.ui.parentOrigin)
+        .startsWith(this.$store.state.config.ui.parentOrigin)
       ) {
         console.warn('referrer origin: [%s] does not match configured parent origin: [%s]',
           document.referrer, this.$store.state.config.ui.parentOrigin,
@@ -61,18 +61,18 @@ export default {
       this.$store.dispatch('initRecorder'),
       this.$store.dispatch('initBotAudio'),
       this.$store.dispatch('getConfigFromParent')
-      .then(config => this.$store.dispatch('initConfig', config)),
+        .then(config => this.$store.dispatch('initConfig', config)),
     ])
-    .then(() =>
-      Promise.all([
-        this.$store.dispatch('initMessageList'),
-        this.$store.dispatch('initPollyClient'),
-        this.$store.dispatch('initLexClient'),
-      ]),
-    )
-    .catch((error) => {
-      console.error('could not initialize application while mounting:', error);
-    });
+      .then(() =>
+        Promise.all([
+          this.$store.dispatch('initMessageList'),
+          this.$store.dispatch('initPollyClient'),
+          this.$store.dispatch('initLexClient'),
+        ]),
+      )
+      .catch((error) => {
+        console.error('could not initialize application while mounting:', error);
+      });
   },
   methods: {
     // most messages should be initiated from iframe to parent using

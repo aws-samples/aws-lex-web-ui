@@ -375,25 +375,25 @@ export default new Vuex.Store({
           return context.dispatch('getCredentials');
         case 'parentWindow':
           return context.dispatch('sendMessageToParentWindow', { event: 'getCredentials' })
-          .then((credsResponse) => {
-            if (credsResponse.event === 'resolve' &&
-                credsResponse.type === 'getCredentials') {
-              return Promise.resolve(credsResponse.data);
-            }
-            return Promise.reject('invalid credential event from parent');
-          })
-          .then((creds) => {
-            AWS.config.credentials =
-              new AWS.CognitoIdentityCredentials(creds.params);
+            .then((credsResponse) => {
+              if (credsResponse.event === 'resolve' &&
+                  credsResponse.type === 'getCredentials') {
+                return Promise.resolve(credsResponse.data);
+              }
+              return Promise.reject('invalid credential event from parent');
+            })
+            .then((creds) => {
+              AWS.config.credentials =
+                new AWS.CognitoIdentityCredentials(creds.params);
 
-            if (!('getPromise' in AWS.config.credentials)) {
-              const error = 'getPromise not found in state credentials';
-              console.error(error);
-              return Promise.reject(error);
-            }
+              if (!('getPromise' in AWS.config.credentials)) {
+                const error = 'getPromise not found in state credentials';
+                console.error(error);
+                return Promise.reject(error);
+              }
 
-            return context.dispatch('getCredentials');
-          });
+              return context.dispatch('getCredentials');
+            });
         default:
           return Promise.reject('unknown credential provider');
       }
@@ -406,13 +406,13 @@ export default new Vuex.Store({
       return context.dispatch('sendMessageToParentWindow',
         { event: 'initIframeConfig' },
       )
-      .then((configResponse) => {
-        if (configResponse.event === 'resolve' &&
-            configResponse.type === 'initIframeConfig') {
-          return Promise.resolve(configResponse.data);
-        }
-        return Promise.reject('invalid config event from parent');
-      });
+        .then((configResponse) => {
+          if (configResponse.event === 'resolve' &&
+              configResponse.type === 'initIframeConfig') {
+            return Promise.resolve(configResponse.data);
+          }
+          return Promise.reject('invalid config event from parent');
+        });
     },
     initConfig(context, configObj) {
       context.commit('mergeConfig', configObj);
@@ -431,10 +431,10 @@ export default new Vuex.Store({
         context.state.config.lex.sessionAttributes,
       );
       return context.dispatch('getCredentials')
-      .then((creds) => {
-        lexClient.identityId = context.state.awsCreds.identityId;
-        lexClient.lexRuntime.config.credentials = creds;
-      });
+        .then((creds) => {
+          lexClient.identityId = context.state.awsCreds.identityId;
+          lexClient.lexRuntime.config.credentials = creds;
+        });
     },
     initPollyClient(context) {
       if (!context.state.recState.isRecorderEnabled) {
@@ -442,31 +442,31 @@ export default new Vuex.Store({
       }
       context.commit('setPollyVoiceId', context.state.config.polly.voiceId);
       return context.dispatch('getCredentials')
-      .then((creds) => {
-        pollyClient.config.credentials = creds;
-      });
+        .then((creds) => {
+          pollyClient.config.credentials = creds;
+        });
     },
     initRecorder(context) {
       if (!context.state.recState.isRecorderEnabled) {
         return Promise.resolve();
       }
       return context.state.recorder.init()
-      .then(() => context.commit('setRecorderOptions', context.state.config.recorder))
-      .then(() => initRecorderHandlers(context))
-      .then(() => context.commit('setIsRecorderSupported', true))
-      .then(() => context.commit('setIsMicMuted', context.state.recorder.isMicMuted))
-      .catch((error) => {
-        if (['PermissionDeniedError', 'NotAllowedError'].indexOf(error.name)
-            >= 0) {
-          console.warn('get user media permission denied');
-          context.dispatch('pushErrorMessage',
-            'It seems like the microphone access has been denied. ' +
-            'If you want to use voice, please allow mic usage in your browser.',
-          );
-        } else {
-          console.error('error while initRecorder', error);
-        }
-      });
+        .then(() => context.commit('setRecorderOptions', context.state.config.recorder))
+        .then(() => initRecorderHandlers(context))
+        .then(() => context.commit('setIsRecorderSupported', true))
+        .then(() => context.commit('setIsMicMuted', context.state.recorder.isMicMuted))
+        .catch((error) => {
+          if (['PermissionDeniedError', 'NotAllowedError'].indexOf(error.name)
+              >= 0) {
+            console.warn('get user media permission denied');
+            context.dispatch('pushErrorMessage',
+              'It seems like the microphone access has been denied. ' +
+              'If you want to use voice, please allow mic usage in your browser.',
+            );
+          } else {
+            console.error('error while initRecorder', error);
+          }
+        });
     },
     initBotAudio(context) {
       if (!context.state.recState.isRecorderEnabled) {
@@ -507,21 +507,21 @@ export default new Vuex.Store({
     },
     reInitBot(context) {
       return Promise.resolve()
-      .then(() => (
-        (context.state.config.ui.pushInitialTextOnRestart) ?
-          context.dispatch('pushMessage', {
-            text: context.state.config.lex.initialText,
-            type: 'bot',
-          }) :
-          Promise.resolve()
-      ))
-      .then(() => (
-        (context.state.config.lex.reInitSessionAttributesOnRestart) ?
-          context.commit('setLexSessionAttributes',
-            context.state.config.lex.sessionAttributes,
-          ) :
-          Promise.resolve()
-      ));
+        .then(() => (
+          (context.state.config.ui.pushInitialTextOnRestart) ?
+            context.dispatch('pushMessage', {
+              text: context.state.config.lex.initialText,
+              type: 'bot',
+            }) :
+            Promise.resolve()
+        ))
+        .then(() => (
+          (context.state.config.lex.reInitSessionAttributesOnRestart) ?
+            context.commit('setLexSessionAttributes',
+              context.state.config.lex.sessionAttributes,
+            ) :
+            Promise.resolve()
+        ));
     },
     getAudioUrl(context, blob) {
       let url;
@@ -544,7 +544,7 @@ export default new Vuex.Store({
         audio.onloadedmetadata = () => {
           context.commit('setIsBotSpeaking', true);
           context.dispatch('playAudioHandler')
-          .then(() => resolve());
+            .then(() => resolve());
         };
         // XXX consider revoking previous URL after first play
         // URL.revokeObjectURL(audio.src);
@@ -659,17 +659,19 @@ export default new Vuex.Store({
         OutputFormat: context.state.polly.outputFormat,
       });
       return context.dispatch('getCredentials')
-      .then(() => synthReq.promise())
-      .then(data =>
-        Promise.resolve(
-          new Blob([data.AudioStream], { type: data.ContentType },
-        )),
-      );
+        .then(() => synthReq.promise())
+        .then(data =>
+          Promise.resolve(
+            new Blob(
+              [data.AudioStream], { type: data.ContentType },
+            ),
+          ),
+        );
     },
     pollySynthesizeSpeech(context, text) {
       return context.dispatch('pollyGetBlob', text)
-      .then(blob => context.dispatch('getAudioUrl', blob))
-      .then(audioUrl => context.dispatch('playAudio', audioUrl));
+        .then(blob => context.dispatch('getAudioUrl', blob))
+        .then(audioUrl => context.dispatch('playAudio', audioUrl));
     },
     interruptSpeechConversation(context) {
       if (!context.state.recState.isConversationGoing) {
@@ -678,71 +680,71 @@ export default new Vuex.Store({
 
       return new Promise((resolve, reject) => {
         context.dispatch('stopConversation')
-        .then(() => {
-          context.state.recorder.stop();
-          return context.dispatch('stopRecording');
-        })
-        .then(() => {
-          if (context.state.botAudio.isSpeaking) {
-            context.state.botAudio.audio.pause();
-          }
-        })
-        .then(() => {
-          let count = 0;
-          const countMax = 20;
-          const intervalTimeInMs = 250;
-          context.commit('setIsLexInterrupting', true);
-          const intervalId = setInterval(() => {
-            if (!context.state.lex.isProcessing) {
-              clearInterval(intervalId);
-              context.commit('setIsLexInterrupting', false);
-              resolve();
+          .then(() => {
+            context.state.recorder.stop();
+            return context.dispatch('stopRecording');
+          })
+          .then(() => {
+            if (context.state.botAudio.isSpeaking) {
+              context.state.botAudio.audio.pause();
             }
-            if (count > countMax) {
-              clearInterval(intervalId);
-              context.commit('setIsLexInterrupting', false);
-              reject('interrupt interval exceeded');
-            }
-            count += 1;
-          }, intervalTimeInMs);
-        });
+          })
+          .then(() => {
+            let count = 0;
+            const countMax = 20;
+            const intervalTimeInMs = 250;
+            context.commit('setIsLexInterrupting', true);
+            const intervalId = setInterval(() => {
+              if (!context.state.lex.isProcessing) {
+                clearInterval(intervalId);
+                context.commit('setIsLexInterrupting', false);
+                resolve();
+              }
+              if (count > countMax) {
+                clearInterval(intervalId);
+                context.commit('setIsLexInterrupting', false);
+                reject('interrupt interval exceeded');
+              }
+              count += 1;
+            }, intervalTimeInMs);
+          });
       });
     },
     postTextMessage(context, message) {
       context.dispatch('interruptSpeechConversation')
-      .then(() => context.dispatch('pushMessage', message))
-      .then(() => context.dispatch('lexPostText', message.text))
-      .then(response => context.dispatch('pushMessage',
-        {
-          text: response.message,
-          type: 'bot',
-          dialogState: context.state.lex.dialogState,
-          responseCard: context.state.lex.responseCard,
-        },
-      ))
-      .then(() => {
-        if (context.state.lex.dialogState === 'Fulfilled') {
-          context.dispatch('reInitBot');
-        }
-      })
-      .catch((error) => {
-        console.error('error in postTextMessage', error);
-        context.dispatch('pushErrorMessage',
-          `I was unable to process your message. ${error}`,
-        );
-      });
+        .then(() => context.dispatch('pushMessage', message))
+        .then(() => context.dispatch('lexPostText', message.text))
+        .then(response => context.dispatch('pushMessage',
+          {
+            text: response.message,
+            type: 'bot',
+            dialogState: context.state.lex.dialogState,
+            responseCard: context.state.lex.responseCard,
+          },
+        ))
+        .then(() => {
+          if (context.state.lex.dialogState === 'Fulfilled') {
+            context.dispatch('reInitBot');
+          }
+        })
+        .catch((error) => {
+          console.error('error in postTextMessage', error);
+          context.dispatch('pushErrorMessage',
+            `I was unable to process your message. ${error}`,
+          );
+        });
     },
     lexPostText(context, text) {
       context.commit('setIsLexProcessing', true);
       return context.dispatch('getCredentials')
-      .then(() =>
-        lexClient.postText(text, context.state.lex.sessionAttributes),
-      )
-      .then((data) => {
-        context.commit('setIsLexProcessing', false);
-        return context.dispatch('updateLexState', data)
-        .then(() => Promise.resolve(data));
-      });
+        .then(() =>
+          lexClient.postText(text, context.state.lex.sessionAttributes),
+        )
+        .then((data) => {
+          context.commit('setIsLexProcessing', false);
+          return context.dispatch('updateLexState', data)
+            .then(() => Promise.resolve(data));
+        });
     },
     lexPostContent(context, audioBlob, offset = 0) {
       context.commit('setIsLexProcessing', true);
@@ -750,44 +752,44 @@ export default new Vuex.Store({
       let timeStart;
 
       return context.dispatch('getCredentials')
-      .then(() => {
-        timeStart = performance.now();
-        return lexClient.postContent(
-          audioBlob,
-          context.state.lex.sessionAttributes,
-          context.state.lex.acceptFormat,
-          offset,
-        );
-      })
-      .then((lexResponse) => {
-        const timeEnd = performance.now();
-        console.info('lex postContent processing time:',
-          ((timeEnd - timeStart) / 1000).toFixed(2),
-        );
-        context.commit('setIsLexProcessing', false);
-        return context.dispatch('updateLexState', lexResponse)
-        .then(() =>
-          context.dispatch('processLexContentResponse', lexResponse),
-        )
-        .then(blob => Promise.resolve(blob));
-      });
+        .then(() => {
+          timeStart = performance.now();
+          return lexClient.postContent(
+            audioBlob,
+            context.state.lex.sessionAttributes,
+            context.state.lex.acceptFormat,
+            offset,
+          );
+        })
+        .then((lexResponse) => {
+          const timeEnd = performance.now();
+          console.info('lex postContent processing time:',
+            ((timeEnd - timeStart) / 1000).toFixed(2),
+          );
+          context.commit('setIsLexProcessing', false);
+          return context.dispatch('updateLexState', lexResponse)
+            .then(() =>
+              context.dispatch('processLexContentResponse', lexResponse),
+            )
+            .then(blob => Promise.resolve(blob));
+        });
     },
     processLexContentResponse(context, lexData) {
       const { audioStream, contentType, dialogState } = lexData;
 
       return Promise.resolve()
-      .then(() => {
-        if (!audioStream || !audioStream.length) {
-          const text = (dialogState === 'ReadyForFulfillment') ?
-            'All done' :
-            'There was an error';
-          return context.dispatch('pollyGetBlob', text);
-        }
+        .then(() => {
+          if (!audioStream || !audioStream.length) {
+            const text = (dialogState === 'ReadyForFulfillment') ?
+              'All done' :
+              'There was an error';
+            return context.dispatch('pollyGetBlob', text);
+          }
 
-        return Promise.resolve(
-          new Blob([audioStream], { type: contentType }),
-        );
-      });
+          return Promise.resolve(
+            new Blob([audioStream], { type: contentType }),
+          );
+        });
     },
     updateLexState(context, lexState) {
       const lexStateDefault = {
@@ -838,10 +840,10 @@ export default new Vuex.Store({
     },
     getCredentials(context) {
       return AWS.config.credentials.getPromise()
-      .then(() => {
-        context.commit('updateIdentityId');
-        return Promise.resolve(AWS.config.credentials);
-      });
+        .then(() => {
+          context.commit('updateIdentityId');
+          return Promise.resolve(AWS.config.credentials);
+        });
     },
     sendMessageToParentWindow(context, message) {
       if (!context.state.isRunningEmbedded) {
