@@ -1,5 +1,5 @@
 <template>
-  <v-app id="lex-app" top-toolbar>
+  <v-app id="lex-app" toolbar>
     <router-view></router-view>
   </v-app>
 </template>

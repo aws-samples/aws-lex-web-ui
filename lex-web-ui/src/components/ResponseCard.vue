@@ -1,23 +1,22 @@
 <template>
   <v-card>
-    <v-card-row v-if="responseCard.title" class="red lighten-5">
-      <v-card-title>
-        <span>{{responseCard.title}}</span>
-      </v-card-title>
-    </v-card-row>
+    <v-card-title v-if="responseCard.title.trim()" primary-title class="red lighten-5">
+      <span class="headline">{{responseCard.title}}</span>
+    </v-card-title>
     <v-card-text v-if="responseCard.subTitle">
       <span>{{responseCard.subTitle}}</span>
     </v-card-text>
-    <v-card-row height="15vh"
+    <v-card-media
       v-if="responseCard.imageUrl"
-      v-bind:img="responseCard.imageUrl"
-      class="image"
-    ></v-card-row>
-    <v-card-row
-        v-for="(button, index) in responseCard.buttons"
-        v-bind:key="index"
-        actions
-        class="button-row"
+      v-bind:src="responseCard.imageUrl"
+      contain
+      height="33vh"
+    ></v-card-media>
+    <v-card-actions
+      v-for="(button, index) in responseCard.buttons"
+      v-bind:key="index"
+      actions
+      class="button-row"
     >
       <v-btn
         v-if="button.text && button.value"
@@ -27,8 +26,8 @@
       >
         {{button.text}}
       </v-btn>
-    </v-card-row>
-    <v-card-row actions v-if="responseCard.attachmentLinkUrl">
+    </v-card-actions>
+    <v-card-actions v-if="responseCard.attachmentLinkUrl">
       <v-btn
         flat
         class="red lighten-5"
@@ -38,7 +37,7 @@
       >
         Open Link
       </v-btn>
-    </v-card-row>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -81,19 +80,19 @@ export default {
 
 <style scoped>
 .card {
-  min-width: 50vw;
-  max-width: 75vw;
+  width: 75vw;
+  position: inherit; /* workaround to card being displayed on top of toolbar shadow */
+  padding-bottom: 0.5em;
 }
-.card__row--actions.button-row {
+.card__title {
+  padding: 0.5em;
+  padding-top: 0.75em;
+}
+.card__text {
+  padding: 0.33em;
+}
+.card__actions.button-row {
   justify-content: center;
-}
-.card__row.image {
-  /* prefer to contain the image rather than cover (which can clip it) */
-  background-size: contain!important;
-  margin: 0.33em;
-  min-height: 30vh;
-}
-.btn.btn--disabled {
-  opacity: 1;
+  padding-bottom: 0.15em;
 }
 </style>

@@ -73,7 +73,8 @@ export default {
     shouldDisplayResponseCard() {
       return (
         this.message.responseCard &&
-        this.message.responseCard.version === '1' &&
+        (this.message.responseCard.version === '1' ||
+         this.message.responseCard.version === 1) &&
         this.message.responseCard.contentType === 'application/vnd.amazonaws.card.generic' &&
         'genericAttachments' in this.message.responseCard &&
         this.message.responseCard.genericAttachments instanceof Array
@@ -127,5 +128,6 @@ export default {
   display: flex;
   justify-content: center;
   margin: 0.8em;
+  width: 90vw;
 }
 </style>

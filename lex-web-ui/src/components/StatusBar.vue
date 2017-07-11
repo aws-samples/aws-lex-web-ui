@@ -1,5 +1,5 @@
 <template>
-  <div class="status-bar">
+  <div class="status-bar white">
     <v-divider></v-divider>
     <div class="status-text">
       <span>{{statusText}}</span>
