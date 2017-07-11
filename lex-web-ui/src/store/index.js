@@ -811,7 +811,7 @@ export default new Vuex.Store({
           const appContext = JSON.parse(lexState.sessionAttributes.appContext);
           if ('responseCard' in appContext) {
             lexStateDefault.responseCard =
-              lexState.sessionAttributtes.appContext.responseCard;
+              appContext.responseCard;
           }
         } catch (e) {
           return Promise.reject('error parsing appContext in sessionAttributes');
