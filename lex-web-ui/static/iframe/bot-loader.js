@@ -30,10 +30,14 @@
     // AWS SDK script dynamically added to the DOM
     // https://github.com/aws/aws-sdk-js
     sdkLink: 'https://sdk.amazonaws.com/js/aws-sdk-2.82.0.min.js',
+
+    // URL to download build time config JSON file
+    configUrl: '/static/iframe/config.json',
   };
 
   /*
-  config variable loads from configUrl. It should contain the
+  The config field is initialized from the contents of OPTIONS.configUrl.
+  It should contain the
   following keys:
     # origin contains proto://host:port
     # port needed if not default 80 for htt or 443 for https
@@ -47,13 +51,15 @@
       # Cognito Pool Id
       cognitoPoolId:
   */
-  var config = {};
-  var configUrl = '/static/iframe/config.json';
 
-  var iframe;
-  var container;
+  var botLoader = {
+    config: {},
+    iframeElement: null,
+    containerElement: null,
+    credentials: null,
+  };
+
   var messageHandler = {};
-  var credentials;
 
   if (isSupported()) {
     // initialize iframe once the DOM is loaded
@@ -79,45 +85,55 @@
   }
 
   function main() {
-    loadConfigFromJsonFile(configUrl)
-    .then(function loadConfigFromEventPromise(conf) {
-        return loadConfigFromEvent(conf);
-    })
-    .then(function assignConfig(conf) {
-      config = conf;
+    loadConfigFromJsonFile(OPTIONS.configUrl)
+    .then(function loadConfigFromEventPromise(config) {
+      if (!('iframeOrigin' in config || config.iframeOrigin) ||
+        !('aws' in config || config.aws) ||
+        !('cognitoPoolId' in config.aws || config.aws.cognitoPoolId)
+      ) {
+        return Promise.reject('config object is missing required fields');
+      }
+      botLoader.config = config;
       return Promise.resolve();
     })
     .then(function addContainerPromise() {
       return addContainer(OPTIONS.containerClass);
     })
-    .then(function assignContainer(containerParam) {
-      container = containerParam;
+    .then(function assignContainer(containerElement) {
+      botLoader.containerElement = containerElement;
       return Promise.resolve();
     })
     .then(function addAwsSdkPromise() {
-      return addAwsSdk(container, config);
+      return addAwsSdk(botLoader.containerElement);
     })
     .then(function initCredentialsPromise() {
-      return initCredentials(config);
-    })
-    .then(function getCredentialsPromise() {
-      return getCredentials();
+      return initCredentials(botLoader.config.aws.region || 'us-east-1',
+        botLoader.config.aws.cognitoPoolId
+      );
     })
     .then(function addMessageHandler() {
       window.addEventListener('message', onMessage, false);
       return Promise.resolve();
     })
     .then(function addIframePromise() {
-      return addIframe(container);
+      if (!('iframeOrigin' in botLoader.config)) {
+        return Promise.reject('iframeOrigin field not found in config');
+      }
+      return addIframe(
+        botLoader.config.iframeOrigin, botLoader.containerElement
+      );
     })
-    .then(function assignIframe(iframeParam) {
-      iframe = iframeParam;
+    .then(function assignIframe(iframeElement) {
+      botLoader.iframeElement = iframeElement;
       return Promise.resolve();
     })
-    .then(function parentReady() {
-      iframe.contentWindow.postMessage(
+    .then(function sendParentReadyEvent() {
+      if (!('contentWindow' in botLoader.iframeElement)) {
+        return Promise.reject('invalid iframe element');
+      }
+      botLoader.iframeElement.contentWindow.postMessage(
         { event: 'parentReady' },
-        config.iframeOrigin
+        botLoader.config.iframeOrigin
       );
     })
     .catch(function initError(error) {
@@ -221,7 +237,8 @@
   }
 
   /**
-   * Adds a div container to document body which will wrap the chat bot iframe
+   * Adds a div container to document body which will hold the chat bot iframe
+   * and AWS SDK script
    */
   function addContainer(containerClass) {
     if (!containerClass) {
@@ -245,6 +262,9 @@
    */
   function addAwsSdk(divElement) {
     return new Promise(function addAwsSdkPromise(resolve, reject) {
+      if (!('appendChild' in divElement)) {
+        reject('invalid node element to append sdk');
+      }
       var sdkScriptElement =
         document.querySelector('.' + OPTIONS.containerClass + ' script');
       if (sdkScriptElement || 'AWS' in window) {
@@ -270,21 +290,21 @@
   /**
    * Initializes credentials
    */
-  function initCredentials(config) {
+  function initCredentials(region, cognitoPoolId) {
     if (!'AWS' in window) {
       return Promise.reject('unable to find AWS object');
     }
 
-    credentials = new AWS.CognitoIdentityCredentials(
-      { IdentityPoolId: config.aws.cognitoPoolId },
-      { region: config.aws.region },
+    botLoader.credentials = new AWS.CognitoIdentityCredentials(
+      { IdentityPoolId: cognitoPoolId },
+      { region: region },
     );
 
-    return credentials.getPromise()
+    return botLoader.credentials.getPromise()
   }
 
   /**
-   * Get credentials - cognito
+   * Get Cognito credentials - cognito
    */
   function getCredentials() {
     var identityId = localStorage.getItem('cognitoid');
@@ -293,36 +313,39 @@
       console.log('[INFO] found existing identity ID: ', identityId);
     }
 
-    if (!('getPromise' in credentials)) {
+    if (!('getPromise' in botLoader.credentials)) {
       console.error('getPromise not found in credentials');
       return Promise.reject('getPromise not found in credentials');
     }
 
-    return credentials.getPromise()
+    return botLoader.credentials.getPromise()
     .then(function storeIdentityId() {
       console.log('[INFO] storing identity ID:',
-        credentials.identityId
+        botLoader.credentials.identityId
       );
-      localStorage.setItem('cognitoid', credentials.identityId);
+      localStorage.setItem('cognitoid', botLoader.credentials.identityId);
       identityId = localStorage.getItem('cognitoid');
     })
     .then(function getCredentialsPromise() {
-      return Promise.resolve(credentials);
+      return Promise.resolve(botLoader.credentials);
     });
   }
 
   /**
    * Adds chat bot iframe under the application div container
    */
-  function addIframe(divElement) {
+  function addIframe(origin, divElement) {
     var iframeElement =
       document.querySelector('.' + OPTIONS.containerClass + ' iframe');
     if (iframeElement) {
       return Promise.resolve(iframeElement);
     }
+    if (!('appendChild' in divElement)) {
+      reject('invalid node element to append iframe');
+    }
 
     iframeElement = document.createElement('iframe');
-    iframeElement.setAttribute('src', config.iframeOrigin + OPTIONS.iframeSrcPath);
+    iframeElement.setAttribute('src', origin + OPTIONS.iframeSrcPath);
     iframeElement.setAttribute('frameBorder', '0');
     iframeElement.setAttribute('scrolling', 'no');
 
@@ -350,7 +373,9 @@
    * Toggle between showing/hiding chat bot ui
    */
   function toggleShowUi() {
-    container.classList.toggle(OPTIONS.containerClass + '--show');
+    botLoader.containerElement.classList.toggle(
+      OPTIONS.containerClass + '--show'
+    );
   }
 
   /**
@@ -358,8 +383,8 @@
    */
   function onMessage(evt) {
     // security check
-    if (evt.origin !== config.iframeOrigin) {
-      console.warn('postMessage frrom invalid origin', evt.origin);
+    if (evt.origin !== botLoader.config.iframeOrigin) {
+      console.warn('postMessage from invalid origin', evt.origin);
       return;
     }
     if (!evt.ports) {
@@ -406,12 +431,12 @@
       });
     },
     onInitIframeConfig: function onInitIframeConfig(evt) {
-      var iframeConfig = config.iframeConfig;
+      var iframeConfig = botLoader.config.iframeConfig;
       try {
         iframeConfig.cognito = {
-          poolId: config.aws.cognitoPoolId,
+          poolId: botLoader.config.aws.cognitoPoolId,
         };
-        iframeConfig.region = config.aws.region;
+        iframeConfig.region = botLoader.config.aws.region;
         // place dynamic initialization logic in here
       } catch (e) {
         evt.ports[0].postMessage({
@@ -429,7 +454,7 @@
       });
     },
     onToggleExpandUi: function onToggleExpandUi(evt) {
-      container.classList.toggle(OPTIONS.containerClass + '--minimize');
+      botLoader.containerElement.classList.toggle(OPTIONS.containerClass + '--minimize');
       evt.ports[0].postMessage({ event: 'resolve', type: 'toggleShowUi' });
     },
     onUpdateLexState: function onUpdateLexState(evt) {
