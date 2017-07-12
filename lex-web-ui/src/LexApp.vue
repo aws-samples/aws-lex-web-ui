@@ -85,8 +85,9 @@ export default {
         return;
       }
       switch (evt.data.event) {
+        // received when the parent page has loaded the iframe
         case 'parentReady':
-          // XXX noop for now - may want to set flag in store
+          evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
           break;
         default:
           console.warn('unknown message in messageHanlder', evt);

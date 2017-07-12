@@ -37,8 +37,7 @@
 
   /*
   The config field is initialized from the contents of OPTIONS.configUrl.
-  It should contain the
-  following keys:
+  At minimum, it should contain the following keys (see the README for details):
     # origin contains proto://host:port
     # port needed if not default 80 for htt or 443 for https
     iframeOrigin
@@ -73,11 +72,13 @@
    */
   function isSupported() {
     var features = [
-      'localStorage',
       'Audio',
       'Blob',
+      'MessageChannel',
       'Promise',
       'URL',
+      'localStorage',
+      'postMessage',
     ];
     return features.every(function(feature) {
       return feature in window;
@@ -128,13 +129,7 @@
       return Promise.resolve();
     })
     .then(function sendParentReadyEvent() {
-      if (!('contentWindow' in botLoader.iframeElement)) {
-        return Promise.reject('invalid iframe element');
-      }
-      botLoader.iframeElement.contentWindow.postMessage(
-        { event: 'parentReady' },
-        botLoader.config.iframeOrigin
-      );
+      return sendMessageToIframe({ event: 'parentReady' });
     })
     .catch(function initError(error) {
       console.error('could not initialize chat bot -', error);
@@ -352,7 +347,8 @@
     divElement.appendChild(iframeElement);
 
     return new Promise(function loadIframePromise(resolve, reject) {
-      var timeoutId = setTimeout(onIframeTimeout, 10000);
+      var timeoutInMs = 20000; // bail out on loading after this timeout
+      var timeoutId = setTimeout(onIframeTimeout, timeoutInMs);
       iframeElement.addEventListener('load', onIframeLoaded, false);
 
       function onIframeLoaded(evt) {
@@ -376,6 +372,33 @@
     botLoader.containerElement.classList.toggle(
       OPTIONS.containerClass + '--show'
     );
+  }
+
+  /**
+   * Send a message to the iframe using postMessage
+   */
+  function sendMessageToIframe(message) {
+    if (!('contentWindow' in botLoader.iframeElement) ||
+      !('postMessage' in botLoader.iframeElement.contentWindow)
+    ) {
+      return Promise.reject('invalid iframe element');
+    }
+
+    return new Promise(function sendMessageToIframePromise(resolve, reject) {
+      var messageChannel = new MessageChannel();
+      messageChannel.port1.onmessage =
+        function sendMessageToIframeResolver(evt) {
+          messageChannel.port1.close();
+          messageChannel.port2.close();
+          if (evt.data.event === 'resolve') {
+            resolve(evt.data);
+          } else {
+            reject('iframe failed to handle message');
+          }
+        };
+      botLoader.iframeElement.contentWindow.postMessage(message,
+        botLoader.config.iframeOrigin, [messageChannel.port2]);
+    });
   }
 
   /**
