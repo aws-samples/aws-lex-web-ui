@@ -224,10 +224,10 @@
    * Adds a div container to document body which will wrap the chat bot iframe
    */
   function addContainer(containerClass) {
-    var divElement = document.querySelector('.' + containerClass);
     if (!containerClass) {
       return Promise.reject('invalid chat bot container class: ' + containerClass);
     }
+    var divElement = document.querySelector('.' + containerClass);
     if (divElement) {
       return Promise.resolve(divElement);
     }
