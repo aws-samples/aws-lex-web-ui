@@ -53,6 +53,9 @@ Here's an example of the file format:
     // iframe origin - see: Cross Origin Configuration section below
     "iframeOrigin": "http://localhost:8080",
 
+    // controls whether the iframe is loaded minimized or expanded
+    "loadIframeMinimized": false,
+
     // time to wait for the config event in ms
     "configEventTimeOutInMs": 10000,
 
