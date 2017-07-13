@@ -29,7 +29,7 @@
 
     // AWS SDK script dynamically added to the DOM
     // https://github.com/aws/aws-sdk-js
-    sdkLink: 'https://sdk.amazonaws.com/js/aws-sdk-2.82.0.min.js',
+    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.82.0.min.js',
 
     // URL to download build time config JSON file
     configUrl: '/static/iframe/config.json',
@@ -56,13 +56,12 @@
     iframeElement: null,
     containerElement: null,
     credentials: null,
+    iframeMessageHandler: null,
   };
-
-  var messageHandler = {};
 
   if (isSupported()) {
     // initialize iframe once the DOM is loaded
-    document.addEventListener('DOMContentLoaded', main, false);
+    document.addEventListener('DOMContentLoaded', init, false);
   } else {
     console.warn('chat bot not loaded - unsupported browser');
   }
@@ -85,48 +84,71 @@
     });
   }
 
-  function main() {
-    loadConfigFromJsonFile(OPTIONS.configUrl)
-    .then(function loadConfigFromEventPromise(config) {
-      if (!('iframeOrigin' in config || config.iframeOrigin) ||
-        !('aws' in config || config.aws) ||
-        !('cognitoPoolId' in config.aws || config.aws.cognitoPoolId)
-      ) {
-        return Promise.reject('config object is missing required fields');
-      }
-      botLoader.config = config;
-      return Promise.resolve();
+  /**
+   * Initializes the chatbot ui
+   */
+  function init() {
+    Promise.resolve()
+    .then(function initConfig() {
+      return loadConfigFromJsonFile(OPTIONS.configUrl)
+        .then(function initConfigFromEvent(config) {
+           return loadConfigFromEvent(config);
+        })
+        .then(function assignConfig(config) {
+          if (!validateConfig(config)) {
+            return Promise.reject('config object is missing required fields');
+          }
+          botLoader.config = config;
+          return config;
+        });
     })
-    .then(function addContainerPromise() {
-      return addContainer(OPTIONS.containerClass);
+    .then(function initContainer() {
+      return addContainer(OPTIONS.containerClass)
+        .then(function assignContainer(containerElement) {
+          botLoader.containerElement = containerElement;
+          return containerElement;
+        });
     })
-    .then(function assignContainer(containerElement) {
-      botLoader.containerElement = containerElement;
-      return Promise.resolve();
-    })
-    .then(function addAwsSdkPromise() {
-      return addAwsSdk(botLoader.containerElement);
-    })
-    .then(function initCredentialsPromise() {
-      return initCredentials(botLoader.config.aws.region || 'us-east-1',
-        botLoader.config.aws.cognitoPoolId
+    .then(function initSdk() {
+      return addAwsSdk(
+        botLoader.containerElement, OPTIONS.containerClass, OPTIONS.sdkUrl
       );
     })
-    .then(function addMessageHandler() {
-      window.addEventListener('message', onMessage, false);
-      return Promise.resolve();
+    .then(function initCredentials() {
+      return createCredentials(
+        botLoader.config.aws.region || 'us-east-1',
+        botLoader.config.aws.cognitoPoolId
+      )
+        .then(function assignCredentials(credentials) {
+          botLoader.credentials = credentials;
+        });
     })
-    .then(function addIframePromise() {
-      if (!('iframeOrigin' in botLoader.config)) {
-        return Promise.reject('iframeOrigin field not found in config');
+    .then(function initIframeMessageHandler() {
+      botLoader.iframeMessageHandler = createIframeMessageHandlers();
+      window.addEventListener('message', onMessageFromIframe, false)
+      return botLoader.iframeMessageHandler;
+    })
+    .then(function initIframe() {
+      if (!botLoader.config.iframeOrigin || !botLoader.containerElement) {
+        return Promise.reject('missing fields when initializing iframe');
       }
       return addIframe(
-        botLoader.config.iframeOrigin, botLoader.containerElement
-      );
-    })
-    .then(function assignIframe(iframeElement) {
-      botLoader.iframeElement = iframeElement;
-      return Promise.resolve();
+        botLoader.config.iframeOrigin,
+        botLoader.containerElement,
+        OPTIONS.containerClass,
+        OPTIONS.iframeSrcPath
+      )
+        .then(function assignIframe(iframeElement) {
+          botLoader.iframeElement = iframeElement;
+        })
+        .then(function minimizeUi() {
+          return (botLoader.config.loadIframeMinimized) ?
+            sendMessageToIframe({ event: 'toggleExpandUi' }) :
+            Promise.resolve();
+        })
+        .then(function showUi() {
+          toggleShowUi(botLoader.containerElement, OPTIONS.containerClass);
+        });
     })
     .then(function sendParentReadyEvent() {
       return sendMessageToIframe({ event: 'parentReady' });
@@ -201,13 +223,15 @@
       };
     });
 
-    /**
-     * Merges config objects. The initial set of keys to merge are driven by
-     * the baseConfig. The srcConfig values override the baseConfig ones.
-     */
-    function mergeConfig(baseConfig, srcConfig) {
-      // use the baseConfig first level keys as the base for merging
-      return Object.keys(baseConfig)
+  }
+
+  /**
+   * Merges config objects. The initial set of keys to merge are driven by
+   * the baseConfig. The srcConfig values override the baseConfig ones.
+   */
+  function mergeConfig(baseConfig, srcConfig) {
+    // use the baseConfig first level keys as the base for merging
+    return Object.keys(baseConfig)
       .map(function (key) {
         var mergedConfig = {};
         var value = baseConfig[key];
@@ -228,7 +252,17 @@
         },
         {}
       );
-    };
+  };
+
+  /**
+   * Validate that the config has the expected structure
+   */
+  function validateConfig(config) {
+    return (
+      ('iframeOrigin' in config && config.iframeOrigin) &&
+      ('aws' in config && config.aws) &&
+      ('cognitoPoolId' in config.aws && config.aws.cognitoPoolId)
+    );
   }
 
   /**
@@ -255,13 +289,13 @@
    * div container. Avoids loading the SDK if the AWS SDK seems to be loaded
    * or the tag exists
    */
-  function addAwsSdk(divElement) {
+  function addAwsSdk(divElement, containerClass, sdkUrl) {
     return new Promise(function addAwsSdkPromise(resolve, reject) {
-      if (!('appendChild' in divElement)) {
-        reject('invalid node element to append sdk');
+      if (!divElement || !divElement.appendChild) {
+        reject('invalid node element in add sdk');
       }
       var sdkScriptElement =
-        document.querySelector('.' + OPTIONS.containerClass + ' script');
+        document.querySelector('.' + containerClass + ' script');
       if (sdkScriptElement || 'AWS' in window) {
         resolve(sdkScriptElement);
       }
@@ -270,13 +304,13 @@
       sdkScriptElement.setAttribute('type', 'text/javascript');
 
       sdkScriptElement.onerror = function  sdkOnError() {
-        reject('failed to load AWS SDK link:' + OPTIONS.sdkLink);
+        reject('failed to load AWS SDK link:' + sdkUrl);
       };
       sdkScriptElement.onload = function  sdkOnLoad() {
         resolve(sdkScriptElement);
       };
 
-      sdkScriptElement.setAttribute('src', OPTIONS.sdkLink);
+      sdkScriptElement.setAttribute('src', sdkUrl);
 
       divElement.appendChild(sdkScriptElement);
     });
@@ -285,17 +319,22 @@
   /**
    * Initializes credentials
    */
-  function initCredentials(region, cognitoPoolId) {
-    if (!'AWS' in window) {
-      return Promise.reject('unable to find AWS object');
+  function createCredentials(region, cognitoPoolId) {
+    if (!('AWS' in window) ||
+      !('CognitoIdentityCredentials' in window.AWS)
+    ) {
+      return Promise.reject('unable to find AWS SDK object');
     }
 
-    botLoader.credentials = new AWS.CognitoIdentityCredentials(
+    var credentials = new AWS.CognitoIdentityCredentials(
       { IdentityPoolId: cognitoPoolId },
       { region: region },
     );
 
-    return botLoader.credentials.getPromise()
+    return credentials.getPromise()
+      .then(function () {
+        return credentials;
+      });
   }
 
   /**
@@ -308,30 +347,30 @@
       console.log('[INFO] found existing identity ID: ', identityId);
     }
 
-    if (!('getPromise' in botLoader.credentials)) {
+    if (!botLoader.credentials || !('getPromise' in botLoader.credentials)) {
       console.error('getPromise not found in credentials');
       return Promise.reject('getPromise not found in credentials');
     }
 
     return botLoader.credentials.getPromise()
-    .then(function storeIdentityId() {
-      console.log('[INFO] storing identity ID:',
-        botLoader.credentials.identityId
-      );
-      localStorage.setItem('cognitoid', botLoader.credentials.identityId);
-      identityId = localStorage.getItem('cognitoid');
-    })
-    .then(function getCredentialsPromise() {
-      return Promise.resolve(botLoader.credentials);
-    });
+      .then(function storeIdentityId() {
+        console.log('[INFO] storing identity ID:',
+          botLoader.credentials.identityId
+        );
+        localStorage.setItem('cognitoid', botLoader.credentials.identityId);
+        identityId = localStorage.getItem('cognitoid');
+      })
+      .then(function getCredentialsPromise() {
+        return botLoader.credentials;
+      });
   }
 
   /**
    * Adds chat bot iframe under the application div container
    */
-  function addIframe(origin, divElement) {
+  function addIframe(origin, divElement, containerClass, iframeSrcPath) {
     var iframeElement =
-      document.querySelector('.' + OPTIONS.containerClass + ' iframe');
+      document.querySelector('.' + containerClass + ' iframe');
     if (iframeElement) {
       return Promise.resolve(iframeElement);
     }
@@ -340,7 +379,7 @@
     }
 
     iframeElement = document.createElement('iframe');
-    iframeElement.setAttribute('src', origin + OPTIONS.iframeSrcPath);
+    iframeElement.setAttribute('src', origin + iframeSrcPath);
     iframeElement.setAttribute('frameBorder', '0');
     iframeElement.setAttribute('scrolling', 'no');
 
@@ -354,7 +393,7 @@
       function onIframeLoaded(evt) {
         clearTimeout(timeoutId);
         iframeElement.removeEventListener('load', onIframeLoaded, false);
-        toggleShowUi();
+
         return resolve(iframeElement);
       };
 
@@ -366,11 +405,20 @@
   }
 
   /**
-   * Toggle between showing/hiding chat bot ui
+   * Toggle between showing/hiding chatbot ui
    */
-  function toggleShowUi() {
-    botLoader.containerElement.classList.toggle(
-      OPTIONS.containerClass + '--show'
+  function toggleShowUi(containerElement, containerClass) {
+    containerElement.classList.toggle(
+      containerClass + '--show'
+    );
+  }
+
+  /**
+   * Toggle between miminizing and expanding the chatbot ui
+   */
+  function toggleMinimizeUi(containerElement, containerClass) {
+    containerElement.classList.toggle(
+      containerClass + '--minimize'
     );
   }
 
@@ -378,7 +426,8 @@
    * Send a message to the iframe using postMessage
    */
   function sendMessageToIframe(message) {
-    if (!('contentWindow' in botLoader.iframeElement) ||
+    if (!botLoader.iframeElement ||
+      !('contentWindow' in botLoader.iframeElement) ||
       !('postMessage' in botLoader.iframeElement.contentWindow)
     ) {
       return Promise.reject('invalid iframe element');
@@ -404,7 +453,8 @@
   /**
    * Message handler - receives postMessage events from iframe
    */
-  function onMessage(evt) {
+  function onMessageFromIframe(evt) {
+    var messageHandler = botLoader.iframeMessageHandler;
     // security check
     if (evt.origin !== botLoader.config.iframeOrigin) {
       console.warn('postMessage from invalid origin', evt.origin);
@@ -434,61 +484,67 @@
     }
   }
 
-  messageHandler = {
-    onGetCredentials: function onGetCredentials(evt) {
-      return getCredentials()
-      .then(function resolveGetCredentials(creds) {
+  /**
+   * Creates an object containing the message handler functions
+   * used by onMessageFromIframe
+   */
+  function createIframeMessageHandlers() {
+    return {
+      onGetCredentials: function onGetCredentials(evt) {
+        return getCredentials()
+          .then(function resolveGetCredentials(creds) {
+            evt.ports[0].postMessage({
+              event: 'resolve',
+              type: evt.data.event,
+              data: creds,
+            });
+          })
+          .catch(function onGetCredentialsError(error) {
+            console.error('failed to get credentials', error);
+            evt.ports[0].postMessage({
+              event: 'reject',
+              type: evt.data.event,
+              error: 'failed to get credentials',
+            });
+          });
+      },
+      onInitIframeConfig: function onInitIframeConfig(evt) {
+        var iframeConfig = botLoader.config.iframeConfig;
+        try {
+          iframeConfig.cognito = {
+            poolId: botLoader.config.aws.cognitoPoolId,
+          };
+          iframeConfig.region = botLoader.config.aws.region;
+          // place dynamic initialization logic in here
+        } catch (e) {
+          evt.ports[0].postMessage({
+            event: 'reject',
+            type: evt.data.event,
+            error: 'failed to obtain a valid iframe config',
+          });
+          console.error('failed to assign iframe config', e);
+          return;
+        }
         evt.ports[0].postMessage({
           event: 'resolve',
-          type: 'getCredentials',
-          data: creds,
+          type: evt.data.event,
+          data: iframeConfig,
         });
-      })
-      .catch(function onGetCredentialsError(error) {
-        console.error('failed to get credentials', error);
-        evt.ports[0].postMessage({
-          event: 'reject',
-          type: 'getCredentials',
-          error: 'failed to get credentials',
-        });
-      });
-    },
-    onInitIframeConfig: function onInitIframeConfig(evt) {
-      var iframeConfig = botLoader.config.iframeConfig;
-      try {
-        iframeConfig.cognito = {
-          poolId: botLoader.config.aws.cognitoPoolId,
-        };
-        iframeConfig.region = botLoader.config.aws.region;
-        // place dynamic initialization logic in here
-      } catch (e) {
-        evt.ports[0].postMessage({
-          event: 'reject',
-          type: 'initIframeConfig',
-          error: 'failed to obtain a valid iframe config',
-        });
-        console.error('failed to assign iframe config', e);
-        return;
-      }
-      evt.ports[0].postMessage({
-        event: 'resolve',
-        type: 'initIframeConfig',
-        data: iframeConfig,
-      });
-    },
-    onToggleExpandUi: function onToggleExpandUi(evt) {
-      botLoader.containerElement.classList.toggle(OPTIONS.containerClass + '--minimize');
-      evt.ports[0].postMessage({ event: 'resolve', type: 'toggleShowUi' });
-    },
-    onUpdateLexState: function onUpdateLexState(evt) {
-      // evt.data will contain the Lex state
+      },
+      onToggleExpandUi: function onToggleExpandUi(evt) {
+        toggleMinimizeUi(botLoader.containerElement, OPTIONS.containerClass);
+        evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
+      },
+      onUpdateLexState: function onUpdateLexState(evt) {
+        // evt.data will contain the Lex state
 
-      // send resolve ressponse to the chatbot ui
-      evt.ports[0].postMessage({ event: 'resolve', type: 'updateLexState' });
+        // send resolve ressponse to the chatbot ui
+        evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
 
-      // relay event to parent
-      var event = new CustomEvent('updatelexstate', { 'detail': evt.data });
-      document.dispatchEvent(event);
-    },
-  };
+        // relay event to parent
+        var event = new CustomEvent('updatelexstate', { 'detail': evt.data });
+        document.dispatchEvent(event);
+      },
+    };
+  }
 })(document, window);
