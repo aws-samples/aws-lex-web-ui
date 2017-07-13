@@ -89,6 +89,7 @@ export default new Vuex.Store({
     },
 
     isRunningEmbedded: false, // am I running in an iframe?
+    isUiMinimized: false, // when running embedded, is the iframe minimized?
     urlQueryParams: {},
     config,
 
@@ -361,6 +362,13 @@ export default new Vuex.Store({
         return;
       }
       state.botAudio.interruptIntervalId = id;
+    },
+    /**
+    * used to track the expand/minimize status of the window when
+    * running embedded in an iframe
+    */
+    toggleIsUiMinimized(state) {
+      state.isUiMinimized = !state.isUiMinimized;
     },
   },
 
@@ -844,6 +852,13 @@ export default new Vuex.Store({
           context.commit('updateIdentityId');
           return Promise.resolve(AWS.config.credentials);
         });
+    },
+    toggleIsUiMinimized(context) {
+      context.commit('toggleIsUiMinimized');
+      return context.dispatch(
+        'sendMessageToParentWindow',
+        { event: 'toggleExpandUi' },
+      );
     },
     sendMessageToParentWindow(context, message) {
       if (!context.state.isRunningEmbedded) {

@@ -6,14 +6,14 @@
     </v-toolbar-title>
     <v-spacer />
     <v-btn
-      v-tooltip:left="toggleExpandToolTip"
-      v-on:click.native="toggleExpand"
+      v-tooltip:left="toolTipMinimize"
+      v-on:click.native="toggleMinimize"
       v-if="$store.state.isRunningEmbedded"
       icon
       light
     >
       <v-icon>
-        {{ expandUi ? 'arrow_drop_down' : 'arrow_drop_up' }}
+        {{ isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down' }}
       </v-icon>
     </v-btn>
   </v-toolbar>
@@ -34,17 +34,17 @@ License for the specific language governing permissions and limitations under th
 */
 export default {
   name: 'toolbar-container',
-  props: ['toolbarTitle', 'toolbarColor', 'toolbarLogo', 'expandUi'],
+  props: ['toolbarTitle', 'toolbarColor', 'toolbarLogo', 'isUiMinimized'],
   computed: {
-    toggleExpandToolTip() {
+    toolTipMinimize() {
       return {
-        html: (this.expandUi) ? 'minimize' : 'maximize',
+        html: (this.isUiMinimized) ? 'maximize' : 'minimize',
       };
     },
   },
   methods: {
-    toggleExpand() {
-      this.$emit('toggleExpandUi');
+    toggleMinimize() {
+      this.$emit('toggleMinimizeUi');
     },
   },
 };

@@ -89,6 +89,14 @@ export default {
         case 'parentReady':
           evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
           break;
+        case 'toggleExpandUi':
+          this.$store.dispatch('toggleIsUiMinimized')
+            .then(() => {
+              evt.ports[0].postMessage(
+                { event: 'resolve', type: evt.data.event },
+              );
+            });
+          break;
         default:
           console.warn('unknown message in messageHanlder', evt);
           break;

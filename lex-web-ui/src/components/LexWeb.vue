@@ -5,8 +5,8 @@
       v-bind:toolbar-title="toolbarTitle"
       v-bind:toolbar-color="toolbarColor"
       v-bind:toolbar-logo="toolbarLogo"
-      v-bind:expand-ui="expandUi"
-      v-on:toggleExpandUi="toggleExpandUi"
+      v-bind:is-ui-minimized="isUiMinimized"
+      v-on:toggleMinimizeUi="toggleMinimizeUi"
     ></toolbar-container>
 
     <message-list></message-list>
@@ -41,11 +41,6 @@ import InputContainer from './InputContainer';
 
 export default {
   name: 'lex-web',
-  data() {
-    return {
-      expandUi: true,
-    };
-  },
   components: {
     Page,
     ToolbarContainer,
@@ -72,13 +67,13 @@ export default {
     toolbarLogo() {
       return this.$store.state.config.ui.toolbarLogo;
     },
+    isUiMinimized() {
+      return this.$store.state.isUiMinimized;
+    },
   },
   methods: {
-    toggleExpandUi() {
-      this.expandUi = !this.expandUi;
-      this.$store.dispatch('sendMessageToParentWindow',
-        { event: 'toggleExpandUi', state: this.expandUi },
-      );
+    toggleMinimizeUi() {
+      return this.$store.dispatch('toggleIsUiMinimized');
     },
   },
 };
