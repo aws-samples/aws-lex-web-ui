@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.7.0] - 2017-XX-XX
+### Added
+- Capability to send messages from parent page to iframe using postMessage
+- Config field to control whether the iframe should load minimized
+
+### Changed
+- Bumped dependency versions
+- Changed indentation to pass eslint with the latest airbnb config
+- Changed vuetify components to work latest version
+- Changed responseCard rendering style
+- Changed bot loader CSS to better adapt to smaller resolutions
+- Changed iframe minimize/expand to use new parent to iframe message passing
+- Refactored bot loader script
+
+### Fixed
+- Fixed responseCard parsing when using postContent
+
 ## [0.6.0] - 2017-07-07
 ### Added
 - Added the ability to pass dynamic configuration from parent page to the
