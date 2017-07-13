@@ -143,7 +143,7 @@
         })
         .then(function minimizeUi() {
           return (botLoader.config.loadIframeMinimized) ?
-            sendMessageToIframe({ event: 'toggleExpandUi' }) :
+            sendMessageToIframe({ event: 'toggleMinimizeUi' }) :
             Promise.resolve();
         })
         .then(function showUi() {
@@ -472,8 +472,8 @@
       case 'initIframeConfig':
         messageHandler.onInitIframeConfig(evt);
         break;
-      case 'toggleExpandUi':
-        messageHandler.onToggleExpandUi(evt);
+      case 'toggleMinimizeUi':
+        messageHandler.onToggleMinimizeUi(evt);
         break;
       case 'updateLexState':
         messageHandler.onUpdateLexState(evt);
@@ -531,7 +531,7 @@
           data: iframeConfig,
         });
       },
-      onToggleExpandUi: function onToggleExpandUi(evt) {
+      onToggleMinimizeUi: function onToggleMinimizeUi(evt) {
         toggleMinimizeUi(botLoader.containerElement, OPTIONS.containerClass);
         evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
       },

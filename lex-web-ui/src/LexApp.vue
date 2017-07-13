@@ -84,12 +84,16 @@ export default {
         console.warn('ignoring event - invalid origin:', evt.origin);
         return;
       }
+      if (!evt.ports) {
+        console.warn('postMessage not sent over MessageChannel', evt);
+        return;
+      }
       switch (evt.data.event) {
         // received when the parent page has loaded the iframe
         case 'parentReady':
           evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
           break;
-        case 'toggleExpandUi':
+        case 'toggleMinimizeUi':
           this.$store.dispatch('toggleIsUiMinimized')
             .then(() => {
               evt.ports[0].postMessage(

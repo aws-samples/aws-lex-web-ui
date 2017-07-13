@@ -857,7 +857,7 @@ export default new Vuex.Store({
       context.commit('toggleIsUiMinimized');
       return context.dispatch(
         'sendMessageToParentWindow',
-        { event: 'toggleExpandUi' },
+        { event: 'toggleMinimizeUi' },
       );
     },
     sendMessageToParentWindow(context, message) {
