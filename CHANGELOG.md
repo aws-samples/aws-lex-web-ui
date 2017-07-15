@@ -4,19 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.7.0] - 2017-XX-XX
+## [0.7.0] - 2017-07-14
 ### Added
-- Capability to send messages from parent page to iframe using postMessage
-- Config field to control whether the iframe should load minimized
+- Added capability to send messages from parent page to iframe using
+postMessage
+- Added config field to control whether the iframe should automatically
+load
+- Added a ready event sent by chatbot UI when running embedded to signal
+the parent that the component loaded successfully
+- Added capability to programatically post text messages to the
+chatbot UI from a parent page when running embedded as an iframe
+- Added capability to programatically minimize the chatbot UI
+from a parent page when running embedded as an iframe
+- Added Config field to control whether the iframe should load minimized
 
 ### Changed
+- Major refactoring of the bot loader script to make it more modular
+- Improved the documentation to include more details on embedding as an iframe
 - Bumped dependency versions
-- Changed indentation to pass eslint with the latest airbnb config
+- Changed indentation of various portions of the chatbot UI code to
+conform to the the latest airbnb eslint config
 - Changed vuetify components to work latest version
 - Changed responseCard rendering style
 - Changed bot loader CSS to better adapt to smaller resolutions
 - Changed iframe minimize/expand to use new parent to iframe message passing
-- Refactored bot loader script
 
 ### Fixed
 - Fixed responseCard parsing when using postContent
