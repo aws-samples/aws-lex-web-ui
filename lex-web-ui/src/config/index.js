@@ -35,8 +35,8 @@
 // Search for logo image files in ../assets/
 // if not found, assigns the default flower logo.
 const toolbarLogoRequire =
- // Logo loading depends on the webpack require.context API:
- // https://webpack.github.io/docs/context.html
+  // Logo loading depends on the webpack require.context API:
+  // https://webpack.github.io/docs/context.html
   require.context('../assets', false, /^\.\/logo.(png|jpe?g|svg)$/);
 const toolbarLogoRequireKey = toolbarLogoRequire.keys().pop();
 
@@ -228,20 +228,20 @@ const configDefault = {
 function getUrlQueryParams(url) {
   try {
     return url
-    .split('?', 2) // split query string up to a max of 2 elems
-    .slice(1, 2) // grab what's after the '?' char
-    // split params separated by '&'
-    .reduce((params, queryString) => queryString.split('&'), [])
-    // further split into key value pairs separated by '='
-    .map(params => params.split('='))
-    // turn into an object representing the URL query key/vals
-    .reduce((queryObj, param) => {
-      const [key, value = true] = param;
-      const paramObj = {
-        [key]: decodeURIComponent(value),
-      };
-      return { ...queryObj, ...paramObj };
-    }, {});
+      .split('?', 2) // split query string up to a max of 2 elems
+      .slice(1, 2) // grab what's after the '?' char
+      // split params separated by '&'
+      .reduce((params, queryString) => queryString.split('&'), [])
+      // further split into key value pairs separated by '='
+      .map(params => params.split('='))
+      // turn into an object representing the URL query key/vals
+      .reduce((queryObj, param) => {
+        const [key, value = true] = param;
+        const paramObj = {
+          [key]: decodeURIComponent(value),
+        };
+        return { ...queryObj, ...paramObj };
+      }, {});
   } catch (e) {
     console.error('error obtaining URL query parameters', e);
     return {};
@@ -269,17 +269,17 @@ function getConfigFromQuery(query) {
 export function mergeConfig(configBase, configSrc) {
   // iterate over the keys of the config base
   return Object.keys(configBase)
-  .map((key) => {
-    // only grab keys that already exist in the config base
-    const value = (key in configSrc) ?
-      // merge the second level key/values
-      // overriding the base values with the ones from the source
-      { ...configBase[key], ...configSrc[key] } :
-      configBase[key];
-    return { [key]: value };
-  })
-  // merge the first level key values back into a single object
-  .reduce((merged, configItem) => ({ ...merged, ...configItem }), {});
+    .map((key) => {
+      // only grab keys that already exist in the config base
+      const value = (key in configSrc) ?
+        // merge the second level key/values
+        // overriding the base values with the ones from the source
+        { ...configBase[key], ...configSrc[key] } :
+        configBase[key];
+      return { [key]: value };
+    })
+    // merge the first level key values back into a single object
+    .reduce((merged, configItem) => ({ ...merged, ...configItem }), {});
 }
 
 const configFromFiles = mergeConfig(configDefault, configEnvFile);

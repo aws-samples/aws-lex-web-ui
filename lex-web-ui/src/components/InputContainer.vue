@@ -97,18 +97,18 @@ export default {
       this.setAutoPlay();
 
       this.playInitialInstruction()
-      .then(() => this.$store.dispatch('startConversation'))
-      .catch((error) => {
-        console.error('error in startSpeechConversation', error);
-        this.$store.dispatch('pushErrorMessage',
-          `I couldn't start the conversation. Please try again. (${error})`,
-        );
-      });
+        .then(() => this.$store.dispatch('startConversation'))
+        .catch((error) => {
+          console.error('error in startSpeechConversation', error);
+          this.$store.dispatch('pushErrorMessage',
+            `I couldn't start the conversation. Please try again. (${error})`,
+          );
+        });
     },
     playInitialInstruction() {
       const isInitialState = ['', 'Fulfilled', 'Failed']
         .some(initialState =>
-            this.$store.state.lex.dialogState === initialState,
+          this.$store.state.lex.dialogState === initialState,
         );
 
       return (isInitialState) ?

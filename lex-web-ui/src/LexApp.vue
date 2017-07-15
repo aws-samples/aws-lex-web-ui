@@ -1,5 +1,5 @@
 <template>
-  <v-app id="lex-app" top-toolbar>
+  <v-app id="lex-app" toolbar>
     <router-view></router-view>
   </v-app>
 </template>
@@ -41,7 +41,7 @@ export default {
         this.$store.state.config.ui.parentOrigin,
       );
       if (!document.referrer
-          .startsWith(this.$store.state.config.ui.parentOrigin)
+        .startsWith(this.$store.state.config.ui.parentOrigin)
       ) {
         console.warn('referrer origin: [%s] does not match configured parent origin: [%s]',
           document.referrer, this.$store.state.config.ui.parentOrigin,
@@ -61,32 +61,76 @@ export default {
       this.$store.dispatch('initRecorder'),
       this.$store.dispatch('initBotAudio'),
       this.$store.dispatch('getConfigFromParent')
-      .then(config => this.$store.dispatch('initConfig', config)),
+        .then(config => this.$store.dispatch('initConfig', config)),
     ])
-    .then(() =>
-      Promise.all([
-        this.$store.dispatch('initMessageList'),
-        this.$store.dispatch('initPollyClient'),
-        this.$store.dispatch('initLexClient'),
-      ]),
-    )
-    .catch((error) => {
-      console.error('could not initialize application while mounting:', error);
-    });
+      .then(() =>
+        Promise.all([
+          this.$store.dispatch('initMessageList'),
+          this.$store.dispatch('initPollyClient'),
+          this.$store.dispatch('initLexClient'),
+        ]),
+      )
+      .then(() => (
+        (this.$store.state.isRunningEmbedded) ?
+          this.$store.dispatch('sendMessageToParentWindow',
+            { event: 'ready' },
+          ) :
+          Promise.resolve()
+      ))
+      .catch((error) => {
+        console.error('could not initialize application while mounting:', error);
+      });
   },
   methods: {
-    // most messages should be initiated from iframe to parent using
-    // sendMessageToParentWindow which can pass results back using a promise
-    // this is meant for unsolicited / unidirectional events
+    // messages from parent
     messageHandler(evt) {
       // security check
       if (evt.origin !== this.$store.state.config.ui.parentOrigin) {
         console.warn('ignoring event - invalid origin:', evt.origin);
         return;
       }
+      if (!evt.ports) {
+        console.warn('postMessage not sent over MessageChannel', evt);
+        return;
+      }
       switch (evt.data.event) {
+        case 'ping':
+          console.info('pong - ping received from parent');
+          evt.ports[0].postMessage({
+            event: 'resolve',
+            type: evt.data.event,
+          });
+          break;
+        // received when the parent page has loaded the iframe
         case 'parentReady':
-          // XXX noop for now - may want to set flag in store
+          evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
+          break;
+        case 'toggleMinimizeUi':
+          this.$store.dispatch('toggleIsUiMinimized')
+            .then(() => {
+              evt.ports[0].postMessage(
+                { event: 'resolve', type: evt.data.event },
+              );
+            });
+          break;
+        case 'postText':
+          if (!evt.data.message) {
+            evt.ports[0].postMessage({
+              event: 'reject',
+              type: evt.data.event,
+              error: 'missing message field',
+            });
+            return;
+          }
+
+          this.$store.dispatch('postTextMessage',
+            { type: 'human', text: evt.data.message },
+          )
+            .then(() => {
+              evt.ports[0].postMessage(
+                { event: 'resolve', type: evt.data.event },
+              );
+            });
           break;
         default:
           console.warn('unknown message in messageHanlder', evt);

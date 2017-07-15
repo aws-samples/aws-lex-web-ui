@@ -27,9 +27,36 @@
 }
 
 /* hide on very small resolutions */
-@media only screen and (max-width: 400px) {
+@media only screen
+and (max-width: 240px) {
   .lex-chat {
     display: none!important;
+  }
+}
+/* take most space on small resolutions (smart phones) */
+@media only screen
+and (min-width: 241px)
+and (max-width: 480px) {
+  .lex-chat {
+    min-width: 90vw;
+    min-height: 90vh;
+    margin-right: 2vw;
+    align-self: center;
+  }
+  .lex-chat--minimize {
+    min-width: 60vw;
+    min-height: 48px;
+  }
+}
+/* adjust down on medium resolutions */
+@media only screen
+and (min-width: 481px)
+and (max-width: 960px) {
+  .lex-chat {
+    min-width: 40vw;
+  }
+  .lex-chat--minimize {
+    min-width: 20vw;
   }
 }
 

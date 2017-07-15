@@ -24,8 +24,15 @@ code base employs ECMAScript 6 (ES6) features such as modules, arrow
 functions and classes to improve modularity and brevity.
 
 ## Embedding as an iframe
-Please refer to the README in the [static/iframe](static/iframe) directory
-for details.
+This project includes a sample script that can be used to embed
+the chatbot UI in a parent hosting site using an iframe. The chatbot UI uses a
+[postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
+and
+[MessageChannel](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel)
+based API to establish a bi-directional asynchronous communication
+channel between the parent and the iframe. For details, please refer to
+the README and the files in the
+[static/iframe](static/iframe) directory.
 
 ## Credential Management
 This sample application uses [Amazon
@@ -210,12 +217,20 @@ and stand-alone mode of the chatbot UI.
 The chatbot UI supports Lex
 [Response Cards](http://docs.aws.amazon.com/lex/latest/dg/ex-resp-card.html).
 For Lex `postText` API calls, response cards are supported natively.
-When using the `postContent` API call, response cards can be passed using
-session attributes in the `appContext.responseCard` key of the
-`sessionAttributes` object. For details about the response cards format,
+When using the `postContent` API call, response cards can be passed
+using session attributes in the `appContext.responseCard` key of the
+`sessionAttributes` object. For example, the following python snippet
+can be used in a Lambda code hook to add a responseCard in a postContent
+API call:
+
+```python
+response['sessionAttributes']['appContext'] =
+    json.dumps({'responseCard': response_card})
+```
+
+For details about the response cards format,
 see the
 [ResponseCard documentation](http://docs.aws.amazon.com/lex/latest/dg/API_runtime_ResponseCard.html).
-
 
 ## Dependencies and Build Setup
 The application dependencies are managed using

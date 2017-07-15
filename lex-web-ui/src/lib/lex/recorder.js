@@ -171,14 +171,14 @@ export default class {
     this.recordingTimeMin = options.recordingTimeMin || 2;
     this.recordingTimeMinAutoIncrease =
       (typeof options.recordingTimeMinAutoIncrease !== 'undefined') ?
-      !!options.recordingTimeMinAutoIncrease :
-      true;
+        !!options.recordingTimeMinAutoIncrease :
+        true;
 
     // speech detection configuration
     this.autoStopRecording =
       (typeof options.autoStopRecording !== 'undefined') ?
-      !!options.autoStopRecording :
-      true;
+        !!options.autoStopRecording :
+        true;
     this.quietThreshold = options.quietThreshold || 0.001;
     this.quietTimeMin = options.quietTimeMin || 0.4;
     this.volumeThreshold = options.volumeThreshold || -75;
@@ -186,8 +186,8 @@ export default class {
     // band pass configuration
     this.useBandPass =
       (typeof options.useBandPass !== 'undefined') ?
-      !!options.useBandPass :
-      true;
+        !!options.useBandPass :
+        true;
     // https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
     this.bandPassFrequency = options.bandPassFrequency || 4000;
     // Butterworth 0.707 [sqrt(1/2)]  | Chebyshev < 1.414
@@ -200,21 +200,21 @@ export default class {
 
     this.requestEchoCancellation =
       (typeof options.requestEchoCancellation !== 'undefined') ?
-      !!options.requestEchoCancellation :
-      true;
+        !!options.requestEchoCancellation :
+        true;
 
     // automatic mute detection options
     this.useAutoMuteDetect =
       (typeof options.useAutoMuteDetect !== 'undefined') ?
-      !!options.useAutoMuteDetect :
-      true;
+        !!options.useAutoMuteDetect :
+        true;
     this.muteThreshold = options.muteThreshold || 1e-7;
 
     // encoder options
     this.encoderUseTrim =
       (typeof options.encoderUseTrim !== 'undefined') ?
-      !!options.encoderUseTrim :
-      true;
+        !!options.encoderUseTrim :
+        true;
     this.encoderQuietTrimThreshold =
       options.encoderQuietTrimThreshold || 0.0008;
     this.encoderQuietTrimSlackBack = options.encoderQuietTrimSlackBack || 4000;
@@ -268,15 +268,15 @@ export default class {
 
     // sets this._audioContext AudioContext object
     return this._initAudioContext()
-    .then(() =>
-      // inits AudioContext.createScriptProcessor object
-      // used to process mic audio input volume
-      // sets this._micVolumeProcessor
-      this._initMicVolumeProcessor(),
-    )
-    .then(() =>
-      this._initStream(),
-    );
+      .then(() =>
+        // inits AudioContext.createScriptProcessor object
+        // used to process mic audio input volume
+        // sets this._micVolumeProcessor
+        this._initMicVolumeProcessor(),
+      )
+      .then(() =>
+        this._initStream(),
+      );
   }
 
   /**
@@ -525,50 +525,50 @@ export default class {
     };
 
     return navigator.mediaDevices.getUserMedia(constraints)
-    .then((stream) => {
-      this._stream = stream;
+      .then((stream) => {
+        this._stream = stream;
 
-      this._tracks = stream.getAudioTracks();
-      console.info('using media stream track labeled: ', this._tracks[0].label);
-      // assumes single channel
-      this._tracks[0].onmute = this._setIsMicMuted;
-      this._tracks[0].onunmute = this._setIsMicMuted;
+        this._tracks = stream.getAudioTracks();
+        console.info('using media stream track labeled: ', this._tracks[0].label);
+        // assumes single channel
+        this._tracks[0].onmute = this._setIsMicMuted;
+        this._tracks[0].onunmute = this._setIsMicMuted;
 
-      const source = this._audioContext.createMediaStreamSource(stream);
-      const gainNode = this._audioContext.createGain();
-      const analyser = this._audioContext.createAnalyser();
+        const source = this._audioContext.createMediaStreamSource(stream);
+        const gainNode = this._audioContext.createGain();
+        const analyser = this._audioContext.createAnalyser();
 
-      if (this.useBandPass) {
-        // bandpass filter around human voice
-        // https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
-        const biquadFilter = this._audioContext.createBiquadFilter();
-        biquadFilter.type = 'bandpass';
+        if (this.useBandPass) {
+          // bandpass filter around human voice
+          // https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
+          const biquadFilter = this._audioContext.createBiquadFilter();
+          biquadFilter.type = 'bandpass';
 
-        biquadFilter.frequency.value = this.bandPassFrequency;
-        biquadFilter.gain.Q = this.bandPassQ;
+          biquadFilter.frequency.value = this.bandPassFrequency;
+          biquadFilter.gain.Q = this.bandPassQ;
 
-        source.connect(biquadFilter);
-        biquadFilter.connect(gainNode);
-        analyser.smoothingTimeConstant = 0.5;
-      } else {
-        source.connect(gainNode);
-        analyser.smoothingTimeConstant = 0.9;
-      }
-      analyser.fftSize = this.bufferLength;
-      analyser.minDecibels = -90;
-      analyser.maxDecibels = -30;
+          source.connect(biquadFilter);
+          biquadFilter.connect(gainNode);
+          analyser.smoothingTimeConstant = 0.5;
+        } else {
+          source.connect(gainNode);
+          analyser.smoothingTimeConstant = 0.9;
+        }
+        analyser.fftSize = this.bufferLength;
+        analyser.minDecibels = -90;
+        analyser.maxDecibels = -30;
 
-      gainNode.connect(analyser);
-      analyser.connect(this._micVolumeProcessor);
-      this._analyserData = new Float32Array(analyser.frequencyBinCount);
-      this._analyser = analyser;
+        gainNode.connect(analyser);
+        analyser.connect(this._micVolumeProcessor);
+        this._analyserData = new Float32Array(analyser.frequencyBinCount);
+        this._analyser = analyser;
 
-      this._micVolumeProcessor.connect(
-        this._audioContext.destination,
-      );
+        this._micVolumeProcessor.connect(
+          this._audioContext.destination,
+        );
 
-      this._eventTarget.dispatchEvent(new Event('streamReady'));
-    });
+        this._eventTarget.dispatchEvent(new Event('streamReady'));
+      });
   }
 
   /*
@@ -608,12 +608,12 @@ export default class {
     return (this._state === 'recording');
   }
 
- /**
- * Getter of mic volume levels.
- * instant: root mean square of levels in buffer
- * slow: time decaying level
- * clip: count of samples at the top of signals (high noise)
- */
+  /**
+  * Getter of mic volume levels.
+  * instant: root mean square of levels in buffer
+  * slow: time decaying level
+  * clip: count of samples at the top of signals (high noise)
+  */
   get volume() {
     return ({
       instant: this._instant,

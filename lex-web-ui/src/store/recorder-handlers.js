@@ -87,64 +87,64 @@ const initRecorderHandlers = (context) => {
     console.timeEnd('recording processing time');
 
     context.dispatch('lexPostContent', audioBlob, offset)
-    .then((lexAudioBlob) => {
-      if (context.state.recState.silentRecordingCount >=
-        context.state.config.converser.silentConsecutiveRecordingMax
-      ) {
-        return Promise.reject(
-          'Too many consecutive silent recordings: ' +
-          `${context.state.recState.silentRecordingCount}.`,
-        );
-      }
-      return Promise.all([
-        context.dispatch('getAudioUrl', audioBlob),
-        context.dispatch('getAudioUrl', lexAudioBlob),
-      ]);
-    })
-    .then((audioUrls) => {
-      // handle being interrupted by text
-      if (context.state.lex.dialogState !== 'Fulfilled' &&
-          !context.state.recState.isConversationGoing
-      ) {
-        return Promise.resolve();
-      }
-      const [humanAudioUrl, lexAudioUrl] = audioUrls;
-      context.dispatch('pushMessage', {
-        type: 'human',
-        audio: humanAudioUrl,
-        text: context.state.lex.inputTranscript,
-      });
-      context.dispatch('pushMessage', {
-        type: 'bot',
-        audio: lexAudioUrl,
-        text: context.state.lex.message,
-        dialogState: context.state.lex.dialogState,
-        responseCard: context.state.lex.responseCard,
-      });
-      return context.dispatch('playAudio', lexAudioUrl, {}, offset);
-    })
-    .then(() => {
-      if (
-        ['Fulfilled', 'ReadyForFulfillment', 'Failed']
-        .indexOf(context.state.lex.dialogState) >= 0
-      ) {
-        return context.dispatch('stopConversation')
-        .then(() => context.dispatch('reInitBot'));
-      }
+      .then((lexAudioBlob) => {
+        if (context.state.recState.silentRecordingCount >=
+          context.state.config.converser.silentConsecutiveRecordingMax
+        ) {
+          return Promise.reject(
+            'Too many consecutive silent recordings: ' +
+            `${context.state.recState.silentRecordingCount}.`,
+          );
+        }
+        return Promise.all([
+          context.dispatch('getAudioUrl', audioBlob),
+          context.dispatch('getAudioUrl', lexAudioBlob),
+        ]);
+      })
+      .then((audioUrls) => {
+        // handle being interrupted by text
+        if (context.state.lex.dialogState !== 'Fulfilled' &&
+            !context.state.recState.isConversationGoing
+        ) {
+          return Promise.resolve();
+        }
+        const [humanAudioUrl, lexAudioUrl] = audioUrls;
+        context.dispatch('pushMessage', {
+          type: 'human',
+          audio: humanAudioUrl,
+          text: context.state.lex.inputTranscript,
+        });
+        context.dispatch('pushMessage', {
+          type: 'bot',
+          audio: lexAudioUrl,
+          text: context.state.lex.message,
+          dialogState: context.state.lex.dialogState,
+          responseCard: context.state.lex.responseCard,
+        });
+        return context.dispatch('playAudio', lexAudioUrl, {}, offset);
+      })
+      .then(() => {
+        if (
+          ['Fulfilled', 'ReadyForFulfillment', 'Failed']
+          .indexOf(context.state.lex.dialogState) >= 0
+        ) {
+          return context.dispatch('stopConversation')
+            .then(() => context.dispatch('reInitBot'));
+        }
 
-      if (context.state.recState.isConversationGoing) {
-        return context.dispatch('startRecording');
-      }
-      return Promise.resolve();
-    })
-    .catch((error) => {
-      console.error('converser error:', error);
-      context.dispatch('stopConversation');
-      context.dispatch('pushErrorMessage',
-        `I had an error. ${error}`,
-      );
-      context.commit('resetSilentRecordingCount');
-    });
+        if (context.state.recState.isConversationGoing) {
+          return context.dispatch('startRecording');
+        }
+        return Promise.resolve();
+      })
+      .catch((error) => {
+        console.error('converser error:', error);
+        context.dispatch('stopConversation');
+        context.dispatch('pushErrorMessage',
+          `I had an error. ${error}`,
+        );
+        context.commit('resetSilentRecordingCount');
+      });
   };
 };
 export default initRecorderHandlers;
