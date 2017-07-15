@@ -70,14 +70,19 @@ export default {
           this.$store.dispatch('initLexClient'),
         ]),
       )
+      .then(() => (
+        (this.$store.state.isRunningEmbedded) ?
+          this.$store.dispatch('sendMessageToParentWindow',
+            { event: 'ready' },
+          ) :
+          Promise.resolve()
+      ))
       .catch((error) => {
         console.error('could not initialize application while mounting:', error);
       });
   },
   methods: {
-    // most messages should be initiated from iframe to parent using
-    // sendMessageToParentWindow which can pass results back using a promise
-    // this is meant for unsolicited / unidirectional events
+    // messages from parent
     messageHandler(evt) {
       // security check
       if (evt.origin !== this.$store.state.config.ui.parentOrigin) {
@@ -89,12 +94,38 @@ export default {
         return;
       }
       switch (evt.data.event) {
+        case 'ping':
+          console.info('pong - ping received from parent');
+          evt.ports[0].postMessage({
+            event: 'resolve',
+            type: evt.data.event,
+          });
+          break;
         // received when the parent page has loaded the iframe
         case 'parentReady':
           evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
           break;
         case 'toggleMinimizeUi':
           this.$store.dispatch('toggleIsUiMinimized')
+            .then(() => {
+              evt.ports[0].postMessage(
+                { event: 'resolve', type: evt.data.event },
+              );
+            });
+          break;
+        case 'postText':
+          if (!evt.data.message) {
+            evt.ports[0].postMessage({
+              event: 'reject',
+              type: evt.data.event,
+              error: 'missing message field',
+            });
+            return;
+          }
+
+          this.$store.dispatch('postTextMessage',
+            { type: 'human', text: evt.data.message },
+          )
             .then(() => {
               evt.ports[0].postMessage(
                 { event: 'resolve', type: evt.data.event },
