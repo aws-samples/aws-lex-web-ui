@@ -166,6 +166,14 @@
           document.dispatchEvent(event);
         });
 
+        $(document).on('lexWebUiReady', function onUpdateLexState(evt) {
+          var event = new CustomEvent(
+            'lexWebUiMessage',
+            { detail: {message: {event: 'ping'} } }
+          );
+          document.dispatchEvent(event);
+        });
+
         // bot update event handler
         $(document).on('updatelexstate', function onUpdateLexState(evt) {
           var slots = {};
