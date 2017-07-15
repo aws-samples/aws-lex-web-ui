@@ -13,7 +13,7 @@
 
 import Vue from 'vue';
 import Router from 'vue-router';
-import LexWeb from 'components/LexWeb';
+import LexWeb from '@/components/LexWeb';
 
 Vue.use(Router);
 

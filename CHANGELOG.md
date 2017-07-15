@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.7.X] - 2017-07-XX
+### Changed
+- Synched vue build environment with latest vue cli template
+
 ## [0.7.0] - 2017-07-14
 ### Added
 - Added capability to send messages from parent page to iframe using
