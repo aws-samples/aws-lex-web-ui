@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.7.X] - 2017-07-XX
+## [0.7.1] - 2017-07-17
 This release adds basic unit and e2e testing. Various components were
 refactored to enable this.
 
