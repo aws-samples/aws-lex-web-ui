@@ -5,8 +5,31 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.7.X] - 2017-07-XX
+This release adds basic unit and e2e testing. Various components were
+refactored to enable this.
+
 ### Changed
 - Synched vue build environment with latest vue cli template
+- Refactored store to make it more modular and easier to test including:
+  * It no longer exports a Vuex object but instead exports an object that
+    can be used as a vuex constructor argument
+  * It no longer uses the global AWS object. It now creates its own AWS
+    Config object
+  * It no longer creates the bot audio element. The Audio element is set
+    with an action
+- Moved Vuex store instantiation to the LexApp component
+- Refactored the lex run time client library to accept an AWS SDK Config
+  object to avoid using the global one
+
+### Added
+- Added setup for running e2e test including:
+  * Added nightwatch chrome options to fake devices for mocking mic
+  * Changed nightwatch runner to connect dev server if already running
+  * Basic e2e test for stand-alone and iframe
+- Added setup to run unit tests including an initial set of basic tests
+  for the vuex store and the LexWeb Vue component
+- Added version from package.js to vuex store state
+- Added babel-polyfill as an npm dev dependency for unit testing
 
 ## [0.7.0] - 2017-07-14
 ### Added
