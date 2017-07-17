@@ -31,7 +31,14 @@ module.exports = {
       desiredCapabilities: {
         browserName: 'chrome',
         javascriptEnabled: true,
-        acceptSslCerts: true
+        acceptSslCerts: true,
+        // lex-web-ui: allow microphone
+        chromeOptions: {
+          args: [
+            'use-fake-device-for-media-stream',
+            'use-fake-ui-for-media-stream',
+          ]
+        }
       }
     },
 
