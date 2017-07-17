@@ -6,7 +6,7 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint no-use-before-define: ["error", { "functions": false }] */
 /* eslint no-plusplus: off */
-/* eslint comma-dangle: ["error", {"functions": "never"}] */
+/* eslint comma-dangle: ["error", {"functions": "never", "objects": "always-multiline"}] */
 const bitDepth = 16;
 const bytesPerSample = bitDepth / 8;
 const outSampleRate = 16000;
@@ -85,7 +85,7 @@ function exportWAV(type) {
 
   self.postMessage({
     command: 'exportWAV',
-    data: audioBlob
+    data: audioBlob,
   });
 }
 
