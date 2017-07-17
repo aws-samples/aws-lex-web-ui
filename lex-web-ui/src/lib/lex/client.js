@@ -11,52 +11,66 @@
  License for the specific language governing permissions and limitations under the License.
  */
 
-/* global fetch Request */
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-import AWS from 'aws-sdk/global';
 import LexRuntime from 'aws-sdk/clients/lexruntime';
 
 export default class {
   constructor({
     botName,
     botAlias = '$LATEST',
-    user = 'lex',
+    user,
     region = 'us-east-1',
-    credentials,
+    credentials = {},
+
+    // AWS.Config object that is used to initialize the client
+    // the region and credentials argument override it
+    awsSdkConfig = {},
   }) {
     this.botName = botName;
     this.botAlias = botAlias;
-    this.region = region;
-    this.user = user;
-    this.credentials = credentials || AWS.config.credentials;
-    this.identityId = (this.credentials && 'identityId' in this.credentials) ?
+    this.user = user || 'lex-web-ui-' +
+      `${Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)}`;
+    this.region = region || awsSdkConfig.region;
+    this.credentials = credentials || awsSdkConfig.credentials;
+    this.identityId = (this.credentials.identityId) ?
       this.credentials.identityId : this.user;
 
-    this.lexRuntime = new LexRuntime({ region, credentials: this.credentials });
+    if (!this.botName || !this.region) {
+      throw new Error('invalid lex client constructor arguments');
+    }
+
+    this.lexRuntime = new LexRuntime(
+      { ...awsSdkConfig, region: this.region, credentials: this.credentials },
+    );
   }
 
-  refreshCreds() {
-    // creds should be updated outside of the client
-    this.lexRuntime.config.credentials = AWS.config.credentials;
+  initCredentials(credentials) {
+    this.credentials = credentials;
+    this.lexRuntime.config.credentials = this.credentials;
+    this.identityId = this.credentials.identityId;
   }
 
   postText(inputText, sessionAttributes = {}) {
-    this.refreshCreds();
     const postTextReq = this.lexRuntime.postText({
       botAlias: this.botAlias,
       botName: this.botName,
       inputText,
       sessionAttributes,
-      userId: this.identityId, // TODO may want to switch this to this.user
+      userId: this.identityId,
     });
 
-    return postTextReq.promise();
+    return this.credentials.getPromise()
+      .then(() => postTextReq.promise());
   }
 
-  postContent(blob, sessionAttributes = {}, acceptFormat = 'audio/ogg', offset = 0) {
+  postContent(
+    blob,
+    sessionAttributes = {},
+    acceptFormat = 'audio/ogg',
+    offset = 0,
+  ) {
     const mediaType = blob.type;
     let contentType = mediaType;
-    this.refreshCreds();
 
     if (mediaType.startsWith('audio/wav')) {
       contentType = 'audio/x-l16; sample-rate=16000; channel-count=1';
@@ -75,9 +89,10 @@ export default class {
       contentType,
       inputStream: blob,
       sessionAttributes,
-      userId: this.identityId, // TODO may want to switch this to this.user
+      userId: this.identityId,
     });
 
-    return postContentReq.promise();
+    return this.credentials.getPromise()
+      .then(() => postContentReq.promise());
   }
 }
