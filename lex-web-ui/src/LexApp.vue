@@ -20,15 +20,17 @@ License for the specific language governing permissions and limitations under th
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
 import Vue from 'vue';
+import Vuex from 'vuex';
 import Vuetify from 'vuetify';
 
-import store from './store';
+import Store from '@/store';
 
+Vue.use(Vuex);
 Vue.use(Vuetify);
 
 export default {
   name: 'lex-app',
-  store,
+  store: new Vuex.Store(Store),
   beforeMount() {
     if (!this.$route.query.embed) {
       console.info('running in standalone mode');
@@ -43,7 +45,8 @@ export default {
       if (!document.referrer
         .startsWith(this.$store.state.config.ui.parentOrigin)
       ) {
-        console.warn('referrer origin: [%s] does not match configured parent origin: [%s]',
+        console.warn(
+          'referrer origin: [%s] does not match configured parent origin: [%s]',
           document.referrer, this.$store.state.config.ui.parentOrigin,
         );
       }
@@ -59,7 +62,7 @@ export default {
     Promise.all([
       this.$store.dispatch('initCredentials'),
       this.$store.dispatch('initRecorder'),
-      this.$store.dispatch('initBotAudio'),
+      this.$store.dispatch('initBotAudio', new Audio()),
       this.$store.dispatch('getConfigFromParent')
         .then(config => this.$store.dispatch('initConfig', config)),
     ])
@@ -77,6 +80,11 @@ export default {
           ) :
           Promise.resolve()
       ))
+      .then(() =>
+        console.info('sucessfully initialized lex web ui version: ',
+          this.$store.state.version,
+        ),
+      )
       .catch((error) => {
         console.error('could not initialize application while mounting:', error);
       });

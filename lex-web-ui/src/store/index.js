@@ -11,43 +11,44 @@
  License for the specific language governing permissions and limitations under the License.
  */
 
-/* global Audio atob Blob document URL */
+/* global atob Blob URL */
 /* eslint no-console: ["error", { allow: ["info", "warn", "error"] }] */
 /* eslint no-param-reassign: off */
 // TODO split getters, mutations and actions into separate files
-import Vue from 'vue';
-import Vuex from 'vuex';
-import AWS from 'aws-sdk/global';
+import { Config as AWSConfig, CognitoIdentityCredentials }
+  from 'aws-sdk/global';
+
 import Polly from 'aws-sdk/clients/polly';
 
-import LexClient from '../lib/lex/client';
-import LexAudioRecorder from '../lib/lex/recorder';
-import initRecorderHandlers from './recorder-handlers';
-import { config, mergeConfig } from '../config';
+import LexClient from '@/lib/lex/client';
+import LexAudioRecorder from '@/lib/lex/recorder';
+import initRecorderHandlers from '@/store/recorder-handlers';
+import { config, mergeConfig } from '@/config';
 
-import silentOgg from '../assets/silent.ogg';
-import silentMp3 from '../assets/silent.mp3';
+import silentOgg from '@/assets/silent.ogg';
+import silentMp3 from '@/assets/silent.mp3';
 
-Vue.use(Vuex);
+import { version } from '@/../package.json';
 
-AWS.config.region = config.region;
+AWSConfig.region = config.region;
 
 const lexClient = new LexClient({
   botName: config.lex.botName,
   botAlias: config.lex.botAlias,
-  region: config.region,
+  awsSdkConfig: AWSConfig,
 });
 
-const pollyClient = (config.recorder.enable) ? new Polly() : null;
+const pollyClient = (config.recorder.enable) ? new Polly(AWSConfig) : null;
 
 const recorder = (config.recorder.enable) ? new LexAudioRecorder(
   config.recorder,
 ) : null;
 
-export default new Vuex.Store({
+export default {
   // prevent changes outside of mutation handlers
   strict: (process.env.NODE_ENV === 'development'),
   state: {
+    version,
     lex: {
       acceptFormat: 'audio/ogg',
       dialogState: '',
@@ -67,8 +68,7 @@ export default new Vuex.Store({
       voiceId: config.polly.voiceId,
     },
     botAudio: {
-      // TODO may want to move audio out of state
-      audio: new Audio(),
+      audio: null,
       canInterrupt: false,
       interruptIntervalId: null,
       autoPlay: false,
@@ -95,7 +95,7 @@ export default new Vuex.Store({
 
     awsCreds: {
       provider: 'cognito', // cognito|parentWindow
-      identityId: null,
+      credentials: null,
     },
   },
 
@@ -244,17 +244,16 @@ export default new Vuex.Store({
       }
     },
     /**
-     * Update the Cognito identityId
-     * Used after refreshing creds
-     */
-    updateIdentityId(state) {
-      state.awsCreds.identityId = AWS.config.credentials.identityId;
-    },
-    /**
      * Set the AWS credentials provider
      */
     setAwsCredsProvider(state, provider) {
       state.awsCreds.provider = provider;
+    },
+    /**
+     * Set the AWS credentials
+     */
+    setAwsCreds(state, creds) {
+      state.awsCreds.credentials = creds;
     },
     /**
      * Set to true if audio recording is supported
@@ -334,6 +333,16 @@ export default new Vuex.Store({
       state.lex.isInterrupting = bool;
     },
     /**
+    * set botAudio audio element, audio should be Audio() type
+    */
+    setBotAudioElement(state, audio) {
+      if (typeof audio !== 'object') {
+        console.error('setBotAudio does not seem like an Audio object', audio);
+        return;
+      }
+      state.botAudio.audio = audio;
+    },
+    /**
     * set to true if bot playback can be interrupted
     */
     setCanInterruptBotPlayback(state, bool) {
@@ -377,9 +386,10 @@ export default new Vuex.Store({
     initCredentials(context) {
       switch (context.state.awsCreds.provider) {
         case 'cognito':
-          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: config.cognito.poolId,
-          });
+          AWSConfig.credentials = new CognitoIdentityCredentials(
+            { IdentityPoolId: config.cognito.poolId },
+            AWSConfig,
+          );
           return context.dispatch('getCredentials');
         case 'parentWindow':
           return context.dispatch('sendMessageToParentWindow', { event: 'getCredentials' })
@@ -391,11 +401,11 @@ export default new Vuex.Store({
               return Promise.reject('invalid credential event from parent');
             })
             .then((creds) => {
-              AWS.config.credentials =
-                new AWS.CognitoIdentityCredentials(creds.params);
+              AWSConfig.credentials =
+                new CognitoIdentityCredentials(creds.params, AWSConfig);
 
-              if (!('getPromise' in AWS.config.credentials)) {
-                const error = 'getPromise not found in state credentials';
+              if (!('getPromise' in AWSConfig.credentials)) {
+                const error = 'getPromise not found in credentials';
                 console.error(error);
                 return Promise.reject(error);
               }
@@ -440,8 +450,7 @@ export default new Vuex.Store({
       );
       return context.dispatch('getCredentials')
         .then((creds) => {
-          lexClient.identityId = context.state.awsCreds.identityId;
-          lexClient.lexRuntime.config.credentials = creds;
+          lexClient.initCredentials(creds);
         });
     },
     initPollyClient(context) {
@@ -476,12 +485,12 @@ export default new Vuex.Store({
           }
         });
     },
-    initBotAudio(context) {
+    initBotAudio(context, audio) {
       if (!context.state.recState.isRecorderEnabled) {
         return;
       }
       let silentSound;
-      const audio = context.state.botAudio.audio;
+      context.commit('setBotAudioElement', audio);
 
       // Ogg is the preferred format as it seems to be generally smaller.
       // Detect if ogg is supported (MS Edge doesn't).
@@ -847,10 +856,10 @@ export default new Vuex.Store({
       });
     },
     getCredentials(context) {
-      return AWS.config.credentials.getPromise()
+      return AWSConfig.credentials.getPromise()
         .then(() => {
-          context.commit('updateIdentityId');
-          return Promise.resolve(AWS.config.credentials);
+          context.commit('setAwsCreds', AWSConfig.credentials);
+          return Promise.resolve(AWSConfig.credentials);
         });
     },
     toggleIsUiMinimized(context) {
@@ -883,4 +892,4 @@ export default new Vuex.Store({
       });
     },
   },
-});
+};
