@@ -27,6 +27,17 @@ module.exports = {
   },
   module: {
     rules: [
+      // lex-web-ui worker loader:
+      {
+        test: /-worker\.js/,
+        loader: 'worker-loader',
+        include: [resolve('src/lib')],
+        exclude: () => process.env.DIST_BUILD === 'true',
+        options: {
+          name: utils.assetsPath('js/[name].[hash:7].[ext]'),
+          inline: true,
+        }
+      },
       {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
