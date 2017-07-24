@@ -21,8 +21,5 @@
   "bugs": {
     "url": "https://github.com/awslabs/aws-lex-web-ui/issues"
   },
-  "homepage": "https://github.com/awslabs/aws-lex-web-ui#readme",
-  "dependencies": {
-    "lex-web-ui": "file:lex-web-ui"
-  }
+  "homepage": "https://github.com/awslabs/aws-lex-web-ui#readme"
 }
