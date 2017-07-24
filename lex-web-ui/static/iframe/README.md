@@ -26,8 +26,8 @@ tags to your web page:
 ```
 
 ## Passing Data between the Parent Page and the ChatBot UI
-The chatbot UI activates an API when the `embed` URL query parameter
-is set. This API can be used to pass data to and from a hosting parent
+The chatbot UI activates an API when the `lexWebUiEmbed` URL query parameter
+is set to `true`. This API can be used to pass data to and from a hosting parent
 page. This is done using the JavaScript
 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
 call. The messages use the
@@ -65,11 +65,11 @@ The `LexWebUiIframe` class accepts the following options in the constructor:
 ```javascript
   var options = {
     // div container class to insert iframe
-    containerClass: 'lex-chat',
+    containerClass: 'lex-web-ui',
 
-    // iframe source uri. use embed=true query string when loading as iframe
+    // iframe source uri. use lexWebUiEmbed=true query string when loading as iframe
     // this is appended to the iframeOrigin passed in the config
-    iframeSrcPath: '/index.html#/?embed=true',
+    iframeSrcPath: '/index.html#/?lexWebUiEmbed=true',
 
     // AWS SDK script dynamically added to the DOM
     // https://github.com/aws/aws-sdk-js
@@ -243,7 +243,7 @@ For example, you can use the following code to programmatically minimize
 the chatbot UI by sending the toggleMinimizeUi event type:
 
 ```javascript
-  var iframeContainerClassSelector = '.lex-chat';
+  var iframeContainerClassSelector = '.lex-web-ui';
   var iframeElement = document.querySelector(
     iframeContainerClassSelector + ' iframe'
   );
@@ -459,7 +459,7 @@ response of the the `onInitIframeConfig` message. The values delivered
 via this mechanism override the chatbot UI local config files and URL
 config parameter.
 2. **URL Parameter.** The chatbot UI configuration can be initialized using
-the `config` URL parameter. For details, see the
+the `lexWebUiConfig` URL parameter. For details, see the
 [URL Parameter](https://github.com/awslabs/aws-lex-web-ui/blob/master/lex-web-ui/README.md#url-parameter)
 section. NOTE: the bot-loader.js script does not pass URL parameters to
 the chatbot UI by default. You can override this by dynamically setting
