@@ -124,7 +124,7 @@ const initRecorderHandlers = (context, recorder) => {
       .then(() => {
         if (
           ['Fulfilled', 'ReadyForFulfillment', 'Failed']
-          .indexOf(context.state.lex.dialogState) >= 0
+            .indexOf(context.state.lex.dialogState) >= 0
         ) {
           return context.dispatch('stopConversation')
             .then(() => context.dispatch('reInitBot'));
