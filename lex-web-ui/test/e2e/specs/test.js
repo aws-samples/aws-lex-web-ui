@@ -38,9 +38,9 @@ module.exports = {
 
     browser
       .url(devServer + '/static/iframe/index.html')
-      .waitForElementVisible('.lex-chat', 5000)
-      .waitForElementPresent('.lex-chat script', 5000)
-      .waitForElementPresent('.lex-chat iframe', 5000)
+      .waitForElementVisible('.lex-web-ui', 5000)
+      .waitForElementPresent('.lex-web-ui script', 5000)
+      .waitForElementPresent('.lex-web-ui iframe', 5000)
       .getLog('browser', function(logEntriesArray) {
         console.log('Log length: ' + logEntriesArray.length);
         logEntriesArray.forEach(function(log) {

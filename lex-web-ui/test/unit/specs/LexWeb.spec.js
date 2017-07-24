@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 import Vue from 'vue';
 import Vuex from 'vuex';
+import Vuetify from 'vuetify';
 
 import Store from '@/store';
 import LexWeb from '@/components/LexWeb';
@@ -9,16 +10,27 @@ import { config } from '@/config';
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
 
 describe('LexWeb.vue', () => {
-  Vue.use(Vuex);
-  const store = new Vuex.Store(Store);
+  let store;
+  let vm;
 
-  it('should render sub components', () => {
-    const vm = new Vue({
+  beforeEach(() => {
+    Vue.use(Vuex);
+    Vue.use(Vuetify);
+
+    store = new Vuex.Store(Store);
+    vm = new Vue({
       store,
       template: '<LexWeb/>',
       components: { LexWeb },
     });
+  });
+
+  it('should render sub components', () => {
+    // disable recorder
+    vm.$store.commit('setIsRecorderEnabled', false);
+    sinon.spy(vm, '$mount');
     vm.$mount();
+
     const toolbar = vm.$el.querySelector('.toolbar');
     const toolbarTitle = vm.$el.querySelector('.toolbar__title');
     const messageList = vm.$el.querySelector('.message-list');
