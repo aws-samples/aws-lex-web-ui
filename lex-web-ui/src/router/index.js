@@ -13,7 +13,6 @@
 
 import Vue from 'vue';
 import Router from 'vue-router';
-import LexWeb from '@/components/LexWeb';
 
 Vue.use(Router);
 
@@ -21,8 +20,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'LexWeb',
-      component: LexWeb,
+      name: 'LexWebUi',
+      component: { template: '<lex-web-ui></lex-web-ui>' },
     },
   ],
 });

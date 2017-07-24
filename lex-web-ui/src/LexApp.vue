@@ -1,5 +1,6 @@
 <template>
   <v-app id="lex-app" toolbar>
+    <page v-once></page>
     <router-view></router-view>
   </v-app>
 </template>
@@ -23,129 +24,18 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Vuetify from 'vuetify';
 
-import Store from '@/store';
+import Page from '@/components/Page';
+import { Loader as LexWebUi } from '@/lex-web-ui';
 
 Vue.use(Vuex);
 Vue.use(Vuetify);
 
+const lexWebUi = new LexWebUi();
+
 export default {
   name: 'lex-app',
-  store: new Vuex.Store(Store),
-  beforeMount() {
-    if (!this.$route.query.embed) {
-      console.info('running in standalone mode');
-      this.$store.commit('setIsRunningEmbedded', false);
-      this.$store.commit('setAwsCredsProvider', 'cognito');
-    } else {
-      console.info('running in embedded mode from URL: ', location.href);
-      console.info('referrer (possible parent) URL: ', document.referrer);
-      console.info('config parentOrigin:',
-        this.$store.state.config.ui.parentOrigin,
-      );
-      if (!document.referrer
-        .startsWith(this.$store.state.config.ui.parentOrigin)
-      ) {
-        console.warn(
-          'referrer origin: [%s] does not match configured parent origin: [%s]',
-          document.referrer, this.$store.state.config.ui.parentOrigin,
-        );
-      }
-
-      window.addEventListener('message', this.messageHandler, false);
-      this.$store.commit('setIsRunningEmbedded', true);
-      this.$store.commit('setAwsCredsProvider', 'parentWindow');
-    }
-
-    this.$store.commit('setUrlQueryParams', this.$route.query);
-  },
-  mounted() {
-    Promise.all([
-      this.$store.dispatch('initCredentials'),
-      this.$store.dispatch('initRecorder'),
-      this.$store.dispatch('initBotAudio', new Audio()),
-      this.$store.dispatch('getConfigFromParent')
-        .then(config => this.$store.dispatch('initConfig', config)),
-    ])
-      .then(() =>
-        Promise.all([
-          this.$store.dispatch('initMessageList'),
-          this.$store.dispatch('initPollyClient'),
-          this.$store.dispatch('initLexClient'),
-        ]),
-      )
-      .then(() => (
-        (this.$store.state.isRunningEmbedded) ?
-          this.$store.dispatch('sendMessageToParentWindow',
-            { event: 'ready' },
-          ) :
-          Promise.resolve()
-      ))
-      .then(() =>
-        console.info('sucessfully initialized lex web ui version: ',
-          this.$store.state.version,
-        ),
-      )
-      .catch((error) => {
-        console.error('could not initialize application while mounting:', error);
-      });
-  },
-  methods: {
-    // messages from parent
-    messageHandler(evt) {
-      // security check
-      if (evt.origin !== this.$store.state.config.ui.parentOrigin) {
-        console.warn('ignoring event - invalid origin:', evt.origin);
-        return;
-      }
-      if (!evt.ports) {
-        console.warn('postMessage not sent over MessageChannel', evt);
-        return;
-      }
-      switch (evt.data.event) {
-        case 'ping':
-          console.info('pong - ping received from parent');
-          evt.ports[0].postMessage({
-            event: 'resolve',
-            type: evt.data.event,
-          });
-          break;
-        // received when the parent page has loaded the iframe
-        case 'parentReady':
-          evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
-          break;
-        case 'toggleMinimizeUi':
-          this.$store.dispatch('toggleIsUiMinimized')
-            .then(() => {
-              evt.ports[0].postMessage(
-                { event: 'resolve', type: evt.data.event },
-              );
-            });
-          break;
-        case 'postText':
-          if (!evt.data.message) {
-            evt.ports[0].postMessage({
-              event: 'reject',
-              type: evt.data.event,
-              error: 'missing message field',
-            });
-            return;
-          }
-
-          this.$store.dispatch('postTextMessage',
-            { type: 'human', text: evt.data.message },
-          )
-            .then(() => {
-              evt.ports[0].postMessage(
-                { event: 'resolve', type: evt.data.event },
-              );
-            });
-          break;
-        default:
-          console.warn('unknown message in messageHanlder', evt);
-          break;
-      }
-    },
-  },
+  store: lexWebUi.store,
+  components: { Page },
 };
 </script>
 
