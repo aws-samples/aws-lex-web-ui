@@ -1,7 +1,7 @@
 require('babel-register')
 var config = require('../../config')
 
-// http://nightwatchjs.org/guide#settings-file
+// http://nightwatchjs.org/gettingstarted#settings-file
 module.exports = {
   src_folders: ['test/e2e/specs'],
   output_folder: 'test/e2e/reports',
@@ -31,7 +31,14 @@ module.exports = {
       desiredCapabilities: {
         browserName: 'chrome',
         javascriptEnabled: true,
-        acceptSslCerts: true
+        acceptSslCerts: true,
+        // lex-web-ui: allow microphone
+        chromeOptions: {
+          args: [
+            'use-fake-device-for-media-stream',
+            'use-fake-ui-for-media-stream',
+          ]
+        }
       }
     },
 

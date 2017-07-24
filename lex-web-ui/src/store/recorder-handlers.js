@@ -18,57 +18,55 @@
 /* eslint no-console: ["error", { allow: ["info", "warn", "error", "time", "timeEnd"] }] */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
-const initRecorderHandlers = (context) => {
+const initRecorderHandlers = (context, recorder) => {
   /* global Blob */
 
-  context.state.recorder.onstart = () => {
+  recorder.onstart = () => {
     console.info('recorder start event triggered');
     console.time('recording time');
   };
-  context.state.recorder.onstop = () => {
+  recorder.onstop = () => {
     context.dispatch('stopRecording');
     console.timeEnd('recording time');
     console.time('recording processing time');
     console.info('recorder stop event triggered');
   };
-  context.state.recorder.onsilentrecording = () => {
+  recorder.onsilentrecording = () => {
     console.info('recorder silent recording triggered');
     context.commit('increaseSilentRecordingCount');
   };
-  context.state.recorder.onunsilentrecording = () => {
+  recorder.onunsilentrecording = () => {
     if (context.state.recState.silentRecordingCount > 0) {
       context.commit('resetSilentRecordingCount');
     }
   };
-  context.state.recorder.onerror = (e) => {
+  recorder.onerror = (e) => {
     console.error('recorder onerror event triggered', e);
   };
-  context.state.recorder.onstreamready = () => {
+  recorder.onstreamready = () => {
     console.info('recorder stream ready event triggered');
   };
-  context.state.recorder.onmute = () => {
+  recorder.onmute = () => {
     console.info('recorder mute event triggered');
     context.commit('setIsMicMuted', true);
   };
-  context.state.recorder.onunmute = () => {
+  recorder.onunmute = () => {
     console.info('recorder unmute event triggered');
     context.commit('setIsMicMuted', false);
   };
-  context.state.recorder.onquiet = () => {
+  recorder.onquiet = () => {
     console.info('recorder quiet event triggered');
     context.commit('setIsMicQuiet', true);
   };
-  context.state.recorder.onunquiet = () => {
+  recorder.onunquiet = () => {
     console.info('recorder unquiet event triggered');
     context.commit('setIsMicQuiet', false);
   };
 
-  // TODO this needs to be cleaned up and remodeled
-  // most of this logic should be in a store action
-  // may need to change recorder event setter so support
+  // TODO need to change recorder event setter to support
   // replacing handlers instead of adding
-  context.state.recorder.ondataavailable = (e) => {
-    const mimeType = context.state.recorder.mimeType;
+  recorder.ondataavailable = (e) => {
+    const mimeType = recorder.mimeType;
     console.info('recorder data available event triggered');
     const audioBlob = new Blob(
       [e.detail], { type: mimeType },
@@ -125,8 +123,9 @@ const initRecorderHandlers = (context) => {
       })
       .then(() => {
         if (
-          ['Fulfilled', 'ReadyForFulfillment', 'Failed']
-          .indexOf(context.state.lex.dialogState) >= 0
+          ['Fulfilled', 'ReadyForFulfillment', 'Failed'].indexOf(
+            context.state.lex.dialogState,
+          ) >= 0
         ) {
           return context.dispatch('stopConversation')
             .then(() => context.dispatch('reInitBot'));

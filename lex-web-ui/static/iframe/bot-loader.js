@@ -28,10 +28,10 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
   // default options - merged with options passed in the constructor
   var OPTIONS = {
     // div container class to insert iframe
-    containerClass: 'lex-chat',
+    containerClass: 'lex-web-ui',
 
     // iframe source uri. use embed=true query string when loading as iframe
-    iframeSrcPath: '/index.html#/?embed=true',
+    iframeSrcPath: '/index.html#/?lexWebUiEmbed=true',
 
     // AWS SDK script dynamically added to the DOM
     // https://github.com/aws/aws-sdk-js

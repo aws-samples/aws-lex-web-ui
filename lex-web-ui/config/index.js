@@ -5,8 +5,11 @@ module.exports = {
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
+
+    // CAUTION: files under these directories are rm -rf during build
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
+
     assetsPublicPath: '/',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
@@ -34,5 +37,19 @@ module.exports = {
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
     cssSourceMap: false
-  }
+  },
+  // lex-web-ui: added to create a distributable bundle in a single file
+  dist: {
+    bundleName: 'lex-web-ui',
+    entry: './src/lex-web-ui.js',
+    env: require('./dist.env'),
+
+    // CAUTION: files under these directories are rm -rf during build
+    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsSubDirectory: 'bundle',
+
+    assetsPublicPath: process.env.PUBLIC_PATH || '/',
+    productionSourceMap: false,
+    productionGzip: false,
+  },
 }

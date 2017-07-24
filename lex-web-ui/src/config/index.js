@@ -137,6 +137,8 @@ const configDefault = {
     // NOTE: this is also a security control
     // this parameter should not be dynamically overriden
     // avoid making it '*'
+    // if left as an empty string, it will be set to window.location.window
+    // to allow runing embedded in a single origin setup
     parentOrigin: '',
 
     // chat window text placeholder
@@ -219,6 +221,9 @@ const configDefault = {
     // before the conversation is ended
     silentConsecutiveRecordingMax: 3,
   },
+
+  // URL query parameters are put in here at run time
+  urlQueryParams: {},
 };
 
 /**
@@ -253,7 +258,7 @@ function getUrlQueryParams(url) {
  */
 function getConfigFromQuery(query) {
   try {
-    return (query.config) ? JSON.parse(query.config) : {};
+    return (query.lexWebUiConfig) ? JSON.parse(query.lexWebUiConfig) : {};
   } catch (e) {
     console.error('error parsing config from URL query', e);
     return {};
@@ -282,11 +287,24 @@ export function mergeConfig(configBase, configSrc) {
     .reduce((merged, configItem) => ({ ...merged, ...configItem }), {});
 }
 
+// merge build time parameters
 const configFromFiles = mergeConfig(configDefault, configEnvFile);
+
+// run time config from url query parameter
 const queryParams = getUrlQueryParams(window.location.href);
 const configFromQuery = getConfigFromQuery(queryParams);
+// security: delete origin from dynamic parameter
 if (configFromQuery.ui && configFromQuery.ui.parentOrigin) {
   delete configFromQuery.ui.parentOrigin;
 }
 
-export const config = mergeConfig(configFromFiles, configFromQuery);
+const configFromMerge = mergeConfig(configFromFiles, configFromQuery);
+
+// if parent origin is empty, assume to be running in the same origin
+configFromMerge.ui.parentOrigin = configFromMerge.ui.parentOrigin ||
+  window.location.origin;
+
+export const config = {
+  ...configFromMerge,
+  urlQueryParams: queryParams,
+};

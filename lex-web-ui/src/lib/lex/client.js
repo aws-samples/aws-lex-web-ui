@@ -11,52 +11,57 @@
  License for the specific language governing permissions and limitations under the License.
  */
 
-/* global fetch Request */
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-import AWS from 'aws-sdk/global';
-import LexRuntime from 'aws-sdk/clients/lexruntime';
 
 export default class {
   constructor({
     botName,
     botAlias = '$LATEST',
-    user = 'lex',
-    region = 'us-east-1',
-    credentials,
+    userId,
+    lexRuntimeClient,
   }) {
+    if (!botName || !lexRuntimeClient) {
+      throw new Error('invalid lex client constructor arguments');
+    }
+
     this.botName = botName;
     this.botAlias = botAlias;
-    this.region = region;
-    this.user = user;
-    this.credentials = credentials || AWS.config.credentials;
-    this.identityId = (this.credentials && 'identityId' in this.credentials) ?
-      this.credentials.identityId : this.user;
+    this.userId = userId ||
+      'lex-web-ui-' +
+      `${Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)}`;
 
-    this.lexRuntime = new LexRuntime({ region, credentials: this.credentials });
+    this.lexRuntimeClient = lexRuntimeClient;
+    this.credentials = this.lexRuntimeClient.config.credentials;
   }
 
-  refreshCreds() {
-    // creds should be updated outside of the client
-    this.lexRuntime.config.credentials = AWS.config.credentials;
+  initCredentials(credentials) {
+    this.credentials = credentials;
+    this.lexRuntimeClient.config.credentials = this.credentials;
+    this.userId = (credentials.identityId) ?
+      credentials.identityId :
+      this.userId;
   }
 
   postText(inputText, sessionAttributes = {}) {
-    this.refreshCreds();
-    const postTextReq = this.lexRuntime.postText({
+    const postTextReq = this.lexRuntimeClient.postText({
       botAlias: this.botAlias,
       botName: this.botName,
+      userId: this.userId,
       inputText,
       sessionAttributes,
-      userId: this.identityId, // TODO may want to switch this to this.user
     });
-
-    return postTextReq.promise();
+    return this.credentials.getPromise()
+      .then(() => postTextReq.promise());
   }
 
-  postContent(blob, sessionAttributes = {}, acceptFormat = 'audio/ogg', offset = 0) {
+  postContent(
+    blob,
+    sessionAttributes = {},
+    acceptFormat = 'audio/ogg',
+    offset = 0,
+  ) {
     const mediaType = blob.type;
     let contentType = mediaType;
-    this.refreshCreds();
 
     if (mediaType.startsWith('audio/wav')) {
       contentType = 'audio/x-l16; sample-rate=16000; channel-count=1';
@@ -68,16 +73,17 @@ export default class {
       console.warn('unknown media type in lex client');
     }
 
-    const postContentReq = this.lexRuntime.postContent({
+    const postContentReq = this.lexRuntimeClient.postContent({
       accept: acceptFormat,
       botAlias: this.botAlias,
       botName: this.botName,
+      userId: this.userId,
       contentType,
       inputStream: blob,
       sessionAttributes,
-      userId: this.identityId, // TODO may want to switch this to this.user
     });
 
-    return postContentReq.promise();
+    return this.credentials.getPromise()
+      .then(() => postContentReq.promise());
   }
 }

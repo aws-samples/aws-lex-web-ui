@@ -37,7 +37,6 @@ or in the "license" file accompanying this file. This file is distributed on an 
 BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'status-bar',
@@ -82,26 +81,35 @@ export default {
       }
       return '';
     },
-    // vuex state getters
-    ...mapGetters([
-      'canInterruptBotPlayback',
-      'isBotSpeaking',
-      'isConversationGoing',
-      'isLexInterrupting',
-      'isLexProcessing',
-      'isMicMuted',
-      'isMicQuiet',
-      'isRecorderSupported',
-      'isRecording',
-    ]),
+    canInterruptBotPlayback() {
+      return this.$store.state.botAudio.canInterrupt;
+    },
+    isBotSpeaking() {
+      return this.$store.state.botAudio.isSpeaking;
+    },
+    isConversationGoing() {
+      return this.$store.state.recState.isConversationGoing;
+    },
+    isMicMuted() {
+      return this.$store.state.recState.isMicMuted;
+    },
+    isRecorderSupported() {
+      return this.$store.state.recState.isRecorderSupported;
+    },
+    isRecording() {
+      return this.$store.state.recState.isRecording;
+    },
   },
   methods: {
     enterMeter() {
       const intervalTime = 50;
       let max = 0;
       this.volumeIntervalId = setInterval(() => {
-        this.volume = this.$store.state.recorder.volume.instant.toFixed(4);
-        max = Math.max(this.volume, max);
+        this.$store.dispatch('getRecorderVolume')
+          .then((volume) => {
+            this.volume = volume.instant.toFixed(4);
+            max = Math.max(this.volume, max);
+          });
       }, intervalTime);
     },
     leaveMeter() {

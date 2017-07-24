@@ -20,23 +20,28 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
-    modules: [
-      resolve('src'),
-      resolve('node_modules')
-    ],
     alias: {
-      'vue$': 'vue/dist/vue.common.js',
-      'src': resolve('src'),
-      'assets': resolve('src/assets'),
-      'components': resolve('src/components')
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': resolve('src')
     }
   },
   module: {
     rules: [
+      // lex-web-ui worker loader:
+      {
+        test: /-worker\.js/,
+        loader: 'worker-loader',
+        include: [resolve('src/lib')],
+        exclude: () => process.env.DIST_BUILD === 'true',
+        options: {
+          name: utils.assetsPath('js/[name].[hash:7].[ext]'),
+          inline: true,
+        }
+      },
       {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
-        enforce: "pre",
+        enforce: 'pre',
         include: [resolve('src'), resolve('test')],
         options: {
           formatter: require('eslint-friendly-formatter')
@@ -50,28 +55,28 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')],
+        include: [resolve('src'), resolve('test')]
       },
       {
         test: /\.(png|jpe?g|gif|svg|ico)(\?.*)?$/,
         loader: 'url-loader',
-        query: {
+        options: {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
       {
-        test: /\.(ogg|mp3)(\?.*)?$/,
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         loader: 'url-loader',
-        query: {
+        options: {
           limit: 10000,
-          name: utils.assetsPath('snd/[name].[hash:7].[ext]')
+          name: utils.assetsPath('media/[name].[hash:7].[ext]')
         }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
-        query: {
+        options: {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }

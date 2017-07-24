@@ -4,6 +4,86 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.8.0] - 2017-07-24
+This release makes it easier to include the chatbot UI into existing
+sites. The project now distributes a pre-built library in the dist
+directory. This allows to use the chatbot UI without having to build the
+application. The root directory of the repo now contains a package.json
+file to make it easier to npm install it.
+
+There are a few breaking changes regarding the supported URL parameters
+which now use the `lexWebUi` prefix to avoid conflicts when including
+the component in an existing site.
+
+### Changed
+- **[BREAKING]** Changed config passing URL query parameter from `config`
+  to `lexWebUiConfig`
+- **[BREAKING]** Changed URL query parameter to run in embedded mode from
+  `embed` to `lexWebUiEmbed`
+- The `parentOrigin` config variable now defaults to
+  `window.location.origin` to support single origin iframe setups
+  without having to set it in the the JSON config file
+- Restructured Vuex store including:
+    * Split state, mutations and actions to individual files
+    * Moved audio, recorder, aws credentials/clients out of the state.
+      Those now exist as module variables visible from the store actions
+    * AWS credentials from parent are now manually recreated to avoid
+      including the AWS SDK as part of the store
+- Changed from using vuex mapGetter in components to instead use the
+  store state variables. This was done to avoid redistributing vuex
+  in the built library and to support vuex being loaded outside of the
+  chatbot ui.
+- Moved Vue component initialization from LexApp.vue to LexWeb.vue
+- Moved Page component to LexApp.vue from LexWeb.vue
+- Moved webpack related import config from recorder to the general
+  webpack config
+- Commented out webrtc-adapter import in preparation to deprecating it
+- Changed constructor arguments of lex client to accept a
+  lexRuntime client instead of AWS credentials or SDK config. This allows
+  redistributing without having to include AWS SDK as a direct dependency
+- Changed iframe container class name
+- Rearranged the README files. The main README contains info about the
+  npm package and instructions to use the library. The CloudFormation and
+  application details where move to different README files.
+
+### Added
+- Created a Vue plugin that can be used to instantiate the chatbot ui
+  both as an import in a webpack based project or by directly sourcing
+  the library in a script tag. The plugin registers itself and adds
+  a property named `$lexWebUi` to the Vue class. It adds a global Vue
+  component name `LexWebUi`
+- Added a distribution build config and related scripts
+- Added an example on how to encode the URL query parameter config
+- Added a new config object key `urlQueryParams` holding the url query
+  parameters
+
+## [0.7.1] - 2017-07-17
+This release adds basic unit and e2e testing. Various components were
+refactored to enable this.
+
+### Changed
+- Synched vue build environment with latest vue cli template
+- Refactored store to make it more modular and easier to test including:
+  * It no longer exports a Vuex object but instead exports an object that
+    can be used as a vuex constructor argument
+  * It no longer uses the global AWS object. It now creates its own AWS
+    Config object
+  * It no longer creates the bot audio element. The Audio element is set
+    with an action
+- Moved Vuex store instantiation to the LexApp component
+- Refactored the lex run time client library to accept an AWS SDK Config
+  object to avoid using the global one
+
+### Added
+- Added setup for running e2e test including:
+  * Added nightwatch chrome options to fake devices for mocking mic
+  * Changed nightwatch runner to connect dev server if already running
+  * Basic e2e test for stand-alone and iframe
+- Added setup to run unit tests including an initial set of basic tests
+  for the vuex store and the LexWeb Vue component
+- Added version from package.js to vuex store state
+- Added babel-polyfill as an npm dev dependency for unit testing
+
 ## [0.7.0] - 2017-07-14
 ### Added
 - Added capability to send messages from parent page to iframe using

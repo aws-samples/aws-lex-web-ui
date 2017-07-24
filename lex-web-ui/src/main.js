@@ -11,19 +11,24 @@
  License for the specific language governing permissions and limitations under the License.
  */
 
+/**
+ * Entry point for sample application.
+ * See lex-web-ui.js for the component entry point.
+ */
+
 import Vue from 'vue';
-import router from './router';
-import LexApp from './LexApp';
+import router from '@/router';
+import LexApp from '@/LexApp';
 
 /* eslint-disable no-new */
 new Vue({
   el: '#lex-app',
   router,
-  template: '<LexApp/>',
+  template: '<lex-app></lex-app>',
   components: { LexApp },
 });
 
 Vue.config.errorHandler = (err, vm, info) => {
   // eslint-disable-next-line no-console
-  console.error('unhandled error in lex-app', err, vm, info);
+  console.error('unhandled error in lex-app: ', err, vm, info);
 };

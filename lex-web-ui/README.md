@@ -15,6 +15,8 @@ It works by making calls to the Lex service directly from a
 user's browser using temporary credentials obtained from [Amazon
 Cognito](https://aws.amazon.com/cognito/). This allows the chatbot web app
 to be served from S3 or CloudFront in a scalable serverless architecture.
+Here is a diagram of how the application works:
+<img src="../img/webapp-diagram.png" width=480>
 
 The chatbot web app is built using the [Vue.js](https://vuejs.org/)
 JavaScript framework. The user interface is structured as modular
@@ -22,6 +24,39 @@ components using [Vuetify.js](https://vuetifyjs.com/). The application
 state management is done using [Vuex](https://vuex.vuejs.org/en/). The
 code base employs ECMAScript 6 (ES6) features such as modules, arrow
 functions and classes to improve modularity and brevity.
+
+### Library
+The chatbot UI provides a library that can be used as a Vue plugin.
+It adds a property named `$lexWebUi` to the Vue class and registers
+a global Vue component name `LexWebUi`.
+
+You can import the library as a module and use it in your code:
+```JavaScript
+  // dependencies
+  import Vue from 'vue';
+  import Vuex from 'vuex';
+  import Vuetify from 'vuetify';
+
+  // import the component constructor
+  import { Loader as LexWebUi } from '@/lex-web-ui';
+
+  Vue.use(Vuetify);
+  Vue.use(Vuex);
+
+  // plugin creates the LexWebUi component
+  const lexWebUi = new LexWebUi({
+    // config options
+  });
+
+  // instantiate Vue
+  const vm = new Vue({
+    el: '#lex-web-ui',
+    // vuex store is in the lexWebUi instance
+    store: lexWebUi.store,
+    // you can use the globa LexWebUi/<lex-web-ui> commponent in templates
+    template: '<v-app toolbar id="lex-web-ui-app"><lex-web-ui/></v-app>',
+  });
+```
 
 ## Embedding as an iframe
 This project includes a sample script that can be used to embed
@@ -83,42 +118,52 @@ the WebRTC API to work. Make sure to serve the application from an HTTPS
 enabled server or if hosting on S3 or CloudFront, use https in the URL.
 
 ## Configuration and Customization
-The web ui supports configuration from 1) config files, 2) URL query
-parameter and 3) via `postMessage` when running in an iframe. The
-configuration is overriden in that order where the latter takes
-precedence.
+The chatbot UI requires configuration parameters pointing to external
+resources such as the Lex bot name and the Cognito Identity Pool Id
+(this repo includes CloudFormation templates to create these Cognito and
+Lex resources). Additionally, you may want to pass parameters to change
+the default run time configuration (e.g. look and feel).
 
-The application requires configuration of resources such as the Lex
-Bot name and the Cognito Identity Pool ID that may be dynamically
-created. Additionally, you may want to change the default configuration
-or pass dynamic parameter at run time. See the configuration mechanisms
-listed below for details.
+This configuration can come the sources listed below (by order of
+precedence where the latter overrides the previous).
 
-### Default configuration
-Various aspects of the chatbot UI web app can be configured in the
-[default config](src/config/index.js) file. This includes UI details
-such as colors, titles and text fields and Lex bot configuration.
+1. Default Configuration Object
+2. Build Time Configuration
+3. Run Time Configuration
+    1. URL Parameter
+    2. Iframe Config
 
-### Environment Configuration
-To run this sample web UI, you are going to need externally created
-resources such as the Lex Bot name and the Cognito Identity Pool ID
-(this repo includes CloudFormation templates to create the Cognito
-resources). These parameters can be passed to the application using a JSON
-config file under the `src/config` directory. The default configuration
-values in the `src/config/index.js` file can be overriden with this JSON
-config file.
+See the sections below for details about each one.
 
-The JSON config file should contain the the same key/value structure
-as the `configDefault` object in the `src/config/index.js` file. The
-content of the JSON config is merged with the values of `configDefault`
-overriding any defaults.
+### Default Configuration Object
+The base configuration comes from the `configDefault` object in the
+[src/config/index.js](src/config/index.js) script. This script controls
+customizable UI looks (e.g. colors, titles), behavior (e.g. recorder
+settings) and runtime parameters (e.g. Lex bot name). It exports an
+object that is the source of all available configurable options that
+the chatbot UI recognizes and their initial values.
+
+**NOTE**: To avoid having to manually merge future changes, you probably
+do not want to modify the values in the `src/config/index.js`. You should
+instead pass your own configuration using the mechanisms listed in the
+following sections.
+
+### Build Time Configuration
+The chatbot UI build process can import configuration from a JSON
+file. This is done when [webpack](https://webpack.github.io/) bundles
+the chatbot UI files (normally done using `npm run build`).
+
+This JSON config file should contain the the same key/value structure
+as the `configDefault` object in the `src/config/index.js` file. Its
+content is merged with the values of `configDefault` overriding the
+initial values.
 
 The JSON config files reside under the `src/config` directory. They
 follow the naming convention: `config.<ENV>.json` where `<ENV>`
 depends on the on the environment type as determined by the `NODE_ENV`
 environmental variable (e.g. development, production). This allows to
 pass a configuration that is specific to the specific build or runtime
-environment.  The files follow this directory structure:
+environment. The files follow this directory structure:
 
 ```
 .
@@ -147,13 +192,25 @@ Here's an example of the `config.dev.json` file:
 }
 ```
 
-### Dynamic Configuration
-#### URL Parameter
-The chatbot UI configuration can be initialized using the `config` URL
-parameter. This is supported both in iframe and stand-alone mode of the
-chatbot UI.
+**NOTE**: The CloudFormation templates included in this repo create
+a pipeline that uses CodeBuild. The CloudFormation stack created by
+these templates passes various parameters as environmental variables to
+CodeBuild. These environmental variables are used by CodeBuild to populate
+values in the JSON files described above. For example, when the stack
+creates a Cognito Pool Id, the Pool Id is passed to CodeBuild which in
+turn modifies the JSON files described above. Please take into account
+that CodeBuild may override the values in your files at build time.
 
-The `config` URL parameter should follow the same JSON structure of the
+### Run Time Configuration
+The chatbot UI can be passed dynamic configuration at run time. This allows
+to override the default and build time configuration.
+
+#### URL Parameter
+The chatbot UI configuration can be initialized using the `lexWebUiConfig` URL
+parameter. This is mainly geared to be used in the stand-alone mode of
+the chatbot UI (not iframe).
+
+The `lexWebUiConfig` URL parameter should follow the same JSON structure of the
 `configDefault` object in the `src/config/index.js` file. This parameter
 should be a JSON serialized and URL encoded JavaScript object. Values
 from this parameter override the ones from the environment config files.
@@ -161,13 +218,27 @@ from this parameter override the ones from the environment config files.
 For example to change the initialText config field, you can use a URL
 like this:
 
-`https://mybucket.s3.amazonaws.com/index.html#/?config=%7B%22lex%22%3A%7B%22initialText%22%3A%22Ask%20me%20a%20question%22%7D%7D`
+`https://mybucket.s3.amazonaws.com/index.html#/?lexWebUiconfig=%7B%22lex%22%3A%7B%22initialText%22%3A%22Ask%20me%20a%20question%22%7D%7D`
 
-### Iframe Config
+You can encode the `lexWebUiConfig` URL parameter like this:
+```javascript
+var lexWebUiConfig = JSON.stringify({
+  lex: {
+    initialText: 'Ask me a question',
+  }
+});
+
+var query = 'lexWebUiConfig=' + encodeURIComponent(lexWebUiConfig);
+var url = 'https://mybucket.s3.amazonaws.com/index.html#/?' + query;
+var lexWebUiWindow = window.open(url, 'Lex Web UI', 'width=400', 'height=500');
+```
+
+#### Iframe Config
 When running in an iframe, the chatbot UI can obtain its config from the
 parent page. Additionally, the parent page has its own config. Please
-refer to the README in the [static/iframe](static/iframe) directory
-for details.
+refer to the
+[README](https://github.com/awslabs/aws-lex-web-ui/tree/master/lex-web-ui/static/iframe#configuration)
+in the [static/iframe](static/iframe) directory for details.
 
 ### Playback Options
 The voice responses from the Lex `postContent` API calls are automatically
@@ -254,8 +325,6 @@ npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
-
-### NOTE: tests are not implemented
 
 # run unit tests
 npm run unit
