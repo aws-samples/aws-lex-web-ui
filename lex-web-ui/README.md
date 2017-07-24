@@ -171,11 +171,11 @@ The chatbot UI can be passed dynamic configuration at run time. This allows
 to override the default and build time configuration.
 
 #### URL Parameter
-The chatbot UI configuration can be initialized using the `config` URL
+The chatbot UI configuration can be initialized using the `lexWebUiConfig` URL
 parameter. This is mainly geared to be used in the stand-alone mode of
 the chatbot UI (not iframe).
 
-The `config` URL parameter should follow the same JSON structure of the
+The `lexWebUiConfig` URL parameter should follow the same JSON structure of the
 `configDefault` object in the `src/config/index.js` file. This parameter
 should be a JSON serialized and URL encoded JavaScript object. Values
 from this parameter override the ones from the environment config files.
@@ -183,7 +183,20 @@ from this parameter override the ones from the environment config files.
 For example to change the initialText config field, you can use a URL
 like this:
 
-`https://mybucket.s3.amazonaws.com/index.html#/?config=%7B%22lex%22%3A%7B%22initialText%22%3A%22Ask%20me%20a%20question%22%7D%7D`
+`https://mybucket.s3.amazonaws.com/index.html#/?lexWebUiconfig=%7B%22lex%22%3A%7B%22initialText%22%3A%22Ask%20me%20a%20question%22%7D%7D`
+
+You can encode the `lexWebUiConfig` URL parameter like this:
+```javascript
+var lexWebUiConfig = JSON.stringify({
+  lex: {
+    initialText: 'Ask me a question',
+  }
+});
+
+var query = 'lexWebUiConfig=' + encodeURIComponent(lexWebUiConfig);
+var url = 'https://mybucket.s3.amazonaws.com/index.html#/?' + query;
+var lexWebUiWindow = window.open(url, 'Lex Web UI', 'width=400', 'height=500');
+```
 
 #### Iframe Config
 When running in an iframe, the chatbot UI can obtain its config from the

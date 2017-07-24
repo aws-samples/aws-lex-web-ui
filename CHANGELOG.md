@@ -4,9 +4,54 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.X.X] - 2017-XX-XX
+## [0.8.0] - 2017-XX-XX
+This release makes it easier to include the chatbot ui into existing
+sites. The project now distributes a prebuilt library in the dist
+directory. The root directory of the repo now contains a package.json
+file to make it easier to npm install it.
+
+There are a few breaking changes regarding the supported URL parameters
+which now use the `lexWebUi` prefix to avoid conflicts when including
+the component in an existing site.
+
 ### Changed
-- Clarified config passing documentation
+- **[BREAKING]** Changed config passing URL query parameter from `config`
+  to `lexWebUiConfig`
+- **[BREAKING]** Changed URL query parameter to run in embedded mode from
+  `embed` to `lexWebUiEmbed`
+- The `parentOrigin` config variable now defaults to
+  `window.location.origin` to support single origin iframe setups
+  without having to set it in the the JSON config file
+- Restructured Vuex store including:
+    * Split state, mutations and actions to individual files
+    * Moved audio, recorder, aws credentials/clients out of the state.
+      Those now exist as module variables visible from the store actions
+    * AWS credentials from parent are now manually recreated to avoid
+      including the AWS SDK as part of the store
+- Changed from using vuex mapGetter in components to instead use the
+  store state variables. This was done to avoid redistributing vuex
+  in the built library and to support vuex being loaded outside of the
+  chatbot ui.
+- Moved Vue component initialization from LexApp.vue to LexWeb.vue
+- Moved Page component to LexApp.vue from LexWeb.vue
+- Moved webpack related import config from recorder to the general
+  webpack config
+- Commented out webrtc-adapter import in preparation to deprecating it
+- Changed constructor arguments of lex client to accept a
+  lexRuntime client instead of AWS credentials or SDK config. This allows
+  redistributing without having to include AWS SDK as a direct dependency
+- Changed iframe container class name
+
+### Added
+- Created a Vue plugin that can be used to instantiate the chatbot ui
+  both as an import in a webpack based project or by directly sourcing
+  the library in a script tag. The plugin registers itself and adds
+  a property named `$lexWebUi` to the Vue class. It adds a global Vue
+  component name `LexWebUi`
+- Added a distribution build config and related scripts
+- Added an example on how to encode the URL query parameter config
+- Added a new config object key `urlQueryParams` holding the url query
+  parameters
 
 ## [0.7.1] - 2017-07-17
 This release adds basic unit and e2e testing. Various components were
