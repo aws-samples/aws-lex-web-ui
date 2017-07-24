@@ -12,53 +12,44 @@
  */
 
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-import LexRuntime from 'aws-sdk/clients/lexruntime';
 
 export default class {
   constructor({
     botName,
     botAlias = '$LATEST',
-    user,
-    region = 'us-east-1',
-    credentials = {},
-
-    // AWS.Config object that is used to initialize the client
-    // the region and credentials argument override it
-    awsSdkConfig = {},
+    userId,
+    lexRuntimeClient,
   }) {
-    this.botName = botName;
-    this.botAlias = botAlias;
-    this.user = user || 'lex-web-ui-' +
-      `${Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)}`;
-    this.region = region || awsSdkConfig.region;
-    this.credentials = credentials || awsSdkConfig.credentials;
-    this.identityId = (this.credentials.identityId) ?
-      this.credentials.identityId : this.user;
-
-    if (!this.botName || !this.region) {
+    if (!botName || !lexRuntimeClient) {
       throw new Error('invalid lex client constructor arguments');
     }
 
-    this.lexRuntime = new LexRuntime(
-      { ...awsSdkConfig, region: this.region, credentials: this.credentials },
-    );
+    this.botName = botName;
+    this.botAlias = botAlias;
+    this.userId = userId ||
+      'lex-web-ui-' +
+      `${Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)}`;
+
+    this.lexRuntimeClient = lexRuntimeClient;
+    this.credentials = this.lexRuntimeClient.config.credentials;
   }
 
   initCredentials(credentials) {
     this.credentials = credentials;
-    this.lexRuntime.config.credentials = this.credentials;
-    this.identityId = this.credentials.identityId;
+    this.lexRuntimeClient.config.credentials = this.credentials;
+    this.userId = (credentials.identityId) ?
+      credentials.identityId :
+      this.userId;
   }
 
   postText(inputText, sessionAttributes = {}) {
-    const postTextReq = this.lexRuntime.postText({
+    const postTextReq = this.lexRuntimeClient.postText({
       botAlias: this.botAlias,
       botName: this.botName,
+      userId: this.userId,
       inputText,
       sessionAttributes,
-      userId: this.identityId,
     });
-
     return this.credentials.getPromise()
       .then(() => postTextReq.promise());
   }
@@ -82,14 +73,14 @@ export default class {
       console.warn('unknown media type in lex client');
     }
 
-    const postContentReq = this.lexRuntime.postContent({
+    const postContentReq = this.lexRuntimeClient.postContent({
       accept: acceptFormat,
       botAlias: this.botAlias,
       botName: this.botName,
+      userId: this.userId,
       contentType,
       inputStream: blob,
       sessionAttributes,
-      userId: this.identityId,
     });
 
     return this.credentials.getPromise()

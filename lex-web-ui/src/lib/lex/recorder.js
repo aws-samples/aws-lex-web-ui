@@ -14,13 +14,12 @@
 /* eslint no-console: ["error", { allow: ["info", "warn", "error"] }] */
 /* global AudioContext CustomEvent document Event navigator window */
 
-// wav encoder worker
-/* eslint import/no-webpack-loader-syntax: off */
-// XXX need to use webpack format as it breaks with other formats
-// TODO change to use generic es6 worker
-import WavWorker from 'worker-loader!./wav-worker';
+// XXX do we need webrtc-adapter?
+// XXX npm uninstall it after testing
+// XXX import 'webrtc-adapter';
 
-import 'webrtc-adapter';
+// wav encoder worker - uses webpack worker loader
+import WavWorker from './wav-worker';
 
 /**
  * Lex Recorder Module
