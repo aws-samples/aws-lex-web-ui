@@ -1667,6 +1667,7 @@ var Loader = function Loader(config) {
     throw new Error('unable to find Vue');
   }
 
+  // TODO name space store
   this.store = new VuexConstructor.Store(__WEBPACK_IMPORTED_MODULE_10__store__["a" /* default */]);
 
   VueConstructor.use(Plugin, {
@@ -3967,7 +3968,7 @@ License for the specific language governing permissions and limitations under th
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  version:  true ? "0.7.1" : '0.0.0',
+  version:  true ? "0.8.0" : '0.0.0',
   lex: {
     acceptFormat: 'audio/ogg',
     dialogState: '',
@@ -4200,7 +4201,7 @@ webpackContext.id = 136;
 
 module.exports = {
 	"cognito": {
-		"poolId": "us-east-1:6d391c4b-f646-47cc-8482-07238cfef4ea"
+		"poolId": ""
 	},
 	"lex": {
 		"botName": "WebUiOrderFlowers",
@@ -6677,7 +6678,7 @@ var initRecorderHandlers = function initRecorderHandlers(context, recorder) {
     context.commit('setIsMicQuiet', false);
   };
 
-  // TODO need to change recorder event setter so support
+  // TODO need to change recorder event setter to support
   // replacing handlers instead of adding
   recorder.ondataavailable = function (e) {
     var mimeType = recorder.mimeType;
