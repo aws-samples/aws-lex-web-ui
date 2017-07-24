@@ -37,7 +37,6 @@ BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'input-container',
@@ -59,44 +58,51 @@ export default {
     isMicButtonDisabled() {
       return this.isMicMuted;
     },
-    // vuex state getters
-    ...mapGetters([
-      'isBotSpeaking',
-      'isConversationGoing',
-      'isMicMuted',
-      'isRecorderSupported',
-    ]),
+    isBotSpeaking() {
+      return this.$store.state.botAudio.isSpeaking;
+    },
+    isConversationGoing() {
+      return this.$store.state.recState.isConversationGoing;
+    },
+    isMicMuted() {
+      return this.$store.state.recState.isMicMuted;
+    },
+    isRecorderSupported() {
+      return this.$store.state.recState.isRecorderSupported;
+    },
   },
   props: ['textInputPlaceholder', 'initialSpeechInstruction', 'initialText'],
   methods: {
     postTextMessage() {
       // empty string
       if (!this.textInput.length) {
-        return;
+        return Promise.resolve();
       }
       const message = {
         type: 'human',
         text: this.textInput,
       };
 
-      this.$store.dispatch('postTextMessage', message);
-      this.textInput = '';
+      return this.$store.dispatch('postTextMessage', message)
+        .then(() => {
+          this.textInput = '';
+        });
     },
     onMicClick() {
       if (!this.isConversationGoing) {
-        this.startSpeechConversation();
+        return this.startSpeechConversation();
       } else if (this.isBotSpeaking) {
-        this.$store.dispatch('interruptSpeechConversation');
+        return this.$store.dispatch('interruptSpeechConversation');
       }
+
+      return Promise.resolve();
     },
     startSpeechConversation() {
       if (this.isMicMuted) {
-        return;
+        return Promise.resolve();
       }
-
-      this.setAutoPlay();
-
-      this.playInitialInstruction()
+      return this.setAutoPlay()
+        .then(() => this.playInitialInstruction())
         .then(() => this.$store.dispatch('startConversation'))
         .catch((error) => {
           console.error('error in startSpeechConversation', error);
@@ -126,11 +132,10 @@ export default {
      * don't require interaction so this is only done once.
      */
     setAutoPlay() {
-      // TODO make this return a promise that resolves when audio is played
-      if (!this.$store.state.botAudio.autoPlay) {
-        this.$store.state.botAudio.audio.play();
-        this.$store.commit('setAudioAutoPlay', true);
+      if (this.$store.state.botAudio.autoPlay) {
+        return Promise.resolve();
       }
+      return this.$store.dispatch('setAudioAutoPlay');
     },
   },
 };
