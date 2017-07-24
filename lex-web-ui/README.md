@@ -15,6 +15,8 @@ It works by making calls to the Lex service directly from a
 user's browser using temporary credentials obtained from [Amazon
 Cognito](https://aws.amazon.com/cognito/). This allows the chatbot web app
 to be served from S3 or CloudFront in a scalable serverless architecture.
+Here is a diagram of how the application works:
+<img src="../img/webapp-diagram.png" width=480>
 
 The chatbot web app is built using the [Vue.js](https://vuejs.org/)
 JavaScript framework. The user interface is structured as modular
@@ -22,6 +24,39 @@ components using [Vuetify.js](https://vuetifyjs.com/). The application
 state management is done using [Vuex](https://vuex.vuejs.org/en/). The
 code base employs ECMAScript 6 (ES6) features such as modules, arrow
 functions and classes to improve modularity and brevity.
+
+### Library
+The chatbot UI provides a library that can be used as a Vue plugin.
+It adds a property named `$lexWebUi` to the Vue class and registers
+a global Vue component name `LexWebUi`.
+
+You can import the library as a module and use it in your code:
+```JavaScript
+  // dependencies
+  import Vue from 'vue';
+  import Vuex from 'vuex';
+  import Vuetify from 'vuetify';
+
+  // import the component constructor
+  import { Loader as LexWebUi } from '@/lex-web-ui';
+
+  Vue.use(Vuetify);
+  Vue.use(Vuex);
+
+  // plugin creates the LexWebUi component
+  const lexWebUi = new LexWebUi({
+    // config options
+  });
+
+  // instantiate Vue
+  const vm = new Vue({
+    el: '#lex-web-ui',
+    // vuex store is in the lexWebUi instance
+    store: lexWebUi.store,
+    // you can use the globa LexWebUi/<lex-web-ui> commponent in templates
+    template: '<v-app toolbar id="lex-web-ui-app"><lex-web-ui/></v-app>',
+  });
+```
 
 ## Embedding as an iframe
 This project includes a sample script that can be used to embed

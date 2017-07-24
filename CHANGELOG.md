@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.8.0] - 2017-XX-XX
-This release makes it easier to include the chatbot ui into existing
-sites. The project now distributes a prebuilt library in the dist
-directory. The root directory of the repo now contains a package.json
+## [0.8.0] - 2017-07-24
+This release makes it easier to include the chatbot UI into existing
+sites. The project now distributes a pre-built library in the dist
+directory. This allows to use the chatbot UI without having to build the
+application. The root directory of the repo now contains a package.json
 file to make it easier to npm install it.
 
 There are a few breaking changes regarding the supported URL parameters
@@ -41,6 +42,9 @@ the component in an existing site.
   lexRuntime client instead of AWS credentials or SDK config. This allows
   redistributing without having to include AWS SDK as a direct dependency
 - Changed iframe container class name
+- Rearranged the README files. The main README contains info about the
+  npm package and instructions to use the library. The CloudFormation and
+  application details where move to different README files.
 
 ### Added
 - Created a Vue plugin that can be used to instantiate the chatbot ui
