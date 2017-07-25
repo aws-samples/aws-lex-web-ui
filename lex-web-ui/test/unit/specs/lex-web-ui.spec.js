@@ -27,7 +27,7 @@ describe('lex-web-ui.js', () => {
   it('should initialize $lexWebUi', () => {
     expect(vm, 'vue').to.have.a.property('$lexWebUi')
       .that.is.an('object')
-      .that.includes.keys('awsConfig', 'lexRuntimeClient', 'pollyClient');
+      .that.includes.keys('config', 'awsConfig', 'lexRuntimeClient', 'pollyClient');
 
     expect(vm.$lexWebUi.awsConfig, '$lexWebUi awsConfig')
       .to.be.an('object')

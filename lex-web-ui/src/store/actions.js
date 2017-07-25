@@ -18,8 +18,6 @@ License for the specific language governing permissions and limitations under th
 /* eslint no-console: ["error", { allow: ["info", "warn", "error"] }] */
 /* eslint spaced-comment: ["error", "always", { "exceptions": ["*"] }] */
 
-import { config } from '@/config';
-
 import LexAudioRecorder from '@/lib/lex/recorder';
 import initRecorderHandlers from '@/store/recorder-handlers';
 import silentOgg from '@/assets/silent.ogg';
@@ -628,7 +626,7 @@ export default {
         }
       };
       parent.postMessage(message,
-        config.ui.parentOrigin, [messageChannel.port2]);
+        context.state.config.ui.parentOrigin, [messageChannel.port2]);
     });
   },
 };

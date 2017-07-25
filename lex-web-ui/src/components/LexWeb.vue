@@ -96,7 +96,8 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('getConfigFromParent')
+    this.$store.dispatch('initConfig', this.$lexWebUi.config)
+      .then(() => this.$store.dispatch('getConfigFromParent'))
       .then(config => this.$store.dispatch('initConfig', config))
       .then(() =>
         Promise.all([
