@@ -45,7 +45,18 @@ You can import the library as a module and use it in your code:
 
   // plugin creates the LexWebUi component
   const lexWebUi = new LexWebUi({
-    // config options
+    // pass your own configuration
+    cognito: {
+      poolId: 'us-east-1:deadbeef-fade-babe-cafe-0123456789ab',
+    },
+    lex: {
+      initialText: 'How can I help you?',
+      botName: 'helpBot',
+    },
+    ui: {
+      toolbarTitle: 'Help Bot',
+      toolbarLogo: '',
+    },
   });
 
   // instantiate Vue

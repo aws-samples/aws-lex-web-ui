@@ -260,17 +260,23 @@ export default {
    * with a dynamic config param and merges it with
    * the existing config (e.g. initialized from ../config)
    */
-  mergeConfig(state, configObj) {
-    if (typeof configObj !== 'object') {
-      console.error('config is not an object', configObj);
+  mergeConfig(state, config) {
+    if (typeof config !== 'object') {
+      console.error('config is not an object', config);
       return;
     }
 
     // security: do not accept dynamic parentOrigin
-    if (configObj.ui && configObj.ui.parentOrigin) {
-      delete configObj.ui.parentOrigin;
+    const configFiltered = {
+      ...config,
+      ...{ ui: { parentOrigin: state.config.ui.parentOrigin } },
+    };
+    if (config.ui && config.ui.parentOrigin &&
+      config.ui.parentOrigin !== state.config.ui.parentOrigin
+    ) {
+      console.warn('ignoring parentOrigin in config: ', config.ui.parentOrigin);
     }
-    state.config = mergeConfig(state.config, configObj);
+    state.config = mergeConfig(state.config, configFiltered);
   },
   /**
    * Set to true if running embedded in an iframe

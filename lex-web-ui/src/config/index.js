@@ -44,6 +44,7 @@ const toolbarLogo = (toolbarLogoRequireKey) ?
   toolbarLogoRequire(toolbarLogoRequireKey) :
   require('../../node_modules/material-design-icons/maps/2x_web/ic_local_florist_white_18dp.png');
 
+// TODO move favicon out of here since it belongs to LexApp
 // search for favicon in assets directory - use toolbar logo if not found
 const favIconRequire =
   require.context('../assets', false, /^\.\/favicon.(png|jpe?g|svg|ico)$/);
@@ -99,6 +100,7 @@ const configDefault = {
     // after the bot dialog is done (i.e. fail or fulfilled)
     reInitSessionAttributesOnRestart: true,
 
+    // TODO move this config fields to converser
     // allow to interrupt playback of lex responses by talking over playback
     // XXX experimental
     enablePlaybackInterrupt: false,
@@ -129,6 +131,7 @@ const configDefault = {
   },
 
   ui: {
+    // TODO may want to move pageTitle out to LexApp or Page component
     // title of HTML page added dynamically to index.html
     pageTitle: 'Order Flowers Bot',
 
@@ -139,7 +142,7 @@ const configDefault = {
     // avoid making it '*'
     // if left as an empty string, it will be set to window.location.window
     // to allow runing embedded in a single origin setup
-    parentOrigin: '',
+    parentOrigin: null,
 
     // chat window text placeholder
     textInputPlaceholder: 'Type here',
@@ -267,23 +270,45 @@ function getConfigFromQuery(query) {
 
 /**
  * Merge two configuration objects
- * The merge process takes the base config as the source for keys to be merged
+ * The merge process takes the base config as the source for keys to be merged.
  * The values in srcConfig take precedence in the merge.
- * Merges down to the second level
+ *
+ * If deep is set to false (default), a shallow merge is done down to the
+ * second level of the object. Object values under the second level fully
+ * overwrite the base. For example, srcConfig.lex.sessionAttributes overwrite
+ * the base as an object.
+ *
+ * If deep is set to true, the merge is done recursively in both directions.
  */
-export function mergeConfig(configBase, configSrc) {
-  // iterate over the keys of the config base
-  return Object.keys(configBase)
+export function mergeConfig(baseConfig, srcConfig, deep = false) {
+  function mergeValue(base, src, key, shouldMergeDeep) {
+    // nothing to merge as the base key is not found in the src
+    if (!(key in src)) {
+      return base[key];
+    }
+
+    // deep merge in both directions using recursion
+    if (shouldMergeDeep && typeof base[key] === 'object') {
+      return {
+        ...mergeConfig(src[key], base[key], shouldMergeDeep),
+        ...mergeConfig(base[key], src[key], shouldMergeDeep),
+      };
+    }
+
+    // shallow merge key/values
+    // overriding the base values with the ones from the source
+    return (typeof base[key] === 'object') ?
+      { ...base[key], ...src[key] } :
+      src[key];
+  }
+
+  // use the baseConfig first level keys as the base for merging
+  return Object.keys(baseConfig)
     .map((key) => {
-      // only grab keys that already exist in the config base
-      const value = (key in configSrc) ?
-        // merge the second level key/values
-        // overriding the base values with the ones from the source
-        { ...configBase[key], ...configSrc[key] } :
-        configBase[key];
+      const value = mergeValue(baseConfig, srcConfig, key, deep);
       return { [key]: value };
     })
-    // merge the first level key values back into a single object
+    // merge key values back into a single object
     .reduce((merged, configItem) => ({ ...merged, ...configItem }), {});
 }
 

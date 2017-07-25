@@ -69,7 +69,7 @@ const AsyncComponent = ({
 /**
  * Vue Plugin
  */
-const Plugin = {
+export const Plugin = {
   install(VueConstructor, {
     name = '$lexWebUi',
     componentName = 'lex-web-ui',
@@ -81,10 +81,10 @@ const Plugin = {
   }) {
     // values to be added to custom vue property
     const value = {
+      config,
       awsConfig,
       lexRuntimeClient,
       pollyClient,
-      config,
     };
     // add custom property to Vue
     // for example, access this in a component via this.$lexWebUi
@@ -100,13 +100,7 @@ export const Store = VuexStore;
  * Main Class
  */
 export class Loader {
-  constructor(config) {
-    // TODO deep merge configs
-    this.config = {
-      ...defaultConfig,
-      ...config,
-    };
-
+  constructor(config = defaultConfig) {
     // TODO move this to a function (possibly a reducer)
     const AWSConfigConstructor = (window.AWS && window.AWS.Config) ?
       window.AWS.Config :
@@ -131,17 +125,17 @@ export class Loader {
     }
 
     const credentials = new CognitoConstructor(
-      { IdentityPoolId: this.config.cognito.poolId },
-      { region: this.config.region },
+      { IdentityPoolId: config.cognito.poolId },
+      { region: config.region },
     );
 
     const awsConfig = new AWSConfigConstructor({
-      region: this.config.region,
+      region: config.region,
       credentials,
     });
 
     const lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
-    const pollyClient = (this.config.recorder.enable) ?
+    const pollyClient = (config.recorder.enable) ?
       new PollyConstructor(awsConfig) : null;
 
     const VueConstructor = (window.Vue) ? window.Vue : Vue;
@@ -158,6 +152,7 @@ export class Loader {
     this.store = new VuexConstructor.Store(VuexStore);
 
     VueConstructor.use(Plugin, {
+      config,
       awsConfig,
       lexRuntimeClient,
       pollyClient,
