@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.8.1] - 2017-07-25
+### Fixed
+- Fixed config initialization and parentOrigin issues
+### Changed
+- Clarified documentation
+- Exported Vue plugin from library
+- Added deep merge capability to mergConfig
+
 ## [0.8.0] - 2017-07-24
 This release makes it easier to include the chatbot UI into existing
 sites. The project now distributes a pre-built library in the dist
