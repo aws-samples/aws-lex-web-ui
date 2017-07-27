@@ -315,6 +315,7 @@ export function mergeConfig(baseConfig, srcConfig, deep = false) {
 // merge build time parameters
 const configFromFiles = mergeConfig(configDefault, configEnvFile);
 
+// TODO move query config to a store action
 // run time config from url query parameter
 const queryParams = getUrlQueryParams(window.location.href);
 const configFromQuery = getConfigFromQuery(queryParams);
@@ -324,10 +325,6 @@ if (configFromQuery.ui && configFromQuery.ui.parentOrigin) {
 }
 
 const configFromMerge = mergeConfig(configFromFiles, configFromQuery);
-
-// if parent origin is empty, assume to be running in the same origin
-configFromMerge.ui.parentOrigin = configFromMerge.ui.parentOrigin ||
-  window.location.origin;
 
 export const config = {
   ...configFromMerge,

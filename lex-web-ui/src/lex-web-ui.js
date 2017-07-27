@@ -11,6 +11,8 @@ BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
 
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+
 /**
  * Entry point to the lex-web-ui Vue plugin
  * Exports Loader as the plugin constructor
@@ -25,7 +27,8 @@ import Polly from 'aws-sdk/clients/polly';
 
 import LexWeb from '@/components/LexWeb';
 import VuexStore from '@/store';
-import { config as defaultConfig } from '@/config';
+
+import { config as defaultConfig, mergeConfig } from '@/config';
 
 /**
  * Vue Component
@@ -79,6 +82,9 @@ export const Plugin = {
     component = AsyncComponent,
     config = defaultConfig,
   }) {
+    if (name in VueConstructor) {
+      console.warn('plugin should only be used once');
+    }
     // values to be added to custom vue property
     const value = {
       config,
@@ -100,8 +106,19 @@ export const Store = VuexStore;
  * Main Class
  */
 export class Loader {
-  constructor(config = defaultConfig) {
-    // TODO move this to a function (possibly a reducer)
+  constructor(config = {}) {
+    const mergedConfig = mergeConfig(defaultConfig, config);
+
+    const VueConstructor = (window.Vue) ? window.Vue : Vue;
+    if (!VueConstructor) {
+      throw new Error('unable to find Vue');
+    }
+
+    const VuexConstructor = (window.Vuex) ? window.Vuex : Vuex;
+    if (!VuexConstructor) {
+      throw new Error('unable to find Vuex');
+    }
+
     const AWSConfigConstructor = (window.AWS && window.AWS.Config) ?
       window.AWS.Config :
       AWSConfig;
@@ -125,34 +142,26 @@ export class Loader {
     }
 
     const credentials = new CognitoConstructor(
-      { IdentityPoolId: config.cognito.poolId },
-      { region: config.region },
+      { IdentityPoolId: mergedConfig.cognito.poolId },
+      { region: mergedConfig.region || 'us-east-1' },
     );
 
     const awsConfig = new AWSConfigConstructor({
-      region: config.region,
+      region: mergedConfig.region || 'us-east-1',
       credentials,
     });
 
     const lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
-    const pollyClient = (config.recorder.enable) ?
-      new PollyConstructor(awsConfig) : null;
-
-    const VueConstructor = (window.Vue) ? window.Vue : Vue;
-    if (!VueConstructor) {
-      throw new Error('unable to find Vue');
-    }
-
-    const VuexConstructor = (window.Vuex) ? window.Vuex : Vuex;
-    if (!VuexConstructor) {
-      throw new Error('unable to find Vue');
-    }
+    const pollyClient = (
+      typeof mergedConfig.recorder === 'undefined' ||
+      (mergedConfig.recorder && mergedConfig.recorder.enable !== false)
+    ) ? new PollyConstructor(awsConfig) : null;
 
     // TODO name space store
     this.store = new VuexConstructor.Store(VuexStore);
 
     VueConstructor.use(Plugin, {
-      config,
+      config: mergedConfig,
       awsConfig,
       lexRuntimeClient,
       pollyClient,

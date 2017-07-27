@@ -1,7 +1,6 @@
 import 'babel-polyfill';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Vuetify from 'vuetify';
 
 import { Loader as LexWebUi } from '@/lex-web-ui';
 
@@ -12,16 +11,18 @@ describe('lex-web-ui.js', () => {
   let lexWebUi;
 
   beforeEach(() => {
-    Vue.use(Vuetify);
     Vue.use(Vuex);
 
     lexWebUi = new LexWebUi();
 
     vm = new Vue({
-      el: '#lex-web-ui',
       store: lexWebUi.store,
-      template: '<v-app toolbar id="lex-web-ui-app"><lex-web-ui/></v-app>',
+      template: '<lex-web-ui/>',
     });
+  });
+
+  afterEach(() => {
+    vm.$destroy();
   });
 
   it('should initialize $lexWebUi', () => {

@@ -25,6 +25,10 @@ describe('LexWeb.vue', () => {
     });
   });
 
+  afterEach(() => {
+    vm.$destroy();
+  });
+
   it('should render sub components', () => {
     // disable recorder
     vm.$store.commit('setIsRecorderEnabled', false);

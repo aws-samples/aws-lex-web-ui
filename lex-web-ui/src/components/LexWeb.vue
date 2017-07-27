@@ -76,7 +76,10 @@ export default {
       this.$store.commit('setIsRunningEmbedded', false);
       this.$store.commit('setAwsCredsProvider', 'cognito');
     } else {
-      console.info('running in embedded mode from URL: ', location.href);
+      // running embedded
+      console.info('running in embedded mode from URL: ',
+        document.location.href,
+      );
       console.info('referrer (possible parent) URL: ', document.referrer);
       console.info('config parentOrigin:',
         this.$store.state.config.ui.parentOrigin,
@@ -98,10 +101,17 @@ export default {
   mounted() {
     this.$store.dispatch('initConfig', this.$lexWebUi.config)
       .then(() => this.$store.dispatch('getConfigFromParent'))
-      .then(config => this.$store.dispatch('initConfig', config))
+      .then(config => (
+        // avoid merging an empty config
+        (Object.keys(config).length) ?
+          this.$store.dispatch('initConfig', config) :
+          Promise.resolve()
+      ))
       .then(() =>
         Promise.all([
-          this.$store.dispatch('initCredentials', this.$lexWebUi.awsConfig.credentials),
+          this.$store.dispatch('initCredentials',
+            this.$lexWebUi.awsConfig.credentials,
+          ),
           this.$store.dispatch('initRecorder'),
           this.$store.dispatch('initBotAudio', new Audio()),
         ]),
@@ -110,7 +120,9 @@ export default {
         Promise.all([
           this.$store.dispatch('initMessageList'),
           this.$store.dispatch('initPollyClient', this.$lexWebUi.pollyClient),
-          this.$store.dispatch('initLexClient', this.$lexWebUi.lexRuntimeClient),
+          this.$store.dispatch('initLexClient',
+            this.$lexWebUi.lexRuntimeClient,
+          ),
         ]),
       )
       .then(() => (
@@ -126,7 +138,9 @@ export default {
         ),
       )
       .catch((error) => {
-        console.error('could not initialize application while mounting:', error);
+        console.error('could not initialize application while mounting:',
+          error,
+        );
       });
   },
   methods: {
