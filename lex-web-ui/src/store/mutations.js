@@ -136,13 +136,13 @@ export default {
    * Set to true when the Lex audio is ready to autoplay
    * after it has already played audio on user interaction (click)
    */
-  setAudioAutoPlay(state, audio, bool) {
-    if (typeof bool !== 'boolean') {
-      console.error('setAudioAutoPlay status not boolean', bool);
+  setAudioAutoPlay(state, { audio, status }) {
+    if (typeof status !== 'boolean') {
+      console.error('setAudioAutoPlay status not boolean', status);
       return;
     }
-    state.botAudio.autoPlay = bool;
-    audio.autoplay = bool;
+    state.botAudio.autoPlay = status;
+    audio.autoplay = status;
   },
   /**
   * set to true if bot playback can be interrupted
