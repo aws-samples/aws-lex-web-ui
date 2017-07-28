@@ -10,7 +10,7 @@ describe('store', () => {
   let store;
 
   beforeEach(() => {
-    store = new Vuex.Store(Store);
+    store = new Vuex.Store({ ...Store });
   });
 
   it('loads the initial config at build time from a JSON file', () => {
