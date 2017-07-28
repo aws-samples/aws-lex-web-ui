@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [unreleased] - 2017-XX-XX
+### Changed
+- Moved default icons from config to sample application
+- Reduced the size of silent sounds
+- Update dependencies
+
 ## [0.8.2] - 2017-07-27
 ### Fixed
 - Fixed config initialization issues
