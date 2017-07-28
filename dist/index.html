@@ -4,10 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>LexWebUi Demo</title>
+
     <!-- Font Dependencies -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet" type="text/css">
     <!-- CSS Dependencies -->
-    <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
+    <link href="https://unpkg.com/vuetify@0.14.7/dist/vuetify.min.css" rel="stylesheet" type="text/css">
 
     <!-- LexWebUi CSS -->
     <link href="./lex-web-ui.min.css" rel="stylesheet" type="text/css">
@@ -27,29 +29,30 @@
     <div id="lex-web-ui"></div>
 
     <!-- JavaScript Dependencies -->
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.88.0.min.js"></script>
-    <script src="https://unpkg.com/vue@2.4.1"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.92.0.min.js"></script>
+    <script src="https://unpkg.com/vue@2.4.2"></script>
     <script src="https://unpkg.com/vuex@2.3.1"></script>
-    <script src="https://unpkg.com/vuetify@0.13.1"></script>
+    <!-- see vuetify CSS under HEAD -->
+    <script src="https://unpkg.com/vuetify@0.14.7"></script>
 
     <!-- LexWebUi Library -->
     <script src="./lex-web-ui.js"></script>
     <script>
       const lexWebUi = new LexWebUi.Loader({
-        /* pass your own configuration
         cognito: {
-          poolId: 'us-east-1:deadbeef-fade-babe-cafe-0123456789ab',
+          /* pass your own Cognito pool ID */
+          // poolId: 'us-east-1:deadbeef-fade-babe-cafe-0123456789ab',
         },
         lex: {
-          botName: 'myLexHelpBot',
+          /* pass the name of your own Lex bot */
+          // botName: 'myLexHelpBot',
           initialText: 'How can I help you?',
-          initialSpeechInstruction: 'How can I help'?
+          initialSpeechInstruction: 'How can I help?',
         },
         ui: {
           toolbarTitle: 'Help Bot',
           toolbarLogo: '',
         },
-        */
       });
 
       new Vue({
