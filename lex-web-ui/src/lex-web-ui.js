@@ -158,7 +158,7 @@ export class Loader {
     ) ? new PollyConstructor(awsConfig) : null;
 
     // TODO name space store
-    this.store = new VuexConstructor.Store(VuexStore);
+    this.store = new VuexConstructor.Store({ ...VuexStore });
 
     VueConstructor.use(Plugin, {
       config: mergedConfig,
