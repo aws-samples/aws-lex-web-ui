@@ -13,6 +13,10 @@ License for the specific language governing permissions and limitations under th
 */
 export default {
   name: 'page',
+  props: [
+    'favIcon',
+    'pageTitle',
+  ],
   /**
    * Renders page wide settings outside of the app element
    * such as page title, fav icon
@@ -26,11 +30,11 @@ export default {
 
     const favIconElem = document.createElement('link');
     favIconElem.setAttribute('rel', 'fav icon');
-    favIconElem.setAttribute('href', this.$store.state.config.ui.favIcon);
+    favIconElem.setAttribute('href', this.favIcon);
     headElem.appendChild(favIconElem);
 
     const titleElem = document.createElement('title');
-    titleElem.textContent = this.$store.state.config.ui.pageTitle;
+    titleElem.textContent = this.pageTitle;
     headElem.appendChild(titleElem);
   },
 };

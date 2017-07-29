@@ -161,13 +161,14 @@ export default {
     );
 
     audio.preload = 'auto';
-    audio.autoplay = true;
     // Load a silent sound as the initial audio. This is used to workaround
     // the requirement of mobile browsers that would only play a
     // sound in direct response to a user action (e.g. click).
     // This audio should be explicitly played as a response to a click
     // in the UI
     audio.src = silentSound;
+    // autoplay will be set as a response to a clik
+    audio.autoplay = false;
   },
   reInitBot(context) {
     return Promise.resolve()
@@ -208,20 +209,20 @@ export default {
 
     return Promise.resolve(url);
   },
-  setAudioAutoPlay(context, audioElem = audio) {
-    if (audioElem.autoplay) {
+  setAudioAutoPlay(context) {
+    if (audio.autoplay) {
       return Promise.resolve();
     }
     return new Promise((resolve, reject) => {
       audio.play();
       // eslint-disable-next-line no-param-reassign
-      audioElem.onended = () => {
-        context.commit('setAudioAutoPlay', audioElem, true);
+      audio.onended = () => {
+        context.commit('setAudioAutoPlay', { audio, status: true });
         resolve();
       };
       // eslint-disable-next-line no-param-reassign
-      audioElem.onerror = (err) => {
-        context.commit('setAudioAutoPlay', audioElem, false);
+      audio.onerror = (err) => {
+        context.commit('setAudioAutoPlay', { audio, status: false });
         reject(`setting audio autoplay failed: ${err}`);
       };
     });

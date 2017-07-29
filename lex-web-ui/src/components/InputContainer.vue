@@ -6,7 +6,7 @@
       v-bind:label="textInputPlaceholder"
       v-on:keyup.enter.native.stop="postTextMessage"
       v-model.trim="textInput"
-      class="black--text ml-2"
+      class="black--text ml-2 pt-3 pb-0"
       single-line
     ></v-text-field>
 
@@ -16,7 +16,7 @@
       class="black--text mic-button"
       icon
       v-bind:disabled="isMicButtonDisabled"
-      v-tooltip:left="{html: 'click to use voice'}"
+      v-tooltip:left="{html: micTooltip}"
     >
       <v-icon medium>{{micButtonIcon}}</v-icon>
     </v-btn>
@@ -54,6 +54,15 @@ export default {
         return 'stop';
       }
       return 'mic';
+    },
+    micTooltip() {
+      if (this.isMicMuted) {
+        return 'mic seems to be muted';
+      }
+      if (this.isBotSpeaking) {
+        return 'interrupt';
+      }
+      return 'click to use voice';
     },
     isMicButtonDisabled() {
       return this.isMicMuted;
@@ -144,10 +153,6 @@ export default {
 <style scoped>
 .input-container {
   display: flex;
-}
-.input-group {
-  margin-top: 0.5em;
-  margin-bottom: 0;
-  margin-right: 0.25em;
+  align-items: center;
 }
 </style>

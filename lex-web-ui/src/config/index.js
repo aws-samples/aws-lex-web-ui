@@ -32,27 +32,6 @@
 
 // TODO turn this into a class
 
-// Search for logo image files in ../assets/
-// if not found, assigns the default flower logo.
-const toolbarLogoRequire =
-  // Logo loading depends on the webpack require.context API:
-  // https://webpack.github.io/docs/context.html
-  require.context('../assets', false, /^\.\/logo.(png|jpe?g|svg)$/);
-const toolbarLogoRequireKey = toolbarLogoRequire.keys().pop();
-
-const toolbarLogo = (toolbarLogoRequireKey) ?
-  toolbarLogoRequire(toolbarLogoRequireKey) :
-  require('../../node_modules/material-design-icons/maps/2x_web/ic_local_florist_white_18dp.png');
-
-// TODO move favicon out of here since it belongs to LexApp
-// search for favicon in assets directory - use toolbar logo if not found
-const favIconRequire =
-  require.context('../assets', false, /^\.\/favicon.(png|jpe?g|svg|ico)$/);
-const favIconRequireKey = favIconRequire.keys().pop();
-const favIcon = (favIconRequireKey) ?
-  favIconRequire(favIconRequireKey) :
-  toolbarLogo;
-
 // get env shortname to require file
 const envShortName = [
   'dev',
@@ -153,10 +132,10 @@ const configDefault = {
     toolbarTitle: 'Order Flowers',
 
     // logo used in toolbar - also used as favicon not specificied
-    toolbarLogo,
+    toolbarLogo: '',
 
     // fav icon
-    favIcon,
+    favIcon: '',
 
     // controls if the Lex initialText will be pushed into the message
     // list after the bot dialog is done (i.e. fail or fulfilled)

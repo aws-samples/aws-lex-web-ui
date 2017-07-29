@@ -1,6 +1,10 @@
 <template>
   <v-app id="lex-app" toolbar>
-    <page v-once></page>
+    <page
+      v-bind:favIcon="favIcon"
+      v-bind:pageTitle="pageTitle"
+      v-once
+    ></page>
     <router-view></router-view>
   </v-app>
 </template>
@@ -27,15 +31,51 @@ import Vuetify from 'vuetify';
 import Page from '@/components/Page';
 import { Loader as LexWebUi } from '@/lex-web-ui';
 
+import flowerLogo from '../node_modules/material-design-icons/maps/2x_web/ic_local_florist_white_18dp.png';
+
+function getToolbarLogo() {
+  // Search for logo image files in ../assets/
+  // if not found, assigns the default flower logo.
+  const toolbarLogoRequire =
+    // Logo loading depends on the webpack require.context API:
+    // https://webpack.github.io/docs/context.html
+    require.context('@/assets', false, /^\.\/logo.(png|jpe?g|svg)$/);
+  const toolbarLogoRequireKey = toolbarLogoRequire.keys().pop();
+
+  return (toolbarLogoRequireKey) ?
+    toolbarLogoRequire(toolbarLogoRequireKey) :
+    flowerLogo;
+}
+
+function getFavIcon() {
+  // search for favicon in assets directory - use toolbar logo if not found
+  const favIconRequire =
+    require.context('@/assets', false, /^\.\/favicon.(png|jpe?g|svg|ico)$/);
+  const favIconRequireKey = favIconRequire.keys().pop();
+  return (favIconRequireKey) ?
+    favIconRequire(favIconRequireKey) :
+    flowerLogo;
+}
+
 Vue.use(Vuex);
 Vue.use(Vuetify);
 
-const lexWebUi = new LexWebUi();
+const lexWebUi = new LexWebUi({
+  ui: {
+    toolbarLogo: getToolbarLogo(),
+  },
+});
 
 export default {
   name: 'lex-app',
   store: lexWebUi.store,
   components: { Page },
+  data() {
+    return {
+      favIcon: getFavIcon(),
+      pageTitle: 'Order Flowers Bot',
+    };
+  },
 };
 </script>
 
@@ -50,5 +90,9 @@ export default {
 }
 body, html {
   overflow-y: hidden;
+}
+/* avoid hiding input-container on Android/chrome */
+.application {
+  min-height: 90vh;
 }
 </style>

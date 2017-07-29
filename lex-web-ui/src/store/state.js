@@ -28,14 +28,22 @@ export default {
     intentName: '',
     message: '',
     responseCard: null,
-    sessionAttributes: config.lex.sessionAttributes,
+    sessionAttributes: (
+      config.lex &&
+      config.lex.sessionAttributes &&
+      typeof config.lex.sessionAttributes === 'object'
+    ) ? { ...config.lex.sessionAttributes } : {},
     slotToElicit: '',
     slots: {},
   },
   messages: [],
   polly: {
     outputFormat: 'ogg_vorbis',
-    voiceId: config.polly.voiceId,
+    voiceId: (
+      config.polly &&
+      config.polly.voiceId &&
+      typeof config.polly.voiceId === 'string'
+    ) ? `${config.polly.voiceId}` : 'Joanna',
   },
   botAudio: {
     canInterrupt: false,
@@ -50,7 +58,7 @@ export default {
     isMicMuted: false,
     isMicQuiet: true,
     isRecorderSupported: false,
-    isRecorderEnabled: config.recorder.enable,
+    isRecorderEnabled: (config.recorder) ? !!config.recorder.enable : true,
     isRecording: false,
     silentRecordingCount: 0,
   },

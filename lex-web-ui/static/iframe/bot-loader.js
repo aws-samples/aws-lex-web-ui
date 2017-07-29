@@ -35,7 +35,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
 
     // AWS SDK script dynamically added to the DOM
     // https://github.com/aws/aws-sdk-js
-    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.82.0.min.js',
+    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.92.0.min.js',
 
     // URL to download build time config JSON file
     configUrl: '/static/iframe/config.json',

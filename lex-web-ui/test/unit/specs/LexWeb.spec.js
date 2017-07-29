@@ -3,23 +3,23 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Vuetify from 'vuetify';
 
-import Store from '@/store';
 import LexWeb from '@/components/LexWeb';
+import { Loader as LexWebUi } from '@/lex-web-ui';
 import { config } from '@/config';
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
 
 describe('LexWeb.vue', () => {
-  let store;
+  let lexWebUi;
   let vm;
 
   beforeEach(() => {
     Vue.use(Vuex);
     Vue.use(Vuetify);
 
-    store = new Vuex.Store(Store);
+    lexWebUi = new LexWebUi();
     vm = new Vue({
-      store,
+      store: lexWebUi.store,
       template: '<LexWeb/>',
       components: { LexWeb },
     });
