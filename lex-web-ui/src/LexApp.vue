@@ -91,4 +91,8 @@ export default {
 body, html {
   overflow-y: hidden;
 }
+/* avoid hiding input-container on Android/chrome */
+.application {
+  min-height: 90vh;
+}
 </style>

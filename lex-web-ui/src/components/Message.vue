@@ -1,5 +1,5 @@
 <template>
-  <div class="message">
+  <v-flex class="message">
     <v-chip>
       <message-text
         v-bind:message="message"
@@ -29,7 +29,7 @@
       >
       </response-card>
     </div>
-  </div>
+  </v-flex>
 </template>
 
 <script>

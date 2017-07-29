@@ -6,7 +6,7 @@
       v-bind:label="textInputPlaceholder"
       v-on:keyup.enter.native.stop="postTextMessage"
       v-model.trim="textInput"
-      class="black--text ml-2 pb-1"
+      class="black--text ml-2 pt-3 pb-0"
       single-line
     ></v-text-field>
 
