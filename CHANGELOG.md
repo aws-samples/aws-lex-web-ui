@@ -4,11 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [unreleased] - 2017-XX-XX
+## [0.8.3] - 2017-07-29
 ### Changed
 - Moved default icons from config to sample application
 - Reduced the size of silent sounds
-- Update dependencies
+- Updated dependencies
+- Added input validation and safer var initialization to store
+
+### Fixed
+- Fixed mic icon tooltip message to show correct status
+- Excluded LexApp from unit testing which was causing unit test issues
+- Fixed audio playback on mobile due to autoplay bug
+- Fixed input container on mobile not showing on latest vuetify
 
 ## [0.8.2] - 2017-07-27
 ### Fixed
