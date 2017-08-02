@@ -1,3 +1,4 @@
+AWSTemplateFormatVersion: 2010-09-09
 Description: >
     This template creates a CodeCommit repo and initializes it with this
     project sources. It uses CodeBuild and a custom resource to git push
