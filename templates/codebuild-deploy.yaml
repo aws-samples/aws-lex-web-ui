@@ -1,23 +1,13 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: >
-    This template creates a CodeCommit repo and initializes it with this
-    project sources. It uses CodeBuild and a custom resource to git push
-    the files into the repo.
+    This template creates a CodeBuild project used to configure and deploy
+    the chatbot UI
 
 Parameters:
-    CodeCommitRepoName:
-        Type: String
-        Description: Name of CodeCommit repository name to be created.
-        Default: lex-web-ui
-        MinLength: 1
-        MaxLength: 100
-        AllowedPattern: '^[\w\.-]+$'
-        ConstraintDescription: Alphanumeric, dot and dash.
-
     CodeBuildName:
         Type: String
-        Description: CodeBuild project used to initialize the code repo
-        Default: lex-web-ui-init
+        Description: CodeBuild project used to configure and deploy the Lex Web UI
+        Default: lex-web-ui-conf-deploy
         MinLength: 2
         MaxLength: 255
         AllowedPattern: '^[A-Za-z0-9][A-Za-z0-9\-_]{1,254}$'
@@ -41,6 +31,16 @@ Parameters:
             S3 object zip file containing Lambda custom resource functions
         Default: artifacts/aws-lex-web-ui/artifacts/custom-resources.zip
 
+    CleanupBuckets:
+        Type: String
+        Default: true
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, buckets and their associated data will be deleted on
+            CloudFormation stack delete. If set to False, S3 buckets will be retained.
+
     CognitoIdentityPoolId:
         Type: String
         Description: >
@@ -61,18 +61,25 @@ Parameters:
         ConstraintDescription: >
             Must conform with the permitted Lex Bot name pattern.
 
+Conditions:
+    ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
+
 Resources:
-    CodeCommitRepo:
-        Type: AWS::CodeCommit::Repository
+    # Bucket where the web app is deployed
+    WebAppBucket:
+        Type: AWS::S3::Bucket
+        DeletionPolicy: Retain
         Properties:
-            RepositoryDescription: Lex Web UI
-            RepositoryName: !Ref CodeCommitRepoName
+            WebsiteConfiguration:
+                IndexDocument: index.html
+            VersioningConfiguration:
+                Status: Enabled
 
     CodeBuild:
         Type: AWS::CodeBuild::Project
         Properties:
             Name: !Ref CodeBuildName
-            Description: Used to initialize the Lex Web UI CodeCommit Repo
+            Description: Used to configure and deploy the Lex Web UI
             Artifacts:
                 Type: NO_ARTIFACTS
             Environment:
@@ -80,10 +87,14 @@ Resources:
                 Image: aws/codebuild/nodejs:6.3.1
                 ComputeType: BUILD_GENERAL1_SMALL
                 EnvironmentVariables:
-                    - Name: REPO_URL
-                      Value: !GetAtt CodeCommitRepo.CloneUrlHttp
+                    - Name: BUILD_TYPE
+                      Value: dist
                     - Name: POOL_ID
                       Value: !Ref CognitoIdentityPoolId
+                    - Name: WEBAPP_BUCKET
+                      Value: !Ref WebAppBucket
+                    - Name: AWS_DEFAULT_REGION
+                      Value: !Sub "${AWS::Region}"
                     - Name: BOT_NAME
                       Value: !Ref BotName
             ServiceRole: !GetAtt CodeBuildRole.Arn
@@ -101,20 +112,11 @@ Resources:
                                 - npm update -g npm
                         pre_build:
                             commands:
+                                - aws configure set region "$AWS_DEFAULT_REGION"
                                 - make config
-                        build:
+                        post_build:
                             commands:
-                                - aws configure set region "${AWS::Region}"
-                                - git config --global user.name 'CodeCommit Init'
-                                - git config --global user.email '<>'
-                                - git config --global push.default simple
-                                - git config --global "credential.https://git-codecommit.${AWS::Region}.amazonaws.com.helper" '!aws codecommit credential-helper $@'
-                                - git config --global "credential.https://git-codecommit.${AWS::Region}.amazonaws.com.UseHttpPath" 'true'
-                                - git init
-                                - git add .
-                                - git commit -a -m initial
-                                - git remote add origin "${!REPO_URL}"
-                                - git push --set-upstream origin master
+                                - make s3deploy-prebuilt
 
     # custom resource to start code build project
     CodeBuildStarter:
@@ -149,21 +151,6 @@ Resources:
                       Action:
                           - sts:AssumeRole
             Policies:
-                - PolicyName: CodeCommitGetListPush
-                  PolicyDocument:
-                      Version: 2012-10-17
-                      Statement:
-                          - Effect: Allow
-                            Action:
-                                - codecommit:BatchGetRepositories
-                                - codecommit:CreateBranch
-                                - codecommit:Get*
-                                - codecommit:GitPull
-                                - codecommit:GitPush
-                                - codecommit:List*
-                                - codecommit:UpdateDefaultBranch
-                            Resource:
-                                - !GetAtt CodeCommitRepo.Arn
                 - PolicyName: S3GetObject
                   PolicyDocument:
                       Version: 2012-10-17
@@ -173,6 +160,25 @@ Resources:
                                 - s3:GetObject*
                             Resource:
                                 - !Sub "arn:aws:s3:::${SourceBucket}/${SourceObject}"
+                - PolicyName: S3ReadWrite
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - s3:Get*
+                                - s3:Head*
+                                - s3:List*
+                                - s3:CreateMultipartUpload
+                                - s3:CompleteMultipartUpload
+                                - s3:AbortMultipartUpload
+                                - s3:CopyObject
+                                - s3:PutObject*
+                                - s3:DeleteObject*
+                                - s3:Upload*
+                            Resource:
+                                - !Sub "arn:aws:s3:::${WebAppBucket}"
+                                - !Sub "arn:aws:s3:::${WebAppBucket}/*"
                 - PolicyName: CloudWatchLogsCodeBuild
                   PolicyDocument:
                       Version: 2012-10-17
@@ -221,15 +227,76 @@ Resources:
                                 - codebuild:StartBuild
                             Resource: !GetAtt CodeBuild.Arn
 
+    # custom resource to cleanup S3 buckets
+    S3Cleanup:
+        Type: Custom::S3Cleanup
+        Condition: ShouldCleanupBuckets
+        Properties:
+            ServiceToken: !GetAtt S3CleanupLambda.Arn
+            Buckets:
+                - !Ref WebAppBucket
+
+    # Lambda function for custom resource
+    S3CleanupLambda:
+        Type: AWS::Lambda::Function
+        Condition: ShouldCleanupBuckets
+        Properties:
+            Code:
+                S3Bucket: !Ref SourceBucket
+                S3Key: !Ref CustomResourceCodeObject
+            Handler: s3-cleanup.handler
+            Role: !GetAtt S3CleanupLambdaRole.Arn
+            Runtime: python2.7
+            Timeout: 120
+
+    S3CleanupLambdaRole:
+        Type: AWS::IAM::Role
+        Condition: ShouldCleanupBuckets
+        Properties:
+            Path: /
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Principal:
+                          Service:
+                              - lambda.amazonaws.com
+                      Effect: Allow
+                      Action:
+                          - sts:AssumeRole
+            Policies:
+                - PolicyName: LogsForLambda
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - logs:CreateLogGroup
+                                - logs:CreateLogStream
+                                - logs:PutLogEvents
+                            Resource:
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*:*"
+                - PolicyName: S3All
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - s3:*
+                            Resource:
+                                - !Sub "arn:aws:s3:::${WebAppBucket}"
+                                - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+
 Outputs:
-    CodeCommitRepoUrl:
-        Description: CodeCommit repository clone URL
-        Value: !GetAtt CodeCommitRepo.CloneUrlHttp
+    CodeBuildProject:
+        Description: CodeBuild project name
+        Value: !Ref CodeBuild
 
-    CodeCommitRepoArn:
-        Description: CodeCommit repository clone URL
-        Value: !GetAtt CodeCommitRepo.Arn
+    WebAppUrl:
+        Value: !Sub "https://${WebAppBucket.DomainName}/index.html"
+        Description: URL of the web application
 
-    CodeCommitRepoName:
-        Description: CodeCommit repository name
-        Value: !GetAtt CodeCommitRepo.Name
+    # XXX FIXME
+    ParentPageUrl:
+        Value: !Sub "https://${WebAppBucket.DomainName}/index.html"
+        Description: URL of the sample parent page

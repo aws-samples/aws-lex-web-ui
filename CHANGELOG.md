@@ -4,6 +4,57 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [unreleased] - 2017-XX-XX
+This release adds a couple of simplified deployment options:
+1. Simplfied CloudFormation stack without a deployment pipeline.
+This method is the new default of the CloudFormation setup so if
+you want to keep using the deployment pipeline setup (CodeCommit,
+CodeBuild, CodePipeline), you are going to need to explicitly set the
+2. **[Experimental]** AWS Mobile Hub project that deploys the Web UI to
+S3 fronted by a CloudFront distribution. The Mobile Hub project also
+creates the Cognito Identity Pool, Lex Bot and IAM Roles. This allows
+to deploy the application from a single file hosted in github. At this
+point, there is a content type issue with the files deployed with this
+method. The Mobile Hub deployed files seem to have its content-type set
+to octect-stream which causes the browser to download the files instead
+of rendering. To work around this issue, you can re-upload the files usin
+the S3 console or cli. The Makefile in the dist dir has a workaround:
+`make sync-mb` (requires setting the ). This issue will be further investigated.
+
+### Added
+- Added Mobile Hub deployment
+- Added new CloudFormation template `codebuild.yaml` used to deploy the
+application without a pipeline
+- Added `CreatePipeline` parameter to the master.yaml template to control
+whether the stack should create a deployment pipeline
+- Added build-time support to set web UI config fields that are commonly
+changed using environmental variables. This is in preparation to set
+these variables from CloudFormation parameters. The variables new include:
+    * BOT_INITIAL_TEXT
+    * BOT_INITIAL_SPEECH
+    * UI_TOOLBAR_TITLE
+    * UI_TOOLBAR_LOGO
+- Added a new `config` directory in the root of the repo that includes
+build configuration
+- Added a new `src` directory in the root of the repo to hold the web
+- Added CloudFormation format statement to all templates app source files
+
+### Changed
+- **[BREAKING]** CloudFormation setup now defaults to not creating a
+development pipeline and just copy the prebuilt files to an S3 bucket.
+To use the pipeline, you now have to set the `CreatePipeline` parameter
+to true
+- Refactored build scripts and Makefiles to have better separation of
+config and code. The config config used by the Makefiles now resides
+under: `config/env.mk`
+- The `update-lex-web-ui-config.js` build script now takes its config
+from the module in the `config` directory. The config is driven by the
+`BUILD_TYPE` environmental variable which controls whether the deployment
+is building the app from full source or using the dist dir. For this, the
+value of the `BUILD_TYPE` variable can be set to either `full` or `dist`.
+- Updated CodeBuild environment to node js v6.3.1
+- Renamed iframe bot.css to bot-loader.css
+
 ## [0.8.3] - 2017-07-29
 ### Changed
 - Moved default icons from config to sample application

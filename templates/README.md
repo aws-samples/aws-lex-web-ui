@@ -3,11 +3,21 @@
 > Sample CloudFormation Stack
 
 ## Overview
-This repository provides a set of
+This directory provides a set of
 [AWS CloudFormation](https://aws.amazon.com/cloudformation/) templates to
 automatically build and deploy a sample
 [Amazon Lex](https://aws.amazon.com/lex/)
-web interface. The stack creates a deployment pipeline using
+web interface.
+
+XXX Do not commit yet
+The CloudFormation templates provide two deployment options:
+1. Pipeline
+2. CodeBuild
+# XXX simplified
+You can then manage the config either using CodeBuild or by replacing the
+config.json file.
+
+The stack creates a deployment pipeline using
 [CodeCommit](https://aws.amazon.com/codecommit/)
 [CodePipeline](https://aws.amazon.com/codepipeline/)
 and [CodeBuild](https://aws.amazon.com/codebuild/).
@@ -238,7 +248,7 @@ your bucket. The bucket and path are configured by the `BootstrapBucket`
 and `BootstrapPrefix` variables under the `Mappings` section of the
 template.
 3. Modify the variables in the local build environment file:
-[build/config.env](../build/config.env). These variables control the build
+[config/env.mk](../config/env.mk). These variables control the build
 environment and web application deployment. In specific, you should
 modify the following variables:
      - `BOOTSTRAP_BUCKET_PATH`: point it to your own bucket and prefix

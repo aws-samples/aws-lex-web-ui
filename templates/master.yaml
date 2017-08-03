@@ -1,13 +1,16 @@
+AWSTemplateFormatVersion: 2010-09-09
 Description: |
     Master Lex Web UI CloudFormation template.
     It deploys:
-        - A CodeCommit Repository containg the source code in this project
-          and a CodeBuild project, Lambda functions to initialize the repo
-        - A deployment pipeline using CodePipeline and CodeBuild
-        - An S3 buckets to hold build artifacts and the web application
+        - S3 buckets to host the web application
+        - CodeBuild project to build the configuration and deploy to S3
         - Optional Lex Bot (based on OrderFlowers example)
         - Optional Cognito Identity Pool for unauthenticated identities
         - Optional Lambda function to delete S3 buckets
+        - Optional CodeCommit Repository containg the source code in
+          this project and a CodeBuild project, Lambda functions to initialize
+          the repo
+        - Optional deployment pipeline using CodePipeline and CodeBuild
         - CloudWatch Logs groups related to Lambda functions
         - Associated IAM roles
 
@@ -49,13 +52,25 @@ Parameters:
             will be preserved. Only applies if the bot is created by
             this stack.
 
+    CreatePipeline:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, the stack will include a deployment pipeline
+            using CodeCommit, CodeBuild and CodePipeline. If set to False
+            the stack will deploy the web app directly to S3.
+
     CodeCommitRepoName:
         Type: String
         Description: >
             Name of CodeCommit repository to be created. Used as the
             source for the pipeline and to automate deployments of the
             web app. It is initialized with source artifacts from the
-            bootstrap S3 bucket. Must be unique per region.
+            bootstrap S3 bucket. Must be unique per region. Only used
+            when CreatePipeline is set to true.
         Default: lex-web-ui
         MinLength: 1
         MaxLength: 100
@@ -67,7 +82,8 @@ Parameters:
         Description: >
             Name of CodePipeline pipeline to be created. Used to manage
             the build and deployment of the web application. Must be
-            unique per region.
+            unique per region. Only used when CreatePipeline is set
+            to true.
         Default: lex-web-ui
         MinLength: 1
         MaxLength: 100
@@ -139,9 +155,10 @@ Metadata:
             - Label:
                 default: Deployment Pipeline Parameters
               Parameters:
+                  - CreatePipeline
+                  - CodeBuildName
                   - CodePipelineName
                   - CodeCommitRepoName
-                  - CodeBuildName
                   - CleanupBuckets
             - Label:
                 default: Lex Bot Configuration Parameters
@@ -166,9 +183,11 @@ Mappings:
         # by using the Makefile under the build directory of this project.
         # See the README.md for instructions on how to use your own bucket.
         BootstrapBucket:
-            Value: aws-bigdata-blog
+            # XXX FIXME Value: aws-bigdata-blog
+            Value: lex-web-ui-dev
         BootstrapPrefix:
-            Value: artifacts/aws-lex-web-ui/artifacts
+            # XXX FIXME Value: artifacts/aws-lex-web-ui/artifacts
+            Value: artifacts
         BootstrapSrcObject:
             Value: src.zip
 
@@ -176,6 +195,11 @@ Conditions:
     NeedsBot: !Equals [!Ref BotName, '']
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
+
+    # deploy using a pipeline
+    ShouldDeployUsingPipeline: !Equals [!Ref CreatePipeline, true]
+    # otherwise deploy using a codebuild project
+    ShouldDeployUsingCodeBuild: !Equals [!Ref CreatePipeline, false]
 
 Resources:
     Bot:
@@ -215,8 +239,49 @@ Resources:
                       - !GetAtt Bot.Outputs.BotName
                       - !Ref BotName
 
+    ##########################################################################
+    # Simplified deployment using CodeBuild to build config and push to S3
+    ##########################################################################
+    CodeBuildDeploy:
+        Type: AWS::CloudFormation::Stack
+        Condition: ShouldDeployUsingCodeBuild
+        Properties:
+            TemplateURL: !Sub
+                - "https://s3.amazonaws.com/${Bucket}/${Path}/templates/codebuild-deploy.yaml"
+                - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
+                  Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
+            Parameters:
+                CodeBuildName: !Ref CodeBuildName
+                SourceBucket: !Sub
+                    - "${Bucket}"
+                    - Bucket:
+                        !FindInMap [CustomVariables, BootstrapBucket, Value]
+                SourceObject: !Sub
+                    - "${Prefix}/src.zip"
+                    - Prefix:
+                        !FindInMap [CustomVariables, BootstrapPrefix, Value]
+                CustomResourceCodeObject: !Sub
+                    - "${Prefix}/custom-resources.zip"
+                    - Prefix:
+                        !FindInMap [CustomVariables, BootstrapPrefix, Value]
+                CleanupBuckets: !Ref CleanupBuckets
+                BotName:
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotName
+                      - !Ref BotName
+                CognitoIdentityPoolId:
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
+                      - !Ref CognitoIdentityPoolId
+
+    ##########################################################################
+    # deployment using a pipeline
+    ##########################################################################
     CodeCommitRepo:
         Type: AWS::CloudFormation::Stack
+        Condition: ShouldDeployUsingPipeline
         Properties:
             TimeoutInMinutes: 15
             TemplateURL: !Sub
@@ -251,6 +316,7 @@ Resources:
 
     Pipeline:
         Type: AWS::CloudFormation::Stack
+        Condition: ShouldDeployUsingPipeline
         Properties:
             TemplateURL: !Sub
                 - "https://s3.amazonaws.com/${Bucket}/${Path}/templates/pipeline.yaml"
@@ -289,29 +355,46 @@ Outputs:
         Value: !GetAtt Bot.Outputs.BotName
 
     CodeCommitRepoUrl:
+        Condition: ShouldDeployUsingPipeline
         Description: CodeCommit repository clone URL
         Value: !GetAtt CodeCommitRepo.Outputs.CodeCommitRepoUrl
 
     PipelineUrl:
+        Condition: ShouldDeployUsingPipeline
         Description: >
             Monitor the pipeline URL to see when the application has been fully
             built and deployed.
         Value: !Sub "https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline.Outputs.PipelineName}"
 
+    CodeBuildUrl:
+        Condition: ShouldDeployUsingCodeBuild
+        Description: >
+            Monitor the pipeline URL to see when the application has been fully
+            built and deployed.
+        Value: !Sub "https://console.aws.amazon.com/codebuild/home?region=${AWS::Region}#/projects/${CodeBuildDeploy.Outputs.CodeBuildProject}/view"
+
     WebAppUrl:
         Description: >
             URL of the stand-alone sample web application.
             This page will be available after the pipeline completes.
-        Value: !GetAtt Pipeline.Outputs.WebAppUrl
+        Value:
+            !If
+              - ShouldDeployUsingPipeline
+              - !GetAtt Pipeline.Outputs.WebAppUrl
+              - !GetAtt CodeBuildDeploy.Outputs.WebAppUrl
 
     ParentPageUrl:
+        Condition: NeedsParentOrigin
         Description: >
             URL of the iframe based sample web application
             This page will be available after the pipeline completes.
-        Value: !GetAtt Pipeline.Outputs.ParentPageUrl
-        Condition: NeedsParentOrigin
+        Value:
+            !If
+              - ShouldDeployUsingPipeline
+              - !GetAtt Pipeline.Outputs.ParentPageUrl
+              - !GetAtt CodeBuildDeploy.Outputs.ParentPageUrl
 
     CognitoIdentityPoolId:
+        Condition: NeedsCognito
         Description: Cognito Identity Pool Id
         Value: !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
-        Condition: NeedsCognito
