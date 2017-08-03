@@ -12,14 +12,15 @@ more about the chatbot UI component, please refer to its
 
 ## Adding the ChatBot UI to your Website
 This project provides a sample JavaScript loader
-([bot-loader.js](./bot-loader.js)) and CSS file ([bot.css](./bot.css))
+([bot-loader.js](./bot-loader.js))
+and CSS file ([bot-loader.css](./bot-loader.css))
 that can be used to add the chatbot to an existing web site using a
 dynamically created iframe. This can be done by adding a couple of HTML
 tags to your web page:
 
 ```html
   <!-- add CSS link inside the HEAD tag -->
-  <link rel="stylesheet" type="text/css" href="https://myboturl.example.com/static/iframe/bot.css">
+  <link rel="stylesheet" type="text/css" href="https://myboturl.example.com/static/iframe/bot-loader.css">
 
   <!-- add script tag towards the bottom of the html BODY section -->
   <script src="https://myboturl.example.com/static/iframe/bot-loader.js"></script>
