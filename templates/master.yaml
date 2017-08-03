@@ -183,11 +183,9 @@ Mappings:
         # by using the Makefile under the build directory of this project.
         # See the README.md for instructions on how to use your own bucket.
         BootstrapBucket:
-            # XXX FIXME Value: aws-bigdata-blog
-            Value: lex-web-ui-dev
+            Value: aws-bigdata-blog
         BootstrapPrefix:
-            # XXX FIXME Value: artifacts/aws-lex-web-ui/artifacts
-            Value: artifacts
+            Value: artifacts/aws-lex-web-ui/artifacts
         BootstrapSrcObject:
             Value: src.zip
 
