@@ -10,7 +10,7 @@ This release adds a couple of simplified deployment options:
 This method is the new default of the CloudFormation setup so if
 you want to keep using the deployment pipeline setup (CodeCommit,
 CodeBuild, CodePipeline), you are going to need to explicitly set the
-2. **[Experimental]** AWS Mobile Hub project that deploys the Web UI to
+2. AWS Mobile Hub project that deploys the Web UI to
 S3 fronted by a CloudFront distribution. The Mobile Hub project also
 creates the Cognito Identity Pool, Lex Bot and IAM Roles. This allows
 to deploy the application from a single file hosted in github. At this
@@ -19,7 +19,8 @@ method. The Mobile Hub deployed files seem to have its content-type set
 to octect-stream which causes the browser to download the files instead
 of rendering. To work around this issue, you can re-upload the files usin
 the S3 console or cli. The Makefile in the dist dir has a workaround:
-`make sync-mb` (requires setting the ). This issue will be further investigated.
+`make sync-mb` (requires setting the bucket name as an environmental variable).
+This issue will be further investigated.
 
 ### Added
 - Added Mobile Hub deployment
