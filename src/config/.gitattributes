@@ -1,1 +1,1 @@
-*.json merge=ours
+*.js* merge=ours

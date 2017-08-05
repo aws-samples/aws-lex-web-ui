@@ -1,6 +1,6 @@
 {
   "iframeOrigin": "",
-  "loadIframeMinimized": true,
+  "loadIframeMinimized": false,
   "aws": {
     "cognitoPoolId": "",
     "region": "us-east-1"

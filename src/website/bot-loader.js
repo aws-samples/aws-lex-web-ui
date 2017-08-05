@@ -35,10 +35,10 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
 
     // AWS SDK script dynamically added to the DOM
     // https://github.com/aws/aws-sdk-js
-    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.92.0.min.js',
+    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.94.0.min.js',
 
     // URL to download build time config JSON file
-    configUrl: '/static/iframe/config.json',
+    configUrl: '/bot-loader-config.json',
 
     // controls whether the bot loader script should
     // automatically initialize and load the iframe.
@@ -254,16 +254,31 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
 
   /**
    * Merges config objects. The initial set of keys to merge are driven by
-   * the baseConfig. The srcConfig values override the baseConfig ones.
+   * the baseConfig. The srcConfig values override the baseConfig ones
+   * unless the srcConfig value is empty
    */
   function mergeConfig(baseConfig, srcConfig) {
+    function isEmpty(data) {
+      if(typeof(data) === 'number' || typeof(data) === 'boolean') {
+        return false;
+      }
+      if(typeof(data) === 'undefined' || data === null) {
+        return true;
+      }
+      if(typeof(data.length) !== 'undefined') {
+        return data.length === 0;
+      }
+      return Object.keys(data).length === 0;
+    }
+
     // use the baseConfig first level keys as the base for merging
     return Object.keys(baseConfig)
       .map(function (key) {
-        var mergedConfig = {};
-        var value = baseConfig[key];
-        if (key in srcConfig) {
-          value = (typeof baseConfig[key] === 'object') ?
+        let mergedConfig = {};
+        let value = baseConfig[key];
+        // merge from source if its value is not empty
+        if (key in srcConfig && !isEmpty(srcConfig[key])) {
+          value = (typeof(baseConfig[key]) === 'object') ?
             // recursively merge sub-objects in both directions
             Object.assign(
               mergeConfig(srcConfig[key], baseConfig[key]),
@@ -462,10 +477,6 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
     var self = this;
     var identityId = localStorage.getItem('cognitoid');
 
-    if (identityId != null){
-      console.log('[INFO] found existing identity ID: ', identityId);
-    }
-
     if (!self.credentials || !('getPromise' in self.credentials)) {
       console.error('getPromise not found in credentials');
       return Promise.reject('getPromise not found in credentials');
@@ -473,9 +484,6 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
 
     return self.credentials.getPromise()
       .then(function storeIdentityId() {
-        console.log('[INFO] storing identity ID:',
-          self.credentials.identityId
-        );
         localStorage.setItem('cognitoid', self.credentials.identityId);
         identityId = localStorage.getItem('cognitoid');
       })

@@ -22,7 +22,7 @@ uploads:
     fileName: index.html
     targetS3Bucket: hosting
   - !com.amazonaws.mobilehub.v0.Upload
-    fileName: parent-sample.html
+    fileName: parent.html
     targetS3Bucket: hosting
   - !com.amazonaws.mobilehub.v0.Upload
     fileName: lex-web-ui.min.js

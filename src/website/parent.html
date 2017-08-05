@@ -23,7 +23,7 @@
             <div class="panel-heading">Send Intent to iFrame</div>
             <div class="panel-body">
               <div>
-                <button id="send-intent" type="button" class="btn btn-default">Default</button>
+                <button id="send-intent" type="button" class="btn btn-default">Send</button>
               </div>
             </div>
           </div>
@@ -101,7 +101,7 @@
             <div class="panel-heading">NOTE</div>
             <div class="panel-body">
               <p>
-              This test application is setup by the Mobile Hub deployment in the
+              This application was created using the
               <a href="https://github.com/awslabs/aws-lex-web-ui">aws-lex-web-ui</a>
               project.
               </p>
@@ -116,12 +116,12 @@
     <!-- bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <!-- mobile hub generated SDK and config -->
-    <script src="./aws-sdk.min.js"></script>
+    <!-- mobile hub generated config -->
     <script src="./aws-config.js"></script>
 
     <!-- LexWebUi iFrame Loader Config
       This should be configured before the bot-loader.js is included
+      to override the default options.
     -->
     <script>
       var LexWebUiIframe = {};
@@ -150,7 +150,13 @@
 
       // init the iframe
       lexWebUi.init();
+    </script>
 
+    <!--
+      Sample Functions illustrating dynamic messaging with the iframe.
+      These are called from the "Send" button.
+    -->
+    <script>
       function isBotMinimized() {
         return $('.' + lexWebUi.options.containerClass)
           .hasClass('lex-web-ui--minimize');
@@ -170,47 +176,64 @@
       }
     </script>
 
-    <!-- chatbot ui bot event handler -->
+    <!--
+      chatbot ui bot event handler
+      This illustrates how to handle the various events supported by the
+      chatbot UI.
+    -->
     <script>
       $(document).ready(function chatbotHandler() {
         // Event handler called when the chatbot ui is ready to receive the
         // dynamic config.
-        // Send dynamic config/parameter (e.g. username, geolocation) to the
-        // chatbot ui from here
+        // For example, you can send dynamic config/parameters
+        // (e.g. username, geolocation) to the chatbot ui from here
         $(document).one('receivelexconfig', function onReceiveLexConfig() {
-          // this config object should be a valid aws-lex-webui configuration
-          // values here will override the ones in the JSON config
-          const botsConfigJson = aws_bots_config;
-          let botName = '';
-          if (botsConfigJson) {
-            const botsConfig = JSON.parse(botsConfigJson);
-            botName = botsConfig[0].name;
-          }
+          const botsConfigJson = (typeof(aws_bots_config) !== 'undefined') ?
+            aws_bots_config : '';
+          const poolId = (typeof(aws_cognito_identity_pool_id) !== 'undefined') ?
+            aws_cognito_identity_pool_id : '';
 
-          var config = {
+          const config = {
             iframeOrigin: window.location.origin,
             aws: {
-              cognitoPoolId: aws_cognito_identity_pool_id,
-            },
-            iframeConfig: {
-              lex: {
-                botName: botName,
-                sessionAttributes: {},
-              },
+              cognitoPoolId: poolId,
             },
           };
 
-          // emit bot config event
+          let botName = '';
+          if (botsConfigJson) {
+            let botsConfig;
+            try {
+              botsConfig = JSON.parse(botsConfigJson);
+              botName = botsConfig[0].name;
+            } catch (e) {
+              console.warn('malformed bots config');
+            }
+          }
+
+          // this should be a valid lex-web-ui config object
+          config.iframeConfig = {};
+          if (botName) {
+            config.iframeConfig.lex = {
+              botName: botName,
+            };
+          }
+
+          // emit bot config event to send the dynamic config to the
+          // chatbot UI
           // jquery can't trigger native events so use vanilla JS
           var event = new CustomEvent('loadlexconfig', { detail: { config: config } });
           document.dispatchEvent(event);
         });
 
+        // Send button handler
         $('#send-intent').on('click', function(event) {
           event.preventDefault();
           sendIntent('Buy Flowers');
         });
 
+        // Once the chatbot UI is ready, it sends a 'lexWebUiReady' event
+        // We are just sending a ping request here as an example
         $(document).on('lexWebUiReady', function onUpdateLexState(evt) {
           var event = new CustomEvent(
             'lexWebUiMessage',
@@ -220,6 +243,7 @@
         });
 
         // bot update event handler
+        // In this example, the parent page is updated based on the state
         $(document).on('updatelexstate', function onUpdateLexState(evt) {
           var slots = {};
           var dialogState = {};

@@ -11,8 +11,9 @@
 
     <!-- Font Dependencies -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet" type="text/css">
-    <!-- CSS Dependencies -->
-    <link href="https://unpkg.com/vuetify@0.14.7/dist/vuetify.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Vuetify CSS Dependencies -->
+    <link href="https://unpkg.com/vuetify@0.14.8/dist/vuetify.min.css" rel="stylesheet" type="text/css">
 
     <!-- LexWebUi CSS -->
     <link href="./lex-web-ui.min.css" rel="stylesheet" type="text/css">
@@ -31,43 +32,77 @@
     <!-- application will be dynamically mounted here -->
     <div id="lex-web-ui"></div>
 
-    <!-- mobile hub generated SDK and config -->
-    <script src="./aws-sdk.min.js"></script>
+    <!-- AWS SDK -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.94.0.min.js"></script>
+    <!-- mobile hub generated SDK config -->
     <script src="./aws-config.js"></script>
 
+    <!-- Vue, Vuex and Vuetifiy dependencies -->
     <script src="https://unpkg.com/vue@2.4.2"></script>
     <script src="https://unpkg.com/vuex@2.3.1"></script>
-    <!-- see vuetify CSS under HEAD -->
-    <script src="https://unpkg.com/vuetify@0.14.7"></script>
+    <!-- Also see the vuetify CSS link above under the HEAD tag -->
+    <script src="https://unpkg.com/vuetify@0.14.8"></script>
 
     <!-- LexWebUi Library -->
     <script src="./lex-web-ui.min.js"></script>
     <script>
+       /**
+        Sample function to obtain the config from JSON files and
+        from the constants loaded from the mobile hub config file
+       */
       function getConfigPromise() {
+        const url = window.location.href;
         // no need for config if running embedded
         // since the parent passes the config down to the iframe
-        if (window.location.search.indexOf('lexWebUiEmbed=true') !== -1) {
-          return {};
+        if (url.indexOf('lexWebUiEmbed=true') !== -1) {
+          return Promise.resolve({});
         }
 
+        // these come from the aws-config.js constants
+        let poolId = (typeof(aws_cognito_identity_pool_id) !== 'undefined') ?
+          aws_cognito_identity_pool_id : '';
+        const botsConfig = (typeof(aws_bots_config) !== 'undefined') ?
+          aws_bots_config : '';
+
+        // aws-config.js values override bot-config.json
         return fetch('./bot-config.json')
           .then(response => response.json())
           .then((config) => {
-            const poolId = aws_cognito_identity_pool_id || config.cognito.poolId;
-            let botName = config.lex.botName;
-            if (aws_bots_config) {
+            poolId = poolId ||
+              ((config.cognito && config.cognito.poolId) ?
+                config.cognito.poolId : '');
+
+            let botName;
+            if (botsConfig) {
               const botsConfig = JSON.parse(aws_bots_config);
               botName = botsConfig[0].name;
             }
+            botName = botName ||
+              ((config.lex && config.lex.botName) ?
+                config.lex.botName : '');
 
-            return Object.assign(
-              {},
+            if (!poolId || !botName) {
+              return Promise.reject(
+                'config is missing required values. ' +
+                `poolId: [${poolId}] - botName: [${botName}]`
+              );
+            }
+            const mergedConfig = Object.assign(
+              {
+                cognito: {},
+                lex: {},
+              },
               config,
-              { cognito: { poolId: poolId }, lex: { botName: botName } },
             );
+
+            mergedConfig.cognito.poolId = poolId;
+            mergedConfig.lex.botName = botName;
+
+            return Promise.resolve(mergedConfig);
           });
       }
 
+      // create the Vue js component
       getConfigPromise()
         .then((config) => {
           const lexWebUi = new LexWebUi.Loader(config);
