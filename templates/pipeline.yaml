@@ -193,7 +193,7 @@ Resources:
                                 - make build
                         post_build:
                             commands:
-                                - make s3deploy
+                                - make deploy-to-s3
 
     CodeBuildRole:
         Type: AWS::IAM::Role

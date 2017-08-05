@@ -93,8 +93,11 @@ Parameters:
     CodeBuildName:
         Type: String
         Description: >
-            Name of the CodeBuild project to be created. Used for building
-            the web app with the pipeline. Must be unique per region.
+            Name of the CodeBuild project to be created.  When
+            CreatePipeline is set to false, it is used to configure
+            and directly deploy the web app to S3.  Otherwise, used
+            for building the web app with the pipeline. Must be unique
+            per region.
         Default: lex-web-ui
         MinLength: 2
         MaxLength: 255
@@ -153,7 +156,7 @@ Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
             - Label:
-                default: Deployment Pipeline Parameters
+                default: Deployment Parameters
               Parameters:
                   - CreatePipeline
                   - CodeBuildName

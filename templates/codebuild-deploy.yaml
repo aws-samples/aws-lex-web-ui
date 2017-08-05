@@ -116,7 +116,7 @@ Resources:
                                 - make config
                         post_build:
                             commands:
-                                - make s3deploy-prebuilt
+                                - make sync-website
 
     # custom resource to start code build project
     CodeBuildStarter:
@@ -296,7 +296,6 @@ Outputs:
         Value: !Sub "https://${WebAppBucket.DomainName}/index.html"
         Description: URL of the web application
 
-    # XXX FIXME
     ParentPageUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/index.html"
+        Value: !Sub "https://${WebAppBucket.DomainName}/parent.html"
         Description: URL of the sample parent page
