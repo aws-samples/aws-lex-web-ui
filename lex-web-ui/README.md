@@ -38,7 +38,7 @@ You can import the library as a module and use it in your code:
   import Vuetify from 'vuetify';
 
   // import the component constructor
-  import { Loader as LexWebUi } from '@/lex-web-ui';
+  import { Loader as LexWebUi } from 'aws-lex-web-ui';
 
   Vue.use(Vuetify);
   Vue.use(Vuex);
@@ -67,6 +67,49 @@ You can import the library as a module and use it in your code:
     // you can use the globa LexWebUi/<lex-web-ui> commponent in templates
     template: '<v-app toolbar id="lex-web-ui-app"><lex-web-ui/></v-app>',
   });
+```
+
+Alternatively, for finer control, you can use the Vue plugin directly
+in your application:
+```JavaScript
+  import Vue from 'vue';
+  import Vuex from 'vuex';
+  import { Config as AWSConfig, CognitoIdentityCredentials }
+    from 'aws-sdk/global';
+  import LexRuntime from 'aws-sdk/clients/lexruntime';
+  import Polly from 'aws-sdk/clients/polly';
+
+  import { Plugin as LexWebUi, Store as LexWebUiStore } from 'aws-lex-web-ui';
+
+  Vue.use(Vuetify);
+  Vue.use(Vuex);
+
+  const poolId = 'us-east-1:deadbeef-cac0-babe-abcd-abcdef01234';
+  const region = 'us-east-1';
+  const credentials = new CognitoIdentityCredentials(
+    { IdentityPoolId: poolId },
+    { region },
+  );
+  const awsConfig = new AWSConfig({ region, credentials });
+  const lexRuntimeClient = new LexRuntime(awsConfig);
+  const pollyClient = new Polly(awsConfig);
+
+  const store = new Vuex.Store(LexWebUiStore);
+
+  // see the configuration section for details about the config fields
+  const config = {
+    cognito: { poolId },
+    lex: { botName: 'MyBot', initialText: 'How can I help you?' },
+    ui: { toolbarLogo: '', toolbarTitle: 'My Bot' },
+  };
+
+  Vue.use(LexWebUi, { config, awsConfig, lexRuntimeClient, pollyClient });
+
+  // add 'store' you your component - see Vuex for details
+
+  // you can now use '<lex-web-ui>' tag  in your Vue templates
+  // The 'LexWebUi' component is global to the Vue application. You can
+  // access the plugin instance in your components as 'this.$lexWebUi'
 ```
 
 ## Embedding as an iframe
@@ -155,9 +198,9 @@ object that is the source of all available configurable options that
 the chatbot UI recognizes and their initial values.
 
 **NOTE**: To avoid having to manually merge future changes, you probably
-do not want to modify the values in the `src/config/index.js`. You should
-instead pass your own configuration using the mechanisms listed in the
-following sections.
+do not want to modify the values in the `src/config/index.js` file. You
+should instead pass your own configuration using the mechanisms listed
+in the following sections.
 
 ### Build Time Configuration
 The chatbot UI build process can import configuration from a JSON
