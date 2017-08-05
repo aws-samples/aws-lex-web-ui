@@ -3,51 +3,31 @@
 > Sample CloudFormation Stack
 
 ## Overview
-This repository provides a set of
+This directory provides a set of
 [AWS CloudFormation](https://aws.amazon.com/cloudformation/) templates to
 automatically build and deploy a sample
 [Amazon Lex](https://aws.amazon.com/lex/)
-web interface. The stack creates a deployment pipeline using
-[CodeCommit](https://aws.amazon.com/codecommit/)
-[CodePipeline](https://aws.amazon.com/codepipeline/)
-and [CodeBuild](https://aws.amazon.com/codebuild/).
-which automatically builds and deploys changes to the app committed
-to the CodeCommit repo. The stack can also deploy related resources such
-as the
-[Cognito Identity Pool](http://docs.aws.amazon.com/cognito/latest/developerguide/identity-pools.html) and Lex bot.
+web interface. The templates are used to create and manage associated
+resources such as the Lex Bot and Cognito Identity Pool. The web
+applicaton is bootstrapped from source hosted in an AWS owned S3 bucket
+(see below for instructions on hosting your own).
 
-## Launching
-To deploy a CloudFormation stack with a working demo of the application,
-follow the steps below:
+The CloudFormation templates supports two deployment modes which are
+controlled by `CreatePipeline` parameter:
+1. **CodeBuild Mode** configures and deploys directly to S3 from a
+CodeBuild project. This is the default mode. It is used when the
+`CreatePipeline` parameter is set to false. This mode uses the pre-built
+library.
+2. **Pipeline Mode** configures, builds and deploys using CodeCommit,
+CodeBuild and CodePipeline. This mode creates an automated deployment
+pipeine that performs a full build of the application from source.
 
-1. Click the following CloudFormation button to launch your own copy of
-the sample application stack in the us-east-1 (N. Virginia) AWS region:
+## Launch
 [![cloudformation-launch-stack](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=lex-web-ui&templateURL=https://s3.amazonaws.com/aws-bigdata-blog/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml).
-You can accept the defaults in the CloudFormation Create Stack Wizard up
-until the last step. At the last step, when prompted to create the stack,
-select the checkmark that says: "I acknowledge that AWS CloudFormation
-might create IAM resources with custom names". It takes about 10 minutes
-for the CloudFormation stacks to got to `CREATE_COMPLETE` status.
-2. Once the status of all the CloudFormation stacks
-is `CREATE_COMPLETE`, click on the `PipelineUrl` link in the output
-section of the master stack.  This will take you to the CodePipeline
-console. You can monitor the progress of the deployment pipeline from
-there. It takes about 10 minutes to build and deploy the application.
-3. Once the pipeline has deployed successfully, go back to the
-output section of the master CloudFormation stack and click on the
-`ParentPageUrl` link. You can also browse to the `WebAppUrl` link. Those
-links will take you to the sample application running as an embedded
-iframe or as a stand-alone web application respectively.
-
-## CloudFormation Stack
-### Diagram
-Here is a diagram of the CloudFormation stack created by this project:
-
-<img src="../img/cfn-stack.png" width=640>
 
 ### CloudFormation Resources
-The CloudFormation stack creates the following resources in your AWS account:
-
+Depenpending on the deployment mode, the CloudFormation stack can create
+resources in your AWS account including:
 - A [Amazon Lex](http://docs.aws.amazon.com/lex/latest/dg/what-is.html)
 bot. You can optionally pass the bot name of an existing one to avoid
 creating a new one.
@@ -55,33 +35,38 @@ creating a new one.
 used to pass temporary AWS credentials to the web app. You can optionally
 pass the ID of an existing Cognito Identity Pool to avoid creating a
 new one.
-- A [CodeCommit](https://aws.amazon.com/codecommit/)
-repository loaded with the source code in this project
-- A continuous delivery pipeline using [CodePipeline](https://aws.amazon.com/codepipeline/)
-and [CodeBuild](https://aws.amazon.com/codebuild/).
-The pipeline automatically builds and deploys changes to the app committed
-  to the CodeCommit repo.
-- An [S3](https://aws.amazon.com/s3/) bucket to store build artifacts
-- Two S3 buckets to host the web application (parent and iframe). The
-  pipeline deploys to this bucket.
+- A [CodeBuild](https://aws.amazon.com/codebuild/) project to configure
+and deploy to S3 when using the CodeBuild Deployment Mode. If using the
+Pipeline Deployment Mode, a CodeBuild project is created to bootstrap
+a CodeCommit repository whit the application source.
+- [S3](https://aws.amazon.com/s3/) buckets to host the web application
+and to store build artifacts.
 - [Lambda](https://aws.amazon.com/lambda/) functions used as CloudFormation
 [Custom Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-custom-resources.html)
 to facilitate custom provisioning logic
 - [CloudWatch Logs](http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
 groups automatically created to log the output of Lambda the functions
 - Associated [IAM roles](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html)
-for all of the above
+for the stack resources
+
+If using the Pipeline Deployment Mode, the stack creates the following resources:
+- A [CodeCommit](https://aws.amazon.com/codecommit/)
+repository loaded with the source code in this project. This is only
+created when using the pipeline deployment mode
+- A continuous delivery pipeline using [CodePipeline](https://aws.amazon.com/codepipeline/)
+and [CodeBuild](https://aws.amazon.com/codebuild/).
+The pipeline automatically builds and deploys changes to the app committed
+  to the CodeCommit repo
 
 ### CloudFormation Templates
-The CloudFormation launch button above launches a master stack that in
-turn creates various nested stacks. The following table lists the
-CloudFormation templates used to create these stacks:
+The following table lists the CloudFormation templates used to create the stacks:
 
 | Template | Description |
 | --- | --- |
 | [master.yaml](./master.yaml) | This is the master template used to deploy all the stacks. It uses nested sub-templates to include the ones listed below. |
 | [lexbot.yaml](./lexbot.yaml) | Lex bot and associated resources (i.e. intents and slot types). |
 | [cognito.yaml](./cognito.yaml) | Cognito Identity Pool and IAM role for unauthenticated identity access. |
+| [codebuild-deploy.yaml](./codebuild-deploy.yaml) | Uses CodeBuild to configure and deploy to S3 |
 | [coderepo.yaml](./coderepo.yaml) | CodeCommit repo dynamically initialized with the files in this repo using CodeBuild and a custom resource. |
 | [pipeline.yaml](./pipeline.yaml) | Continuous deployment pipeline of the Lex Web UI Application using CodePipeline and CodeBuild. The pipeline takes the source from CodeCommit, builds the Lex web UI application using CodeBuild and deploys the app to an S3 bucket. |
 
@@ -105,6 +90,7 @@ to modify are:
   of the parent window. Only needed if you wish to embed the web app
   into an existing site using an iframe. The origin is used to control
   which sites can communicate with the iframe
+- `CreatePipeline`: Controls the deployment mode as explained above
 
 ### Output
 Once the CloudFormation stack is successfully launched, the status of
@@ -115,9 +101,9 @@ section. Here is a list of the output variables:
 - `PipelineUrl`: Link to CodePipeline in the AWS console.  After the stack
 is successfully launched, the pipeline automatically starts the build and
 deployment process. You can click on this link to monitor the pipeline.
-- `CodeCommitRepoUrl`: CodeCommit repository clone URL. You can clone
-the repo using this link and push changes to it to have the pipeline
-build and deploy the web app
+- `CodeCommitRepoUrl`: When using the Pipeline Deployment Mode, this
+CodeCommit repository clone URL. You can clone the repo using this link
+and push changes to it to have the pipeline build and deploy the web app.
 - `WebAppUrl`: URL of the web app running on a full page. The
 web app will be available once the pipeline has completed deploying
 - `ParentPageUrl`: URL of the web app running in an iframe. This is an
@@ -129,16 +115,73 @@ by the stack. This is an optional output that is returned only when the
 stack creates a Cognito Identity Pool. It is not returned if an existing
 pool ID was passed as a parameter to the stack during creation.
 
-## Deployment Pipeline
-When the stacks have completed launching, you can see the status of
-the pipeline as it builds and deploys the application. The link to the
-pipeline in the AWS console can be found in the `PipelineUrl` output
-variable of the master stack.
+## Build and Deployment Overview
+The CloudFormation stack builds and deploys the application using
+CodeBuild. Various CloudFormation parameters and resource names
+are passed as environmental variables to CodeBuild. This includes
+references to the S3 Buckets, Cognito Identity Pool and Lex Bot created
+by CloudFormation. CodeBuild uses the [Makefile](../Makefile) in the root
+directory of this repository control the build and deployment process.
 
-Once the pipeline successfully finishes deploying, you should be able to
-browse to the web app. The web app URL can be found in the `WebAppUrl`
-output variable.
+## CodeBuild Deployment Mode
+This is the default deployment mode which is use when the `CreatePipeline`
+parameter is set to false. In this mode, the stack creates a CodeBuild
+project that performs the appliction configuration and deploys the
+files to S3. Once the CloudFormation stack is successfully launched and
+the status of all nested stacks is `CREATE_COMPLETE`, browse to the
+`CodeBuildUrl` link in the output section of the stack. Monitor the
+the build run to make sure it is successful. After the CodeBuild run
+completes, you can browse to the `ParentPageUrl` or `WebAppUrl` links
+in the CloudFormation output to see the deployed chatbot UI.
 
+Once deployed, you can go back to the CodeBuild project to change the
+applicaton configuration by modifying the environmental variables passed
+by CodeBuild. You can start a new build in CodeBuild to reconfigure and
+redeploy the application. By default, the CodeBuild project uses a zip
+file in an AWS owned S3 bucket as its source. That zip file contains
+the source in this project and it is regularly updated. If you want to
+use your own source, see the *Deploy Using My Own Bootstrap S3 Bucket*
+section below.
+
+## Pipeline Deployment Mode
+When the `CreatePipeline` parameter is set to true, the stack creates
+a deployment pipeline using
+[CodeCommit](https://aws.amazon.com/codecommit/)
+[CodePipeline](https://aws.amazon.com/codepipeline/)
+and [CodeBuild](https://aws.amazon.com/codebuild/).
+which automatically builds and deploys changes to the app committed
+to the CodeCommit repo.
+
+### Diagram
+Here is a diagram of the CloudFormation stack created by the pipeline deployment mode:
+
+<img src="../img/cfn-stack.png" width=640>
+
+### Launching Using the Pipeline
+To deploy a CloudFormation stack with a working demo of the application,
+follow the steps below:
+
+1. Click the following CloudFormation button to launch your own copy of
+the sample application stack in the us-east-1 (N. Virginia) AWS region:
+[![cloudformation-launch-stack](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=lex-web-ui&templateURL=https://s3.amazonaws.com/aws-bigdata-blog/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml).
+2. Change the `CreatePipeline` parameter to `true`. After that,
+you can accept the defaults in the CloudFormation Create Stack Wizard up
+until the last step. At the last step, when prompted to create the stack,
+select the checkmark that says: "I acknowledge that AWS CloudFormation
+might create IAM resources with custom names". It takes about 10 minutes
+for the CloudFormation stacks to got to `CREATE_COMPLETE` status.
+3. Once the status of all the CloudFormation stacks
+is `CREATE_COMPLETE`, click on the `PipelineUrl` link in the output
+section of the master stack.  This will take you to the CodePipeline
+console. You can monitor the progress of the deployment pipeline from
+there. It takes about 10 minutes to build and deploy the application.
+4. Once the pipeline has deployed successfully, go back to the
+output section of the master CloudFormation stack and click on the
+`ParentPageUrl` link. You can also browse to the `WebAppUrl` link. Those
+links will take you to the sample application running as an embedded
+iframe or as a stand-alone web application respectively.
+
+### Deployment Pipeline
 The source of this project is automatically forked into a CodeCommit
 repository created by the CloudFormation stack. Any changes pushed to
 the master branch of this forked repo will automatically kick off the
@@ -154,7 +197,7 @@ Here is a diagram of the deployment pipeline:
 <img src="../img/pipeline.png" width=640>
 
 ## Directory Structure
-This project contains the following main directories:
+The following directories are relevant to the CloudFormation setup:
 
 ```
  .
@@ -238,7 +281,7 @@ your bucket. The bucket and path are configured by the `BootstrapBucket`
 and `BootstrapPrefix` variables under the `Mappings` section of the
 template.
 3. Modify the variables in the local build environment file:
-[build/config.env](../build/config.env). These variables control the build
+[config/env.mk](../config/env.mk). These variables control the build
 environment and web application deployment. In specific, you should
 modify the following variables:
      - `BOOTSTRAP_BUCKET_PATH`: point it to your own bucket and prefix

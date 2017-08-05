@@ -4,6 +4,79 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.9.0] - 2017-08-04
+This release adds a couple of simplified deployment options:
+1. Simplfied CloudFormation stack without a deployment pipeline.
+It uses CodeBuild to create the config files and to deploy directly
+to S3.
+This mode is the new default of the CloudFormation setup so if
+you want to keep using the deployment pipeline setup (CodeCommit,
+CodeBuild, CodePipeline), you are going to need to explicitly set the
+`CreatePipeline` parameter to true.
+2. AWS Mobile Hub project file that deploys the Web UI to S3 fronted
+by a CloudFront distribution. The Mobile Hub project also creates the
+Cognito Identity Pool, Lex Bot and IAM Roles. This allows to deploy the
+application from a single file hosted in github.
+
+**NOTE**: At this point, there is a Content-Type issue with the files
+deployed using the Mobile Hub project file. The Mobile Hub deployed
+files seem to have its content-type set to octect-stream which causes the
+browser to download the files instead of rendering. To work around this
+issue, you can re-upload the files using the S3 console or aws cli. The
+Makefile in the root dir can be used to upload the files with the right
+content type. Use the command: `make sync-website` (requires setting
+the bucket name with the `WEBAPP_BUCKET` environmental variable). This
+issue will be further investigated.
+
+### Added
+- Added Mobile Hub deployment
+- Added new CloudFormation template `codebuild.yaml` used to deploy the
+application without a pipeline
+- Added `CreatePipeline` parameter to the master.yaml template to control
+whether the stack should create a deployment pipeline
+- Added build-time support to set web UI config fields that are commonly
+changed using environmental variables. This is in preparation to set
+these variables from CloudFormation parameters. The new variables include:
+    * BOT_INITIAL_TEXT
+    * BOT_INITIAL_SPEECH
+    * UI_TOOLBAR_TITLE
+    * UI_TOOLBAR_LOGO
+- Added a new `config` directory in the root of the repo that includes
+build configuration
+- Added a new `src` directory in the root of the repo to hold the
+website files. This includes a modified version of the iframe parent
+page and bot-loader that resides in the `lex-web-ui/static/iframe`
+directory. Eventualy, this new version should replace, somehow get
+merged with the other, or sourced in both places from a single file.
+- Added a `server.js` file for quick development and testing. It loads
+the sample page from the dist and source directories. It can be used
+with the command `npm start` from the root directory. You may need to put
+the right values in the config files under `src/config` to make it work.
+- Added CloudFormation format statement to all templates files
+- Added .npmignore file
+- Added sample code on how to use the Vue plugin for including the
+component into an existing Vue application
+
+### Changed
+- **[BREAKING]** CloudFormation setup now defaults to not creating a
+development pipeline and just copy the prebuilt files to an S3 bucket.
+To use the pipeline, you now have to set the `CreatePipeline` parameter
+to true
+- Refactored the build scripts and Makefiles to have better separation
+of config and code. The config config used by the Makefiles now resides
+under: `config/env.mk`. Some of the names of the Makefile have changed so
+you may need to change your environment if you were using the Makefiles
+from other script.
+- The `update-lex-web-ui-config.js` build script now takes its config from
+a node js module in the `config` directory. The config is driven by the
+`BUILD_TYPE` environmental variable which controls whether the deployment
+is building the app from full source or using the dist dir. For this, the
+value of the `BUILD_TYPE` variable can be set to either `full` or `dist`.
+- Updated CodeBuild environment to node js v6.3.1 using ubuntu
+- Renamed iframe bot.css to bot-loader.css
+- Updated dependency versions
+- Clarified READMEs
+
 ## [0.8.3] - 2017-07-29
 ### Changed
 - Moved default icons from config to sample application

@@ -1,0 +1,25 @@
+{
+  "iframeOrigin": "",
+  "loadIframeMinimized": false,
+  "aws": {
+    "cognitoPoolId": "",
+    "region": "us-east-1"
+  },
+  "iframeConfig": {
+    "lex": {
+      "botName": "",
+      "initialText": "You can ask me for help ordering flowers. Just type \"Buy flowers\" or click on the mic and say it.",
+      "initialSpeechInstruction": "Say 'Buy Flowers' to get started."
+    },
+    "ui": {
+      "toolbarTitle": "Order Flowers",
+      "pushInitialTextOnRestart": false
+    },
+    "polly": {
+      "voiceId": "Salli"
+    },
+    "recorder": {
+      "preset": "speech_recognition"
+    }
+  }
+}

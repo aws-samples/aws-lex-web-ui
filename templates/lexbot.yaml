@@ -1,3 +1,4 @@
+AWSTemplateFormatVersion: 2010-09-09
 Description: >
     This template creates a Lex bot and associated resources.
     It uses a custom resource to read the bot definition from a file.

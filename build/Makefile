@@ -1,5 +1,8 @@
+#  This Makefile is used to update the bootstrap bucket containing
+#  the project source and CloudFormation templates
+
 # environment file controls config parameters
-CONFIG_ENV := ./config.env
+CONFIG_ENV := ../config/env.mk
 include $(CONFIG_ENV)
 
 # cfn templates
@@ -31,6 +34,7 @@ upload-templates: $(TEMPLATES) | $(OUT)
 	aws s3 sync --acl public-read --exclude "*" --include "*.yaml" \
 		"$(TEMPLATES_DIR)" "s3://$(BOOTSTRAP_BUCKET_PATH)/templates/" \
 		| tee "$(OUT)/$(@)"
+	@echo "[INFO] master template: https://s3.amazonaws.com/$(BOOTSTRAP_BUCKET_PATH)/templates/master.yaml"
 
 # cfn custom resource lambda files are found under this directory
 CUSTOM_RESOURCES_DIR := $(TEMPLATES_DIR)/custom-resources

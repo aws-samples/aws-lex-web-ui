@@ -1,3 +1,4 @@
+AWSTemplateFormatVersion: 2010-09-09
 Description: >
     This template deploys a Cognito identity pool. It also deploys an
     IAM role which is attached to the identity pool for unauthenticated
