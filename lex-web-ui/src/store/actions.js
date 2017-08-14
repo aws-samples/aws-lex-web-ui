@@ -106,7 +106,9 @@ export default {
       });
   },
   initRecorder(context) {
-    if (!context.state.recState.isRecorderEnabled) {
+    if (!context.state.recState.isRecorderEnabled ||
+      !context.state.config.recorder.enable
+    ) {
       return Promise.resolve();
     }
     recorder = new LexAudioRecorder(
