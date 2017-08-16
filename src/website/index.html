@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Vuetify CSS Dependencies -->
-    <link href="https://unpkg.com/vuetify@0.14.8/dist/vuetify.min.css" rel="stylesheet" type="text/css">
+    <link href="https://unpkg.com/vuetify@0.14.11/dist/vuetify.min.css" rel="stylesheet" type="text/css">
 
     <!-- LexWebUi CSS -->
     <link href="./lex-web-ui.min.css" rel="stylesheet" type="text/css">
@@ -24,11 +24,8 @@
         width: 100%;
       }
       body, html {
-        overflow-y: hidden;
-      }
-      /* avoid hiding input-container on Android/chrome */
-      .application {
-        min-height: 90vh;
+        overflow-y: auto;
+        overflow-x: hidden;
       }
     </style>
   </head>
@@ -37,7 +34,7 @@
     <div id="lex-web-ui"></div>
 
     <!-- AWS SDK -->
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.94.0.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.98.0.min.js"></script>
     <!-- mobile hub generated SDK config -->
     <script src="./aws-config.js"></script>
 
@@ -45,7 +42,7 @@
     <script src="https://unpkg.com/vue@2.4.2"></script>
     <script src="https://unpkg.com/vuex@2.3.1"></script>
     <!-- Also see the vuetify CSS link above under the HEAD tag -->
-    <script src="https://unpkg.com/vuetify@0.14.8"></script>
+    <script src="https://unpkg.com/vuetify@0.14.11"></script>
 
     <!-- LexWebUi Library -->
     <script src="./lex-web-ui.min.js"></script>
@@ -113,7 +110,7 @@
           new Vue({
             el: '#lex-web-ui',
             store: lexWebUi.store,
-            template: '<v-app toolbar id="lex-web-ui-app"><lex-web-ui/></v-app>',
+            template: '<div id="lex-web-ui-app"><lex-web-ui/></div>',
           });
         })
         .catch(error => console.error('lex-web-ui load error: ', error));
