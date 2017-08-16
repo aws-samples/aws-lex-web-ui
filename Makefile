@@ -36,7 +36,7 @@ export IFRAME_CONFIG ?= $(realpath $(WEBAPP_DIR)/static/iframe/config.json)
 export WEBAPP_CONFIG_PROD ?= $(realpath $(WEBAPP_DIR)/src/config/config.prod.json)
 export WEBAPP_CONFIG_DEV ?= $(realpath $(WEBAPP_DIR)/src/config/config.dev.json)
 export WEBAPP_CONFIG_PREBUILT ?= $(realpath $(SRC_DIR)/config/bot-config.json)
-export IFRAME_CONFIG_PREBUILT ?= $(realpath $(CONFIG_DIR)/bot-loader-config.json)
+export IFRAME_CONFIG_PREBUILT ?= $(realpath $(CONFIG_DIR)/chatbot-ui-iframe-loader-config.json)
 CONFIG_FILES := $(IFRAME_CONFIG) $(WEBAPP_CONFIG_PROD) $(WEBAPP_CONFIG_DEV) \
 	$(WEBAPP_CONFIG_PREBUILT) $(IFRAME_CONFIG_PREBUILT)
 config: $(UPDATE_CONFIG_SCRIPT) $(CONFIG_ENV) $(CONFIG_FILES)

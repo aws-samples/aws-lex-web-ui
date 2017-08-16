@@ -5,7 +5,7 @@
     <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
     <title>Chatbot UI iFrame Example</title>
     <!-- bot css -->
-    <link rel="stylesheet" type="text/css" href="./bot-loader.css">
+    <link rel="stylesheet" type="text/css" href="./chatbot-ui-iframe-loader.css">
     <!--  bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
@@ -120,7 +120,7 @@
     <script src="./aws-config.js"></script>
 
     <!-- LexWebUi iFrame Loader Config
-      This should be configured before the bot-loader.js is included
+      This should be configured before the chatbot-ui-iframe-loader.js is included
       to override the default options.
     -->
     <script>
@@ -131,7 +131,7 @@
         iframeSrcPath: '/index.html#/?lexWebUiEmbed=true',
 
         // URL to download static config JSON file
-        configUrl: './bot-loader-config.json',
+        configUrl: './chatbot-ui-iframe-loader-config.json',
 
         // controls whether the bot loader script should
         // automatically initialize and load the iframe.
@@ -142,7 +142,7 @@
     </script>
 
     <!-- loader script -->
-    <script src="./bot-loader.js"></script>
+    <script src="./chatbot-ui-iframe-loader.js"></script>
 
     <!-- LexWebUi iFrame Init -->
     <script>

@@ -22,7 +22,7 @@ copy-bundle: $(LIBRARY_FILES)
 # copy webiste bot loader files from source to dist dir
 SRC_DIR := ../src
 WEBSITE_SRC_DIR := $(SRC_DIR)/website
-BOTLOADER_SRC_FILES := $(wildcard $(WEBSITE_SRC_DIR)/bot-loader.*)
+BOTLOADER_SRC_FILES := $(wildcard $(WEBSITE_SRC_DIR)/chatbot-ui-iframe-loader.*)
 BOTLOADER_FILES := $(patsubst $(WEBSITE_SRC_DIR)/%,%,$(BOTLOADER_SRC_FILES))
 $(BOTLOADER_FILES): $(BOTLOADER_SRC_FILES)
 	@echo "[INFO] Bot Loader files"
