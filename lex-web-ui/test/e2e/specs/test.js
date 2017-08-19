@@ -21,10 +21,10 @@ module.exports = {
       .assert.elementPresent('.message-list')
       .waitForElementVisible('.message-text', 5000)
       .assert.containsText('.message-text', config.lex.initialText)
-      .assert.elementPresent('.status-bar')
+      .assert.elementPresent('.input-container')
+      .assert.elementPresent('.recorder-status')
       .assert.elementPresent('.status-text')
       .assert.elementPresent('.voice-controls')
-      .assert.elementPresent('.input-container')
       .getLog('browser', function(logEntriesArray) {
         console.log('Log length: ' + logEntriesArray.length);
         logEntriesArray.forEach(function(log) {

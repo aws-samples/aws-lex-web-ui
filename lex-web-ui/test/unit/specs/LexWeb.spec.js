@@ -23,6 +23,9 @@ describe('LexWeb.vue', () => {
       template: '<LexWeb/>',
       components: { LexWeb },
     });
+
+    // disable recorder
+    vm.$store.commit('setIsRecorderEnabled', false);
   });
 
   afterEach(() => {
@@ -30,16 +33,14 @@ describe('LexWeb.vue', () => {
   });
 
   it('should render sub components', () => {
-    // disable recorder
-    vm.$store.commit('setIsRecorderEnabled', false);
     sinon.spy(vm, '$mount');
     vm.$mount();
 
     const toolbar = vm.$el.querySelector('.toolbar');
     const toolbarTitle = vm.$el.querySelector('.toolbar__title');
     const messageList = vm.$el.querySelector('.message-list');
-    const statusBar = vm.$el.querySelector('.status-bar');
-    const inputContainer = vm.$el.querySelector('.status-bar');
+    const inputContainer = vm.$el.querySelector('.input-container');
+    const recorderStatus = vm.$el.querySelector('.recorder-status');
 
     expect(toolbar, 'toolbar').is.not.equal(null);
     expect(toolbarTitle, 'toolbar title').is.not.equal(null);
@@ -47,7 +48,7 @@ describe('LexWeb.vue', () => {
       .to.contain(config.ui.toolbarTitle);
 
     expect(messageList, 'message list').is.not.equal(null);
-    expect(statusBar, 'status bar').is.not.equal(null);
-    expect(inputContainer, 'status bar').is.not.equal(null);
+    expect(inputContainer, 'input container').is.not.equal(null);
+    expect(recorderStatus, 'recorder status').is.not.equal(null);
   });
 });
