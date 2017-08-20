@@ -35,7 +35,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
 
     // AWS SDK script dynamically added to the DOM
     // https://github.com/aws/aws-sdk-js
-    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.98.0.min.js',
+    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.100.0.min.js',
 
     // controls whether the AWS SDK is dynamically added to the DOM
     shouldAddAwsSdk: true,
