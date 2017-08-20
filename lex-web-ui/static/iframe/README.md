@@ -1,3 +1,10 @@
+# NOTE
+The iframe loader in this directory is being moved to the
+[/src/website](/src/website) directory of the repo. Please refer to
+the README and files in the
+[src/website](https://github.com/awslabs/aws-lex-web-ui/blob/master/src/website/)
+directory for an updated version. This version will be deprecated soon.
+
 # ChatBot UI Embedding
 
 ## Overview
