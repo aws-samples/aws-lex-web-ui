@@ -24,6 +24,15 @@ describe('InputContainer.vue', () => {
       startConversation: sinon.stub().resolves(),
       pollySynthesizeSpeech: sinon.stub().resolves(),
       interruptSpeechConversation: sinon.stub().resolves(),
+      getRecorderVolume: sinon.stub().resolves({
+        max: Math.random(),
+        slow: Math.random(),
+        instant: Math.random(),
+      }),
+      getAudioProperties: sinon.stub().resolves({
+        end: Math.random(),
+        duration: Math.random(),
+      }),
     };
 
     store = new Vuex.Store({
@@ -58,7 +67,7 @@ describe('InputContainer.vue', () => {
     expect(textInput, 'text input').is.not.equal(null);
   });
 
-  it('should update class and data on text input focus event', (done) => {
+  it('should update class and data on text input focus event', () => {
     const textInput = vm.$el.querySelector('#text-input');
     const inputGroup = vm.$el.querySelector('.input-group');
     const focusEvent = new window.Event('focus');
@@ -69,7 +78,7 @@ describe('InputContainer.vue', () => {
       .to.not.contain(' input-group--focused');
 
     textInput.dispatchEvent(focusEvent);
-    vm.$nextTick()
+    return vm.$nextTick()
       .then(() => {
         isTextFieldFocused =
           vm.$refs['input-container'].$data.isTextFieldFocused;
@@ -77,9 +86,7 @@ describe('InputContainer.vue', () => {
         expect(isTextFieldFocused, 'isTextFieldFocused data').to.equal(true);
         expect(inputGroup.className, 'input group')
           .to.contain(' input-group--focused');
-        done();
-      })
-      .catch(done);
+      });
   });
 
   it('should have a place holder label in text input', () => {
@@ -91,7 +98,7 @@ describe('InputContainer.vue', () => {
       .to.equal(textInputPlaceholder);
   });
 
-  it('should submit message on pressing enter on text field and clear it', (done) => {
+  it('should submit message on pressing enter on text field and clear it', () => {
     const textInputEl = vm.$el.querySelector('#text-input');
     const inputEvent = new window.Event('input');
     const focusEvent = new window.Event('focus');
@@ -107,7 +114,7 @@ describe('InputContainer.vue', () => {
     keyupEvent.initEvent('keyup', true, true);
     keyupEvent.keyCode = 13;
 
-    vm.$nextTick()
+    return vm.$nextTick()
       .then(() => {
         isTextFieldFocused =
           vm.$refs['input-container'].$data.isTextFieldFocused;
@@ -136,10 +143,7 @@ describe('InputContainer.vue', () => {
             sinon.match.object,
             sinon.match({ type: 'human', text: utterance }),
           );
-
-        done();
-      })
-      .catch(done);
+      });
   });
 
   it('should have a recorder status component that is hidden by default', () => {
@@ -161,7 +165,7 @@ describe('InputContainer.vue', () => {
       .is.not.equal(null);
   });
 
-  it('should have a send button that gets enabled on text field input', (done) => {
+  it('should have a send button that gets enabled on text field input', () => {
     const button = vm.$el.querySelector('button');
     const textInput = vm.$el.querySelector('#text-input');
     const inputEvent = new window.Event('input');
@@ -169,19 +173,16 @@ describe('InputContainer.vue', () => {
     textInput.value = 'input test';
     textInput.dispatchEvent(inputEvent, 'input test');
 
-    vm.$nextTick()
+    return vm.$nextTick()
       .then(() => {
         expect(button.getAttribute('disabled'), 'button disabled attribute')
           .is.equal(null);
         expect(button.getAttribute('data-tooltip'), 'button tooltip')
           .is.equal('send');
-
-        done();
-      })
-      .catch(done);
+      });
   });
 
-  it('should submit input field when pressing the send button', (done) => {
+  it('should submit input field when pressing the send button', () => {
     const button = vm.$el.querySelector('button');
     const textInput = vm.$el.querySelector('#text-input');
     const inputEvent = new window.Event('input');
@@ -192,7 +193,7 @@ describe('InputContainer.vue', () => {
     textInput.value = utterance;
     textInput.dispatchEvent(inputEvent, utterance);
 
-    vm.$nextTick()
+    return vm.$nextTick()
       .then(() => {
         dataTextInput = vm.$refs['input-container'].$data.textInput;
         expect(dataTextInput, 'text input data').to.equal(utterance);
@@ -214,17 +215,14 @@ describe('InputContainer.vue', () => {
             sinon.match.object,
             sinon.match({ type: 'human', text: utterance }),
           );
-
-        done();
-      })
-      .catch(done);
+      });
   });
 
-  it('should have a mic button when recorder is enabled', (done) => {
+  it('should have a mic button when recorder is enabled', () => {
     vm.$store.commit('setIsRecorderEnabled', true);
     vm.$store.commit('setIsRecorderSupported', true);
 
-    vm.$nextTick()
+    return vm.$nextTick()
       .then(() => {
         const button = vm.$el.querySelector('button');
         const icon = button.querySelector('i');
@@ -236,13 +234,10 @@ describe('InputContainer.vue', () => {
           .is.equal(null);
         expect(button.getAttribute('data-tooltip'), 'button tooltip')
           .is.equal('click to use voice');
-
-        done();
-      })
-      .catch(done);
+      });
   });
 
-  it('should start conversation when mic button is pressed', (done) => {
+  it('should start conversation when mic button is pressed', () => {
     const button = vm.$el.querySelector('button');
     const clickEvent = new window.Event('click');
 
@@ -251,7 +246,7 @@ describe('InputContainer.vue', () => {
 
     button.dispatchEvent(clickEvent);
 
-    vm.$nextTick()
+    return vm.$nextTick()
       .then(() => {
         expect(actions.setAudioAutoPlay, 'setAudioAutoPlay action')
           .to.have.callCount(1);
@@ -263,13 +258,10 @@ describe('InputContainer.vue', () => {
       .then(() => {
         expect(actions.startConversation, 'startConversation action')
           .to.have.callCount(1);
-
-        done();
-      })
-      .catch(done);
+      });
   });
 
-  it('should not set audio auto play again if already set', (done) => {
+  it('should not set audio auto play again if already set', () => {
     const button = vm.$el.querySelector('button');
     const clickEvent = new window.Event('click');
 
@@ -282,16 +274,14 @@ describe('InputContainer.vue', () => {
 
     button.dispatchEvent(clickEvent);
 
-    vm.$nextTick()
+    return vm.$nextTick()
       .then(() => {
         expect(actions.setAudioAutoPlay, 'setAudioAutoPlay action')
           .to.have.callCount(0);
-        done();
-      })
-      .catch(done);
+      });
   });
 
-  it('should not play initial instruction out of state', (done) => {
+  it('should not play initial instruction out of state', () => {
     const button = vm.$el.querySelector('button');
     const clickEvent = new window.Event('click');
 
@@ -301,17 +291,14 @@ describe('InputContainer.vue', () => {
 
     button.dispatchEvent(clickEvent);
 
-    vm.$nextTick()
+    return vm.$nextTick()
       .then(() => {
         expect(actions.pollySynthesizeSpeech, 'pollySynthesizeSpeech action')
           .to.have.callCount(0);
-
-        done();
-      })
-      .catch(done);
+      });
   });
 
-  it('should disable mic button and not start conversation when muted', (done) => {
+  it('should disable mic button and not start conversation when muted', () => {
     const button = vm.$el.querySelector('button');
     const clickEvent = new window.Event('click');
 
@@ -320,7 +307,7 @@ describe('InputContainer.vue', () => {
     vm.$store.commit('mergeConfig', { recorder: { useAutoMuteDetect: true } });
     vm.$store.commit('setIsMicMuted', true);
 
-    vm.$nextTick()
+    return vm.$nextTick()
       .then(() => {
         const icon = button.querySelector('i');
 
@@ -347,13 +334,10 @@ describe('InputContainer.vue', () => {
       .then(() => {
         expect(actions.startConversation, 'startConversation action')
           .to.have.callCount(0);
-
-        done();
-      })
-      .catch(done);
+      });
   });
 
-  it('should have a stop button when bot is speaking that interrupts playback', (done) => {
+  it('should have a stop button when bot is speaking that interrupts playback', () => {
     const button = vm.$el.querySelector('button');
     const icon = button.querySelector('i');
     const clickEvent = new window.Event('click');
@@ -365,7 +349,7 @@ describe('InputContainer.vue', () => {
     vm.$store.commit('setIsConversationGoing', true);
     vm.$store.commit('setIsBotSpeaking', true);
 
-    vm.$nextTick()
+    return vm.$nextTick()
       .then(() => {
         expect(button, 'button').is.not.equal(null);
         expect(icon, 'button icon').is.not.equal(null);
@@ -389,9 +373,6 @@ describe('InputContainer.vue', () => {
           'interruptSpeechConversation action',
         )
           .to.have.callCount(1);
-
-        done();
-      })
-      .catch(done);
+      });
   });
 });
