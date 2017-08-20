@@ -150,7 +150,7 @@ def main(argv):
         try:
             # using the keyword import is problematic
             # turning to dict as workaround
-            import_bot(vars(parsed_args)['import'])
+            import_bot(definition_filename=vars(parsed_args)['import'])
         except Exception as e:
             error = 'failed to import bot {}'.format(e)
             logging.error(error);
