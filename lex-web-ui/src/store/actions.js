@@ -599,7 +599,8 @@ export default {
           secretAccessKey: SecretKey,
           sessionToken: SessionToken,
           identityId: IdentityId,
-          getPromise() { return Promise.resolve(); },
+          expired: false,
+          getPromise() { return Promise.resolve(awsCredentials); },
         };
 
         return awsCredentials;
