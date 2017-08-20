@@ -1,5 +1,6 @@
 <template>
-  <div id="lex-web">
+  <v-app id="lex-web"
+  >
     <toolbar-container
       v-bind:toolbar-title="toolbarTitle"
       v-bind:toolbar-color="toolbarColor"
@@ -8,15 +9,16 @@
       v-on:toggleMinimizeUi="toggleMinimizeUi"
     ></toolbar-container>
 
-    <message-list></message-list>
+    <message-list
+      v-if="!isUiMinimized"
+    ></message-list>
 
-    <status-bar></status-bar>
     <input-container
+      v-if="!isUiMinimized"
       v-bind:text-input-placeholder="textInputPlaceholder"
-      v-bind:initial-text="initialText"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
     ></input-container>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -36,7 +38,6 @@ License for the specific language governing permissions and limitations under th
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
-import StatusBar from '@/components/StatusBar';
 import InputContainer from '@/components/InputContainer';
 
 export default {
@@ -44,15 +45,11 @@ export default {
   components: {
     ToolbarContainer,
     MessageList,
-    StatusBar,
     InputContainer,
   },
   computed: {
     initialSpeechInstruction() {
       return this.$store.state.config.lex.initialSpeechInstruction;
-    },
-    initialText() {
-      return this.$store.state.config.lex.initialText;
     },
     textInputPlaceholder() {
       return this.$store.state.config.ui.textInputPlaceholder;
@@ -113,7 +110,7 @@ export default {
             this.$lexWebUi.awsConfig.credentials,
           ),
           this.$store.dispatch('initRecorder'),
-          this.$store.dispatch('initBotAudio', new Audio()),
+          this.$store.dispatch('initBotAudio', (window.Audio) ? new Audio() : null),
         ]),
       )
       .then(() =>
@@ -211,5 +208,10 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+.application {
+  /* substract the input bar height as a workaround on mobile
+   */
+  min-height: calc(100vh - 68px);
 }
 </style>
