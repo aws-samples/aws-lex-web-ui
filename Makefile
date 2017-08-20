@@ -90,6 +90,7 @@ sync-website:
 	aws s3 sync --acl public-read \
 		--exclude '*' \
 		--include 'bot-*config.json' \
+		--include 'chatbot-*config.json' \
 		$(CONFIG_DIR) s3://$(WEBAPP_BUCKET)
 	@[ "$(BUILD_TYPE)" = 'dist' ] && \
 		echo "[INFO] copying aws-config.js" ;\
