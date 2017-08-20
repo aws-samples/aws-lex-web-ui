@@ -4,10 +4,57 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [unreleased] - 2017-XX-XX
+## [0.9.1] - 2017-08-20
+This release refactors the LexWeb component to make it easier to test
+and include it in other applications/sites. The input toolbar is now more
+compact and provides better visual feedback. It adds a send button to the
+text input and a progress bar to better indicate processing and playback
+status. This release also provides bug fixes and improved unit testing.
+
+### Changed
+- LexWeb component is now wrapped in a vuetify v-app component to avoid
+having to use the vuetify v-app outside of it. The LexWeb component now
+sets a min height that is dynamcally calculated based on the input bar
+height. When minimized, all subcomponents are hidden with the exception
+of the top toolbar.
+- Input bar on the bottom of the chatbot UI is now wrapped in a vuetify
+toolbar component. The container now has a fixed height which makes it
+easier to calculate offsets
+- The StatusBar component was renamed to RecorderStatus as that is a more
+appropriate name. It is now loaded from the the InputContainer component
+instead of directly from the LexWeb component
+- Renamed bot-loader.\* files to chatbot-ui-iframe-loader.\* to better
+reflect the use case
+- Bump dependency versions
+
+### Added
+- Added a send button to the input container. This button is shown
+when typing a message or when the mic is disabled
+- Added an a linear progress bar when the bot audio is playing
+- Added an indeterminate linear progress bar when the recorder is
+processing
+- Added title attribute to iframe in bot-loader.js script to improve
+accessibility
+- Added config options to chatbot-ui-iframe-loader.js to better control
+the loading of the config and dependencies:
+    * `shouldLoadConfigFromJsonFile`: controls if the script loads config
+    from a JSON File
+    * `shouldLoadConfigFromEvent`: controls if the script loads config
+    from an event
+    * `shouldAddAwsSdk`: controls if the AWS SDK is automatically added
+- Added unit tests for InputContainer and RecorderStatus components
+- Added getAudioProperties store action
+- Added README.md under src/website. For now, this readme
+is pretty much the same as the iframe embedding readme under
+lex-web-ui/static/iframe. This is in preparation to deprecate the parent
+page under lex-web-ui
 
 ### Fixed
 - Fixed a bug affecting the enable config option of the recorder
+- Fixed creds refresh issue when running in an iframe.
+- Fixed an issue with space trimming in text input
+- Fixed iframe height issue in MS Edge
+- Fixed audio initialization that caused problems in unit tests
 
 ## [0.9.0] - 2017-08-04
 This release adds a couple of simplified deployment options:

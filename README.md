@@ -92,7 +92,7 @@ sample page showing this setup here:
 [parent.html](src/website/parent.html). This includes a loader script
 that creates an API between the iframe and the parent page. For details,
 see its:
-[README](https://github.com/awslabs/aws-lex-web-ui/tree/master/lex-web-ui/static/iframe).
+[README](https://github.com/awslabs/aws-lex-web-ui/tree/master/lex-web-ui/src/website).
 
 <img src="./img/webapp-iframe.gif" width=600>
 
