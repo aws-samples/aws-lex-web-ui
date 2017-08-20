@@ -326,6 +326,17 @@ export default {
 
     context.commit('setBotPlaybackInterruptIntervalId', intervalId);
   },
+  getAudioProperties() {
+    return (audio) ?
+      {
+        currentTime: audio.currentTime,
+        duration: audio.duration,
+        end: audio.played.end(0),
+        ended: audio.ended,
+        paused: audio.paused,
+      } :
+      {};
+  },
 
   /***********************************************************************
    *
