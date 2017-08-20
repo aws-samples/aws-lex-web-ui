@@ -135,7 +135,10 @@ export default {
   },
   initBotAudio(context, audioElement) {
     if (!context.state.recState.isRecorderEnabled) {
-      return;
+      return Promise.resolve();
+    }
+    if (!audioElement) {
+      return Promise.reject('invalid audio element');
     }
     audio = audioElement;
 
@@ -171,6 +174,8 @@ export default {
     audio.src = silentSound;
     // autoplay will be set as a response to a clik
     audio.autoplay = false;
+
+    return Promise.resolve();
   },
   reInitBot(context) {
     return Promise.resolve()
