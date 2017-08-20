@@ -33,14 +33,13 @@ describe('LexWeb.vue', () => {
   });
 
   it('should render sub components', () => {
-    sinon.spy(vm, '$mount');
-    vm.$mount();
-
     const toolbar = vm.$el.querySelector('.toolbar');
     const toolbarTitle = vm.$el.querySelector('.toolbar__title');
     const messageList = vm.$el.querySelector('.message-list');
     const inputContainer = vm.$el.querySelector('.input-container');
     const recorderStatus = vm.$el.querySelector('.recorder-status');
+
+    vm.$mount();
 
     expect(toolbar, 'toolbar').is.not.equal(null);
     expect(toolbarTitle, 'toolbar title').is.not.equal(null);
