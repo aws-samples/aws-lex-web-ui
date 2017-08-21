@@ -1,26 +1,53 @@
 <template>
-  <div class="input-container white">
-    <v-text-field
-      id="text-input"
-      name="text-input"
-      v-bind:label="textInputPlaceholder"
-      v-on:keyup.enter.native.stop="postTextMessage"
-      v-model.trim="textInput"
-      class="black--text ml-2 pt-3 pb-0"
-      single-line
-    ></v-text-field>
+  <v-layout
+    row
+    child-flex
+    justify-space-between
+    class="input-container"
+  >
+    <v-toolbar class="white">
+      <!--
+        using v-show instead of v-if to make recorder-status transition work
+      -->
+      <v-text-field
+        v-bind:label="textInputPlaceholder"
+        v-show="shouldShowTextInput"
+        v-model="textInput"
+        v-on:keyup.enter.stop="postTextMessage"
+        v-on:focus="onTextFieldFocus"
+        v-on:blur="onTextFieldBlur"
+        id="text-input"
+        name="text-input"
+        single-line
+        hide-details
+      ></v-text-field>
 
-    <v-btn
-      v-if="isRecorderSupported"
-      v-on:click.native="onMicClick"
-      class="black--text mic-button"
-      icon
-      v-bind:disabled="isMicButtonDisabled"
-      v-tooltip:left="{html: micTooltip}"
-    >
-      <v-icon medium>{{micButtonIcon}}</v-icon>
-    </v-btn>
-  </div>
+      <recorder-status
+        v-show="!shouldShowTextInput"
+      ></recorder-status>
+
+      <v-btn
+        v-if="shouldShowSendButton"
+        v-on:click="postTextMessage"
+        v-bind:disabled="isSendButtonDisabled"
+        v-tooltip:left="{html: 'send'}"
+        class="black--text mic-button"
+        icon
+      >
+        <v-icon medium>send</v-icon>
+      </v-btn>
+      <v-btn
+        v-else
+        v-on:click="onMicClick"
+        v-bind:disabled="isMicButtonDisabled"
+        v-tooltip:left="{html: micButtonTooltip}"
+        class="black--text mic-button"
+        icon
+      >
+        <v-icon medium>{{micButtonIcon}}</v-icon>
+      </v-btn>
+    </v-toolbar>
+  </v-layout>
 </template>
 
 <script>
@@ -38,14 +65,45 @@ License for the specific language governing permissions and limitations under th
 */
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
+import RecorderStatus from '@/components/RecorderStatus';
+
 export default {
   name: 'input-container',
   data() {
     return {
       textInput: '',
+      isTextFieldFocused: false,
     };
   },
+  props: ['textInputPlaceholder', 'initialSpeechInstruction'],
+  components: {
+    RecorderStatus,
+  },
   computed: {
+    isBotSpeaking() {
+      return this.$store.state.botAudio.isSpeaking;
+    },
+    isSpeechConversationGoing() {
+      return this.$store.state.recState.isConversationGoing;
+    },
+    isMicButtonDisabled() {
+      return (
+        this.isMicMuted ||
+        (this.isSpeechConversationGoing && !this.isBotSpeaking)
+      );
+    },
+    isMicMuted() {
+      return this.$store.state.recState.isMicMuted;
+    },
+    isRecorderSupported() {
+      return this.$store.state.recState.isRecorderSupported;
+    },
+    isRecorderEnabled() {
+      return this.$store.state.recState.isRecorderEnabled;
+    },
+    isSendButtonDisabled() {
+      return this.textInput.length < 1;
+    },
     micButtonIcon() {
       if (this.isMicMuted) {
         return 'mic_off';
@@ -55,7 +113,7 @@ export default {
       }
       return 'mic';
     },
-    micTooltip() {
+    micButtonTooltip() {
       if (this.isMicMuted) {
         return 'mic seems to be muted';
       }
@@ -64,29 +122,53 @@ export default {
       }
       return 'click to use voice';
     },
-    isMicButtonDisabled() {
-      return this.isMicMuted;
+    shouldShowSendButton() {
+      return (
+        (this.textInput.length && this.isTextFieldFocused) ||
+        (!this.isRecorderSupported || !this.isRecorderEnabled)
+      );
     },
-    isBotSpeaking() {
-      return this.$store.state.botAudio.isSpeaking;
-    },
-    isConversationGoing() {
-      return this.$store.state.recState.isConversationGoing;
-    },
-    isMicMuted() {
-      return this.$store.state.recState.isMicMuted;
-    },
-    isRecorderSupported() {
-      return this.$store.state.recState.isRecorderSupported;
+    shouldShowTextInput() {
+      return !(this.isBotSpeaking || this.isSpeechConversationGoing);
     },
   },
-  props: ['textInputPlaceholder', 'initialSpeechInstruction', 'initialText'],
   methods: {
+    onMicClick() {
+      if (!this.isSpeechConversationGoing) {
+        return this.startSpeechConversation();
+      } else if (this.isBotSpeaking) {
+        return this.$store.dispatch('interruptSpeechConversation');
+      }
+
+      return Promise.resolve();
+    },
+    onTextFieldFocus() {
+      this.isTextFieldFocused = true;
+    },
+    onTextFieldBlur() {
+      if (!this.textInput.length && this.isTextFieldFocused) {
+        this.isTextFieldFocused = false;
+      }
+    },
+    playInitialInstruction() {
+      const isInitialState = ['', 'Fulfilled', 'Failed']
+        .some(initialState =>
+          this.$store.state.lex.dialogState === initialState,
+        );
+
+      return (isInitialState) ?
+        this.$store.dispatch('pollySynthesizeSpeech',
+          this.initialSpeechInstruction,
+        ) :
+        Promise.resolve();
+    },
     postTextMessage() {
+      this.textInput = this.textInput.trim();
       // empty string
       if (!this.textInput.length) {
         return Promise.resolve();
       }
+
       const message = {
         type: 'human',
         text: this.textInput,
@@ -96,15 +178,6 @@ export default {
         .then(() => {
           this.textInput = '';
         });
-    },
-    onMicClick() {
-      if (!this.isConversationGoing) {
-        return this.startSpeechConversation();
-      } else if (this.isBotSpeaking) {
-        return this.$store.dispatch('interruptSpeechConversation');
-      }
-
-      return Promise.resolve();
     },
     startSpeechConversation() {
       if (this.isMicMuted) {
@@ -119,18 +192,6 @@ export default {
             `I couldn't start the conversation. Please try again. (${error})`,
           );
         });
-    },
-    playInitialInstruction() {
-      const isInitialState = ['', 'Fulfilled', 'Failed']
-        .some(initialState =>
-          this.$store.state.lex.dialogState === initialState,
-        );
-
-      return (isInitialState) ?
-        this.$store.dispatch('pollySynthesizeSpeech',
-          this.initialSpeechInstruction,
-        ) :
-        Promise.resolve();
     },
     /**
      * Set auto-play attribute on audio element
@@ -152,7 +213,10 @@ export default {
 
 <style scoped>
 .input-container {
-  display: flex;
-  align-items: center;
+  /*
+  Set height to a known value to make offset calculations deterministic
+  Toolbar is 64px. Add 4px to give it a floating look.
+   */
+  height: 68px;
 }
 </style>

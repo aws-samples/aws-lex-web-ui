@@ -65,8 +65,17 @@ You can import the library as a module and use it in your code:
     // vuex store is in the lexWebUi instance
     store: lexWebUi.store,
     // you can use the globa LexWebUi/<lex-web-ui> commponent in templates
-    template: '<v-app toolbar id="lex-web-ui-app"><lex-web-ui/></v-app>',
+    template: '<div id="lex-web-ui-app"><lex-web-ui/></div>',
   });
+
+  /*
+  You will need to import the CSS depdendencies as well:
+
+    @import 'node_modules/roboto-fontface/css/roboto/roboto-fontface.css';
+    @import 'node_modules/material-design-icons/iconfont/material-icons.css';
+    @import 'node_modules/vuetify/dist/vuetify.min.css';
+    @import 'node_modules/aws-lex-web-ui/dist/lex-web-ui.css';
+  */
 ```
 
 Alternatively, for finer control, you can use the Vue plugin directly
@@ -74,6 +83,7 @@ in your application:
 ```JavaScript
   import Vue from 'vue';
   import Vuex from 'vuex';
+  import Vuetify from 'vuetify';
   import { Config as AWSConfig, CognitoIdentityCredentials }
     from 'aws-sdk/global';
   import LexRuntime from 'aws-sdk/clients/lexruntime';
@@ -81,8 +91,8 @@ in your application:
 
   import { Plugin as LexWebUi, Store as LexWebUiStore } from 'aws-lex-web-ui';
 
-  Vue.use(Vuetify);
   Vue.use(Vuex);
+  Vue.use(Vuetify);
 
   const poolId = 'us-east-1:deadbeef-cac0-babe-abcd-abcdef01234';
   const region = 'us-east-1';
@@ -105,23 +115,21 @@ in your application:
 
   Vue.use(LexWebUi, { config, awsConfig, lexRuntimeClient, pollyClient });
 
-  // add 'store' you your component - see Vuex for details
+  /*
+    You can now use the '<lex-web-ui>' tag in your Vue templates The
+    'LexWebUi' component is global to the Vue instance. You can access
+    the lexWebUi plugin instance in your components as 'this.$lexWebUi'.
 
-  // you can now use '<lex-web-ui>' tag  in your Vue templates
-  // The 'LexWebUi' component is global to the Vue application. You can
-  // access the plugin instance in your components as 'this.$lexWebUi'
+    Make sure to add the 'store' variable as the vuex store to your Vue
+    instance or component.
+
+    You will need to import CSS dependencies into your project:
+    @import 'node_modules/roboto-fontface/css/roboto/roboto-fontface.css';
+    @import 'node_modules/material-design-icons/iconfont/material-icons.css';
+    @import 'node_modules/vuetify/dist/vuetify.min.css';
+    @import 'node_modules/aws-lex-web-ui/dist/lex-web-ui.css';
+  */
 ```
-
-## Embedding as an iframe
-This project includes a sample script that can be used to embed
-the chatbot UI in a parent hosting site using an iframe. The chatbot UI uses a
-[postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
-and
-[MessageChannel](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel)
-based API to establish a bi-directional asynchronous communication
-channel between the parent and the iframe. For details, please refer to
-the README and the files in the
-[static/iframe](static/iframe) directory.
 
 ## Credential Management
 This sample application uses [Amazon

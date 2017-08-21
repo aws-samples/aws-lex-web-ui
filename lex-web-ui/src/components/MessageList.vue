@@ -1,5 +1,8 @@
 <template>
-  <v-layout class="message-list">
+  <v-layout
+    column
+    class="message-list ma-0 pt-1"
+  >
     <message
       v-for="message in messages"
       v-bind:message="message"
@@ -47,16 +50,9 @@ export default {
 
 <style scoped>
 .message-list {
-  background-color: #FAFAFA; /* gray-50 from material palette */
   display: flex;
   flex: 1;
-  flex-direction: column;
-  margin-right: 0px;
-  margin-left: 0px;
   overflow-y: auto;
-  padding-top: 0.3em;
-  padding-bottom: 0.5em;
-  width: 100%;
 }
 
 .message-bot {

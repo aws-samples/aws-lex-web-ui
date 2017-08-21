@@ -1,16 +1,18 @@
 <template>
-  <div class="status-bar white">
-    <v-divider></v-divider>
+  <v-flex class="recorder-status white">
     <div class="status-text">
       <span>{{statusText}}</span>
     </div>
-    <div class="voice-controls">
+
+    <div
+      class="voice-controls ml-2"
+    >
       <transition
         v-on:enter="enterMeter"
         v-on:leave="leaveMeter"
         v-bind:css="false"
       >
-        <div v-if="isRecording" class="ml-2 volume-meter">
+        <div v-if="isRecording" class="volume-meter">
           <meter
             v-bind:value="volume"
             min="0.0001"
@@ -21,8 +23,26 @@
           ></meter>
         </div>
       </transition>
+
+      <v-progress-linear
+        v-bind:indeterminate="true"
+        v-if="isProcessing"
+        class="processing-bar ma-0"
+      ></v-progress-linear>
+
+      <transition
+        v-on:enter="enterAudioPlay"
+        v-on:leave="leaveAudioPlay"
+        v-bind:css="false"
+      >
+        <v-progress-linear
+          v-if="isBotSpeaking"
+          v-model="audioPlayPercent"
+          class="audio-progress-bar ma-0"
+        ></v-progress-linear>
+      </transition>
     </div>
-  </div>
+  </v-flex>
 </template>
 <script>
 /*
@@ -38,12 +58,16 @@ BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
 
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+
 export default {
-  name: 'status-bar',
+  name: 'recorder-status',
   data() {
     return ({
       volume: 0,
       volumeIntervalId: null,
+      audioPlayPercent: 0,
+      audioIntervalId: null,
     });
   },
   computed: {
@@ -77,7 +101,7 @@ export default {
         return 'Processing...';
       }
       if (this.isRecorderSupported) {
-        return 'Type or click on the mic';
+        return 'Click on the mic';
       }
       return '';
     },
@@ -89,6 +113,12 @@ export default {
     },
     isConversationGoing() {
       return this.$store.state.recState.isConversationGoing;
+    },
+    isInterrupting() {
+      return (
+        this.$store.state.recState.isInterrupting ||
+        this.$store.state.botAudio.isInterrupting
+      );
     },
     isMicMuted() {
       return this.$store.state.recState.isMicMuted;
@@ -102,27 +132,42 @@ export default {
   },
   methods: {
     enterMeter() {
-      const intervalTime = 50;
-      let max = 0;
+      const intervalTimeInMs = 50;
       this.volumeIntervalId = setInterval(() => {
         this.$store.dispatch('getRecorderVolume')
           .then((volume) => {
             this.volume = volume.instant.toFixed(4);
-            max = Math.max(this.volume, max);
           });
-      }, intervalTime);
+      }, intervalTimeInMs);
     },
     leaveMeter() {
       if (this.volumeIntervalId) {
         clearInterval(this.volumeIntervalId);
       }
     },
+    enterAudioPlay() {
+      const intervalTimeInMs = 100;
+      this.audioIntervalId = setInterval(() => {
+        this.$store.dispatch('getAudioProperties')
+          .then(({ end = 0, duration = 0 }) => {
+            const percent = (duration <= 0) ? 0 : (end / duration) * 100;
+            this.audioPlayPercent = Math.ceil(percent / 10) * 10;
+          });
+      }, intervalTimeInMs);
+    },
+    leaveAudioPlay() {
+      if (this.audioIntervalId) {
+        this.audioPlayPercent = 0;
+        clearInterval(this.audioIntervalId);
+      }
+    },
   },
 };
 </script>
 <style scoped>
-.status-bar {
+.recorder-status {
   display: flex;
+  flex: 1;
   flex-direction: column;
 }
 
@@ -134,11 +179,19 @@ export default {
 
 .volume-meter {
   display: flex;
-  justify-content: center;
 }
 
 .volume-meter meter {
+  display: flex;
+  flex: 1;
   height: 0.75rem;
-  width: 33vw;
+}
+
+.processing-bar {
+  height: 0.75rem;
+}
+
+.audio-progress-bar {
+  height: 0.75rem;
 }
 </style>

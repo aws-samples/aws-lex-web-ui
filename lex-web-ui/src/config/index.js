@@ -124,7 +124,7 @@ const configDefault = {
     parentOrigin: null,
 
     // chat window text placeholder
-    textInputPlaceholder: 'Type here',
+    textInputPlaceholder: 'Type here or click on the mic',
 
     toolbarColor: 'red',
 

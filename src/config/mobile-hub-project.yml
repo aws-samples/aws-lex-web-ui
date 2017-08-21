@@ -28,10 +28,10 @@ uploads:
     fileName: lex-web-ui.min.js
     targetS3Bucket: hosting
   - !com.amazonaws.mobilehub.v0.Upload
-    fileName: bot-loader.js
+    fileName: chatbot-ui-iframe-loader.js
     targetS3Bucket: hosting
   - !com.amazonaws.mobilehub.v0.Upload
-    fileName: bot-loader.css
+    fileName: chatbot-ui-iframe-loader.css
     targetS3Bucket: hosting
   - !com.amazonaws.mobilehub.v0.Upload
     fileName: lex-web-ui.min.css
@@ -40,5 +40,5 @@ uploads:
     fileName: bot-config.json
     targetS3Bucket: hosting
   - !com.amazonaws.mobilehub.v0.Upload
-    fileName: bot-loader-config.json
+    fileName: chatbot-ui-iframe-loader-config.json
     targetS3Bucket: hosting

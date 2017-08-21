@@ -9,7 +9,7 @@ const botConfigFileName =
 const botConfig = require(botConfigFileName);
 
 const iframeConfigFileName =
-  process.env.IFRAME_CONFIG_PREBUILT || '../src/config/bot-loader-config.json';
+  process.env.IFRAME_CONFIG_PREBUILT || '../src/config/chatbot-ui-iframe-loader-config.json';
 const iframeConfig = require(iframeConfigFileName);
 
 // iframe config has its own format so its environment

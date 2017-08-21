@@ -106,7 +106,9 @@ export default {
       });
   },
   initRecorder(context) {
-    if (!context.state.recState.isRecorderEnabled) {
+    if (!context.state.recState.isRecorderEnabled ||
+      !context.state.config.recorder.enable
+    ) {
       return Promise.resolve();
     }
     recorder = new LexAudioRecorder(
@@ -133,7 +135,10 @@ export default {
   },
   initBotAudio(context, audioElement) {
     if (!context.state.recState.isRecorderEnabled) {
-      return;
+      return Promise.resolve();
+    }
+    if (!audioElement) {
+      return Promise.reject('invalid audio element');
     }
     audio = audioElement;
 
@@ -169,6 +174,8 @@ export default {
     audio.src = silentSound;
     // autoplay will be set as a response to a clik
     audio.autoplay = false;
+
+    return Promise.resolve();
   },
   reInitBot(context) {
     return Promise.resolve()
@@ -318,6 +325,17 @@ export default {
     }, intervalTimeInMs);
 
     context.commit('setBotPlaybackInterruptIntervalId', intervalId);
+  },
+  getAudioProperties() {
+    return (audio) ?
+      {
+        currentTime: audio.currentTime,
+        duration: audio.duration,
+        end: audio.played.end(0),
+        ended: audio.ended,
+        paused: audio.paused,
+      } :
+      {};
   },
 
   /***********************************************************************
@@ -581,7 +599,8 @@ export default {
           secretAccessKey: SecretKey,
           sessionToken: SessionToken,
           identityId: IdentityId,
-          getPromise() { return Promise.resolve(); },
+          expired: false,
+          getPromise() { return Promise.resolve(awsCredentials); },
         };
 
         return awsCredentials;

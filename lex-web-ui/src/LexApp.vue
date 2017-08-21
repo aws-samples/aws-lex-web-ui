@@ -1,12 +1,12 @@
 <template>
-  <v-app id="lex-app" toolbar>
+  <div id="lex-app">
     <page
       v-bind:favIcon="favIcon"
       v-bind:pageTitle="pageTitle"
       v-once
     ></page>
     <router-view></router-view>
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -89,10 +89,7 @@ export default {
   width: 100%;
 }
 body, html {
-  overflow-y: hidden;
-}
-/* avoid hiding input-container on Android/chrome */
-.application {
-  min-height: 90vh;
+  overflow-y: auto; /* allow reload by scrolling down on mobile */
+  overflow-x: hidden;
 }
 </style>

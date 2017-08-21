@@ -1,36 +1,53 @@
-# NOTE
-The iframe loader in this directory is being moved to the
-[/src/website](/src/website) directory of the repo. Please refer to
-the README and files in the
-[src/website](https://github.com/awslabs/aws-lex-web-ui/blob/master/src/website/)
-directory for an updated version. This version will be deprecated soon.
+# Overview
+This directory contains a sample site to showing how to load the chatbot
+UI as a full page or in an iframe. These are meant to be quick examples
+on how to integrate the chatbot UI into exising websites.
 
-# ChatBot UI Embedding
+The sample website depends on configuration files in the
+[/src/config](/src/config) directory. As a minimum, you should configure
+a valid Cognito Pool Id and Lex Bot name to test it.
 
-## Overview
-The chatbot UI can be embedded into an existing web site by loading it as
-an iframe. This includes embedding it in a cross-origin setup where the
-chatbot is served from a server, S3 bucket or CloudFront distribution
-in a domain that is different from the hosting web site. This README
-describes how to embed the chatbot UI as an iframe and the API used to
-send data between the parent page and the iframe. If you want to know
-more about the chatbot UI component, please refer to its
-[README](https://github.com/awslabs/aws-lex-web-ui/blob/master/lex-web-ui/README.md) file.
+Once you have the right config, you can start the test server:
+```shell
+npm start
+```
+
+You can also use the chatbot UI in your web application as a
+component. For details about the component and configuration, please
+refer to its
+[README](https://github.com/awslabs/aws-lex-web-ui/blob/master/lex-web-ui/README.md)
+file.
+
+# Full Page
+The [index.html](index.html) file in this directory is an example on
+how to display the chatbot UI as a full page. It loads third party
+dependencies from public CDNs as a quick way to test it. This page also
+depends on the chatbot UI library files in the [/dist](/dist) directory.
+
+# ChatBot UI Iframe Embedding
+The [parent.html](parent.html) file in this directory is a sample
+implementation of embedding the chatbot UI in an iframe. This includes
+embedding it in a cross-origin setup where the chatbot is served from
+a server, S3 bucket or CloudFront distribution in a domain that is
+different from the hosting web site. This section describes how to embed
+the chatbot UI as an iframe and the API used to send data between the
+parent page and the iframe.
 
 ## Adding the ChatBot UI to your Website
-This project provides a sample JavaScript loader
-([bot-loader.js](./bot-loader.js))
-and CSS file ([bot-loader.css](./bot-loader.css))
+This directory contains a sample JavaScript loader
+([chatbot-ui-iframe-loader.js](chatbot-ui-iframe-loader.js))
+and CSS file
+([chatbot-ui-iframe-loader.css](chatbot-ui-iframe-loader.css))
 that can be used to add the chatbot to an existing web site using a
 dynamically created iframe. This can be done by adding a couple of HTML
 tags to your web page:
 
 ```html
   <!-- add CSS link inside the HEAD tag -->
-  <link rel="stylesheet" type="text/css" href="https://myboturl.example.com/static/iframe/bot-loader.css">
+  <link rel="stylesheet" type="text/css" href="chatbot-ui-iframe-loader.css">
 
   <!-- add script tag towards the bottom of the html BODY section -->
-  <script src="https://myboturl.example.com/static/iframe/bot-loader.js"></script>
+  <script src="chatbot-ui-iframe-loader.js"></script>
 ```
 
 ## Passing Data between the Parent Page and the ChatBot UI
@@ -54,7 +71,7 @@ parent window
 
 **SECURITY NOTE:** Passing messages with postMessage can work in
 a cross-origin setup where the iframe is hosted in a domain/origin
-different from parent site. The chatbot UI and the bot-loader.js script
+different from parent site. The chatbot UI and the chatbot-ui-iframe-loader.js script
 validate the event Origin against configured values as a security access
 control measure. This avoids unauthorized sites posting arbitrary messages
 to your site or posing as the chatbot UI. Make sure to use origins as
@@ -62,7 +79,7 @@ specific as possible. See the Cross Origin Configuration section below
 for details of configuring the origin.
 
 ### Bot Loader Global Objects
-The [bot-loader.js](./bot-loader.js) script includes a reference
+The [chatbot-ui-iframe-loader.js](./chatbot-ui-iframe-loader.js) script includes a reference
 implementation of the chatbot UI API. This is exposed as a global
 class function named `LexWebUiIframe` created by the script. The script
 also instantiates an object of this class in a global variable named
@@ -75,22 +92,30 @@ The `LexWebUiIframe` class accepts the following options in the constructor:
     // div container class to insert iframe
     containerClass: 'lex-web-ui',
 
-    // iframe source uri. use lexWebUiEmbed=true query string when loading as iframe
-    // this is appended to the iframeOrigin passed in the config
+    // iframe source uri. use embed=true query string when loading as iframe
     iframeSrcPath: '/index.html#/?lexWebUiEmbed=true',
 
     // AWS SDK script dynamically added to the DOM
     // https://github.com/aws/aws-sdk-js
-    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.82.0.min.js',
+    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.98.0.min.js',
 
-    // URL to download build time config JSON file
-    configUrl: '/static/iframe/config.json',
+    // controls whether the AWS SDK is dynamically added to the DOM
+    shouldAddAwsSdk: true,
+
+    // URL to download config JSON file
+    configUrl: '/chatbot-ui-iframe-loader-config.json',
+
+    // controls whether the config should be downloaded from `configUrl`
+    shouldLoadConfigFromJsonFile: true,
+
+    // controls whether the config should be obtained using events
+    shouldLoadConfigFromEvent: true,
 
     // controls whether the bot loader script should
     // automatically initialize and load the iframe.
     // If set to false, you should manually initialize
     // using the init() method
-    shouldAutoLoad: false,
+    shouldAutoLoad: true,
   };
 
   var lexWebUi = new LexWebUi(options);
@@ -99,13 +124,13 @@ The `LexWebUiIframe` class accepts the following options in the constructor:
 #### Overriding LexWebUiIframe Default Options
 You can override the default class options by creating the
 `LexWebUiIframe.options` variable in the global scope before the
-bot-loader.js script runs. For example, the following snippet prevents
+chatbot-ui-iframe-loader.js script runs. For example, the following snippet prevents
 the bot loader script to automatically load the iframe:
 ```javascript
 
-   /* in a script that runs before bot-loader.js */
+   /* in a script that runs before chatbot-ui-iframe-loader.js */
   // Set LexWebUiIframe.options.shouldAutoLoad to false to prevent auto loading
-  // This should be set in a script that runs before the bot-loader.js script
+  // This should be set in a script that runs before the chatbot-ui-iframe-loader.js script
   // In that case, you would need to load it later using the init() function
   var LexWebUiIframe = {
     options: {
@@ -113,8 +138,8 @@ the bot loader script to automatically load the iframe:
     }
   };
 
-   /* in a script that runs after bot-loader.js */
-  // the iframe should not have been loaded by bot-loader.js
+   /* in a script that runs after chatbot-ui-iframe-loader.js */
+  // the iframe should not have been loaded by chatbot-ui-iframe-loader.js
   var lexWebUi = new LexWebUiIframe();
 
   // manually init the iframe
@@ -122,7 +147,7 @@ the bot loader script to automatically load the iframe:
 ```
 
 ## Events Based API
-The bot-loader.js script relays messages to and from the postMessage
+The chatbot-ui-iframe-loader.js script relays messages to and from the postMessage
 interface described above. This allows an alternate interface that serves
 as a proxy to the postMessage mechanism. This interface operates at a
 higher level and is intended to be a simpler compatibility layer. You
@@ -130,14 +155,12 @@ can use this event based API as a mechanism to quickly integrate the
 chatbot UI to your site. This works by using
 [custom events](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent)
 and [event listeners](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
-in the parent page that pass data to and from the postMessage interface. The [index.html](./index.html) file in this project
-contains a [JQuery](https://jquery.com/)
-sample implentation that illustrates how to use the API.
+in the parent page that pass data to and from the postMessage interface.
 
 ### Lex State Updates From Iframe
 The chatbot UI iframe sends Lex bot state update events to the parent
 site via postMessage. This can be used to have the parent react to the
-dialog state of the bot. The bot-loader.js script relays these messages
+dialog state of the bot. The chatbot-ui-iframe-loader.js script relays these messages
 back to the parent by emitting the `updatelexstate` events. The event
 object will contain the Lex state variables in the `details.state` field.
 
@@ -158,7 +181,7 @@ the events:
 ```
 
 ### Passing Event Messages from Parent to ChatBot UI
-The bot-loader.js script creates an event handler to receive
+The chatbot-ui-iframe-loader.js script creates an event handler to receive
 messages from the parent site that are passed down to the iframe using
 postMessage. This handler listens on `lexWebUiMessage` events. The event
 object should contain the message in the `details.message` field. The
@@ -176,7 +199,7 @@ message from the parent like this:
 ```
 
 ### ChatBot UI Ready
-The bot-loader.js script emits the `lexWebUiReady` event when it has
+The chatbot-ui-iframe-loader.js script emits the `lexWebUiReady` event when it has
 finished loading the chatbot UI. This event can signal the parent when
 it is ready to interact dynamically. You should wait for this event
 before you send messages from the parent to the iframe.
@@ -220,8 +243,8 @@ lexWebUi.sendMessageToIframe({event: 'postText', message: 'order'})
 
 ## API Details
 This section describes the low level API and related sample code. The
-bot-loader.js script implements this API as discussed above. You may
-want to use the bot-loader.js implementation instead of the examples
+chatbot-ui-iframe-loader.js script implements this API as discussed above. You may
+want to use the chatbot-ui-iframe-loader.js implementation instead of the examples
 here which are meant to be an illustration of how it works under the hood.
 
 ### Parent to ChatBot UI API
@@ -240,7 +263,7 @@ The chatbot UI implements the following event types:
 - **toggleMinimizeUi**. Toggles from the iframe from being minimized
 to maximized. It allows the chatbot UI to be minimized/maximized
 programmatically. This works in conjunction with the parent page where
-the bot-loader.js script minimizes the iframe by resizing it using CSS.
+the chatbot-ui-iframe-loader.js script minimizes the iframe by resizing it using CSS.
 - **parentReady**. Signals the chatbot UI that the parent has successfully
 loaded the chatbot UI and is ready to interact with it.
 - **postText**. Injects a text message in the chatbot UI. This
@@ -370,14 +393,14 @@ Here's an example of how to handle API calls from the chatbot UI:
 ```
 
 ## Configuration
-The [bot-loader.js](./bot-loader.js) script can load its configuration
+The [chatbot-ui-iframe-loader.js](./chatbot-ui-iframe-loader.js) script can load its configuration
 from a JSON file or from an asynchronous event. See below for a description
 of each approach.
 
 ### Configuration from JSON File
-The bot-loader.js] script loads its initial configuration from the JSON
+The chatbot-ui-iframe-loader.js] script loads its initial configuration from the JSON
 config file: [config.json](./config.json).  This file is meant to be used
-as the build-time configuration of the bot-loader.js script. It serves
+as the build-time configuration of the chatbot-ui-iframe-loader.js script. It serves
 as the base config so the root level keys in the JSON object should not
 be removed.
 
@@ -415,9 +438,9 @@ Here's an example of the file format:
 
 ### Configuration Configuration via Event
 The parent page can also set the bot loader configuration via an event.
-The bot-loader.js script emits the `receivelexconfig` event which
+The chatbot-ui-iframe-loader.js script emits the `receivelexconfig` event which
 signals to the parent that it is ready to receive a configuration
-object. At which point, the bot-loader.js script will wait a 10
+object. At which point, the chatbot-ui-iframe-loader.js script will wait a 10
 seconds timeout (by default) to receive a event named `loadlexconfig`.
 Your site should respond to the event if you don't want the bot loader
 to wait for the whole duration.  The timeout can be controlled by the
@@ -469,7 +492,7 @@ config parameter.
 2. **URL Parameter.** The chatbot UI configuration can be initialized using
 the `lexWebUiConfig` URL parameter. For details, see the
 [URL Parameter](https://github.com/awslabs/aws-lex-web-ui/blob/master/lex-web-ui/README.md#url-parameter)
-section. NOTE: the bot-loader.js script does not pass URL parameters to
+section. NOTE: the chatbot-ui-iframe-loader.js script does not pass URL parameters to
 the chatbot UI by default. You can override this by dynamically setting
 the `iframeSrcPath` option of the `LexWebUiIframe` class.
 

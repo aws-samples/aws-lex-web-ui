@@ -51,6 +51,7 @@ export default class {
       sessionAttributes,
     });
     return this.credentials.getPromise()
+      .then(creds => creds && this.initCredentials(creds))
       .then(() => postTextReq.promise());
   }
 
@@ -84,6 +85,7 @@ export default class {
     });
 
     return this.credentials.getPromise()
+      .then(creds => creds && this.initCredentials(creds))
       .then(() => postContentReq.promise());
   }
 }
