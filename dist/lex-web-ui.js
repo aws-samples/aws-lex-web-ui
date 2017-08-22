@@ -2805,7 +2805,6 @@ License for the specific language governing permissions and limitations under th
     // emit lex state on changes
     lexState: function lexState() {
       this.$emit('updateLexState', this.lexState);
-      console.warn('xxx emitting', this.lexState);
     }
   },
   beforeMount: function beforeMount() {

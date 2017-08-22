@@ -64,7 +64,7 @@ You can import the library as a module and use it in your code:
     el: '#lex-web-ui',
     // vuex store is in the lexWebUi instance
     store: lexWebUi.store,
-    // you can use the globa LexWebUi/<lex-web-ui> commponent in templates
+    // you can use the global LexWebUi/<lex-web-ui> commponent in templates
     template: `
       <div id="lex-web-ui-app">
         <lex-web-ui
@@ -132,6 +132,10 @@ in your application:
 
     Make sure to add the 'store' variable as the vuex store to your Vue
     instance or component.
+
+    The '<lex-web-ui>' component emits 'updateLexState' events everytime
+    the Lex state changes. The parent component can handle these events
+    using 'v-on' to grab the current Lex state.
 
     You will need to import CSS dependencies into your project:
     @import 'node_modules/roboto-fontface/css/roboto/roboto-fontface.css';

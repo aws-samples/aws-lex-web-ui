@@ -74,7 +74,6 @@ export default {
     // emit lex state on changes
     lexState() {
       this.$emit('updateLexState', this.lexState);
-      console.warn('xxx emitting', this.lexState);
     },
   },
   beforeMount() {
