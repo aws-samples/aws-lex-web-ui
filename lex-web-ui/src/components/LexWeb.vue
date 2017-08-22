@@ -66,6 +66,16 @@ export default {
     isUiMinimized() {
       return this.$store.state.isUiMinimized;
     },
+    lexState() {
+      return this.$store.state.lex;
+    },
+  },
+  watch: {
+    // emit lex state on changes
+    lexState() {
+      this.$emit('updateLexState', this.lexState);
+      console.warn('xxx emitting', this.lexState);
+    },
   },
   beforeMount() {
     if (this.$store.state.config.urlQueryParams.lexWebUiEmbed !== 'true') {

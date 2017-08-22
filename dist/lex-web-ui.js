@@ -1732,7 +1732,7 @@ License for the specific language governing permissions and limitations under th
  */
 var Component = {
   name: 'lex-web-ui',
-  template: '<lex-web></lex-web>',
+  template: '<lex-web v-on="$listeners"></lex-web>',
   components: { LexWeb: __WEBPACK_IMPORTED_MODULE_9__components_LexWeb__["a" /* default */] }
 };
 
@@ -2796,6 +2796,16 @@ License for the specific language governing permissions and limitations under th
     },
     isUiMinimized: function isUiMinimized() {
       return this.$store.state.isUiMinimized;
+    },
+    lexState: function lexState() {
+      return this.$store.state.lex;
+    }
+  },
+  watch: {
+    // emit lex state on changes
+    lexState: function lexState() {
+      this.$emit('updateLexState', this.lexState);
+      console.warn('xxx emitting', this.lexState);
     }
   },
   beforeMount: function beforeMount() {
@@ -5867,7 +5877,7 @@ var recorder = void 0;
     });
   },
   postTextMessage: function postTextMessage(context, message) {
-    context.dispatch('interruptSpeechConversation').then(function () {
+    return context.dispatch('interruptSpeechConversation').then(function () {
       return context.dispatch('pushMessage', message);
     }).then(function () {
       return context.dispatch('lexPostText', message.text);

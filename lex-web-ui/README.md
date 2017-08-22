@@ -65,7 +65,17 @@ You can import the library as a module and use it in your code:
     // vuex store is in the lexWebUi instance
     store: lexWebUi.store,
     // you can use the globa LexWebUi/<lex-web-ui> commponent in templates
-    template: '<div id="lex-web-ui-app"><lex-web-ui/></div>',
+    template: `
+      <div id="lex-web-ui-app">
+        <lex-web-ui
+          v-on:updateLexState="onUpdateLexState"
+        ></lex-web-ui>
+      </div>`,
+    methods: {
+      onUpdateLexState(lexState) {
+        // handle lex state change events
+      },
+    },
   });
 
   /*
@@ -299,8 +309,8 @@ var lexWebUiWindow = window.open(url, 'Lex Web UI', 'width=400', 'height=500');
 When running in an iframe, the chatbot UI can obtain its config from the
 parent page. Additionally, the parent page has its own config. Please
 refer to the
-[README](https://github.com/awslabs/aws-lex-web-ui/tree/master/lex-web-ui/static/iframe#configuration)
-in the [static/iframe](static/iframe) directory for details.
+[README](https://github.com/awslabs/aws-lex-web-ui/blob/master/src/website/README.md#configuration)
+in the [/src/website](/src/website) directory for details.
 
 ### Playback Options
 The voice responses from the Lex `postContent` API calls are automatically

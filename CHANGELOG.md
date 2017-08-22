@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [unreleased] - 2017-XX-XX
+### Added
+- Added the ability to emit a vue event when the the lex state changes.
+This event can be handled with v-on when using the library as a Vue
+component.
+
+### Fixed
+- Fixed a promise return issue when posting a text message
+
 ## [0.9.1] - 2017-08-20
 This release refactors the LexWeb component to make it easier to test
 and include it in other applications/sites. The input toolbar is now more
