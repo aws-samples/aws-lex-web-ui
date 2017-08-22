@@ -434,7 +434,7 @@ export default {
     });
   },
   postTextMessage(context, message) {
-    context.dispatch('interruptSpeechConversation')
+    return context.dispatch('interruptSpeechConversation')
       .then(() => context.dispatch('pushMessage', message))
       .then(() => context.dispatch('lexPostText', message.text))
       .then(response => context.dispatch('pushMessage',
