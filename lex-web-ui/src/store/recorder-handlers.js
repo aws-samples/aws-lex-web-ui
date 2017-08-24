@@ -137,10 +137,12 @@ const initRecorderHandlers = (context, recorder) => {
         return Promise.resolve();
       })
       .catch((error) => {
+        const errorMessage = (context.state.config.ui.showErrorDetails) ?
+          ` ${error}` : '';
         console.error('converser error:', error);
         context.dispatch('stopConversation');
         context.dispatch('pushErrorMessage',
-          `I had an error. ${error}`,
+          `Sorry, I had an error handling this conversation.${errorMessage}`,
         );
         context.commit('resetSilentRecordingCount');
       });

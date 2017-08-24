@@ -188,8 +188,12 @@ export default {
         .then(() => this.$store.dispatch('startConversation'))
         .catch((error) => {
           console.error('error in startSpeechConversation', error);
+          const errorMessage = (this.$store.state.config.ui.showErrorDetails) ?
+            ` ${error}` : '';
+
           this.$store.dispatch('pushErrorMessage',
-            `I couldn't start the conversation. Please try again. (${error})`,
+            "Sorry, I couldn't start the conversation. Please try again." +
+            `${errorMessage}`,
           );
         });
     },

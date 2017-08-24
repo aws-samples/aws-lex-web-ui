@@ -152,6 +152,9 @@ const configDefault = {
     // controls whether tags (e.g. SSML or HTML) should be stripped out
     // of bot messages received from Lex
     stripTagsFromBotMessages: true,
+
+    // controls whether detailed error messages are shown in bot responses
+    showErrorDetails: false,
   },
 
   /* Configuration to enable voice and to pass options to the recorder

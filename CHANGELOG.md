@@ -5,10 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased] - 2017-XX-XX
+### Changed
+- Detailed errors are no longer shown in bot response messages by default.
+This is controlled by the `ui.showErrorDetails` config field which
+defaults to false.
+
 ### Added
 - Added the ability to emit a vue event when the the lex state changes.
 This event can be handled with v-on when using the library as a Vue
 component.
+- Added a new config field: `ui.showErrorDetails` that can be set to true
+to display detailed errors in bot response messages. When set to false
+(default), only generic error messages are displayed in bot responses.
 
 ### Fixed
 - Fixed a promise return issue when posting a text message

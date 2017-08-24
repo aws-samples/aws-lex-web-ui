@@ -451,9 +451,12 @@ export default {
         }
       })
       .catch((error) => {
+        const errorMessage = (context.state.config.ui.showErrorDetails) ?
+          ` ${error}` : '';
         console.error('error in postTextMessage', error);
         context.dispatch('pushErrorMessage',
-          `I was unable to process your message. ${error}`,
+          'Sorry, I was unable to process your message. Try again later.' +
+          `${errorMessage}`,
         );
       });
   },
