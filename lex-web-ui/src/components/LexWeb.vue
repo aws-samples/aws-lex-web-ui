@@ -10,11 +10,11 @@
     ></toolbar-container>
 
     <message-list
-      v-if="!isUiMinimized"
+      v-show="!isUiMinimized"
     ></message-list>
 
     <input-container
-      v-if="!isUiMinimized"
+      v-show="!isUiMinimized"
       v-bind:text-input-placeholder="textInputPlaceholder"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
     ></input-container>
