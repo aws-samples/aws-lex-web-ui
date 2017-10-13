@@ -66,11 +66,9 @@ const initRecorderHandlers = (context, recorder) => {
   // TODO need to change recorder event setter to support
   // replacing handlers instead of adding
   recorder.ondataavailable = (e) => {
-    const mimeType = recorder.mimeType;
+    const { mimeType } = recorder;
     console.info('recorder data available event triggered');
-    const audioBlob = new Blob(
-      [e.detail], { type: mimeType },
-    );
+    const audioBlob = new Blob([e.detail], { type: mimeType });
     // XXX not used for now since only encoding WAV format
     let offset = 0;
     // offset is only needed for opus encoded ogg files
@@ -89,10 +87,10 @@ const initRecorderHandlers = (context, recorder) => {
         if (context.state.recState.silentRecordingCount >=
           context.state.config.converser.silentConsecutiveRecordingMax
         ) {
-          return Promise.reject(
+          const errorMessage =
             'Too many consecutive silent recordings: ' +
-            `${context.state.recState.silentRecordingCount}.`,
-          );
+            `${context.state.recState.silentRecordingCount}.`;
+          return Promise.reject(new Error(errorMessage));
         }
         return Promise.all([
           context.dispatch('getAudioUrl', audioBlob),
@@ -123,9 +121,8 @@ const initRecorderHandlers = (context, recorder) => {
       })
       .then(() => {
         if (
-          ['Fulfilled', 'ReadyForFulfillment', 'Failed'].indexOf(
-            context.state.lex.dialogState,
-          ) >= 0
+          ['Fulfilled', 'ReadyForFulfillment', 'Failed']
+            .indexOf(context.state.lex.dialogState) >= 0
         ) {
           return context.dispatch('stopConversation')
             .then(() => context.dispatch('reInitBot'));
@@ -141,7 +138,8 @@ const initRecorderHandlers = (context, recorder) => {
           ` ${error}` : '';
         console.error('converser error:', error);
         context.dispatch('stopConversation');
-        context.dispatch('pushErrorMessage',
+        context.dispatch(
+          'pushErrorMessage',
           `Sorry, I had an error handling this conversation.${errorMessage}`,
         );
         context.commit('resetSilentRecordingCount');

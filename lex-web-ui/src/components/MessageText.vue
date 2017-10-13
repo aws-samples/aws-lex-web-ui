@@ -83,23 +83,28 @@ export default {
       ];
       // TODO avoid double HTML encoding when there's more than 1 linkReplacer
       return linkReplacers
-        .reduce((message, replacer) =>
-          // splits the message into an array containing content chunks and links.
-          // Content chunks will be the even indexed items in the array
-          // (or empty string when applicable).
-          // Links (if any) will be the odd members of the array since the
-          // regex keeps references.
-          message.split(replacer.regex)
-            .reduce((messageAccum, item, index, array) => {
-              let messageResult = '';
-              if ((index % 2) === 0) {
-                const urlItem = ((index + 1) === array.length) ?
-                  '' : replacer.replace(array[index + 1]);
-                messageResult = `${this.encodeAsHtml(item)}${urlItem}`;
-              }
-              return messageAccum + messageResult;
-            }, '')
-          , messageText);
+        .reduce(
+          (message, replacer) =>
+            // splits the message into an array containing content chunks
+            // and links. Content chunks will be the even indexed items in the
+            // array (or empty string when applicable).
+            // Links (if any) will be the odd members of the array since the
+            // regex keeps references.
+            message.split(replacer.regex)
+              .reduce(
+                (messageAccum, item, index, array) => {
+                  let messageResult = '';
+                  if ((index % 2) === 0) {
+                    const urlItem = ((index + 1) === array.length) ?
+                      '' : replacer.replace(array[index + 1]);
+                    messageResult = `${this.encodeAsHtml(item)}${urlItem}`;
+                  }
+                  return messageAccum + messageResult;
+                },
+                '',
+              ),
+          messageText,
+        );
     },
     // used for stripping SSML (and other) tags from bot responses
     stripTagsFromMessage(messageText) {

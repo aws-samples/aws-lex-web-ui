@@ -66,7 +66,7 @@ export default {
         case 'Fulfilled':
         case 'ReadyForFulfillment':
           return { icon: 'done', color: 'green' };
-        default :
+        default:
           return null;
       }
     },

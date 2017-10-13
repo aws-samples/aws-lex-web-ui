@@ -152,12 +152,13 @@ export default {
     },
     playInitialInstruction() {
       const isInitialState = ['', 'Fulfilled', 'Failed']
-        .some(initialState =>
-          this.$store.state.lex.dialogState === initialState,
-        );
+        .some(initialState => (
+          this.$store.state.lex.dialogState === initialState
+        ));
 
       return (isInitialState) ?
-        this.$store.dispatch('pollySynthesizeSpeech',
+        this.$store.dispatch(
+          'pollySynthesizeSpeech',
           this.initialSpeechInstruction,
         ) :
         Promise.resolve();
@@ -191,7 +192,8 @@ export default {
           const errorMessage = (this.$store.state.config.ui.showErrorDetails) ?
             ` ${error}` : '';
 
-          this.$store.dispatch('pushErrorMessage',
+          this.$store.dispatch(
+            'pushErrorMessage',
             "Sorry, I couldn't start the conversation. Please try again." +
             `${errorMessage}`,
           );

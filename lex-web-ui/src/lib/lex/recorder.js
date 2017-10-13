@@ -147,7 +147,8 @@ export default class {
 
     // worker uses this event listener to signal back
     // when wav has finished encoding
-    this._encoderWorker.addEventListener('message',
+    this._encoderWorker.addEventListener(
+      'message',
       evt => this._exportWav(evt.data),
     );
   }
@@ -267,15 +268,11 @@ export default class {
 
     // sets this._audioContext AudioContext object
     return this._initAudioContext()
-      .then(() =>
-        // inits AudioContext.createScriptProcessor object
-        // used to process mic audio input volume
-        // sets this._micVolumeProcessor
-        this._initMicVolumeProcessor(),
-      )
-      .then(() =>
-        this._initStream(),
-      );
+      // inits AudioContext.createScriptProcessor object
+      // used to process mic audio input volume
+      // sets this._micVolumeProcessor
+      .then(() => this._initMicVolumeProcessor())
+      .then(() => this._initStream());
   }
 
   /**
@@ -336,9 +333,8 @@ export default class {
   }
 
   _exportWav(evt) {
-    this._eventTarget.dispatchEvent(
-      new CustomEvent('dataavailable', { detail: evt.data }),
-    );
+    const event = new CustomEvent('dataavailable', { detail: evt.data });
+    this._eventTarget.dispatchEvent(event);
     this._encoderWorker.postMessage({ command: 'clear' });
   }
 
@@ -374,7 +370,8 @@ export default class {
     if (!this._isMicMuted && (this._slow < this.muteThreshold)) {
       this._isMicMuted = true;
       this._eventTarget.dispatchEvent(new Event('mute'));
-      console.info('mute - instant: %s - slow: %s - track muted: %s',
+      console.info(
+        'mute - instant: %s - slow: %s - track muted: %s',
         this._instant, this._slow, this._tracks[0].muted,
       );
 
@@ -435,7 +432,7 @@ export default class {
   _initAudioContext() {
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!window.AudioContext) {
-      return Promise.reject('Web Audio API not supported.');
+      return Promise.reject(new Error('Web Audio API not supported.'));
     }
     this._audioContext = new AudioContext();
     document.addEventListener('visibilitychange', () => {
@@ -562,9 +559,7 @@ export default class {
         this._analyserData = new Float32Array(analyser.frequencyBinCount);
         this._analyser = analyser;
 
-        this._micVolumeProcessor.connect(
-          this._audioContext.destination,
-        );
+        this._micVolumeProcessor.connect(this._audioContext.destination);
 
         this._eventTarget.dispatchEvent(new Event('streamReady'));
       });
