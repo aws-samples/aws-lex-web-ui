@@ -1,16 +1,24 @@
 <template>
-  <v-toolbar v-bind:class="toolbarColor" dark dense>
+  <v-toolbar v-bind:color="toolbarColor" dark dense>
     <img v-bind:src="toolbarLogo">
     <v-toolbar-title class="hidden-xs-and-down">
       {{ toolbarTitle }}
     </v-toolbar-title>
     <v-spacer />
+    <!-- tooltip should be before btn to avoid right margin issue in mobile -->
+    <v-tooltip
+      v-model="shouldShowTooltip"
+      activator=".min-max-toggle"
+      left
+    >
+      <span>{{toolTipMinimize}}</span>
+    </v-tooltip>
     <v-btn
-      v-tooltip:left="toolTipMinimize"
-      v-on:click.native="toggleMinimize"
       v-if="$store.state.isRunningEmbedded"
+      v-on:click="toggleMinimize"
+      v-on="tooltipEventHandlers"
+      class="min-max-toggle"
       icon
-      light
     >
       <v-icon>
         {{ isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down' }}
@@ -34,16 +42,33 @@ License for the specific language governing permissions and limitations under th
 */
 export default {
   name: 'toolbar-container',
+  data() {
+    return {
+      shouldShowTooltip: false,
+      tooltipEventHandlers: {
+        mouseenter: this.onInputButtonHoverEnter,
+        mouseleave: this.onInputButtonHoverLeave,
+        touchstart: this.onInputButtonHoverEnter,
+        touchend: this.onInputButtonHoverLeave,
+        touchcancel: this.onInputButtonHoverLeave,
+      },
+    };
+  },
   props: ['toolbarTitle', 'toolbarColor', 'toolbarLogo', 'isUiMinimized'],
   computed: {
     toolTipMinimize() {
-      return {
-        html: (this.isUiMinimized) ? 'maximize' : 'minimize',
-      };
+      return (this.isUiMinimized) ? 'maximize' : 'minimize';
     },
   },
   methods: {
+    onInputButtonHoverEnter() {
+      this.shouldShowTooltip = true;
+    },
+    onInputButtonHoverLeave() {
+      this.shouldShowTooltip = false;
+    },
     toggleMinimize() {
+      this.onInputButtonHoverLeave();
       this.$emit('toggleMinimizeUi');
     },
   },

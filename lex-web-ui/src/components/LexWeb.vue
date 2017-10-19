@@ -205,13 +205,12 @@ export default {
 
 <style>
 #lex-web {
-  display: flex;
-  flex-direction: column;
   width: 100%;
 }
 .application {
-  /* substract the input bar height as a workaround on mobile
+  /* substract the input container height as a workaround on mobile
+     to prevent the input container to be out of view
    */
-  min-height: calc(100vh - 68px);
+  min-height: calc(100vh - 64px);
 }
 </style>

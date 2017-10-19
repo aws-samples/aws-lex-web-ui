@@ -1,53 +1,66 @@
 <template>
-  <v-layout
-    row
-    child-flex
-    justify-space-between
-    class="input-container"
-  >
-    <v-toolbar class="white">
-      <!--
-        using v-show instead of v-if to make recorder-status transition work
-      -->
-      <v-text-field
-        v-bind:label="textInputPlaceholder"
-        v-show="shouldShowTextInput"
-        v-model="textInput"
-        v-on:keyup.enter.stop="postTextMessage"
-        v-on:focus="onTextFieldFocus"
-        v-on:blur="onTextFieldBlur"
-        id="text-input"
-        name="text-input"
-        single-line
-        hide-details
-      ></v-text-field>
+  <v-footer>
+    <v-layout
+      row
+      justify-space-between
+      ma-0
+      class="input-container"
+    >
+      <v-toolbar color="white">
+        <!--
+          using v-show instead of v-if to make recorder-status transition work
+        -->
+        <v-text-field
+          v-bind:label="textInputPlaceholder"
+          v-show="shouldShowTextInput"
+          v-model="textInput"
+          v-on:keyup.enter.stop="postTextMessage"
+          v-on:focus="onTextFieldFocus"
+          v-on:blur="onTextFieldBlur"
+          id="text-input"
+          name="text-input"
+          single-line
+          hide-details
+        ></v-text-field>
 
-      <recorder-status
-        v-show="!shouldShowTextInput"
-      ></recorder-status>
+        <recorder-status
+          v-show="!shouldShowTextInput"
+        ></recorder-status>
 
-      <v-btn
-        v-if="shouldShowSendButton"
-        v-on:click="postTextMessage"
-        v-bind:disabled="isSendButtonDisabled"
-        v-tooltip:left="{html: 'send'}"
-        class="black--text mic-button"
-        icon
-      >
-        <v-icon medium>send</v-icon>
-      </v-btn>
-      <v-btn
-        v-else
-        v-on:click="onMicClick"
-        v-bind:disabled="isMicButtonDisabled"
-        v-tooltip:left="{html: micButtonTooltip}"
-        class="black--text mic-button"
-        icon
-      >
-        <v-icon medium>{{micButtonIcon}}</v-icon>
-      </v-btn>
-    </v-toolbar>
-  </v-layout>
+        <!-- separate tooltip as a workaround to support mobile touch events -->
+        <!-- tooltip should be before btn to avoid right margin issue in mobile -->
+        <v-tooltip
+          activator=".input-button"
+          v-model="shouldShowTooltip"
+          top
+        >
+          <span>{{inputButtonTooltip}}</span>
+        </v-tooltip>
+        <v-btn
+          v-if="shouldShowSendButton"
+          v-on:click="postTextMessage"
+          v-on="tooltipEventHandlers"
+          v-bind:disabled="isSendButtonDisabled"
+          ref="send"
+          class="black--text input-button"
+          icon
+        >
+          <v-icon medium>send</v-icon>
+        </v-btn>
+        <v-btn
+          v-else
+          v-on:click="onMicClick"
+          v-on="tooltipEventHandlers"
+          v-bind:disabled="isMicButtonDisabled"
+          ref="mic"
+          class="black--text input-button"
+          icon
+        >
+          <v-icon medium>{{micButtonIcon}}</v-icon>
+        </v-btn>
+      </v-toolbar>
+    </v-layout>
+  </v-footer>
 </template>
 
 <script>
@@ -73,6 +86,15 @@ export default {
     return {
       textInput: '',
       isTextFieldFocused: false,
+      shouldShowTooltip: false,
+      // workaround: vuetify tooltips doesn't seem to support touch events
+      tooltipEventHandlers: {
+        mouseenter: this.onInputButtonHoverEnter,
+        mouseleave: this.onInputButtonHoverLeave,
+        touchstart: this.onInputButtonHoverEnter,
+        touchend: this.onInputButtonHoverLeave,
+        touchcancel: this.onInputButtonHoverLeave,
+      },
     };
   },
   props: ['textInputPlaceholder', 'initialSpeechInstruction'],
@@ -113,7 +135,10 @@ export default {
       }
       return 'mic';
     },
-    micButtonTooltip() {
+    inputButtonTooltip() {
+      if (this.shouldShowSendButton) {
+        return 'send';
+      }
       if (this.isMicMuted) {
         return 'mic seems to be muted';
       }
@@ -133,7 +158,14 @@ export default {
     },
   },
   methods: {
+    onInputButtonHoverEnter() {
+      this.shouldShowTooltip = true;
+    },
+    onInputButtonHoverLeave() {
+      this.shouldShowTooltip = false;
+    },
     onMicClick() {
+      this.onInputButtonHoverLeave();
       if (!this.isSpeechConversationGoing) {
         return this.startSpeechConversation();
       } else if (this.isBotSpeaking) {
@@ -164,6 +196,7 @@ export default {
         Promise.resolve();
     },
     postTextMessage() {
+      this.onInputButtonHoverLeave();
       this.textInput = this.textInput.trim();
       // empty string
       if (!this.textInput.length) {
@@ -216,13 +249,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.input-container {
-  /*
-  Set height to a known value to make offset calculations deterministic
-  Toolbar is 64px. Add 4px to give it a floating look.
-   */
-  height: 68px;
-}
-</style>
