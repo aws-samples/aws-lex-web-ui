@@ -332,7 +332,8 @@ export default {
       {
         currentTime: audio.currentTime,
         duration: audio.duration,
-        end: audio.played.end(0),
+        end: (audio.played.length >= 1) ?
+          audio.played.end(0) : audio.duration,
         ended: audio.ended,
         paused: audio.paused,
       } :

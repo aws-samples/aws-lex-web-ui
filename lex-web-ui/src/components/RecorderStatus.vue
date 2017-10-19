@@ -146,12 +146,12 @@ export default {
       }
     },
     enterAudioPlay() {
-      const intervalTimeInMs = 100;
+      const intervalTimeInMs = 20;
       this.audioIntervalId = setInterval(() => {
         this.$store.dispatch('getAudioProperties')
           .then(({ end = 0, duration = 0 }) => {
             const percent = (duration <= 0) ? 0 : (end / duration) * 100;
-            this.audioPlayPercent = Math.ceil(percent / 10) * 10;
+            this.audioPlayPercent = (Math.ceil(percent / 10) * 10) + 5;
           });
       }, intervalTimeInMs);
     },
