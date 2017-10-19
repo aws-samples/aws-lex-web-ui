@@ -2,11 +2,13 @@
 // with a few optimizations including downsampling and trimming quiet samples
 
 /* global Blob self */
+/* eslint no-restricted-globals: ["error", "self"] */
 /* eslint prefer-arrow-callback: ["error", { "allowNamedFunctions": true }] */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint no-use-before-define: ["error", { "functions": false }] */
 /* eslint no-plusplus: off */
 /* eslint comma-dangle: ["error", {"functions": "never", "objects": "always-multiline"}] */
+/* eslint-disable prefer-destructuring */
 const bitDepth = 16;
 const bytesPerSample = bitDepth / 8;
 const outSampleRate = 16000;
