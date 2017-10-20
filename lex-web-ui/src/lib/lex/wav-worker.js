@@ -2,7 +2,7 @@
 // with a few optimizations including downsampling and trimming quiet samples
 
 /* global Blob self */
-/* eslint no-restricted-globals: ["error", "self"] */
+/* eslint no-restricted-globals: off */
 /* eslint prefer-arrow-callback: ["error", { "allowNamedFunctions": true }] */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint no-use-before-define: ["error", { "functions": false }] */
