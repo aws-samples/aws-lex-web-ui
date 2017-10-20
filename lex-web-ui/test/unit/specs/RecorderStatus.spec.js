@@ -7,6 +7,7 @@ import RecorderStatus from '@/components/RecorderStatus';
 import { Store } from '@/lex-web-ui';
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
+/* eslint-disable prefer-destructuring */
 
 describe('RecorderStatus.vue', () => {
   let vm;
