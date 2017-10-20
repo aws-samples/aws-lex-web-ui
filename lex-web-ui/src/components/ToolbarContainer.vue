@@ -11,7 +11,7 @@
       activator=".min-max-toggle"
       left
     >
-      <span>{{toolTipMinimize}}</span>
+      <span id="min-max-tooltip">{{toolTipMinimize}}</span>
     </v-tooltip>
     <v-btn
       v-if="$store.state.isRunningEmbedded"

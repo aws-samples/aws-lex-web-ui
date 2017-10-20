@@ -32,9 +32,10 @@
         <v-tooltip
           activator=".input-button"
           v-model="shouldShowTooltip"
+          ref="tooltip"
           top
         >
-          <span>{{inputButtonTooltip}}</span>
+          <span id="input-button-tooltip">{{inputButtonTooltip}}</span>
         </v-tooltip>
         <v-btn
           v-if="shouldShowSendButton"
