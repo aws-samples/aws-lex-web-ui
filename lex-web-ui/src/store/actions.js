@@ -104,9 +104,8 @@ export default {
       });
   },
   initRecorder(context) {
-    if (!context.state.recState.isRecorderEnabled ||
-      !context.state.config.recorder.enable
-    ) {
+    if (!context.state.config.recorder.enable) {
+      context.commit('setIsRecorderEnabled', false);
       return Promise.resolve();
     }
     recorder = new LexAudioRecorder(context.state.config.recorder);
@@ -131,7 +130,9 @@ export default {
       });
   },
   initBotAudio(context, audioElement) {
-    if (!context.state.recState.isRecorderEnabled) {
+    if (!context.state.recState.isRecorderEnabled ||
+        !context.state.config.recorder.enable
+    ) {
       return Promise.resolve();
     }
     if (!audioElement) {
@@ -399,7 +400,9 @@ export default {
       .then(audioUrl => context.dispatch('playAudio', audioUrl));
   },
   interruptSpeechConversation(context) {
-    if (!context.state.recState.isConversationGoing) {
+    if (!context.state.recState.isConversationGoing &&
+        !context.state.botAudio.isSpeaking
+    ) {
       return Promise.resolve();
     }
 

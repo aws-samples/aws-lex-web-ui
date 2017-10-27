@@ -33,7 +33,7 @@
           activator=".input-button"
           v-model="shouldShowTooltip"
           ref="tooltip"
-          top
+          left
         >
           <span id="input-button-tooltip">{{inputButtonTooltip}}</span>
         </v-tooltip>
@@ -110,10 +110,7 @@ export default {
       return this.$store.state.recState.isConversationGoing;
     },
     isMicButtonDisabled() {
-      return (
-        this.isMicMuted ||
-        (this.isSpeechConversationGoing && !this.isBotSpeaking)
-      );
+      return this.isMicMuted;
     },
     isMicMuted() {
       return this.$store.state.recState.isMicMuted;
@@ -131,7 +128,7 @@ export default {
       if (this.isMicMuted) {
         return 'mic_off';
       }
-      if (this.isBotSpeaking) {
+      if (this.isBotSpeaking || this.isSpeechConversationGoing) {
         return 'stop';
       }
       return 'mic';
@@ -143,7 +140,7 @@ export default {
       if (this.isMicMuted) {
         return 'mic seems to be muted';
       }
-      if (this.isBotSpeaking) {
+      if (this.isBotSpeaking || this.isSpeechConversationGoing) {
         return 'interrupt';
       }
       return 'click to use voice';
@@ -167,10 +164,11 @@ export default {
     },
     onMicClick() {
       this.onInputButtonHoverLeave();
+      if (this.isBotSpeaking || this.isSpeechConversationGoing) {
+        return this.$store.dispatch('interruptSpeechConversation');
+      }
       if (!this.isSpeechConversationGoing) {
         return this.startSpeechConversation();
-      } else if (this.isBotSpeaking) {
-        return this.$store.dispatch('interruptSpeechConversation');
       }
 
       return Promise.resolve();

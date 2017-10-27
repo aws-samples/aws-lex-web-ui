@@ -14,7 +14,7 @@
     ></message-list>
 
     <input-container
-      v-show="!isUiMinimized"
+      v-if="!isUiMinimized"
       v-bind:text-input-placeholder="textInputPlaceholder"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
     ></input-container>
