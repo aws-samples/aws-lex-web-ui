@@ -199,6 +199,12 @@ const configDefault = {
 
     // use automatic mute detection
     useAutoMuteDetect: false,
+
+    // use a bandpass filter on mic input
+    useBandPass: false,
+
+    // trim low volume samples at beginning and end of recordings
+    encoderUseTrim: false,
   },
 
   converser: {
