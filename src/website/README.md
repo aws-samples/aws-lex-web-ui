@@ -69,21 +69,21 @@ This mechanism enables use cases such as:
 parent window
 - Programmatically sending a text message to be posted by the chatbot UI
 
-**SECURITY NOTE:** Passing messages with postMessage can work in
-a cross-origin setup where the iframe is hosted in a domain/origin
-different from parent site. The chatbot UI and the chatbot-ui-iframe-loader.js script
-validate the event Origin against configured values as a security access
-control measure. This avoids unauthorized sites posting arbitrary messages
-to your site or posing as the chatbot UI. Make sure to use origins as
-specific as possible. See the Cross Origin Configuration section below
-for details of configuring the origin.
+**SECURITY NOTE:** Passing messages with postMessage can work in a
+cross-origin setup where the iframe is hosted in a domain/origin different
+from the parent site. The chatbot UI and the chatbot-ui-iframe-loader.js
+scripts validate the event Origin against configured values as a security
+access control measure. This avoids unauthorized sites posting arbitrary
+messages to your site or posing as the chatbot UI. Make sure to use
+origins as specific as possible. See the Cross Origin Configuration
+section below for details of configuring the origin.
 
 ### Bot Loader Global Objects
-The [chatbot-ui-iframe-loader.js](./chatbot-ui-iframe-loader.js) script includes a reference
-implementation of the chatbot UI API. This is exposed as a global
-class function named `LexWebUiIframe` created by the script. The script
-also instantiates an object of this class in a global variable named
-`lexWebUi`.
+The [chatbot-ui-iframe-loader.js](./chatbot-ui-iframe-loader.js) script
+includes a reference implementation of the chatbot UI API. This is
+exposed as a global class function named `LexWebUiIframe` created by
+the script. The script also instantiates an object of this class in a
+global variable named `lexWebUi`.
 
 #### LexWebUiIframe Constructor
 The `LexWebUiIframe` class accepts the following options in the constructor:
@@ -134,7 +134,7 @@ the bot loader script to automatically load the iframe:
   // In that case, you would need to load it later using the init() function
   var LexWebUiIframe = {
     options: {
-      shouldAutoLoad: true,
+      shouldAutoLoad: false,
     }
   };
 
@@ -393,16 +393,16 @@ Here's an example of how to handle API calls from the chatbot UI:
 ```
 
 ## Configuration
-The [chatbot-ui-iframe-loader.js](./chatbot-ui-iframe-loader.js) script can load its configuration
-from a JSON file or from an asynchronous event. See below for a description
-of each approach.
+The [chatbot-ui-iframe-loader.js](./chatbot-ui-iframe-loader.js) script
+can load its configuration from a JSON file or from an asynchronous
+event. See below for a description of each approach.
 
 ### Configuration from JSON File
-The chatbot-ui-iframe-loader.js] script loads its initial configuration from the JSON
-config file: [config.json](./config.json).  This file is meant to be used
-as the build-time configuration of the chatbot-ui-iframe-loader.js script. It serves
-as the base config so the root level keys in the JSON object should not
-be removed.
+The chatbot-ui-iframe-loader.js] script loads its initial
+configuration from the JSON config file: [config.json](./config.json).
+This file is meant to be used as the build-time configuration of the
+chatbot-ui-iframe-loader.js script. It serves as the base config so the
+root level keys in the JSON object should not be removed.
 
 NOTE: The values in this file may be overwritten by environmental
 variables in the build process.
@@ -434,6 +434,29 @@ Here's an example of the file format:
       ...
     }
   }
+```
+
+### Configuration in Init Function when not Auto-Loading
+The iframe initialization can be passed a configuration object
+when the `shouldAutoLoad` option of `LexWebUiIframe` is set
+to `false` (non default - see: [Overriding LexWebUiIframe
+Options](#overriding-lexwebuiiframe-default-options). This allows
+a synchronous way to pass the config at the initialization time.
+For example:
+
+```javascript
+// after configuring LexWebUiIframe options
+// with shouldAutoLoad set to false
+lexWebUi.init({
+  aws: {
+    cognitoPoolId: 'us-east-1:deadbeef-cac0-babe-abcd-abcdef01234',
+  },
+  iframeConfig: {
+    lex: {
+      botName: 'myBot'
+    },
+  },
+});
 ```
 
 ### Configuration Configuration via Event

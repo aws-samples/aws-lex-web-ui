@@ -4,22 +4,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [unreleased] - 2017-XX-XX
+## [0.10.0] - 2017-10-27
 ### Changed
 - Detailed errors are no longer shown in bot response messages by default.
 This is controlled by the `ui.showErrorDetails` config field which
 defaults to false.
+- Changed display of minimized message list to hide using use v-show
+instead of v-if to maintain scroll position
+- Changed components to be more compatible with latest vuetify version
+- Changed tooltips to work with the latest vuetify and to clear on mobile
+- Changed playback progress indicator to have smoother updates
+- Clarified main readme including more HTML integration examples
+- Changed viewport of index.html to prevent scaling issues
+- Iframe loader script in the dist directory is now transpiled using babel
+to improve browser compatibility
+- Iframe loader css in the dist directory is now post-processed using
+autoprefixer to improve browser compatibility
+- Updated dependencies
 
 ### Added
-- Added the ability to emit a vue event when the the lex state changes.
+- Added the ability to emit a vue event when the lex state changes.
 This event can be handled with v-on when using the library as a Vue
 component.
 - Added a new config field: `ui.showErrorDetails` that can be set to true
 to display detailed errors in bot response messages. When set to false
 (default), only generic error messages are displayed in bot responses.
+- Ability to pass a configuration object to the iframe loader during
+initialization
+- Added recorder options in default store config to make testing consistent
 
 ### Fixed
 - Fixed a promise return issue when posting a text message
+- Fixed audio playback ended index issue
+- Fixed recording and playback interruption issue
+
+### Removed
+- Removed unused styles
 
 ## [0.9.1] - 2017-08-20
 This release refactors the LexWeb component to make it easier to test
