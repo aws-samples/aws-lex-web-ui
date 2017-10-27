@@ -73,9 +73,18 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
   */
 
   // class used by this script
-  function BotLoader(options) {
-    this.options = Object.assign({}, OPTIONS, defaultOptions, options);
-    this.config = {};
+  function BotLoader(optionsParam) {
+    this.options = Object.assign({}, OPTIONS, defaultOptions, optionsParam);
+    this.config = {
+      iframeOrigin: '',
+      loadIframeMinimized: true,
+      aws: {
+        cognitoPoolId: ''
+      },
+      iframeConfig: {
+        lex: { botName: '' }
+      }
+    };
     this.iframeElement = null;
     this.containerElement = null;
     this.credentials = null;
@@ -92,7 +101,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
    * Initializes the chatbot ui. This should be called when the DOM has
    * finished loading
    */
-  BotLoader.prototype.init = function () {
+  BotLoader.prototype.init = function (configParam) {
     var self = this;
 
     Promise.resolve()
@@ -101,7 +110,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
         .then(function initConfigFromJsonFile() {
           return (self.options.shouldLoadConfigFromJsonFile) ?
             loadConfigFromJsonFile(self.options.configUrl) :
-            Promise.resolve({});
+            Promise.resolve(self.config);
         })
         .then(function initConfigFromEvent(config) {
           return (self.options.shouldLoadConfigFromEvent) ?
@@ -109,11 +118,16 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
             Promise.resolve(config);
         })
         .then(function assignConfig(config) {
-          if (!validateConfig(config)) {
+          // merge config passed as an argument to init()
+          var configFromInit = (configParam && Object.keys(configParam).length) ?
+            mergeConfig(self.config, configParam) : self.config;
+          var mergedConfig = (config && Object.keys(config).length) ?
+            mergeConfig(configFromInit, config) : configFromInit;
+          if (!validateConfig(mergedConfig)) {
             return Promise.reject('config object is missing required fields');
           }
-          self.config = config;
-          return config;
+          self.config = mergedConfig;
+          return Promise.resolve(self.config);
         });
     })
     .then(function initContainer() {
