@@ -7,6 +7,7 @@ import InputContainer from '@/components/InputContainer';
 import { Store } from '@/lex-web-ui';
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
+/* eslint-disable prefer-destructuring */
 
 describe('InputContainer.vue', () => {
   const textInputPlaceholder = 'type or click here';
@@ -165,7 +166,7 @@ describe('InputContainer.vue', () => {
       .is.not.equal(null);
   });
 
-  it('should have a send button that gets enabled on text field input', () => {
+  it('should have a send button and tooltip that gets enabled on text field input', () => {
     const button = vm.$el.querySelector('button');
     const textInput = vm.$el.querySelector('#text-input');
     const inputEvent = new window.Event('input');
@@ -177,8 +178,11 @@ describe('InputContainer.vue', () => {
       .then(() => {
         expect(button.getAttribute('disabled'), 'button disabled attribute')
           .is.equal(null);
-        expect(button.getAttribute('data-tooltip'), 'button tooltip')
-          .is.equal('send');
+
+        const tooltip = vm.$refs['input-container'].$refs.tooltip.$el;
+        const tooltipContent = tooltip.querySelector('#input-button-tooltip').textContent;
+        expect(tooltip, 'input button tooltip').is.not.equal(null);
+        expect(tooltipContent, 'input button tooltip content').to.equal('send');
       });
   });
 
@@ -218,7 +222,7 @@ describe('InputContainer.vue', () => {
       });
   });
 
-  it('should have a mic button when recorder is enabled', () => {
+  it('should have a mic button when recorder is enabled and a tooltip', () => {
     vm.$store.commit('setIsRecorderEnabled', true);
     vm.$store.commit('setIsRecorderSupported', true);
 
@@ -226,14 +230,16 @@ describe('InputContainer.vue', () => {
       .then(() => {
         const button = vm.$el.querySelector('button');
         const icon = button.querySelector('i');
+        const tooltip = vm.$refs['input-container'].$refs.tooltip.$el;
+        const tooltipContent = tooltip.querySelector('#input-button-tooltip').textContent;
 
         expect(button, 'button').is.not.equal(null);
         expect(icon, 'button icon').is.not.equal(null);
         expect(icon.textContent, 'button icon content').to.equal('mic');
         expect(button.getAttribute('disabled'), 'button disabled attribute')
           .is.equal(null);
-        expect(button.getAttribute('data-tooltip'), 'button tooltip')
-          .is.equal('click to use voice');
+        expect(tooltip, 'input button tooltip').is.not.equal(null);
+        expect(tooltipContent, 'input button tooltip content').to.equal('click to use voice');
       });
   });
 
@@ -269,7 +275,8 @@ describe('InputContainer.vue', () => {
     vm.$store.commit('setIsRecorderSupported', true);
 
     vm.$store.commit(
-      'setAudioAutoPlay', { audio: { autoplay: false }, status: true },
+      'setAudioAutoPlay',
+      { audio: { autoplay: false }, status: true },
     );
 
     button.dispatchEvent(clickEvent);
@@ -298,7 +305,7 @@ describe('InputContainer.vue', () => {
       });
   });
 
-  it('should disable mic button and not start conversation when muted', () => {
+  it('should disable mic button with a tooltip and not start conversation when muted', () => {
     const button = vm.$el.querySelector('button');
     const clickEvent = new window.Event('click');
 
@@ -310,6 +317,8 @@ describe('InputContainer.vue', () => {
     return vm.$nextTick()
       .then(() => {
         const icon = button.querySelector('i');
+        const tooltip = vm.$refs['input-container'].$refs.tooltip.$el;
+        const tooltipContent = tooltip.querySelector('#input-button-tooltip').textContent;
 
         expect(button, 'button').is.not.equal(null);
         expect(icon, 'button icon').is.not.equal(null);
@@ -317,8 +326,7 @@ describe('InputContainer.vue', () => {
         expect(button.getAttribute('disabled'), 'button disabled attribute')
           .is.not.equal(null);
 
-        expect(button.getAttribute('data-tooltip'), 'button tooltip')
-          .is.equal('mic seems to be muted');
+        expect(tooltipContent, 'button tooltip').is.equal('mic seems to be muted');
 
         button.dispatchEvent(clickEvent);
         return vm.$nextTick();
@@ -337,7 +345,7 @@ describe('InputContainer.vue', () => {
       });
   });
 
-  it('should have a stop button when bot is speaking that interrupts playback', () => {
+  it('should have a stop button with a tooltip when bot is speaking that interrupts playback', () => {
     const button = vm.$el.querySelector('button');
     const icon = button.querySelector('i');
     const clickEvent = new window.Event('click');
@@ -351,13 +359,14 @@ describe('InputContainer.vue', () => {
 
     return vm.$nextTick()
       .then(() => {
+        const tooltip = vm.$refs['input-container'].$refs.tooltip.$el;
+        const tooltipContent = tooltip.querySelector('#input-button-tooltip').textContent;
         expect(button, 'button').is.not.equal(null);
         expect(icon, 'button icon').is.not.equal(null);
         expect(icon.textContent, 'button icon content').to.equal('stop');
         expect(button.getAttribute('disabled'), 'button disabled attribute')
           .is.equal(null);
-        expect(button.getAttribute('data-tooltip'), 'button tooltip')
-          .is.equal('interrupt');
+        expect(tooltipContent, 'button tooltip').is.equal('interrupt');
 
         return vm.$nextTick();
       })

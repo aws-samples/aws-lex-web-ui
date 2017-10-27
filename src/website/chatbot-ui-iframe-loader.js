@@ -20,6 +20,8 @@
  * chat bot
  */
 
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+/* global AWS Promise */
 
 /**
  * Class used to load the bot as an iframe
@@ -35,7 +37,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
 
     // AWS SDK script dynamically added to the DOM
     // https://github.com/aws/aws-sdk-js
-    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.100.0.min.js',
+    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.141.0.min.js',
 
     // controls whether the AWS SDK is dynamically added to the DOM
     shouldAddAwsSdk: true,
@@ -73,14 +75,23 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
   */
 
   // class used by this script
-  function BotLoader(options) {
-    this.options = Object.assign({}, OPTIONS, defaultOptions, options);
-    this.config = {};
+  function BotLoader(optionsParam) {
+    this.options = Object.assign({}, OPTIONS, defaultOptions, optionsParam);
+    this.config = {
+      iframeOrigin: '',
+      loadIframeMinimized: true,
+      aws: {
+        cognitoPoolId: ''
+      },
+      iframeConfig: {
+        lex: { botName: '' }
+      }
+    };
     this.iframeElement = null;
     this.containerElement = null;
     this.credentials = null;
     this.isChatBotReady = false;
-  };
+  }
 
   /**
    * Class attribute that controls whether the bot loader script should
@@ -92,7 +103,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
    * Initializes the chatbot ui. This should be called when the DOM has
    * finished loading
    */
-  BotLoader.prototype.init = function () {
+  BotLoader.prototype.init = function (configParam) {
     var self = this;
 
     Promise.resolve()
@@ -101,7 +112,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
         .then(function initConfigFromJsonFile() {
           return (self.options.shouldLoadConfigFromJsonFile) ?
             loadConfigFromJsonFile(self.options.configUrl) :
-            Promise.resolve({});
+            Promise.resolve(self.config);
         })
         .then(function initConfigFromEvent(config) {
           return (self.options.shouldLoadConfigFromEvent) ?
@@ -109,11 +120,16 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
             Promise.resolve(config);
         })
         .then(function assignConfig(config) {
-          if (!validateConfig(config)) {
+          // merge config passed as an argument to init()
+          var configFromInit = (configParam && Object.keys(configParam).length) ?
+            mergeConfig(self.config, configParam) : self.config;
+          var mergedConfig = (config && Object.keys(config).length) ?
+            mergeConfig(configFromInit, config) : configFromInit;
+          if (!validateConfig(mergedConfig)) {
             return Promise.reject('config object is missing required fields');
           }
-          self.config = config;
-          return config;
+          self.config = mergedConfig;
+          return Promise.resolve(self.config);
         });
     })
     .then(function initContainer() {
@@ -228,7 +244,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
       };
       xhr.send();
     });
-  };
+  }
 
   /**
    * Loads dynamic bot config from an event
@@ -246,7 +262,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
       function emitReceiveEvent() {
         var event = new Event('receivelexconfig');
         document.dispatchEvent(event);
-      };
+      }
 
       function onConfigEventLoaded(evt) {
         clearTimeout(timeoutId);
@@ -260,13 +276,13 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
         } else {
           return reject('malformed config event: ' + JSON.stringify(evt));
         }
-      };
+      }
 
       function onConfigEventTimeout() {
         clearInterval(intervalId);
         document.removeEventListener('loadlexconfig', onConfigEventLoaded, false);
         return reject('config event timed out');
-      };
+      }
     });
   }
 
@@ -292,15 +308,15 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
     // use the baseConfig first level keys as the base for merging
     return Object.keys(baseConfig)
       .map(function (key) {
-        let mergedConfig = {};
-        let value = baseConfig[key];
+        var mergedConfig = {};
+        var value = baseConfig[key];
         // merge from source if its value is not empty
         if (key in srcConfig && !isEmpty(srcConfig[key])) {
           value = (typeof(baseConfig[key]) === 'object') ?
             // recursively merge sub-objects in both directions
             Object.assign(
               mergeConfig(srcConfig[key], baseConfig[key]),
-              mergeConfig(baseConfig[key], srcConfig[key]),
+              mergeConfig(baseConfig[key], srcConfig[key])
             ) :
             srcConfig[key];
         }
@@ -312,7 +328,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
         },
         {}
       );
-  };
+  }
 
   /**
    * Validate that the config has the expected structure
@@ -388,7 +404,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
 
     var credentials = new AWS.CognitoIdentityCredentials(
       { IdentityPoolId: cognitoPoolId },
-      { region: region },
+      { region: region }
     );
 
     return credentials.getPromise()
@@ -407,7 +423,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
       return Promise.resolve(iframeElement);
     }
     if (!('appendChild' in divElement)) {
-      reject('invalid node element to append iframe');
+      return Promise.reject('invalid node element to append iframe');
     }
 
     iframeElement = document.createElement('iframe');
@@ -423,17 +439,17 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
       var timeoutId = setTimeout(onIframeTimeout, timeoutInMs);
       iframeElement.addEventListener('load', onIframeLoaded, false);
 
-      function onIframeLoaded(evt) {
+      function onIframeLoaded() {
         clearTimeout(timeoutId);
         iframeElement.removeEventListener('load', onIframeLoaded, false);
 
         return resolve(iframeElement);
-      };
+      }
 
       function onIframeTimeout() {
         iframeElement.removeEventListener('load', onIframeLoaded, false);
         return reject('iframe load timeout');
-      };
+      }
     });
   }
 
@@ -480,12 +496,12 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
           clearInterval(intervalId);
           return resolve();
         }
-      };
+      }
 
       function onConfigEventTimeout() {
         clearInterval(intervalId);
         return reject('chatbot loading time out');
-      };
+      }
     });
   }
 
@@ -494,7 +510,6 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
    */
   BotLoader.prototype.getCredentials = function () {
     var self = this;
-    var identityId = localStorage.getItem('cognitoid');
 
     if (!self.credentials || !('getPromise' in self.credentials)) {
       console.error('getPromise not found in credentials');
@@ -504,7 +519,6 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
     return self.credentials.getPromise()
       .then(function storeIdentityId() {
         localStorage.setItem('cognitoid', self.credentials.identityId);
-        identityId = localStorage.getItem('cognitoid');
       })
       .then(function getCredentialsPromise() {
         return self.credentials;
@@ -673,6 +687,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
 /**
  * Instantiates the bot loader
 */
+// eslint-disable-next-line no-unused-vars
 var lexWebUi = (function (document, window, BotLoader) {
   /**
    * Check if modern browser features used by chat bot are supported

@@ -35,7 +35,7 @@ import { config as defaultConfig, mergeConfig } from '@/config';
  */
 const Component = {
   name: 'lex-web-ui',
-  template: '<lex-web></lex-web>',
+  template: '<lex-web v-on="$listeners"></lex-web>',
   components: { LexWeb },
 };
 

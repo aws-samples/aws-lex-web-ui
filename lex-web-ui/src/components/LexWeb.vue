@@ -10,7 +10,7 @@
     ></toolbar-container>
 
     <message-list
-      v-if="!isUiMinimized"
+      v-show="!isUiMinimized"
     ></message-list>
 
     <input-container
@@ -66,6 +66,15 @@ export default {
     isUiMinimized() {
       return this.$store.state.isUiMinimized;
     },
+    lexState() {
+      return this.$store.state.lex;
+    },
+  },
+  watch: {
+    // emit lex state on changes
+    lexState() {
+      this.$emit('updateLexState', this.lexState);
+    },
   },
   beforeMount() {
     if (this.$store.state.config.urlQueryParams.lexWebUiEmbed !== 'true') {
@@ -74,11 +83,13 @@ export default {
       this.$store.commit('setAwsCredsProvider', 'cognito');
     } else {
       // running embedded
-      console.info('running in embedded mode from URL: ',
+      console.info(
+        'running in embedded mode from URL: ',
         document.location.href,
       );
       console.info('referrer (possible parent) URL: ', document.referrer);
-      console.info('config parentOrigin:',
+      console.info(
+        'config parentOrigin:',
         this.$store.state.config.ui.parentOrigin,
       );
       if (!document.referrer
@@ -98,46 +109,38 @@ export default {
   mounted() {
     this.$store.dispatch('initConfig', this.$lexWebUi.config)
       .then(() => this.$store.dispatch('getConfigFromParent'))
+      // avoid merging an empty config
       .then(config => (
-        // avoid merging an empty config
         (Object.keys(config).length) ?
-          this.$store.dispatch('initConfig', config) :
-          Promise.resolve()
+          this.$store.dispatch('initConfig', config) : Promise.resolve()
       ))
-      .then(() =>
-        Promise.all([
-          this.$store.dispatch('initCredentials',
-            this.$lexWebUi.awsConfig.credentials,
-          ),
-          this.$store.dispatch('initRecorder'),
-          this.$store.dispatch('initBotAudio', (window.Audio) ? new Audio() : null),
-        ]),
-      )
-      .then(() =>
-        Promise.all([
-          this.$store.dispatch('initMessageList'),
-          this.$store.dispatch('initPollyClient', this.$lexWebUi.pollyClient),
-          this.$store.dispatch('initLexClient',
-            this.$lexWebUi.lexRuntimeClient,
-          ),
-        ]),
-      )
+      .then(() => Promise.all([
+        this.$store.dispatch(
+          'initCredentials',
+          this.$lexWebUi.awsConfig.credentials,
+        ),
+        this.$store.dispatch('initRecorder'),
+        this.$store.dispatch('initBotAudio', (window.Audio) ? new Audio() : null),
+      ]))
+      .then(() => Promise.all([
+        this.$store.dispatch('initMessageList'),
+        this.$store.dispatch('initPollyClient', this.$lexWebUi.pollyClient),
+        this.$store.dispatch('initLexClient', this.$lexWebUi.lexRuntimeClient),
+      ]))
       .then(() => (
         (this.$store.state.isRunningEmbedded) ?
-          this.$store.dispatch('sendMessageToParentWindow',
+          this.$store.dispatch(
+            'sendMessageToParentWindow',
             { event: 'ready' },
           ) :
           Promise.resolve()
       ))
-      .then(() =>
-        console.info('sucessfully initialized lex web ui version: ',
-          this.$store.state.version,
-        ),
-      )
+      .then(() => console.info(
+        'sucessfully initialized lex web ui version: ',
+        this.$store.state.version,
+      ))
       .catch((error) => {
-        console.error('could not initialize application while mounting:',
-          error,
-        );
+        console.error('could not initialize application while mounting:', error);
       });
   },
   methods: {
@@ -169,11 +172,9 @@ export default {
           break;
         case 'toggleMinimizeUi':
           this.$store.dispatch('toggleIsUiMinimized')
-            .then(() => {
-              evt.ports[0].postMessage(
-                { event: 'resolve', type: evt.data.event },
-              );
-            });
+            .then(() => evt.ports[0].postMessage({
+              event: 'resolve', type: evt.data.event,
+            }));
           break;
         case 'postText':
           if (!evt.data.message) {
@@ -185,14 +186,13 @@ export default {
             return;
           }
 
-          this.$store.dispatch('postTextMessage',
+          this.$store.dispatch(
+            'postTextMessage',
             { type: 'human', text: evt.data.message },
           )
-            .then(() => {
-              evt.ports[0].postMessage(
-                { event: 'resolve', type: evt.data.event },
-              );
-            });
+            .then(() => evt.ports[0].postMessage({
+              event: 'resolve', type: evt.data.event,
+            }));
           break;
         default:
           console.warn('unknown message in messageHanlder', evt);
@@ -205,13 +205,12 @@ export default {
 
 <style>
 #lex-web {
-  display: flex;
-  flex-direction: column;
   width: 100%;
 }
 .application {
-  /* substract the input bar height as a workaround on mobile
+  /* substract the input container height as a workaround on mobile
+     to prevent the input container to be out of view
    */
-  min-height: calc(100vh - 68px);
+  min-height: calc(100vh - 64px);
 }
 </style>

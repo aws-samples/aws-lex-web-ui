@@ -1,6 +1,6 @@
 <template>
   <v-flex class="message">
-    <v-chip>
+    <v-chip text-color="black">
       <message-text
         v-bind:message="message"
         v-if="'text' in message && message.text !== null && message.text.length"
@@ -9,14 +9,14 @@
         <audio>
           <source v-bind:src="message.audio" type="audio/wav">
         </audio>
-        <v-btn left icon class="black--text" v-on:click.native="playAudio">
+        <v-btn left icon class="black--text" v-on:click="playAudio">
           <v-icon class="play-button">play_circle_outline</v-icon>
         </v-btn>
       </div>
       <v-icon
         medium
         v-if="message.type === 'bot' && botDialogState"
-        v-bind:class="botDialogState.color + '--text'"
+        v-bind:class="`dialog-state-${botDialogState.state}`"
       >
         {{botDialogState.icon}}
       </v-icon>
@@ -62,11 +62,11 @@ export default {
       }
       switch (this.message.dialogState) {
         case 'Failed':
-          return { icon: 'error', color: 'red' };
+          return { icon: 'error', color: 'red', state: 'fail' };
         case 'Fulfilled':
         case 'ReadyForFulfillment':
-          return { icon: 'done', color: 'green' };
-        default :
+          return { icon: 'done', color: 'green', state: 'ok' };
+        default:
           return null;
       }
     },
@@ -102,10 +102,6 @@ export default {
   max-width: 66vw;
 }
 
-.audio-label {
-  padding-left: 0.8em;
-}
-
 .message-bot .chip {
   background-color: #FFEBEE; /* red-50 from material palette */
 }
@@ -116,8 +112,16 @@ export default {
 
 .chip {
   height: auto;
-  margin: 5px;
+  margin: 8px;
   font-size: calc(1em + 0.25vmin);
+}
+
+/* workaround for chip overriding icon color as important */
+.icon.dialog-state-ok {
+  color: green!important;
+}
+.icon.dialog-state-fail {
+  color: red!important;
 }
 
 .play-button {

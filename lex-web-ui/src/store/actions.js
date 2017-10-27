@@ -49,7 +49,7 @@ export default {
       case 'parentWindow':
         return context.dispatch('getCredentials');
       default:
-        return Promise.reject('unknown credential provider');
+        return Promise.reject(new Error('unknown credential provider'));
     }
   },
   getConfigFromParent(context) {
@@ -57,7 +57,8 @@ export default {
       return Promise.resolve({});
     }
 
-    return context.dispatch('sendMessageToParentWindow',
+    return context.dispatch(
+      'sendMessageToParentWindow',
       { event: 'initIframeConfig' },
     )
       .then((configResponse) => {
@@ -65,7 +66,7 @@ export default {
             configResponse.type === 'initIframeConfig') {
           return Promise.resolve(configResponse.data);
         }
-        return Promise.reject('invalid config event from parent');
+        return Promise.reject(new Error('invalid config event from parent'));
       });
   },
   initConfig(context, configObj) {
@@ -84,15 +85,12 @@ export default {
       lexRuntimeClient,
     });
 
-    context.commit('setLexSessionAttributes',
+    context.commit(
+      'setLexSessionAttributes',
       context.state.config.lex.sessionAttributes,
     );
     return context.dispatch('getCredentials')
-      .then(() => {
-        lexClient.initCredentials(
-          awsCredentials,
-        );
-      });
+      .then(() => lexClient.initCredentials(awsCredentials));
   },
   initPollyClient(context, client) {
     if (!context.state.recState.isRecorderEnabled) {
@@ -106,14 +104,11 @@ export default {
       });
   },
   initRecorder(context) {
-    if (!context.state.recState.isRecorderEnabled ||
-      !context.state.config.recorder.enable
-    ) {
+    if (!context.state.config.recorder.enable) {
+      context.commit('setIsRecorderEnabled', false);
       return Promise.resolve();
     }
-    recorder = new LexAudioRecorder(
-      context.state.config.recorder,
-    );
+    recorder = new LexAudioRecorder(context.state.config.recorder);
 
     return recorder.init()
       .then(() => recorder.initOptions(context.state.config.recorder))
@@ -124,7 +119,8 @@ export default {
         if (['PermissionDeniedError', 'NotAllowedError'].indexOf(error.name)
             >= 0) {
           console.warn('get user media permission denied');
-          context.dispatch('pushErrorMessage',
+          context.dispatch(
+            'pushErrorMessage',
             'It seems like the microphone access has been denied. ' +
             'If you want to use voice, please allow mic usage in your browser.',
           );
@@ -134,11 +130,13 @@ export default {
       });
   },
   initBotAudio(context, audioElement) {
-    if (!context.state.recState.isRecorderEnabled) {
+    if (!context.state.recState.isRecorderEnabled ||
+        !context.state.config.recorder.enable
+    ) {
       return Promise.resolve();
     }
     if (!audioElement) {
-      return Promise.reject('invalid audio element');
+      return Promise.reject(new Error('invalid audio element'));
     }
     audio = audioElement;
 
@@ -155,15 +153,17 @@ export default {
       silentSound = silentMp3;
     } else {
       console.error('init audio could not find supportted audio type');
-      console.warn('init audio can play mp3 [%s]',
-        audio.canPlayType('audio/mp3'));
-      console.warn('init audio can play ogg [%s]',
-        audio.canPlayType('audio/ogg'));
+      console.warn(
+        'init audio can play mp3 [%s]',
+        audio.canPlayType('audio/mp3'),
+      );
+      console.warn(
+        'init audio can play ogg [%s]',
+        audio.canPlayType('audio/ogg'),
+      );
     }
 
-    console.info('recorder content types: %s',
-      recorder.mimeType,
-    );
+    console.info('recorder content types: %s', recorder.mimeType);
 
     audio.preload = 'auto';
     // Load a silent sound as the initial audio. This is used to workaround
@@ -189,7 +189,8 @@ export default {
       ))
       .then(() => (
         (context.state.config.lex.reInitSessionAttributesOnRestart) ?
-          context.commit('setLexSessionAttributes',
+          context.commit(
+            'setLexSessionAttributes',
             context.state.config.lex.sessionAttributes,
           ) :
           Promise.resolve()
@@ -207,11 +208,12 @@ export default {
 
     try {
       url = URL.createObjectURL(blob);
-    } catch (error) {
-      console.error('getAudioUrl createObjectURL error', error);
-      return Promise.reject(
-        `There was an error processing the audio response (${error})`,
-      );
+    } catch (err) {
+      console.error('getAudioUrl createObjectURL error', err);
+      const errorMessage = 'There was an error processing the audio ' +
+        `response: (${err})`;
+      const error = new Error(errorMessage);
+      return Promise.reject(error);
     }
 
     return Promise.resolve(url);
@@ -230,7 +232,7 @@ export default {
       // eslint-disable-next-line no-param-reassign
       audio.onerror = (err) => {
         context.commit('setAudioAutoPlay', { audio, status: false });
-        reject(`setting audio autoplay failed: ${err}`);
+        reject(new Error(`setting audio autoplay failed: ${err}`));
       };
     });
   },
@@ -262,7 +264,7 @@ export default {
 
       audio.onerror = (error) => {
         clearPlayback();
-        reject(`There was an error playing the response (${error})`);
+        reject(new Error(`There was an error playing the response (${error})`));
       };
       audio.onended = () => {
         clearPlayback();
@@ -295,7 +297,7 @@ export default {
     }
 
     const intervalId = setInterval(() => {
-      const duration = audio.duration;
+      const { duration } = audio;
       const end = audio.played.end(0);
       const { canInterrupt } = context.state.botAudio;
 
@@ -331,7 +333,8 @@ export default {
       {
         currentTime: audio.currentTime,
         duration: audio.duration,
-        end: audio.played.end(0),
+        end: (audio.played.length >= 1) ?
+          audio.played.end(0) : audio.duration,
         ended: audio.ended,
         paused: audio.paused,
       } :
@@ -356,7 +359,7 @@ export default {
     if (context.state.recState.isMicMuted === true) {
       console.warn('recording while muted');
       context.dispatch('stopConversation');
-      return Promise.reject('The microphone seems to be muted.');
+      return Promise.reject(new Error('The microphone seems to be muted.'));
     }
 
     context.commit('startRecording', recorder);
@@ -386,13 +389,10 @@ export default {
     });
     return context.dispatch('getCredentials')
       .then(() => synthReq.promise())
-      .then(data =>
-        Promise.resolve(
-          new Blob(
-            [data.AudioStream], { type: data.ContentType },
-          ),
-        ),
-      );
+      .then((data) => {
+        const blob = new Blob([data.AudioStream], { type: data.ContentType });
+        return Promise.resolve(blob);
+      });
   },
   pollySynthesizeSpeech(context, text) {
     return context.dispatch('pollyGetBlob', text)
@@ -400,7 +400,9 @@ export default {
       .then(audioUrl => context.dispatch('playAudio', audioUrl));
   },
   interruptSpeechConversation(context) {
-    if (!context.state.recState.isConversationGoing) {
+    if (!context.state.recState.isConversationGoing &&
+        !context.state.botAudio.isSpeaking
+    ) {
       return Promise.resolve();
     }
 
@@ -426,7 +428,7 @@ export default {
             if (count > countMax) {
               clearInterval(intervalId);
               context.commit('setIsLexInterrupting', false);
-              reject('interrupt interval exceeded');
+              reject(new Error('interrupt interval exceeded'));
             }
             count += 1;
           }, intervalTimeInMs);
@@ -434,10 +436,11 @@ export default {
     });
   },
   postTextMessage(context, message) {
-    context.dispatch('interruptSpeechConversation')
+    return context.dispatch('interruptSpeechConversation')
       .then(() => context.dispatch('pushMessage', message))
       .then(() => context.dispatch('lexPostText', message.text))
-      .then(response => context.dispatch('pushMessage',
+      .then(response => context.dispatch(
+        'pushMessage',
         {
           text: response.message,
           type: 'bot',
@@ -451,18 +454,20 @@ export default {
         }
       })
       .catch((error) => {
+        const errorMessage = (context.state.config.ui.showErrorDetails) ?
+          ` ${error}` : '';
         console.error('error in postTextMessage', error);
-        context.dispatch('pushErrorMessage',
-          `I was unable to process your message. ${error}`,
+        context.dispatch(
+          'pushErrorMessage',
+          'Sorry, I was unable to process your message. Try again later.' +
+          `${errorMessage}`,
         );
       });
   },
   lexPostText(context, text) {
     context.commit('setIsLexProcessing', true);
     return context.dispatch('getCredentials')
-      .then(() =>
-        lexClient.postText(text, context.state.lex.sessionAttributes),
-      )
+      .then(() => lexClient.postText(text, context.state.lex.sessionAttributes))
       .then((data) => {
         context.commit('setIsLexProcessing', false);
         return context.dispatch('updateLexState', data)
@@ -486,14 +491,15 @@ export default {
       })
       .then((lexResponse) => {
         const timeEnd = performance.now();
-        console.info('lex postContent processing time:',
+        console.info(
+          'lex postContent processing time:',
           ((timeEnd - timeStart) / 1000).toFixed(2),
         );
         context.commit('setIsLexProcessing', false);
         return context.dispatch('updateLexState', lexResponse)
-          .then(() =>
-            context.dispatch('processLexContentResponse', lexResponse),
-          )
+          .then(() => (
+            context.dispatch('processLexContentResponse', lexResponse)
+          ))
           .then(blob => Promise.resolve(blob));
       });
   },
@@ -509,9 +515,7 @@ export default {
           return context.dispatch('pollyGetBlob', text);
         }
 
-        return Promise.resolve(
-          new Blob([audioStream], { type: contentType }),
-        );
+        return Promise.resolve(new Blob([audioStream], { type: contentType }));
       });
   },
   updateLexState(context, lexState) {
@@ -537,12 +541,15 @@ export default {
             appContext.responseCard;
         }
       } catch (e) {
-        return Promise.reject('error parsing appContext in sessionAttributes');
+        const error =
+          new Error(`error parsing appContext in sessionAttributes: ${e}`);
+        return Promise.reject(error);
       }
     }
     context.commit('updateLexState', { ...lexStateDefault, ...lexState });
     if (context.state.isRunningEmbedded) {
-      context.dispatch('sendMessageToParentWindow',
+      context.dispatch(
+        'sendMessageToParentWindow',
         { event: 'updateLexState', state: context.state.lex },
       );
     }
@@ -573,11 +580,9 @@ export default {
    **********************************************************************/
 
   getCredentialsFromParent(context) {
-    const credsExpirationDate = new Date(
-      (awsCredentials && awsCredentials.expireTime) ?
-        awsCredentials.expireTime :
-        0,
-    );
+    const expireTime = (awsCredentials && awsCredentials.expireTime) ?
+      awsCredentials.expireTime : 0;
+    const credsExpirationDate = new Date(expireTime);
     const now = Date.now();
     if (credsExpirationDate > now) {
       return Promise.resolve(awsCredentials);
@@ -588,11 +593,12 @@ export default {
             credsResponse.type === 'getCredentials') {
           return Promise.resolve(credsResponse.data);
         }
-        return Promise.reject('invalid credential event from parent');
+        const error = new Error('invalid credential event from parent');
+        return Promise.reject(error);
       })
       .then((creds) => {
         const { AccessKeyId, SecretKey, SessionToken } = creds.data.Credentials;
-        const IdentityId = creds.data.IdentityId;
+        const { IdentityId } = creds.data;
         // recreate as a static credential
         awsCredentials = {
           accessKeyId: AccessKeyId,
@@ -642,11 +648,16 @@ export default {
         if (evt.data.event === 'resolve') {
           resolve(evt.data);
         } else {
-          reject(`error in sendMessageToParentWindow ${evt.data.error}`);
+          const errorMessage =
+            `error in sendMessageToParentWindow: ${evt.data.error}`;
+          reject(new Error(errorMessage));
         }
       };
-      parent.postMessage(message,
-        context.state.config.ui.parentOrigin, [messageChannel.port2]);
+      window.parent.postMessage(
+        message,
+        context.state.config.ui.parentOrigin,
+        [messageChannel.port2],
+      );
     });
   },
 };

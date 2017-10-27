@@ -1,7 +1,7 @@
 <template>
   <v-layout
     column
-    class="message-list ma-0 pt-1"
+    class="message-list ma-0"
   >
     <message
       v-for="message in messages"
@@ -50,7 +50,6 @@ export default {
 
 <style scoped>
 .message-list {
-  display: flex;
   flex: 1;
   overflow-y: auto;
 }
