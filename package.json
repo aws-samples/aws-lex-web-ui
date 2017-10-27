@@ -23,6 +23,21 @@
   },
   "homepage": "https://github.com/awslabs/aws-lex-web-ui#readme",
   "devDependencies": {
-    "express": "^4.15.3"
-  }
+    "autoprefixer": "^7.1.6",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.9.0",
+    "express": "^4.16.2",
+    "postcss-cli": "^4.1.1"
+  },
+  "engines": {
+    "node": ">= 8.1.2",
+    "npm": ">= 5.2.0"
+  },
+  "browserslist": [
+    ">= 1%",
+    "last 2 versions",
+    "ie >= 11"
+  ]
 }

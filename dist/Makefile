@@ -1,4 +1,4 @@
-all: build copy-bundle copy-botloader lex-web-ui-mobile-hub.zip
+all: build copy-bundle build-botloader lex-web-ui-mobile-hub.zip
 .PHONY: all
 
 # build the application bundle
@@ -22,13 +22,22 @@ copy-bundle: $(LIBRARY_FILES)
 # copy webiste bot loader files from source to dist dir
 SRC_DIR := ../src
 WEBSITE_SRC_DIR := $(SRC_DIR)/website
-BOTLOADER_SRC_FILES := $(wildcard $(WEBSITE_SRC_DIR)/chatbot-ui-iframe-loader.*)
-BOTLOADER_FILES := $(patsubst $(WEBSITE_SRC_DIR)/%,%,$(BOTLOADER_SRC_FILES))
-$(BOTLOADER_FILES): $(BOTLOADER_SRC_FILES)
-	@echo "[INFO] Bot Loader files"
-	cp $(?) .
+BOTLOADER_SRC_BASE_NAME := chatbot-ui-iframe-loader
+BOTLOADER_SRC_JS_FILE := $(WEBSITE_SRC_DIR)/$(BOTLOADER_SRC_BASE_NAME).js
+BOTLOADER_TARGET_JS_FILE := $(BOTLOADER_SRC_BASE_NAME).js
+BOTLOADER_SRC_CSS_FILE := $(WEBSITE_SRC_DIR)/$(BOTLOADER_SRC_BASE_NAME).css
+BOTLOADER_TARGET_CSS_FILE := $(BOTLOADER_SRC_BASE_NAME).css
 
-copy-botloader: $(BOTLOADER_FILES)
+$(BOTLOADER_TARGET_CSS_FILE): $(BOTLOADER_SRC_CSS_FILE)
+	@echo "[INFO] processing Bot Loader css file"
+	npx postcss $(<) --map --use autoprefixer -o $(@)
+
+$(BOTLOADER_TARGET_JS_FILE): $(BOTLOADER_SRC_JS_FILE)
+	@echo "[INFO] processing Bot Loader js file"
+	npx eslint $(<)
+	npx babel $(<) --source-maps true -o $(@)
+
+build-botloader: $(BOTLOADER_TARGET_CSS_FILE) $(BOTLOADER_TARGET_JS_FILE)
 
 # create mobile hub zip file
 MH_ZIP_FILES := $(wildcard $(WEBSITE_SRC_DIR)/*)
