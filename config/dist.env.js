@@ -23,6 +23,11 @@ const iframeEnvConfig = {
   iframeConfig: {
     lex: {
       botName: process.env.BOT_NAME,
+      initialText: process.env.BOT_INITIAL_TEXT,
+      initialSpeechInstruction: process.env.BOT_INITIAL_SPEECH,
+    },
+    ui: {
+      toolbarTitle: process.env.UI_TOOLBAR_TITLE,
     },
   },
 };

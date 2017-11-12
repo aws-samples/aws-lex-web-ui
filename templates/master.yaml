@@ -167,6 +167,29 @@ Parameters:
         Description: >
             S3 prefix where the templates and source are stored under
 
+    WebAppConfBotInitialText:
+        Type: String
+        Default: >
+            You can ask me for help ordering flowers. Just type "Buy
+            flowers" or click on the mic and say it.
+        Description: >
+            First bot message displayed in the chatbot UI. Only used
+            when CreatePipeline is set to false.
+
+    WebAppConfBotInitialSpeech:
+        Type: String
+        Default: Say 'Buy Flowers' to get started.
+        Description: >
+            Message spoken by bot when the microphone is first pressed in
+            a conversation. Only used when CreatePipeline is set to false.
+
+    WebAppConfToolbarTitle:
+        Type: String
+        Default: Order Flowers
+        Description: >
+            Title displayed in the chatbot UI toobar. Only used when
+            CreatePipeline is set to false.
+
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -196,6 +219,12 @@ Metadata:
               Parameters:
                   - WebAppParentOrigin
 
+            - Label:
+                default: Web Application Configuration
+              Parameters:
+                  - WebAppConfBotInitialText
+                  - WebAppConfBotInitialSpeech
+                  - WebAppConfToolbarTitle
 Conditions:
     NeedsBot: !Equals [!Ref BotName, '']
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
@@ -256,6 +285,9 @@ Resources:
                       - NeedsCognito
                       - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
                       - !Ref CognitoIdentityPoolId
+                WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
+                WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
+                WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
 
     ##########################################################################
     # deployment using a pipeline

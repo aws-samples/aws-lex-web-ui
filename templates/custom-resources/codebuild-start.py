@@ -53,14 +53,20 @@ def handler(event, context):
 
     if (request_type in ['Create', 'Update']):
         try:
-            response = start_build(resource_properties)
+            start_build_response = start_build(resource_properties)
             logger.info(
                 'start_build response: {}'.format(
-                    cfnresponse.json_dump_format(response)
+                    cfnresponse.json_dump_format(start_build_response)
                 )
             )
+            # only return specific fields to prevent "response object is too long" errors
+            response = {
+              'build_id':  start_build_response['build']['id'],
+              'project_name':  start_build_response['build']['projectName'],
+              'arn':  start_build_response['build']['arn'],
+            }
             response_status = cfnresponse.SUCCESS
-            request_id = response['ResponseMetadata']['RequestId']
+            request_id = start_build_response['ResponseMetadata']['RequestId']
             reason = 'Create'
         except Exception as e:
             error = 'failed to start build: {}'.format(e)
