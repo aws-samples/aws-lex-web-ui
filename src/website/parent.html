@@ -111,6 +111,9 @@
       </div>
     </div><!-- main container -->
 
+    <!-- babel-polyfill -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js" integrity="sha256-WRc/eG3R84AverJv0zmqxAmdwQxstUpqkiE+avJ3WSo=" crossorigin="anonymous"></script>
+
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <!-- bootstrap -->
@@ -164,15 +167,15 @@
 
       function sendIntent(intent) {
         return Promise.resolve()
-          .then(() =>
-            !isBotMinimized() ||
-            lexWebUi.sendMessageToIframe({event: 'toggleMinimizeUi'}),
-          )
-          .then(() =>
-            lexWebUi.sendMessageToIframe({event: 'postText', message: intent}),
-          )
-          .then(() => console.log('message succesfully sent'))
-          .catch((error) => console.error(`error sending message ${error}`));
+          .then(function () {
+            return !isBotMinimized() ||
+            lexWebUi.sendMessageToIframe({event: 'toggleMinimizeUi'});
+          })
+          .then(function () {
+            return lexWebUi.sendMessageToIframe({event: 'postText', message: intent});
+          })
+          .then(function () { console.log('message succesfully sent'); })
+          .catch(function (error) { console.error('error sending message ', error); });
       }
     </script>
 
@@ -188,21 +191,21 @@
         // For example, you can send dynamic config/parameters
         // (e.g. username, geolocation) to the chatbot ui from here
         $(document).one('receivelexconfig', function onReceiveLexConfig() {
-          const botsConfigJson = (typeof(aws_bots_config) !== 'undefined') ?
+          var botsConfigJson = (typeof aws_bots_config !== 'undefined') ?
             aws_bots_config : '';
-          const poolId = (typeof(aws_cognito_identity_pool_id) !== 'undefined') ?
+          var poolId = (typeof aws_cognito_identity_pool_id !== 'undefined') ?
             aws_cognito_identity_pool_id : '';
 
-          const config = {
+          var config = {
             iframeOrigin: window.location.origin,
             aws: {
               cognitoPoolId: poolId,
             },
           };
 
-          let botName = '';
+          var botName = '';
           if (botsConfigJson) {
-            let botsConfig;
+            var botsConfig;
             try {
               botsConfig = JSON.parse(botsConfigJson);
               botName = botsConfig[0].name;
