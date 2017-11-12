@@ -5,7 +5,7 @@ const mergeConfig = require('./utils/merge-config');
 const baseConfig = require('./base.env');
 
 const botConfigFileName =
-  process.env.WEBAPP_CONFIG_PREBUILT || '../src/config/bot-config.json';
+  process.env.WEBAPP_CONFIG_PREBUILT || '../src/config/chatbot-ui-loader-config.json';
 const botConfig = require(botConfigFileName);
 
 const iframeConfigFileName =
