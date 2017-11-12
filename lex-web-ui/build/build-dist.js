@@ -1,6 +1,7 @@
 require('./check-versions')();
 
 process.env.NODE_ENV = 'production';
+process.env.DIST_BUILD = 'true'
 
 const ora = require('ora');
 const rm = require('rimraf');
