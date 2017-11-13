@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/website/chatbot-ui-loader.css"],"names":[],"mappings":"AAAA;EACE,qBAAc;EAAd,qBAAc;EAAd,cAAc;EACd,aAAa;EACb,YAAY;CACb;AACD;EACE,iBAAiB;EACjB,mBAAmB;CACpB","file":"chatbot-ui-loader.css","sourcesContent":["#lex-web-ui {\n  display: flex;\n  height: 100%;\n  width: 100%;\n}\nbody, html {\n  overflow-y: auto;\n  overflow-x: hidden;\n}\n"]}

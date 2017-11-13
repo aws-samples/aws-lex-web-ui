@@ -24,13 +24,36 @@
 /* global AWS Promise */
 
 /**
- * Class used to load the bot as an iframe
+ * CustomEvent polyfill for IE11
+ * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
  */
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+(function (window) {
+
+  if (typeof window.CustomEvent === 'function') {
+    return false;
+  }
+
+  function CustomEvent(event, params) {
+    // eslint-disable-next-line
+    params = params || { bubbles: false, cancelable: false, detail: undefined };
+    var evt = document.createEvent('CustomEvent');
+    evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+    return evt;
+  }
+
+  CustomEvent.prototype = window.Event.prototype;
+
+  window.CustomEvent = CustomEvent;
+})(window);
+
+/**
+ * Class used to load the bot as an iframe
+ */
 var LexWebUiIframe = function (document, window, defaultOptions) {
   // default options - merged with options passed in the constructor
   var OPTIONS = {
@@ -42,7 +65,7 @@ var LexWebUiIframe = function (document, window, defaultOptions) {
 
     // AWS SDK script dynamically added to the DOM
     // https://github.com/aws/aws-sdk-js
-    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.141.0.min.js',
+    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.149.0.min.js',
 
     // controls whether the AWS SDK is dynamically added to the DOM
     shouldAddAwsSdk: true,
@@ -118,6 +141,9 @@ var LexWebUiIframe = function (document, window, defaultOptions) {
         // merge config passed as an argument to init()
         var configFromInit = configParam && Object.keys(configParam).length ? mergeConfig(self.config, configParam) : self.config;
         var mergedConfig = config && Object.keys(config).length ? mergeConfig(configFromInit, config) : configFromInit;
+        if (!('iframeOrigin' in mergedConfig) || !mergedConfig.iframeOrigin) {
+          mergedConfig.iframeOrigin = window.location.origin;
+        }
         if (!validateConfig(mergedConfig)) {
           return Promise.reject('config object is missing required fields');
         }
@@ -158,7 +184,7 @@ var LexWebUiIframe = function (document, window, defaultOptions) {
       }).then(function sendReadyMessageToIframe() {
         return self.sendMessageToIframe({ event: 'parentReady' });
       }).then(function sendReadyMessageToParent() {
-        var event = new Event('lexWebUiReady');
+        var event = new CustomEvent('lexWebUiReady');
         document.dispatchEvent(event);
       });
     }).catch(function initError(error) {
@@ -184,13 +210,18 @@ var LexWebUiIframe = function (document, window, defaultOptions) {
       };
       xhr.onload = function configOnLoad() {
         if (xhr.status == 200) {
-          if (xhr.response) {
-            resolve(xhr.response);
-          } else {
-            reject('invalid chat bot config object');
+          // ie11 does not support responseType
+          if (typeof xhr.response === 'string') {
+            try {
+              var parsedResponse = JSON.parse(xhr.response);
+              return resolve(parsedResponse);
+            } catch (err) {
+              return reject('unable to decode chat bot config object');
+            }
           }
+          return resolve(xhr.response);
         } else {
-          reject('failed to get chat bot config with status: ' + xhr.status);
+          return reject('failed to get chat bot config with status: ' + xhr.status);
         }
       };
       xhr.send();
@@ -211,7 +242,7 @@ var LexWebUiIframe = function (document, window, defaultOptions) {
       var intervalId = setInterval(emitReceiveEvent, 500);
       // signal that we are ready to receive the dynamic config
       function emitReceiveEvent() {
-        var event = new Event('receivelexconfig');
+        var event = new CustomEvent('receivelexconfig');
         document.dispatchEvent(event);
       }
 
@@ -277,7 +308,19 @@ var LexWebUiIframe = function (document, window, defaultOptions) {
    * Validate that the config has the expected structure
    */
   function validateConfig(config) {
-    return 'iframeOrigin' in config && config.iframeOrigin && 'aws' in config && config.aws && 'cognitoPoolId' in config.aws && config.aws.cognitoPoolId;
+    if (!('iframeOrigin' in config && config.iframeOrigin)) {
+      console.error('missing iframeOrigin config field');
+      return false;
+    }
+    if (!('aws' in config && config.aws)) {
+      console.error('missing aws config field');
+      return false;
+    }
+    if (!('cognitoPoolId' in config.aws && config.aws.cognitoPoolId)) {
+      console.error('missing cognitoPoolId config field');
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -362,6 +405,9 @@ var LexWebUiIframe = function (document, window, defaultOptions) {
     iframeElement.setAttribute('frameBorder', '0');
     iframeElement.setAttribute('scrolling', 'no');
     iframeElement.setAttribute('title', 'chatbot');
+    // chrome requires this feature policy when using the
+    // mic in an cross-origin iframe
+    iframeElement.setAttribute('allow', 'microphone');
 
     divElement.appendChild(iframeElement);
 

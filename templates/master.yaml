@@ -109,11 +109,12 @@ Parameters:
     WebAppParentOrigin:
         Type: String
         Description: >
-            Browser origin (e.g. http://mysite.example.com:8080) of an
-            existing site that is allowed to send/receive data and events
-            from the web ui in an iframe setup. This is an optional
-            parameter. If left empty, an S3 bucket will be created to
-            host a sample parent site embedding the webapp as an iframe.
+            Browser origin (e.g. http://mysite.example.com:8080)
+            of an existing site that is allowed to send/receive data
+            and events from the web ui in an iframe setup. This is an
+            optional parameter. If left empty, an S3 bucket will be
+            created to host a sample parent site embedding the webapp
+            as an iframe. Applies when CreatePipeline is set to true.
         Default: ''
         AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
         ConstraintDescription: Empty or valid browser origin
@@ -152,6 +153,44 @@ Parameters:
             web application will be deleted on CloudFormation stack delete.
             If set to False, S3 buckets will be retained.
 
+    # Sub-templates and source artifacts are hosted in this bucket.
+    # The content of this bucket is maintained outside of this template
+    # by using the Makefile under the build directory of this project.
+    # See the README.md file for instructions on how to use your own bucket.
+    BootstrapBucket:
+        Type: String
+        Default: aws-bigdata-blog
+        Description: >
+            S3 bucket containing pre-staged nested templates and source artifacts
+    BootstrapPrefix:
+        Type: String
+        Default: artifacts/aws-lex-web-ui/artifacts
+        Description: >
+            S3 prefix where the templates and source are stored under
+
+    WebAppConfBotInitialText:
+        Type: String
+        Default: >
+            You can ask me for help ordering flowers. Just type "Buy
+            flowers" or click on the mic and say it.
+        Description: >
+            First bot message displayed in the chatbot UI. Only used
+            when CreatePipeline is set to false.
+
+    WebAppConfBotInitialSpeech:
+        Type: String
+        Default: Say 'Buy Flowers' to get started.
+        Description: >
+            Message spoken by bot when the microphone is first pressed in
+            a conversation. Only used when CreatePipeline is set to false.
+
+    WebAppConfToolbarTitle:
+        Type: String
+        Default: Order Flowers
+        Description: >
+            Title displayed in the chatbot UI toobar. Only used when
+            CreatePipeline is set to false.
+
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -163,6 +202,8 @@ Metadata:
                   - CodePipelineName
                   - CodeCommitRepoName
                   - CleanupBuckets
+                  - BootstrapBucket
+                  - BootstrapPrefix
             - Label:
                 default: Lex Bot Configuration Parameters
               Parameters:
@@ -178,20 +219,9 @@ Metadata:
                 default: Web Application Parameters
               Parameters:
                   - WebAppParentOrigin
-
-Mappings:
-    CustomVariables:
-        # Sub-templates and source artifacts are hosted in this bucket.
-        # The content of this bucket is maintained outside of this template
-        # by using the Makefile under the build directory of this project.
-        # See the README.md for instructions on how to use your own bucket.
-        BootstrapBucket:
-            Value: aws-bigdata-blog
-        BootstrapPrefix:
-            Value: artifacts/aws-lex-web-ui/artifacts
-        BootstrapSrcObject:
-            Value: src.zip
-
+                  - WebAppConfBotInitialText
+                  - WebAppConfBotInitialSpeech
+                  - WebAppConfToolbarTitle
 Conditions:
     NeedsBot: !Equals [!Ref BotName, '']
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
@@ -208,30 +238,18 @@ Resources:
         Condition: NeedsBot
         Properties:
             TimeoutInMinutes: 15
-            TemplateURL: !Sub
-                - "https://s3.amazonaws.com/${Bucket}/${Path}/templates/lexbot.yaml"
-                - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
-                  Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/lexbot.yaml"
             Parameters:
                 NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
-                CustomResourceCodeBucket: !Sub
-                    - "${Bucket}"
-                    - Bucket:
-                        !FindInMap [CustomVariables, BootstrapBucket, Value]
-                CustomResourceCodeObject: !Sub
-                    - "${Prefix}/custom-resources.zip"
-                    - Prefix:
-                        !FindInMap [CustomVariables, BootstrapPrefix, Value]
+                CustomResourceCodeBucket: !Ref BootstrapBucket
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
         Condition: NeedsCognito
         Properties:
-            TemplateURL: !Sub
-                - "https://s3.amazonaws.com/${Bucket}/${Path}/templates/cognito.yaml"
-                - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
-                  Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/cognito.yaml"
             Parameters:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
                 LexBotName:
@@ -247,24 +265,12 @@ Resources:
         Type: AWS::CloudFormation::Stack
         Condition: ShouldDeployUsingCodeBuild
         Properties:
-            TemplateURL: !Sub
-                - "https://s3.amazonaws.com/${Bucket}/${Path}/templates/codebuild-deploy.yaml"
-                - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
-                  Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/codebuild-deploy.yaml"
             Parameters:
                 CodeBuildName: !Ref CodeBuildName
-                SourceBucket: !Sub
-                    - "${Bucket}"
-                    - Bucket:
-                        !FindInMap [CustomVariables, BootstrapBucket, Value]
-                SourceObject: !Sub
-                    - "${Prefix}/src.zip"
-                    - Prefix:
-                        !FindInMap [CustomVariables, BootstrapPrefix, Value]
-                CustomResourceCodeObject: !Sub
-                    - "${Prefix}/custom-resources.zip"
-                    - Prefix:
-                        !FindInMap [CustomVariables, BootstrapPrefix, Value]
+                SourceBucket: !Ref BootstrapBucket
+                SourceObject: !Sub "${BootstrapPrefix}/src.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
@@ -276,6 +282,9 @@ Resources:
                       - NeedsCognito
                       - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
                       - !Ref CognitoIdentityPoolId
+                WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
+                WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
+                WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
 
     ##########################################################################
     # deployment using a pipeline
@@ -285,10 +294,7 @@ Resources:
         Condition: ShouldDeployUsingPipeline
         Properties:
             TimeoutInMinutes: 15
-            TemplateURL: !Sub
-                - "https://s3.amazonaws.com/${Bucket}/${Path}/templates/coderepo.yaml"
-                - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
-                  Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/coderepo.yaml"
             Parameters:
                 BotName:
                     !If
@@ -302,27 +308,15 @@ Resources:
                       - NeedsCognito
                       - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
                       - !Ref CognitoIdentityPoolId
-                SourceBucket: !Sub
-                    - "${Bucket}"
-                    - Bucket:
-                        !FindInMap [CustomVariables, BootstrapBucket, Value]
-                SourceObject: !Sub
-                    - "${Prefix}/src.zip"
-                    - Prefix:
-                        !FindInMap [CustomVariables, BootstrapPrefix, Value]
-                CustomResourceCodeObject: !Sub
-                    - "${Prefix}/custom-resources.zip"
-                    - Prefix:
-                        !FindInMap [CustomVariables, BootstrapPrefix, Value]
+                SourceBucket: !Ref BootstrapBucket
+                SourceObject: !Sub "${BootstrapPrefix}/src.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
 
     Pipeline:
         Type: AWS::CloudFormation::Stack
         Condition: ShouldDeployUsingPipeline
         Properties:
-            TemplateURL: !Sub
-                - "https://s3.amazonaws.com/${Bucket}/${Path}/templates/pipeline.yaml"
-                - Bucket: !FindInMap [CustomVariables, BootstrapBucket, Value]
-                  Path: !FindInMap [CustomVariables, BootstrapPrefix, Value]
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/pipeline.yaml"
             Parameters:
                 BotName:
                     !If
@@ -338,14 +332,8 @@ Resources:
                       - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
                       - !Ref CognitoIdentityPoolId
                 ParentOrigin: !Ref WebAppParentOrigin
-                CustomResourceCodeBucket: !Sub
-                    - "${Bucket}"
-                    - Bucket:
-                        !FindInMap [CustomVariables, BootstrapBucket, Value]
-                CustomResourceCodeObject: !Sub
-                    - "${Prefix}/custom-resources.zip"
-                    - Prefix:
-                        !FindInMap [CustomVariables, BootstrapPrefix, Value]
+                CustomResourceCodeBucket: !Ref BootstrapBucket
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
                 CleanupBuckets: !Ref CleanupBuckets
 
 Outputs:

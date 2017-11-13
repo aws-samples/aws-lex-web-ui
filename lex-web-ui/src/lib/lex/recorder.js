@@ -14,10 +14,6 @@
 /* eslint no-console: ["error", { allow: ["info", "warn", "error"] }] */
 /* global AudioContext CustomEvent document Event navigator window */
 
-// XXX do we need webrtc-adapter?
-// XXX npm uninstall it after testing
-// XXX import 'webrtc-adapter';
-
 // wav encoder worker - uses webpack worker loader
 import WavWorker from './wav-worker';
 

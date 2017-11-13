@@ -18,6 +18,7 @@ to be served from S3 or CloudFront in a scalable serverless architecture.
 Here is a diagram of how the application works:
 <img src="../img/webapp-diagram.png" width=480>
 
+### Dependencies
 The chatbot web app is built using the [Vue.js](https://vuejs.org/)
 JavaScript framework. The user interface is structured as modular
 components using [Vuetify.js](https://vuetifyjs.com/). The application
@@ -185,9 +186,8 @@ understanding (NLU), transcription and bot processing.
 The voice interaction has been tested with recent versions of Chrome
 and Firefox on both PC and Mac desktops plus Microsoft Edge on PCs. It
 is also compatible with Android devices using Chrome and FireOS Tablets
-using Silk. Safari and iOS devices do not support WebRTC yet so voice
-interaction is not enabled in that platform. For compatibility, see:
-[caniuse webrtc](http://caniuse.com/#search=webrtc)
+using Silk. Voice is not supported on Safari or any browser on iOS
+devices.
 
 NOTE: browsers may require the application to be served using HTTPS for
 the WebRTC API to work. Make sure to serve the application from an HTTPS
@@ -374,6 +374,10 @@ API call:
 response['sessionAttributes']['appContext'] =
     json.dumps({'responseCard': response_card})
 ```
+
+**NOTE:** Since session attributes are persisted between requests. You
+might need to clear the resposeCard field on incoming events being passed
+again by the client.
 
 For details about the response cards format,
 see the

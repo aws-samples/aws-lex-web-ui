@@ -61,6 +61,25 @@ Parameters:
         ConstraintDescription: >
             Must conform with the permitted Lex Bot name pattern.
 
+    WebAppConfBotInitialText:
+        Type: String
+        Default: >
+            You can ask me for help ordering flowers. Just type "Buy
+            flowers" or click on the mic and say it.
+        Description: First bot message displayed in the chatbot UI
+
+    WebAppConfBotInitialSpeech:
+        Type: String
+        Default: Say 'Buy Flowers' to get started.
+        Description: >
+            Message spoken by bot when the microphone is first pressed
+            in a conversation
+
+    WebAppConfToolbarTitle:
+        Type: String
+        Default: Order Flowers
+        Description: Title displayed in the chatbot UI toobar
+
 Conditions:
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
 
@@ -97,6 +116,12 @@ Resources:
                       Value: !Sub "${AWS::Region}"
                     - Name: BOT_NAME
                       Value: !Ref BotName
+                    - Name: BOT_INITIAL_TEXT
+                      Value: !Ref WebAppConfBotInitialText
+                    - Name: BOT_INITIAL_SPEECH
+                      Value: !Ref WebAppConfBotInitialSpeech
+                    - Name: UI_TOOLBAR_TITLE
+                      Value: !Ref WebAppConfToolbarTitle
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
             Source:

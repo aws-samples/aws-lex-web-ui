@@ -3,7 +3,8 @@
 
 # bucket name and prefix path used to store templates, data, scripts and
 # build artifacts
-# XXX NOTE: S3 path should also be set in master.yaml template
+# NOTE: S3 path should match the BootstrapBucket and BootstrapPrefix parameters
+# in master.yaml template
 export BOOTSTRAP_BUCKET_PATH ?= aws-bigdata-blog/artifacts/aws-lex-web-ui/artifacts
 
 # S3 bucket hosting the web application

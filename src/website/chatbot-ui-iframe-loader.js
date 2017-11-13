@@ -24,6 +24,29 @@
 /* global AWS Promise */
 
 /**
+ * CustomEvent polyfill for IE11
+ * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
+ */
+(function (window) {
+
+  if (typeof window.CustomEvent === 'function') {
+    return false;
+  }
+
+  function CustomEvent(event, params) {
+    // eslint-disable-next-line
+    params = params || { bubbles: false, cancelable: false, detail: undefined };
+    var evt = document.createEvent('CustomEvent');
+    evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+    return evt;
+   }
+
+  CustomEvent.prototype = window.Event.prototype;
+
+  window.CustomEvent = CustomEvent;
+})(window);
+
+/**
  * Class used to load the bot as an iframe
  */
 var LexWebUiIframe = (function (document, window, defaultOptions) {
@@ -37,7 +60,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
 
     // AWS SDK script dynamically added to the DOM
     // https://github.com/aws/aws-sdk-js
-    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.141.0.min.js',
+    sdkUrl: 'https://sdk.amazonaws.com/js/aws-sdk-2.149.0.min.js',
 
     // controls whether the AWS SDK is dynamically added to the DOM
     shouldAddAwsSdk: true,
@@ -125,6 +148,9 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
             mergeConfig(self.config, configParam) : self.config;
           var mergedConfig = (config && Object.keys(config).length) ?
             mergeConfig(configFromInit, config) : configFromInit;
+          if (!('iframeOrigin' in mergedConfig) || !mergedConfig.iframeOrigin) {
+            mergedConfig.iframeOrigin = window.location.origin;
+          }
           if (!validateConfig(mergedConfig)) {
             return Promise.reject('config object is missing required fields');
           }
@@ -205,7 +231,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
           return self.sendMessageToIframe({ event: 'parentReady' });
         })
         .then(function sendReadyMessageToParent() {
-          var event = new Event('lexWebUiReady');
+          var event = new CustomEvent('lexWebUiReady');
           document.dispatchEvent(event);
         });
 
@@ -233,13 +259,18 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
       };
       xhr.onload = function configOnLoad() {
         if (xhr.status == 200) {
-          if (xhr.response) {
-            resolve(xhr.response);
-          } else {
-            reject('invalid chat bot config object');
+          // ie11 does not support responseType
+          if (typeof xhr.response === 'string') {
+            try {
+              var parsedResponse = JSON.parse(xhr.response);
+              return resolve(parsedResponse);
+            } catch (err) {
+              return reject('unable to decode chat bot config object');
+            }
           }
+          return resolve(xhr.response);
         } else {
-          reject('failed to get chat bot config with status: ' + xhr.status);
+          return reject('failed to get chat bot config with status: ' + xhr.status);
         }
       };
       xhr.send();
@@ -260,7 +291,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
       var intervalId = setInterval(emitReceiveEvent, 500);
       // signal that we are ready to receive the dynamic config
       function emitReceiveEvent() {
-        var event = new Event('receivelexconfig');
+        var event = new CustomEvent('receivelexconfig');
         document.dispatchEvent(event);
       }
 
@@ -293,13 +324,13 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
    */
   function mergeConfig(baseConfig, srcConfig) {
     function isEmpty(data) {
-      if(typeof(data) === 'number' || typeof(data) === 'boolean') {
+      if (typeof data === 'number' || typeof data === 'boolean') {
         return false;
       }
-      if(typeof(data) === 'undefined' || data === null) {
+      if (typeof data === 'undefined' || data === null) {
         return true;
       }
-      if(typeof(data.length) !== 'undefined') {
+      if (typeof data.length !== 'undefined') {
         return data.length === 0;
       }
       return Object.keys(data).length === 0;
@@ -312,7 +343,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
         var value = baseConfig[key];
         // merge from source if its value is not empty
         if (key in srcConfig && !isEmpty(srcConfig[key])) {
-          value = (typeof(baseConfig[key]) === 'object') ?
+          value = (typeof baseConfig[key] === 'object') ?
             // recursively merge sub-objects in both directions
             Object.assign(
               mergeConfig(srcConfig[key], baseConfig[key]),
@@ -334,11 +365,19 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
    * Validate that the config has the expected structure
    */
   function validateConfig(config) {
-    return (
-      ('iframeOrigin' in config && config.iframeOrigin) &&
-      ('aws' in config && config.aws) &&
-      ('cognitoPoolId' in config.aws && config.aws.cognitoPoolId)
-    );
+    if (!('iframeOrigin' in config && config.iframeOrigin)) {
+      console.error('missing iframeOrigin config field');
+      return false;
+    }
+    if (!('aws' in config && config.aws)) {
+      console.error('missing aws config field');
+      return false;
+    }
+    if (!('cognitoPoolId' in config.aws && config.aws.cognitoPoolId)) {
+      console.error('missing cognitoPoolId config field');
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -379,10 +418,10 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
       sdkScriptElement = document.createElement('script');
       sdkScriptElement.setAttribute('type', 'text/javascript');
 
-      sdkScriptElement.onerror = function  sdkOnError() {
+      sdkScriptElement.onerror = function sdkOnError() {
         reject('failed to load AWS SDK link:' + sdkUrl);
       };
-      sdkScriptElement.onload = function  sdkOnLoad() {
+      sdkScriptElement.onload = function sdkOnLoad() {
         resolve(sdkScriptElement);
       };
 
@@ -431,6 +470,9 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
     iframeElement.setAttribute('frameBorder', '0');
     iframeElement.setAttribute('scrolling', 'no');
     iframeElement.setAttribute('title', 'chatbot');
+    // chrome requires this feature policy when using the
+    // mic in an cross-origin iframe
+    iframeElement.setAttribute('allow', 'microphone');
 
     divElement.appendChild(iframeElement);
 
@@ -528,7 +570,7 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
   /**
    * Send a message to the iframe using postMessage
    */
-  BotLoader.prototype.sendMessageToIframe = function(message) {
+  BotLoader.prototype.sendMessageToIframe = function (message) {
     var self = this;
     if (!self.iframeElement ||
       !('contentWindow' in self.iframeElement) ||
@@ -702,7 +744,7 @@ var lexWebUi = (function (document, window, BotLoader) {
       'localStorage',
       'postMessage',
     ];
-    return features.every(function(feature) {
+    return features.every(function (feature) {
       return feature in window;
     });
   }

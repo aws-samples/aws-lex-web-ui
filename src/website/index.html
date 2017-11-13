@@ -8,112 +8,16 @@
 
     <!-- empty favicon to avoid 404 -->
     <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=" rel="icon" type="image/x-icon" />
-
-    <!-- Font Dependencies -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet" type="text/css">
-
-    <!-- Vuetify CSS Dependencies -->
-    <link href="https://unpkg.com/vuetify@0.16.9/dist/vuetify.min.css" rel="stylesheet" type="text/css">
-
-    <!-- LexWebUi CSS -->
-    <link href="./lex-web-ui.min.css" rel="stylesheet" type="text/css">
-    <style type="text/css">
-      #lex-web-ui-app {
-        display: flex;
-        height: 100%;
-        width: 100%;
-      }
-      body, html {
-        overflow-y: auto;
-        overflow-x: hidden;
-      }
-    </style>
   </head>
   <body>
-    <!-- application will be dynamically mounted here -->
-    <div id="lex-web-ui"></div>
+    <!-- babel-polyfill needed for IE11 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js" integrity="sha256-WRc/eG3R84AverJv0zmqxAmdwQxstUpqkiE+avJ3WSo=" crossorigin="anonymous"></script>
 
-    <!-- AWS SDK -->
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.141.0.min.js"></script>
-    <!-- mobile hub generated SDK config -->
-    <script src="./aws-config.js"></script>
-
-    <!-- Vue, Vuex and Vuetifiy dependencies -->
-    <script src="https://unpkg.com/vue@2.5.2"></script>
-    <script src="https://unpkg.com/vuex@3.0.0"></script>
-    <!-- Also see the vuetify CSS link above under the HEAD tag -->
-    <script src="https://unpkg.com/vuetify@0.16.9"></script>
-
-    <!-- LexWebUi Library -->
-    <script src="./lex-web-ui.min.js"></script>
+    <!-- LexWebUi loader -->
+    <script src="./chatbot-ui-loader.js"></script>
     <script>
-       /**
-        Sample function to obtain the config from JSON files and
-        from the constants loaded from the mobile hub config file
-       */
-      function getConfigPromise() {
-        const url = window.location.href;
-        // no need for config if running embedded
-        // since the parent passes the config down to the iframe
-        if (url.indexOf('lexWebUiEmbed=true') !== -1) {
-          return Promise.resolve({});
-        }
-
-        // these come from the aws-config.js constants
-        let poolId = (typeof(aws_cognito_identity_pool_id) !== 'undefined') ?
-          aws_cognito_identity_pool_id : '';
-        const botsConfig = (typeof(aws_bots_config) !== 'undefined') ?
-          aws_bots_config : '';
-
-        // aws-config.js values override bot-config.json
-        return fetch('./bot-config.json')
-          .then(response => response.json())
-          .then((config) => {
-            poolId = poolId ||
-              ((config.cognito && config.cognito.poolId) ?
-                config.cognito.poolId : '');
-
-            let botName;
-            if (botsConfig) {
-              const botsConfig = JSON.parse(aws_bots_config);
-              botName = botsConfig[0].name;
-            }
-            botName = botName ||
-              ((config.lex && config.lex.botName) ?
-                config.lex.botName : '');
-
-            if (!poolId || !botName) {
-              return Promise.reject(
-                'config is missing required values. ' +
-                `poolId: [${poolId}] - botName: [${botName}]`
-              );
-            }
-            const mergedConfig = Object.assign(
-              {
-                cognito: {},
-                lex: {},
-              },
-              config
-            );
-
-            mergedConfig.cognito.poolId = poolId;
-            mergedConfig.lex.botName = botName;
-
-            return Promise.resolve(mergedConfig);
-          });
-      }
-
-      // create the Vue js component
-      getConfigPromise()
-        .then((config) => {
-          const lexWebUi = new LexWebUi.Loader(config);
-          new Vue({
-            el: '#lex-web-ui',
-            store: lexWebUi.store,
-            template: '<div id="lex-web-ui-app"><lex-web-ui/></div>',
-          });
-        })
-        .catch(error => console.error('lex-web-ui load error: ', error));
+      var lexWebUiLoader = new LexWebUiLoader();
+      lexWebUiLoader.load();
     </script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 <template>
-  <v-flex class="message">
+  <v-flex class="message" row>
     <v-chip text-color="black">
       <message-text
         v-bind:message="message"
@@ -99,7 +99,8 @@ export default {
 
 <style scoped>
 .message {
-  max-width: 66vw;
+  /* this is needed for ie11 */
+  flex: 1 0 auto;
 }
 
 .message-bot .chip {
@@ -114,6 +115,7 @@ export default {
   height: auto;
   margin: 8px;
   font-size: calc(1em + 0.25vmin);
+  max-width: 66vw;
 }
 
 /* workaround for chip overriding icon color as important */
