@@ -148,6 +148,9 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
             mergeConfig(self.config, configParam) : self.config;
           var mergedConfig = (config && Object.keys(config).length) ?
             mergeConfig(configFromInit, config) : configFromInit;
+          if (!('iframeOrigin' in mergedConfig) || !mergedConfig.iframeOrigin) {
+            mergedConfig.iframeOrigin = window.location.origin;
+          }
           if (!validateConfig(mergedConfig)) {
             return Promise.reject('config object is missing required fields');
           }
