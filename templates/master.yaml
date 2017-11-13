@@ -109,11 +109,12 @@ Parameters:
     WebAppParentOrigin:
         Type: String
         Description: >
-            Browser origin (e.g. http://mysite.example.com:8080) of an
-            existing site that is allowed to send/receive data and events
-            from the web ui in an iframe setup. This is an optional
-            parameter. If left empty, an S3 bucket will be created to
-            host a sample parent site embedding the webapp as an iframe.
+            Browser origin (e.g. http://mysite.example.com:8080)
+            of an existing site that is allowed to send/receive data
+            and events from the web ui in an iframe setup. This is an
+            optional parameter. If left empty, an S3 bucket will be
+            created to host a sample parent site embedding the webapp
+            as an iframe. Applies when CreatePipeline is set to true.
         Default: ''
         AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
         ConstraintDescription: Empty or valid browser origin
@@ -218,10 +219,6 @@ Metadata:
                 default: Web Application Parameters
               Parameters:
                   - WebAppParentOrigin
-
-            - Label:
-                default: Web Application Configuration
-              Parameters:
                   - WebAppConfBotInitialText
                   - WebAppConfBotInitialSpeech
                   - WebAppConfToolbarTitle
