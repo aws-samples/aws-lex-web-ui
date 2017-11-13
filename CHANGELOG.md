@@ -4,6 +4,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.11.0] - 2017-11-13
+### Changed
+- Various changes to support IE11 in text mode (no voice). IE11 support
+requires babel-polyfil to be loaded
+- [BREAKING] Renamed bot-config.json file to chatbot-ui-loader.json
+to be consistent with the iframe loader and new chatbot loader script
+- Moved CloudFormation bootstrap bucket configuration from a map to a
+parameter to make it easier to deploy from different sources without
+modifying the template
+- Changed the parent page setup when using the CreatePipeline deployment
+from the CloudFormation templates. It now uses the same page, iframe
+loader and configuration as the pre-built deployment. The parent page is
+also mounted under /static/iframe/parent.html when running the localhost
+dev server (i.e. npm run dev under the lex-web-ui dir)
+- Improved dist Makefile to only build the library when there are
+changes to the component. Additionally added support to build the new
+chatbot loader
+
+### Added
+- Added a chatbot loader script that can be used to load dependencies
+and config. The loader simplifies the creation of a full page chatbot
+site by removing the need to manually add the dependencies and config
+- Added CloudFormation parameters to support setting basic chatbot
+UI configuration including toolbar title and initial messages. These
+parameters are used when deploying the pre-built library from the dist
+directory (default)
+- Added an allow="microphone" attribute to the iframe tag created by the
+iframe loader script. This was done to avoid issues with cross-origin
+iframes in newer versions of Chrome
+
+### Removed
+- Removed webrtc-adapter dependency from the recorder component
+- Removed the deprecated parent page under lex-web-ui/static/iframe. The
+parent page in src/website is now copied dynamically during build time
+
+### Fixed
+- Fixed issue causing iframeOrigin to be overwritten by event in
+sample parent.html. The iframe loader now defaults the iframeOrigin to
+window.location.origin only if it is not found in the config.
+
 ## [0.10.0] - 2017-10-27
 ### Changed
 - Detailed errors are no longer shown in bot response messages by default.

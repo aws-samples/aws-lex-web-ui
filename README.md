@@ -40,7 +40,7 @@ of the various methods:
 | --- | --- | --- | --- |
 | 1 | [CloudFormation Deployment](#cloudformation-deployment) using the CloudFormation [templates](templates) provided by this project | Fully automated deployment of a hosted web application to an S3 bucket with an optional CI/CD pipeline. By default, it also creates a Cognito Identity Pool and a sample Lex bot | Use when you want to have a infrastructure as code approach that automatically builds and configures the chatbot UI resources |
 | 2 | [Mobile Hub Deployment](#mobile-hub-deployment) using the import file: [lex-web-ui-mobile-hub.zip](dist/lex-web-ui-mobile-hub.zip) | Deploys a pre-built version of the chatbot UI to S3 and CloudFront. It creates the Cognito Identity Pool and a sample Lex bot. You can use the Mobile Hub Console to manage it or make changes (e.g. linking to another bot) | Use when you want an easy deployment using the AWS Console or for quick manual testing |
-| 3 | Incorporate the pre-built library from the [dist](dist) directory of this repo | We provide a pre-built version of the chatbot UI that you can use on your web application as a [stand alone page](#stand-alone-page) or as an [Iframe](#iframe) embedded | Use when you have an existing site and want to add the chatbot UI to it by simply adding the library files |
+| 3 | Incorporate the pre-built library from the [dist](dist) directory of this repo | We provide a pre-built version of the chatbot UI that you can use on your web application as a [stand alone page](#stand-alone-page) or as an [Iframe](#iframe) embedded | Use when you have an existing site and want to add the chatbot UI to it by simply copying the library files |
 | 4 | Use npm to install and use the chatbot UI as a Vue component | Enables developers to consume this project as an [npm](https://www.npmjs.com/) package that provides a [Vue](https://vuejs.org/) component. See the [Npm Install and Vue Component Use](#npm-install-and-vue-component-use) section for details | Use when developing front-end based web applications built using JavaScript and bundled with tools such as [webpack](https://webpack.github.io) |
 
 ### Configuration
@@ -62,24 +62,72 @@ in this project shows various examples on how to load the configuration.
 
 ### Stand-Alone Page
 The [dist](dist) directory contains pre-built JavaScript and CSS
-files that are ready to be included directly into a full page chatbot
-UI. You can copy the files from the `dist` directory to your web
-server and create an HTML page to load them. The chatbot UI library
-is loaded by including the [lex-web-ui.js](dist/lex-web-ui.js) and
-[lex-web-ui.css](dist/lex-web-ui.css) files (or their minimized equivalent
-also found in the `dist` directory) in your HTML.
+files that are ready to be included directly into a full page
+chatbot UI. You can copy the files from the `dist` directory
+to your web server and load the chatbot UI in a page using the
+[chatbot-ui-loader.js](src/website/chatbot-ui-loader.js) script. This
+script facilitates the process of loading dependencies and passing the
+run-time configuration. For more details about the `chatbot-ui-loader.js`
+script, see the [full page](src/website/README.md#full-page) section
+in the README file of the sample website included in this project.
 
-The chatbot UI depends on the [Vue](https://vuejs.org/),
+Here is an example of the HTML tags used to load the chatbot UI with
+the `chatbot-ui-loader.js` script:
+
+```html
+  <!-- LexWebUi loader - creates LexWebUiLoader in global scope -->
+  <script src="./chatbot-ui-loader.js"></script>
+  <script>
+    // Sample of a few loader options
+    // The loader options controls how the dependencies and config are loaded
+    // These are passed as a parameter to the constructor of LexWebUiLoader
+    var loaderOptions = {
+      shouldLoadConfigFromMobileHubFile: false,
+      configUrl: './chatbot-ui-loader-config.json'
+    };
+
+    // instantiate the LexWebUiLoader
+    var lexWebUiLoader = new LexWebUiLoader(loaderOptions);
+
+    // sample of a few lex-web-ui configuration options
+    // you need to at least pass the poolId and botName fields
+    var config = {
+      cognito: {
+        poolId: 'us-east-1:deadbeef-fade-babe-cafe-0123456789ab'
+      },
+      lex: {
+         initialText: 'How can I help you?',
+         botName: 'helpBot'
+       },
+       ui: {
+         toolbarTitle: 'Help Bot',
+         toolbarLogo: 'https://example.org/mylogo.png'
+       },
+     };
+
+     // To load the UI, you call the `load` method
+     // You can pass the config as a parameter.
+     // The loader can also get its config dynamically
+     // from a JSON file or from the Mobile Hub config script
+     lexWebUiLoader.load(config);
+   </script>
+```
+
+The chatbot UI component is provided by a library
+contained in the [lex-web-ui.js](dist/lex-web-ui.js)
+and [lex-web-ui.css](dist/lex-web-ui.css) files (or their
+minimized equivalent also found in the `dist` directory). This
+component depends on the [Vue](https://vuejs.org/),
 [Vuex](https://vuex.vuejs.org/), [Vuetify](https://vuetifyjs.com/)
 and [AWS SDK](https://aws.amazon.com/sdk-for-browser/) libraries. You
 should either host these dependencies on your site or load them from a
-third-party CDN.
+third-party CDN (the `chatbot-ui-loader.js` script loads them fron CDNs
+by default).
 
-The following HTML is an illustration of how to create a basic page with
-the chatbot UI. Please note that the [sample site](#sample-site) contains
-a more complete setup (see the [index.html](src/website/index.html) file)
-which can be automatically deployed using the CloudFormation templates
-in this project.
+The following is an illustration of directly loading the chatbot UI
+library and its dependencies without the use of the `chatbot-ui-loader.js`
+script:
+
 
 ```html
 <html>
@@ -265,9 +313,9 @@ located under the [src/config](src/config) directory. You can run it using
 #### Running Locally
 If you want to quickly test the pages in the [src/website](src/website)
 directory on your local host, modify the values in the
-`bot-config.json` and/or `aws-config.js` files under the `src/config`
-directory. Specifically, you would need to pass an existing Cognito Pool
-Id and Lex Bot name.
+`chatbot-ui-loader-config.json` and/or `aws-config.js` files under the
+`src/config` directory. Specifically, you would need to pass an existing
+Cognito Pool Id and Lex Bot name.
 
 If you deploy a site using Mobile Hub or CloudFormation as described
 in the [Deploying](#deploying) section, you can copy the automatically

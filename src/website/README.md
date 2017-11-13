@@ -1,7 +1,7 @@
 # Overview
 This directory contains a sample site to showing how to load the chatbot
-UI as a full page or in an iframe. These are meant to be quick examples
-on how to integrate the chatbot UI into exising websites.
+UI as a full page or embedded in an iframe. These are meant to be quick
+examples on how to integrate the chatbot UI into exising websites.
 
 The sample website depends on configuration files in the
 [/src/config](/src/config) directory. As a minimum, you should configure
@@ -14,15 +14,109 @@ npm start
 
 You can also use the chatbot UI in your web application as a
 component. For details about the component and configuration, please
-refer to its
-[README](https://github.com/awslabs/aws-lex-web-ui/blob/master/lex-web-ui/README.md)
-file.
+refer to its [README](/lex-web-ui/README.md) file.
 
 # Full Page
-The [index.html](index.html) file in this directory is an example on
-how to display the chatbot UI as a full page. It loads third party
-dependencies from public CDNs as a quick way to test it. This page also
-depends on the chatbot UI library files in the [/dist](/dist) directory.
+The [index.html](index.html) file in this directory
+loads the chatbot UI as a full page. It uses a the
+([chatbot-ui-loader.js](chatbot-ui-loader.js)) script to load the
+chatbot UI component, its dependencies and config. It loads third party
+dependencies from public CDNs (meant for testing - you may want to
+copy the dependencies to your site or point them to your own CDN). This
+page also depends on the chatbot UI library files in the [/dist](/dist)
+directory.
+
+## Loading the ChatBot UI as a Full Page Component
+The loader script can be added to an HTML page like this:
+```html
+  <script src="./chatbot-ui-loader.js"></script>
+  <script>
+    var lexWebUiLoader = new LexWebUiLoader();
+    // loads config from ./chatbot-ui-loader-config.json and/or aws-config.js
+    lexWebUiLoader.load();
+  </script>
+```
+
+For greater configuration control, you can pass configuration options:
+```html
+  <!-- LexWebUi loader -->
+  <script src="./chatbot-ui-loader.js"></script>
+  <script>
+    var loaderOptions = {
+      shouldLoadConfigFromMobileHubFile: false,
+      configUrl: './chatbot-ui-loader-config.json'
+    };
+    var lexWebUiLoader = new LexWebUiLoader(loaderOptions);
+    var config = {
+      cognito: {
+        poolId: 'us-east-1:deadbeef-fade-babe-cafe-0123456789ab'
+      },
+      lex: {
+         initialText: 'How can I help you?',
+         botName: 'helpBot'
+       },
+       ui: {
+         toolbarTitle: 'Help Bot',
+         toolbarLogo: ''
+       },
+     };
+     // You can pass the config as a parameter.
+     // The loader can also get its config dynamically
+     // from a JSON file or from the Mobile Hub config script
+     lexWebUiLoader.load(config);
+   </script>
+```
+
+### Bot Loader Global Objects
+The [chatbot-ui-loader.js](./chatbot-ui-loader.js) script creates a
+global class function named `LexWebUiLoader`. An instance of the class
+can be used to load the chatbot UI by calling its `load` method.
+
+#### LexWebUiLoader Constructor
+The `LexWebUiLoader` class accepts the following options in the constructor:
+```javascript
+  var options = {
+    // URL of JSON file containing bot configuration
+    configUrl: './chatbot-ui-loader-config.json',
+
+    // DOM element ID where the chatbot UI will be mounted
+    elementId: 'lex-web-ui',
+
+    // controls whether the local config should be ignored when running
+    // embedded (e.g. iframe) in which case the parent page will pass the config
+    shouldIgnoreConfigWhenEmbedded: true,
+
+    // controls whether the config should be downloaded from `configUrl`
+    shouldLoadConfigFromJsonFile: true,
+
+    // controls whether the config should be downloaded from Mobile Hub aws-config.js
+    shouldLoadConfigFromMobileHubFile: true,
+
+    // Controls if it should load minimized production dependecies
+    shouldLoadMinDeps: true
+  };
+```
+
+### Dependencies
+The chatbot UI depends on third party libraries (Vue, Vuex, Vuetify)
+See the [dependencies](/lex-web-ui/README.md#dependencies)
+section of the component README file for details. The dependencies are
+dynamically loaded from third-party CDNs by the `chatbot-ui-loader.js`
+script. This is configured in the `options.dependencies` attribute of the
+loader instance. You can override this attribute to point the dependencies
+to other URLs (e.g. your own site). See the `getDependenciesOption`
+function in [chatbot-ui-loader.js](./chatbot-ui-loader.js) for the format
+of the `options.dependencies` attribute.
+
+### Loader ChatBot UI Configuration
+An instance of `LexWebUiLoader` can load the chatbot
+UI by calling the `load` method. This method takes a
+parameter which controls the chatbot UI configuration (see the
+[configuration](/lex-web-ui/README.md#configuration-and-customization)
+section of the component for more details). Additionally, the
+[chatbot-ui-loader.js](./chatbot-ui-loader.js) script can dynamically
+load the chatbot UI configuration from a JSON file (controlled by the
+`configUrl` option) or from the Mobile Hub config script `aws-config.js`.
 
 # ChatBot UI Iframe Embedding
 The [parent.html](parent.html) file in this directory is a sample
@@ -33,7 +127,7 @@ different from the hosting web site. This section describes how to embed
 the chatbot UI as an iframe and the API used to send data between the
 parent page and the iframe.
 
-## Adding the ChatBot UI to your Website
+## Adding the ChatBot UI to your Website as an Iframe
 This directory contains a sample JavaScript loader
 ([chatbot-ui-iframe-loader.js](chatbot-ui-iframe-loader.js))
 and CSS file
