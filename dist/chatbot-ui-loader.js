@@ -52,6 +52,9 @@ var LexWebUiLoader = function createLexWebUiLoader(document, window, defaultOpti
     this.options = _extends({}, OPTIONS, defaultOptions, optionsParam);
   }
 
+  /**
+   * Loads the dependencies and configuration plus renders the chatbot UI
+   */
   Loader.prototype.load = function load(configParam) {
     var options = this.options;
     return loadDependencies(options).then(function () {
@@ -101,13 +104,13 @@ var LexWebUiLoader = function createLexWebUiLoader(document, window, defaultOpti
         optional: true
       }, {
         name: 'AWS',
-        url: getMinUrl('https://sdk.amazonaws.com/js/aws-sdk-2.141.0.js', options.shouldLoadMinDeps)
+        url: getMinUrl('https://sdk.amazonaws.com/js/aws-sdk-2.149.0.js', options.shouldLoadMinDeps)
       }, {
         name: 'Vue',
-        url: getMinUrl('https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js', options.shouldLoadMinDeps)
+        url: getMinUrl('https://cdn.jsdelivr.net/npm/vue@2.5.3/dist/vue.js', options.shouldLoadMinDeps)
       }, {
         name: 'Vuex',
-        url: getMinUrl('https://unpkg.com/vuex@3.0.0/dist/vuex.js', options.shouldLoadMinDeps)
+        url: getMinUrl('https://unpkg.com/vuex@3.0.1/dist/vuex.js', options.shouldLoadMinDeps)
       }, {
         name: 'Vuetify',
         url: getMinUrl('https://unpkg.com/vuetify@0.16.9/dist/vuetify.js', options.shouldLoadMinDeps)
@@ -150,7 +153,7 @@ var LexWebUiLoader = function createLexWebUiLoader(document, window, defaultOpti
   }
 
   /**
-   * Adds a tag script or link tag to dynamically load a dependency
+   * Adds a tag script or link tag to dynamically load a Javascript/CSS dependency
    * Avoids adding script tags if the associated name exists in the global scope
    * or if the associated element id exists.
    * Returns a promise that resolves when the dependency is loaded
@@ -227,7 +230,8 @@ var LexWebUiLoader = function createLexWebUiLoader(document, window, defaultOpti
   }
 
   /**
-   * Loads the config from the following sources (lower overrides):
+   * Loads the config from the following sources in order of precedence
+   * (lower overrides higher):
    *   1. parameter
    *   2. Mobile HUB
    *   3. JSON file
