@@ -32,11 +32,11 @@ BUILD_TYPE ?= $()
 
 # updates the config files with values from the environment
 UPDATE_CONFIG_SCRIPT := $(BUILD_DIR)/update-lex-web-ui-config.js
-export IFRAME_CONFIG ?= $(realpath $(WEBAPP_DIR)/static/iframe/config.json)
 export WEBAPP_CONFIG_PROD ?= $(realpath $(WEBAPP_DIR)/src/config/config.prod.json)
 export WEBAPP_CONFIG_DEV ?= $(realpath $(WEBAPP_DIR)/src/config/config.dev.json)
 export WEBAPP_CONFIG_PREBUILT ?= $(realpath $(SRC_DIR)/config/chatbot-ui-loader-config.json)
 export IFRAME_CONFIG_PREBUILT ?= $(realpath $(CONFIG_DIR)/chatbot-ui-iframe-loader-config.json)
+export IFRAME_CONFIG ?= $(IFRAME_CONFIG_PREBUILT)
 CONFIG_FILES := $(IFRAME_CONFIG) $(WEBAPP_CONFIG_PROD) $(WEBAPP_CONFIG_DEV) \
 	$(WEBAPP_CONFIG_PREBUILT) $(IFRAME_CONFIG_PREBUILT)
 config: $(UPDATE_CONFIG_SCRIPT) $(CONFIG_ENV) $(CONFIG_FILES)
@@ -64,9 +64,17 @@ deploy-to-s3:
 		"s3://$(WEBAPP_BUCKET)/builds/$(CODEBUILD_BUILD_ID)/" \
 		"s3://$(WEBAPP_BUCKET)/"
 	@[ "$(PARENT_PAGE_BUCKET)" ] && \
-		( echo "[INFO] synching parent page to bucket: [$(PARENT_PAGE_BUCKET)]" ; \
-		aws s3 sync --acl public-read "$(WEBAPP_DIST_DIR)/static/iframe" \
-			"s3://$(PARENT_PAGE_BUCKET)/static/iframe" ) || \
+		( echo "[INFO] synching parent page to bucket: [$(PARENT_PAGE_BUCKET)]" && \
+		aws s3 sync --acl public-read \
+			--exclude '*' \
+			--include 'aws-config.js' \
+			--include 'chatbot-ui-iframe-loader-config.json' \
+			"$(CONFIG_DIR)" "s3://$(PARENT_PAGE_BUCKET)/static/iframe" && \
+		aws s3 sync --acl public-read \
+			--exclude '*' \
+			--include 'chatbot-ui-iframe-*' \
+			--include 'parent.html' \
+			"$(WEBSITE_DIR)" "s3://$(PARENT_PAGE_BUCKET)/static/iframe" ) || \
 		echo "[INFO] no parent bucket to deploy"
 	@echo "[INFO] all done deploying"
 .PHONY: deploy-to-s3
@@ -89,7 +97,6 @@ sync-website:
 	@echo "[INFO] copying config files"
 	aws s3 sync --acl public-read \
 		--exclude '*' \
-		--include 'bot-*config.json' \
 		--include 'chatbot-*config.json' \
 		$(CONFIG_DIR) s3://$(WEBAPP_BUCKET)
 	@[ "$(BUILD_TYPE)" = 'dist' ] && \

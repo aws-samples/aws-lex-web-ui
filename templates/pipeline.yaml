@@ -429,6 +429,6 @@ Outputs:
         Description: URL of the web application
 
     ParentPageUrl:
-        Value: !Sub "https://${ParentPageBucket.DomainName}/static/iframe/index.html"
+        Value: !Sub "https://${ParentPageBucket.DomainName}/static/iframe/parent.html"
         Description: URL of the sample parent page
         Condition: NeedsParentOrigin

@@ -66,6 +66,13 @@ app.use(devMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
+// lex-web-ui: serve the parent page and config from the static/iframe path
+var iframePath = '/static/iframe'
+var websiteDir = path.resolve(__dirname, '../../src/website')
+var configDir = path.join(__dirname, '../../src/config')
+app.use(iframePath, express.static(websiteDir))
+app.use(iframePath, express.static(configDir))
+
 var uri = 'http://localhost:' + port
 
 var _resolve

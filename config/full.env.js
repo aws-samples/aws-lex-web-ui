@@ -19,7 +19,7 @@ const confFileNames = {
 
   iframe:
     process.env.IFRAME_CONFIG ||
-    '../lex-web-ui/static/iframe/config.json',
+    '../src/config/chatbot-ui-iframe-loader-config.json',
 };
 
 const appProdConfig = require(confFileNames.appProd);
