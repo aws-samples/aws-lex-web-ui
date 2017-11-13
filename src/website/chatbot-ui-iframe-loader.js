@@ -470,6 +470,9 @@ var LexWebUiIframe = (function (document, window, defaultOptions) {
     iframeElement.setAttribute('frameBorder', '0');
     iframeElement.setAttribute('scrolling', 'no');
     iframeElement.setAttribute('title', 'chatbot');
+    // chrome requires this feature policy when using the
+    // mic in an cross-origin iframe
+    iframeElement.setAttribute('allow', 'microphone');
 
     divElement.appendChild(iframeElement);
 
