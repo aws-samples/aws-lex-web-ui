@@ -108,21 +108,21 @@ var LexWebUiLoader = (function createLexWebUiLoader(document, window, defaultOpt
         {
           name: 'AWS',
           url: getMinUrl(
-            'https://sdk.amazonaws.com/js/aws-sdk-2.141.0.js',
+            'https://sdk.amazonaws.com/js/aws-sdk-2.149.0.js',
             options.shouldLoadMinDeps
           ),
         },
         {
           name: 'Vue',
           url: getMinUrl(
-            'https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js',
+            'https://cdn.jsdelivr.net/npm/vue@2.5.3/dist/vue.js',
             options.shouldLoadMinDeps
           ),
         },
         {
           name: 'Vuex',
           url: getMinUrl(
-            'https://unpkg.com/vuex@3.0.0/dist/vuex.js',
+            'https://unpkg.com/vuex@3.0.1/dist/vuex.js',
             options.shouldLoadMinDeps
           ),
         },

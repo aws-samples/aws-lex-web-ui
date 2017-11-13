@@ -154,10 +154,10 @@ script:
       Vue, Vuex, Vuetifiy and AWS SDK dependencies must be loaded before lex-web-ui.js.
       Loading from third party CDN for quick testing
     -->
-    <script src="https://unpkg.com/vue@2.5.2"></script>
-    <script src="https://unpkg.com/vuex@3.0.0"></script>
+    <script src="https://unpkg.com/vue@2.5.3"></script>
+    <script src="https://unpkg.com/vuex@3.0.1"></script>
     <script src="https://unpkg.com/vuetify@0.16.9"></script>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.138.0.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.149.0.min.js"></script>
 
     <!-- LexWebUi Library from dist directory -->
     <script src="./lex-web-ui.js"></script>

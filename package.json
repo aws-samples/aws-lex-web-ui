@@ -1,6 +1,6 @@
 {
   "name": "aws-lex-web-ui",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Sample Amazon Lex Web Interface",
   "main": "dist/lex-web-ui.min.js",
   "repository": {
@@ -26,8 +26,9 @@
     "autoprefixer": "^7.1.6",
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "eslint": "^4.9.0",
+    "eslint": "^4.11.0",
     "express": "^4.16.2",
     "postcss-cli": "^4.1.1"
   },
@@ -39,5 +40,6 @@
     ">= 1%",
     "last 2 versions",
     "ie >= 11"
-  ]
+  ],
+  "dependencies": {}
 }
