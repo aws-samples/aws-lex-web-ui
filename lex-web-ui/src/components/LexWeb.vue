@@ -72,6 +72,15 @@ export default {
     lexState() {
       return this.$store.state.lex;
     },
+    isMobile() {
+      const mobileResolution = 900;
+      return (this.$vuetify.breakpoint.smAndDown &&
+        'navigator' in window && navigator.maxTouchPoints > 0 &&
+        'screen' in window &&
+        (window.screen.height < mobileResolution ||
+          window.screen.width < mobileResolution)
+      );
+    },
   },
   watch: {
     // emit lex state on changes
