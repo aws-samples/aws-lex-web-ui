@@ -119,6 +119,11 @@ export default {
     }
   },
   mounted() {
+    // override default vuetify vertical overflow on non-mobile devices
+    // hide vertical scrollbars
+    if (!this.isMobile) {
+      document.documentElement.style.overflowY = 'hidden';
+    }
     this.$store.dispatch('initConfig', this.$lexWebUi.config)
       .then(() => this.$store.dispatch('getConfigFromParent'))
       // avoid merging an empty config
