@@ -118,7 +118,10 @@ export default {
 
 <style scoped>
 .message-text {
-  white-space: normal;
+  hyphens: auto;
+  overflow-wrap: break-word;
   padding: 0.8em;
+  white-space: normal;
+  word-break: break-word;
 }
 </style>
