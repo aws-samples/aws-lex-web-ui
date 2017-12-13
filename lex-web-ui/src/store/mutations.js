@@ -308,6 +308,7 @@ export default {
   pushMessage(state, message) {
     state.messages.push({
       id: state.messages.length,
+      date: new Date(),
       ...message,
     });
   },

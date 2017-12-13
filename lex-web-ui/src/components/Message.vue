@@ -54,6 +54,13 @@
               </div>
             </v-layout>
           </v-flex>
+        <v-flex
+          v-if="shouldShowMessageDate && isMessageFocused"
+          class="text-xs-center message-date"
+        >
+          {{messageHumanDate}}
+        </v-flex>
+
         </v-layout>
       </v-flex>
       <v-flex
@@ -96,6 +103,12 @@ export default {
     MessageText,
     ResponseCard,
   },
+  data() {
+    return {
+      isMessageFocused: false,
+      messageHumanDate: 'Now',
+    };
+  },
   computed: {
     botDialogState() {
       if (!('dialogState' in this.message)) {
@@ -135,6 +148,9 @@ export default {
         background: `url(${this.botAvatarUrl}) center center / contain no-repeat`,
       };
     },
+    shouldShowMessageDate() {
+      return this.$store.state.config.ui.showMessageDate;
+    },
   },
   methods: {
     playAudio() {
@@ -147,6 +163,35 @@ export default {
       if (audioElem) {
         audioElem.play();
       }
+    },
+    onMessageFocus() {
+      if (!this.shouldShowMessageDate) {
+        return;
+      }
+      this.messageHumanDate = this.getMessageHumanDate();
+      this.isMessageFocused = true;
+      if (this.message.id === this.$store.state.messages.length - 1) {
+        this.$emit('scrollDown');
+      }
+    },
+    onMessageBlur() {
+      if (!this.shouldShowMessageDate) {
+        return;
+      }
+      this.isMessageFocused = false;
+    },
+    getMessageHumanDate() {
+      const dateDiff = Math.round((new Date() - this.message.date) / 1000);
+      const secsInHr = 3600;
+      const secsInDay = secsInHr * 24;
+      if (dateDiff < 60) {
+        return 'Now';
+      } else if (dateDiff < secsInHr) {
+        return `${Math.floor(dateDiff / 60)} min`;
+      } else if (dateDiff < secsInDay) {
+        return this.message.date.toLocaleTimeString();
+      }
+      return this.message.date.toLocaleString();
     },
   },
 };

@@ -156,6 +156,9 @@ const configDefault = {
     // controls whether detailed error messages are shown in bot responses
     showErrorDetails: false,
 
+    // show date when message was received on buble focus/selection
+    showMessageDate: true,
+
     // bot avatar image URL
     avatarImageUrl: '',
   },
