@@ -1,7 +1,8 @@
 <template>
   <v-layout
     column
-    class="message-list ma-0"
+    fill-height
+    class="message-list"
   >
     <message
       v-for="message in messages"
@@ -50,8 +51,8 @@ export default {
 
 <style scoped>
 .message-list {
-  flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .message-bot {

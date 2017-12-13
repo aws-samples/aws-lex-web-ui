@@ -1,5 +1,11 @@
 <template>
-  <v-toolbar v-bind:color="toolbarColor" dark dense>
+  <v-toolbar
+    v-bind:color="toolbarColor"
+    app
+    dark
+    dense
+    fixed
+  >
     <img v-bind:src="toolbarLogo">
     <v-toolbar-title class="hidden-xs-and-down">
       {{ toolbarTitle }}

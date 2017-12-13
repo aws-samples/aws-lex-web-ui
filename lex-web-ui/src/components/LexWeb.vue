@@ -9,9 +9,12 @@
       v-on:toggleMinimizeUi="toggleMinimizeUi"
     ></toolbar-container>
 
-    <message-list
-      v-show="!isUiMinimized"
-    ></message-list>
+    <v-content>
+      <v-container class="message-list-container" fluid pa-0>
+        <message-list v-show="!isUiMinimized"
+        ></message-list>
+      </v-container>
+    </v-content>
 
     <input-container
       v-if="!isUiMinimized"
@@ -204,13 +207,10 @@ export default {
 </script>
 
 <style>
-#lex-web {
-  width: 100%;
-}
-.application {
-  /* substract the input container height as a workaround on mobile
-     to prevent the input container to be out of view
-   */
-  min-height: calc(100vh - 64px);
+.message-list-container {
+  /* vuetify toolbar and footer are 48px each when using 'dense' */
+  height: calc(100% - 96px);
+  position: fixed;
+  top: 48px;
 }
 </style>
