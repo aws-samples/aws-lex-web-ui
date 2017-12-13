@@ -5,10 +5,12 @@
     class="message-list"
   >
     <message
+      ref="messages"
       v-for="message in messages"
       v-bind:message="message"
       v-bind:key="message.id"
       v-bind:class="`message-${message.type}`"
+      v-on:scrollDown="scrollDown"
     ></message>
   </v-layout>
 </template>
@@ -41,7 +43,12 @@ export default {
   watch: {
     // autoscroll message list to the bottom when messages change
     messages() {
-      this.$nextTick(() => {
+      this.scrollDown();
+    },
+  },
+  methods: {
+    scrollDown() {
+      return this.$nextTick(() => {
         this.$el.scrollTop = this.$el.scrollHeight;
       });
     },
