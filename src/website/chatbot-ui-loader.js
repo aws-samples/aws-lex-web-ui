@@ -100,17 +100,17 @@ var LexWebUiLoader = (function createLexWebUiLoader(document, window, defaultOpt
     return {
       script: [
         {
-          // mobile hub generated aws config
-          name: 'aws_bots_config',
-          url: './aws-config.js',
-          optional: true
-        },
-        {
           name: 'AWS',
           url: getMinUrl(
             'https://sdk.amazonaws.com/js/aws-sdk-2.149.0.js',
             options.shouldLoadMinDeps
           ),
+        },
+        {
+          // mobile hub generated aws config
+          name: 'aws_bots_config',
+          url: './aws-config.js',
+          optional: true
         },
         {
           name: 'Vue',
