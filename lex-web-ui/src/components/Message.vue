@@ -11,6 +11,13 @@
           <v-flex d-flex class="message-bubble-avatar-container">
             <v-layout row class="message-bubble-row">
               <div
+                v-if="shouldShowAvatarImage"
+                v-bind:style="botAvatarBackground"
+                v-bind:tabindex="message.id + 1"
+                class="bot-avatar focusable"
+              >
+              </div>
+              <div
                 v-bind:tabindex="message.id + 1"
                 v-on:focus="onMessageFocus"
                 v-on:blur="onMessageBlur"
@@ -104,6 +111,9 @@ export default {
           return null;
       }
     },
+    botAvatarUrl() {
+      return this.$store.state.config.ui.avatarImageUrl;
+    },
     shouldDisplayResponseCard() {
       return (
         this.message.responseCard &&
@@ -113,6 +123,17 @@ export default {
         'genericAttachments' in this.message.responseCard &&
         this.message.responseCard.genericAttachments instanceof Array
       );
+    },
+    shouldShowAvatarImage() {
+      return (
+        this.message.type === 'bot' &&
+        this.botAvatarUrl
+      );
+    },
+    botAvatarBackground() {
+      return {
+        background: `url(${this.botAvatarUrl}) center center / contain no-repeat`,
+      };
     },
   },
   methods: {

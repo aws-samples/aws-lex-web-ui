@@ -155,6 +155,9 @@ const configDefault = {
 
     // controls whether detailed error messages are shown in bot responses
     showErrorDetails: false,
+
+    // bot avatar image URL
+    avatarImageUrl: '',
   },
 
   /* Configuration to enable voice and to pass options to the recorder
