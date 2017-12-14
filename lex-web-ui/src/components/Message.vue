@@ -54,13 +54,12 @@
               </div>
             </v-layout>
           </v-flex>
-        <v-flex
-          v-if="shouldShowMessageDate && isMessageFocused"
-          class="text-xs-center message-date"
-        >
-          {{messageHumanDate}}
-        </v-flex>
-
+          <v-flex
+            v-if="shouldShowMessageDate && isMessageFocused"
+            class="text-xs-center message-date"
+          >
+            {{messageHumanDate}}
+          </v-flex>
         </v-layout>
       </v-flex>
       <v-flex
