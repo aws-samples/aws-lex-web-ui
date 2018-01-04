@@ -6,7 +6,7 @@
     dense
     fixed
   >
-    <img v-bind:src="toolbarLogo">
+    <img v-if="toolbarLogo" v-bind:src="toolbarLogo">
     <v-toolbar-title class="hidden-xs-and-down">
       {{ toolbarTitle }}
     </v-toolbar-title>
