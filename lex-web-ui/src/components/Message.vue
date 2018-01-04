@@ -242,6 +242,10 @@ export default {
   background-color: #E8EAF6; /* indigo-50 from material palette */
 }
 
+.dialog-state {
+  display: inline-flex;
+}
+
 .icon.dialog-state-ok {
   color: green;
 }
