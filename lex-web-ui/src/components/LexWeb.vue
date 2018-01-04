@@ -88,56 +88,24 @@ export default {
       this.$emit('updateLexState', this.lexState);
     },
   },
-  beforeMount() {
-    if (this.$store.state.config.urlQueryParams.lexWebUiEmbed !== 'true') {
-      console.info('running in standalone mode');
-      this.$store.commit('setIsRunningEmbedded', false);
-      this.$store.commit('setAwsCredsProvider', 'cognito');
-    } else {
-      // running embedded
-      console.info(
-        'running in embedded mode from URL: ',
-        document.location.href,
-      );
-      console.info('referrer (possible parent) URL: ', document.referrer);
-      console.info(
-        'config parentOrigin:',
-        this.$store.state.config.ui.parentOrigin,
-      );
-      if (!document.referrer
-        .startsWith(this.$store.state.config.ui.parentOrigin)
-      ) {
-        console.warn(
-          'referrer origin: [%s] does not match configured parent origin: [%s]',
-          document.referrer, this.$store.state.config.ui.parentOrigin,
-        );
-      }
-
-      window.addEventListener('message', this.messageHandler, false);
-      this.$store.commit('setIsRunningEmbedded', true);
-      this.$store.commit('setAwsCredsProvider', 'parentWindow');
-    }
-  },
-  mounted() {
+  created() {
     // override default vuetify vertical overflow on non-mobile devices
     // hide vertical scrollbars
     if (!this.isMobile) {
       document.documentElement.style.overflowY = 'hidden';
     }
-    this.$store.dispatch('initConfig', this.$lexWebUi.config)
-      .then(() => this.$store.dispatch('getConfigFromParent'))
-      // avoid merging an empty config
-      .then(config => (
-        (Object.keys(config).length) ?
-          this.$store.dispatch('initConfig', config) : Promise.resolve()
-      ))
+
+    this.initConfig()
       .then(() => Promise.all([
         this.$store.dispatch(
           'initCredentials',
           this.$lexWebUi.awsConfig.credentials,
         ),
         this.$store.dispatch('initRecorder'),
-        this.$store.dispatch('initBotAudio', (window.Audio) ? new Audio() : null),
+        this.$store.dispatch(
+          'initBotAudio',
+          (window.Audio) ? new Audio() : null,
+        ),
       ]))
       .then(() => Promise.all([
         this.$store.dispatch('initMessageList'),
@@ -171,7 +139,7 @@ export default {
         console.warn('ignoring event - invalid origin:', evt.origin);
         return;
       }
-      if (!evt.ports) {
+      if (!evt.ports || !Array.isArray(evt.ports) || !evt.ports.length) {
         console.warn('postMessage not sent over MessageChannel', evt);
         return;
       }
@@ -215,6 +183,50 @@ export default {
           console.warn('unknown message in messageHanlder', evt);
           break;
       }
+    },
+    logRunningMode() {
+      if (!this.$store.state.isRunningEmbedded) {
+        console.info('running in standalone mode');
+        return;
+      }
+
+      console.info(
+        'running in embedded mode from URL: ',
+        document.location.href,
+      );
+      console.info('referrer (possible parent) URL: ', document.referrer);
+      console.info(
+        'config parentOrigin:',
+        this.$store.state.config.ui.parentOrigin,
+      );
+      if (!document.referrer
+        .startsWith(this.$store.state.config.ui.parentOrigin)
+      ) {
+        console.warn(
+          'referrer origin: [%s] does not match configured parent origin: [%s]',
+          document.referrer, this.$store.state.config.ui.parentOrigin,
+        );
+      }
+    },
+    initConfig() {
+      if (this.$store.state.config.urlQueryParams.lexWebUiEmbed !== 'true') {
+        this.$store.commit('setIsRunningEmbedded', false);
+        this.$store.commit('setAwsCredsProvider', 'cognito');
+      } else {
+        window.addEventListener('message', this.messageHandler, false);
+        this.$store.commit('setIsRunningEmbedded', true);
+        this.$store.commit('setAwsCredsProvider', 'parentWindow');
+      }
+
+      // get config
+      return this.$store.dispatch('initConfig', this.$lexWebUi.config)
+        .then(() => this.$store.dispatch('getConfigFromParent'))
+        // avoid merging an empty config
+        .then(config => (
+          (Object.keys(config).length) ?
+            this.$store.dispatch('initConfig', config) : Promise.resolve()
+        ))
+        .then(() => this.logRunningMode());
     },
   },
 };
