@@ -7,14 +7,20 @@
     "initialText": "You can ask me for help ordering flowers. Just type \"Buy flowers\" or click on the mic and say it.",
     "initialSpeechInstruction": "Say 'Buy Flowers' to get started."
   },
+  "ui": {
+    "parentOrigin": "",
+    "toolbarTitle": "Order Flowers",
+    "pushInitialTextOnRestart": false
+  },
   "polly": {
     "voiceId": "Salli"
   },
-  "ui": {
-    "parentOrigin": "",
-    "toolbarTitle": "Order Flowers"
-  },
   "recorder": {
     "preset": "speech_recognition"
+  },
+  "iframe": {
+    "iframeOrigin": "",
+    "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true",
+    "shouldLoadIframeMinimized": true
   }
 }

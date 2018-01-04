@@ -25,26 +25,17 @@ uploads:
     fileName: parent.html
     targetS3Bucket: hosting
   - !com.amazonaws.mobilehub.v0.Upload
-    fileName: lex-web-ui.min.js
+    fileName: lex-web-ui.js
     targetS3Bucket: hosting
   - !com.amazonaws.mobilehub.v0.Upload
-    fileName: chatbot-ui-iframe-loader.js
+    fileName: lex-web-ui-loader.js
     targetS3Bucket: hosting
   - !com.amazonaws.mobilehub.v0.Upload
-    fileName: chatbot-ui-iframe-loader.css
+    fileName: lex-web-ui-loader.css
     targetS3Bucket: hosting
   - !com.amazonaws.mobilehub.v0.Upload
-    fileName: chatbot-ui-loader.js
+    fileName: lex-web-ui.css
     targetS3Bucket: hosting
   - !com.amazonaws.mobilehub.v0.Upload
-    fileName: chatbot-ui-loader.css
-    targetS3Bucket: hosting
-  - !com.amazonaws.mobilehub.v0.Upload
-    fileName: lex-web-ui.min.css
-    targetS3Bucket: hosting
-  - !com.amazonaws.mobilehub.v0.Upload
-    fileName: chatbot-ui-loader-config.json
-    targetS3Bucket: hosting
-  - !com.amazonaws.mobilehub.v0.Upload
-    fileName: chatbot-ui-iframe-loader-config.json
+    fileName: lex-web-ui-loader-config.json
     targetS3Bucket: hosting
