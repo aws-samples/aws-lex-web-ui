@@ -365,7 +365,7 @@ Outputs:
     WebAppUrl:
         Description: >
             URL of the stand-alone sample web application.
-            This page will be available after the pipeline completes.
+            This page will be available after the pipeline/deployment completes.
         Value:
             !If
               - ShouldDeployUsingPipeline
@@ -376,12 +376,22 @@ Outputs:
         Condition: NeedsParentOrigin
         Description: >
             URL of the iframe based sample web application
-            This page will be available after the pipeline completes.
+            This page will be available after the pipeline/deployment completes.
         Value:
             !If
               - ShouldDeployUsingPipeline
               - !GetAtt Pipeline.Outputs.ParentPageUrl
               - !GetAtt CodeBuildDeploy.Outputs.ParentPageUrl
+
+    LoaderScriptUrl:
+        Description: >
+            URL of the loader script
+            This script will be available after the pipeline/deployment completes.
+        Value:
+            !If
+              - ShouldDeployUsingPipeline
+              - !GetAtt Pipeline.Outputs.LoaderScriptUrl
+              - !GetAtt CodeBuildDeploy.Outputs.LoaderScriptUrl
 
     CognitoIdentityPoolId:
         Condition: NeedsCognito

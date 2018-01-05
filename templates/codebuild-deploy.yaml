@@ -324,3 +324,7 @@ Outputs:
     ParentPageUrl:
         Value: !Sub "https://${WebAppBucket.DomainName}/parent.html"
         Description: URL of the sample parent page
+
+    LoaderScriptUrl:
+        Value: !Sub "https://${WebAppBucket.DomainName}/lex-web-ui-loader.min.js"
+        Description: URL of the loader script

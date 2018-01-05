@@ -33,14 +33,17 @@ module.exports = {
       })
       .end();
   },
+  // TODO move this test to the top loader
   'iframe sample app e2e tests': function test(browser) {
     const devServer = browser.globals.devServerURL;
 
     browser
       .url(devServer + '/static/iframe/parent.html')
-      .waitForElementVisible('.lex-web-ui', 5000)
-      .waitForElementPresent('.lex-web-ui script', 5000)
-      .waitForElementPresent('.lex-web-ui iframe', 5000)
+      .waitForElementVisible('.lex-web-ui-iframe', 5000)
+      .waitForElementPresent('.lex-web-ui-iframe iframe', 5000)
+      .waitForElementPresent('script#aws-script', 5000)
+      .waitForElementPresent('script#aws_bots_config-script', 5000)
+      .waitForElementPresent('link#lex-web-ui-loader-css', 5000)
       .getLog('browser', function(logEntriesArray) {
         console.log('Log length: ' + logEntriesArray.length);
         logEntriesArray.forEach(function(log) {

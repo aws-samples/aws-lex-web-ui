@@ -70,8 +70,10 @@ app.use(staticPath, express.static('./static'))
 var iframePath = '/static/iframe'
 var websiteDir = path.resolve(__dirname, '../../src/website')
 var configDir = path.join(__dirname, '../../src/config')
+var loaderDistDir = path.join(__dirname, '../../dist')
 app.use(iframePath, express.static(websiteDir))
 app.use(iframePath, express.static(configDir))
+app.use(iframePath, express.static(loaderDistDir))
 
 var uri = 'http://localhost:' + port
 

@@ -20,7 +20,9 @@ WEBSITE_DIR := $(SRC_DIR)/website
 
 # this install all the npm dependencies needed to build from scratch
 install-deps:
-	@echo "[INFO] Installing npm dependencies"
+	@echo "[INFO] Installing loader npm dependencies"
+	npm install
+	@echo "[INFO] Installing component npm dependencies"
 	cd $(WEBAPP_DIR) && npm install
 .PHONY: install-deps
 
@@ -34,18 +36,20 @@ BUILD_TYPE ?= $()
 UPDATE_CONFIG_SCRIPT := $(BUILD_DIR)/update-lex-web-ui-config.js
 export WEBAPP_CONFIG_PROD ?= $(realpath $(WEBAPP_DIR)/src/config/config.prod.json)
 export WEBAPP_CONFIG_DEV ?= $(realpath $(WEBAPP_DIR)/src/config/config.dev.json)
-export WEBAPP_CONFIG_PREBUILT ?= $(realpath $(SRC_DIR)/config/chatbot-ui-loader-config.json)
-export IFRAME_CONFIG_PREBUILT ?= $(realpath $(CONFIG_DIR)/chatbot-ui-iframe-loader-config.json)
-export IFRAME_CONFIG ?= $(IFRAME_CONFIG_PREBUILT)
-CONFIG_FILES := $(IFRAME_CONFIG) $(WEBAPP_CONFIG_PROD) $(WEBAPP_CONFIG_DEV) \
-	$(WEBAPP_CONFIG_PREBUILT) $(IFRAME_CONFIG_PREBUILT)
+export LOADER_CONFIG ?= $(realpath $(SRC_DIR)/config/lex-web-ui-loader-config.json)
+CONFIG_FILES := \
+	$(WEBAPP_CONFIG_PROD) \
+	$(WEBAPP_CONFIG_DEV) \
+	$(LOADER_CONFIG)
 config: $(UPDATE_CONFIG_SCRIPT) $(CONFIG_ENV) $(CONFIG_FILES)
 	@echo "[INFO] Running config script: [$(<)]"
 	node $(<)
 .PHONY: config
 
 build: config
-	@echo "[INFO] Building web app in dir [$(WEBAPP_DIR)]"
+	@echo "[INFO] Building loader"
+	npm run build
+	@echo "[INFO] Building component in dir [$(WEBAPP_DIR)]"
 	cd $(WEBAPP_DIR) && npm run build
 .PHONY: build
 
@@ -68,13 +72,16 @@ deploy-to-s3:
 		aws s3 sync --acl public-read \
 			--exclude '*' \
 			--include 'aws-config.js' \
-			--include 'chatbot-ui-iframe-loader-config.json' \
-			"$(CONFIG_DIR)" "s3://$(PARENT_PAGE_BUCKET)/static/iframe" && \
+			--include 'lex-web-ui-loader-config.json' \
+			"$(CONFIG_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" && \
 		aws s3 sync --acl public-read \
 			--exclude '*' \
-			--include 'chatbot-ui-iframe-*' \
 			--include 'parent.html' \
-			"$(WEBSITE_DIR)" "s3://$(PARENT_PAGE_BUCKET)/static/iframe" ) || \
+			"$(WEBSITE_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" && \
+		aws s3 sync --acl public-read \
+			--exclude '*' \
+			--include 'lex-web-ui-loader.*' \
+			"$(DIST_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" ) || \
 		echo "[INFO] no parent bucket to deploy"
 	@echo "[INFO] all done deploying"
 .PHONY: deploy-to-s3
@@ -97,7 +104,7 @@ sync-website:
 	@echo "[INFO] copying config files"
 	aws s3 sync --acl public-read \
 		--exclude '*' \
-		--include 'chatbot-*config.json' \
+		--include 'lex-web-ui-loader-config.json' \
 		$(CONFIG_DIR) s3://$(WEBAPP_BUCKET)
 	@[ "$(BUILD_TYPE)" = 'dist' ] && \
 		echo "[INFO] copying aws-config.js" ;\

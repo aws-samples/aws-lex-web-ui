@@ -17,4 +17,7 @@ module.exports = {
   },
   polly: {},
   recorder: {},
+  iframe: {
+    iframeOrigin: process.env.IFRAME_ORIGIN,
+  },
 };
