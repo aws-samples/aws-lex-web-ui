@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "437ec97e6462a69c6a8d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "dbd85a5bad6b7b073055"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1250,7 +1250,7 @@ module.exports = function (it) {
 /***/ "../../../node_modules/core-js/library/modules/_core.js":
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.5.1' };
+var core = module.exports = { version: '2.5.3' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -1674,7 +1674,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
   var VALUES_BUG = false;
   var proto = Base.prototype;
   var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
-  var $default = $native || getMethod(DEFAULT);
+  var $default = (!BUGGY && $native) || getMethod(DEFAULT);
   var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
   var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
   var methods, key, IteratorPrototype;
@@ -1866,8 +1866,8 @@ module.exports = function () {
     notify = function () {
       process.nextTick(flush);
     };
-  // browsers with MutationObserver
-  } else if (Observer) {
+  // browsers with MutationObserver, except iOS Safari - https://github.com/zloirock/core-js/issues/339
+  } else if (Observer && !(global.navigator && global.navigator.standalone)) {
     var toggle = true;
     var node = document.createTextNode('');
     new Observer(flush).observe(node, { characterData: true }); // eslint-disable-line no-new
@@ -2914,14 +2914,7 @@ var onUnhandled = function (promise) {
   });
 };
 var isUnhandled = function (promise) {
-  if (promise._h == 1) return false;
-  var chain = promise._a || promise._c;
-  var i = 0;
-  var reaction;
-  while (chain.length > i) {
-    reaction = chain[i++];
-    if (reaction.fail || !isUnhandled(reaction.promise)) return false;
-  } return true;
+  return promise._h !== 1 && (promise._a || promise._c).length === 0;
 };
 var onHandleUnhandled = function (promise) {
   task.call(global, function () {
@@ -3139,6 +3132,7 @@ var wksDefine = __webpack_require__("../../../node_modules/core-js/library/modul
 var enumKeys = __webpack_require__("../../../node_modules/core-js/library/modules/_enum-keys.js");
 var isArray = __webpack_require__("../../../node_modules/core-js/library/modules/_is-array.js");
 var anObject = __webpack_require__("../../../node_modules/core-js/library/modules/_an-object.js");
+var isObject = __webpack_require__("../../../node_modules/core-js/library/modules/_is-object.js");
 var toIObject = __webpack_require__("../../../node_modules/core-js/library/modules/_to-iobject.js");
 var toPrimitive = __webpack_require__("../../../node_modules/core-js/library/modules/_to-primitive.js");
 var createDesc = __webpack_require__("../../../node_modules/core-js/library/modules/_property-desc.js");
@@ -3331,15 +3325,14 @@ $JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
   return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
 })), 'JSON', {
   stringify: function stringify(it) {
-    if (it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
     var args = [it];
     var i = 1;
     var replacer, $replacer;
     while (arguments.length > i) args.push(arguments[i++]);
-    replacer = args[1];
-    if (typeof replacer == 'function') $replacer = replacer;
-    if ($replacer || !isArray(replacer)) replacer = function (key, value) {
-      if ($replacer) value = $replacer.call(this, key, value);
+    $replacer = replacer = args[1];
+    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
+    if (!isArray(replacer)) replacer = function (key, value) {
+      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
       if (!isSymbol(value)) return value;
     };
     args[1] = replacer;
@@ -3493,7 +3486,7 @@ Object.defineProperty(exports, "__esModule", {
 var dependenciesFullPage = exports.dependenciesFullPage = {
   script: [{
     name: 'AWS',
-    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.149.0.js',
+    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.176.0.js',
     canUseMin: true
   }, {
     // mobile hub generated aws config
@@ -3502,7 +3495,7 @@ var dependenciesFullPage = exports.dependenciesFullPage = {
     optional: true
   }, {
     name: 'Vue',
-    url: 'https://cdn.jsdelivr.net/npm/vue@2.5.3/dist/vue.js',
+    url: 'https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js',
     canUseMin: true
   }, {
     name: 'Vuex',
@@ -3510,7 +3503,7 @@ var dependenciesFullPage = exports.dependenciesFullPage = {
     canUseMin: true
   }, {
     name: 'Vuetify',
-    url: 'https://unpkg.com/vuetify@0.16.9/dist/vuetify.js',
+    url: 'https://unpkg.com/vuetify@0.17.6/dist/vuetify.js',
     canUseMin: true
   }, {
     name: 'LexWebUi',
@@ -3522,7 +3515,7 @@ var dependenciesFullPage = exports.dependenciesFullPage = {
     url: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
   }, {
     name: 'vuetify',
-    url: 'https://unpkg.com/vuetify@0.16.9/dist/vuetify.css',
+    url: 'https://unpkg.com/vuetify@0.17.6/dist/vuetify.css',
     canUseMin: true
   }, {
     name: 'lex-web-ui',
@@ -3537,7 +3530,7 @@ var dependenciesFullPage = exports.dependenciesFullPage = {
 var dependenciesIframe = exports.dependenciesIframe = {
   script: [{
     name: 'AWS',
-    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.149.0.js',
+    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.176.0.js',
     canUseMin: true
   }, {
     // mobile hub generated aws config

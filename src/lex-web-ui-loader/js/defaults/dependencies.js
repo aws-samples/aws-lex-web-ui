@@ -20,7 +20,7 @@ export const dependenciesFullPage = {
   script: [
     {
       name: 'AWS',
-      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.149.0.js',
+      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.176.0.js',
       canUseMin: true,
     },
     {
@@ -31,7 +31,7 @@ export const dependenciesFullPage = {
     },
     {
       name: 'Vue',
-      url: 'https://cdn.jsdelivr.net/npm/vue@2.5.3/dist/vue.js',
+      url: 'https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js',
       canUseMin: true,
     },
     {
@@ -41,7 +41,7 @@ export const dependenciesFullPage = {
     },
     {
       name: 'Vuetify',
-      url: 'https://unpkg.com/vuetify@0.16.9/dist/vuetify.js',
+      url: 'https://unpkg.com/vuetify@0.17.6/dist/vuetify.js',
       canUseMin: true,
     },
     {
@@ -57,7 +57,7 @@ export const dependenciesFullPage = {
     },
     {
       name: 'vuetify',
-      url: 'https://unpkg.com/vuetify@0.16.9/dist/vuetify.css',
+      url: 'https://unpkg.com/vuetify@0.17.6/dist/vuetify.css',
       canUseMin: true,
     },
     {
@@ -76,7 +76,7 @@ export const dependenciesIframe = {
   script: [
     {
       name: 'AWS',
-      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.149.0.js',
+      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.176.0.js',
       canUseMin: true,
     },
     {
