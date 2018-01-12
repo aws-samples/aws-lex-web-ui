@@ -111,37 +111,85 @@
       </div>
     </div><!-- main container -->
 
-    <!-- babel-polyfill -->
+    <!-- babel-polyfill required for IE 11 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js" integrity="sha256-WRc/eG3R84AverJv0zmqxAmdwQxstUpqkiE+avJ3WSo=" crossorigin="anonymous"></script>
 
-    <!-- jquery -->
+    <!-- jquery used as part on this example - not required by lex-web-ui -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <!-- bootstrap -->
+    <!-- bootstrap used as part of thie example - not required by lex-web-ui -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <!-- loader script -->
+    <!--
+      Loader script tag
+
+      Add a script tag pointing to the loader library towards the bottom
+      of the html BODY section
+
+      The library and its dependencies can be hosted on another site,
+      S3 bucket or a CDN (e.g. CloudFront)
+
+      This script creates a global variable named ChatbotUiLoader which
+      provides the loader library functionality
+    -->
     <script src="./lex-web-ui-loader.js"></script>
 
-    <!-- instantiate loader -->
+    <!--
+      After the loader script tag has been included, you can use its global
+      variable to load the chatbot UI in an iframe
+    -->
     <script>
-      // The load function returns an object that includes an API to
-      // comunicate betwen the parent and the iframe
 
+      // The loader constructor supports various configurable options used to
+      // control how the component configuration and dependencies are retrieved.
       var loaderOpts = {
+        // Point the baseUrl option to the the base URL used to download
+        // the chatbot UI files and dependencies.
+        // In this example, the base URL is relative to the root path
+        // You can also use full URLs:
+        //    baseUrl: 'https://iframe-host.example.org/lex-web-ui/'
+        baseUrl: '/',
+
         // enable receiving chatbot UI config from event
         // the event is used as an alternative to passing the chatbot
         // UI via JSON file or via the parameter in the load() function
-        shouldLoadConfigFromEvent: true,
-      };
-      var iframeLoader = new ChatBotUiLoader.IframeLoader(loaderOpts);
-      iframeLoader.load()
-        .then(function () {
-          // enable the send button once the chatbot UI is loaded
-          $('#send-intent').prop('disabled', false);
+        shouldLoadConfigFromEvent: true
+      }
 
+      // ChatBotUiLoader contains the IframeLoader constructor
+      // Instantiate the loader and pass the loader options
+      var iframeLoader = new ChatBotUiLoader.IframeLoader(loaderOpts);
+
+      // You can override the chatbot UI config by passing a parameter
+      var chatbotUiconfig = {
+      // if the iframe page is hosted on a different site,
+      // you should configure the parentOrigin and iframeOrigin
+      /*
+        ui: {
+          // origin of the parent site where you are including the chatbot UI
+          parentOrigin: 'https://mysite.example.org'
+        },
+        iframe: {
+          // origin hosting the HTML file that will be embedded in the iframe
+          iframeOrigin: 'https://iframe-host.example.org'
+        }
+        */
+      };
+
+      // load the iframe
+      iframeLoader.load(chatbotUiconfig)
+        .then(function () {
            // at this point the API is available
            // so I can send a ping to the iframe
            iframeLoader.api.ping();
+
+          // perform actions on the parent dependent on the chatbot
+          // loading. For example, enable the send button once the
+          // chatbot UI is loaded
+          $('#send-intent').prop('disabled', false);
+
+        })
+        .catch(function (error) {
+          console.error('chatbot UI failed to load', error);
         });
 
       // Sample function illustrating dynamic messaging with the iframe using

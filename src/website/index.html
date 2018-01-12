@@ -38,7 +38,11 @@
       // In this case, we are just passing one option (which doesn't changethe
       // default) for illustration purposes.
       var loaderOpts = {
-        shouldLoadConfigFromJsonFile: true
+        // The following option controls if the local config should be ignored
+        // when running this page embedded in an iframe.
+        // If set to true, only passes the parentOrigin field when run as an
+        // iframe and delegates the config to the parent
+        shouldIgnoreConfigWhenEmbedded: true
       };
 
       // Instantiate the loader by optionally passing the loader options to
