@@ -4,6 +4,101 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.12.0] - 2018-01-12
+This release brings significant improvements which include various
+breaking changes (see items with the **[BREAKING]** label). It overhauls
+the following areas:
+1. The loader script has been integrated into a single library. This
+makes it easier to load the chatbot UI component since now there's only
+one JavaScript file and a unified configuration
+2. CloudFormation master template has been split into two different
+templates based on the deployment mode (CodeBuild or Pipeline). This
+simplifies the templates and their parameters
+3. The chatbot UI messages are now encapsulated in a custom component
+instead of a chip. The messages now display a date when clicked and can
+show a bot avatar image next to the bot messages. More importantly, the
+new message component will makes it easier in the future to extend the
+content displayed in messages (e.g. adding html/markup rendering)
+
+### Changed
+- **[BREAKING]** Merged fullpage and iframe loader functionality
+into a library that loads from a single script. If you were using
+including the `chatbot-ui-*loader.js` scripts, you should change it to
+`lex-web-ui-loader.js`. This new library uses a constructor to create
+a loader object. The loader object must explicitly call its `load()`
+function to load the component. For details, see the README under the
+`src/lex-web-ui-loader` directory and the html files under `src/website`.
+[0892314ef516ae31a7c0bb6d43369b9a9d1108e5]
+- **[BREAKING]** Changed loader config to use a unified file for both the
+iframe and full page loader. The new default configuration file name is:
+`lex-web-ui-loader-config.json`. See a sample under the `src/config/`
+directory. [dbcac4cc241b94e8669843b19fcd082f94b7cc84]
+- Changed loader to allow keeping parent origin in config when
+embedded [245ac70e647464e6abca01edd511d2b6963014be] - Changed
+loader build environment to be based on webpack. This includes
+integration with babel, eslint, post-css and webpack-dev-server
+[8f1b7ac44c80e85811196930489931d1ea05704e]
+- Changed message bubble from vuetify chips to a custom component. This
+was done to allow greater flexibility in the style and structure of the
+message bubbles and in preparation to render a more complex message format
+[67192a0792c2d7433b24dda3b311d419e000b871]
+- Changed vertical overflow in non-mobile devices to allow scrolling. This
+enables mobile browsers to go full-screen when scrolling
+[3b8efc9c8c9f3e838624cfe15e6249cf37db6bf4]
+- Changed height calculation of toolbar, inputbar and message list to
+make it more deterministic across browsers
+[8b9132d17312468292893198061ed79fd7d89543]
+- Bumped dependency versions [48aa6ace3e89554de6dcc49c81286b5770606715,
+72fb152b9ff7615df1051629cd768fdaff8da9f2]
+
+### Added
+- Added time stamps to messages. It is shown under message bubbles when
+focused [bd9e9f32fbb25ec8658bb3d1775a5ba735f59fbc]
+- Added basic mobile resolution detection
+[afa316bf926c671a1a8023b68c4257963cef8e69]
+- Added the ability to include an avatar image next to the bot messages
+[814069738d0c9caaa0347723bea917684d3182cd]
+- Added message list event handler to scroll down to the bottom
+[2a20d339d74c5c0684ec07408d4f45c3980a031b]
+- Added CSS to auto hyphernation and word break text in messages
+[502aa92018e4a704f635ab7e93ac27cd4bb0d0af]
+- Added automated test for MessageList and Message components
+[1667fc6bc7e6b75eb0023778b1f49d4cf9a86db4]
+- Added origin configuration support to CodeBuild deployment
+[1d459d93bf03cd5f3c442f5d030cc57a88dd03dc]
+- Added a dynamically created page containing a code snippet and config
+[7636bac7d94b2684ff0736ed5b34011625bbc8d7]
+- added a base URL parameter to the loader which is used to
+with relative links for the JSON configuration and dependencies
+[9c954f635d473037cd3b8e19a193b5f2962ac675]
+
+### Removed
+- **[BREAKING]** Removed iframe loader config file:
+`src/config/chatbot-ui-iframe-loader-config.json`. Its functionality
+is now integrated in `src/config/lex-web-ui-loader-config.json`.
+[2e158f7ec33d4dc0950bdce0a7bead8a1d97a965]
+- **[BREAKING]** Splitted the master cloudformation template into two
+different template to separate the CodeBuild and Pipeline deployment
+modes. This makes the templates much simpler and easier to configure
+[ee2ef487f0413f60b4a13d1ceb95b1b3f1408123]
+- Removed the need to include CSS to manage overflow at the
+body tag level and removed display flex for the app element
+[8bf32f8b745b96660291a80a37bd25d0d40868fd]
+- Removed promise catch statements in loader script to allow user scripts
+to handle exceptions [bd929d6b5d86e1e26af41985734c2690eb9ef04b]
+
+### Fixed
+- Fixed a bug where the AWS SDK was loaded in the incorrect order
+[1b4637b87b823d4964aeefb08d2fe00523d5dae4]
+- Fixed a bug where the component config initialization had a timing issue
+when running in embedded mode [66de81cd29b9444362ece87ab24b743efca49298]
+- Fixed a bug where the toolbar image caused an error when not present
+[de77de6a2633eb925e270028fcb513932dbde93b]
+- Fixed a bug where the display of dialog state in messages had the
+wrong alignment [d993d7a8cd70ef530eada79d60fd804561fbed6d]
+- Fixed parent page in dev/test environment of component
+[39a1e1c79fc1c3b0585e08510fad7c266c6fc32b]
+
 ## [0.11.0] - 2017-11-13
 ### Changed
 - Various changes to support IE11 in text mode (no voice). IE11 support
