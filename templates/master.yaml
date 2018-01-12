@@ -282,6 +282,7 @@ Resources:
                       - NeedsCognito
                       - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
                       - !Ref CognitoIdentityPoolId
+                ParentOrigin: !Ref WebAppParentOrigin
                 WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
                 WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle

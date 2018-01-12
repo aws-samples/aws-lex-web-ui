@@ -17,6 +17,7 @@ const config = require('../config');
   'BOT_INITIAL_TEXT',
   'BOT_INITIAL_SPEECH',
   'IFRAME_ORIGIN',
+  'PARENT_ORIGIN',
   'POOL_ID',
   'UI_TOOLBAR_TITLE',
   'UI_TOOLBAR_LOGO',

@@ -61,6 +61,17 @@ Parameters:
         ConstraintDescription: >
             Must conform with the permitted Lex Bot name pattern.
 
+    ParentOrigin:
+        Type: String
+        Description: >
+            Browser origin (e.g. http://mysite.example.com:8080) of an
+            existing site that is allowed to send/receive data and events
+            from the web ui in an iframe setup. This is an optional
+            parameter. If left empty, an S3 bucket will be created to
+            host a sample parent site embedding the webapp as an iframe.
+        AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
+        ConstraintDescription: Empty or valid browser origin
+
     WebAppConfBotInitialText:
         Type: String
         Default: >
@@ -81,6 +92,7 @@ Parameters:
         Description: Title displayed in the chatbot UI toobar
 
 Conditions:
+    NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
 
 Resources:
@@ -93,6 +105,15 @@ Resources:
                 IndexDocument: index.html
             VersioningConfiguration:
                 Status: Enabled
+            CorsConfiguration:
+                !If
+                  - NeedsParentOrigin
+                  - !Ref AWS::NoValue
+                  - CorsRules:
+                    - AllowedMethods:
+                        - GET
+                      AllowedOrigins:
+                        - !Ref ParentOrigin
 
     CodeBuild:
         Type: AWS::CodeBuild::Project
@@ -122,6 +143,13 @@ Resources:
                       Value: !Ref WebAppConfBotInitialSpeech
                     - Name: UI_TOOLBAR_TITLE
                       Value: !Ref WebAppConfToolbarTitle
+                    - Name: PARENT_ORIGIN
+                      Value: !If
+                        - NeedsParentOrigin
+                        - !Sub "https://${WebAppBucket.DomainName}"
+                        - !Ref ParentOrigin
+                    - Name: IFRAME_ORIGIN
+                      Value: !Sub "https://${WebAppBucket.DomainName}"
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
             Source:
