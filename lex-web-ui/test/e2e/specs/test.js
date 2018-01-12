@@ -38,7 +38,7 @@ module.exports = {
     const devServer = browser.globals.devServerURL;
 
     browser
-      .url(devServer + '/static/iframe/parent.html')
+      .url(devServer + '/parent.html')
       .waitForElementVisible('.lex-web-ui-iframe', 5000)
       .waitForElementPresent('.lex-web-ui-iframe iframe', 5000)
       .waitForElementPresent('script#aws-script', 5000)
