@@ -70,6 +70,12 @@ class Loader {
     // polyfill needed for IE11
     setCustomEventShim();
     this.options = options;
+
+    // append a trailing slash if not present in the baseUrl
+    this.options.baseUrl =
+      (this.options.baseUrl && this.options.baseUrl.endsWith('/')) ?
+        this.options.baseUrl : `${this.options.baseUrl}/`;
+
     this.confLoader = new ConfigLoader(this.options);
   }
 
@@ -107,6 +113,7 @@ export class FullPageLoader extends Loader {
     this.depLoader = new DependencyLoader({
       shouldLoadMinDeps: this.options.shouldLoadMinDeps,
       dependencies: dependenciesFullPage,
+      baseUrl: this.options.baseUrl,
     });
 
     this.compLoader = new FullPageComponentLoader({
@@ -138,6 +145,7 @@ export class IframeLoader extends Loader {
     this.depLoader = new DependencyLoader({
       shouldLoadMinDeps: this.options.shouldLoadMinDeps,
       dependencies: dependenciesIframe,
+      baseUrl: this.options.baseUrl,
     });
 
     this.compLoader = new IframeComponentLoader({
@@ -149,7 +157,7 @@ export class IframeLoader extends Loader {
 
   load(configParam = {}) {
     this.config.iframe = this.config.iframe || {};
-    this.config.iframe.srcPath = this.mergeSrcPath(configParam);
+    this.config.iframe.iframeSrcPath = this.mergeSrcPath(configParam);
 
     return super.load(configParam)
       .then(() => {

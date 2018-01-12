@@ -23,10 +23,15 @@
  * Apply both to iframe and full page
  */
 export const options = {
+  // base URL to be prepended to relative URLs of dependencies
+  // if left empty, a relative path will still be used
+  baseUrl: '/',
+
   // time to wait for config event
   configEventTimeoutInMs: 10000,
 
   // URL to download config JSON file
+  // uses baseUrl if set as a relative URL (not starting with http)
   configUrl: './lex-web-ui-loader-config.json',
 
   // controls whether the local config should be ignored when running
@@ -71,6 +76,7 @@ export const optionsIframe = {
   // div container class to insert iframe
   containerClass: 'lex-web-ui-iframe',
 
-  // iframe source uri. use embed=true query string when loading as iframe
+  // iframe source path. this is appended to the iframeOrigin
+  // must use the LexWebUiEmbed=true query string to enable embedded mode
   iframeSrcPath: '/index.html#/?lexWebUiEmbed=true',
 };

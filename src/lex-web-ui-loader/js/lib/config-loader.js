@@ -44,31 +44,36 @@ export class ConfigLoader {
   load(configParam = {}) {
     return Promise.resolve()
       // json file
-      .then(() => (
-        (this.options.shouldLoadConfigFromJsonFile) ?
-          ConfigLoader.loadJsonFile(this.options.configUrl) :
-          Promise.resolve({})
-      ))
+      .then(() => {
+        if (this.options.shouldLoadConfigFromJsonFile) {
+          // append baseUrl to config if it's relative
+          const url = (this.options.configUrl.startsWith('http')) ?
+            this.options.configUrl :
+            `${this.options.baseUrl}${this.options.configUrl}`;
+          return ConfigLoader.loadJsonFile(url);
+        }
+        return Promise.resolve({});
+      })
       // mobile hub
-      .then(configJson => (
+      .then(mergedConfigFromJson => (
         (this.options.shouldLoadConfigFromMobileHubFile) ?
-          ConfigLoader.mergeMobileHubConfig(configJson) :
-          Promise.resolve(configJson)
+          ConfigLoader.mergeMobileHubConfig(mergedConfigFromJson) :
+          Promise.resolve(mergedConfigFromJson)
       ))
       // event
-      .then(configMobileHub => (
+      .then(mergedConfigFromMobileHub => (
         (this.options.shouldLoadConfigFromEvent) ?
           ConfigLoader.loadConfigFromEvent(
-            configMobileHub,
+            mergedConfigFromMobileHub,
             this.options.configEventTimeoutInMs,
           ) :
-          Promise.resolve(configMobileHub)
+          Promise.resolve(mergedConfigFromMobileHub)
       ))
       // filter config when running embedded
       .then(mergedConfigFromEvent => (
         this.filterConfigWhenEmedded(mergedConfigFromEvent)
       ))
-      // parameter
+      // merge config from parameter
       .then(config => (ConfigLoader.mergeConfig(config, configParam)));
   }
 

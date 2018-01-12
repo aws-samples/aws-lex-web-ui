@@ -21,7 +21,10 @@
 export class DependencyLoader {
   /**
    * @param {boolean} shouldLoadMinDeps - controls whether the minimized
-   * version of a dependency should be loaded. Default: true.
+   *   version of a dependency should be loaded. Default: true.
+   *
+   * @param {boolean} baseUrl - sets the baseUrl to be prepended to relative
+   *   URLs. Default: '/'
    *
    * @param {object} dependencies - contains a field for scripts and css
    *   dependencies. Each field points to an array of objects containing
@@ -56,7 +59,7 @@ export class DependencyLoader {
    *     ],
    *   };
    */
-  constructor({ shouldLoadMinDeps = true, dependencies }) {
+  constructor({ shouldLoadMinDeps = true, dependencies, baseUrl = '/' }) {
     if (typeof shouldLoadMinDeps !== 'boolean') {
       throw new Error('useMin paramenter should be a boolean');
     }
@@ -68,6 +71,7 @@ export class DependencyLoader {
     }
     this.useMin = shouldLoadMinDeps;
     this.dependencies = dependencies;
+    this.baseUrl = baseUrl;
   }
 
   /**
@@ -85,7 +89,7 @@ export class DependencyLoader {
     return types.reduce((typePromise, type) => (
       this.dependencies[type].reduce((loadPromise, dependency) => (
         loadPromise.then(() => (
-          DependencyLoader.addDependency(this.useMin, type, dependency)
+          DependencyLoader.addDependency(this.useMin, this.baseUrl, type, dependency)
         ))
       ), typePromise)
     ), Promise.resolve());
@@ -135,7 +139,7 @@ export class DependencyLoader {
    *
    * Returns a promise that resolves when the dependency is loaded
    */
-  static addDependency(useMin = true, type, dependency) {
+  static addDependency(useMin = true, baseUrl = '/', type, dependency) {
     if (!['script', 'css'].includes(type)) {
       return Promise.reject(new Error(`invalid dependency type: ${type}`));
     }
@@ -155,8 +159,12 @@ export class DependencyLoader {
     }
 
     // dependency url - can be automatically changed to a min link
-    const url = (useMin && dependency.canUseMin) ?
+    const minUrl = (useMin && dependency.canUseMin) ?
       DependencyLoader.getMinUrl(dependency.url) : dependency.url;
+
+    // add base URL to relative URLs
+    const url = (minUrl.startsWith('http')) ?
+      minUrl : `${baseUrl}${minUrl}`;
 
     // element id - uses naming convention of <lower case name>-<type>
     const elId = `${String(name).toLowerCase()}-${type}`;

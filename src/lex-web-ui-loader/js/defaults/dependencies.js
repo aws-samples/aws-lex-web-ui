@@ -15,6 +15,8 @@
  * Default DependencyLoader dependencies
  *
  * Loads third-party libraries from CDNs. May want to host your own for production
+ *
+ * Relative URLs (not starting with http) are prepended with a base URL at run time
  */
 export const dependenciesFullPage = {
   script: [
