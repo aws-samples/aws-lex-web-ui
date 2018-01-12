@@ -31,6 +31,7 @@ export const options = {
 
   // controls whether the local config should be ignored when running
   // embedded (e.g. iframe) in which case the parent page will pass the config
+  // Only the parentOrigin config field is kept when set to true
   shouldIgnoreConfigWhenEmbedded: true,
 
   // controls whether the config should be obtained using events

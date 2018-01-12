@@ -42,15 +42,6 @@ export class ConfigLoader {
    * Returns a promise that resolves to the merged config
    */
   load(configParam = {}) {
-    const url = window.location.href;
-    // no need for config if running embedded
-    // since the parent passes the config down to the iframe
-    if (this.options.shouldIgnoreConfigWhenEmbedded &&
-      url.includes('lexWebUiEmbed=true')
-    ) {
-      return Promise.resolve({});
-    }
-
     return Promise.resolve()
       // json file
       .then(() => (
@@ -72,6 +63,10 @@ export class ConfigLoader {
             this.options.configEventTimeoutInMs,
           ) :
           Promise.resolve(configMobileHub)
+      ))
+      // filter config when running embedded
+      .then(mergedConfigFromEvent => (
+        this.filterConfigWhenEmedded(mergedConfigFromEvent)
       ))
       // parameter
       .then(config => (ConfigLoader.mergeConfig(config, configParam)));
@@ -194,6 +189,21 @@ export class ConfigLoader {
         document.dispatchEvent(new CustomEvent('receivelexconfig'))
       ), 500);
     });
+  }
+
+  /**
+   * Ignores most fields when running embeded and the
+   * shouldIgnoreConfigWhenEmbedded is set to true
+   */
+  filterConfigWhenEmedded(config) {
+    const url = window.location.href;
+    // when shouldIgnoreConfigEmbedded is true
+    // ignore most of the config with the exception of the parentOrigin
+    const parentOrigin = config.ui && config.ui.parentOrigin;
+    return (this.options &&
+      this.options.shouldIgnoreConfigWhenEmbedded &&
+      url.includes('lexWebUiEmbed=true')) ?
+      { ui: { parentOrigin } } : config;
   }
 
   /**
