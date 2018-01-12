@@ -85,8 +85,7 @@ class Loader {
       .then((config) => {
         this.config = ConfigLoader.mergeConfig(this.config, config);
       })
-      .then(() => this.compLoader.load(this.config))
-      .catch(error => console.error('unable to load chatbot UI - ', error));
+      .then(() => this.compLoader.load(this.config));
   }
 }
 

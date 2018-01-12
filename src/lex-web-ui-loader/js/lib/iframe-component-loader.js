@@ -78,10 +78,7 @@ export class IframeComponentLoader {
     ])
       .then(() => this.initIframe())
       .then(() => this.initParentToIframeApi())
-      .then(() => this.showIframe())
-      .catch((err) => {
-        console.error(`could not initialize chat bot - ${err}`);
-      });
+      .then(() => this.showIframe());
   }
 
   /**
