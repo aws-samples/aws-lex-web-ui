@@ -52,7 +52,9 @@ build-loader: build-loader-dev build-loader-prod
 
 # create mobile hub zip file
 SRC_CONFIG_DIR := $(SRC_DIR)/config
+SRC_WEBSITE_DIR := $(SRC_DIR)/website
 MH_ZIP_FILES := $(LOADER_TARGET_DEV_FILES)
+MH_ZIP_FILES += $(wildcard $(SRC_WEBSITE_DIR)/*.html)
 MH_ZIP_FILES += $(SRC_CONFIG_DIR)/lex-web-ui-loader-config.json
 MH_ZIP_FILES += $(SRC_CONFIG_DIR)/mobile-hub-project.yml
 lex-web-ui-mobile-hub.zip: $(MH_ZIP_FILES) $(LIBRARY_FILES)
