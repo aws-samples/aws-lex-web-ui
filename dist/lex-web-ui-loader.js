@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "dbd85a5bad6b7b073055"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0ebc098edea51c874cb3"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -3482,11 +3482,13 @@ Object.defineProperty(exports, "__esModule", {
  * Default DependencyLoader dependencies
  *
  * Loads third-party libraries from CDNs. May want to host your own for production
+ *
+ * Relative URLs (not starting with http) are prepended with a base URL at run time
  */
 var dependenciesFullPage = exports.dependenciesFullPage = {
   script: [{
     name: 'AWS',
-    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.176.0.js',
+    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.180.0.js',
     canUseMin: true
   }, {
     // mobile hub generated aws config
@@ -3634,14 +3636,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Apply both to iframe and full page
  */
 var options = exports.options = {
+  // base URL to be prepended to relative URLs of dependencies
+  // if left empty, a relative path will still be used
+  baseUrl: '/',
+
   // time to wait for config event
   configEventTimeoutInMs: 10000,
 
   // URL to download config JSON file
+  // uses baseUrl if set as a relative URL (not starting with http)
   configUrl: './lex-web-ui-loader-config.json',
 
   // controls whether the local config should be ignored when running
   // embedded (e.g. iframe) in which case the parent page will pass the config
+  // Only the parentOrigin config field is kept when set to true
   shouldIgnoreConfigWhenEmbedded: true,
 
   // controls whether the config should be obtained using events
@@ -3679,7 +3687,8 @@ var optionsIframe = exports.optionsIframe = (0, _extends3.default)({}, options, 
   // div container class to insert iframe
   containerClass: 'lex-web-ui-iframe',
 
-  // iframe source uri. use embed=true query string when loading as iframe
+  // iframe source path. this is appended to the iframeOrigin
+  // must use the LexWebUiEmbed=true query string to enable embedded mode
   iframeSrcPath: '/index.html#/?lexWebUiEmbed=true'
 });
 
@@ -3810,6 +3819,10 @@ var Loader = function () {
     // polyfill needed for IE11
     setCustomEventShim();
     this.options = options;
+
+    // append a trailing slash if not present in the baseUrl
+    this.options.baseUrl = this.options.baseUrl && this.options.baseUrl.endsWith('/') ? this.options.baseUrl : this.options.baseUrl + '/';
+
     this.confLoader = new _configLoader.ConfigLoader(this.options);
   }
 
@@ -3834,8 +3847,6 @@ var Loader = function () {
         _this.config = _configLoader.ConfigLoader.mergeConfig(_this.config, config);
       }).then(function () {
         return _this.compLoader.load(_this.config);
-      }).catch(function (error) {
-        return console.error('unable to load chatbot UI - ', error);
       });
     }
   }]);
@@ -3866,7 +3877,8 @@ var FullPageLoader = exports.FullPageLoader = function (_Loader) {
     // run-time dependencies
     _this2.depLoader = new _dependencyLoader.DependencyLoader({
       shouldLoadMinDeps: _this2.options.shouldLoadMinDeps,
-      dependencies: _dependencies.dependenciesFullPage
+      dependencies: _dependencies.dependenciesFullPage,
+      baseUrl: _this2.options.baseUrl
     });
 
     _this2.compLoader = new _fullpageComponentLoader.FullPageComponentLoader({
@@ -3911,7 +3923,8 @@ var IframeLoader = exports.IframeLoader = function (_Loader2) {
     // run-time dependencies
     _this3.depLoader = new _dependencyLoader.DependencyLoader({
       shouldLoadMinDeps: _this3.options.shouldLoadMinDeps,
-      dependencies: _dependencies.dependenciesIframe
+      dependencies: _dependencies.dependenciesIframe,
+      baseUrl: _this3.options.baseUrl
     });
 
     _this3.compLoader = new _iframeComponentLoader.IframeComponentLoader({
@@ -3930,7 +3943,7 @@ var IframeLoader = exports.IframeLoader = function (_Loader2) {
       var configParam = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       this.config.iframe = this.config.iframe || {};
-      this.config.iframe.srcPath = this.mergeSrcPath(configParam);
+      this.config.iframe.iframeSrcPath = this.mergeSrcPath(configParam);
 
       return (0, _get3.default)(IframeLoader.prototype.__proto__ || (0, _getPrototypeOf2.default)(IframeLoader.prototype), 'load', this).call(this, configParam).then(function () {
         // assign API to this object to make calls more succint
@@ -4048,27 +4061,29 @@ var ConfigLoader = exports.ConfigLoader = function () {
 
       var configParam = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-      var url = window.location.href;
-      // no need for config if running embedded
-      // since the parent passes the config down to the iframe
-      if (this.options.shouldIgnoreConfigWhenEmbedded && url.includes('lexWebUiEmbed=true')) {
-        return _promise2.default.resolve({});
-      }
-
       return _promise2.default.resolve()
       // json file
       .then(function () {
-        return _this.options.shouldLoadConfigFromJsonFile ? ConfigLoader.loadJsonFile(_this.options.configUrl) : _promise2.default.resolve({});
+        if (_this.options.shouldLoadConfigFromJsonFile) {
+          // append baseUrl to config if it's relative
+          var url = _this.options.configUrl.startsWith('http') ? _this.options.configUrl : '' + _this.options.baseUrl + _this.options.configUrl;
+          return ConfigLoader.loadJsonFile(url);
+        }
+        return _promise2.default.resolve({});
       })
       // mobile hub
-      .then(function (configJson) {
-        return _this.options.shouldLoadConfigFromMobileHubFile ? ConfigLoader.mergeMobileHubConfig(configJson) : _promise2.default.resolve(configJson);
+      .then(function (mergedConfigFromJson) {
+        return _this.options.shouldLoadConfigFromMobileHubFile ? ConfigLoader.mergeMobileHubConfig(mergedConfigFromJson) : _promise2.default.resolve(mergedConfigFromJson);
       })
       // event
-      .then(function (configMobileHub) {
-        return _this.options.shouldLoadConfigFromEvent ? ConfigLoader.loadConfigFromEvent(configMobileHub, _this.options.configEventTimeoutInMs) : _promise2.default.resolve(configMobileHub);
+      .then(function (mergedConfigFromMobileHub) {
+        return _this.options.shouldLoadConfigFromEvent ? ConfigLoader.loadConfigFromEvent(mergedConfigFromMobileHub, _this.options.configEventTimeoutInMs) : _promise2.default.resolve(mergedConfigFromMobileHub);
       })
-      // parameter
+      // filter config when running embedded
+      .then(function (mergedConfigFromEvent) {
+        return _this.filterConfigWhenEmedded(mergedConfigFromEvent);
+      })
+      // merge config from parameter
       .then(function (config) {
         return ConfigLoader.mergeConfig(config, configParam);
       });
@@ -4076,6 +4091,28 @@ var ConfigLoader = exports.ConfigLoader = function () {
 
     /**
      * Loads the config from a JSON file URL
+     */
+
+  }, {
+    key: 'filterConfigWhenEmedded',
+
+
+    /**
+     * Ignores most fields when running embeded and the
+     * shouldIgnoreConfigWhenEmbedded is set to true
+     */
+    value: function filterConfigWhenEmedded(config) {
+      var url = window.location.href;
+      // when shouldIgnoreConfigEmbedded is true
+      // ignore most of the config with the exception of the parentOrigin
+      var parentOrigin = config.ui && config.ui.parentOrigin;
+      return this.options && this.options.shouldIgnoreConfigWhenEmbedded && url.includes('lexWebUiEmbed=true') ? { ui: { parentOrigin: parentOrigin } } : config;
+    }
+
+    /**
+     * Merges config objects. The initial set of keys to merge are driven by
+     * the baseConfig. The srcConfig values override the baseConfig ones
+     * unless the srcConfig value is empty
      */
 
   }], [{
@@ -4203,13 +4240,6 @@ var ConfigLoader = exports.ConfigLoader = function () {
         }, 500);
       });
     }
-
-    /**
-     * Merges config objects. The initial set of keys to merge are driven by
-     * the baseConfig. The srcConfig values override the baseConfig ones
-     * unless the srcConfig value is empty
-     */
-
   }, {
     key: 'mergeConfig',
     value: function mergeConfig(baseConfig) {
@@ -4320,7 +4350,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var DependencyLoader = exports.DependencyLoader = function () {
   /**
    * @param {boolean} shouldLoadMinDeps - controls whether the minimized
-   * version of a dependency should be loaded. Default: true.
+   *   version of a dependency should be loaded. Default: true.
+   *
+   * @param {boolean} baseUrl - sets the baseUrl to be prepended to relative
+   *   URLs. Default: '/'
    *
    * @param {object} dependencies - contains a field for scripts and css
    *   dependencies. Each field points to an array of objects containing
@@ -4358,7 +4391,9 @@ var DependencyLoader = exports.DependencyLoader = function () {
   function DependencyLoader(_ref) {
     var _ref$shouldLoadMinDep = _ref.shouldLoadMinDeps,
         shouldLoadMinDeps = _ref$shouldLoadMinDep === undefined ? true : _ref$shouldLoadMinDep,
-        dependencies = _ref.dependencies;
+        dependencies = _ref.dependencies,
+        _ref$baseUrl = _ref.baseUrl,
+        baseUrl = _ref$baseUrl === undefined ? '/' : _ref$baseUrl;
     (0, _classCallCheck3.default)(this, DependencyLoader);
 
     if (typeof shouldLoadMinDeps !== 'boolean') {
@@ -4372,6 +4407,7 @@ var DependencyLoader = exports.DependencyLoader = function () {
     }
     this.useMin = shouldLoadMinDeps;
     this.dependencies = dependencies;
+    this.baseUrl = baseUrl;
   }
 
   /**
@@ -4392,7 +4428,7 @@ var DependencyLoader = exports.DependencyLoader = function () {
       return types.reduce(function (typePromise, type) {
         return _this.dependencies[type].reduce(function (loadPromise, dependency) {
           return loadPromise.then(function () {
-            return DependencyLoader.addDependency(_this.useMin, type, dependency);
+            return DependencyLoader.addDependency(_this.useMin, _this.baseUrl, type, dependency);
           });
         }, typePromise);
       }, _promise2.default.resolve());
@@ -4453,8 +4489,9 @@ var DependencyLoader = exports.DependencyLoader = function () {
     key: 'addDependency',
     value: function addDependency() {
       var useMin = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-      var type = arguments[1];
-      var dependency = arguments[2];
+      var baseUrl = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '/';
+      var type = arguments[2];
+      var dependency = arguments[3];
 
       if (!['script', 'css'].includes(type)) {
         return _promise2.default.reject(new Error('invalid dependency type: ' + type));
@@ -4476,7 +4513,10 @@ var DependencyLoader = exports.DependencyLoader = function () {
       }
 
       // dependency url - can be automatically changed to a min link
-      var url = useMin && dependency.canUseMin ? DependencyLoader.getMinUrl(dependency.url) : dependency.url;
+      var minUrl = useMin && dependency.canUseMin ? DependencyLoader.getMinUrl(dependency.url) : dependency.url;
+
+      // add base URL to relative URLs
+      var url = minUrl.startsWith('http') ? minUrl : '' + baseUrl + minUrl;
 
       // element id - uses naming convention of <lower case name>-<type>
       var elId = String(name).toLowerCase() + '-' + type;
@@ -4793,8 +4833,6 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
         return _this.initParentToIframeApi();
       }).then(function () {
         return _this.showIframe();
-      }).catch(function (err) {
-        console.error('could not initialize chat bot - ' + err);
       });
     }
 
