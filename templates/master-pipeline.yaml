@@ -1,12 +1,16 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template.
+    Master Pipeline Lex Web UI CloudFormation template.
     It deploys:
         - S3 buckets to host the web application
         - CodeBuild project to build the configuration and deploy to S3
         - Optional Lex Bot (based on OrderFlowers example)
         - Optional Cognito Identity Pool for unauthenticated identities
         - Optional Lambda function to delete S3 buckets
+        - CodeCommit Repository containg the source code in
+          this project and a CodeBuild project, Lambda functions to initialize
+          the repo
+        - Optional deployment pipeline using CodePipeline and CodeBuild
         - CloudWatch Logs groups related to Lambda functions
         - Associated IAM roles
 
@@ -48,12 +52,38 @@ Parameters:
             will be preserved. Only applies if the bot is created by
             this stack.
 
+    CodeCommitRepoName:
+        Type: String
+        Description: >
+            Name of CodeCommit repository to be created. Used as the
+            source for the pipeline and to automate deployments of the
+            web app. It is initialized with source artifacts from the
+            bootstrap S3 bucket. Must be unique per region.
+        Default: lex-web-ui
+        MinLength: 1
+        MaxLength: 100
+        AllowedPattern: '^[\w\.-]+$'
+        ConstraintDescription: Alphanumeric, dot and dash.
+
+    CodePipelineName:
+        Type: String
+        Description: >
+            Name of CodePipeline pipeline to be created. Used to manage
+            the build and deployment of the web application. Must be
+            unique per region.
+            to true.
+        Default: lex-web-ui
+        MinLength: 1
+        MaxLength: 100
+        AllowedPattern: '[A-Za-z0-9.@\-_]+'
+        ConstraintDescription: Alphanumeric, dot, dash, underscore and @.
+
     CodeBuildName:
         Type: String
         Description: >
-            Name of the CodeBuild project to be created. Used to
-            configure and directly deploy the web app to S3. Must be
-            unique per region
+            Name of the CodeBuild project to be created.  Used for
+            building the web app with the pipeline. Must be unique
+            per region.
         Default: lex-web-ui
         MinLength: 2
         MaxLength: 255
@@ -68,8 +98,9 @@ Parameters:
             Browser origin (e.g. http://mysite.example.com:8080)
             of an existing site that is allowed to send/receive data
             and events from the web ui in an iframe setup. This is an
-            optional parameter. If left empty, the sample parent page
-            will be hosted in the same S3 bucket as the iframe
+            optional parameter. If left empty, an S3 bucket will be
+            created to host a sample parent site embedding the webapp
+            as an iframe.
         Default: ''
         AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
         ConstraintDescription: Empty or valid browser origin
@@ -123,25 +154,6 @@ Parameters:
         Description: >
             S3 prefix where the templates and source are stored under
 
-    WebAppConfBotInitialText:
-        Type: String
-        Default: >
-            You can ask me for help ordering flowers. Just type "Buy
-            flowers" or click on the mic and say it.
-        Description: First bot message displayed in the chatbot UI
-
-    WebAppConfBotInitialSpeech:
-        Type: String
-        Default: Say 'Buy Flowers' to get started.
-        Description: >
-            Message spoken by bot when the microphone is first pressed in
-            a conversation
-
-    WebAppConfToolbarTitle:
-        Type: String
-        Default: Order Flowers
-        Description: Title displayed in the chatbot UI toobar
-
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -149,6 +161,8 @@ Metadata:
                 default: Deployment Parameters
               Parameters:
                   - CodeBuildName
+                  - CodePipelineName
+                  - CodeCommitRepoName
                   - CleanupBuckets
                   - BootstrapBucket
                   - BootstrapPrefix
@@ -167,9 +181,7 @@ Metadata:
                 default: Web Application Parameters
               Parameters:
                   - WebAppParentOrigin
-                  - WebAppConfBotInitialText
-                  - WebAppConfBotInitialSpeech
-                  - WebAppConfToolbarTitle
+
 Conditions:
     NeedsBot: !Equals [!Ref BotName, '']
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
@@ -202,32 +214,52 @@ Resources:
                       - !Ref BotName
 
     ##########################################################################
-    # Simplified deployment using CodeBuild to build config and push to S3
+    # deployment using a pipeline
     ##########################################################################
-    CodeBuildDeploy:
+    CodeCommitRepo:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/codebuild-deploy.yaml"
+            TimeoutInMinutes: 15
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/coderepo.yaml"
             Parameters:
-                CodeBuildName: !Ref CodeBuildName
-                SourceBucket: !Ref BootstrapBucket
-                SourceObject: !Sub "${BootstrapPrefix}/src.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
-                CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotName
                       - !Ref BotName
+                CodeBuildName: !Sub "${CodeCommitRepoName}-init"
+                CodeCommitRepoName: !Ref CodeCommitRepoName
+                CognitoIdentityPoolId:
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
+                      - !Ref CognitoIdentityPoolId
+                SourceBucket: !Ref BootstrapBucket
+                SourceObject: !Sub "${BootstrapPrefix}/src.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
+
+    Pipeline:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/pipeline.yaml"
+            Parameters:
+                BotName:
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotName
+                      - !Ref BotName
+                CodePipelineName: !Ref CodePipelineName
+                CodeCommitRepoName: !GetAtt CodeCommitRepo.Outputs.CodeCommitRepoName
+                CodeBuildName: !Ref CodeBuildName
                 CognitoIdentityPoolId:
                     !If
                       - NeedsCognito
                       - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
                       - !Ref CognitoIdentityPoolId
                 ParentOrigin: !Ref WebAppParentOrigin
-                WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
-                WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
-                WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
+                CustomResourceCodeBucket: !Ref BootstrapBucket
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
+                CleanupBuckets: !Ref CleanupBuckets
 
 Outputs:
     BotName:
@@ -236,36 +268,40 @@ Outputs:
             Name of the Lex bot created by the stack
         Value: !GetAtt Bot.Outputs.BotName
 
-    CodeBuildUrl:
+    CodeCommitRepoUrl:
+        Description: CodeCommit repository clone URL
+        Value: !GetAtt CodeCommitRepo.Outputs.CodeCommitRepoUrl
+
+    PipelineUrl:
         Description: >
             Monitor the pipeline URL to see when the application has been fully
             built and deployed.
-        Value: !Sub "https://console.aws.amazon.com/codebuild/home?region=${AWS::Region}#/projects/${CodeBuildDeploy.Outputs.CodeBuildProject}/view"
+        Value: !Sub "https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline.Outputs.PipelineName}"
 
     WebAppUrl:
         Description: >
             URL of the stand-alone sample web application.
             This page will be available after the pipeline/deployment completes.
-        Value: !GetAtt CodeBuildDeploy.Outputs.WebAppUrl
+        Value: !GetAtt Pipeline.Outputs.WebAppUrl
 
     ParentPageUrl:
         Condition: NeedsParentOrigin
         Description: >
             URL of the iframe based sample web application
             This page will be available after the pipeline/deployment completes.
-        Value: !GetAtt CodeBuildDeploy.Outputs.ParentPageUrl
+        Value: !GetAtt Pipeline.Outputs.ParentPageUrl
 
     LoaderScriptUrl:
         Description: >
             URL of the loader script
             This script will be available after the pipeline/deployment completes.
-        Value: !GetAtt CodeBuildDeploy.Outputs.LoaderScriptUrl
+        Value: !GetAtt Pipeline.Outputs.LoaderScriptUrl
 
     SnippetUrl:
         Description: >
             URL of a page showing the snippet to load the chatbot UI as
             an iframe
-        Value: !GetAtt CodeBuildDeploy.Outputs.SnippetUrl
+        Value: !GetAtt Pipeline.Outputs.SnippetUrl
 
     CognitoIdentityPoolId:
         Condition: NeedsCognito
