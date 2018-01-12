@@ -437,3 +437,8 @@ Outputs:
         Value: !Sub "https://${ParentPageBucket.DomainName}/lex-web-ui-loader.min.js"
         Description: URL of the loader script
         Condition: NeedsParentOrigin
+
+    SnippetUrl:
+        Value: !Sub "https://${ParentPageBucket.DomainName}/iframe-snippet.html"
+        Description: URL of a page showing the snippet to load the chatbot UI as an iframe
+        Condition: NeedsParentOrigin

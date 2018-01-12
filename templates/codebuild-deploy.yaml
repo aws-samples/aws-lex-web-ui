@@ -356,3 +356,7 @@ Outputs:
     LoaderScriptUrl:
         Value: !Sub "https://${WebAppBucket.DomainName}/lex-web-ui-loader.min.js"
         Description: URL of the loader script
+
+    SnippetUrl:
+        Value: !Sub "https://${WebAppBucket.DomainName}/iframe-snippet.html"
+        Description: URL of a page showing the snippet to load the chatbot UI as an iframe

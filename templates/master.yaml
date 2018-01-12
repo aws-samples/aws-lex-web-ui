@@ -394,6 +394,12 @@ Outputs:
               - !GetAtt Pipeline.Outputs.LoaderScriptUrl
               - !GetAtt CodeBuildDeploy.Outputs.LoaderScriptUrl
 
+    SnippetUrl:
+        Description: >
+            URL of a page showing the snippet to load the chatbot UI as
+            an iframe
+        Value: !GetAtt CodeBuildDeploy.Outputs.SnippetUrl
+
     CognitoIdentityPoolId:
         Condition: NeedsCognito
         Description: Cognito Identity Pool Id

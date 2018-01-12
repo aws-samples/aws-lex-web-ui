@@ -53,10 +53,18 @@ build: config
 	cd $(WEBAPP_DIR) && npm run build
 .PHONY: build
 
+# creates an HTML file with a JavaScript snippet showing how to load the iframe
+CREATE_IFRAME_SNIPPET_SCRIPT := $(BUILD_DIR)/create-iframe-snippet-file.sh
+export IFRAME_SNIPPET_FILE := $(WEBSITE_DIR)/iframe-snippet.html
+$(IFRAME_SNIPPET_FILE): $(CREATE_IFRAME_SNIPPET_SCRIPT)
+	@echo "[INFO] Creating iframe snippet file: [$(@)]"
+	bash $(?)
+create-iframe-snippet: $(IFRAME_SNIPPET_FILE)
+
 # used by the Pipeline deployment mode when building from scratch
 WEBAPP_DIST_DIR := $(WEBAPP_DIR)/dist
 CODEBUILD_BUILD_ID ?= none
-deploy-to-s3:
+deploy-to-s3: create-iframe-snippet
 	@[ "$(WEBAPP_BUCKET)" ] || \
  		(echo "[ERROR] WEBAPP_BUCKET env var not set" ; exit 1)
 	@echo "[INFO] deploying to S3 webapp bucket: [$(WEBAPP_BUCKET)]"
@@ -77,6 +85,7 @@ deploy-to-s3:
 		aws s3 sync --acl public-read \
 			--exclude '*' \
 			--include 'parent.html' \
+			--include 'iframe-snippet.html' \
 			"$(WEBSITE_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" && \
 		aws s3 sync --acl public-read \
 			--exclude '*' \
@@ -90,7 +99,7 @@ deploy-to-s3:
 # Can also be used to easily copy local changes to a bucket
 # (e.g. mobile hub created bucket)
 # It avoids overwriting the aws-config.js file when using outside of a build
-sync-website:
+sync-website: create-iframe-snippet
 	@[ "$(WEBAPP_BUCKET)" ] || \
 		(echo "[ERROR] WEBAPP_BUCKET variable not set" ; exit 1)
 	@echo "[INFO] copying libary files"
