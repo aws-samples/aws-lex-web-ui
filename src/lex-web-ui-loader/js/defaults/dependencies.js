@@ -22,7 +22,7 @@ export const dependenciesFullPage = {
   script: [
     {
       name: 'AWS',
-      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.176.0.js',
+      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.180.0.js',
       canUseMin: true,
     },
     {
