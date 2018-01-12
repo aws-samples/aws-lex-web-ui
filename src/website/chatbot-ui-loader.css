@@ -1,9 +1,0 @@
-#lex-web-ui {
-  display: flex;
-  height: 100%;
-  width: 100%;
-}
-body, html {
-  overflow-y: auto;
-  overflow-x: hidden;
-}

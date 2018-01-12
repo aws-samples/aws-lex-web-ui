@@ -429,6 +429,16 @@ Outputs:
         Description: URL of the web application
 
     ParentPageUrl:
-        Value: !Sub "https://${ParentPageBucket.DomainName}/static/iframe/parent.html"
+        Value: !Sub "https://${ParentPageBucket.DomainName}/parent.html"
         Description: URL of the sample parent page
+        Condition: NeedsParentOrigin
+
+    LoaderScriptUrl:
+        Value: !Sub "https://${ParentPageBucket.DomainName}/lex-web-ui-loader.min.js"
+        Description: URL of the loader script
+        Condition: NeedsParentOrigin
+
+    SnippetUrl:
+        Value: !Sub "https://${ParentPageBucket.DomainName}/iframe-snippet.html"
+        Description: URL of a page showing the snippet to load the chatbot UI as an iframe
         Condition: NeedsParentOrigin

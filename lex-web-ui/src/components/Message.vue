@@ -1,34 +1,81 @@
 <template>
-  <v-flex class="message" row>
-    <v-chip text-color="black">
-      <message-text
-        v-bind:message="message"
-        v-if="'text' in message && message.text !== null && message.text.length"
-      ></message-text>
-      <div v-if="message.type === 'human' && message.audio">
-        <audio>
-          <source v-bind:src="message.audio" type="audio/wav">
-        </audio>
-        <v-btn left icon class="black--text" v-on:click="playAudio">
-          <v-icon class="play-button">play_circle_outline</v-icon>
-        </v-btn>
-      </div>
-      <v-icon
-        medium
-        v-if="message.type === 'bot' && botDialogState"
-        v-bind:class="`dialog-state-${botDialogState.state}`"
+  <v-flex d-flex class="message">
+    <!-- contains message and response card -->
+    <v-layout column ma-2 class="message-layout">
+
+      <!-- contains message bubble and date -->
+      <v-flex d-flex class="message-bubble-date-container">
+        <v-layout column class="message-bubble-column">
+
+          <!-- contains message bubble and avatar -->
+          <v-flex d-flex class="message-bubble-avatar-container">
+            <v-layout row class="message-bubble-row">
+              <div
+                v-if="shouldShowAvatarImage"
+                v-bind:style="botAvatarBackground"
+                v-bind:tabindex="message.id + 1"
+                class="bot-avatar focusable"
+              >
+              </div>
+              <div
+                v-bind:tabindex="message.id + 1"
+                v-on:focus="onMessageFocus"
+                v-on:blur="onMessageBlur"
+                class="message-bubble focusable"
+              >
+                <message-text
+                  v-bind:message="message"
+                  v-if="'text' in message && message.text !== null && message.text.length"
+                ></message-text>
+                <div
+                  v-if="message.type === 'human' && message.audio"
+                  class="message-audio"
+                >
+                  <audio>
+                    <source v-bind:src="message.audio" type="audio/wav">
+                  </audio>
+                  <v-btn
+                    v-on:click="playAudio"
+                    v-bind:tabindex="message.id + 1"
+                    icon
+                    class="black--text ml-0 mr-0"
+                  >
+                    <v-icon class="play-icon">play_circle_outline</v-icon>
+                  </v-btn>
+                </div>
+                <v-icon
+                  medium
+                  v-if="message.type === 'bot' && botDialogState"
+                  v-bind:class="`dialog-state-${botDialogState.state}`"
+                  class="dialog-state"
+                >
+                  {{botDialogState.icon}}
+                </v-icon>
+              </div>
+            </v-layout>
+          </v-flex>
+          <v-flex
+            v-if="shouldShowMessageDate && isMessageFocused"
+            class="text-xs-center message-date"
+          >
+            {{messageHumanDate}}
+          </v-flex>
+        </v-layout>
+      </v-flex>
+      <v-flex
+        v-if="shouldDisplayResponseCard"
+        class="response-card"
+        d-flex
+        mt-2 mr-2 ml-3
       >
-        {{botDialogState.icon}}
-      </v-icon>
-    </v-chip>
-    <div class="response-card" v-if="shouldDisplayResponseCard">
-      <response-card
-        v-for="(card, index) in message.responseCard.genericAttachments"
-        v-bind:response-card="card"
-        v-bind:key="index"
-      >
-      </response-card>
-    </div>
+        <response-card
+          v-for="(card, index) in message.responseCard.genericAttachments"
+          v-bind:response-card="card"
+          v-bind:key="index"
+        >
+        </response-card>
+      </v-flex>
+    </v-layout>
   </v-flex>
 </template>
 
@@ -55,6 +102,12 @@ export default {
     MessageText,
     ResponseCard,
   },
+  data() {
+    return {
+      isMessageFocused: false,
+      messageHumanDate: 'Now',
+    };
+  },
   computed: {
     botDialogState() {
       if (!('dialogState' in this.message)) {
@@ -70,6 +123,9 @@ export default {
           return null;
       }
     },
+    botAvatarUrl() {
+      return this.$store.state.config.ui.avatarImageUrl;
+    },
     shouldDisplayResponseCard() {
       return (
         this.message.responseCard &&
@@ -79,6 +135,20 @@ export default {
         'genericAttachments' in this.message.responseCard &&
         this.message.responseCard.genericAttachments instanceof Array
       );
+    },
+    shouldShowAvatarImage() {
+      return (
+        this.message.type === 'bot' &&
+        this.botAvatarUrl
+      );
+    },
+    botAvatarBackground() {
+      return {
+        background: `url(${this.botAvatarUrl}) center center / contain no-repeat`,
+      };
+    },
+    shouldShowMessageDate() {
+      return this.$store.state.config.ui.showMessageDate;
     },
   },
   methods: {
@@ -93,47 +163,102 @@ export default {
         audioElem.play();
       }
     },
+    onMessageFocus() {
+      if (!this.shouldShowMessageDate) {
+        return;
+      }
+      this.messageHumanDate = this.getMessageHumanDate();
+      this.isMessageFocused = true;
+      if (this.message.id === this.$store.state.messages.length - 1) {
+        this.$emit('scrollDown');
+      }
+    },
+    onMessageBlur() {
+      if (!this.shouldShowMessageDate) {
+        return;
+      }
+      this.isMessageFocused = false;
+    },
+    getMessageHumanDate() {
+      const dateDiff = Math.round((new Date() - this.message.date) / 1000);
+      const secsInHr = 3600;
+      const secsInDay = secsInHr * 24;
+      if (dateDiff < 60) {
+        return 'Now';
+      } else if (dateDiff < secsInHr) {
+        return `${Math.floor(dateDiff / 60)} min`;
+      } else if (dateDiff < secsInDay) {
+        return this.message.date.toLocaleTimeString();
+      }
+      return this.message.date.toLocaleString();
+    },
   },
 };
 </script>
 
 <style scoped>
-.message {
-  /* this is needed for ie11 */
-  flex: 1 0 auto;
+.message, .message-bubble-column {
+  flex: 0 0 auto;
 }
 
-.message-bot .chip {
+.message, .message-bubble-row {
+  max-width: 80vw;
+}
+
+.bot-avatar {
+  align-self: center;
+  border-radius: 50%;
+  min-width: calc(2.5em + 1.5vmin);
+  min-height: calc(2.5em + 1.5vmin);
+  align-self: flex-start;
+  margin-right: 4px;
+}
+
+.message-bubble {
+  border-radius: 24px;
+  display: inline-flex;
+  font-size: calc(1em + 0.25vmin);
+  padding: 0 12px;
+  width: fit-content;
+  align-self: center;
+}
+
+.focusable {
+  box-shadow: 0 0.25px 0.75px rgba(0,0,0,0.12), 0 0.25px 0.5px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  cursor: default;
+}
+
+.focusable:focus {
+  box-shadow: 0 1.25px 3.75px rgba(0,0,0,0.25), 0 1.25px 2.5px rgba(0,0,0,0.22);
+  outline: none;
+}
+
+.message-bot .message-bubble {
   background-color: #FFEBEE; /* red-50 from material palette */
 }
 
-.message-human .chip {
+.message-human .message-bubble {
   background-color: #E8EAF6; /* indigo-50 from material palette */
 }
 
-.chip {
-  height: auto;
-  margin: 8px;
-  font-size: calc(1em + 0.25vmin);
-  max-width: 66vw;
+.dialog-state {
+  display: inline-flex;
 }
 
-/* workaround for chip overriding icon color as important */
 .icon.dialog-state-ok {
-  color: green!important;
+  color: green;
 }
 .icon.dialog-state-fail {
-  color: red!important;
+  color: red;
 }
 
-.play-button {
+.play-icon {
   font-size: 2em;
 }
 
 .response-card {
-  display: flex;
   justify-content: center;
-  margin: 0.8em;
-  width: 90vw;
+  width: 85vw;
 }
 </style>

@@ -27,6 +27,7 @@ var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
+  stats: 'errors-only',
   quiet: true
 })
 
@@ -67,11 +68,13 @@ var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsS
 app.use(staticPath, express.static('./static'))
 
 // lex-web-ui: serve the parent page and config from the static/iframe path
-var iframePath = '/static/iframe'
+var iframePath = '/'
 var websiteDir = path.resolve(__dirname, '../../src/website')
 var configDir = path.join(__dirname, '../../src/config')
+var loaderDistDir = path.join(__dirname, '../../dist')
 app.use(iframePath, express.static(websiteDir))
 app.use(iframePath, express.static(configDir))
+app.use(iframePath, express.static(loaderDistDir))
 
 var uri = 'http://localhost:' + port
 

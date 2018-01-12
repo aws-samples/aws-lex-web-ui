@@ -20,7 +20,9 @@ WEBSITE_DIR := $(SRC_DIR)/website
 
 # this install all the npm dependencies needed to build from scratch
 install-deps:
-	@echo "[INFO] Installing npm dependencies"
+	@echo "[INFO] Installing loader npm dependencies"
+	npm install
+	@echo "[INFO] Installing component npm dependencies"
 	cd $(WEBAPP_DIR) && npm install
 .PHONY: install-deps
 
@@ -34,25 +36,35 @@ BUILD_TYPE ?= $()
 UPDATE_CONFIG_SCRIPT := $(BUILD_DIR)/update-lex-web-ui-config.js
 export WEBAPP_CONFIG_PROD ?= $(realpath $(WEBAPP_DIR)/src/config/config.prod.json)
 export WEBAPP_CONFIG_DEV ?= $(realpath $(WEBAPP_DIR)/src/config/config.dev.json)
-export WEBAPP_CONFIG_PREBUILT ?= $(realpath $(SRC_DIR)/config/chatbot-ui-loader-config.json)
-export IFRAME_CONFIG_PREBUILT ?= $(realpath $(CONFIG_DIR)/chatbot-ui-iframe-loader-config.json)
-export IFRAME_CONFIG ?= $(IFRAME_CONFIG_PREBUILT)
-CONFIG_FILES := $(IFRAME_CONFIG) $(WEBAPP_CONFIG_PROD) $(WEBAPP_CONFIG_DEV) \
-	$(WEBAPP_CONFIG_PREBUILT) $(IFRAME_CONFIG_PREBUILT)
+export LOADER_CONFIG ?= $(realpath $(SRC_DIR)/config/lex-web-ui-loader-config.json)
+CONFIG_FILES := \
+	$(WEBAPP_CONFIG_PROD) \
+	$(WEBAPP_CONFIG_DEV) \
+	$(LOADER_CONFIG)
 config: $(UPDATE_CONFIG_SCRIPT) $(CONFIG_ENV) $(CONFIG_FILES)
 	@echo "[INFO] Running config script: [$(<)]"
 	node $(<)
 .PHONY: config
 
 build: config
-	@echo "[INFO] Building web app in dir [$(WEBAPP_DIR)]"
+	@echo "[INFO] Building loader"
+	npm run build
+	@echo "[INFO] Building component in dir [$(WEBAPP_DIR)]"
 	cd $(WEBAPP_DIR) && npm run build
 .PHONY: build
+
+# creates an HTML file with a JavaScript snippet showing how to load the iframe
+CREATE_IFRAME_SNIPPET_SCRIPT := $(BUILD_DIR)/create-iframe-snippet-file.sh
+export IFRAME_SNIPPET_FILE := $(WEBSITE_DIR)/iframe-snippet.html
+$(IFRAME_SNIPPET_FILE): $(CREATE_IFRAME_SNIPPET_SCRIPT)
+	@echo "[INFO] Creating iframe snippet file: [$(@)]"
+	bash $(?)
+create-iframe-snippet: $(IFRAME_SNIPPET_FILE)
 
 # used by the Pipeline deployment mode when building from scratch
 WEBAPP_DIST_DIR := $(WEBAPP_DIR)/dist
 CODEBUILD_BUILD_ID ?= none
-deploy-to-s3:
+deploy-to-s3: create-iframe-snippet
 	@[ "$(WEBAPP_BUCKET)" ] || \
  		(echo "[ERROR] WEBAPP_BUCKET env var not set" ; exit 1)
 	@echo "[INFO] deploying to S3 webapp bucket: [$(WEBAPP_BUCKET)]"
@@ -68,13 +80,17 @@ deploy-to-s3:
 		aws s3 sync --acl public-read \
 			--exclude '*' \
 			--include 'aws-config.js' \
-			--include 'chatbot-ui-iframe-loader-config.json' \
-			"$(CONFIG_DIR)" "s3://$(PARENT_PAGE_BUCKET)/static/iframe" && \
+			--include 'lex-web-ui-loader-config.json' \
+			"$(CONFIG_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" && \
 		aws s3 sync --acl public-read \
 			--exclude '*' \
-			--include 'chatbot-ui-iframe-*' \
 			--include 'parent.html' \
-			"$(WEBSITE_DIR)" "s3://$(PARENT_PAGE_BUCKET)/static/iframe" ) || \
+			--include 'iframe-snippet.html' \
+			"$(WEBSITE_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" && \
+		aws s3 sync --acl public-read \
+			--exclude '*' \
+			--include 'lex-web-ui-loader.*' \
+			"$(DIST_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" ) || \
 		echo "[INFO] no parent bucket to deploy"
 	@echo "[INFO] all done deploying"
 .PHONY: deploy-to-s3
@@ -83,7 +99,7 @@ deploy-to-s3:
 # Can also be used to easily copy local changes to a bucket
 # (e.g. mobile hub created bucket)
 # It avoids overwriting the aws-config.js file when using outside of a build
-sync-website:
+sync-website: create-iframe-snippet
 	@[ "$(WEBAPP_BUCKET)" ] || \
 		(echo "[ERROR] WEBAPP_BUCKET variable not set" ; exit 1)
 	@echo "[INFO] copying libary files"
@@ -97,7 +113,7 @@ sync-website:
 	@echo "[INFO] copying config files"
 	aws s3 sync --acl public-read \
 		--exclude '*' \
-		--include 'chatbot-*config.json' \
+		--include 'lex-web-ui-loader-config.json' \
 		$(CONFIG_DIR) s3://$(WEBAPP_BUCKET)
 	@[ "$(BUILD_TYPE)" = 'dist' ] && \
 		echo "[INFO] copying aws-config.js" ;\

@@ -4,8 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
     <title>Chatbot UI iFrame Example</title>
-    <!-- bot css -->
-    <link rel="stylesheet" type="text/css" href="./chatbot-ui-iframe-loader.css">
     <!--  bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
@@ -20,10 +18,12 @@
       <div class="row">
         <div class="col-md-6">
           <div class="panel panel-primary">
-            <div class="panel-heading">Send Intent to iFrame</div>
+            <div class="panel-heading">Send "Buy Flowers" utterance to iframe</div>
             <div class="panel-body">
               <div>
-                <button id="send-intent" type="button" class="btn btn-default">Send</button>
+                <button id="send-intent" type="button" class="btn btn-default" disabled>
+                  Send
+                </button>
               </div>
             </div>
           </div>
@@ -111,138 +111,175 @@
       </div>
     </div><!-- main container -->
 
-    <!-- babel-polyfill -->
+    <!-- babel-polyfill required for IE 11 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js" integrity="sha256-WRc/eG3R84AverJv0zmqxAmdwQxstUpqkiE+avJ3WSo=" crossorigin="anonymous"></script>
 
-    <!-- jquery -->
+    <!-- jquery used as part on this example - not required by lex-web-ui -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <!-- bootstrap -->
+    <!-- bootstrap used as part of thie example - not required by lex-web-ui -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <!-- mobile hub generated config -->
-    <script src="./aws-config.js"></script>
+    <!--
+      Loader script tag
 
-    <!-- LexWebUi iFrame Loader Config
-      This should be configured before the chatbot-ui-iframe-loader.js is included
-      to override the default options.
+      Add a script tag pointing to the loader library towards the bottom
+      of the html BODY section
+
+      The library and its dependencies can be hosted on another site,
+      S3 bucket or a CDN (e.g. CloudFront)
+
+      This script creates a global variable named ChatbotUiLoader which
+      provides the loader library functionality
     -->
-    <script>
-      var LexWebUiIframe = {};
-      LexWebUiIframe.options = {
-        // iframe source uri. use lexWebUiEmbed=true query string when loading as iframe
-        // this is appended to the iframeOrigin passed in the config
-        iframeSrcPath: '/index.html#/?lexWebUiEmbed=true',
-
-        // URL to download static config JSON file
-        configUrl: './chatbot-ui-iframe-loader-config.json',
-
-        // controls whether the bot loader script should
-        // automatically initialize and load the iframe.
-        // If set to false, you should manually initialize
-        // using the init() method
-        shouldAutoLoad: false,
-      };
-    </script>
-
-    <!-- loader script -->
-    <script src="./chatbot-ui-iframe-loader.js"></script>
-
-    <!-- LexWebUi iFrame Init -->
-    <script>
-      var lexWebUi = new LexWebUiIframe();
-
-      // init the iframe
-      lexWebUi.init();
-    </script>
+    <script src="./lex-web-ui-loader.js"></script>
 
     <!--
-      Sample Functions illustrating dynamic messaging with the iframe.
-      These are called from the "Send" button.
+      After the loader script tag has been included, you can use its global
+      variable to load the chatbot UI in an iframe
     -->
     <script>
-      function isBotMinimized() {
-        return $('.' + lexWebUi.options.containerClass)
-          .hasClass('lex-web-ui--minimize');
+
+      // The loader constructor supports various configurable options used to
+      // control how the component configuration and dependencies are retrieved.
+      var loaderOpts = {
+        // Point the baseUrl option to the the base URL used to download
+        // the chatbot UI files and dependencies.
+        // In this example, the base URL is relative to the root path
+        // You can also use full URLs:
+        //    baseUrl: 'https://iframe-host.example.org/lex-web-ui/'
+        baseUrl: '/',
+
+        // enable receiving chatbot UI config from event
+        // the event is used as an alternative to passing the chatbot
+        // UI via JSON file or via the parameter in the load() function
+        shouldLoadConfigFromEvent: true
       }
 
-      function sendIntent(intent) {
+      // ChatBotUiLoader contains the IframeLoader constructor
+      // Instantiate the loader and pass the loader options
+      var iframeLoader = new ChatBotUiLoader.IframeLoader(loaderOpts);
+
+      // You can override the chatbot UI config by passing a parameter
+      var chatbotUiconfig = {
+      // if the iframe page is hosted on a different site,
+      // you should configure the parentOrigin and iframeOrigin
+      /*
+        ui: {
+          // origin of the parent site where you are including the chatbot UI
+          parentOrigin: 'https://mysite.example.org'
+        },
+        iframe: {
+          // origin hosting the HTML file that will be embedded in the iframe
+          iframeOrigin: 'https://iframe-host.example.org'
+        }
+        */
+      };
+
+      // load the iframe
+      iframeLoader.load(chatbotUiconfig)
+        .then(function () {
+           // at this point the API is available
+           // so I can send a ping to the iframe
+           iframeLoader.api.ping();
+
+          // perform actions on the parent dependent on the chatbot
+          // loading. For example, enable the send button once the
+          // chatbot UI is loaded
+          $('#send-intent').prop('disabled', false);
+
+        })
+        .catch(function (error) {
+          console.error('chatbot UI failed to load', error);
+        });
+
+      // Sample function illustrating dynamic messaging with the iframe using
+      // the API. This function is called from the event handler of the "Send"
+      // button.
+      function sendUtterance(utterance) {
+        // function to determine if the iframe is minimized
+        function isBotMinimized() {
+          // look at the options of the loader to determine the iframe
+          // element ID
+          var elementId = iframeLoader.options.elementId;
+
+          // this class is present in the iframe when minimized
+          var minimizedClass = 'lex-web-ui-iframe--minimize';
+          return $('#' + elementId).hasClass(minimizedClass);
+        }
+
         return Promise.resolve()
           .then(function () {
-            return !isBotMinimized() ||
-            lexWebUi.sendMessageToIframe({event: 'toggleMinimizeUi'});
+            // use the toggleMinimizeUi API if the iframe is minimized
+            return !isBotMinimized() || iframeLoader.api.toggleMinimizeUi();
           })
           .then(function () {
-            return lexWebUi.sendMessageToIframe({event: 'postText', message: intent});
+            return iframeLoader.api.postText(utterance);
           })
           .then(function () { console.log('message succesfully sent'); })
-          .catch(function (error) { console.error('error sending message ', error); });
+          .catch(function (err) { console.error('error sending message ', err); });
       }
     </script>
 
     <!--
-      chatbot ui bot event handler
-      This illustrates how to handle the various events supported by the
+      This script illustrates how to handle the various events supported by the
       chatbot UI.
     -->
     <script>
       $(document).ready(function chatbotHandler() {
-        // Event handler called when the chatbot ui is ready to receive the
-        // dynamic config.
+
+        // When the chatbot ui iframe is ready to receive the
+        // dynamic config it sends the 'receivelexconfig' event to the parent
         // For example, you can send dynamic config/parameters
         // (e.g. username, geolocation) to the chatbot ui from here
         $(document).one('receivelexconfig', function onReceiveLexConfig() {
-          var botsConfigJson = (typeof aws_bots_config !== 'undefined') ?
-            aws_bots_config : '';
-          var poolId = (typeof aws_cognito_identity_pool_id !== 'undefined') ?
-            aws_cognito_identity_pool_id : '';
+          var localTimeZone;
+          try {
+            localTimeZone = JSON.stringify(
+              Intl.DateTimeFormat().resolvedOptions().timeZone
+            );
+          } catch (err) {
+            localTimeZone = JSON.stringify(
+              new Date().getTimezoneOffset()
+            )
+          }
 
+          // sample config passing the local timezone in a sessionAttribute
           var config = {
-            aws: {
-              cognitoPoolId: poolId,
-            },
-          };
-
-          var botName = '';
-          if (botsConfigJson) {
-            var botsConfig;
-            try {
-              botsConfig = JSON.parse(botsConfigJson);
-              botName = botsConfig[0].name;
-            } catch (e) {
-              console.warn('malformed bots config');
+            lex: {
+              sessionAttributes: {
+                localTimeZone: JSON.stringify(
+                 Intl.DateTimeFormat().resolvedOptions().timeZone
+                )
+              }
             }
-          }
-
-          // this should be a valid lex-web-ui config object
-          config.iframeConfig = {};
-          if (botName) {
-            config.iframeConfig.lex = {
-              botName: botName,
-            };
-          }
+          };
 
           // emit bot config event to send the dynamic config to the
           // chatbot UI
-          // jquery can't trigger native events so use vanilla JS
+          // jquery can't trigger native events so use vanilla JS CustomEvent
           var event = new CustomEvent('loadlexconfig', { detail: { config: config } });
           document.dispatchEvent(event);
         });
 
-        // Send button handler
-        $('#send-intent').on('click', function(event) {
-          event.preventDefault();
-          sendIntent('Buy Flowers');
-        });
-
         // Once the chatbot UI is ready, it sends a 'lexWebUiReady' event
-        // We are just sending a ping request here as an example
         $(document).on('lexWebUiReady', function onUpdateLexState(evt) {
+          // We are just sending a ping request here as an example
+          // This example uses an event instead of calling
+          // iframeLoader.api.ping() to show the asynchronous
+          // event API alternative
           var event = new CustomEvent(
             'lexWebUiMessage',
             { detail: {message: {event: 'ping'} } }
           );
           document.dispatchEvent(event);
         });
+
+        // setup Send button handler
+        $('#send-intent').on('click', function(event) {
+          event.preventDefault();
+          sendUtterance('Buy Flowers');
+        });
+
 
         // bot update event handler
         // In this example, the parent page is updated based on the state

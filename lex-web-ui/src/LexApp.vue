@@ -83,13 +83,4 @@ export default {
 @import '../node_modules/roboto-fontface/css/roboto/roboto-fontface.css';
 @import '../node_modules/material-design-icons/iconfont/material-icons.css';
 @import '../node_modules/vuetify/dist/vuetify.min.css';
-#lex-app {
-  display: flex;
-  height: 100%;
-  width: 100%;
-}
-body, html {
-  overflow-y: auto; /* allow reload by scrolling down on mobile */
-  overflow-x: hidden;
-}
 </style>

@@ -207,7 +207,7 @@ precedence where the latter overrides the previous).
 2. Build Time Configuration
 3. Run Time Configuration
     1. URL Parameter
-    2. Iframe Config
+    2. Loader Config
 
 See the sections below for details about each one.
 
@@ -309,12 +309,12 @@ var url = 'https://mybucket.s3.amazonaws.com/index.html#/?' + query;
 var lexWebUiWindow = window.open(url, 'Lex Web UI', 'width=400', 'height=500');
 ```
 
-#### Iframe Config
-When running in an iframe, the chatbot UI can obtain its config from the
-parent page. Additionally, the parent page has its own config. Please
-refer to the
-[README](https://github.com/awslabs/aws-lex-web-ui/blob/master/src/website/README.md#configuration)
-in the [/src/website](/src/website) directory for details.
+#### Loader Config
+This project provides a separate library used to load the component in
+an existing web page. The loader library supports various mechanisms
+used to pass the config dynamically. See the [ChatBot UI Configuration
+Loading](/src/README.md#chatbot-ui-configuration-loading) section of
+the loader documentation for details.
 
 ### Playback Options
 The voice responses from the Lex `postContent` API calls are automatically
@@ -357,8 +357,7 @@ accross intents. This chatbot UI passes the `sessionAttributes` parameter
 to the Lex API and automatically updates it from the bot responses.
 
 The `sessionAttributes` parameter can be initialized so that the client
-passes a value in the first request. This is supported both in iframe
-and stand-alone mode of the chatbot UI.
+passes a value in the first request.
 
 ### Response Cards
 The chatbot UI supports Lex
@@ -394,6 +393,9 @@ For detailed explanation on how things work, checkout the
 [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ``` bash
+# these commands should be executed under the lex-web-ui directory
+# at the root of this repo
+
 # install dependencies
 npm install
 

@@ -1,4 +1,4 @@
-all: copy-bundle build-botloader lex-web-ui-mobile-hub.zip
+all: copy-bundle build-loader lex-web-ui-mobile-hub.zip
 .PHONY: all
 
 # build the application bundle
@@ -23,46 +23,41 @@ copy-bundle: $(LIBRARY_SRC_FILES) $(LIBRARY_FILES)
 
 # copy webiste bot loader files from source to dist dir
 SRC_DIR := ../src
-WEBSITE_SRC_DIR := $(SRC_DIR)/website
-BOTLOADER_IFRAME_SRC_BASE_NAME := chatbot-ui-iframe-loader
-BOTLOADER_IFRAME_SRC_JS_FILE := $(WEBSITE_SRC_DIR)/$(BOTLOADER_IFRAME_SRC_BASE_NAME).js
-BOTLOADER_IFRAME_TARGET_JS_FILE := $(BOTLOADER_IFRAME_SRC_BASE_NAME).js
-BOTLOADER_IFRAME_SRC_CSS_FILE := $(WEBSITE_SRC_DIR)/$(BOTLOADER_IFRAME_SRC_BASE_NAME).css
-BOTLOADER_IFRAME_TARGET_CSS_FILE := $(BOTLOADER_IFRAME_SRC_BASE_NAME).css
+LOADER_SRC_DIR := $(SRC_DIR)/lex-web-ui-loader
+LOADER_SRC_JS_FILES := \
+	$(wildcard $(LOADER_SRC_DIR)/js/*.js) \
+	$(wildcard $(LOADER_SRC_DIR)/lib/*.js)
+LOADER_SRC_CSS_FILES := $(wildcard $(LOADER_SRC_DIR)/css/*.css)
+LOADER_SRC_FILES := $(LOADER_SRC_JS_FILES) $(LOADER_SRC_CSS_FILES)
 
-$(BOTLOADER_IFRAME_TARGET_CSS_FILE): $(BOTLOADER_IFRAME_SRC_CSS_FILE)
-	@echo "[INFO] processing iframe bot loader css file"
-	npx postcss $(<) --map --use autoprefixer -o $(@)
+LOADER_SRC_BASE_NAME := lex-web-ui-loader
+LOADER_TARGET_PROD_FILES := \
+	$(LOADER_SRC_BASE_NAME).min.js \
+	$(LOADER_SRC_BASE_NAME).min.js.map \
+	$(LOADER_SRC_BASE_NAME).min.css \
+	$(LOADER_SRC_BASE_NAME).min.css.map
+LOADER_TARGET_DEV_FILES := $(subst .min,,$(LOADER_TARGET_PROD_FILES))
 
-$(BOTLOADER_IFRAME_TARGET_JS_FILE): $(BOTLOADER_IFRAME_SRC_JS_FILE)
-	@echo "[INFO] processing iframe bot loader js file"
-	npx eslint $(<)
-	npx babel $(<) --source-maps true -o $(@)
+$(LOADER_TARGET_PROD_FILES): $(LOADER_SRC_FILES)
+	@echo "[INFO] building loader prod library files"
+	npm run build-prod
+build-loader-prod: $(LOADER_TARGET_PROD_FILES)
 
-BOTLOADER_SRC_BASE_NAME := chatbot-ui-loader
-BOTLOADER_SRC_JS_FILE := $(WEBSITE_SRC_DIR)/$(BOTLOADER_SRC_BASE_NAME).js
-BOTLOADER_TARGET_JS_FILE := $(BOTLOADER_SRC_BASE_NAME).js
-BOTLOADER_SRC_CSS_FILE := $(WEBSITE_SRC_DIR)/$(BOTLOADER_SRC_BASE_NAME).css
-BOTLOADER_TARGET_CSS_FILE := $(BOTLOADER_SRC_BASE_NAME).css
+$(LOADER_TARGET_DEV_FILES): $(LOADER_SRC_FILES)
+	@echo "[INFO] building loader dev library files"
+	npm run build-dev
+build-loader-dev: $(LOADER_TARGET_DEV_FILES)
 
-$(BOTLOADER_TARGET_CSS_FILE): $(BOTLOADER_SRC_CSS_FILE)
-	@echo "[INFO] processing bot loader css file"
-	npx postcss $(<) --map --use autoprefixer -o $(@)
-
-$(BOTLOADER_TARGET_JS_FILE): $(BOTLOADER_SRC_JS_FILE)
-	@echo "[INFO] processing bot loader js file"
-	npx eslint $(<)
-	npx babel $(<) --source-maps true -o $(@)
-
-build-botloader: $(BOTLOADER_IFRAME_TARGET_CSS_FILE) $(BOTLOADER_IFRAME_TARGET_JS_FILE) \
-	$(BOTLOADER_TARGET_CSS_FILE) $(BOTLOADER_TARGET_JS_FILE)
+build-loader: build-loader-dev build-loader-prod
 
 # create mobile hub zip file
-MH_ZIP_FILES := $(wildcard $(WEBSITE_SRC_DIR)/*)
 SRC_CONFIG_DIR := $(SRC_DIR)/config
-MH_ZIP_FILES += $(wildcard $(SRC_CONFIG_DIR)/*.json)
+SRC_WEBSITE_DIR := $(SRC_DIR)/website
+MH_ZIP_FILES := $(LOADER_TARGET_DEV_FILES)
+MH_ZIP_FILES += $(wildcard $(SRC_WEBSITE_DIR)/*.html)
+MH_ZIP_FILES += $(SRC_CONFIG_DIR)/lex-web-ui-loader-config.json
 MH_ZIP_FILES += $(SRC_CONFIG_DIR)/mobile-hub-project.yml
-lex-web-ui-mobile-hub.zip: $(MH_ZIP_FILES) $(LIBRARY_FILES) $(MH_PROJECT_FILE)
+lex-web-ui-mobile-hub.zip: $(MH_ZIP_FILES) $(LIBRARY_FILES)
 	@echo "[INFO] Building Mobile Hub project [$(@)] with files: [$(^)]"
 	@zip -u -j lex-web-ui-mobile-hub.zip $(^)
 

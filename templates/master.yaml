@@ -7,10 +7,6 @@ Description: |
         - Optional Lex Bot (based on OrderFlowers example)
         - Optional Cognito Identity Pool for unauthenticated identities
         - Optional Lambda function to delete S3 buckets
-        - Optional CodeCommit Repository containg the source code in
-          this project and a CodeBuild project, Lambda functions to initialize
-          the repo
-        - Optional deployment pipeline using CodePipeline and CodeBuild
         - CloudWatch Logs groups related to Lambda functions
         - Associated IAM roles
 
@@ -52,52 +48,12 @@ Parameters:
             will be preserved. Only applies if the bot is created by
             this stack.
 
-    CreatePipeline:
-        Type: String
-        Default: false
-        AllowedValues:
-          - true
-          - false
-        Description: >
-            If set to True, the stack will include a deployment pipeline
-            using CodeCommit, CodeBuild and CodePipeline. If set to False
-            the stack will deploy the web app directly to S3.
-
-    CodeCommitRepoName:
-        Type: String
-        Description: >
-            Name of CodeCommit repository to be created. Used as the
-            source for the pipeline and to automate deployments of the
-            web app. It is initialized with source artifacts from the
-            bootstrap S3 bucket. Must be unique per region. Only used
-            when CreatePipeline is set to true.
-        Default: lex-web-ui
-        MinLength: 1
-        MaxLength: 100
-        AllowedPattern: '^[\w\.-]+$'
-        ConstraintDescription: Alphanumeric, dot and dash.
-
-    CodePipelineName:
-        Type: String
-        Description: >
-            Name of CodePipeline pipeline to be created. Used to manage
-            the build and deployment of the web application. Must be
-            unique per region. Only used when CreatePipeline is set
-            to true.
-        Default: lex-web-ui
-        MinLength: 1
-        MaxLength: 100
-        AllowedPattern: '[A-Za-z0-9.@\-_]+'
-        ConstraintDescription: Alphanumeric, dot, dash, underscore and @.
-
     CodeBuildName:
         Type: String
         Description: >
-            Name of the CodeBuild project to be created.  When
-            CreatePipeline is set to false, it is used to configure
-            and directly deploy the web app to S3.  Otherwise, used
-            for building the web app with the pipeline. Must be unique
-            per region.
+            Name of the CodeBuild project to be created. Used to
+            configure and directly deploy the web app to S3. Must be
+            unique per region
         Default: lex-web-ui
         MinLength: 2
         MaxLength: 255
@@ -112,9 +68,8 @@ Parameters:
             Browser origin (e.g. http://mysite.example.com:8080)
             of an existing site that is allowed to send/receive data
             and events from the web ui in an iframe setup. This is an
-            optional parameter. If left empty, an S3 bucket will be
-            created to host a sample parent site embedding the webapp
-            as an iframe. Applies when CreatePipeline is set to true.
+            optional parameter. If left empty, the sample parent page
+            will be hosted in the same S3 bucket as the iframe
         Default: ''
         AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
         ConstraintDescription: Empty or valid browser origin
@@ -173,23 +128,19 @@ Parameters:
         Default: >
             You can ask me for help ordering flowers. Just type "Buy
             flowers" or click on the mic and say it.
-        Description: >
-            First bot message displayed in the chatbot UI. Only used
-            when CreatePipeline is set to false.
+        Description: First bot message displayed in the chatbot UI
 
     WebAppConfBotInitialSpeech:
         Type: String
         Default: Say 'Buy Flowers' to get started.
         Description: >
             Message spoken by bot when the microphone is first pressed in
-            a conversation. Only used when CreatePipeline is set to false.
+            a conversation
 
     WebAppConfToolbarTitle:
         Type: String
         Default: Order Flowers
-        Description: >
-            Title displayed in the chatbot UI toobar. Only used when
-            CreatePipeline is set to false.
+        Description: Title displayed in the chatbot UI toobar
 
 Metadata:
     AWS::CloudFormation::Interface:
@@ -197,10 +148,7 @@ Metadata:
             - Label:
                 default: Deployment Parameters
               Parameters:
-                  - CreatePipeline
                   - CodeBuildName
-                  - CodePipelineName
-                  - CodeCommitRepoName
                   - CleanupBuckets
                   - BootstrapBucket
                   - BootstrapPrefix
@@ -226,11 +174,6 @@ Conditions:
     NeedsBot: !Equals [!Ref BotName, '']
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
-
-    # deploy using a pipeline
-    ShouldDeployUsingPipeline: !Equals [!Ref CreatePipeline, true]
-    # otherwise deploy using a codebuild project
-    ShouldDeployUsingCodeBuild: !Equals [!Ref CreatePipeline, false]
 
 Resources:
     Bot:
@@ -263,7 +206,6 @@ Resources:
     ##########################################################################
     CodeBuildDeploy:
         Type: AWS::CloudFormation::Stack
-        Condition: ShouldDeployUsingCodeBuild
         Properties:
             TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/codebuild-deploy.yaml"
             Parameters:
@@ -282,59 +224,10 @@ Resources:
                       - NeedsCognito
                       - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
                       - !Ref CognitoIdentityPoolId
+                ParentOrigin: !Ref WebAppParentOrigin
                 WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
                 WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
-
-    ##########################################################################
-    # deployment using a pipeline
-    ##########################################################################
-    CodeCommitRepo:
-        Type: AWS::CloudFormation::Stack
-        Condition: ShouldDeployUsingPipeline
-        Properties:
-            TimeoutInMinutes: 15
-            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/coderepo.yaml"
-            Parameters:
-                BotName:
-                    !If
-                      - NeedsBot
-                      - !GetAtt Bot.Outputs.BotName
-                      - !Ref BotName
-                CodeBuildName: !Sub "${CodeCommitRepoName}-init"
-                CodeCommitRepoName: !Ref CodeCommitRepoName
-                CognitoIdentityPoolId:
-                    !If
-                      - NeedsCognito
-                      - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
-                      - !Ref CognitoIdentityPoolId
-                SourceBucket: !Ref BootstrapBucket
-                SourceObject: !Sub "${BootstrapPrefix}/src.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
-
-    Pipeline:
-        Type: AWS::CloudFormation::Stack
-        Condition: ShouldDeployUsingPipeline
-        Properties:
-            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/pipeline.yaml"
-            Parameters:
-                BotName:
-                    !If
-                      - NeedsBot
-                      - !GetAtt Bot.Outputs.BotName
-                      - !Ref BotName
-                CodePipelineName: !Ref CodePipelineName
-                CodeCommitRepoName: !GetAtt CodeCommitRepo.Outputs.CodeCommitRepoName
-                CodeBuildName: !Ref CodeBuildName
-                CognitoIdentityPoolId:
-                    !If
-                      - NeedsCognito
-                      - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
-                      - !Ref CognitoIdentityPoolId
-                ParentOrigin: !Ref WebAppParentOrigin
-                CustomResourceCodeBucket: !Ref BootstrapBucket
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
-                CleanupBuckets: !Ref CleanupBuckets
 
 Outputs:
     BotName:
@@ -343,20 +236,7 @@ Outputs:
             Name of the Lex bot created by the stack
         Value: !GetAtt Bot.Outputs.BotName
 
-    CodeCommitRepoUrl:
-        Condition: ShouldDeployUsingPipeline
-        Description: CodeCommit repository clone URL
-        Value: !GetAtt CodeCommitRepo.Outputs.CodeCommitRepoUrl
-
-    PipelineUrl:
-        Condition: ShouldDeployUsingPipeline
-        Description: >
-            Monitor the pipeline URL to see when the application has been fully
-            built and deployed.
-        Value: !Sub "https://console.aws.amazon.com/codepipeline/home?region=${AWS::Region}#/view/${Pipeline.Outputs.PipelineName}"
-
     CodeBuildUrl:
-        Condition: ShouldDeployUsingCodeBuild
         Description: >
             Monitor the pipeline URL to see when the application has been fully
             built and deployed.
@@ -365,23 +245,27 @@ Outputs:
     WebAppUrl:
         Description: >
             URL of the stand-alone sample web application.
-            This page will be available after the pipeline completes.
-        Value:
-            !If
-              - ShouldDeployUsingPipeline
-              - !GetAtt Pipeline.Outputs.WebAppUrl
-              - !GetAtt CodeBuildDeploy.Outputs.WebAppUrl
+            This page will be available after the pipeline/deployment completes.
+        Value: !GetAtt CodeBuildDeploy.Outputs.WebAppUrl
 
     ParentPageUrl:
         Condition: NeedsParentOrigin
         Description: >
             URL of the iframe based sample web application
-            This page will be available after the pipeline completes.
-        Value:
-            !If
-              - ShouldDeployUsingPipeline
-              - !GetAtt Pipeline.Outputs.ParentPageUrl
-              - !GetAtt CodeBuildDeploy.Outputs.ParentPageUrl
+            This page will be available after the pipeline/deployment completes.
+        Value: !GetAtt CodeBuildDeploy.Outputs.ParentPageUrl
+
+    LoaderScriptUrl:
+        Description: >
+            URL of the loader script
+            This script will be available after the pipeline/deployment completes.
+        Value: !GetAtt CodeBuildDeploy.Outputs.LoaderScriptUrl
+
+    SnippetUrl:
+        Description: >
+            URL of a page showing the snippet to load the chatbot UI as
+            an iframe
+        Value: !GetAtt CodeBuildDeploy.Outputs.SnippetUrl
 
     CognitoIdentityPoolId:
         Condition: NeedsCognito

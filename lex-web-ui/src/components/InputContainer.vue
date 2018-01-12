@@ -1,12 +1,12 @@
 <template>
-  <v-footer>
+  <v-footer app fixed>
     <v-layout
       row
       justify-space-between
       ma-0
       class="input-container"
     >
-      <v-toolbar color="white">
+      <v-toolbar color="white" dense>
         <!--
           using v-show instead of v-if to make recorder-status transition work
         -->
@@ -248,3 +248,9 @@ export default {
   },
 };
 </script>
+<style>
+.footer {
+  /* make footer same height as dense toolbar */
+  min-height: 48px;
+}
+</style>
