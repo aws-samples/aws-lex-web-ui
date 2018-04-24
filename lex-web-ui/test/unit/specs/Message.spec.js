@@ -259,7 +259,7 @@ describe('Message.vue', function () {
     expect(vm.$store.state.config.ui.AllowSuperDangerousHTMLInMessage)
       .is.equal(false);
     vm.$set(vm.$store.state.config.ui, 'AllowSuperDangerousHTMLInMessage', true);
-    vm.$set(vm.$store.state.lex.sessionAttributes, 'format', 'html');
+    vm.$set(vm.$store.state.lex.sessionAttributes, 'messageFormat', 'html');
     vm.$set(vm.message, 'text', '<h1>hello i am html</h1>');
     return vm.$nextTick()
       .then(() => {

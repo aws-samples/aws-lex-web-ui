@@ -163,7 +163,11 @@ const configDefault = {
     avatarImageUrl: '',
 
     // Allows lex messages with session attribute
-    // format="html" to be rendered as html in the message
+    // messageFormat="html" to be rendered as html in the message
+    // Enabling this feature increases the risk of XSS.
+    // Make sure that the HTML message has been properly
+    // escaped/encoded/filtered in the Lambda function
+    // https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
     AllowSuperDangerousHTMLInMessage: false,
   },
 

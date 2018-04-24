@@ -6,7 +6,7 @@
     {{ message.text }}
   </div>
   <div
-    v-else-if="message.text && format==='html' && AllowSuperDangerousHTMLInMessage"
+    v-else-if="message.text && messageFormat==='html' && AllowSuperDangerousHTMLInMessage"
     v-html="message.text"
     class="message-text"
   ></div>
@@ -49,8 +49,8 @@ export default {
     AllowSuperDangerousHTMLInMessage() {
       return this.$store.state.config.ui.AllowSuperDangerousHTMLInMessage;
     },
-    format() {
-      return this.$store.state.lex.sessionAttributes.format;
+    messageFormat() {
+      return this.$store.state.lex.sessionAttributes.messageFormat;
     },
     shouldRenderAsHtml() {
       return (this.message.type === 'bot' && this.shouldConvertUrlToLinks);
