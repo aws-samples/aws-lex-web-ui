@@ -161,6 +161,10 @@ const configDefault = {
 
     // bot avatar image URL
     avatarImageUrl: '',
+
+    // Allows lex messages with session attribute
+    // format="html" to be rendered as html in the message
+    AllowSuperDangerousHTMLInMessage: false,
   },
 
   /* Configuration to enable voice and to pass options to the recorder

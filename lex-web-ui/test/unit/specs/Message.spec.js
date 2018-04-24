@@ -254,4 +254,22 @@ describe('Message.vue', function () {
         expect(responseCardEl, 'response card element').is.equal(null);
       });
   });
+
+  it('should condionally render html from a message', function () {
+    expect(vm.$store.state.config.ui.AllowSuperDangerousHTMLInMessage)
+      .is.equal(false);
+    vm.$set(vm.$store.state.config.ui, 'AllowSuperDangerousHTMLInMessage', true);
+    vm.$set(vm.$store.state.lex.sessionAttributes, 'format', 'html');
+    vm.$set(vm.message, 'text', '<h1>hello i am html</h1>');
+    return vm.$nextTick()
+      .then(() => {
+        const el = vm.$el.querySelector('.message > .message-layout h1');
+        expect(!!el).is.equal(true);
+        vm.$set(vm.$store.state.config.ui, 'AllowSuperDangerousHTMLInMessage', false);
+      })
+      .catch((error) => {
+        vm.$set(vm.$store.state.config.ui, 'AllowSuperDangerousHTMLInMessage', false);
+        throw error;
+      });
+  });
 });
