@@ -3,13 +3,14 @@
     "poolId": ""
   },
   "lex": {
-    "botName": "",
+    "botName": "OrderFlowers",
     "initialText": "You can ask me for help ordering flowers. Just type \"Buy flowers\" or click on the mic and say it.",
     "initialSpeechInstruction": "Say 'Buy Flowers' to get started."
   },
   "ui": {
     "parentOrigin": "",
     "toolbarTitle": "Order Flowers",
+    "toolbarLogo": "",
     "pushInitialTextOnRestart": false
   },
   "polly": {
