@@ -381,11 +381,12 @@ export default {
    *
    **********************************************************************/
 
-  pollyGetBlob(context, text) {
+  pollyGetBlob(context, text, format = 'text') {
     const synthReq = pollyClient.synthesizeSpeech({
       Text: text,
       VoiceId: context.state.polly.voiceId,
       OutputFormat: context.state.polly.outputFormat,
+      TextType: format,
     });
     return context.dispatch('getCredentials')
       .then(() => synthReq.promise())
@@ -394,8 +395,8 @@ export default {
         return Promise.resolve(blob);
       });
   },
-  pollySynthesizeSpeech(context, text) {
-    return context.dispatch('pollyGetBlob', text)
+  pollySynthesizeSpeech(context, text, format = 'text') {
+    return context.dispatch('pollyGetBlob', text, format)
       .then(blob => context.dispatch('getAudioUrl', blob))
       .then(audioUrl => context.dispatch('playAudio', audioUrl));
   },
