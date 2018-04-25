@@ -161,6 +161,14 @@ const configDefault = {
 
     // bot avatar image URL
     avatarImageUrl: '',
+
+    // Allows lex messages with session attribute
+    // messageFormat="html" to be rendered as html in the message
+    // Enabling this feature increases the risk of XSS.
+    // Make sure that the HTML message has been properly
+    // escaped/encoded/filtered in the Lambda function
+    // https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
+    AllowSuperDangerousHTMLInMessage: false,
   },
 
   /* Configuration to enable voice and to pass options to the recorder

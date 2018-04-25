@@ -6,8 +6,13 @@
     {{ message.text }}
   </div>
   <div
-    v-html="botMessageAsHtml"
+    v-else-if="message.text && messageFormat==='html' && AllowSuperDangerousHTMLInMessage"
+    v-html="message.text"
+    class="message-text"
+  ></div>
+  <div
     v-else-if="message.text && shouldRenderAsHtml"
+    v-html="botMessageAsHtml"
     class="message-text"
   ></div>
   <div
@@ -40,6 +45,12 @@ export default {
     },
     shouldStripTags() {
       return this.$store.state.config.ui.stripTagsFromBotMessages;
+    },
+    AllowSuperDangerousHTMLInMessage() {
+      return this.$store.state.config.ui.AllowSuperDangerousHTMLInMessage;
+    },
+    messageFormat() {
+      return this.$store.state.lex.sessionAttributes.messageFormat;
     },
     shouldRenderAsHtml() {
       return (this.message.type === 'bot' && this.shouldConvertUrlToLinks);
