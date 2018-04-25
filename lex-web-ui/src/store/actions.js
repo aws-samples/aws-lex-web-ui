@@ -472,6 +472,10 @@ export default {
         context.commit('setIsLexProcessing', false);
         return context.dispatch('updateLexState', data)
           .then(() => Promise.resolve(data));
+      })
+      .catch((error) => {
+        context.commit('setIsLexProcessing', false);
+        throw error;
       });
   },
   lexPostContent(context, audioBlob, offset = 0) {
@@ -501,6 +505,10 @@ export default {
             context.dispatch('processLexContentResponse', lexResponse)
           ))
           .then(blob => Promise.resolve(blob));
+      })
+      .catch((error) => {
+        context.commit('setIsLexProcessing', false);
+        throw error;
       });
   },
   processLexContentResponse(context, lexData) {
