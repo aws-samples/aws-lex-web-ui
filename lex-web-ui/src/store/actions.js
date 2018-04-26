@@ -447,6 +447,7 @@ export default {
           type: 'bot',
           dialogState: context.state.lex.dialogState,
           responseCard: context.state.lex.responseCard,
+          alts: JSON.parse(response.sessionAttributes.appContext || '{}').altMessages,
         },
       ))
       .then(() => {

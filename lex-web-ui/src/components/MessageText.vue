@@ -52,14 +52,12 @@ export default {
       return this.$store.state.config.ui.AllowSuperDangerousHTMLInMessage;
     },
     altHtmlMessage() {
-      const { appContext } = this.$store.state.lex.sessionAttributes;
       let out = false;
-      if (appContext) {
-        const alts = JSON.parse(appContext).altMessages || {};
-        if (alts.html) {
-          out = alts.html;
-        } else if (alts.markdown) {
-          out = markdown.toHTML(alts.markdown);
+      if (this.message.alts) {
+        if (this.message.alts.html) {
+          out = this.message.alts.html;
+        } else if (this.message.alts.markdown) {
+          out = markdown.toHTML(this.message.alts.markdown);
         }
       }
       return out;

@@ -2231,15 +2231,12 @@ var _require = __webpack_require__(118),
       return this.$store.state.config.ui.AllowSuperDangerousHTMLInMessage;
     },
     altHtmlMessage: function altHtmlMessage() {
-      var appContext = this.$store.state.lex.sessionAttributes.appContext;
-
       var out = false;
-      if (appContext) {
-        var alts = JSON.parse(appContext).altMessages || {};
-        if (alts.html) {
-          out = alts.html;
-        } else if (alts.markdown) {
-          out = markdown.toHTML(alts.markdown);
+      if (this.message.alts) {
+        if (this.message.alts.html) {
+          out = this.message.alts.html;
+        } else if (this.message.alts.markdown) {
+          out = markdown.toHTML(this.message.alts.markdown);
         }
       }
       return out;
@@ -4205,7 +4202,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MessageText_vue__ = __webpack_require__(67);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_d292598c_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageText_vue__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_023d6f1a_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageText_vue__ = __webpack_require__(125);
 function injectStyle (ssrContext) {
   __webpack_require__(117)
 }
@@ -4220,12 +4217,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-d292598c"
+var __vue_scopeId__ = "data-v-023d6f1a"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MessageText_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_d292598c_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageText_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_023d6f1a_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageText_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -8592,7 +8589,8 @@ var recorder = void 0;
         text: response.message,
         type: 'bot',
         dialogState: context.state.lex.dialogState,
-        responseCard: context.state.lex.responseCard
+        responseCard: context.state.lex.responseCard,
+        alts: JSON.parse(response.sessionAttributes.appContext || '{}').altMessages
       });
     }).then(function () {
       if (context.state.lex.dialogState === 'Fulfilled') {
