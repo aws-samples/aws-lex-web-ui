@@ -8604,8 +8604,10 @@ var recorder = void 0;
   },
   lexPostText: function lexPostText(context, text) {
     context.commit('setIsLexProcessing', true);
+    var session = context.state.lex.sessionAttributes;
+    delete session.appContext;
     return context.dispatch('getCredentials').then(function () {
-      return lexClient.postText(text, context.state.lex.sessionAttributes);
+      return lexClient.postText(text, session);
     }).then(function (data) {
       context.commit('setIsLexProcessing', false);
       return context.dispatch('updateLexState', data).then(function () {
@@ -8620,12 +8622,14 @@ var recorder = void 0;
     var offset = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
     context.commit('setIsLexProcessing', true);
+    var session = context.state.lex.sessionAttributes;
+    delete session.appContext;
     console.info('audio blob size:', audioBlob.size);
     var timeStart = void 0;
 
     return context.dispatch('getCredentials').then(function () {
       timeStart = performance.now();
-      return lexClient.postContent(audioBlob, context.state.lex.sessionAttributes, context.state.lex.acceptFormat, offset);
+      return lexClient.postContent(audioBlob, session, context.state.lex.acceptFormat, offset);
     }).then(function (lexResponse) {
       var timeEnd = performance.now();
       console.info('lex postContent processing time:', ((timeEnd - timeStart) / 1000).toFixed(2));

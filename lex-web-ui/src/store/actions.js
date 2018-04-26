@@ -468,8 +468,10 @@ export default {
   },
   lexPostText(context, text) {
     context.commit('setIsLexProcessing', true);
+    const session = context.state.lex.sessionAttributes;
+    delete session.appContext;
     return context.dispatch('getCredentials')
-      .then(() => lexClient.postText(text, context.state.lex.sessionAttributes))
+      .then(() => lexClient.postText(text, session))
       .then((data) => {
         context.commit('setIsLexProcessing', false);
         return context.dispatch('updateLexState', data)
@@ -482,6 +484,8 @@ export default {
   },
   lexPostContent(context, audioBlob, offset = 0) {
     context.commit('setIsLexProcessing', true);
+    const session = context.state.lex.sessionAttributes;
+    delete session.appContext;
     console.info('audio blob size:', audioBlob.size);
     let timeStart;
 
@@ -490,7 +494,7 @@ export default {
         timeStart = performance.now();
         return lexClient.postContent(
           audioBlob,
-          context.state.lex.sessionAttributes,
+          session,
           context.state.lex.acceptFormat,
           offset,
         );
