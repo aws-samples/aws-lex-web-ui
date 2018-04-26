@@ -54,8 +54,8 @@ export default {
     altHtmlMessage() {
       const { appContext } = this.$store.state.lex.sessionAttributes;
       let out = false;
-      if (appContext && appContext.altMessages) {
-        const alts = JSON.parse(appContext.altMessages);
+      if (appContext) {
+        const alts = JSON.parse(appContext).altMessages || {};
         if (alts.html) {
           out = alts.html;
         } else if (alts.markdown) {

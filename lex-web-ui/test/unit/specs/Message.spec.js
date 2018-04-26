@@ -259,11 +259,11 @@ describe('Message.vue', function () {
     expect(vm.$store.state.config.ui.AllowSuperDangerousHTMLInMessage)
       .is.equal(false);
     vm.$set(vm.$store.state.config.ui, 'AllowSuperDangerousHTMLInMessage', true);
-    vm.$set(vm.$store.state.lex.sessionAttributes, 'appContext', {
-      altMessages: JSON.stringify({
+    vm.$set(vm.$store.state.lex.sessionAttributes, 'appContext', JSON.stringify({
+      altMessages: {
         markdown: '# hello i am markdown',
-      }),
-    });
+      },
+    }));
     vm.$set(vm.message, 'text', 'hello i am text');
     return vm.$nextTick()
       .then(() => {
