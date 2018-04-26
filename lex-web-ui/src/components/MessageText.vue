@@ -6,8 +6,8 @@
     {{ message.text }}
   </div>
   <div
-    v-else-if="altMessage && altMessageFormat==='html' && AllowSuperDangerousHTMLInMessage"
-    v-html="altMessage"
+    v-else-if="altHtmlMessage && AllowSuperDangerousHTMLInMessage"
+    v-html="altHtmlMessage"
     class="message-text"
   ></div>
   <div
@@ -36,6 +36,8 @@ or in the "license" file accompanying this file. This file is distributed on an 
 BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
+const { markdown } = require('markdown');
+
 export default {
   name: 'message-text',
   props: ['message'],
@@ -49,11 +51,18 @@ export default {
     AllowSuperDangerousHTMLInMessage() {
       return this.$store.state.config.ui.AllowSuperDangerousHTMLInMessage;
     },
-    altMessageFormat() {
-      return this.$store.state.lex.sessionAttributes.alMessageFormat;
-    },
-    altMessage() {
-      return this.$store.state.lex.sessionAttributes.altMessage;
+    altHtmlMessage() {
+      const { appContext } = this.$store.state.lex.sessionAttributes;
+      let out = false;
+      if (appContext && appContext.altMessages) {
+        const alts = JSON.parse(appContext.altMessages);
+        if (alts.html) {
+          out = alts.html;
+        } else if (alts.markdown) {
+          out = markdown.toHTML(alts.markdown);
+        }
+      }
+      return out;
     },
     shouldRenderAsHtml() {
       return (this.message.type === 'bot' && this.shouldConvertUrlToLinks);

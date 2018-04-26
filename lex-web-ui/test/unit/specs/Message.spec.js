@@ -255,12 +255,16 @@ describe('Message.vue', function () {
       });
   });
 
-  it('should condionally render html from a message', function () {
+  it('should condionally render markdown from a message', function () {
     expect(vm.$store.state.config.ui.AllowSuperDangerousHTMLInMessage)
       .is.equal(false);
     vm.$set(vm.$store.state.config.ui, 'AllowSuperDangerousHTMLInMessage', true);
-    vm.$set(vm.$store.state.lex.sessionAttributes, 'messageFormat', 'html');
-    vm.$set(vm.message, 'text', '<h1>hello i am html</h1>');
+    vm.$set(vm.$store.state.lex.sessionAttributes, 'appContext', {
+      altMessages: JSON.stringify({
+        markdown: '# hello i am markdown',
+      }),
+    });
+    vm.$set(vm.message, 'text', 'hello i am text');
     return vm.$nextTick()
       .then(() => {
         const el = vm.$el.querySelector('.message > .message-layout h1');

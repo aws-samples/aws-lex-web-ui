@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.180.0",
+    "markdown": "^0.5.0",
     "material-design-icons": "^3.0.1",
     "roboto-fontface": "^0.8.0",
     "vue": "^2.5.13",
