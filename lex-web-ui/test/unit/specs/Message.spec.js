@@ -259,9 +259,8 @@ describe('Message.vue', function () {
     expect(vm.$store.state.config.ui.AllowSuperDangerousHTMLInMessage)
       .is.equal(false);
     vm.$set(vm.$store.state.config.ui, 'AllowSuperDangerousHTMLInMessage', true);
-    
     vm.$set(vm.message, 'text', 'hello i am text');
-    vm.$set(vm.message, 'alts',{
+    vm.$set(vm.message, 'alts', {
       markdown: '# hello i am markdown',
     });
     return vm.$nextTick()

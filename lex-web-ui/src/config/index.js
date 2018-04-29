@@ -162,6 +162,9 @@ const configDefault = {
     // bot avatar image URL
     avatarImageUrl: '',
 
+    // Show the diaglog state icon, check or alert, in the text bubble
+    showDialogStateIcon: true,
+
     // Allows lex messages with session attribute
     // altMessageFormat="html" to be rendered as html in the message
     // Enabling this feature increases the risk of XSS.

@@ -45,7 +45,7 @@
                 </div>
                 <v-icon
                   medium
-                  v-if="message.type === 'bot' && botDialogState"
+                  v-if="message.type === 'bot' && botDialogState && showDialogStateIcon"
                   v-bind:class="`dialog-state-${botDialogState.state}`"
                   class="dialog-state"
                 >
@@ -125,6 +125,9 @@ export default {
     },
     botAvatarUrl() {
       return this.$store.state.config.ui.avatarImageUrl;
+    },
+    showDialogStateIcon() {
+      return this.$store.state.config.ui.showDialogStateIcon;
     },
     shouldDisplayResponseCard() {
       return (
