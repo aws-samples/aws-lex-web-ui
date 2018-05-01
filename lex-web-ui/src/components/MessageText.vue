@@ -36,7 +36,7 @@ or in the "license" file accompanying this file. This file is distributed on an 
 BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
-const { markdown } = require('markdown');
+const marked = require('marked');
 
 export default {
   name: 'message-text',
@@ -57,7 +57,7 @@ export default {
         if (this.message.alts.html) {
           out = this.message.alts.html;
         } else if (this.message.alts.markdown) {
-          out = markdown.toHTML(this.message.alts.markdown);
+          out = marked(this.message.alts.markdown);
         }
       }
       return out;
