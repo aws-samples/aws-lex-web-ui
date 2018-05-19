@@ -166,7 +166,8 @@ const configDefault = {
     showDialogStateIcon: true,
 
     // Allows lex messages with session attribute
-    // altMessageFormat="html" to be rendered as html in the message
+    // appContext.altMessages.html or appContext.altMessages.markdown
+    // to be rendered as html in the message
     // Enabling this feature increases the risk of XSS.
     // Make sure that the HTML message has been properly
     // escaped/encoded/filtered in the Lambda function
