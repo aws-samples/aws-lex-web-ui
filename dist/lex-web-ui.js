@@ -1032,7 +1032,8 @@ var configDefault = {
     showDialogStateIcon: true,
 
     // Allows lex messages with session attribute
-    // altMessageFormat="html" to be rendered as html in the message
+    // appContext.altMessages.html or appContext.altMessages.markdown
+    // to be rendered as html in the message
     // Enabling this feature increases the risk of XSS.
     // Make sure that the HTML message has been properly
     // escaped/encoded/filtered in the Lambda function
@@ -2222,6 +2223,12 @@ License for the specific language governing permissions and limitations under th
 */
 var marked = __webpack_require__(118);
 
+var renderer = new marked.Renderer();
+
+marked.link = function link(href, title, text) {
+  return '<a href="' + href + '" title="' + title + '" target="_blank">' + text + '</a>';
+};
+
 /* harmony default export */ __webpack_exports__["a"] = ({
   name: 'message-text',
   props: ['message'],
@@ -2241,7 +2248,7 @@ var marked = __webpack_require__(118);
         if (this.message.alts.html) {
           out = this.message.alts.html;
         } else if (this.message.alts.markdown) {
-          out = marked(this.message.alts.markdown);
+          out = marked(this.message.alts.markdown, { renderer: renderer });
         }
       }
       return out;
@@ -4207,7 +4214,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MessageText_vue__ = __webpack_require__(67);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5d275726_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageText_vue__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_37d5be4b_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageText_vue__ = __webpack_require__(120);
 function injectStyle (ssrContext) {
   __webpack_require__(117)
 }
@@ -4222,12 +4229,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-5d275726"
+var __vue_scopeId__ = "data-v-37d5be4b"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MessageText_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5d275726_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageText_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_37d5be4b_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageText_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -8636,7 +8643,8 @@ var initRecorderHandlers = function initRecorderHandlers(context, recorder) {
         audio: lexAudioUrl,
         text: context.state.lex.message,
         dialogState: context.state.lex.dialogState,
-        responseCard: context.state.lex.responseCard
+        responseCard: context.state.lex.responseCard,
+        alts: JSON.parse(context.state.lex.sessionAttributes.appContext || '{}').altMessages
       });
       return context.dispatch('playAudio', lexAudioUrl, {}, offset);
     }).then(function () {

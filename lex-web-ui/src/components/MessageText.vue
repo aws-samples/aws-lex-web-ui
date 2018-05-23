@@ -38,6 +38,12 @@ License for the specific language governing permissions and limitations under th
 */
 const marked = require('marked');
 
+const renderer = new marked.Renderer();
+
+marked.link = function link(href, title, text) {
+  return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
+};
+
 export default {
   name: 'message-text',
   props: ['message'],
@@ -57,7 +63,7 @@ export default {
         if (this.message.alts.html) {
           out = this.message.alts.html;
         } else if (this.message.alts.markdown) {
-          out = marked(this.message.alts.markdown);
+          out = marked(this.message.alts.markdown, { renderer });
         }
       }
       return out;
