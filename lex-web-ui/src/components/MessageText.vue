@@ -40,7 +40,7 @@ const marked = require('marked');
 
 const renderer = new marked.Renderer();
 
-marked.link = function link(href, title, text) {
+renderer.link = function link(href, title, text) {
   return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
 };
 
