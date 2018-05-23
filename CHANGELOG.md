@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.14.0] - 2018-05-23
+
+### Added
+- Add Support for Markdown and HTML alternate messages.[3ed88858411b4d85618be9b28c588c368507cdc6]
+- Add a loading icon [f892a7b85f079006483461d685109edd6d0f7749]
+
 ## [0.12.0] - 2018-01-12
 This release brings significant improvements which include various
 breaking changes (see items with the **[BREAKING]** label). It overhauls
