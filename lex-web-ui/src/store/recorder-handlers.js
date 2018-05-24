@@ -116,6 +116,7 @@ const initRecorderHandlers = (context, recorder) => {
           text: context.state.lex.message,
           dialogState: context.state.lex.dialogState,
           responseCard: context.state.lex.responseCard,
+          alts: JSON.parse(context.state.lex.sessionAttributes.appContext || '{}').altMessages,
         });
         return context.dispatch('playAudio', lexAudioUrl, {}, offset);
       })

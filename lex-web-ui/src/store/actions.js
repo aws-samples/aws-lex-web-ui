@@ -381,11 +381,12 @@ export default {
    *
    **********************************************************************/
 
-  pollyGetBlob(context, text) {
+  pollyGetBlob(context, text, format = 'text') {
     const synthReq = pollyClient.synthesizeSpeech({
       Text: text,
       VoiceId: context.state.polly.voiceId,
       OutputFormat: context.state.polly.outputFormat,
+      TextType: format,
     });
     return context.dispatch('getCredentials')
       .then(() => synthReq.promise())
@@ -394,8 +395,8 @@ export default {
         return Promise.resolve(blob);
       });
   },
-  pollySynthesizeSpeech(context, text) {
-    return context.dispatch('pollyGetBlob', text)
+  pollySynthesizeSpeech(context, text, format = 'text') {
+    return context.dispatch('pollyGetBlob', text, format)
       .then(blob => context.dispatch('getAudioUrl', blob))
       .then(audioUrl => context.dispatch('playAudio', audioUrl));
   },
@@ -446,6 +447,7 @@ export default {
           type: 'bot',
           dialogState: context.state.lex.dialogState,
           responseCard: context.state.lex.responseCard,
+          alts: JSON.parse(response.sessionAttributes.appContext || '{}').altMessages,
         },
       ))
       .then(() => {
@@ -466,16 +468,24 @@ export default {
   },
   lexPostText(context, text) {
     context.commit('setIsLexProcessing', true);
+    const session = context.state.lex.sessionAttributes;
+    delete session.appContext;
     return context.dispatch('getCredentials')
-      .then(() => lexClient.postText(text, context.state.lex.sessionAttributes))
+      .then(() => lexClient.postText(text, session))
       .then((data) => {
         context.commit('setIsLexProcessing', false);
         return context.dispatch('updateLexState', data)
           .then(() => Promise.resolve(data));
+      })
+      .catch((error) => {
+        context.commit('setIsLexProcessing', false);
+        throw error;
       });
   },
   lexPostContent(context, audioBlob, offset = 0) {
     context.commit('setIsLexProcessing', true);
+    const session = context.state.lex.sessionAttributes;
+    delete session.appContext;
     console.info('audio blob size:', audioBlob.size);
     let timeStart;
 
@@ -484,7 +494,7 @@ export default {
         timeStart = performance.now();
         return lexClient.postContent(
           audioBlob,
-          context.state.lex.sessionAttributes,
+          session,
           context.state.lex.acceptFormat,
           offset,
         );
@@ -501,6 +511,10 @@ export default {
             context.dispatch('processLexContentResponse', lexResponse)
           ))
           .then(blob => Promise.resolve(blob));
+      })
+      .catch((error) => {
+        context.commit('setIsLexProcessing', false);
+        throw error;
       });
   },
   processLexContentResponse(context, lexData) {

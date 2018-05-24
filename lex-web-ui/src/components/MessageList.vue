@@ -12,6 +12,9 @@
       v-bind:class="`message-${message.type}`"
       v-on:scrollDown="scrollDown"
     ></message>
+    <MessageLoading
+      v-if="loading"
+    ></MessageLoading>
   </v-layout>
 </template>
 
@@ -29,15 +32,20 @@ BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
 import Message from './Message';
+import MessageLoading from './MessageLoading';
 
 export default {
   name: 'message-list',
   components: {
     Message,
+    MessageLoading,
   },
   computed: {
     messages() {
       return this.$store.state.messages;
+    },
+    loading() {
+      return this.$store.state.lex.isProcessing;
     },
   },
   watch: {

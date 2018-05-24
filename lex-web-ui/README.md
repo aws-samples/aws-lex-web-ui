@@ -193,6 +193,37 @@ NOTE: browsers may require the application to be served using HTTPS for
 the WebRTC API to work. Make sure to serve the application from an HTTPS
 enabled server or if hosting on S3 or CloudFront, use https in the URL.
 
+## Markdown and HTML Support 
+The chatbot UI supports HTML and Markdown in bot responses. Markdown is rendered to HTML using [marked](https://www.npmjs.com/package/marked) and then displayed to the user. To do this you must configure the chat UI and have your bot place the HTML and/or Markdown messages the response message's session attributes 
+
+First, set the `ui.AllowSuperDangerousHTMLInMessage` config field to `true`. __WARNING__: Enabling this feature increases the risk of XSS. Make sure that the HTML/Markdown message has been properly escaped/encoded/filtered in the Lex Handler Lambda function. For more information on XSS see [here](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS))
+
+Second, program you lambda function to provide your Markdown and HTML messages as alt-messages in the session attribute `appContext.altMessages`. For example your session attribute could look like this or markdown messages:
+
+```json
+{
+    "appContext":{
+        "altMessages":{
+            "markdown":"# hello!"
+        }
+    }
+}
+```
+
+or this for html messages:
+
+```json
+{
+    "appContext":{
+        "altMessages":{
+            "html":"<h1>hello!</h1>"
+        }
+    }
+}
+```
+
+If both Markdown and HTML are present then the HTML answer will be rendered. The message returned from lex will not be shown if an alternative answer is found. 
+
 ## Configuration and Customization
 The chatbot UI requires configuration parameters pointing to external
 resources such as the Lex bot name and the Cognito Identity Pool Id
