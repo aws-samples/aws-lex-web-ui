@@ -374,6 +374,12 @@ export default {
     }
     return recorder.volume;
   },
+  getRecorder(context) {
+    if (!context.state.recState.isRecorderEnabled) {
+      return Promise.resolve();
+    }
+    return recorder;
+  },
 
   /***********************************************************************
    *
