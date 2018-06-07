@@ -124,7 +124,7 @@ Resources:
                 Type: NO_ARTIFACTS
             Environment:
                 Type: LINUX_CONTAINER
-                Image: aws/codebuild/nodejs:6.3.1
+                Image: aws/codebuild/nodejs:8.11.0
                 ComputeType: BUILD_GENERAL1_SMALL
                 EnvironmentVariables:
                     - Name: BUILD_TYPE
@@ -158,11 +158,6 @@ Resources:
                 BuildSpec: !Sub |
                     version: 0.1
                     phases:
-                        install:
-                            commands:
-                                - npm install -g n
-                                - n stable
-                                - npm update -g npm
                         pre_build:
                             commands:
                                 - aws configure set region "$AWS_DEFAULT_REGION"
