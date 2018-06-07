@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.14.0] - 2018-05-23
+
+## [0.13.1] - 2018-06-07
+
+### Fixed
+- error in dependency in codebuild. [44d9c86a2ec4c693c9ea5a17223254f10756ec80]
+
+## [0.13.0] - 2018-05-23
 
 ### Added
 - Add Support for Markdown and HTML alternate messages.[3ed88858411b4d85618be9b28c588c368507cdc6]
