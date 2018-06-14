@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.13.2] - 2018-06-14
+
+### Fixed
+- Error in IE11 and Edge to access localStorage. [4f91fbe9e462a680c0bf3476203589a88afccc84]
 
 ## [0.13.1] - 2018-06-07
 
