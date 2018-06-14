@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0ebc098edea51c874cb3"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0c0407f56b4410bc8729"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -5110,8 +5110,6 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
       }
 
       return this.credentials.getPromise().then(function () {
-        return localStorage.setItem('cognitoid', _this7.credentials.identityId);
-      }).then(function () {
         return _this7.credentials;
       });
     }

@@ -373,9 +373,6 @@ export class IframeComponentLoader {
     }
 
     return this.credentials.getPromise()
-      .then(() => (
-        localStorage.setItem('cognitoid', this.credentials.identityId)
-      ))
       .then(() => this.credentials);
   }
 
