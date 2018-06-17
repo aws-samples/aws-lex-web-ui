@@ -126,13 +126,17 @@ const configDefault = {
     // chat window text placeholder
     textInputPlaceholder: 'Type here or click on the mic',
 
-    toolbarColor: 'red',
+    toolbarColor: 'blue',
 
     // chat window title
-    toolbarTitle: 'Order Flowers',
+    toolbarTitle: 'Order Flowers Test',
 
     // logo used in toolbar - also used as favicon not specificied
     toolbarLogo: '',
+
+    // contols if button used in the toolbar for user
+    // login and logout will be shown or hidden
+    toolbarButtons: true,
 
     // fav icon
     favIcon: '',

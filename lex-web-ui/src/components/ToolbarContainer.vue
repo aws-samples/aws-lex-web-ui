@@ -19,6 +19,10 @@
     >
       <span id="min-max-tooltip">{{toolTipMinimize}}</span>
     </v-tooltip>
+    <span v-if="toolbarButtons == true">
+      <v-btn small v-on:click.stop="showSignupForm = true">Sign Up</v-btn>
+      <v-btn small v-on:click.stop="showLoginForm = true">{{buttonText}}</v-btn>
+    </span>
     <v-btn
       v-if="$store.state.isRunningEmbedded"
       v-on:click="toggleMinimize"
@@ -50,6 +54,10 @@ export default {
   name: 'toolbar-container',
   data() {
     return {
+      showSignupForm: false,
+      showLoginForm: false,
+      toolbarButtons: true,
+      isLoggedIn: false,
       shouldShowTooltip: false,
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
@@ -64,6 +72,9 @@ export default {
   computed: {
     toolTipMinimize() {
       return (this.isUiMinimized) ? 'maximize' : 'minimize';
+    },
+    buttonText() {
+      return (this.isLoggedIn) ? 'Logout' : 'Login';
     },
   },
   methods: {
