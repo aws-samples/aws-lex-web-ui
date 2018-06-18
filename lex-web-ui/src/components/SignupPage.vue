@@ -1,15 +1,15 @@
 <template>
     <v-layout row justify-center>
 
-      <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition">
+      <v-dialog v-model="showSignupForm" fullscreen transition="dialog-bottom-transition">
         <v-card>
           <v-toolbar dark class="primary">
-            <v-btn icon @click.native="dialog = false" dark>
+            <v-btn icon @click.native="hideSignupForm" dark>
               <v-icon>close</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn dark flat @click.native="dialog = false">Submit</v-btn>
+              <v-btn dark flat @click.native="hideSignupForm">Submit</v-btn>
             </v-toolbar-items>
           </v-toolbar>
           <v-form>
@@ -29,8 +29,6 @@
               required
             ></v-text-field>
             <v-text-field
-              v-model="confirmpassword"
-              label="Confirm Password"
               required
             ></v-text-field>
           </v-form>
@@ -43,14 +41,26 @@
 
 <script>
 export default {
-    name: 'signup-container',
-    data() {
-        return {
-            dialog: false,
-            name: '',
-            email: '',
-            password: ''
-        }
-    }
-}
+  name: 'signup-container',
+  data() {
+    return {
+      name: '',
+      email: '',
+      password: '',
+    };
+  },
+  props: ['showSignupForm'],
+  methods: {
+    hideSignupForm() {
+      this.$store.state.config.ui.showSignupForm = false;
+    },
+  },
+};
 </script>
+
+<style type="text/css">
+  .input-group {
+    width: 80%;
+    margin-left: 10%;
+  }
+</style>

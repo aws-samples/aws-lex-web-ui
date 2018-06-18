@@ -3,12 +3,21 @@
   >
     <toolbar-container
       v-bind:toolbar-title="toolbarTitle"
+      v-bind:toolbar-buttons="toolbarButtons"
       v-bind:toolbar-color="toolbarColor"
       v-bind:toolbar-logo="toolbarLogo"
       v-bind:is-ui-minimized="isUiMinimized"
       v-on:toggleMinimizeUi="toggleMinimizeUi"
     ></toolbar-container>
-
+    
+    <SignupPage
+      v-bind:show-signup-form="showSignupForm"
+    />
+    
+    <LoginPage 
+      v-bind:show-login-form="showLoginForm"
+    />
+    
     <v-content>
       <v-container class="message-list-container" fluid pa-0>
         <message-list v-show="!isUiMinimized"
@@ -42,6 +51,8 @@ License for the specific language governing permissions and limitations under th
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
+import SignupPage from '@/components/SignupPage';
+import LoginPage from '@/components/LoginPage';
 
 export default {
   name: 'lex-web',
@@ -49,6 +60,8 @@ export default {
     ToolbarContainer,
     MessageList,
     InputContainer,
+    SignupPage,
+    LoginPage,
   },
   computed: {
     initialSpeechInstruction() {
@@ -62,6 +75,15 @@ export default {
     },
     toolbarTitle() {
       return this.$store.state.config.ui.toolbarTitle;
+    },
+    toolbarButtons() {
+      return this.$store.state.config.ui.toolbarButtons;
+    },
+    showSignupForm() {
+      return this.$store.state.config.ui.showSignupForm;
+    },
+    showLoginForm() {
+      return this.$store.state.config.ui.showLoginForm;
     },
     toolbarLogo() {
       return this.$store.state.config.ui.toolbarLogo;

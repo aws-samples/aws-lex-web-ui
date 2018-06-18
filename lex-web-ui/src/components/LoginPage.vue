@@ -1,15 +1,15 @@
 <template>
     <v-layout row justify-center>
 
-      <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition">
+      <v-dialog v-model="showLoginForm" fullscreen transition="dialog-bottom-transition">
         <v-card>
           <v-toolbar dark class="primary">
-            <v-btn icon @click.native="dialog = false" dark>
+            <v-btn icon @click.native="hideLoginForm" dark>
               <v-icon>close</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn dark flat @click.native="dialog = false">Login</v-btn>
+              <v-btn dark flat @click.native="hideLoginForm">Login</v-btn>
             </v-toolbar-items>
           </v-toolbar>
           <v-form>
@@ -33,13 +33,24 @@
 
 <script>
 export default {
-    name: 'login-container',
-    data() {
-        return {
-            dialog: false,
-            email: '',
-            password: ''
-        }
-    }
-}
+  name: 'login-container',
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+  props: ['showLoginForm'],
+  methods: {
+    hideLoginForm() {
+      this.$store.state.config.ui.showLoginForm = false;
+    },
+  },
+};
 </script>
+<style type="text/css">
+  .input-group {
+    width: 80%;
+    margin-left: 10%;
+  }
+</style>

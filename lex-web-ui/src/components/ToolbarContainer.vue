@@ -20,8 +20,8 @@
       <span id="min-max-tooltip">{{toolTipMinimize}}</span>
     </v-tooltip>
     <span v-if="toolbarButtons == true">
-      <v-btn small v-on:click.stop="showSignupForm = true">Sign Up</v-btn>
-      <v-btn small v-on:click.stop="showLoginForm = true">{{buttonText}}</v-btn>
+      <v-btn small v-on:click.stop="showSignupForm">Sign Up</v-btn>
+      <v-btn small v-on:click.stop="showLoginForm">{{buttonText}}</v-btn>
     </span>
     <v-btn
       v-if="$store.state.isRunningEmbedded"
@@ -54,9 +54,6 @@ export default {
   name: 'toolbar-container',
   data() {
     return {
-      showSignupForm: false,
-      showLoginForm: false,
-      toolbarButtons: true,
       isLoggedIn: false,
       shouldShowTooltip: false,
       tooltipEventHandlers: {
@@ -68,7 +65,7 @@ export default {
       },
     };
   },
-  props: ['toolbarTitle', 'toolbarColor', 'toolbarLogo', 'isUiMinimized'],
+  props: ['toolbarTitle', 'toolbarColor', 'toolbarLogo', 'isUiMinimized', 'toolbarButtons'],
   computed: {
     toolTipMinimize() {
       return (this.isUiMinimized) ? 'maximize' : 'minimize';
@@ -87,6 +84,12 @@ export default {
     toggleMinimize() {
       this.onInputButtonHoverLeave();
       this.$emit('toggleMinimizeUi');
+    },
+    showSignupForm() {
+      this.$store.state.config.ui.showSignupForm = true;
+    },
+    showLoginForm() {
+      this.$store.state.config.ui.showLoginForm = true;
     },
   },
 };

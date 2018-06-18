@@ -138,6 +138,12 @@ const configDefault = {
     // login and logout will be shown or hidden
     toolbarButtons: true,
 
+    // toggles the user signup form
+    showSignupForm: false,
+
+    // toggles user login form
+    showLoginForm: false,
+
     // fav icon
     favIcon: '',
 
