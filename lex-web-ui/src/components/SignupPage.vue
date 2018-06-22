@@ -29,6 +29,8 @@
               required
             ></v-text-field>
             <v-text-field
+              v-model="password"
+              label="Confirm Password"
               required
             ></v-text-field>
           </v-form>
@@ -47,9 +49,15 @@ export default {
       name: '',
       email: '',
       password: '',
+      confirmPassword: '',
     };
   },
   props: ['showSignupForm'],
+  computed: {
+    signUp() {
+
+    },
+  },
   methods: {
     hideSignupForm() {
       this.$store.state.config.ui.showSignupForm = false;

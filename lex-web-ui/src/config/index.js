@@ -56,6 +56,7 @@ const configDefault = {
     // Cognito pool id used to obtain credentials
     // e.g. poolId: 'us-east-1:deadbeef-cac0-babe-abcd-abcdef01234',
     poolId: '',
+    signInUrl: 'https://lexwebuidev.auth.us-east-1.amazoncognito.com/login?response_type=token&client_id=23dh3bv8dlul706bj5283fqvo2&redirect_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com/',
   },
 
   lex: {
@@ -137,12 +138,6 @@ const configDefault = {
     // contols if button used in the toolbar for user
     // login and logout will be shown or hidden
     toolbarButtons: true,
-
-    // toggles the user signup form
-    showSignupForm: false,
-
-    // toggles user login form
-    showLoginForm: false,
 
     // fav icon
     favIcon: '',
