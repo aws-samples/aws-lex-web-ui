@@ -4,7 +4,6 @@
     <toolbar-container
       v-bind:toolbar-title="toolbarTitle"
       v-bind:toolbar-buttons="toolbarButtons"
-      v-bind:cognito-login="cognitoLogin"
       v-bind:toolbar-color="toolbarColor"
       v-bind:toolbar-logo="toolbarLogo"
       v-bind:is-ui-minimized="isUiMinimized"
@@ -44,6 +43,7 @@ License for the specific language governing permissions and limitations under th
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
+import auth from '../lib/cognito/auth';
 
 export default {
   name: 'lex-web',
@@ -68,8 +68,8 @@ export default {
     toolbarButtons() {
       return this.$store.state.config.ui.toolbarButtons;
     },
-    cognitoLogin() {
-      return this.$store.state.config.ui.signInUrl;
+    isLoggedIn() {
+      return this.$store.state.config.ui.isLoggedIn;
     },
     toolbarLogo() {
       return this.$store.state.config.ui.toolbarLogo;
@@ -97,6 +97,8 @@ export default {
     },
   },
   created() {
+    this.auth();
+
     // override default vuetify vertical overflow on non-mobile devices
     // hide vertical scrollbars
     if (!this.isMobile) {
@@ -235,6 +237,9 @@ export default {
             this.$store.dispatch('initConfig', config) : Promise.resolve()
         ))
         .then(() => this.logRunningMode());
+    },
+    auth() {
+      auth.getTokens();
     },
   },
 };

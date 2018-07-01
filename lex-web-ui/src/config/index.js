@@ -56,7 +56,19 @@ const configDefault = {
     // Cognito pool id used to obtain credentials
     // e.g. poolId: 'us-east-1:deadbeef-cac0-babe-abcd-abcdef01234',
     poolId: '',
-    signInUrl: 'https://lexwebuidev.auth.us-east-1.amazoncognito.com/login?response_type=token&client_id=23dh3bv8dlul706bj5283fqvo2&redirect_uri=https://ec2-54-89-197-42.compute-1.amazonaws.com',
+
+    // Client id of Cognito user pool used to obtain tokens
+    clientId: '1hahktbgun8cr14qsul3cshjt8',
+
+    // AWS Cognito url used to sign in
+    // Follow the response_type = code format
+    signInUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=1hahktbgun8cr14qsul3cshjt8&redirect_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com/index.html?loggedIn=true',
+
+    // AWS Cognito url used to sign out
+    logOutUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/logout?client_id=1hahktbgun8cr14qsul3cshjt8&logout_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com/index.html?loggedIn=false',
+
+    // Logged in user's session token information
+    sessionToken: '',
   },
 
   lex: {
@@ -138,6 +150,8 @@ const configDefault = {
     // contols if button used in the toolbar for user
     // login and logout will be shown or hidden
     toolbarButtons: true,
+
+    isLoggedIn: false,
 
     // fav icon
     favIcon: '',

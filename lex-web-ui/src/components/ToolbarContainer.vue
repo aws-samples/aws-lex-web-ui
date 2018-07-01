@@ -20,7 +20,7 @@
       <span id="min-max-tooltip">{{toolTipMinimize}}</span>
     </v-tooltip>
     <span v-if="toolbarButtons == true">
-      <v-btn small :href="signInUrl">{{buttonText}}</v-btn>
+      <v-btn small :href="getUrl">{{buttonText}}</v-btn>
     </span>
     <v-btn
       v-if="$store.state.isRunningEmbedded"
@@ -53,8 +53,8 @@ export default {
   name: 'toolbar-container',
   data() {
     return {
-      signInUrl: this.$store.state.config.cognito.signInUrl,
-      isLoggedIn: false,
+      signInUrl: '',
+      logOutUrl: '',
       shouldShowTooltip: false,
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
@@ -71,7 +71,12 @@ export default {
       return (this.isUiMinimized) ? 'maximize' : 'minimize';
     },
     buttonText() {
-      return (this.isLoggedIn) ? 'Logout' : 'Login';
+      return (this.$store.state.config.ui.isLoggedIn) ? 'Logout' : 'Login';
+    },
+    getUrl() {
+      this.signInUrl = this.$store.state.config.cognito.signInUrl;
+      this.logOutUrl = this.$store.state.config.cognito.logOutUrl;
+      return (this.$store.state.config.ui.isLoggedIn) ? this.logOutUrl : this.signInUrl;
     },
   },
   methods: {
