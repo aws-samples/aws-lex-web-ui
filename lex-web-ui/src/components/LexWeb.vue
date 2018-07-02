@@ -43,8 +43,9 @@ License for the specific language governing permissions and limitations under th
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
-// import qs from 'qs';
-// import axios from 'axios';
+import $ from 'jquery';
+
+const { localStorage } = window;
 
 export default {
   name: 'lex-web',
@@ -70,7 +71,7 @@ export default {
       return this.$store.state.config.ui.toolbarButtons;
     },
     isLoggedIn() {
-      return this.$store.state.config.ui.isLoggedIn;
+      return this.$store.state.ui.isLoggedIn;
     },
     toolbarLogo() {
       return this.$store.state.config.ui.toolbarLogo;
@@ -242,17 +243,41 @@ export default {
     auth() {
       // Pull url from window
       const parsedUrl = new URL(window.location.href);
-      const loggedIn = parsedUrl.searchParams.get('loggedIn');
-      // eslint-disable-next-line no-console
-      console.log(this.$store.state.ui.isLoggedIn);
-      if (loggedIn) {
+
+      // Parse out the "code" portion of the URL
+      const authCode = parsedUrl.searchParams.get('code');
+
+      if (authCode !== null) {
+        // Set the login status of the user to true
         this.$store.commit('setLoggedInStatus', true);
-        const clientId = this.$store.state.config.cognito.clientId;
-        // eslint-disable-next-line no-console
-        console.log(clientId);
-      } else {
-        // eslint-disable-next-line no-console
-        console.log('Not logged in...');
+
+        // Send the code to the token endpoint and get tokens back
+        const settings = {
+          async: true,
+          crossDomain: true,
+          url: this.$store.state.config.cognito.oauthUrl,
+          method: 'POST',
+          headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+          },
+          data: {
+            grant_type: 'authorization_code',
+            client_id: this.$store.state.config.cognito.clientId,
+            redirect_uri: this.$store.state.config.cognito.redirectUri,
+            code: authCode,
+          },
+        };
+        $.ajax(settings).done((response) => {
+          localStorage.setItem('tokens', JSON.stringify(response));
+          const tokens = JSON.parse(localStorage.getItem('tokens'));
+          const loginStatus = this.$store.state.ui.isLoggedIn;
+          // eslint-disable-next-line no-console
+          console.log('Redirect should happen after this line');
+          if (loginStatus === true && tokens !== null) {
+            // eslint-disable-next-line no-console
+            console.log('This is where the redirect is happening.');
+          }
+        });
       }
     },
   },

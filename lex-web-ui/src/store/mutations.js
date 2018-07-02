@@ -323,7 +323,7 @@ export default {
    */
   setLoggedInStatus(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setIsRunningEmbedded status not boolean', bool);
+      console.error('setLoggedInStatus not boolean', bool);
       return;
     }
     state.ui.isLoggedIn = bool;

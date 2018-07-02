@@ -76,6 +76,8 @@ export default {
     getUrl() {
       this.signInUrl = this.$store.state.config.cognito.signInUrl;
       this.logOutUrl = this.$store.state.config.cognito.logOutUrl;
+      // eslint-disable-next-line no-console
+      console.log(this.$store.state.ui.isLoggedIn);
       return (this.$store.state.ui.isLoggedIn) ? this.logOutUrl : this.signInUrl;
     },
   },

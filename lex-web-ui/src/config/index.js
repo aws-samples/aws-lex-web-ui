@@ -58,17 +58,22 @@ const configDefault = {
     poolId: '',
 
     // Client id of Cognito user pool used to obtain tokens
+    // e.g. ID: 9hahktbgen1cr14qsul6cshjt2
     clientId: '1hahktbgun8cr14qsul3cshjt8',
+
+    // The Cognito OAuth2 token endpoint
+    // e.g. Domain: https://mydomain.auth.us-east-1.amazoncognito.com/oauth2/token
+    oauthUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/oauth2/token',
 
     // AWS Cognito url used to sign in
     // Follow the response_type = code format
-    signInUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=1hahktbgun8cr14qsul3cshjt8&redirect_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com/index.html?loggedIn=true',
+    signInUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=1hahktbgun8cr14qsul3cshjt8&redirect_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com',
 
     // AWS Cognito url used to sign out
-    logOutUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/logout?client_id=1hahktbgun8cr14qsul3cshjt8&logout_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com/index.html?loggedIn=false',
+    logOutUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/logout?client_id=1hahktbgun8cr14qsul3cshjt8&logout_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com',
 
-    // Logged in user's session token information
-    sessionToken: '',
+    // Redirect URI used to redirect logged in users
+    redirectUri: 'https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com',
   },
 
   lex: {

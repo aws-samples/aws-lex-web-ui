@@ -62,9 +62,6 @@ export default {
     isRecording: false,
     silentRecordingCount: 0,
   },
-  cognito: {
-    sessionToken: '',
-  },
   ui: {
     isLoggedIn: false,
   },
