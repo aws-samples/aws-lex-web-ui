@@ -318,4 +318,14 @@ export default {
   setAwsCredsProvider(state, provider) {
     state.awsCreds.provider = provider;
   },
+  /**
+   * Sets the login status of user
+   */
+  setLoggedInStatus(state, bool) {
+    if (typeof bool !== 'boolean') {
+      console.error('setIsRunningEmbedded status not boolean', bool);
+      return;
+    }
+    state.ui.isLoggedIn = bool;
+  },
 };

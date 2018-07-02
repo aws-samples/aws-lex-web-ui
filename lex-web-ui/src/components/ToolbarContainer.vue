@@ -76,7 +76,7 @@ export default {
     getUrl() {
       this.signInUrl = this.$store.state.config.cognito.signInUrl;
       this.logOutUrl = this.$store.state.config.cognito.logOutUrl;
-      return (this.$store.state.config.ui.isLoggedIn) ? this.logOutUrl : this.signInUrl;
+      return (this.$store.state.ui.isLoggedIn) ? this.logOutUrl : this.signInUrl;
     },
   },
   methods: {

@@ -151,8 +151,6 @@ const configDefault = {
     // login and logout will be shown or hidden
     toolbarButtons: true,
 
-    isLoggedIn: false,
-
     // fav icon
     favIcon: '',
 

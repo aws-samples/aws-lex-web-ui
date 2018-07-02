@@ -43,7 +43,8 @@ License for the specific language governing permissions and limitations under th
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
-import auth from '../lib/cognito/auth';
+// import qs from 'qs';
+// import axios from 'axios';
 
 export default {
   name: 'lex-web',
@@ -239,7 +240,20 @@ export default {
         .then(() => this.logRunningMode());
     },
     auth() {
-      auth.getTokens();
+      // Pull url from window
+      const parsedUrl = new URL(window.location.href);
+      const loggedIn = parsedUrl.searchParams.get('loggedIn');
+      // eslint-disable-next-line no-console
+      console.log(this.$store.state.ui.isLoggedIn);
+      if (loggedIn) {
+        this.$store.commit('setLoggedInStatus', true);
+        const clientId = this.$store.state.config.cognito.clientId;
+        // eslint-disable-next-line no-console
+        console.log(clientId);
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('Not logged in...');
+      }
     },
   },
 };
