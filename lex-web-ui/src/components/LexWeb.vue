@@ -249,7 +249,7 @@ export default {
 
       if (authCode !== null) {
         // Set the login status of the user to true
-        this.$store.commit('setLoggedInStatus', true);
+        localStorage.setItem('loginStatus', JSON.stringify(true));
 
         // Send the code to the token endpoint and get tokens back
         const settings = {
@@ -270,14 +270,19 @@ export default {
         $.ajax(settings).done((response) => {
           localStorage.setItem('tokens', JSON.stringify(response));
           const tokens = JSON.parse(localStorage.getItem('tokens'));
-          const loginStatus = this.$store.state.ui.isLoggedIn;
+          const loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
           // eslint-disable-next-line no-console
-          console.log('Redirect should happen after this line');
+          console.log(tokens, loginStatus);
           if (loginStatus === true && tokens !== null) {
-            // eslint-disable-next-line no-console
-            console.log('This is where the redirect is happening.');
+            window.location.replace(this.$store.state.config.cognito.redirectUri);
           }
         });
+      } else {
+        const loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
+        if (loginStatus === true) {
+          // eslint-disable-next-line no-console
+          console.log('User is logged in!');
+        }
       }
     },
   },

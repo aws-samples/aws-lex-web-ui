@@ -20,7 +20,7 @@
       <span id="min-max-tooltip">{{toolTipMinimize}}</span>
     </v-tooltip>
     <span v-if="toolbarButtons == true">
-      <v-btn small :href="getUrl">{{buttonText}}</v-btn>
+      <v-btn small @click="clearStorage" :href="getUrl">{{buttonText}}</v-btn>
     </span>
     <v-btn
       v-if="$store.state.isRunningEmbedded"
@@ -71,14 +71,12 @@ export default {
       return (this.isUiMinimized) ? 'maximize' : 'minimize';
     },
     buttonText() {
-      return (this.$store.state.config.ui.isLoggedIn) ? 'Logout' : 'Login';
+      return (JSON.parse(localStorage.getItem('loginStatus'))) ? 'Logout' : 'Login';
     },
     getUrl() {
       this.signInUrl = this.$store.state.config.cognito.signInUrl;
       this.logOutUrl = this.$store.state.config.cognito.logOutUrl;
-      // eslint-disable-next-line no-console
-      console.log(this.$store.state.ui.isLoggedIn);
-      return (this.$store.state.ui.isLoggedIn) ? this.logOutUrl : this.signInUrl;
+      return (JSON.parse(localStorage.getItem('loginStatus'))) ? this.logOutUrl : this.signInUrl;
     },
   },
   methods: {
@@ -91,6 +89,16 @@ export default {
     toggleMinimize() {
       this.onInputButtonHoverLeave();
       this.$emit('toggleMinimizeUi');
+    },
+    clearStorage() {
+      // eslint-disable-next-line no-console
+      if (this.buttonText === 'Logout') {
+        localStorage.removeItem('tokens');
+        localStorage.setItem('loginStatus', JSON.stringify(false));
+        // eslint-disable-next-line no-console
+        console.log('The tokens have been cleared!');
+        window.location.replace(this.$store.state.config.cognito.redirectUri);
+      }
     },
   },
 };
