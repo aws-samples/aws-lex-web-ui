@@ -314,7 +314,7 @@ page](#stand-alone-page) section.
       // as a JSON file or events. The configUrl variable in the
       // loaderOptions above can be used to put these config values in a file
       // instead of explicitly passing it as an argument.
-      var chatbotUiconfig = {
+      var chatbotUiConfig = {
         ui: {
           // origin of the parent site where you are including the chatbot UI
           // set to window.location.origin since hosting on same site
@@ -337,7 +337,7 @@ page](#stand-alone-page) section.
 
       // Call the load function which returns a promise that is resolved
       // once the component is loaded or is rejected if there is an error
-      iframeLoader.load(chabotUiConfig)
+      iframeLoader.load(chatbotUiConfig)
         .then(function () {
           console.log('iframe loaded');
         })
