@@ -268,21 +268,32 @@ export default {
           },
         };
         $.ajax(settings).done((response) => {
+          // Save tokens to local storage
           localStorage.setItem('tokens', JSON.stringify(response));
           const tokens = JSON.parse(localStorage.getItem('tokens'));
+
+          // Decode id token
+          const idToken = response.id_token;
+          function parseJwt() {
+            const base64Url = idToken.split('.')[1];
+            const base64 = base64Url.replace('-', '+').replace('_', '/');
+            return JSON.parse(window.atob(base64));
+          }
+
+          // Save payload to local storage
+          const payload = parseJwt();
+          localStorage.setItem('payload', JSON.stringify(payload));
+
+          // Verify user is logged in and tokens exist before redirecting
           const loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
-          // eslint-disable-next-line no-console
-          console.log(tokens, loginStatus);
           if (loginStatus === true && tokens !== null) {
-            window.location.replace(this.$store.state.config.cognito.redirectUri);
+            if (this.$store.state.isRunningEmbedded) {
+              window.location.replace(this.$store.state.config.cognito.parentRedirectUri);
+            } else {
+              window.location.replace(this.$store.state.config.cognito.redirectUri);
+            }
           }
         });
-      } else {
-        const loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
-        if (loginStatus === true) {
-          // eslint-disable-next-line no-console
-          console.log('User is logged in!');
-        }
       }
     },
   },

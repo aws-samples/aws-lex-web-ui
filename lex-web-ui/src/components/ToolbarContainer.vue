@@ -19,8 +19,30 @@
     >
       <span id="min-max-tooltip">{{toolTipMinimize}}</span>
     </v-tooltip>
-    <span v-if="toolbarButtons == true">
-      <v-btn small @click="clearStorage" :href="getUrl">{{buttonText}}</v-btn>
+    <span v-if="toolbarButtons == true && loginStatus == false">
+      <v-btn small :href="getSignInUrl">Login</v-btn>
+    </span>
+    <span v-if="toolbarButtons == true && loginStatus == true">
+      <v-menu offset-y>
+        <v-btn 
+          small
+          slot="activator"
+        >
+          {{name}}
+        </v-btn>
+        <v-list>
+          <v-list-tile>
+            <v-list-tile-title @click="">
+              Profile
+            </v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-title @click="logOut">
+              Logout
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
     </span>
     <v-btn
       v-if="$store.state.isRunningEmbedded"
@@ -55,6 +77,8 @@ export default {
     return {
       signInUrl: '',
       logOutUrl: '',
+      payload: JSON.parse(localStorage.getItem('payload')),
+      name: '',
       shouldShowTooltip: false,
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
@@ -70,13 +94,16 @@ export default {
     toolTipMinimize() {
       return (this.isUiMinimized) ? 'maximize' : 'minimize';
     },
-    buttonText() {
-      return (JSON.parse(localStorage.getItem('loginStatus'))) ? 'Logout' : 'Login';
-    },
-    getUrl() {
+    getSignInUrl() {
+      if (this.$store.state.isRunningEmbedded) {
+        this.signInUrl = this.$store.state.config.cognito.parentSignInUrl;
+        return this.signInUrl;
+      }
       this.signInUrl = this.$store.state.config.cognito.signInUrl;
-      this.logOutUrl = this.$store.state.config.cognito.logOutUrl;
-      return (JSON.parse(localStorage.getItem('loginStatus'))) ? this.logOutUrl : this.signInUrl;
+      return this.signInUrl;
+    },
+    loginStatus() {
+      return JSON.parse(localStorage.getItem('loginStatus'));
     },
   },
   methods: {
@@ -90,16 +117,30 @@ export default {
       this.onInputButtonHoverLeave();
       this.$emit('toggleMinimizeUi');
     },
-    clearStorage() {
+    logOut() {
       // eslint-disable-next-line no-console
-      if (this.buttonText === 'Logout') {
-        localStorage.removeItem('tokens');
-        localStorage.setItem('loginStatus', JSON.stringify(false));
-        // eslint-disable-next-line no-console
-        console.log('The tokens have been cleared!');
-        window.location.replace(this.$store.state.config.cognito.redirectUri);
+      localStorage.removeItem('tokens');
+      localStorage.removeItem('payload');
+      localStorage.setItem('loginStatus', JSON.stringify(false));
+      // eslint-disable-next-line no-console
+      console.log('The tokens have been cleared!');
+      if (this.$store.state.isRunningEmbedded) {
+        this.logOutUrl = this.$store.state.config.cognito.parentLogOutUrl;
+        window.location.replace(this.logOutUrl);
+      } else {
+        this.logOutUrl = this.$store.state.config.cognito.logOutUrl;
+        window.location.replace(this.logOutUrl);
       }
     },
+    getName() {
+      if (this.payload !== null) {
+        this.name = this.payload.given_name;
+      }
+    },
+  },
+  created() {
+    this.getName();
+    // this.clearStorage();
   },
 };
 </script>

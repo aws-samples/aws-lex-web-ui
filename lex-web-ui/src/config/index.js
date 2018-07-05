@@ -65,15 +65,22 @@ const configDefault = {
     // e.g. Domain: https://mydomain.auth.us-east-1.amazoncognito.com/oauth2/token
     oauthUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/oauth2/token',
 
-    // AWS Cognito url used to sign in
-    // Follow the response_type = code format
+    // AWS Cognito url used to sign in. The 'parent' version of the
+    // URL (ex: parentSignInUrl, parentLogOutUrl) will be the link
+    // that redirects to the parent page if the chatbot is being
+    // used as an embedded iframe. If the chatbot is being used
+    // as a standalone application, use the 'regular' urls.
+    // Follow the response_type = code format.
     signInUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=1hahktbgun8cr14qsul3cshjt8&redirect_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com',
+    parentSignInUrl: '',
 
     // AWS Cognito url used to sign out
     logOutUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/logout?client_id=1hahktbgun8cr14qsul3cshjt8&logout_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com',
+    parentLogOutUrl: '',
 
     // Redirect URI used to redirect logged in users
     redirectUri: 'https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com',
+    parentRedirectUri: '',
   },
 
   lex: {
