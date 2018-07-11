@@ -14,7 +14,7 @@
               </v-btn>
               <v-btn 
                 small
-                @click.native="hideProfilePage">
+                @click="updateProfile">
                 Update Profile
               </v-btn>
           </v-toolbar>
@@ -60,14 +60,16 @@ export default {
   methods: {
     getUserProfile() {
       this.payload = JSON.parse(localStorage.getItem('payload'));
-      // eslint-disable-next-line no-console
-      console.log(this.payload);
       this.firstName = this.payload.given_name;
       this.lastName = this.payload.family_name;
       this.email = this.payload.email;
     },
     hideProfilePage() {
       this.$store.commit('showProfilePage', false);
+    },
+    updateProfile() {
+      // eslint-disable-next-line no-console
+      console.log('Need update functionality built here.');
     },
     changePassword() {
       window.location.replace(this.forgotPasswordUrl);
