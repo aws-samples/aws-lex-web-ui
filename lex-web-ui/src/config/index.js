@@ -81,6 +81,8 @@ const configDefault = {
     // Redirect URI used to redirect logged in users
     redirectUri: 'https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com',
     parentRedirectUri: '',
+
+    forgotPasswordUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/forgotPassword?response_type=code&client_id=1hahktbgun8cr14qsul3cshjt8&redirect_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com',
   },
 
   lex: {

@@ -10,6 +10,10 @@
       v-on:toggleMinimizeUi="toggleMinimizeUi"
     ></toolbar-container>
     
+    <ProfilePage
+      v-bind:show-profile-page="showProfilePage"
+    />
+    
     <v-content>
       <v-container class="message-list-container" fluid pa-0>
         <message-list v-show="!isUiMinimized"
@@ -43,6 +47,7 @@ License for the specific language governing permissions and limitations under th
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
+import ProfilePage from '@/components/ProfilePage';
 import $ from 'jquery';
 
 const { localStorage } = window;
@@ -53,6 +58,7 @@ export default {
     ToolbarContainer,
     MessageList,
     InputContainer,
+    ProfilePage,
   },
   computed: {
     initialSpeechInstruction() {
@@ -75,6 +81,9 @@ export default {
     },
     toolbarLogo() {
       return this.$store.state.config.ui.toolbarLogo;
+    },
+    showProfilePage() {
+      return this.$store.state.ui.showProfilePage;
     },
     isUiMinimized() {
       return this.$store.state.isUiMinimized;

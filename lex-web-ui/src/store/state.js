@@ -62,6 +62,9 @@ export default {
     isRecording: false,
     silentRecordingCount: 0,
   },
+  ui: {
+    showProfilePage: false,
+  },
 
   isRunningEmbedded: false, // am I running in an iframe?
   isUiMinimized: false, // when running embedded, is the iframe minimized?

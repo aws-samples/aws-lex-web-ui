@@ -318,4 +318,14 @@ export default {
   setAwsCredsProvider(state, provider) {
     state.awsCreds.provider = provider;
   },
+  /**
+   * Toggles the profile page of the current user
+   */
+  showProfilePage(state, bool) {
+    if (typeof bool !== 'boolean') {
+      console.error('setLoggedInStatus not boolean', bool);
+      return;
+    }
+    state.ui.showProfilePage = bool;
+  },
 };

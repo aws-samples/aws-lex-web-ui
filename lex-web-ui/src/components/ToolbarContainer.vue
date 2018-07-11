@@ -32,7 +32,7 @@
         </v-btn>
         <v-list>
           <v-list-tile>
-            <v-list-tile-title @click="">
+            <v-list-tile-title @click="showProfilePage">
               Profile
             </v-list-tile-title>
           </v-list-tile>
@@ -116,6 +116,9 @@ export default {
     toggleMinimize() {
       this.onInputButtonHoverLeave();
       this.$emit('toggleMinimizeUi');
+    },
+    showProfilePage() {
+      this.$store.commit('showProfilePage', true);
     },
     logOut() {
       // eslint-disable-next-line no-console
