@@ -323,5 +323,13 @@
         });
       });
     </script>
+    <script>
+      window.addEventListener("message", receiveMessage, false);
+      function receiveMessage(event){ 
+          var source = event.source.frameElement; //this is the iframe that sent the message
+          var message = event.data; //this is the message
+          //do something with message
+      }
+    </script>
   </body>
 </html>

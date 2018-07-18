@@ -1,6 +1,6 @@
 {
   "cognito": {
-    "poolId": ""
+    "poolId": "us-east-1:91af3e6d-b7da-4c8d-ab1b-f82decbda2b0"
   },
   "lex": {
     "botName": "WebUiOrderFlowers",
@@ -13,7 +13,7 @@
   "ui": {
     "parentOrigin": "http://localhost:8080",
     "pageTitle": "Order Flowers Bot",
-    "toolbarTitle": "Order Flowers"
+    "toolbarTitle": "Order Flowers Test"
   },
   "recorder": {
     "preset": "speech_recognition"

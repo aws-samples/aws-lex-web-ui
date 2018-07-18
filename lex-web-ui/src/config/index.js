@@ -55,15 +55,15 @@ const configDefault = {
   cognito: {
     // Cognito pool id used to obtain credentials
     // e.g. poolId: 'us-east-1:deadbeef-cac0-babe-abcd-abcdef01234',
-    poolId: '',
+    poolId: 'us-east-1_9XQByO8rv',
 
     // Client id of Cognito user pool used to obtain tokens
     // e.g. ID: 9hahktbgen1cr14qsul6cshjt2
-    clientId: '',
+    clientId: '1hahktbgun8cr14qsul3cshjt8',
 
     // The Cognito OAuth2 token endpoint
     // e.g. Domain: https://mydomain.auth.us-east-1.amazoncognito.com/oauth2/token
-    oauthUrl: '',
+    oauthUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/oauth2/token',
 
     // AWS Cognito url used to sign in. The 'parent' version of the
     // URL (ex: parentSignInUrl, parentLogOutUrl) will be the link
@@ -71,18 +71,18 @@ const configDefault = {
     // used as an embedded iframe. If the chatbot is being used
     // as a standalone application, use the 'regular' urls.
     // Follow the response_type = code format.
-    signInUrl: '',
+    signInUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=1hahktbgun8cr14qsul3cshjt8&redirect_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com',
     parentSignInUrl: '',
 
     // AWS Cognito url used to sign out
-    logOutUrl: '',
+    logOutUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/logout?client_id=1hahktbgun8cr14qsul3cshjt8&logout_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com',
     parentLogOutUrl: '',
 
     // Redirect URI used to redirect logged in users
-    redirectUri: '',
+    redirectUri: 'https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com',
     parentRedirectUri: '',
 
-    forgotPasswordUrl: '',
+    forgotPasswordUrl: 'https://devdomain.auth.us-east-1.amazoncognito.com/forgotPassword?response_type=code&client_id=1hahktbgun8cr14qsul3cshjt8&redirect_uri=https://61c36c3e11d347748bfd7560cb34a67e.vfs.cloud9.us-east-1.amazonaws.com',
   },
 
   lex: {
@@ -153,10 +153,10 @@ const configDefault = {
     // chat window text placeholder
     textInputPlaceholder: 'Type here or click on the mic',
 
-    toolbarColor: 'red',
+    toolbarColor: 'blue',
 
     // chat window title
-    toolbarTitle: 'Order Flowers',
+    toolbarTitle: 'Order Flowers Test',
 
     // logo used in toolbar - also used as favicon not specificied
     toolbarLogo: '',
