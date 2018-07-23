@@ -91,13 +91,9 @@ export default {
               this.userAttributes[key] = value;
             }
           }
-          // eslint-disable-next-line no-console
-          console.log('User info: ', this.userAttributes);
           return 'Done';
         });
       }
-      // eslint-disable-next-line no-console
-      console.log('Payload: ', this.payload['cognito:username']);
     },
     hideProfilePage() {
       this.$store.commit('showProfilePage', false);

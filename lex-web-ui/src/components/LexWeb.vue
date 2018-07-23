@@ -250,6 +250,17 @@ export default {
         .then(() => this.logRunningMode());
     },
     auth() {
+      // If tokens exist and are expired, clear localstorage
+      const checkPayload = JSON.parse(localStorage.getItem('payload'));
+      if (checkPayload !== null) {
+        const currentTime = Math.floor(Date.now() / 1000);
+        const expiration = checkPayload.exp;
+        if (currentTime > expiration) {
+          localStorage.clear();
+          localStorage.setItem('loginStatus', JSON.stringify(false));
+        }
+      }
+
       // Pull url from window
       const parsedUrl = new URL(window.location.href);
 

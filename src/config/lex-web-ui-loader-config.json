@@ -1,6 +1,6 @@
 {
   "cognito": {
-    "poolId": ""
+    "poolId": "us-east-1:85c08d68-e47d-437e-a86a-59f9b74e0cfd"
   },
   "lex": {
     "botName": "OrderFlowers",
@@ -9,7 +9,7 @@
   },
   "ui": {
     "parentOrigin": "",
-    "toolbarTitle": "Order Flowers",
+    "toolbarTitle": "	WebUiDevOrderFlowers",
     "toolbarLogo": "",
     "pushInitialTextOnRestart": false
   },

@@ -121,9 +121,7 @@ export default {
       this.$store.commit('showProfilePage', true);
     },
     logOut() {
-      // eslint-disable-next-line no-console
-      localStorage.removeItem('tokens');
-      localStorage.removeItem('payload');
+      localStorage.clear();
       localStorage.setItem('loginStatus', JSON.stringify(false));
       // eslint-disable-next-line no-console
       console.log('The tokens have been cleared!');

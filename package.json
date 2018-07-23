@@ -26,7 +26,7 @@
     "build-prod": "webpack -p --env production",
     "build-dev": "webpack --hide-modules",
     "build": "npm run build-prod && npm run build-dev",
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --host 0.0.0.0 --port 8080 --disableHostCheck true",
     "lint": "eslint --format node_modules/eslint-friendly-formatter src/lex-web-ui-loader"
   },
   "devDependencies": {
