@@ -29,6 +29,7 @@
   </v-app>
 </template>
 
+<script src="./chatbot-ui-loader.js"></script>
 <script>
 /*
 Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -291,9 +292,19 @@ export default {
           // Save tokens to local storage
           localStorage.setItem('tokens', JSON.stringify(response));
           const tokens = JSON.parse(localStorage.getItem('tokens'));
-
-          // Decode id token
           const idToken = response.id_token;
+
+          // Send id token as a session attribute
+          const lexWebUiLoader = new LexWebUiLoader();
+          lexWebUiLoader.load({
+            lex: {
+              botName: this.$store.state.config.lex.botName,
+              sessionAttributes: {
+                idToken: JSON.stringify(idToken),
+              },
+            },
+          });
+          // Decode payload of id token
           function parseJwt() {
             const base64Url = idToken.split('.')[1];
             const base64 = base64Url.replace('-', '+').replace('_', '/');
