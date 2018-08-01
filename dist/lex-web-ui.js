@@ -7126,6 +7126,7 @@ var recorder = void 0;
     }).then(function () {
       return context.commit('setIsMicMuted', recorder.isMicMuted);
     }).catch(function (error) {
+      console.warn(error);
       if (['PermissionDeniedError', 'NotAllowedError'].indexOf(error.name) >= 0) {
         console.warn('get user media permission denied');
         context.dispatch('pushErrorMessage', 'It seems like the microphone access has been denied. ' + 'If you want to use voice, please allow mic usage in your browser.');

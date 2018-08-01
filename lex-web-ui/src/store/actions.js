@@ -116,6 +116,7 @@ export default {
       .then(() => context.commit('setIsRecorderSupported', true))
       .then(() => context.commit('setIsMicMuted', recorder.isMicMuted))
       .catch((error) => {
+        console.warn(error);
         if (['PermissionDeniedError', 'NotAllowedError'].indexOf(error.name)
             >= 0) {
           console.warn('get user media permission denied');
