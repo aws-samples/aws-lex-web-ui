@@ -72,8 +72,9 @@ class Loader {
     this.options = options;
 
     // append a trailing slash if not present in the baseUrl
+    var baseUrl=this.options.baseUrl
     this.options.baseUrl =
-      (this.options.baseUrl && this.options.baseUrl.endsWith('/')) ?
+      (this.options.baseUrl && baseUrl[baseUrl.length-1]==='/' ?
         this.options.baseUrl : `${this.options.baseUrl}/`;
 
     this.confLoader = new ConfigLoader(this.options);
