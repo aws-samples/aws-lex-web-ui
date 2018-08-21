@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0c0407f56b4410bc8729"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0a7465d503b274cce7c2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -3815,13 +3815,14 @@ var Loader = function () {
    */
   function Loader(options) {
     (0, _classCallCheck3.default)(this, Loader);
-
+    var baseUrl = options.baseUrl;
     // polyfill needed for IE11
+
     setCustomEventShim();
     this.options = options;
 
     // append a trailing slash if not present in the baseUrl
-    this.options.baseUrl = this.options.baseUrl && this.options.baseUrl.endsWith('/') ? this.options.baseUrl : this.options.baseUrl + '/';
+    this.options.baseUrl = this.options.baseUrl && baseUrl[baseUrl.length - 1] === '/' ? this.options.baseUrl : this.options.baseUrl + '/';
 
     this.confLoader = new _configLoader.ConfigLoader(this.options);
   }
