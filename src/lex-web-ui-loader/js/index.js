@@ -157,13 +157,16 @@ export class IframeLoader extends Loader {
   }
 
   load(configParam = {}) {
-    this.config.iframe = this.config.iframe || {};
-    this.config.iframe.iframeSrcPath = this.mergeSrcPath(configParam);
-
     return super.load(configParam)
       .then(() => {
         // assign API to this object to make calls more succint
         this.api = this.compLoader.api;
+        // make sure iframe and iframeSrcPath are set to values if not
+        // configured by standard mechanisms. At this point, default
+        // values from ./defaults/loader.js will be used.
+        this.config.iframe = this.config.iframe || {};
+        this.config.iframe.iframeSrcPath = this.config.iframe.iframeSrcPath ||
+          this.mergeSrcPath(configParam);
       });
   }
 
