@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0c29d3918b0927bdf843"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1757fe1b95a8bde03c9f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -9987,8 +9987,7 @@ var configBase = exports.configBase = {
   recorder: {},
   iframe: {
     iframeOrigin: '',
-    iframeSrcPath: '',
-    shouldLoadIframeMinimized: true
+    iframeSrcPath: ''
   }
 };
 
@@ -10345,12 +10344,14 @@ var IframeLoader = exports.IframeLoader = function (_Loader2) {
 
       var configParam = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-      this.config.iframe = this.config.iframe || {};
-      this.config.iframe.iframeSrcPath = this.mergeSrcPath(configParam);
-
       return (0, _get3.default)(IframeLoader.prototype.__proto__ || (0, _getPrototypeOf2.default)(IframeLoader.prototype), 'load', this).call(this, configParam).then(function () {
         // assign API to this object to make calls more succint
         _this4.api = _this4.compLoader.api;
+        // make sure iframe and iframeSrcPath are set to values if not
+        // configured by standard mechanisms. At this point, default
+        // values from ./defaults/loader.js will be used.
+        _this4.config.iframe = _this4.config.iframe || {};
+        _this4.config.iframe.iframeSrcPath = _this4.config.iframe.iframeSrcPath || _this4.mergeSrcPath(configParam);
       });
     }
 
@@ -11413,6 +11414,9 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
       if (!('iframeOrigin' in iframeConfig && iframeConfig.iframeOrigin)) {
         this.config.iframe.iframeOrigin = this.config.parentOrigin || window.location.origin;
       }
+      if (iframeConfig.shouldLoadIframeMinimized === undefined) {
+        this.config.iframe.shouldLoadIframeMinimized = true;
+      }
       // assign parentOrigin if not found in config
       if (!this.config.parentOrigin) {
         this.config.parentOrigin = this.config.iframe.iframeOrigin || window.location.origin;
@@ -11940,6 +11944,11 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
         console.error('missing parentOrigin config field');
         return false;
       }
+      if (!('shouldLoadIframeMinimized' in iframeConfig)) {
+        console.error('missing shouldLoadIframeMinimized config field');
+        return false;
+      }
+
       return true;
     }
   }]);
