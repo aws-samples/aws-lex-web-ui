@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.13.2] - 2018-06-14
 
 ### Fixed
+- Error in IE11 and Edge in Snippet URL. [f2c7c4332e6bfa6b0cc9dc495881be9bedaeb46f]
 - Error in IE11 and Edge to access localStorage. [4f91fbe9e462a680c0bf3476203589a88afccc84]
 
 ## [0.13.1] - 2018-06-07

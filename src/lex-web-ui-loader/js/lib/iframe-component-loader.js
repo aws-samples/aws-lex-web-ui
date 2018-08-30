@@ -14,8 +14,8 @@
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 /* global AWS */
 
+import 'babel-polyfill';
 import { ConfigLoader } from './config-loader';
-
 /**
  * Instantiates and mounts the chatbot component in an iframe
  *
@@ -171,7 +171,6 @@ export class IframeComponentLoader {
       } catch (err) {
         reject(new Error(`cognito credentials could not be created ${err}`));
       }
-
       // get and assign credentials
       return credentials.getPromise()
         .then(() => {
