@@ -48,7 +48,7 @@ and (max-width: 480px) {
     margin-right: 2vw;
     align-self: center;
   }
-  .lex-web-ui-ifame--minimize {
+  .lex-web-ui-iframe--minimize {
     min-width: 60vw;
     height: 48px;
   }

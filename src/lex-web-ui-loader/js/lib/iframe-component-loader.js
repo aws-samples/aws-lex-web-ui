@@ -14,8 +14,8 @@
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 /* global AWS */
 
+import 'babel-polyfill';
 import { ConfigLoader } from './config-loader';
-
 /**
  * Instantiates and mounts the chatbot component in an iframe
  *
@@ -61,6 +61,9 @@ export class IframeComponentLoader {
       this.config.iframe.iframeOrigin =
         this.config.parentOrigin || window.location.origin;
     }
+    if (iframeConfig.shouldLoadIframeMinimized === undefined) {
+      this.config.iframe.shouldLoadIframeMinimized = true;
+    }
     // assign parentOrigin if not found in config
     if (!(this.config.parentOrigin)) {
       this.config.parentOrigin =
@@ -102,6 +105,11 @@ export class IframeComponentLoader {
       console.error('missing parentOrigin config field');
       return false;
     }
+    if (!('shouldLoadIframeMinimized' in iframeConfig)) {
+      console.error('missing shouldLoadIframeMinimized config field');
+      return false;
+    }
+
     return true;
   }
 
@@ -163,7 +171,6 @@ export class IframeComponentLoader {
       } catch (err) {
         reject(new Error(`cognito credentials could not be created ${err}`));
       }
-
       // get and assign credentials
       return credentials.getPromise()
         .then(() => {

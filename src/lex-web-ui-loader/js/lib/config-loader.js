@@ -47,7 +47,7 @@ export class ConfigLoader {
       .then(() => {
         if (this.options.shouldLoadConfigFromJsonFile) {
           // append baseUrl to config if it's relative
-          const url = (this.options.configUrl.startsWith('http')) ?
+          const url = (this.options.configUrl.match('^http')) ?
             this.options.configUrl :
             `${this.options.baseUrl}${this.options.configUrl}`;
           return ConfigLoader.loadJsonFile(url);
@@ -207,7 +207,7 @@ export class ConfigLoader {
     const parentOrigin = config.ui && config.ui.parentOrigin;
     return (this.options &&
       this.options.shouldIgnoreConfigWhenEmbedded &&
-      url.includes('lexWebUiEmbed=true')) ?
+      url.indexOf('lexWebUiEmbed=true') !== -1) ?
       { ui: { parentOrigin } } : config;
   }
 
