@@ -48,6 +48,17 @@ Parameters:
             will be preserved. Only applies if the bot is created by
             this stack.
 
+    EnableCognitoLogin:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, a menu with a login action will be displayed
+            in the Lex Web Ui. This feature uses Cognito User Pools with
+            hosted login pages. After login, the menu will switch to logout.
+
     CodeBuildName:
         Type: String
         Description: >
@@ -73,6 +84,16 @@ Parameters:
         Default: ''
         AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
         ConstraintDescription: Empty or valid browser origin
+
+    WebAppPath:
+        Type: String
+        Default: '/parent.html'
+        Description: >
+            Path to the page hosting the sample WebApp. This parameter defaults
+            to parent.html which is used by the sample app created when hosting the
+            bot in a separate iframe. This path should be updated to reflect the
+            path to the default (home) page used by the WebAppParentOrigin.
+            This may be /index.html rather than the default.
 
     CognitoIdentityPoolId:
         Type: String
@@ -158,6 +179,7 @@ Metadata:
                   - BotName
                   - BotNamePrefix
                   - ShouldDeleteBot
+                  - EnableCognitoLogin
             - Label:
                 default: Cognito Parameters
               Parameters:
@@ -167,6 +189,7 @@ Metadata:
                 default: Web Application Parameters
               Parameters:
                   - WebAppParentOrigin
+                  - WebAppPath
                   - WebAppConfBotInitialText
                   - WebAppConfBotInitialSpeech
                   - WebAppConfToolbarTitle
@@ -228,6 +251,30 @@ Resources:
                 WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
                 WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
+                ShouldEnableCognitoLogin: !Ref EnableCognitoLogin
+                CognitoAppUserPoolClientId:
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+                      - "UserMustSupply"
+                CognitoUserPoolId:
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+                      - "UserMustSupply"
+
+
+    CognitoIdentityPoolConfig:
+        Type: AWS::CloudFormation::Stack
+        Condition: NeedsCognito
+        Properties:
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/cognitouserpoolconfig.yaml"
+            Parameters:
+                WebAppUrl: !If [NeedsParentOrigin, !GetAtt CodeBuildDeploy.Outputs.WebAppBase, !Ref WebAppParentOrigin]
+                WebAppPath: !Ref WebAppPath
+                CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
+                CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+                CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
 
 Outputs:
     BotName:

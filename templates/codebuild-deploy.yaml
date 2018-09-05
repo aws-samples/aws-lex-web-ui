@@ -41,6 +41,17 @@ Parameters:
             If set to True, buckets and their associated data will be deleted on
             CloudFormation stack delete. If set to False, S3 buckets will be retained.
 
+    ShouldEnableCognitoLogin:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, a menu with a login action will be displayed
+            in the Lex Web Ui. This feature uses Cognito User Pools with
+            hosted login pages. After login, the menu will switch to logout.
+
     CognitoIdentityPoolId:
         Type: String
         Description: >
@@ -49,7 +60,17 @@ Parameters:
         MaxLength: 55
         AllowedPattern: '^[\w-]+:[0-9a-f-]+$'
         ConstraintDescription: >
-            Alphanumeric followed by a colum and ending with a hex uuid type.
+            Alphanumeric followed by a column and ending with a hex uuid type.
+
+    CognitoAppUserPoolClientId:
+        Type: String
+        Description: >
+            Cognito App User Pool Client Id to used in the web app configuration.
+
+    CognitoUserPoolId:
+        Type: String
+        Description: >
+            Cognito App User Pool Id
 
     BotName:
         Description: >
@@ -131,6 +152,10 @@ Resources:
                       Value: dist
                     - Name: POOL_ID
                       Value: !Ref CognitoIdentityPoolId
+                    - Name: APP_USER_POOL_CLIENT_ID
+                      Value: !Ref CognitoAppUserPoolClientId
+                    - Name: APP_USER_POOL_NAME
+                      Value: !Ref CognitoUserPoolId
                     - Name: WEBAPP_BUCKET
                       Value: !Ref WebAppBucket
                     - Name: AWS_DEFAULT_REGION
@@ -143,6 +168,8 @@ Resources:
                       Value: !Ref WebAppConfBotInitialSpeech
                     - Name: UI_TOOLBAR_TITLE
                       Value: !Ref WebAppConfToolbarTitle
+                    - Name: ENABLE_LOGIN
+                      Value: !Ref ShouldEnableCognitoLogin
                     - Name: PARENT_ORIGIN
                       Value: !If
                         - NeedsParentOrigin
@@ -343,6 +370,14 @@ Outputs:
     WebAppUrl:
         Value: !Sub "https://${WebAppBucket.DomainName}/index.html"
         Description: URL of the web application
+
+    WebAppBase:
+        Value: !Sub "https://${WebAppBucket.DomainName}"
+        Description: Base url portion of the web application
+
+    WebAppDomainName:
+        Value: !Sub "${WebAppBucket.DomainName}"
+        Description: DomainName of the web application
 
     ParentPageUrl:
         Value: !Sub "https://${WebAppBucket.DomainName}/parent.html"

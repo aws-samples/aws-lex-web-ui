@@ -1,6 +1,9 @@
 {
   "cognito": {
-    "poolId": ""
+    "poolId": "us-east-1:389f9063-82a0-4a8c-bdc3-3bbb4c3d36d0",
+    "appUserPoolClientId": "",
+    "appUserPoolName": "",
+    "appDomainName": ""
   },
   "lex": {
     "botName": "OrderFlowers",
@@ -11,6 +14,7 @@
     "parentOrigin": "",
     "toolbarTitle": "Order Flowers",
     "toolbarLogo": "",
+    "enableLogin": "false",
     "pushInitialTextOnRestart": false
   },
   "polly": {
