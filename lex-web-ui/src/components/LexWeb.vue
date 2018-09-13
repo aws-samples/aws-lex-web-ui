@@ -151,6 +151,7 @@ export default {
       this.$store.commit('setTokens', {
         idtokenjwt: '',
         accesstokenjwt: '',
+        refreshtoken: '',
       });
     },
     handleRequestLogin() {

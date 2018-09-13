@@ -233,7 +233,7 @@ Resources:
                                     'COGNITO',
                             ],
                             AllowedOAuthFlows=[
-                                'implicit',
+                                'code',
                             ],
                             AllowedOAuthScopes=[
                                 'phone', 'email', 'openid', 'profile'

@@ -395,6 +395,7 @@ export class IframeComponentLoader {
             const tokens = {};
             tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
             tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+            tokens.refreshtoken = localStorage.getItem('refreshtoken');
             this.sendMessageToIframe({
               event: 'confirmLogin',
               data: tokens,

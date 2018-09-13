@@ -319,8 +319,10 @@ export default {
     if (tokens) {
       state.tokens.idtokenjwt = tokens.idtokenjwt;
       state.tokens.accesstokenjwt = tokens.accesstokenjwt;
+      state.tokens.refreshtoken = tokens.refreshtoken;
       state.lex.sessionAttributes.idtokenjwt = tokens.idtokenjwt;
       state.lex.sessionAttributes.accesstokenjwt = tokens.accesstokenjwt;
+      state.lex.sessionAttributes.refreshtoken = tokens.refreshtoken;
     } else {
       state.tokens = undefined;
     }
