@@ -27,7 +27,6 @@ export const configBase = {
   iframe: {
     iframeOrigin: '',
     iframeSrcPath: '',
-    shouldLoadIframeMinimized: true,
   },
 };
 

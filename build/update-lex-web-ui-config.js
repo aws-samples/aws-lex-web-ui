@@ -19,6 +19,8 @@ const config = require('../config');
   'IFRAME_ORIGIN',
   'PARENT_ORIGIN',
   'POOL_ID',
+  'APP_USER_POOL_CLIENT_ID',
+  'APP_DOMAIN_NAME',
   'UI_TOOLBAR_TITLE',
   'UI_TOOLBAR_LOGO',
 ].forEach(function (envVar) {

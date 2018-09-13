@@ -14,7 +14,9 @@
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 /* global AWS */
 
+import 'babel-polyfill';
 import { ConfigLoader } from './config-loader';
+import { logout, login, completeLogin, completeLogout, getAuth } from './loginutil';
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -61,6 +63,9 @@ export class IframeComponentLoader {
       this.config.iframe.iframeOrigin =
         this.config.parentOrigin || window.location.origin;
     }
+    if (iframeConfig.shouldLoadIframeMinimized === undefined) {
+      this.config.iframe.shouldLoadIframeMinimized = true;
+    }
     // assign parentOrigin if not found in config
     if (!(this.config.parentOrigin)) {
       this.config.parentOrigin =
@@ -102,6 +107,11 @@ export class IframeComponentLoader {
       console.error('missing parentOrigin config field');
       return false;
     }
+    if (!('shouldLoadIframeMinimized' in iframeConfig)) {
+      console.error('missing shouldLoadIframeMinimized config field');
+      return false;
+    }
+
     return true;
   }
 
@@ -134,16 +144,35 @@ export class IframeComponentLoader {
     });
   }
 
+  generateConfigObj() {
+    const config = {
+      appUserPoolClientId: this.config.cognito.appUserPoolClientId,
+      appDomainName: this.config.cognito.appDomainName,
+    };
+    return config;
+  }
+
   /**
-   * Creates Cognito credentials
+   * Creates Cognito credentials and processes Cognito login if complete
    * Inits this.credentials
    */
   initCognitoCredentials() {
     return new Promise((resolve, reject) => {
+      const curUrl = window.location.href;
+      if (curUrl.indexOf('loggedin') >= 0) {
+        if (completeLogin(this.generateConfigObj())) {
+          // this.sendMessageToIframe({ event: 'confirmLogin' });
+        }
+      } else if (curUrl.indexOf('loggedout') >= 0) {
+        if (completeLogout(this.generateConfigObj())) {
+          // this.sendMessageToIframe({ event: 'confirmLogout' });
+        }
+      }
       const { poolId: cognitoPoolId } =
         this.config.cognito;
       const region =
         this.config.cognito.region || this.config.region || 'us-east-1';
+      const poolName = `cognito-idp.us-east-1.amazonaws.com/${this.config.cognito.appUserPoolName}`;
       if (!cognitoPoolId) {
         return reject(new Error('missing cognito poolId config'));
       }
@@ -155,15 +184,28 @@ export class IframeComponentLoader {
       }
 
       let credentials;
-      try {
-        credentials = new AWS.CognitoIdentityCredentials(
-          { IdentityPoolId: cognitoPoolId },
-          { region },
-        );
-      } catch (err) {
-        reject(new Error(`cognito credentials could not be created ${err}`));
+      const idtoken = localStorage.getItem('idtokenjwt');
+      if (idtoken) { // auth role since logged in
+        try {
+          const logins = {};
+          logins[poolName] = idtoken;
+          credentials = new AWS.CognitoIdentityCredentials(
+            { IdentityPoolId: cognitoPoolId },
+            { region },
+          );
+        } catch (err) {
+          reject(new Error(`cognito auth credentials could not be created ${err}`));
+        }
+      } else { // noauth role
+        try {
+          credentials = new AWS.CognitoIdentityCredentials(
+            { IdentityPoolId: cognitoPoolId },
+            { region },
+          );
+        } catch (err) {
+          reject(new Error(`cognito noauth credentials could not be created ${err}`));
+        }
       }
-
       // get and assign credentials
       return credentials.getPromise()
         .then(() => {
@@ -347,6 +389,18 @@ export class IframeComponentLoader {
         if (this.isChatBotReady) {
           clearTimeout(readyManager.timeoutId);
           clearInterval(readyManager.intervalId);
+          const auth = getAuth(this.generateConfigObj());
+          const session = auth.getSignInUserSession();
+          if (session.isValid()) {
+            const tokens = {};
+            tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+            tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+            tokens.refreshtoken = localStorage.getItem('refreshtoken');
+            this.sendMessageToIframe({
+              event: 'confirmLogin',
+              data: tokens,
+            });
+          }
           resolve();
         }
       };
@@ -432,6 +486,27 @@ export class IframeComponentLoader {
               error: 'failed to toggleMinimizeUi',
             });
           });
+      },
+
+      generateConfigObj() {
+        const config = {
+          appUserPoolClientId: this.config.cognito.appUserPoolClientId,
+          appDomainName: this.config.cognito.appDomainName,
+        };
+        return config;
+      },
+
+      // sent when login is requested from iframe
+      requestLogin(evt) {
+        evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
+        login(this.generateConfigObj());
+      },
+
+      // sent when logout is requested from iframe
+      requestLogout(evt) {
+        logout(this.generateConfigObj());
+        evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
+        this.sendMessageToIframe({ event: 'confirmLogout' });
       },
 
       // iframe sends Lex updates based on Lex API responses

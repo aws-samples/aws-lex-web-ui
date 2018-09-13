@@ -647,6 +647,13 @@ export default {
       { event: 'toggleMinimizeUi' },
     );
   },
+  toggleIsLoggedIn(context) {
+    context.commit('toggleIsLoggedIn');
+    return context.dispatch(
+      'sendMessageToParentWindow',
+      { event: 'toggleIsLoggedIn' },
+    );
+  },
   sendMessageToParentWindow(context, message) {
     if (!context.state.isRunningEmbedded) {
       const error = 'sendMessage called when not running embedded';

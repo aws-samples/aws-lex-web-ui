@@ -2,11 +2,14 @@
   <v-app id="lex-web"
   >
     <toolbar-container
+      v-bind:userName="userNameValue"
       v-bind:toolbar-title="toolbarTitle"
       v-bind:toolbar-color="toolbarColor"
       v-bind:toolbar-logo="toolbarLogo"
       v-bind:is-ui-minimized="isUiMinimized"
       v-on:toggleMinimizeUi="toggleMinimizeUi"
+      @requestLogin="handleRequestLogin"
+      @requestLogout="handleRequestLogout"
     ></toolbar-container>
 
     <v-content>
@@ -43,8 +46,15 @@ import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
 
+const jwt = require('jsonwebtoken');
+
 export default {
   name: 'lex-web',
+  data() {
+    return {
+      userNameValue: '',
+    };
+  },
   components: {
     ToolbarContainer,
     MessageList,
@@ -132,6 +142,40 @@ export default {
     toggleMinimizeUi() {
       return this.$store.dispatch('toggleIsUiMinimized');
     },
+    loginConfirmed(evt) {
+      this.$store.commit('setIsLoggedIn', true);
+      this.$store.commit('setTokens', evt.data.data);
+    },
+    logoutConfirmed() {
+      this.$store.commit('setIsLoggedIn', false);
+      this.$store.commit('setTokens', {
+        idtokenjwt: '',
+        accesstokenjwt: '',
+        refreshtoken: '',
+      });
+    },
+    handleRequestLogin() {
+      console.info('request login');
+      if (this.$store.state.isRunningEmbedded) {
+        this.$store.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'requestLogin' },
+        );
+      } else {
+        this.loginConfirmed();
+      }
+    },
+    handleRequestLogout() {
+      console.info('request logout');
+      if (this.$store.state.isRunningEmbedded) {
+        this.$store.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'requestLogout' },
+        );
+      } else {
+        this.logoutConfirmed();
+      }
+    },
     // messages from parent
     messageHandler(evt) {
       // security check
@@ -179,10 +223,35 @@ export default {
               event: 'resolve', type: evt.data.event,
             }));
           break;
+        case 'confirmLogin':
+          this.loginConfirmed(evt);
+          this.userNameValue = this.userName();
+          break;
+        case 'confirmLogout':
+          this.logoutConfirmed();
+          break;
         default:
           console.warn('unknown message in messageHanlder', evt);
           break;
       }
+    },
+    userName() {
+      let v = '';
+      if (this.$store.state.tokens && this.$store.state.tokens.idtokenjwt) {
+        const decoded = jwt.decode(this.$store.state.tokens.idtokenjwt, { complete: true });
+        if (decoded) {
+          if (decoded.payload) {
+            if (decoded.payload.email) {
+              v = decoded.payload.email;
+            }
+            if (decoded.payload.preferred_username) {
+              v = decoded.payload.preferred_username;
+            }
+          }
+        }
+        return `[${v}]`;
+      }
+      return v;
     },
     logRunningMode() {
       if (!this.$store.state.isRunningEmbedded) {
