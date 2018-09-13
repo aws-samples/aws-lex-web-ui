@@ -30,6 +30,7 @@
     "lint": "eslint --format node_modules/eslint-friendly-formatter src/lex-web-ui-loader"
   },
   "dependencies": {
+    "amazon-cognito-auth-js": "^1.2.4",
     "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {

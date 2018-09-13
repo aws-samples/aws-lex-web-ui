@@ -6,10 +6,36 @@
     dense
     fixed
   >
-    <img v-if="toolbarLogo" v-bind:src="toolbarLogo">
+    <img v-if="toolbarLogo" v-bind:src="toolbarLogo"/>
+
+    <v-menu v-if="isEnableLogin" offset-y>
+
+      <v-btn
+        slot="activator"
+        dark
+        icon
+      >
+        <v-icon>
+          {{'menu'}}
+        </v-icon>
+      </v-btn>
+
+      <v-list>
+        <v-list-tile>
+          <v-list-tile-title v-if="isLoggedIn" v-on:click="requestLogout">{{ items[1].title }}</v-list-tile-title>
+          <v-list-tile-title v-if="!isLoggedIn" v-on:click="requestLogin">{{ items[0].title  }}</v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
+
     <v-toolbar-title class="hidden-xs-and-down">
       {{ toolbarTitle }}
     </v-toolbar-title>
+
+    <v-toolbar-title class="hidden-xs-and-down">
+      {{ userName }}
+    </v-toolbar-title>
+
     <v-spacer />
     <!-- tooltip should be before btn to avoid right margin issue in mobile -->
     <v-tooltip
@@ -50,6 +76,10 @@ export default {
   name: 'toolbar-container',
   data() {
     return {
+      items: [
+        { title: 'Login' },
+        { title: 'Logout' },
+      ],
       shouldShowTooltip: false,
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
@@ -60,10 +90,16 @@ export default {
       },
     };
   },
-  props: ['toolbarTitle', 'toolbarColor', 'toolbarLogo', 'isUiMinimized'],
+  props: ['toolbarTitle', 'toolbarColor', 'toolbarLogo', 'isUiMinimized', 'userName'],
   computed: {
     toolTipMinimize() {
       return (this.isUiMinimized) ? 'maximize' : 'minimize';
+    },
+    isEnableLogin() {
+      return this.$store.state.config.ui.enableLogin;
+    },
+    isLoggedIn() {
+      return this.$store.state.isLoggedIn;
     },
   },
   methods: {
@@ -76,6 +112,16 @@ export default {
     toggleMinimize() {
       this.onInputButtonHoverLeave();
       this.$emit('toggleMinimizeUi');
+    },
+    requestLogin() {
+      this.$emit('requestLogin');
+    },
+    requestLogout() {
+      this.$emit('requestLogout');
+    },
+    toggleIsLoggedIn() {
+      this.onInputButtonHoverLeave();
+      this.$emit('toggleIsLoggedIn');
     },
   },
 };
