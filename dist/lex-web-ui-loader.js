@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ecef7c7b701ebac8f555"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "cde50f82bc0fa7de2261"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -743,7 +743,7 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
-// CONCATENATED MODULE: /Users/potterve/SourceAHA/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAccessToken.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAccessToken.js
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -841,7 +841,7 @@ var CognitoAccessToken = function () {
 }();
 
 /* harmony default export */ var es_CognitoAccessToken = (CognitoAccessToken);
-// CONCATENATED MODULE: /Users/potterve/SourceAHA/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoIdToken.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoIdToken.js
 function CognitoIdToken__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -925,7 +925,7 @@ var CognitoIdToken = function () {
 }();
 
 /* harmony default export */ var es_CognitoIdToken = (CognitoIdToken);
-// CONCATENATED MODULE: /Users/potterve/SourceAHA/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoRefreshToken.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoRefreshToken.js
 function CognitoRefreshToken__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -982,7 +982,7 @@ var CognitoRefreshToken = function () {
 }();
 
 /* harmony default export */ var es_CognitoRefreshToken = (CognitoRefreshToken);
-// CONCATENATED MODULE: /Users/potterve/SourceAHA/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoTokenScopes.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoTokenScopes.js
 function CognitoTokenScopes__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -1039,7 +1039,7 @@ var CognitoTokenScopes = function () {
 }();
 
 /* harmony default export */ var es_CognitoTokenScopes = (CognitoTokenScopes);
-// CONCATENATED MODULE: /Users/potterve/SourceAHA/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuthSession.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuthSession.js
 function CognitoAuthSession__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -1238,7 +1238,7 @@ var CognitoAuthSession_CognitoAuthSession = function () {
 }();
 
 /* harmony default export */ var es_CognitoAuthSession = (CognitoAuthSession_CognitoAuthSession);
-// CONCATENATED MODULE: /Users/potterve/SourceAHA/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/StorageHelper.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/StorageHelper.js
 function StorageHelper__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -1349,7 +1349,7 @@ var StorageHelper = function () {
 }();
 
 /* harmony default export */ var es_StorageHelper = (StorageHelper);
-// CONCATENATED MODULE: /Users/potterve/SourceAHA/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuth.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuth.js
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function CognitoAuth__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2188,7 +2188,7 @@ var CognitoAuth_CognitoAuth = function () {
 }();
 
 /* harmony default export */ var es_CognitoAuth = (CognitoAuth_CognitoAuth);
-// CONCATENATED MODULE: /Users/potterve/SourceAHA/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/DateHelper.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/DateHelper.js
 function DateHelper__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -2254,7 +2254,7 @@ var DateHelper = function () {
 }();
 
 /* harmony default export */ var es_DateHelper = (DateHelper);
-// CONCATENATED MODULE: /Users/potterve/SourceAHA/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/index.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/index.js
 /* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "CognitoAccessToken", function() { return es_CognitoAccessToken; });
 /* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "CognitoIdToken", function() { return es_CognitoIdToken; });
 /* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "CognitoRefreshToken", function() { return es_CognitoRefreshToken; });
@@ -13309,6 +13309,7 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
               var tokens = {};
               tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
               tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+              tokens.refreshtoken = localStorage.getItem('refreshtoken');
               _this6.sendMessageToIframe({
                 event: 'confirmLogin',
                 data: tokens
@@ -13647,16 +13648,33 @@ function getAuth(config) {
   };
 
   var auth = new _amazonCognitoAuthJs.CognitoAuth(authData);
+  auth.useCodeGrantFlow();
   auth.userhandler = {
-    onSuccess: function onSuccess() {
+    onSuccess: function onSuccess(session) {
       console.debug('Sign in success');
+      localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
+      localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
+      localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
     },
     onFailure: function onFailure(err) {
       console.debug('Sign in failure: ' + (0, _stringify2.default)(err, null, 2));
     }
   };
   return auth;
-} /* eslint-disable prefer-template, no-console */
+} /*
+  Copyright 2017-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+  
+  Licensed under the Amazon Software License (the "License"). You may not use this file
+  except in compliance with the License. A copy of the License is located at
+  
+  http://aws.amazon.com/asl/
+  
+  or in the "license" file accompanying this file. This file is distributed on an "AS IS"
+  BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
+  License for the specific language governing permissions and limitations under the License.
+  */
+
+/* eslint-disable prefer-template, no-console */
 
 function completeLogin(config) {
   var auth = getAuth(config);
@@ -13664,11 +13682,7 @@ function completeLogin(config) {
   var values = curUrl.split('?');
   var minurl = '/' + values[1];
   try {
-    auth.parseCognitoWebResponse(minurl);
-    var idToken = auth.getSignInUserSession().getIdToken();
-    var accessToken = auth.getSignInUserSession().getAccessToken();
-    localStorage.setItem('idtokenjwt', idToken.getJwtToken());
-    localStorage.setItem('accesstokenjwt', accessToken.getJwtToken());
+    auth.parseCognitoWebResponse(curUrl);
     return true;
   } catch (reason) {
     console.debug('failed to parse response: ' + reason);
@@ -13678,23 +13692,22 @@ function completeLogin(config) {
 }
 
 function completeLogout() {
-  localStorage.removeItem('noauth');
   localStorage.removeItem('idtokenjwt');
+  localStorage.removeItem('accesstokenjwt');
+  localStorage.removeItem('refreshtoken');
   localStorage.removeItem('cognitoid');
-  localStorage.removeItem('username');
   console.debug('logout complete');
 }
 
 function logout(config) {
-  /* eslint-disable prefer-template, object-shorthand, no-console, prefer-arrow-callback */
-  console.log('logout');
+  /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
   var auth = getAuth(config);
   auth.signOut();
   auth.clearCachedTokensScopes();
 }
 
 function login(config) {
-  /* eslint-disable prefer-template, object-shorthand, no-console, prefer-arrow-callback */
+  /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
   var auth = getAuth(config);
   var session = auth.getSignInUserSession();
   if (!session.isValid()) {
