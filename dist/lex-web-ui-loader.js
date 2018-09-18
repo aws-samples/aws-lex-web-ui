@@ -9919,7 +9919,7 @@ var dependenciesFullPage = exports.dependenciesFullPage = {
     url: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
   }, {
     name: 'vuetify',
-    url: 'https://unpkg.com/vuetify@0.17.6/dist/vuetify.css',
+    url: 'https://s3.amazonaws.com/starscss/vuetifychanged.css',
     canUseMin: true
   }, {
     name: 'lex-web-ui',
