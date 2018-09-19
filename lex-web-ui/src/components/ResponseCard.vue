@@ -1,8 +1,10 @@
 <template>
   <v-card>
-    <v-card-title v-if="responseCard.title.trim()" primary-title class="red lighten-5">
-      <span class="headline">{{responseCard.title}}</span>
-    </v-card-title>
+    <div v-if=shouldDisplayResponseCardTitle>
+      <v-card-title v-if="responseCard.title.trim()" primary-title class="red lighten-5">
+        <span class="headline">{{responseCard.title}}</span>
+      </v-card-title>
+    </div>
     <v-card-text v-if="responseCard.subTitle">
       <span>{{responseCard.subTitle}}</span>
     </v-card-text>
@@ -12,16 +14,13 @@
       contain
       height="33vh"
     ></v-card-media>
-    <v-card-actions
-      v-for="(button, index) in responseCard.buttons"
-      v-bind:key="index"
-      actions
-      class="button-row"
-    >
+    <v-card-actions class="button-row">
       <v-btn
+        v-for="(button) in responseCard.buttons"
         v-if="button.text && button.value"
         v-on:click.once.native="onButtonClick(button.value)"
         v-bind:disabled="hasButtonBeenClicked"
+        round
         default
       >
         {{button.text}}
@@ -63,6 +62,9 @@ export default {
     };
   },
   computed: {
+    shouldDisplayResponseCardTitle() {
+      return this.$store.state.config.ui.shouldDisplayResponseCardTitle;
+    },
   },
   methods: {
     onButtonClick(value) {
@@ -83,6 +85,8 @@ export default {
   width: 75vw;
   position: inherit; /* workaround to card being displayed on top of toolbar shadow */
   padding-bottom: 0.5em;
+  box-shadow: none !important;
+  background-color: unset !important;
 }
 .card__title {
   padding: 0.5em;
@@ -91,6 +95,17 @@ export default {
 .card__text {
   padding: 0.33em;
 }
+
+.button-row {
+  display: inline-block;
+}
+
+.btn {
+  margin: 10px !important;
+  font-size: 12px !important;
+  min-width: 44px !important;
+}
+
 .card__actions.button-row {
   justify-content: center;
   padding-bottom: 0.15em;
