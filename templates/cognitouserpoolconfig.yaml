@@ -225,9 +225,13 @@ Resources:
                             RefreshTokenValidity=365,
                             CallbackURLs=[
                                 '${WebAppUrl}${WebAppPath}?loggedin=yes',
+                                '${WebAppUrl}/index.html?loggedin=yes',
+                                '${WebAppUrl}/parent.html?loggedin=yes',
                             ],
                             LogoutURLs=[
                                 '${WebAppUrl}${WebAppPath}?loggedout=yes',
+                                '${WebAppUrl}/index.html?loggedout=yes',
+                                '${WebAppUrl}/parent.html?loggedout=yes',
                             ],
                             SupportedIdentityProviders=[
                                     'COGNITO',

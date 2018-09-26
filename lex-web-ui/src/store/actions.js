@@ -656,11 +656,16 @@ export default {
   },
   sendMessageToParentWindow(context, message) {
     if (!context.state.isRunningEmbedded) {
-      const error = 'sendMessage called when not running embedded';
-      console.warn(error);
-      return Promise.reject(error);
+      return new Promise((resolve, reject) => {
+        try {
+          const myEvent = new CustomEvent('fullpagecomponent', { detail: message });
+          document.dispatchEvent(myEvent);
+          resolve(myEvent);
+        } catch (err) {
+          reject(err);
+        }
+      });
     }
-
     return new Promise((resolve, reject) => {
       const messageChannel = new MessageChannel();
       messageChannel.port1.onmessage = (evt) => {

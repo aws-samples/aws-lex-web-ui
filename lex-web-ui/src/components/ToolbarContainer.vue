@@ -23,7 +23,7 @@
       <v-list>
         <v-list-tile>
           <v-list-tile-title v-if="isLoggedIn" v-on:click="requestLogout">{{ items[1].title }}</v-list-tile-title>
-          <v-list-tile-title v-if="!isLoggedIn" v-on:click="requestLogin">{{ items[0].title  }}</v-list-tile-title>
+          <v-list-tile-title v-if="!isLoggedIn" v-on:click="requestLogin">{{ items[0].title }}</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>

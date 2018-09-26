@@ -42,6 +42,7 @@ License for the specific language governing permissions and limitations under th
 */
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
+/* global $ */
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
@@ -138,13 +139,25 @@ export default {
         console.error('could not initialize application while mounting:', error);
       });
   },
+  mounted() {
+    if (!this.$store.state.isRunningEmbedded) {
+      this.$store.dispatch(
+        'sendMessageToParentWindow',
+        { event: 'requestTokens' },
+      );
+    }
+  },
   methods: {
     toggleMinimizeUi() {
       return this.$store.dispatch('toggleIsUiMinimized');
     },
     loginConfirmed(evt) {
       this.$store.commit('setIsLoggedIn', true);
-      this.$store.commit('setTokens', evt.data.data);
+      if (evt.detail && evt.detail.data) {
+        this.$store.commit('setTokens', evt.detail.data);
+      } else if (evt.data && evt.data.data) {
+        this.$store.commit('setTokens', evt.data.data);
+      }
     },
     logoutConfirmed() {
       this.$store.commit('setIsLoggedIn', false);
@@ -162,7 +175,10 @@ export default {
           { event: 'requestLogin' },
         );
       } else {
-        this.loginConfirmed();
+        this.$store.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'requestLogin' },
+        );
       }
     },
     handleRequestLogout() {
@@ -173,7 +189,10 @@ export default {
           { event: 'requestLogout' },
         );
       } else {
-        this.logoutConfirmed();
+        this.$store.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'requestLogout' },
+        );
       }
     },
     // messages from parent
@@ -235,6 +254,20 @@ export default {
           break;
       }
     },
+    componentMessageHandler(evt) {
+      switch (evt.detail.event) {
+        case 'confirmLogin':
+          this.loginConfirmed(evt);
+          this.userNameValue = this.userName();
+          break;
+        case 'confirmLogout':
+          this.logoutConfirmed();
+          break;
+        default:
+          console.warn('unknown message in componentMessageHandler', evt);
+          break;
+      }
+    },
     userName() {
       let v = '';
       if (this.$store.state.tokens && this.$store.state.tokens.idtokenjwt) {
@@ -279,6 +312,7 @@ export default {
     },
     initConfig() {
       if (this.$store.state.config.urlQueryParams.lexWebUiEmbed !== 'true') {
+        $(document).on('lexwebuicomponent', (evt) => { this.componentMessageHandler(evt); });
         this.$store.commit('setIsRunningEmbedded', false);
         this.$store.commit('setAwsCredsProvider', 'cognito');
       } else {

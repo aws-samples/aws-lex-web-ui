@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "cde50f82bc0fa7de2261"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1bc233e417b9a040f4cb"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -12586,6 +12586,8 @@ var _createClass3 = _interopRequireDefault(_createClass2);
 
 var _configLoader = __webpack_require__("./lib/config-loader.js");
 
+var _loginutil = __webpack_require__("./lib/loginutil.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -12594,6 +12596,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Assumes that the LexWebUi and Vue libraries have been loaded in the global
  * scope
  */
+/*
+ Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+ Licensed under the Amazon Software License (the "License"). You may not use this file
+ except in compliance with the License. A copy of the License is located at
+
+ http://aws.amazon.com/asl/
+
+ or in the "license" file accompanying this file. This file is distributed on an "AS IS"
+ BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
+ License for the specific language governing permissions and limitations under the License.
+ */
+
+/* eslint no-console: ["error", { allow: ["warn", "error", "debug"] }] */
+/* global AWS LexWebUi Vue $ */
 var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
   /**
    * @param {string} elementId - element ID where the chatbot UI component
@@ -12611,21 +12628,191 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
     this.config = config;
   }
 
-  /**
-   * Loads the component into the DOM
-   * configParam overrides at runtime the chatbot UI config
-   */
-
-
   (0, _createClass3.default)(FullPageComponentLoader, [{
-    key: 'load',
-    value: function load(configParam) {
+    key: 'generateConfigObj',
+    value: function generateConfigObj() {
+      var config = {
+        appUserPoolClientId: this.config.cognito.appUserPoolClientId,
+        appDomainName: this.config.cognito.appDomainName,
+        appUserPoolIdentityProvider: this.config.cognito.appUserPoolIdentityProvider
+      };
+      return config;
+    }
+  }, {
+    key: 'requestTokens',
+    value: function requestTokens() {
+      var existingAuth = (0, _loginutil.getAuth)(this.generateConfigObj());
+      var existingSession = existingAuth.getSignInUserSession();
+      if (existingSession.isValid()) {
+        var tokens = {};
+        tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+        tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+        tokens.refreshtoken = localStorage.getItem('refreshtoken');
+        FullPageComponentLoader.sendMessageToComponent({
+          event: 'confirmLogin',
+          data: tokens
+        });
+      }
+    }
+
+    /**
+     * Creates Cognito credentials and processes Cognito login if complete
+     * Inits this.credentials
+     */
+
+  }, {
+    key: 'initCognitoCredentials',
+    value: function initCognitoCredentials() {
       var _this = this;
 
-      var mergedConfig = _configLoader.ConfigLoader.mergeConfig(this.config, configParam);
+      return new _promise2.default(function (resolve, reject) {
+        var curUrl = window.location.href;
+        if (curUrl.indexOf('loggedin') >= 0) {
+          if ((0, _loginutil.completeLogin)(_this.generateConfigObj())) {
+            var auth = (0, _loginutil.getAuth)(_this.generateConfigObj());
+            var session = auth.getSignInUserSession();
+            if (session.isValid()) {
+              var tokens = {};
+              tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+              tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+              tokens.refreshtoken = localStorage.getItem('refreshtoken');
+              FullPageComponentLoader.sendMessageToComponent({
+                event: 'confirmLogin',
+                data: tokens
+              });
+            }
+          }
+        } else if (curUrl.indexOf('loggedout') >= 0) {
+          if ((0, _loginutil.completeLogout)(_this.generateConfigObj())) {
+            FullPageComponentLoader.sendMessageToComponent({ event: 'confirmLogout' });
+          }
+        }
+        var cognitoPoolId = _this.config.cognito.poolId;
 
-      return FullPageComponentLoader.createComponent(mergedConfig).then(function (lexWebUi) {
-        return FullPageComponentLoader.mountComponent(_this.elementId, lexWebUi);
+        var region = _this.config.cognito.region || _this.config.region || 'us-east-1';
+        var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + _this.config.cognito.appUserPoolName;
+        if (!cognitoPoolId) {
+          return reject(new Error('missing cognito poolId config'));
+        }
+
+        if (!('AWS' in window) || !('CognitoIdentityCredentials' in window.AWS)) {
+          return reject(new Error('unable to find AWS SDK global object'));
+        }
+
+        var credentials = void 0;
+        var idtoken = localStorage.getItem('idtokenjwt');
+        if (idtoken) {
+          // auth role since logged in
+          try {
+            var logins = {};
+            logins[poolName] = idtoken;
+            credentials = new AWS.CognitoIdentityCredentials({ IdentityPoolId: cognitoPoolId }, { region: region });
+          } catch (err) {
+            reject(new Error('cognito auth credentials could not be created ' + err));
+          }
+        } else {
+          // noauth role
+          try {
+            credentials = new AWS.CognitoIdentityCredentials({ IdentityPoolId: cognitoPoolId }, { region: region });
+          } catch (err) {
+            reject(new Error('cognito noauth credentials could not be created ' + err));
+          }
+        }
+        // get and assign credentials
+        return credentials.getPromise().then(function () {
+          _this.credentials = credentials;
+          resolve();
+        });
+      });
+    }
+
+    /**
+     * Event handler functions for messages from iframe
+     * Used by onMessageFromIframe - "this" object is bound dynamically
+     */
+
+  }, {
+    key: 'initBotMessageHandlers',
+    value: function initBotMessageHandlers() {
+      var _this2 = this;
+
+      $(document).on('fullpagecomponent', function (evt) {
+        if (evt.detail.event === 'requestLogin') {
+          (0, _loginutil.login)(_this2.generateConfigObj());
+        } else if (evt.detail.event === 'requestLogout') {
+          (0, _loginutil.logout)(_this2.generateConfigObj());
+        } else if (evt.detail.event === 'requestTokens') {
+          _this2.requestTokens();
+        }
+      });
+    }
+
+    /**
+     * Add postMessage event handler to receive messages from iframe
+     */
+
+  }, {
+    key: 'setupBotMessageListener',
+    value: function setupBotMessageListener() {
+      var _this3 = this;
+
+      return new _promise2.default(function (resolve, reject) {
+        try {
+          _this3.initBotMessageHandlers();
+          resolve();
+        } catch (err) {
+          console.error('Could not setup message handlers: ' + err);
+          reject(err);
+        }
+      });
+    }
+  }, {
+    key: 'isRunningEmbeded',
+    value: function isRunningEmbeded() {
+      var url = window.location.href;
+      this.runningEmbeded = url.indexOf('lexWebUiEmbed=true') !== -1;
+      return this.runningEmbeded;
+    }
+
+    /**
+     * Loads the component into the DOM
+     * configParam overrides at runtime the chatbot UI config
+     */
+
+  }, {
+    key: 'load',
+    value: function load(configParam) {
+      var _this4 = this;
+
+      var mergedConfig = _configLoader.ConfigLoader.mergeConfig(this.config, configParam);
+      this.config = mergedConfig;
+      if (this.isRunningEmbeded()) {
+        return FullPageComponentLoader.createComponent(mergedConfig).then(function (lexWebUi) {
+          return FullPageComponentLoader.mountComponent(_this4.elementId, lexWebUi);
+        });
+      }
+      return _promise2.default.all([this.initCognitoCredentials(), this.setupBotMessageListener()]).then(function () {
+        FullPageComponentLoader.createComponent(mergedConfig).then(function (lexWebUi) {
+          FullPageComponentLoader.mountComponent(_this4.elementId, lexWebUi);
+        });
+      });
+    }
+
+    /**
+     * Send a message to the component
+     */
+
+  }], [{
+    key: 'sendMessageToComponent',
+    value: function sendMessageToComponent(message) {
+      return new _promise2.default(function (resolve, reject) {
+        try {
+          var myEvent = new CustomEvent('lexwebuicomponent', { detail: message });
+          document.dispatchEvent(myEvent);
+          resolve();
+        } catch (err) {
+          reject(err);
+        }
       });
     }
 
@@ -12635,7 +12822,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
      * Returns a promise that resolves to the component
      */
 
-  }], [{
+  }, {
     key: 'createComponent',
     value: function createComponent() {
       var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -12693,22 +12880,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
     }
   }]);
   return FullPageComponentLoader;
-}(); /*
-      Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-     
-      Licensed under the Amazon Software License (the "License"). You may not use this file
-      except in compliance with the License. A copy of the License is located at
-     
-      http://aws.amazon.com/asl/
-     
-      or in the "license" file accompanying this file. This file is distributed on an "AS IS"
-      BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
-      License for the specific language governing permissions and limitations under the License.
-      */
-
-/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-/* global LexWebUi Vue */
-
+}();
 
 exports.default = FullPageComponentLoader;
 
@@ -12952,7 +13124,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  License for the specific language governing permissions and limitations under the License.
  */
 
-/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+/* eslint no-console: ["error", { allow: ["warn", "error", "debug"] }] */
 /* global AWS */
 
 var IframeComponentLoader = exports.IframeComponentLoader = function () {
@@ -13069,7 +13241,8 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
     value: function generateConfigObj() {
       var config = {
         appUserPoolClientId: this.config.cognito.appUserPoolClientId,
-        appDomainName: this.config.cognito.appDomainName
+        appDomainName: this.config.cognito.appDomainName,
+        appUserPoolIdentityProvider: this.config.cognito.appUserPoolIdentityProvider
       };
       return config;
     }
@@ -13088,11 +13261,11 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
         var curUrl = window.location.href;
         if (curUrl.indexOf('loggedin') >= 0) {
           if ((0, _loginutil.completeLogin)(_this3.generateConfigObj())) {
-            // this.sendMessageToIframe({ event: 'confirmLogin' });
+            console.debug('completeLogin successful');
           }
         } else if (curUrl.indexOf('loggedout') >= 0) {
           if ((0, _loginutil.completeLogout)(_this3.generateConfigObj())) {
-            // this.sendMessageToIframe({ event: 'confirmLogout' });
+            console.debug('completeLogout successful');
           }
         }
         var cognitoPoolId = _this3.config.cognito.poolId;
@@ -13407,13 +13580,6 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
             });
           });
         },
-        generateConfigObj: function generateConfigObj() {
-          var config = {
-            appUserPoolClientId: this.config.cognito.appUserPoolClientId,
-            appDomainName: this.config.cognito.appDomainName
-          };
-          return config;
-        },
 
 
         // sent when login is requested from iframe
@@ -13502,6 +13668,11 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
     value: function toggleMinimizeUiClass() {
       try {
         this.containerElement.classList.toggle(this.containerClass + '--minimize');
+        if (this.containerElement.classList.contains(this.containerClass + '--minimize')) {
+          localStorage.setItem('lastUiIsMinimized', 'true');
+        } else {
+          localStorage.setItem('lastUiIsMinimized', 'false');
+        }
         return _promise2.default.resolve();
       } catch (err) {
         return _promise2.default.reject(new Error('failed to toggle minimize UI ' + err));
@@ -13518,10 +13689,14 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
       var _this9 = this;
 
       return _promise2.default.resolve().then(function () {
-        return (
-          // start minimized if configured accordingly
-          _this9.config.iframe.shouldLoadIframeMinimized ? _this9.api.toggleMinimizeUi() : _promise2.default.resolve()
-        );
+        // check for last state and resume with this configuration
+        if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'true') {
+          _this9.api.toggleMinimizeUi();
+        } else if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'false') {
+          _this9.api.ping();
+        } else if (_this9.config.iframe.shouldLoadIframeMinimized) {
+          _this9.api.toggleMinimizeUi();
+        }
       })
       // display UI
       .then(function () {
@@ -13647,6 +13822,10 @@ function getAuth(config) {
     RedirectUriSignOut: rd2
   };
 
+  if (config.appUserPoolIdentityProvider && config.appUserPoolIdentityProvider.length > 0) {
+    authData.IdentityProvider = config.appUserPoolIdentityProvider;
+  }
+
   var auth = new _amazonCognitoAuthJs.CognitoAuth(authData);
   auth.useCodeGrantFlow();
   auth.userhandler = {
@@ -13697,13 +13876,13 @@ function completeLogout() {
   localStorage.removeItem('refreshtoken');
   localStorage.removeItem('cognitoid');
   console.debug('logout complete');
+  return true;
 }
 
 function logout(config) {
   /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
   var auth = getAuth(config);
   auth.signOut();
-  auth.clearCachedTokensScopes();
 }
 
 function login(config) {
@@ -13712,8 +13891,6 @@ function login(config) {
   var session = auth.getSignInUserSession();
   if (!session.isValid()) {
     auth.getSession();
-  } else {
-    completeLogin(config);
   }
 }
 

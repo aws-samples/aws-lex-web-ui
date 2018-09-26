@@ -3,18 +3,22 @@
     "poolId": "us-east-1:389f9063-82a0-4a8c-bdc3-3bbb4c3d36d0",
     "appUserPoolClientId": "",
     "appUserPoolName": "",
-    "appDomainName": ""
+    "appDomainName": "",
+    "appUserPoolIdentityProvider": ""
   },
   "lex": {
     "botName": "OrderFlowers",
     "initialText": "You can ask me for help ordering flowers. Just type \"Buy flowers\" or click on the mic and say it.",
-    "initialSpeechInstruction": "Say 'Buy Flowers' to get started."
+    "initialSpeechInstruction": "Say 'Buy Flowers' to get started.",
+    "reInitSessionAttributesOnRestart": false
   },
   "ui": {
     "parentOrigin": "",
     "toolbarTitle": "Order Flowers",
     "toolbarLogo": "",
-    "enableLogin": "false",
+    "enableLogin": false,
+    "AllowSuperDangerousHTMLInMessage": false,
+    "shouldDisplayResponseCardTitle": false,
     "pushInitialTextOnRestart": false
   },
   "polly": {
@@ -25,7 +29,7 @@
   },
   "iframe": {
     "iframeOrigin": "",
-    "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true",
-    "shouldLoadIframeMinimized": true
+    "shouldLoadIframeMinimized": false,
+    "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true"
   }
 }

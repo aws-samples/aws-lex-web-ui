@@ -77,7 +77,7 @@ const configDefault = {
 
     // controls if the session attributes are reinitialized a
     // after the bot dialog is done (i.e. fail or fulfilled)
-    reInitSessionAttributesOnRestart: true,
+    reInitSessionAttributesOnRestart: false,
 
     // TODO move this config fields to converser
     // allow to interrupt playback of lex responses by talking over playback

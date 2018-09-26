@@ -52,6 +52,49 @@ Parameters:
             in the Lex Web Ui. This feature uses Cognito User Pools with
             hosted login pages. After login, the menu will switch to logout.
 
+    EnableMarkdownSupport:
+        Type: String
+        Default: true
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, Markdown formatting in ResponseCards will be enabled.
+
+    ReInitSessionAttributesOnRestart:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, attributes sent on each request to Lex are reset. Set to false
+            if session attributes need to be supported on subsequent Lex requests. The
+            default is false.
+
+    ShouldLoadIframeMinimized:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True and running embedded as an Iframe on a web page, minimize the
+            LexWebUi when first launched. If set to False, the Iframe will be maximized
+            on the hosting page.
+
+    ShowResponseCardTitle:
+        Type: String
+        Default: true
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, the ResponseCard title is displayed in the UI. When set to false,
+            a ResponseCard title is not displayed in the UI. Default is true. Note at the
+            present time this is a global setting. Should the UI need to display some form
+            of a title, use the optional sub-title property of a ResponseCard.
+
     CognitoIdentityPoolId:
         Type: String
         Description: >
@@ -170,6 +213,14 @@ Resources:
                       Value: !Ref WebAppConfToolbarTitle
                     - Name: ENABLE_LOGIN
                       Value: !Ref ShouldEnableCognitoLogin
+                    - Name: REINIT_SESSION_ATTRIBUTES_ON_RESTART
+                      Value: !Ref ReInitSessionAttributesOnRestart
+                    - Name: ENABLE_MARKDOWN_SUPPORT
+                      Value: !Ref EnableMarkdownSupport
+                    - Name: IFRAME_LOAD_MINIMIZED
+                      Value: !Ref ShouldLoadIframeMinimized
+                    - Name: SHOW_RESPONSE_CARD_TITLE
+                      Value: !Ref ShowResponseCardTitle
                     - Name: PARENT_ORIGIN
                       Value: !If
                         - NeedsParentOrigin

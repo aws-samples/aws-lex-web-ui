@@ -11,7 +11,7 @@
  License for the specific language governing permissions and limitations under the License.
  */
 
-/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+/* eslint no-console: ["error", { allow: ["warn", "error", "debug"] }] */
 /* global AWS */
 
 import 'babel-polyfill';
@@ -148,6 +148,7 @@ export class IframeComponentLoader {
     const config = {
       appUserPoolClientId: this.config.cognito.appUserPoolClientId,
       appDomainName: this.config.cognito.appDomainName,
+      appUserPoolIdentityProvider: this.config.cognito.appUserPoolIdentityProvider,
     };
     return config;
   }
@@ -161,11 +162,11 @@ export class IframeComponentLoader {
       const curUrl = window.location.href;
       if (curUrl.indexOf('loggedin') >= 0) {
         if (completeLogin(this.generateConfigObj())) {
-          // this.sendMessageToIframe({ event: 'confirmLogin' });
+          console.debug('completeLogin successful');
         }
       } else if (curUrl.indexOf('loggedout') >= 0) {
         if (completeLogout(this.generateConfigObj())) {
-          // this.sendMessageToIframe({ event: 'confirmLogout' });
+          console.debug('completeLogout successful');
         }
       }
       const { poolId: cognitoPoolId } =
@@ -488,14 +489,6 @@ export class IframeComponentLoader {
           });
       },
 
-      generateConfigObj() {
-        const config = {
-          appUserPoolClientId: this.config.cognito.appUserPoolClientId,
-          appDomainName: this.config.cognito.appDomainName,
-        };
-        return config;
-      },
-
       // sent when login is requested from iframe
       requestLogin(evt) {
         evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
@@ -575,6 +568,11 @@ export class IframeComponentLoader {
   toggleMinimizeUiClass() {
     try {
       this.containerElement.classList.toggle(`${this.containerClass}--minimize`);
+      if (this.containerElement.classList.contains(`${this.containerClass}--minimize`)) {
+        localStorage.setItem('lastUiIsMinimized', 'true');
+      } else {
+        localStorage.setItem('lastUiIsMinimized', 'false');
+      }
       return Promise.resolve();
     } catch (err) {
       return Promise.reject(new Error(`failed to toggle minimize UI ${err}`));
@@ -586,12 +584,16 @@ export class IframeComponentLoader {
    */
   showIframe() {
     return Promise.resolve()
-      .then(() => (
-        // start minimized if configured accordingly
-        (this.config.iframe.shouldLoadIframeMinimized) ?
-          this.api.toggleMinimizeUi() :
-          Promise.resolve()
-      ))
+      .then(() => {
+        // check for last state and resume with this configuration
+        if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'true') {
+          this.api.toggleMinimizeUi();
+        } else if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'false') {
+          this.api.ping();
+        } else if (this.config.iframe.shouldLoadIframeMinimized) {
+          this.api.toggleMinimizeUi();
+        }
+      })
       // display UI
       .then(() => this.toggleShowUiClass());
   }

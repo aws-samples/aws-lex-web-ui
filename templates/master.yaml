@@ -129,6 +129,52 @@ Parameters:
             web application will be deleted on CloudFormation stack delete.
             If set to False, S3 buckets will be retained.
 
+    EnableMarkdownSupport:
+        Type: String
+        Default: true
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, enable optional Markdown formatting.
+            Warning: Improper use of the Markdown/html feature can open you up to a cross-site
+            scripting (XSS) attack from insecure Bots. Make sure you trust the Bot being used
+            by the LexWebUi.
+
+    ReInitSessionAttributesOnRestart:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, attributes sent on each request to Lex are reset. Set to false
+            if session attributes need to be supported on subsequent Lex requests. The
+            default is false.
+
+    ShouldLoadIframeMinimized:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True and running embedded as an Iframe on a web page, minimize the
+            LexWebUi when first launched. If set to False, the Iframe will be maximized
+            on the hosting page.
+
+    ShowResponseCardTitle:
+        Type: String
+        Default: true
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, the ResponseCard title is displayed in the UI. When set to false,
+            a ResponseCard title is not displayed in the UI. Default is true. Note at the
+            present time this is a global setting. Should the UI need to display some form
+            of a title, use the optional sub-title property of a ResponseCard.
+
     # Sub-templates and source artifacts are hosted in this bucket.
     # The content of this bucket is maintained outside of this template
     # by using the Makefile under the build directory of this project.
@@ -180,6 +226,9 @@ Metadata:
                   - BotNamePrefix
                   - ShouldDeleteBot
                   - EnableCognitoLogin
+                  - EnableMarkdownSupport
+                  - ReInitSessionAttributesOnRestart
+                  - ShowResponseCardTitle
             - Label:
                 default: Cognito Parameters
               Parameters:
@@ -193,6 +242,7 @@ Metadata:
                   - WebAppConfBotInitialText
                   - WebAppConfBotInitialSpeech
                   - WebAppConfToolbarTitle
+                  - ShouldLoadIframeMinimized
 Conditions:
     NeedsBot: !Equals [!Ref BotName, '']
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
@@ -252,6 +302,10 @@ Resources:
                 WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
                 ShouldEnableCognitoLogin: !Ref EnableCognitoLogin
+                ReInitSessionAttributesOnRestart: !Ref ReInitSessionAttributesOnRestart
+                EnableMarkdownSupport: !Ref EnableMarkdownSupport
+                ShouldLoadIframeMinimized: !Ref ShouldLoadIframeMinimized
+                ShowResponseCardTitle: !Ref ShowResponseCardTitle
                 CognitoAppUserPoolClientId:
                     !If
                       - NeedsCognito

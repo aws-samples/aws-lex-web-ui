@@ -26,6 +26,10 @@ function getAuth(config) {
     RedirectUriSignOut: rd2,
   };
 
+  if (config.appUserPoolIdentityProvider && config.appUserPoolIdentityProvider.length > 0) {
+    authData.IdentityProvider = config.appUserPoolIdentityProvider;
+  }
+
   const auth = new CognitoAuth(authData);
   auth.useCodeGrantFlow();
   auth.userhandler = {
@@ -63,13 +67,13 @@ function completeLogout() {
   localStorage.removeItem('refreshtoken');
   localStorage.removeItem('cognitoid');
   console.debug('logout complete');
+  return true;
 }
 
 function logout(config) {
 /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
   const auth = getAuth(config);
   auth.signOut();
-  auth.clearCachedTokensScopes();
 }
 
 function login(config) {
@@ -78,8 +82,6 @@ function login(config) {
   const session = auth.getSignInUserSession();
   if (!session.isValid()) {
     auth.getSession();
-  } else {
-    completeLogin(config);
   }
 }
 
