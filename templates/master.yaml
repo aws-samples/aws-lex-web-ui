@@ -148,8 +148,8 @@ Parameters:
         - true
         - false
         Description: >
-            If set to True, attributes sent on each request to Lex are reset. Set to false
-            if session attributes need to be supported on subsequent Lex requests. The
+            If set to True, session attributes sent on each request to Lex are reset. Use a value
+            of false, if session attributes need to be supported on subsequent Lex requests. The
             default is false.
 
     ShouldLoadIframeMinimized:
