@@ -48,9 +48,10 @@ Resources:
                     import time
                     def handler(event, context):
                         print(json.dumps(event))
-                        id = "${CleanStackName.CleanStackNameValue}${AWS::AccountId}"
-                        id = id.lower()
-                        id = id.replace("cognito","")
+                        stackname = '${CleanStackName.CleanStackNameValue}'[0:50]
+                        id = stackname + '${AWS::AccountId}'
+                        id = id.lower().replace("cognito","")
+                        print('final id: ' + id)
                         if (event["RequestType"] == "Delete"):
                             try:
                                 deleteDomain(id)

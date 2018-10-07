@@ -62,7 +62,7 @@ and to store build artifacts.
 [Custom Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-custom-resources.html)
 to facilitate custom provisioning logic
 - [CloudWatch Logs](http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
-groups automatically created to log the output of Lambda the functions
+groups automatically created to log the output of the Lambda functions
 - Associated [IAM roles](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html)
 for the stack resources
 
@@ -86,6 +86,7 @@ the stacks:
 | [master-pipeline.yaml](./master-pipeline.yaml) | This is the master template used to deploy the stack using the Pipeline Mode |
 | [lexbot.yaml](./lexbot.yaml) | Lex bot and associated resources (i.e. intents and slot types). |
 | [cognito.yaml](./cognito.yaml) | Cognito Identity Pool and IAM role for unauthenticated identity access. |
+| [cognitouserpoolconfig.yaml](./cognitouserpoolconfig.yaml) | This template updates the cognito user pool with application client and domain configuration to enable login through either Cognito or other Identity Providers linked via federation. |
 | [codebuild-deploy.yaml](./codebuild-deploy.yaml) | Uses CodeBuild to create a configuration and deploy it along the site to S3. Used in CodeBuild Mode |
 | [coderepo.yaml](./coderepo.yaml) | CodeCommit repo dynamically initialized with the files in this repo using CodeBuild and a custom resource. Used in Pipeline Mode |
 | [pipeline.yaml](./pipeline.yaml) | Continuous deployment pipeline of the Lex Web UI Application using CodePipeline and CodeBuild. The pipeline takes the source from CodeCommit, builds the Lex web UI application using CodeBuild and deploys the app to an S3 bucket. Used in Pipeline Mode |
@@ -111,6 +112,11 @@ with an existing page, you may want to modify the following parameters:
   of the parent window. Only needed if you wish to embed the web app
   into an existing site using an iframe. The origin is used to control
   which sites can communicate with the iframe
+- `EnableCognitoLogin`: The ChatBot will provide an optional login menu item 
+  which supports use of Cognito to log in users via the Cognito User Pool,
+  through social media login, or other SAML or OpenID based Identity Providers.
+- `ReInitSessionAttributesOnRestart`: Lex session attributes are reset on new interactions
+with Lex if this parameter is set to true. 
 
 **NOTE**: Some parameters should be unique per AWS region. The parameter
 descriptions specify when that is the case.
@@ -124,6 +130,14 @@ using CloudFormation parameters. This includes the following parameters:
 - `WebAppConfBotInitialSpeech`: Message spoken by bot when the microphone
 is first pressed in a conversation
 - `WebAppConfToolbarTitle`: Title displayed in the chatbot UI toobar
+- `EnableMarkdownSupport`: Enables support of Markdown formatting in the UI by 
+bots that provide Markdown formatting in their esponses.
+- `ShouldLoadIframeMinimized`: When set to true and using the lex-web-ui embedded
+in an iframe, the ChatBot Iframe will be minimized when the page is loaded. 
+- `ShowResponseCardTitle`: Lex and Alexa based bots may return ResponseCards. 
+ResponseCards always include a title. If this parameter is set to true, this title
+is rendered in the lex-web-ui. Optionallty this can be set to false, and the 
+title is not displayed. This is a global setting. 
 
 ### Output
 Once the CloudFormation stack is successfully launched, the status of
