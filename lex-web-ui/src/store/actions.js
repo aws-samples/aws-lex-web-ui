@@ -440,16 +440,37 @@ export default {
     return context.dispatch('interruptSpeechConversation')
       .then(() => context.dispatch('pushMessage', message))
       .then(() => context.dispatch('lexPostText', message.text))
-      .then(response => context.dispatch(
-        'pushMessage',
-        {
-          text: response.message,
-          type: 'bot',
-          dialogState: context.state.lex.dialogState,
-          responseCard: context.state.lex.responseCard,
-          alts: JSON.parse(response.sessionAttributes.appContext || '{}').altMessages,
-        },
-      ))
+      .then((response) => {
+        // check for an array of messages
+        if (response.message.includes('{"messages":')) {
+          const tmsg = JSON.parse(response.message);
+          if (tmsg && Array.isArray(tmsg.messages)) {
+            tmsg.messages.forEach((mes) => {
+              context.dispatch(
+                'pushMessage',
+                {
+                  text: mes.value,
+                  type: 'bot',
+                  dialogState: context.state.lex.dialogState,
+                  responseCard: context.state.lex.responseCard,
+                  alts: JSON.parse(response.sessionAttributes.appContext || '{}').altMessages,
+                },
+              );
+            });
+          }
+        } else {
+          context.dispatch(
+            'pushMessage',
+            {
+              text: response.message,
+              type: 'bot',
+              dialogState: context.state.lex.dialogState,
+              responseCard: context.state.lex.responseCard,
+              alts: JSON.parse(response.sessionAttributes.appContext || '{}').altMessages,
+            },
+          );
+        }
+      })
       .then(() => {
         if (context.state.lex.dialogState === 'Fulfilled') {
           context.dispatch('reInitBot');
