@@ -16,7 +16,7 @@
 
 import 'babel-polyfill';
 import { ConfigLoader } from './config-loader';
-import { logout, login, completeLogin, completeLogout, getAuth } from './loginutil';
+import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin } from './loginutil';
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -191,7 +191,7 @@ export class IframeComponentLoader {
           const logins = {};
           logins[poolName] = idtoken;
           credentials = new AWS.CognitoIdentityCredentials(
-            { IdentityPoolId: cognitoPoolId },
+            { IdentityPoolId: cognitoPoolId, Logins: logins },
             { region },
           );
         } catch (err) {
@@ -401,6 +401,22 @@ export class IframeComponentLoader {
               event: 'confirmLogin',
               data: tokens,
             });
+          } else {
+            const refToken = localStorage.getItem('refreshtoken');
+            if (refToken) {
+              refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
+                if (refSession.isValid()) {
+                  const tokens = {};
+                  tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+                  tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+                  tokens.refreshtoken = localStorage.getItem('refreshtoken');
+                  this.sendMessageToIframe({
+                    event: 'confirmLogin',
+                    data: tokens,
+                  });
+                }
+              });
+            }
           }
           resolve();
         }
@@ -500,6 +516,39 @@ export class IframeComponentLoader {
         logout(this.generateConfigObj());
         evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
         this.sendMessageToIframe({ event: 'confirmLogout' });
+      },
+
+      // sent to refresh auth tokens as requested by iframe
+      refreshAuthTokens(evt) {
+        const refToken = localStorage.getItem('refreshtoken');
+        if (refToken) {
+          refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
+            if (refSession.isValid()) {
+              const tokens = {};
+              tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+              tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+              tokens.refreshtoken = localStorage.getItem('refreshtoken');
+              evt.ports[0].postMessage({
+                event: 'resolve',
+                type: evt.data.event,
+                data: tokens,
+              });
+            } else {
+              console.error('failed to refresh credentials');
+              evt.ports[0].postMessage({
+                event: 'reject',
+                type: evt.data.event,
+                error: 'failed to refresh tokens',
+              });
+            }
+          });
+        } else {
+          evt.ports[0].postMessage({
+            event: 'reject',
+            type: evt.data.event,
+            error: 'no refresh token available for use',
+          });
+        }
       },
 
       // iframe sends Lex updates based on Lex API responses

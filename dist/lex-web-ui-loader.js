@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1bc233e417b9a040f4cb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b14c453b4fe752a8b36d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -2368,6 +2368,51 @@ module.exports = { "default": __webpack_require__("../../../node_modules/core-js
 
 /***/ }),
 
+/***/ "../../../node_modules/babel-runtime/helpers/asyncToGenerator.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _promise = __webpack_require__("../../../node_modules/babel-runtime/core-js/promise.js");
+
+var _promise2 = _interopRequireDefault(_promise);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (fn) {
+  return function () {
+    var gen = fn.apply(this, arguments);
+    return new _promise2.default(function (resolve, reject) {
+      function step(key, arg) {
+        try {
+          var info = gen[key](arg);
+          var value = info.value;
+        } catch (error) {
+          reject(error);
+          return;
+        }
+
+        if (info.done) {
+          resolve(value);
+        } else {
+          return _promise2.default.resolve(value).then(function (value) {
+            step("next", value);
+          }, function (err) {
+            step("throw", err);
+          });
+        }
+      }
+
+      return step("next");
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "../../../node_modules/babel-runtime/helpers/classCallCheck.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2582,6 +2627,14 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 } : function (obj) {
   return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
 };
+
+/***/ }),
+
+/***/ "../../../node_modules/babel-runtime/regenerator/index.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("../../../node_modules/regenerator-runtime/runtime-module.js");
+
 
 /***/ }),
 
@@ -10683,6 +10736,48 @@ $export($export.G + $export.B + $export.F * MSIE, {
 
 /***/ }),
 
+/***/ "../../../node_modules/regenerator-runtime/runtime-module.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+// This method of obtaining a reference to the global object needs to be
+// kept identical to the way it is obtained in runtime.js
+var g = (function() { return this })() || Function("return this")();
+
+// Use `getOwnPropertyNames` because not all browsers support calling
+// `hasOwnProperty` on the global `self` object in a worker. See #183.
+var hadRuntime = g.regeneratorRuntime &&
+  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
+
+// Save the old regeneratorRuntime in case it needs to be restored later.
+var oldRuntime = hadRuntime && g.regeneratorRuntime;
+
+// Force reevalutation of runtime.js.
+g.regeneratorRuntime = undefined;
+
+module.exports = __webpack_require__("../../../node_modules/regenerator-runtime/runtime.js");
+
+if (hadRuntime) {
+  // Restore the original runtime.
+  g.regeneratorRuntime = oldRuntime;
+} else {
+  // Remove the global property added by runtime.js.
+  try {
+    delete g.regeneratorRuntime;
+  } catch(e) {
+    g.regeneratorRuntime = undefined;
+  }
+}
+
+
+/***/ }),
+
 /***/ "../../../node_modules/regenerator-runtime/runtime.js":
 /***/ (function(module, exports) {
 
@@ -12576,6 +12671,14 @@ var _promise = __webpack_require__("../../../node_modules/babel-runtime/core-js/
 
 var _promise2 = _interopRequireDefault(_promise);
 
+var _regenerator = __webpack_require__("../../../node_modules/babel-runtime/regenerator/index.js");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__("../../../node_modules/babel-runtime/helpers/asyncToGenerator.js");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
 var _classCallCheck2 = __webpack_require__("../../../node_modules/babel-runtime/helpers/classCallCheck.js");
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -12640,20 +12743,86 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
     }
   }, {
     key: 'requestTokens',
-    value: function requestTokens() {
-      var existingAuth = (0, _loginutil.getAuth)(this.generateConfigObj());
-      var existingSession = existingAuth.getSignInUserSession();
-      if (existingSession.isValid()) {
-        var tokens = {};
-        tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
-        tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-        tokens.refreshtoken = localStorage.getItem('refreshtoken');
-        FullPageComponentLoader.sendMessageToComponent({
-          event: 'confirmLogin',
-          data: tokens
-        });
+    value: function () {
+      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var existingAuth, existingSession, tokens;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                existingAuth = (0, _loginutil.getAuth)(this.generateConfigObj());
+                existingSession = existingAuth.getSignInUserSession();
+
+                if (existingSession.isValid()) {
+                  tokens = {};
+
+                  tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+                  tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+                  tokens.refreshtoken = localStorage.getItem('refreshtoken');
+                  FullPageComponentLoader.sendMessageToComponent({
+                    event: 'confirmLogin',
+                    data: tokens
+                  });
+                }
+
+              case 3:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function requestTokens() {
+        return _ref2.apply(this, arguments);
       }
-    }
+
+      return requestTokens;
+    }()
+  }, {
+    key: 'refreshAuthTokens',
+    value: function () {
+      var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+        var refToken;
+        return _regenerator2.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                refToken = localStorage.getItem('refreshtoken');
+
+                if (refToken) {
+                  (0, _loginutil.refreshLogin)(this.generateConfigObj(), refToken, function (refSession) {
+                    if (refSession.isValid()) {
+                      var tokens = {};
+                      tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+                      tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+                      tokens.refreshtoken = localStorage.getItem('refreshtoken');
+                      FullPageComponentLoader.sendMessageToComponent({
+                        event: 'confirmLogin',
+                        data: tokens
+                      });
+                    } else {
+                      console.error('failed to refresh credentials');
+                    }
+                  });
+                } else {
+                  console.error('no refreshtoken from which to refresh auth from');
+                }
+
+              case 2:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function refreshAuthTokens() {
+        return _ref3.apply(this, arguments);
+      }
+
+      return refreshAuthTokens;
+    }()
 
     /**
      * Creates Cognito credentials and processes Cognito login if complete
@@ -12736,15 +12905,65 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
     value: function initBotMessageHandlers() {
       var _this2 = this;
 
-      $(document).on('fullpagecomponent', function (evt) {
-        if (evt.detail.event === 'requestLogin') {
-          (0, _loginutil.login)(_this2.generateConfigObj());
-        } else if (evt.detail.event === 'requestLogout') {
-          (0, _loginutil.logout)(_this2.generateConfigObj());
-        } else if (evt.detail.event === 'requestTokens') {
-          _this2.requestTokens();
-        }
-      });
+      $(document).on('fullpagecomponent', function () {
+        var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(evt) {
+          return _regenerator2.default.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  if (!(evt.detail.event === 'requestLogin')) {
+                    _context3.next = 4;
+                    break;
+                  }
+
+                  (0, _loginutil.login)(_this2.generateConfigObj());
+                  _context3.next = 16;
+                  break;
+
+                case 4:
+                  if (!(evt.detail.event === 'requestLogout')) {
+                    _context3.next = 8;
+                    break;
+                  }
+
+                  (0, _loginutil.logout)(_this2.generateConfigObj());
+                  _context3.next = 16;
+                  break;
+
+                case 8:
+                  if (!(evt.detail.event === 'requestTokens')) {
+                    _context3.next = 13;
+                    break;
+                  }
+
+                  _context3.next = 11;
+                  return _this2.requestTokens();
+
+                case 11:
+                  _context3.next = 16;
+                  break;
+
+                case 13:
+                  if (!(evt.detail.event === 'refreshAuthTokens')) {
+                    _context3.next = 16;
+                    break;
+                  }
+
+                  _context3.next = 16;
+                  return _this2.refreshAuthTokens();
+
+                case 16:
+                case 'end':
+                  return _context3.stop();
+              }
+            }
+          }, _callee3, _this2);
+        }));
+
+        return function (_x) {
+          return _ref4.apply(this, arguments);
+        };
+      }());
     }
 
     /**
@@ -13287,7 +13506,7 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
           try {
             var logins = {};
             logins[poolName] = idtoken;
-            credentials = new AWS.CognitoIdentityCredentials({ IdentityPoolId: cognitoPoolId }, { region: region });
+            credentials = new AWS.CognitoIdentityCredentials({ IdentityPoolId: cognitoPoolId, Logins: logins }, { region: region });
           } catch (err) {
             reject(new Error('cognito auth credentials could not be created ' + err));
           }
@@ -13487,6 +13706,22 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
                 event: 'confirmLogin',
                 data: tokens
               });
+            } else {
+              var refToken = localStorage.getItem('refreshtoken');
+              if (refToken) {
+                (0, _loginutil.refreshLogin)(_this6.generateConfigObj(), refToken, function (refSession) {
+                  if (refSession.isValid()) {
+                    var _tokens = {};
+                    _tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+                    _tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+                    _tokens.refreshtoken = localStorage.getItem('refreshtoken');
+                    _this6.sendMessageToIframe({
+                      event: 'confirmLogin',
+                      data: _tokens
+                    });
+                  }
+                });
+              }
             }
             resolve();
           }
@@ -13594,6 +13829,40 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
           (0, _loginutil.logout)(this.generateConfigObj());
           evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
           this.sendMessageToIframe({ event: 'confirmLogout' });
+        },
+
+
+        // sent to refresh auth tokens as requested by iframe
+        refreshAuthTokens: function refreshAuthTokens(evt) {
+          var refToken = localStorage.getItem('refreshtoken');
+          if (refToken) {
+            (0, _loginutil.refreshLogin)(this.generateConfigObj(), refToken, function (refSession) {
+              if (refSession.isValid()) {
+                var tokens = {};
+                tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+                tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+                tokens.refreshtoken = localStorage.getItem('refreshtoken');
+                evt.ports[0].postMessage({
+                  event: 'resolve',
+                  type: evt.data.event,
+                  data: tokens
+                });
+              } else {
+                console.error('failed to refresh credentials');
+                evt.ports[0].postMessage({
+                  event: 'reject',
+                  type: evt.data.event,
+                  error: 'failed to refresh tokens'
+                });
+              }
+            });
+          } else {
+            evt.ports[0].postMessage({
+              event: 'reject',
+              type: evt.data.event,
+              error: 'no refresh token available for use'
+            });
+          }
         },
 
 
@@ -13801,7 +14070,7 @@ exports.default = IframeComponentLoader;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getAuth = exports.completeLogout = exports.completeLogin = exports.login = exports.logout = undefined;
+exports.refreshLogin = exports.getAuth = exports.completeLogout = exports.completeLogin = exports.login = exports.logout = undefined;
 
 var _stringify = __webpack_require__("../../../node_modules/babel-runtime/core-js/json/stringify.js");
 
@@ -13894,11 +14163,31 @@ function login(config) {
   }
 }
 
+function refreshLogin(config, token, callback) {
+  /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
+  var auth = getAuth(config);
+  auth.userhandler = {
+    onSuccess: function onSuccess(session) {
+      console.debug('Sign in success');
+      localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
+      localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
+      localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
+      callback(session);
+    },
+    onFailure: function onFailure(err) {
+      console.debug('Sign in failure: ' + (0, _stringify2.default)(err, null, 2));
+      callback(err);
+    }
+  };
+  auth.refreshSession(token);
+}
+
 exports.logout = logout;
 exports.login = login;
 exports.completeLogin = completeLogin;
 exports.completeLogout = completeLogout;
 exports.getAuth = getAuth;
+exports.refreshLogin = refreshLogin;
 
 /***/ })
 

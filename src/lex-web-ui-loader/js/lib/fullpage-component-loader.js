@@ -14,7 +14,7 @@
 /* eslint no-console: ["error", { allow: ["warn", "error", "debug"] }] */
 /* global AWS LexWebUi Vue $ */
 import { ConfigLoader } from './config-loader';
-import { logout, login, completeLogin, completeLogout, getAuth } from './loginutil';
+import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin } from './loginutil';
 
 /**
  * Instantiates and mounts the chatbot component
@@ -42,7 +42,7 @@ export class FullPageComponentLoader {
     return config;
   }
 
-  requestTokens() {
+  async requestTokens() {
     const existingAuth = getAuth(this.generateConfigObj());
     const existingSession = existingAuth.getSignInUserSession();
     if (existingSession.isValid()) {
@@ -54,6 +54,28 @@ export class FullPageComponentLoader {
         event: 'confirmLogin',
         data: tokens,
       });
+    }
+  }
+
+  async refreshAuthTokens() {
+    const refToken = localStorage.getItem('refreshtoken');
+    if (refToken) {
+      refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
+        if (refSession.isValid()) {
+          const tokens = {};
+          tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+          tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+          tokens.refreshtoken = localStorage.getItem('refreshtoken');
+          FullPageComponentLoader.sendMessageToComponent({
+            event: 'confirmLogin',
+            data: tokens,
+          });
+        } else {
+          console.error('failed to refresh credentials');
+        }
+      });
+    } else {
+      console.error('no refreshtoken from which to refresh auth from');
     }
   }
 
@@ -136,13 +158,15 @@ export class FullPageComponentLoader {
    * Used by onMessageFromIframe - "this" object is bound dynamically
    */
   initBotMessageHandlers() {
-    $(document).on('fullpagecomponent', (evt) => {
+    $(document).on('fullpagecomponent', async (evt) => {
       if (evt.detail.event === 'requestLogin') {
         login(this.generateConfigObj());
       } else if (evt.detail.event === 'requestLogout') {
         logout(this.generateConfigObj());
       } else if (evt.detail.event === 'requestTokens') {
-        this.requestTokens();
+        await this.requestTokens();
+      } else if (evt.detail.event === 'refreshAuthTokens') {
+        await this.refreshAuthTokens();
       }
     });
   }

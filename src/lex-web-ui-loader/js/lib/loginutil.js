@@ -85,4 +85,23 @@ function login(config) {
   }
 }
 
-export { logout, login, completeLogin, completeLogout, getAuth };
+function refreshLogin(config, token, callback) {
+  /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
+  const auth = getAuth(config);
+  auth.userhandler = {
+    onSuccess(session) {
+      console.debug('Sign in success');
+      localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
+      localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
+      localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
+      callback(session);
+    },
+    onFailure(err) {
+      console.debug('Sign in failure: ' + JSON.stringify(err, null, 2));
+      callback(err);
+    },
+  };
+  auth.refreshSession(token);
+}
+
+export { logout, login, completeLogin, completeLogout, getAuth, refreshLogin };

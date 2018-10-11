@@ -250,7 +250,7 @@ export default {
           this.logoutConfirmed();
           break;
         default:
-          console.warn('unknown message in messageHanlder', evt);
+          console.warn('unknown message in messageHandler', evt);
           break;
       }
     },
