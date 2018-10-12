@@ -34226,22 +34226,36 @@ var recorder = void 0;
         var tmsg = JSON.parse(response.message);
         if (tmsg && Array.isArray(tmsg.messages)) {
           tmsg.messages.forEach(function (mes) {
+            var alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+            if (mes.type === 'CustomPayload') {
+              if (alts === undefined) {
+                alts = {};
+              }
+              alts.markdown = mes.value;
+            }
             context.dispatch('pushMessage', {
               text: mes.value,
               type: 'bot',
               dialogState: context.state.lex.dialogState,
               responseCard: context.state.lex.responseCard,
-              alts: JSON.parse(response.sessionAttributes.appContext || '{}').altMessages
+              alts: alts
             });
           });
         }
       } else {
+        var alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+        if (response.messageFormat === 'CustomPayload') {
+          if (alts === undefined) {
+            alts = {};
+          }
+          alts.markdown = response.message;
+        }
         context.dispatch('pushMessage', {
           text: response.message,
           type: 'bot',
           dialogState: context.state.lex.dialogState,
           responseCard: context.state.lex.responseCard,
-          alts: JSON.parse(response.sessionAttributes.appContext || '{}').altMessages
+          alts: alts
         });
       }
     }).then(function () {

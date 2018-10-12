@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b14c453b4fe752a8b36d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a62d104aadca567cfad5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11558,7 +11558,7 @@ Object.defineProperty(exports, "__esModule", {
 var dependenciesFullPage = exports.dependenciesFullPage = {
   script: [{
     name: 'AWS',
-    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.180.0.js',
+    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.332.0.js',
     canUseMin: true
   }, {
     // mobile hub generated aws config
