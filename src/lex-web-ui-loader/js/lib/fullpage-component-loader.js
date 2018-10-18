@@ -11,7 +11,7 @@
  License for the specific language governing permissions and limitations under the License.
  */
 
-/* eslint no-console: ["error", { allow: ["warn", "error", "debug"] }] */
+/* eslint no-console: ["error", { allow: ["warn", "error", "debug", "info"] }] */
 /* global AWS LexWebUi Vue $ */
 import { ConfigLoader } from './config-loader';
 import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin } from './loginutil';
@@ -167,8 +167,23 @@ export class FullPageComponentLoader {
         await this.requestTokens();
       } else if (evt.detail.event === 'refreshAuthTokens') {
         await this.refreshAuthTokens();
+      } else if (evt.detail.event === 'pong') {
+        console.info('pong received');
       }
     });
+  }
+
+  /**
+   * Inits the parent to iframe API
+   */
+  initPageToComponentApi() {
+    this.api = {
+      ping: () => FullPageComponentLoader.sendMessageToComponent({ event: 'ping' }),
+      postText: message => (
+        FullPageComponentLoader.sendMessageToComponent({ event: 'postText', message })
+      ),
+    };
+    return Promise.resolve();
   }
 
   /**
@@ -206,6 +221,7 @@ export class FullPageComponentLoader {
         ));
     }
     return Promise.all([
+      this.initPageToComponentApi(),
       this.initCognitoCredentials(),
       this.setupBotMessageListener(),
     ])

@@ -465,6 +465,57 @@ and configuration to the chatbot UI component:
       });
    </script>
 ```
+## Full Page API - Preview
+Several requests were made to enable an API when using the Full Page mode 
+to directly utilize the VUE component. There are two approaches to satisfying 
+this need. The first would be to access the component using the Vue Global 
+registration of the component. The methods and properties available for 
+the component then become available to the client including the LexClient. 
+The VueComponent would be directly accessed to post a text message to Lex.
+If not using VUE this approach becomes more difficult.  
+
+The second approach as an alternative is to use a new API available in 
+preview mode. This API is available from the FullPageComponentLoader 
+(fullpage-component-loader.js). 
+
+The API supports two operations
+
+* ping()
+* postText(message)
+
+Differing from the Iframe API, both operations complete asynchronously returning 
+immediately. Ping will be responded to by the VUE component with a "pong" message. 
+
+postText(message) will invoke the Lex API and call postText against Lex. No return or 
+confirmation is supplied. 
+
+```aidl
+  var Loader = ChatBotUiLoader.FullPageLoader;
+  var loaderOpts = {
+  };
+  var loader = new Loader(loaderOpts);
+  var chatbotUiConfig = {
+      lex: {
+        sessionAttributes: {
+          userAgent: navigator.userAgent
+        }
+      }
+  };
+  loader.load(chatbotUiConfig);
+  
+  ...
+  ...
+  ...
+    
+  **loader.compLoader.ping();**
+  
+  **loader.compLoader.postText("Hello");**
+  
+```
+The use of loader.compLoader.ping() or loader.compLoader.postText("message") are 
+examples of invoking the API. 
+
+Please provide feedback on the use of this API. 
 
 # Iframe Embedding
 The loader library can add the chatbot UI component to an existing page
@@ -659,7 +710,7 @@ lexWebUiLoader.load()
 The `lex-web-ui-loader.js` loader script relays messages to
 and from the chatbot UI component using events. It serves as a
 proxy to the low level postMessage mechanism discussed in the
-[API Details](#api-details) section. It works by using [custom
+[Iframe API Details](#iframe-api-details) section. It works by using [custom
 events](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent)
 and [event
 listeners](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
@@ -726,7 +777,7 @@ $(document).on('lexWebUiReady', function onUpdateLexState(evt) {
 });
 ```
 
-## API Details
+## Iframe API Details
 This section describes the chatbot UI component low level API used when
 it runs in embedded mode (iframe). The `lex-web-ui-loader.js` loader
 script implements this low level API and provides a compatibility layer

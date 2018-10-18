@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a62d104aadca567cfad5"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "49a7a1ea5d5904c1f79e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -12712,7 +12712,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  License for the specific language governing permissions and limitations under the License.
  */
 
-/* eslint no-console: ["error", { allow: ["warn", "error", "debug"] }] */
+/* eslint no-console: ["error", { allow: ["warn", "error", "debug", "info"] }] */
 /* global AWS LexWebUi Vue $ */
 var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
   /**
@@ -12917,7 +12917,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
                   }
 
                   (0, _loginutil.login)(_this2.generateConfigObj());
-                  _context3.next = 16;
+                  _context3.next = 19;
                   break;
 
                 case 4:
@@ -12927,7 +12927,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
                   }
 
                   (0, _loginutil.logout)(_this2.generateConfigObj());
-                  _context3.next = 16;
+                  _context3.next = 19;
                   break;
 
                 case 8:
@@ -12940,12 +12940,12 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
                   return _this2.requestTokens();
 
                 case 11:
-                  _context3.next = 16;
+                  _context3.next = 19;
                   break;
 
                 case 13:
                   if (!(evt.detail.event === 'refreshAuthTokens')) {
-                    _context3.next = 16;
+                    _context3.next = 18;
                     break;
                   }
 
@@ -12953,6 +12953,15 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
                   return _this2.refreshAuthTokens();
 
                 case 16:
+                  _context3.next = 19;
+                  break;
+
+                case 18:
+                  if (evt.detail.event === 'pong') {
+                    console.info('pong received');
+                  }
+
+                case 19:
                 case 'end':
                   return _context3.stop();
               }
@@ -12964,6 +12973,24 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
           return _ref4.apply(this, arguments);
         };
       }());
+    }
+
+    /**
+     * Inits the parent to iframe API
+     */
+
+  }, {
+    key: 'initPageToComponentApi',
+    value: function initPageToComponentApi() {
+      this.api = {
+        ping: function ping() {
+          return FullPageComponentLoader.sendMessageToComponent({ event: 'ping' });
+        },
+        postText: function postText(message) {
+          return FullPageComponentLoader.sendMessageToComponent({ event: 'postText', message: message });
+        }
+      };
+      return _promise2.default.resolve();
     }
 
     /**
@@ -13010,7 +13037,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
           return FullPageComponentLoader.mountComponent(_this4.elementId, lexWebUi);
         });
       }
-      return _promise2.default.all([this.initCognitoCredentials(), this.setupBotMessageListener()]).then(function () {
+      return _promise2.default.all([this.initPageToComponentApi(), this.initCognitoCredentials(), this.setupBotMessageListener()]).then(function () {
         FullPageComponentLoader.createComponent(mergedConfig).then(function (lexWebUi) {
           FullPageComponentLoader.mountComponent(_this4.elementId, lexWebUi);
         });
@@ -13695,32 +13722,34 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
           if (_this6.isChatBotReady) {
             clearTimeout(readyManager.timeoutId);
             clearInterval(readyManager.intervalId);
-            var auth = (0, _loginutil.getAuth)(_this6.generateConfigObj());
-            var session = auth.getSignInUserSession();
-            if (session.isValid()) {
-              var tokens = {};
-              tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
-              tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-              tokens.refreshtoken = localStorage.getItem('refreshtoken');
-              _this6.sendMessageToIframe({
-                event: 'confirmLogin',
-                data: tokens
-              });
-            } else {
-              var refToken = localStorage.getItem('refreshtoken');
-              if (refToken) {
-                (0, _loginutil.refreshLogin)(_this6.generateConfigObj(), refToken, function (refSession) {
-                  if (refSession.isValid()) {
-                    var _tokens = {};
-                    _tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
-                    _tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-                    _tokens.refreshtoken = localStorage.getItem('refreshtoken');
-                    _this6.sendMessageToIframe({
-                      event: 'confirmLogin',
-                      data: _tokens
-                    });
-                  }
+            if (_this6.config.ui.enableLogin && _this6.config.ui.enableLogin === true) {
+              var auth = (0, _loginutil.getAuth)(_this6.generateConfigObj());
+              var session = auth.getSignInUserSession();
+              if (session.isValid()) {
+                var tokens = {};
+                tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+                tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+                tokens.refreshtoken = localStorage.getItem('refreshtoken');
+                _this6.sendMessageToIframe({
+                  event: 'confirmLogin',
+                  data: tokens
                 });
+              } else {
+                var refToken = localStorage.getItem('refreshtoken');
+                if (refToken) {
+                  (0, _loginutil.refreshLogin)(_this6.generateConfigObj(), refToken, function (refSession) {
+                    if (refSession.isValid()) {
+                      var _tokens = {};
+                      _tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+                      _tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+                      _tokens.refreshtoken = localStorage.getItem('refreshtoken');
+                      _this6.sendMessageToIframe({
+                        event: 'confirmLogin',
+                        data: _tokens
+                      });
+                    }
+                  });
+                }
               }
             }
             resolve();

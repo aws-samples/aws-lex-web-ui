@@ -390,32 +390,34 @@ export class IframeComponentLoader {
         if (this.isChatBotReady) {
           clearTimeout(readyManager.timeoutId);
           clearInterval(readyManager.intervalId);
-          const auth = getAuth(this.generateConfigObj());
-          const session = auth.getSignInUserSession();
-          if (session.isValid()) {
-            const tokens = {};
-            tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
-            tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-            tokens.refreshtoken = localStorage.getItem('refreshtoken');
-            this.sendMessageToIframe({
-              event: 'confirmLogin',
-              data: tokens,
-            });
-          } else {
-            const refToken = localStorage.getItem('refreshtoken');
-            if (refToken) {
-              refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
-                if (refSession.isValid()) {
-                  const tokens = {};
-                  tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
-                  tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-                  tokens.refreshtoken = localStorage.getItem('refreshtoken');
-                  this.sendMessageToIframe({
-                    event: 'confirmLogin',
-                    data: tokens,
-                  });
-                }
+          if (this.config.ui.enableLogin && this.config.ui.enableLogin === true) {
+            const auth = getAuth(this.generateConfigObj());
+            const session = auth.getSignInUserSession();
+            if (session.isValid()) {
+              const tokens = {};
+              tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+              tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+              tokens.refreshtoken = localStorage.getItem('refreshtoken');
+              this.sendMessageToIframe({
+                event: 'confirmLogin',
+                data: tokens,
               });
+            } else {
+              const refToken = localStorage.getItem('refreshtoken');
+              if (refToken) {
+                refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
+                  if (refSession.isValid()) {
+                    const tokens = {};
+                    tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+                    tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+                    tokens.refreshtoken = localStorage.getItem('refreshtoken');
+                    this.sendMessageToIframe({
+                      event: 'confirmLogin',
+                      data: tokens,
+                    });
+                  }
+                });
+              }
             }
           }
           resolve();

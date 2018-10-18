@@ -263,6 +263,18 @@ export default {
         case 'confirmLogout':
           this.logoutConfirmed();
           break;
+        case 'ping':
+          this.$store.dispatch(
+            'sendMessageToParentWindow',
+            { event: 'pong' },
+          );
+          break;
+        case 'postText':
+          this.$store.dispatch(
+            'postTextMessage',
+            { type: 'human', text: evt.detail.message },
+          );
+          break;
         default:
           console.warn('unknown message in componentMessageHandler', evt);
           break;
