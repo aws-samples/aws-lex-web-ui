@@ -42,7 +42,7 @@ License for the specific language governing permissions and limitations under th
 */
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
-/* global $ */
+
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
@@ -324,7 +324,7 @@ export default {
     },
     initConfig() {
       if (this.$store.state.config.urlQueryParams.lexWebUiEmbed !== 'true') {
-        $(document).on('lexwebuicomponent', (evt) => { this.componentMessageHandler(evt); });
+        window.addEventListener('lexwebuicomponent', (evt) => { this.componentMessageHandler(evt); }, false);
         this.$store.commit('setIsRunningEmbedded', false);
         this.$store.commit('setAwsCredsProvider', 'cognito');
       } else {
