@@ -48,6 +48,17 @@ Parameters:
             will be preserved. Only applies if the bot is created by
             this stack.
 
+    EnableCognitoLogin:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, a menu with a login action will be displayed
+            in the Lex Web Ui. This feature uses Cognito User Pools with
+            hosted login pages. After login, the menu will switch to logout.
+
     CodeBuildName:
         Type: String
         Description: >
@@ -73,6 +84,16 @@ Parameters:
         Default: ''
         AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
         ConstraintDescription: Empty or valid browser origin
+
+    WebAppPath:
+        Type: String
+        Default: '/parent.html'
+        Description: >
+            Path to the page hosting the sample WebApp. This parameter defaults
+            to parent.html which is used by the sample app created when hosting the
+            bot in a separate iframe. This path should be updated to reflect the
+            path to the default (home) page used by the WebAppParentOrigin.
+            This may be /index.html rather than the default.
 
     CognitoIdentityPoolId:
         Type: String
@@ -107,6 +128,52 @@ Parameters:
             If set to True, buckets created for the Pipeline and to store the
             web application will be deleted on CloudFormation stack delete.
             If set to False, S3 buckets will be retained.
+
+    EnableMarkdownSupport:
+        Type: String
+        Default: true
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, enable optional Markdown formatting.
+            Warning: Improper use of the Markdown/html feature can open you up to a cross-site
+            scripting (XSS) attack from insecure Bots. Make sure you trust the Bot being used
+            by the LexWebUi.
+
+    ReInitSessionAttributesOnRestart:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, session attributes sent on each request to Lex are reset. Use a value
+            of false, if session attributes need to be supported on subsequent Lex requests. The
+            default is false.
+
+    ShouldLoadIframeMinimized:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True and running embedded as an Iframe on a web page, minimize the
+            LexWebUi when first launched. If set to False, the Iframe will be maximized
+            on the hosting page.
+
+    ShowResponseCardTitle:
+        Type: String
+        Default: true
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, the ResponseCard title is displayed in the UI. When set to false,
+            a ResponseCard title is not displayed in the UI. Default is true. Note at the
+            present time this is a global setting. Should the UI need to display some form
+            of a title, use the optional sub-title property of a ResponseCard.
 
     # Sub-templates and source artifacts are hosted in this bucket.
     # The content of this bucket is maintained outside of this template
@@ -158,6 +225,10 @@ Metadata:
                   - BotName
                   - BotNamePrefix
                   - ShouldDeleteBot
+                  - EnableCognitoLogin
+                  - EnableMarkdownSupport
+                  - ReInitSessionAttributesOnRestart
+                  - ShowResponseCardTitle
             - Label:
                 default: Cognito Parameters
               Parameters:
@@ -167,9 +238,11 @@ Metadata:
                 default: Web Application Parameters
               Parameters:
                   - WebAppParentOrigin
+                  - WebAppPath
                   - WebAppConfBotInitialText
                   - WebAppConfBotInitialSpeech
                   - WebAppConfToolbarTitle
+                  - ShouldLoadIframeMinimized
 Conditions:
     NeedsBot: !Equals [!Ref BotName, '']
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
@@ -228,6 +301,34 @@ Resources:
                 WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
                 WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
+                ShouldEnableCognitoLogin: !Ref EnableCognitoLogin
+                ReInitSessionAttributesOnRestart: !Ref ReInitSessionAttributesOnRestart
+                EnableMarkdownSupport: !Ref EnableMarkdownSupport
+                ShouldLoadIframeMinimized: !Ref ShouldLoadIframeMinimized
+                ShowResponseCardTitle: !Ref ShowResponseCardTitle
+                CognitoAppUserPoolClientId:
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+                      - "UserMustSupply"
+                CognitoUserPoolId:
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+                      - "UserMustSupply"
+
+
+    CognitoIdentityPoolConfig:
+        Type: AWS::CloudFormation::Stack
+        Condition: NeedsCognito
+        Properties:
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/cognitouserpoolconfig.yaml"
+            Parameters:
+                WebAppUrl: !If [NeedsParentOrigin, !GetAtt CodeBuildDeploy.Outputs.WebAppBase, !Ref WebAppParentOrigin]
+                WebAppPath: !Ref WebAppPath
+                CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
+                CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+                CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
 
 Outputs:
     BotName:

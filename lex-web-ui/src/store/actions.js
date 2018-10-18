@@ -25,6 +25,8 @@ import silentMp3 from '@/assets/silent.mp3';
 
 import LexClient from '@/lib/lex/client';
 
+const jwt = require('jsonwebtoken');
+
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
 let awsCredentials;
@@ -446,6 +448,13 @@ export default {
           const tmsg = JSON.parse(response.message);
           if (tmsg && Array.isArray(tmsg.messages)) {
             tmsg.messages.forEach((mes) => {
+              let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+              if (mes.type === 'CustomPayload') {
+                if (alts === undefined) {
+                  alts = {};
+                }
+                alts.markdown = mes.value;
+              }
               context.dispatch(
                 'pushMessage',
                 {
@@ -453,12 +462,19 @@ export default {
                   type: 'bot',
                   dialogState: context.state.lex.dialogState,
                   responseCard: context.state.lex.responseCard,
-                  alts: JSON.parse(response.sessionAttributes.appContext || '{}').altMessages,
+                  alts,
                 },
               );
             });
           }
         } else {
+          let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+          if (response.messageFormat === 'CustomPayload') {
+            if (alts === undefined) {
+              alts = {};
+            }
+            alts.markdown = response.message;
+          }
           context.dispatch(
             'pushMessage',
             {
@@ -466,7 +482,7 @@ export default {
               type: 'bot',
               dialogState: context.state.lex.dialogState,
               responseCard: context.state.lex.responseCard,
-              alts: JSON.parse(response.sessionAttributes.appContext || '{}').altMessages,
+              alts,
             },
           );
         }
@@ -491,7 +507,8 @@ export default {
     context.commit('setIsLexProcessing', true);
     const session = context.state.lex.sessionAttributes;
     delete session.appContext;
-    return context.dispatch('getCredentials')
+    return context.dispatch('refreshAuthTokens')
+      .then(() => context.dispatch('getCredentials'))
       .then(() => lexClient.postText(text, session))
       .then((data) => {
         context.commit('setIsLexProcessing', false);
@@ -510,7 +527,8 @@ export default {
     console.info('audio blob size:', audioBlob.size);
     let timeStart;
 
-    return context.dispatch('getCredentials')
+    return context.dispatch('refreshAuthTokens')
+      .then(() => context.dispatch('getCredentials'))
       .then(() => {
         timeStart = performance.now();
         return lexClient.postContent(
@@ -657,6 +675,58 @@ export default {
 
   /***********************************************************************
    *
+   * Auth Token Actions
+   *
+   **********************************************************************/
+
+  refreshAuthTokensFromParent(context) {
+    return context.dispatch('sendMessageToParentWindow', { event: 'refreshAuthTokens' })
+      .then((tokenResponse) => {
+        if (tokenResponse.event === 'resolve' &&
+          tokenResponse.type === 'refreshAuthTokens') {
+          return Promise.resolve(tokenResponse.data);
+        }
+        if (context.state.isRunningEmbedded) {
+          const error = new Error('invalid refresh token event from parent');
+          return Promise.reject(error);
+        }
+        return Promise.resolve('outofbandrefresh');
+      })
+      .then((tokens) => {
+        if (context.state.isRunningEmbedded) {
+          context.commit('setTokens', tokens);
+        }
+        return Promise.resolve();
+      });
+  },
+  refreshAuthTokens(context) {
+    function isExpired(token) {
+      if (token) {
+        const decoded = jwt.decode(token, { complete: true });
+        if (decoded) {
+          const now = Date.now();
+          // calculate and expiration time 5 minutes soooner and adjust to milliseconds
+          // to compare with now.
+          const expiration = (decoded.payload.exp - (5 * 60)) * 1000;
+          if (now > expiration) {
+            return true;
+          }
+          return false;
+        }
+        return false;
+      }
+      return false;
+    }
+
+    if (context.state.tokens.idtokenjwt && isExpired(context.state.tokens.idtokenjwt)) {
+      console.info('starting auth token refresh');
+      return context.dispatch('refreshAuthTokensFromParent');
+    }
+    return Promise.resolve();
+  },
+
+  /***********************************************************************
+   *
    * UI and Parent Communication Actions
    *
    **********************************************************************/
@@ -668,13 +738,35 @@ export default {
       { event: 'toggleMinimizeUi' },
     );
   },
+  toggleIsLoggedIn(context) {
+    context.commit('toggleIsLoggedIn');
+    return context.dispatch(
+      'sendMessageToParentWindow',
+      { event: 'toggleIsLoggedIn' },
+    );
+  },
+  /**
+   * sendMessageToParentWindow will either dispatch an event using a CustomEvent to a handler when
+   * the lex-web-ui is running as a VUE component on a page or will send a message via postMessage
+   * to a parent window if an iFrame is hosting the VUE component on a parent page.
+   * isRunningEmbedded === true indicates running withing an iFrame on a parent page
+   * isRunningEmbedded === false indicates running as a VUE component directly on a page.
+   * @param context
+   * @param message
+   * @returns {Promise<any>}
+   */
   sendMessageToParentWindow(context, message) {
     if (!context.state.isRunningEmbedded) {
-      const error = 'sendMessage called when not running embedded';
-      console.warn(error);
-      return Promise.reject(error);
+      return new Promise((resolve, reject) => {
+        try {
+          const myEvent = new CustomEvent('fullpagecomponent', { detail: message });
+          document.dispatchEvent(myEvent);
+          resolve(myEvent);
+        } catch (err) {
+          reject(err);
+        }
+      });
     }
-
     return new Promise((resolve, reject) => {
       const messageChannel = new MessageChannel();
       messageChannel.port1.onmessage = (evt) => {
