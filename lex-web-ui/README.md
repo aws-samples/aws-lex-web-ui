@@ -226,7 +226,7 @@ you will need to perform additional setup of resources or ensure the following
 resources have been defined and configured. 
 
 The resources below are configured automatically by the
-CloudFormation stack when a new user pool is being created. They are not
+CloudFormation stack when a new identity pool is being created. They are not
 provisioned when using an existing Identity Pool. 
 
 #### Roles
@@ -238,12 +238,12 @@ Authenticated role should be created and should allow access to the
 Lex PostText/PostContent API actions and the Polly SynthesizeSpeech action. Other 
 services and actions can be enabled as needed. 
 
-#### Cognito UserPool
+#### Cognito User Pool
 
-1. Make sure a Cognito UserPool is created. It should be defined with the following 
+1. Make sure a Cognito User Pool is created. It should be defined with the following 
 required attributes: given_name, family_name, preferred_username, and email.
 
-** Note this is a ten step process to click through and build up a cognito user pool.
+* Note this is a ten step process to click through and build up a cognito user pool.
 The configuration steps are highlighted in the [flow of configuration screens](./READMECONFIGSCREENS.md) using
 the Amazon Cognito Console. 
 

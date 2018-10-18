@@ -1,9 +1,9 @@
 ### Create a user pool flow
 
 The following images display the flow of configuration screens after selecting 
-create new user pool from the AWS Cognito User Pool console. The changes and selections are
-identified by the red arrows. These settings that will support
-use of the User Pool by the lex-web-ui. 
+create new user pool from the AWS Cognito User Pools console. The changes and selections are
+identified by the red arrows. These settings will support
+use of the new User Pool by the lex-web-ui. 
 
 ![](./readmeimages/userpoolstep1.png)
 ![](./readmeimages/userpoolstep2.png)
@@ -22,7 +22,7 @@ use of the User Pool by the lex-web-ui.
 
 ### User Pool App Client Settings
 
-Once the user pool has been created, the pools app client settings also need to be configured.
+Once the user pool has been created, the pool's app client settings also need to be configured.
 
 ![](./readmeimages/userpoolappclientsettings.png)
 
