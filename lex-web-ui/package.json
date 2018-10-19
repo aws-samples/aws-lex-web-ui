@@ -1,6 +1,6 @@
 {
   "name": "lex-web-ui",
-  "version": "0.13.2",
+  "version": "0.14.0",
   "description": "Amazon Lex Web Interface",
   "author": "AWS",
   "license": "Amazon Software License",
@@ -17,7 +17,8 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "aws-sdk": "^2.180.0",
+    "aws-sdk": "^2.332.0",
+    "jsonwebtoken": "^8.3.0",
     "marked": "^0.3.19",
     "material-design-icons": "^3.0.1",
     "roboto-fontface": "^0.8.0",

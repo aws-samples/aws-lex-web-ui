@@ -303,6 +303,31 @@ export default {
     state.isUiMinimized = !state.isUiMinimized;
   },
   /**
+   * used to track the expand/minimize status of the window when
+   * running embedded in an iframe
+   */
+  setIsLoggedIn(state, bool) {
+    state.isLoggedIn = bool;
+  },
+
+  /**
+   * Update tokens from cognito authentication
+   * @param state
+   * @param tokens
+   */
+  setTokens(state, tokens) {
+    if (tokens) {
+      state.tokens.idtokenjwt = tokens.idtokenjwt;
+      state.tokens.accesstokenjwt = tokens.accesstokenjwt;
+      state.tokens.refreshtoken = tokens.refreshtoken;
+      state.lex.sessionAttributes.idtokenjwt = tokens.idtokenjwt;
+      state.lex.sessionAttributes.accesstokenjwt = tokens.accesstokenjwt;
+      state.lex.sessionAttributes.refreshtoken = tokens.refreshtoken;
+    } else {
+      state.tokens = undefined;
+    }
+  },
+  /**
    * Push new message into messages array
    */
   pushMessage(state, message) {

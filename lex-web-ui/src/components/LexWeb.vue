@@ -2,11 +2,14 @@
   <v-app id="lex-web"
   >
     <toolbar-container
+      v-bind:userName="userNameValue"
       v-bind:toolbar-title="toolbarTitle"
       v-bind:toolbar-color="toolbarColor"
       v-bind:toolbar-logo="toolbarLogo"
       v-bind:is-ui-minimized="isUiMinimized"
       v-on:toggleMinimizeUi="toggleMinimizeUi"
+      @requestLogin="handleRequestLogin"
+      @requestLogout="handleRequestLogout"
     ></toolbar-container>
 
     <v-content>
@@ -39,12 +42,20 @@ License for the specific language governing permissions and limitations under th
 */
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
+
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
 
+const jwt = require('jsonwebtoken');
+
 export default {
   name: 'lex-web',
+  data() {
+    return {
+      userNameValue: '',
+    };
+  },
   components: {
     ToolbarContainer,
     MessageList,
@@ -128,9 +139,61 @@ export default {
         console.error('could not initialize application while mounting:', error);
       });
   },
+  mounted() {
+    if (!this.$store.state.isRunningEmbedded) {
+      this.$store.dispatch(
+        'sendMessageToParentWindow',
+        { event: 'requestTokens' },
+      );
+    }
+  },
   methods: {
     toggleMinimizeUi() {
       return this.$store.dispatch('toggleIsUiMinimized');
+    },
+    loginConfirmed(evt) {
+      this.$store.commit('setIsLoggedIn', true);
+      if (evt.detail && evt.detail.data) {
+        this.$store.commit('setTokens', evt.detail.data);
+      } else if (evt.data && evt.data.data) {
+        this.$store.commit('setTokens', evt.data.data);
+      }
+    },
+    logoutConfirmed() {
+      this.$store.commit('setIsLoggedIn', false);
+      this.$store.commit('setTokens', {
+        idtokenjwt: '',
+        accesstokenjwt: '',
+        refreshtoken: '',
+      });
+    },
+    handleRequestLogin() {
+      console.info('request login');
+      if (this.$store.state.isRunningEmbedded) {
+        this.$store.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'requestLogin' },
+        );
+      } else {
+        this.$store.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'requestLogin' },
+        );
+      }
+    },
+    handleRequestLogout() {
+      console.info('request logout');
+      if (this.$store.state.isRunningEmbedded) {
+        this.$store.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'requestLogout' },
+        );
+      } else {
+        this.$store.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'requestLogout' },
+        );
+      }
     },
     // messages from parent
     messageHandler(evt) {
@@ -179,10 +242,61 @@ export default {
               event: 'resolve', type: evt.data.event,
             }));
           break;
+        case 'confirmLogin':
+          this.loginConfirmed(evt);
+          this.userNameValue = this.userName();
+          break;
+        case 'confirmLogout':
+          this.logoutConfirmed();
+          break;
         default:
-          console.warn('unknown message in messageHanlder', evt);
+          console.warn('unknown message in messageHandler', evt);
           break;
       }
+    },
+    componentMessageHandler(evt) {
+      switch (evt.detail.event) {
+        case 'confirmLogin':
+          this.loginConfirmed(evt);
+          this.userNameValue = this.userName();
+          break;
+        case 'confirmLogout':
+          this.logoutConfirmed();
+          break;
+        case 'ping':
+          this.$store.dispatch(
+            'sendMessageToParentWindow',
+            { event: 'pong' },
+          );
+          break;
+        case 'postText':
+          this.$store.dispatch(
+            'postTextMessage',
+            { type: 'human', text: evt.detail.message },
+          );
+          break;
+        default:
+          console.warn('unknown message in componentMessageHandler', evt);
+          break;
+      }
+    },
+    userName() {
+      let v = '';
+      if (this.$store.state.tokens && this.$store.state.tokens.idtokenjwt) {
+        const decoded = jwt.decode(this.$store.state.tokens.idtokenjwt, { complete: true });
+        if (decoded) {
+          if (decoded.payload) {
+            if (decoded.payload.email) {
+              v = decoded.payload.email;
+            }
+            if (decoded.payload.preferred_username) {
+              v = decoded.payload.preferred_username;
+            }
+          }
+        }
+        return `[${v}]`;
+      }
+      return v;
     },
     logRunningMode() {
       if (!this.$store.state.isRunningEmbedded) {
@@ -210,6 +324,7 @@ export default {
     },
     initConfig() {
       if (this.$store.state.config.urlQueryParams.lexWebUiEmbed !== 'true') {
+        window.addEventListener('lexwebuicomponent', (evt) => { this.componentMessageHandler(evt); }, false);
         this.$store.commit('setIsRunningEmbedded', false);
         this.$store.commit('setAwsCredsProvider', 'cognito');
       } else {

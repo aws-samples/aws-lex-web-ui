@@ -1,6 +1,6 @@
 {
   "name": "aws-lex-web-ui",
-  "version": "0.13.2",
+  "version": "0.14.0",
   "description": "Sample Amazon Lex Web Interface",
   "main": "dist/lex-web-ui.min.js",
   "repository": {
@@ -30,6 +30,7 @@
     "lint": "eslint --format node_modules/eslint-friendly-formatter src/lex-web-ui-loader"
   },
   "dependencies": {
+    "amazon-cognito-auth-js": "^1.2.4",
     "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {

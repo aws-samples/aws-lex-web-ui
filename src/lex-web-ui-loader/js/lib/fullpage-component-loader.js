@@ -11,9 +11,10 @@
  License for the specific language governing permissions and limitations under the License.
  */
 
-/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-/* global LexWebUi Vue */
+/* eslint no-console: ["error", { allow: ["warn", "error", "debug", "info"] }] */
+/* global AWS LexWebUi Vue $ */
 import { ConfigLoader } from './config-loader';
+import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin } from './loginutil';
 
 /**
  * Instantiates and mounts the chatbot component
@@ -32,17 +33,219 @@ export class FullPageComponentLoader {
     this.config = config;
   }
 
+  generateConfigObj() {
+    const config = {
+      appUserPoolClientId: this.config.cognito.appUserPoolClientId,
+      appDomainName: this.config.cognito.appDomainName,
+      appUserPoolIdentityProvider: this.config.cognito.appUserPoolIdentityProvider,
+    };
+    return config;
+  }
+
+  async requestTokens() {
+    const existingAuth = getAuth(this.generateConfigObj());
+    const existingSession = existingAuth.getSignInUserSession();
+    if (existingSession.isValid()) {
+      const tokens = {};
+      tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+      tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+      tokens.refreshtoken = localStorage.getItem('refreshtoken');
+      FullPageComponentLoader.sendMessageToComponent({
+        event: 'confirmLogin',
+        data: tokens,
+      });
+    }
+  }
+
+  async refreshAuthTokens() {
+    const refToken = localStorage.getItem('refreshtoken');
+    if (refToken) {
+      refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
+        if (refSession.isValid()) {
+          const tokens = {};
+          tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+          tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+          tokens.refreshtoken = localStorage.getItem('refreshtoken');
+          FullPageComponentLoader.sendMessageToComponent({
+            event: 'confirmLogin',
+            data: tokens,
+          });
+        } else {
+          console.error('failed to refresh credentials');
+        }
+      });
+    } else {
+      console.error('no refreshtoken from which to refresh auth from');
+    }
+  }
+
+  /**
+   * Creates Cognito credentials and processes Cognito login if complete
+   * Inits this.credentials
+   */
+  initCognitoCredentials() {
+    return new Promise((resolve, reject) => {
+      const curUrl = window.location.href;
+      if (curUrl.indexOf('loggedin') >= 0) {
+        if (completeLogin(this.generateConfigObj())) {
+          const auth = getAuth(this.generateConfigObj());
+          const session = auth.getSignInUserSession();
+          if (session.isValid()) {
+            const tokens = {};
+            tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
+            tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+            tokens.refreshtoken = localStorage.getItem('refreshtoken');
+            FullPageComponentLoader.sendMessageToComponent({
+              event: 'confirmLogin',
+              data: tokens,
+            });
+          }
+        }
+      } else if (curUrl.indexOf('loggedout') >= 0) {
+        if (completeLogout(this.generateConfigObj())) {
+          FullPageComponentLoader.sendMessageToComponent({ event: 'confirmLogout' });
+        }
+      }
+      const { poolId: cognitoPoolId } =
+        this.config.cognito;
+      const region =
+        this.config.cognito.region || this.config.region || 'us-east-1';
+      const poolName = `cognito-idp.us-east-1.amazonaws.com/${this.config.cognito.appUserPoolName}`;
+      if (!cognitoPoolId) {
+        return reject(new Error('missing cognito poolId config'));
+      }
+
+      if (!('AWS' in window) ||
+        !('CognitoIdentityCredentials' in window.AWS)
+      ) {
+        return reject(new Error('unable to find AWS SDK global object'));
+      }
+
+      let credentials;
+      const idtoken = localStorage.getItem('idtokenjwt');
+      if (idtoken) { // auth role since logged in
+        try {
+          const logins = {};
+          logins[poolName] = idtoken;
+          credentials = new AWS.CognitoIdentityCredentials(
+            { IdentityPoolId: cognitoPoolId },
+            { region },
+          );
+        } catch (err) {
+          reject(new Error(`cognito auth credentials could not be created ${err}`));
+        }
+      } else { // noauth role
+        try {
+          credentials = new AWS.CognitoIdentityCredentials(
+            { IdentityPoolId: cognitoPoolId },
+            { region },
+          );
+        } catch (err) {
+          reject(new Error(`cognito noauth credentials could not be created ${err}`));
+        }
+      }
+      // get and assign credentials
+      return credentials.getPromise()
+        .then(() => {
+          this.credentials = credentials;
+          resolve();
+        });
+    });
+  }
+
+  /**
+   * Event handler functions for messages from iframe
+   * Used by onMessageFromIframe - "this" object is bound dynamically
+   */
+  initBotMessageHandlers() {
+    $(document).on('fullpagecomponent', async (evt) => {
+      if (evt.detail.event === 'requestLogin') {
+        login(this.generateConfigObj());
+      } else if (evt.detail.event === 'requestLogout') {
+        logout(this.generateConfigObj());
+      } else if (evt.detail.event === 'requestTokens') {
+        await this.requestTokens();
+      } else if (evt.detail.event === 'refreshAuthTokens') {
+        await this.refreshAuthTokens();
+      } else if (evt.detail.event === 'pong') {
+        console.info('pong received');
+      }
+    });
+  }
+
+  /**
+   * Inits the parent to iframe API
+   */
+  initPageToComponentApi() {
+    this.api = {
+      ping: () => FullPageComponentLoader.sendMessageToComponent({ event: 'ping' }),
+      postText: message => (
+        FullPageComponentLoader.sendMessageToComponent({ event: 'postText', message })
+      ),
+    };
+    return Promise.resolve();
+  }
+
+  /**
+   * Add postMessage event handler to receive messages from iframe
+   */
+  setupBotMessageListener() {
+    return new Promise((resolve, reject) => {
+      try {
+        this.initBotMessageHandlers();
+        resolve();
+      } catch (err) {
+        console.error(`Could not setup message handlers: ${err}`);
+        reject(err);
+      }
+    });
+  }
+
+  isRunningEmbeded() {
+    const url = window.location.href;
+    this.runningEmbeded = (url.indexOf('lexWebUiEmbed=true') !== -1);
+    return (this.runningEmbeded);
+  }
+
   /**
    * Loads the component into the DOM
    * configParam overrides at runtime the chatbot UI config
    */
   load(configParam) {
     const mergedConfig = ConfigLoader.mergeConfig(this.config, configParam);
+    this.config = mergedConfig;
+    if (this.isRunningEmbeded()) {
+      return FullPageComponentLoader.createComponent(mergedConfig)
+        .then(lexWebUi => (
+          FullPageComponentLoader.mountComponent(this.elementId, lexWebUi)
+        ));
+    }
+    return Promise.all([
+      this.initPageToComponentApi(),
+      this.initCognitoCredentials(),
+      this.setupBotMessageListener(),
+    ])
+      .then(() => {
+        FullPageComponentLoader.createComponent(mergedConfig)
+          .then((lexWebUi) => {
+            FullPageComponentLoader.mountComponent(this.elementId, lexWebUi);
+          });
+      });
+  }
 
-    return FullPageComponentLoader.createComponent(mergedConfig)
-      .then(lexWebUi => (
-        FullPageComponentLoader.mountComponent(this.elementId, lexWebUi)
-      ));
+  /**
+   * Send a message to the component
+   */
+  static sendMessageToComponent(message) {
+    return new Promise((resolve, reject) => {
+      try {
+        const myEvent = new CustomEvent('lexwebuicomponent', { detail: message });
+        document.dispatchEvent(myEvent);
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 
   /**

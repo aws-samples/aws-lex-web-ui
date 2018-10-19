@@ -77,7 +77,7 @@ const configDefault = {
 
     // controls if the session attributes are reinitialized a
     // after the bot dialog is done (i.e. fail or fulfilled)
-    reInitSessionAttributesOnRestart: true,
+    reInitSessionAttributesOnRestart: false,
 
     // TODO move this config fields to converser
     // allow to interrupt playback of lex responses by talking over playback
@@ -173,6 +173,13 @@ const configDefault = {
     // escaped/encoded/filtered in the Lambda function
     // https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
     AllowSuperDangerousHTMLInMessage: false,
+
+    // Lex webui should display response card titles. The response card
+    // title can be optionally disabled by setting this value to false
+    shouldDisplayResponseCardTitle: true,
+
+    // Optionally display login menu
+    enableLogin: false,
   },
 
   /* Configuration to enable voice and to pass options to the recorder

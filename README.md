@@ -5,7 +5,7 @@
 # Overview
 This is a sample [Amazon Lex](https://aws.amazon.com/lex/)
 web interface. It provides a chatbot UI component that can be integrated
-in your website. The interface allows to interact with a Lex bot directly
+in your website. The interface allows a user to interact with a Lex bot directly
 from a browser using text or voice.
 
 Features include:
@@ -173,6 +173,16 @@ In its most simple setup, you can use the loader library like this:
   new ChatBotUiLoader.FullPageLoader().load();
 </script>
 ```
+
+#### Stand-Alone API through the Loader Library
+
+Similar to the iFrame loading technique described later, the 
+FullPageComponentLoader now provides an API allowing a subset of
+events to be sent to the Lex Web UI Component. These events are
+ping and postText. See the [full page](src/README.md#full-page) for 
+description of this API. 
+
+#### Stand-Alone details
 
 For more details and other code examples about using the loader script
 in a full page setup, see the [full page](src/README.md#full-page)

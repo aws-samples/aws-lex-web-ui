@@ -110,14 +110,33 @@ const initRecorderHandlers = (context, recorder) => {
           audio: humanAudioUrl,
           text: context.state.lex.inputTranscript,
         });
-        context.dispatch('pushMessage', {
-          type: 'bot',
-          audio: lexAudioUrl,
-          text: context.state.lex.message,
-          dialogState: context.state.lex.dialogState,
-          responseCard: context.state.lex.responseCard,
-          alts: JSON.parse(context.state.lex.sessionAttributes.appContext || '{}').altMessages,
-        });
+        if (context.state.lex.message.includes('{"messages":')) {
+          const tmsg = JSON.parse(context.state.lex.message);
+          if (tmsg && Array.isArray(tmsg.messages)) {
+            tmsg.messages.forEach((mes) => {
+              context.dispatch(
+                'pushMessage',
+                {
+                  type: 'bot',
+                  audio: lexAudioUrl,
+                  text: mes.value,
+                  dialogState: context.state.lex.dialogState,
+                  responseCard: context.state.lex.responseCard,
+                  alts: JSON.parse(context.state.lex.sessionAttributes.appContext || '{}').altMessages,
+                },
+              );
+            });
+          }
+        } else {
+          context.dispatch('pushMessage', {
+            type: 'bot',
+            audio: lexAudioUrl,
+            text: context.state.lex.message,
+            dialogState: context.state.lex.dialogState,
+            responseCard: context.state.lex.responseCard,
+            alts: JSON.parse(context.state.lex.sessionAttributes.appContext || '{}').altMessages,
+          });
+        }
         return context.dispatch('playAudio', lexAudioUrl, {}, offset);
       })
       .then(() => {
