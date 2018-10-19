@@ -19,14 +19,14 @@ and ability to interrupt responses and replay recordings
 UI using JavaScript
 
 #### New Features in version 0.14.0
-* Optionally support user login via Cognito User Pool and supports other Identity Providers
+- Optionally support user login via Cognito User Pool and supports other Identity Providers
 <img src="./img/f.0.14.0_login.png" width=300>
-* Improved clickable response card button formatting / optional titles
+- Improved clickable response card button formatting / optional titles
 <img src="./img/f.0.14.0_buttonA.png" width=300>
 <img src="./img/f.0.14.0_buttonB.png" width=300>
-* Support of Markdown from Lex 
+- Support of Markdown from Lex 
 <img src="./img/f.0.14.0_markdown.png" width=300>
-* Additional lex-web-ui parameters can be configured via CloudFormation template
+- Additional lex-web-ui parameters can be configured via CloudFormation template
 
 #### Ways the lex-web-ui chatbot can be deployed
 
