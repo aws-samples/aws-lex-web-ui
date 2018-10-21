@@ -275,6 +275,12 @@ export default {
             { type: 'human', text: evt.detail.message },
           );
           break;
+        case 'replaceCreds':
+          this.$store.dispatch(
+            'initCredentials',
+            evt.detail.creds,
+          );
+          break;
         default:
           console.warn('unknown message in componentMessageHandler', evt);
           break;
@@ -324,7 +330,7 @@ export default {
     },
     initConfig() {
       if (this.$store.state.config.urlQueryParams.lexWebUiEmbed !== 'true') {
-        window.addEventListener('lexwebuicomponent', (evt) => { this.componentMessageHandler(evt); }, false);
+        document.addEventListener('lexwebuicomponent', this.componentMessageHandler, false);
         this.$store.commit('setIsRunningEmbedded', false);
         this.$store.commit('setAwsCredsProvider', 'cognito');
       } else {

@@ -57,19 +57,65 @@ export class FullPageComponentLoader {
     }
   }
 
+  /**
+   * Send tokens to the Vue component and update the Vue component
+   * with the latest AWS credentials to use to make calls to AWS
+   * services.
+   */
+  propagateTokensUpdateCredentials() {
+    const idtoken = localStorage.getItem('idtokenjwt');
+    const tokens = {};
+    tokens.idtokenjwt = idtoken;
+    tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+    tokens.refreshtoken = localStorage.getItem('refreshtoken');
+    FullPageComponentLoader.sendMessageToComponent({
+      event: 'confirmLogin',
+      data: tokens,
+    });
+    const { poolId: cognitoPoolId } =
+      this.config.cognito;
+    const region =
+      this.config.cognito.region || this.config.region || 'us-east-1';
+    const poolName = `cognito-idp.us-east-1.amazonaws.com/${this.config.cognito.appUserPoolName}`;
+    let credentials;
+    if (idtoken) { // auth role since logged in
+      try {
+        const logins = {};
+        logins[poolName] = idtoken;
+        credentials = new AWS.CognitoIdentityCredentials(
+          { IdentityPoolId: cognitoPoolId },
+          { region },
+        );
+      } catch (err) {
+        console.error(new Error(`cognito auth credentials could not be created ${err}`));
+      }
+    } else { // noauth role
+      try {
+        credentials = new AWS.CognitoIdentityCredentials(
+          { IdentityPoolId: cognitoPoolId },
+          { region },
+        );
+      } catch (err) {
+        console.error(new Error(`cognito noauth credentials could not be created ${err}`));
+      }
+    }
+    credentials.getPromise()
+      .then(() => {
+        this.credentials = credentials;
+        const message = {
+          event: 'replaceCreds',
+          creds: credentials,
+        };
+        FullPageComponentLoader.sendMessageToComponent(message);
+      });
+  }
+
   async refreshAuthTokens() {
     const refToken = localStorage.getItem('refreshtoken');
     if (refToken) {
       refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
         if (refSession.isValid()) {
-          const tokens = {};
-          tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
-          tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-          tokens.refreshtoken = localStorage.getItem('refreshtoken');
-          FullPageComponentLoader.sendMessageToComponent({
-            event: 'confirmLogin',
-            data: tokens,
-          });
+          this.propagateTokensUpdateCredentials();
         } else {
           console.error('failed to refresh credentials');
         }
@@ -81,29 +127,25 @@ export class FullPageComponentLoader {
 
   /**
    * Creates Cognito credentials and processes Cognito login if complete
-   * Inits this.credentials
+   * Inits AWS credentials. Note that this function calls history.replaceState
+   * to remove code grants that appear on the url returned from cognito
+   * hosted login. The site does not want to allow the user to attempt to
+   * refresh the page using old code grants.
    */
+  /* eslint-disable no-restricted-globals */
   initCognitoCredentials() {
+    document.addEventListener('tokensavailable', this.propagateTokensUpdateCredentials.bind(this), false);
     return new Promise((resolve, reject) => {
       const curUrl = window.location.href;
       if (curUrl.indexOf('loggedin') >= 0) {
         if (completeLogin(this.generateConfigObj())) {
-          const auth = getAuth(this.generateConfigObj());
-          const session = auth.getSignInUserSession();
-          if (session.isValid()) {
-            const tokens = {};
-            tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
-            tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-            tokens.refreshtoken = localStorage.getItem('refreshtoken');
-            FullPageComponentLoader.sendMessageToComponent({
-              event: 'confirmLogin',
-              data: tokens,
-            });
-          }
+          history.replaceState(null, '', window.location.pathname);
         }
       } else if (curUrl.indexOf('loggedout') >= 0) {
         if (completeLogout(this.generateConfigObj())) {
+          history.replaceState(null, '', window.location.pathname);
           FullPageComponentLoader.sendMessageToComponent({ event: 'confirmLogout' });
+          this.propagateTokensUpdateCredentials();
         }
       }
       const { poolId: cognitoPoolId } =
