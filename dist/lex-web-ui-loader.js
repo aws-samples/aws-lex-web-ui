@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "49a7a1ea5d5904c1f79e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1ebeba7f2fcd857f84be"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -12779,10 +12779,64 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
 
       return requestTokens;
     }()
+
+    /**
+     * Send tokens to the Vue component and update the Vue component
+     * with the latest AWS credentials to use to make calls to AWS
+     * services.
+     */
+
+  }, {
+    key: 'propagateTokensUpdateCredentials',
+    value: function propagateTokensUpdateCredentials() {
+      var _this = this;
+
+      var idtoken = localStorage.getItem('idtokenjwt');
+      var tokens = {};
+      tokens.idtokenjwt = idtoken;
+      tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
+      tokens.refreshtoken = localStorage.getItem('refreshtoken');
+      FullPageComponentLoader.sendMessageToComponent({
+        event: 'confirmLogin',
+        data: tokens
+      });
+      var cognitoPoolId = this.config.cognito.poolId;
+
+      var region = this.config.cognito.region || this.config.region || 'us-east-1';
+      var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + this.config.cognito.appUserPoolName;
+      var credentials = void 0;
+      if (idtoken) {
+        // auth role since logged in
+        try {
+          var logins = {};
+          logins[poolName] = idtoken;
+          credentials = new AWS.CognitoIdentityCredentials({ IdentityPoolId: cognitoPoolId }, { region: region });
+        } catch (err) {
+          console.error(new Error('cognito auth credentials could not be created ' + err));
+        }
+      } else {
+        // noauth role
+        try {
+          credentials = new AWS.CognitoIdentityCredentials({ IdentityPoolId: cognitoPoolId }, { region: region });
+        } catch (err) {
+          console.error(new Error('cognito noauth credentials could not be created ' + err));
+        }
+      }
+      credentials.getPromise().then(function () {
+        _this.credentials = credentials;
+        var message = {
+          event: 'replaceCreds',
+          creds: credentials
+        };
+        FullPageComponentLoader.sendMessageToComponent(message);
+      });
+    }
   }, {
     key: 'refreshAuthTokens',
     value: function () {
       var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+        var _this2 = this;
+
         var refToken;
         return _regenerator2.default.wrap(function _callee2$(_context2) {
           while (1) {
@@ -12793,14 +12847,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
                 if (refToken) {
                   (0, _loginutil.refreshLogin)(this.generateConfigObj(), refToken, function (refSession) {
                     if (refSession.isValid()) {
-                      var tokens = {};
-                      tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
-                      tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-                      tokens.refreshtoken = localStorage.getItem('refreshtoken');
-                      FullPageComponentLoader.sendMessageToComponent({
-                        event: 'confirmLogin',
-                        data: tokens
-                      });
+                      _this2.propagateTokensUpdateCredentials();
                     } else {
                       console.error('failed to refresh credentials');
                     }
@@ -12826,40 +12873,36 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
 
     /**
      * Creates Cognito credentials and processes Cognito login if complete
-     * Inits this.credentials
+     * Inits AWS credentials. Note that this function calls history.replaceState
+     * to remove code grants that appear on the url returned from cognito
+     * hosted login. The site does not want to allow the user to attempt to
+     * refresh the page using old code grants.
      */
+    /* eslint-disable no-restricted-globals */
 
   }, {
     key: 'initCognitoCredentials',
     value: function initCognitoCredentials() {
-      var _this = this;
+      var _this3 = this;
 
+      document.addEventListener('tokensavailable', this.propagateTokensUpdateCredentials.bind(this), false);
       return new _promise2.default(function (resolve, reject) {
         var curUrl = window.location.href;
         if (curUrl.indexOf('loggedin') >= 0) {
-          if ((0, _loginutil.completeLogin)(_this.generateConfigObj())) {
-            var auth = (0, _loginutil.getAuth)(_this.generateConfigObj());
-            var session = auth.getSignInUserSession();
-            if (session.isValid()) {
-              var tokens = {};
-              tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
-              tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-              tokens.refreshtoken = localStorage.getItem('refreshtoken');
-              FullPageComponentLoader.sendMessageToComponent({
-                event: 'confirmLogin',
-                data: tokens
-              });
-            }
+          if ((0, _loginutil.completeLogin)(_this3.generateConfigObj())) {
+            history.replaceState(null, '', window.location.pathname);
           }
         } else if (curUrl.indexOf('loggedout') >= 0) {
-          if ((0, _loginutil.completeLogout)(_this.generateConfigObj())) {
+          if ((0, _loginutil.completeLogout)(_this3.generateConfigObj())) {
+            history.replaceState(null, '', window.location.pathname);
             FullPageComponentLoader.sendMessageToComponent({ event: 'confirmLogout' });
+            _this3.propagateTokensUpdateCredentials();
           }
         }
-        var cognitoPoolId = _this.config.cognito.poolId;
+        var cognitoPoolId = _this3.config.cognito.poolId;
 
-        var region = _this.config.cognito.region || _this.config.region || 'us-east-1';
-        var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + _this.config.cognito.appUserPoolName;
+        var region = _this3.config.cognito.region || _this3.config.region || 'us-east-1';
+        var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + _this3.config.cognito.appUserPoolName;
         if (!cognitoPoolId) {
           return reject(new Error('missing cognito poolId config'));
         }
@@ -12889,7 +12932,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
         }
         // get and assign credentials
         return credentials.getPromise().then(function () {
-          _this.credentials = credentials;
+          _this3.credentials = credentials;
           resolve();
         });
       });
@@ -12903,7 +12946,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
   }, {
     key: 'initBotMessageHandlers',
     value: function initBotMessageHandlers() {
-      var _this2 = this;
+      var _this4 = this;
 
       $(document).on('fullpagecomponent', function () {
         var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(evt) {
@@ -12916,7 +12959,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
                     break;
                   }
 
-                  (0, _loginutil.login)(_this2.generateConfigObj());
+                  (0, _loginutil.login)(_this4.generateConfigObj());
                   _context3.next = 19;
                   break;
 
@@ -12926,7 +12969,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
                     break;
                   }
 
-                  (0, _loginutil.logout)(_this2.generateConfigObj());
+                  (0, _loginutil.logout)(_this4.generateConfigObj());
                   _context3.next = 19;
                   break;
 
@@ -12937,7 +12980,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
                   }
 
                   _context3.next = 11;
-                  return _this2.requestTokens();
+                  return _this4.requestTokens();
 
                 case 11:
                   _context3.next = 19;
@@ -12950,7 +12993,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
                   }
 
                   _context3.next = 16;
-                  return _this2.refreshAuthTokens();
+                  return _this4.refreshAuthTokens();
 
                 case 16:
                   _context3.next = 19;
@@ -12966,7 +13009,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
                   return _context3.stop();
               }
             }
-          }, _callee3, _this2);
+          }, _callee3, _this4);
         }));
 
         return function (_x) {
@@ -13000,11 +13043,11 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
   }, {
     key: 'setupBotMessageListener',
     value: function setupBotMessageListener() {
-      var _this3 = this;
+      var _this5 = this;
 
       return new _promise2.default(function (resolve, reject) {
         try {
-          _this3.initBotMessageHandlers();
+          _this5.initBotMessageHandlers();
           resolve();
         } catch (err) {
           console.error('Could not setup message handlers: ' + err);
@@ -13028,18 +13071,18 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
   }, {
     key: 'load',
     value: function load(configParam) {
-      var _this4 = this;
+      var _this6 = this;
 
       var mergedConfig = _configLoader.ConfigLoader.mergeConfig(this.config, configParam);
       this.config = mergedConfig;
       if (this.isRunningEmbeded()) {
         return FullPageComponentLoader.createComponent(mergedConfig).then(function (lexWebUi) {
-          return FullPageComponentLoader.mountComponent(_this4.elementId, lexWebUi);
+          return FullPageComponentLoader.mountComponent(_this6.elementId, lexWebUi);
         });
       }
       return _promise2.default.all([this.initPageToComponentApi(), this.initCognitoCredentials(), this.setupBotMessageListener()]).then(function () {
         FullPageComponentLoader.createComponent(mergedConfig).then(function (lexWebUi) {
-          FullPageComponentLoader.mountComponent(_this4.elementId, lexWebUi);
+          FullPageComponentLoader.mountComponent(_this6.elementId, lexWebUi);
         });
       });
     }
@@ -13494,30 +13537,77 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
     }
 
     /**
-     * Creates Cognito credentials and processes Cognito login if complete
-     * Inits this.credentials
+     * Updates AWS credentials used to call AWS services based on login having completed. This is
+     * event driven from loginuti.js. Credentials are obtained from the parent page on each
+     * request in the Vue component.
      */
+
+  }, {
+    key: 'updateCredentials',
+    value: function updateCredentials() {
+      var _this3 = this;
+
+      var cognitoPoolId = this.config.cognito.poolId;
+
+      var region = this.config.cognito.region || this.config.region || 'us-east-1';
+      var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + this.config.cognito.appUserPoolName;
+      var credentials = void 0;
+      var idtoken = localStorage.getItem('idtokenjwt');
+      if (idtoken) {
+        // auth role since logged in
+        try {
+          var logins = {};
+          logins[poolName] = idtoken;
+          credentials = new AWS.CognitoIdentityCredentials({ IdentityPoolId: cognitoPoolId }, { region: region });
+        } catch (err) {
+          console.error(new Error('cognito auth credentials could not be created ' + err));
+        }
+      } else {
+        // noauth role
+        try {
+          credentials = new AWS.CognitoIdentityCredentials({ IdentityPoolId: cognitoPoolId }, { region: region });
+        } catch (err) {
+          console.error(new Error('cognito noauth credentials could not be created ' + err));
+        }
+      }
+      credentials.getPromise().then(function () {
+        _this3.credentials = credentials;
+      });
+    }
+
+    /**
+     * Creates Cognito credentials and processes Cognito login if complete
+     * Inits AWS credentials. Note that this function calls history.replaceState
+     * to remove code grants that appear on the url returned from cognito
+     * hosted login. The site does not want to allow the user to attempt to
+     * refresh the page using old code grants.
+     */
+    /* eslint-disable no-restricted-globals */
 
   }, {
     key: 'initCognitoCredentials',
     value: function initCognitoCredentials() {
-      var _this3 = this;
+      var _this4 = this;
 
+      document.addEventListener('tokensavailable', this.updateCredentials.bind(this), false);
       return new _promise2.default(function (resolve, reject) {
         var curUrl = window.location.href;
         if (curUrl.indexOf('loggedin') >= 0) {
-          if ((0, _loginutil.completeLogin)(_this3.generateConfigObj())) {
+          if ((0, _loginutil.completeLogin)(_this4.generateConfigObj())) {
+            history.replaceState(null, '', window.location.pathname);
             console.debug('completeLogin successful');
           }
         } else if (curUrl.indexOf('loggedout') >= 0) {
-          if ((0, _loginutil.completeLogout)(_this3.generateConfigObj())) {
+          if ((0, _loginutil.completeLogout)(_this4.generateConfigObj())) {
+            history.replaceState(null, '', window.location.pathname);
+            _this4.updateCredentials();
             console.debug('completeLogout successful');
           }
         }
-        var cognitoPoolId = _this3.config.cognito.poolId;
+        var cognitoPoolId = _this4.config.cognito.poolId;
 
-        var region = _this3.config.cognito.region || _this3.config.region || 'us-east-1';
-        var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + _this3.config.cognito.appUserPoolName;
+        var region = _this4.config.cognito.region || _this4.config.region || 'us-east-1';
+        var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + _this4.config.cognito.appUserPoolName;
         if (!cognitoPoolId) {
           return reject(new Error('missing cognito poolId config'));
         }
@@ -13547,7 +13637,7 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
         }
         // get and assign credentials
         return credentials.getPromise().then(function () {
-          _this3.credentials = credentials;
+          _this4.credentials = credentials;
           resolve();
         });
       });
@@ -13617,7 +13707,7 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
   }, {
     key: 'initIframe',
     value: function initIframe() {
-      var _this4 = this;
+      var _this5 = this;
 
       var _config$iframe = this.config.iframe,
           iframeOrigin = _config$iframe.iframeOrigin,
@@ -13656,7 +13746,7 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
       // assign iframe element
       this.iframeElement = iframeElement;
       return this.waitForIframe(iframeElement).then(function () {
-        return _this4.waitForChatBotReady();
+        return _this5.waitForChatBotReady();
       });
     }
 
@@ -13667,7 +13757,7 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
   }, {
     key: 'waitForIframe',
     value: function waitForIframe() {
-      var _this5 = this;
+      var _this6 = this;
 
       var iframeLoadManager = {
         timeoutInMs: 20000,
@@ -13679,20 +13769,20 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
       return new _promise2.default(function (resolve, reject) {
         iframeLoadManager.onIframeLoaded = function () {
           clearTimeout(iframeLoadManager.timeoutId);
-          _this5.iframeElement.removeEventListener('load', iframeLoadManager.onIframeLoaded, false);
+          _this6.iframeElement.removeEventListener('load', iframeLoadManager.onIframeLoaded, false);
 
           return resolve();
         };
 
         iframeLoadManager.onIframeTimeout = function () {
-          _this5.iframeElement.removeEventListener('load', iframeLoadManager.onIframeLoaded, false);
+          _this6.iframeElement.removeEventListener('load', iframeLoadManager.onIframeLoaded, false);
 
           return reject(new Error('iframe load timeout'));
         };
 
         iframeLoadManager.timeoutId = setTimeout(iframeLoadManager.onIframeTimeout, iframeLoadManager.timeoutInMs);
 
-        _this5.iframeElement.addEventListener('load', iframeLoadManager.onIframeLoaded, false);
+        _this6.iframeElement.addEventListener('load', iframeLoadManager.onIframeLoaded, false);
       });
     }
 
@@ -13705,7 +13795,7 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
   }, {
     key: 'waitForChatBotReady',
     value: function waitForChatBotReady() {
-      var _this6 = this;
+      var _this7 = this;
 
       var readyManager = {
         timeoutId: null,
@@ -13719,31 +13809,31 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
 
         readyManager.checkIsChatBotReady = function () {
           // isChatBotReady set by event received from iframe
-          if (_this6.isChatBotReady) {
+          if (_this7.isChatBotReady) {
             clearTimeout(readyManager.timeoutId);
             clearInterval(readyManager.intervalId);
-            if (_this6.config.ui.enableLogin && _this6.config.ui.enableLogin === true) {
-              var auth = (0, _loginutil.getAuth)(_this6.generateConfigObj());
+            if (_this7.config.ui.enableLogin && _this7.config.ui.enableLogin === true) {
+              var auth = (0, _loginutil.getAuth)(_this7.generateConfigObj());
               var session = auth.getSignInUserSession();
               if (session.isValid()) {
                 var tokens = {};
                 tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
                 tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
                 tokens.refreshtoken = localStorage.getItem('refreshtoken');
-                _this6.sendMessageToIframe({
+                _this7.sendMessageToIframe({
                   event: 'confirmLogin',
                   data: tokens
                 });
               } else {
                 var refToken = localStorage.getItem('refreshtoken');
                 if (refToken) {
-                  (0, _loginutil.refreshLogin)(_this6.generateConfigObj(), refToken, function (refSession) {
+                  (0, _loginutil.refreshLogin)(_this7.generateConfigObj(), refToken, function (refSession) {
                     if (refSession.isValid()) {
                       var _tokens = {};
                       _tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
                       _tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
                       _tokens.refreshtoken = localStorage.getItem('refreshtoken');
-                      _this6.sendMessageToIframe({
+                      _this7.sendMessageToIframe({
                         event: 'confirmLogin',
                         data: _tokens
                       });
@@ -13774,14 +13864,14 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
   }, {
     key: 'getCredentials',
     value: function getCredentials() {
-      var _this7 = this;
+      var _this8 = this;
 
       if (!this.credentials || !('getPromise' in this.credentials)) {
         return _promise2.default.reject(new Error('invalid credentials'));
       }
 
       return this.credentials.getPromise().then(function () {
-        return _this7.credentials;
+        return _this8.credentials;
       });
     }
 
@@ -13915,7 +14005,7 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
   }, {
     key: 'sendMessageToIframe',
     value: function sendMessageToIframe(message) {
-      var _this8 = this;
+      var _this9 = this;
 
       if (!this.iframeElement || !('contentWindow' in this.iframeElement) || !('postMessage' in this.iframeElement.contentWindow)) {
         return _promise2.default.reject(new Error('invalid iframe element'));
@@ -13938,7 +14028,7 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
             reject(new Error('iframe failed to handle message - ' + evt.data.error));
           }
         };
-        _this8.iframeElement.contentWindow.postMessage(message, iframeOrigin, [messageChannel.port2]);
+        _this9.iframeElement.contentWindow.postMessage(message, iframeOrigin, [messageChannel.port2]);
       });
     }
 
@@ -13984,21 +14074,21 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
   }, {
     key: 'showIframe',
     value: function showIframe() {
-      var _this9 = this;
+      var _this10 = this;
 
       return _promise2.default.resolve().then(function () {
         // check for last state and resume with this configuration
         if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'true') {
-          _this9.api.toggleMinimizeUi();
+          _this10.api.toggleMinimizeUi();
         } else if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'false') {
-          _this9.api.ping();
-        } else if (_this9.config.iframe.shouldLoadIframeMinimized) {
-          _this9.api.toggleMinimizeUi();
+          _this10.api.ping();
+        } else if (_this10.config.iframe.shouldLoadIframeMinimized) {
+          _this10.api.toggleMinimizeUi();
         }
       })
       // display UI
       .then(function () {
-        return _this9.toggleShowUiClass();
+        return _this10.toggleShowUiClass();
       });
     }
 
@@ -14024,30 +14114,30 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
   }, {
     key: 'initParentToIframeApi',
     value: function initParentToIframeApi() {
-      var _this10 = this;
+      var _this11 = this;
 
       this.api = {
         ping: function ping() {
-          return _this10.sendMessageToIframe({ event: 'ping' });
+          return _this11.sendMessageToIframe({ event: 'ping' });
         },
         sendParentReady: function sendParentReady() {
-          return _this10.sendMessageToIframe({ event: 'parentReady' });
+          return _this11.sendMessageToIframe({ event: 'parentReady' });
         },
         toggleMinimizeUi: function toggleMinimizeUi() {
-          return _this10.sendMessageToIframe({ event: 'toggleMinimizeUi' });
+          return _this11.sendMessageToIframe({ event: 'toggleMinimizeUi' });
         },
         postText: function postText(message) {
-          return _this10.sendMessageToIframe({ event: 'postText', message: message });
+          return _this11.sendMessageToIframe({ event: 'postText', message: message });
         }
       };
 
       return _promise2.default.resolve().then(function () {
         // Add listener for parent to iframe event based API
-        document.addEventListener('lexWebUiMessage', _this10.onMessageToIframe.bind(_this10), false);
+        document.addEventListener('lexWebUiMessage', _this11.onMessageToIframe.bind(_this11), false);
       })
       // signal to iframe that the parent is ready
       .then(function () {
-        return _this10.api.sendParentReady();
+        return _this11.api.sendParentReady();
       })
       // signal to parent that the API is ready
       .then(function () {
@@ -14132,6 +14222,8 @@ function getAuth(config) {
       localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
       localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
       localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
+      var myEvent = new CustomEvent('tokensavailable', { detail: 'initialLogin' });
+      document.dispatchEvent(myEvent);
     },
     onFailure: function onFailure(err) {
       console.debug('Sign in failure: ' + (0, _stringify2.default)(err, null, 2));
@@ -14201,6 +14293,8 @@ function refreshLogin(config, token, callback) {
       localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
       localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
       localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
+      var myEvent = new CustomEvent('tokensavailable', { detail: 'refreshLogin' });
+      document.dispatchEvent(myEvent);
       callback(session);
     },
     onFailure: function onFailure(err) {

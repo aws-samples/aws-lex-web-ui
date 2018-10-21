@@ -38,6 +38,8 @@ function getAuth(config) {
       localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
       localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
       localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
+      const myEvent = new CustomEvent('tokensavailable', { detail: 'initialLogin' });
+      document.dispatchEvent(myEvent);
     },
     onFailure(err) {
       console.debug('Sign in failure: ' + JSON.stringify(err, null, 2));
@@ -94,6 +96,8 @@ function refreshLogin(config, token, callback) {
       localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
       localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
       localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
+      const myEvent = new CustomEvent('tokensavailable', { detail: 'refreshLogin' });
+      document.dispatchEvent(myEvent);
       callback(session);
     },
     onFailure(err) {
