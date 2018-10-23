@@ -16,7 +16,7 @@
 
 import 'babel-polyfill';
 import { ConfigLoader } from './config-loader';
-import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin } from './loginutil';
+import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired } from './loginutil';
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -171,7 +171,7 @@ export class IframeComponentLoader {
         const logins = {};
         logins[poolName] = idtoken;
         credentials = new AWS.CognitoIdentityCredentials(
-          { IdentityPoolId: cognitoPoolId },
+          { IdentityPoolId: cognitoPoolId, Logins: logins },
           { region },
         );
       } catch (err) {
@@ -187,10 +187,34 @@ export class IframeComponentLoader {
         console.error(new Error(`cognito noauth credentials could not be created ${err}`));
       }
     }
+    const self = this;
     credentials.getPromise()
       .then(() => {
-        this.credentials = credentials;
+        self.credentials = credentials;
       });
+  }
+
+  validateIdToken() {
+    return new Promise((resolve, reject) => {
+      let idToken = localStorage.getItem('idtokenjwt');
+      if (isTokenExpired(idToken)) {
+        const refToken = localStorage.getItem('refreshtoken');
+        if (refToken && !isTokenExpired(refToken)) {
+          refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
+            if (refSession.isValid()) {
+              idToken = localStorage.getItem('idtokenjwt');
+              resolve(idToken);
+            } else {
+              reject(new Error('failed to refresh tokens'));
+            }
+          });
+        } else {
+          reject(new Error('token could not be refreshed'));
+        }
+      } else {
+        resolve(idToken);
+      }
+    });
   }
 
   /**
@@ -213,7 +237,6 @@ export class IframeComponentLoader {
       } else if (curUrl.indexOf('loggedout') >= 0) {
         if (completeLogout(this.generateConfigObj())) {
           history.replaceState(null, '', window.location.pathname);
-          this.updateCredentials();
           console.debug('completeLogout successful');
         }
       }
@@ -233,32 +256,37 @@ export class IframeComponentLoader {
       }
 
       let credentials;
-      const idtoken = localStorage.getItem('idtokenjwt');
-      if (idtoken) { // auth role since logged in
-        try {
+      const token = localStorage.getItem('idtokenjwt');
+      if (token) { // auth role since logged in
+        return this.validateIdToken().then((idToken) => {
           const logins = {};
-          logins[poolName] = idtoken;
+          logins[poolName] = idToken;
           credentials = new AWS.CognitoIdentityCredentials(
             { IdentityPoolId: cognitoPoolId, Logins: logins },
             { region },
           );
-        } catch (err) {
-          reject(new Error(`cognito auth credentials could not be created ${err}`));
-        }
-      } else { // noauth role
-        try {
-          credentials = new AWS.CognitoIdentityCredentials(
-            { IdentityPoolId: cognitoPoolId },
-            { region },
-          );
-        } catch (err) {
-          reject(new Error(`cognito noauth credentials could not be created ${err}`));
-        }
+          const self = this;
+          return credentials.getPromise()
+            .then(() => {
+              self.credentials = credentials;
+              resolve();
+            });
+        }, (unable) => {
+          console.error(`No longer able to use refresh tokens to login: ${unable}`);
+          // attempt logout as unable to login again
+          logout(this.generateConfigObj());
+          reject(unable);
+        });
       }
-      // get and assign credentials
+      credentials = new AWS.CognitoIdentityCredentials(
+        { IdentityPoolId: cognitoPoolId },
+        { region },
+      );
+      credentials.clearCachedId();
+      const self = this;
       return credentials.getPromise()
         .then(() => {
-          this.credentials = credentials;
+          self.credentials = credentials;
           resolve();
         });
     });
