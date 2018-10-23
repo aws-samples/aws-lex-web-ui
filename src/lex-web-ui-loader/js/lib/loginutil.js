@@ -15,6 +15,8 @@ License for the specific language governing permissions and limitations under th
 
 import { CognitoAuth } from 'amazon-cognito-auth-js';
 
+const jwt = require('jsonwebtoken');
+
 function getAuth(config) {
   const rd1 = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?loggedin=yes';
   const rd2 = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?loggedout=yes';
@@ -108,4 +110,17 @@ function refreshLogin(config, token, callback) {
   auth.refreshSession(token);
 }
 
-export { logout, login, completeLogin, completeLogout, getAuth, refreshLogin };
+// return true if a valid token and has expired. return false in all other cases
+function isTokenExpired(token) {
+  const decoded = jwt.decode(token, { complete: true });
+  if (decoded) {
+    const now = Date.now();
+    const expiration = decoded.payload.exp * 1000;
+    if (now > expiration) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired };

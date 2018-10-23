@@ -705,7 +705,7 @@ export default {
         const decoded = jwt.decode(token, { complete: true });
         if (decoded) {
           const now = Date.now();
-          // calculate and expiration time 5 minutes soooner and adjust to milliseconds
+          // calculate and expiration time 5 minutes sooner and adjust to milliseconds
           // to compare with now.
           const expiration = (decoded.payload.exp - (5 * 60)) * 1000;
           if (now > expiration) {

@@ -1,6 +1,6 @@
 {
   "name": "aws-lex-web-ui",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "description": "Sample Amazon Lex Web Interface",
   "main": "dist/lex-web-ui.min.js",
   "repository": {
@@ -31,7 +31,8 @@
   },
   "dependencies": {
     "amazon-cognito-auth-js": "^1.2.4",
-    "babel-polyfill": "^6.26.0"
+    "babel-polyfill": "^6.26.0",
+    "jsonwebtoken": "^8.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.5",
