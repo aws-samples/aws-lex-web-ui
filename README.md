@@ -31,6 +31,9 @@ UI using JavaScript
 - Support of Markdown from Lex 
 <img src="./img/f.0.14.0_markdown.png" width=300>
 
+- Support of Multiple messages in a response from Lex
+<img src="./img/f.0.14.0_multimessages.png" width=300>
+
 - Additional lex-web-ui parameters can be configured via CloudFormation template
 
 - API providing postText method from the FullPageComponentLoader similar to that provided with the IframeComponentLoader
