@@ -105,6 +105,16 @@ Parameters:
         AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
         ConstraintDescription: Empty or valid browser origin
 
+    WebAppPath:
+        Type: String
+        Default: '/parent.html'
+        Description: >
+            Path to the page hosting the sample WebApp. This parameter defaults
+            to parent.html which is used by the sample app created when hosting the
+            bot in a separate iframe. This path should be updated to reflect the
+            path to the default (home) page used by the WebAppParentOrigin.
+            This may be /index.html rather than the default.
+
     CognitoIdentityPoolId:
         Type: String
         Description: >
@@ -181,6 +191,7 @@ Metadata:
                 default: Web Application Parameters
               Parameters:
                   - WebAppParentOrigin
+                  - WebAppPath
 
 Conditions:
     NeedsBot: !Equals [!Ref BotName, '']
@@ -260,6 +271,21 @@ Resources:
                 CustomResourceCodeBucket: !Ref BootstrapBucket
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
                 CleanupBuckets: !Ref CleanupBuckets
+                CognitoAppUserPoolClientId: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+                CognitoUserPoolId: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+
+    CognitoIdentityPoolConfig:
+        Type: AWS::CloudFormation::Stack
+        Condition: NeedsCognito
+        Properties:
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/cognitouserpoolconfig.yaml"
+            Parameters:
+                WebAppUrl: !If [NeedsParentOrigin, !GetAtt Pipeline.Outputs.WebAppBase, !Ref WebAppParentOrigin]
+                WebAppPath: !Ref WebAppPath
+                CodeBuildProjectName: !Ref CodeBuildName
+                CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+                CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+
 
 Outputs:
     BotName:

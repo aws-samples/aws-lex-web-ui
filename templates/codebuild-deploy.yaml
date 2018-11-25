@@ -125,6 +125,19 @@ Parameters:
         ConstraintDescription: >
             Must conform with the permitted Lex Bot name pattern.
 
+    BotAlias:
+        Description: >
+            Alias to use of an existing Lex Bot. By default this is '$LATEST'.
+            Use this default if the lex-web-ui should always use the most
+            recent version of the bot.
+        Type: String
+        Default: '$LATEST'
+        MinLength: 2
+        MaxLength: 50
+        AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
+        ConstraintDescription: >
+            Must conform with the permitted Lex Alias name pattern.
+
     ParentOrigin:
         Type: String
         Description: >
@@ -205,6 +218,8 @@ Resources:
                       Value: !Sub "${AWS::Region}"
                     - Name: BOT_NAME
                       Value: !Ref BotName
+                    - Name: BOT_ALIAS
+                      Value: !Ref BotAlias
                     - Name: BOT_INITIAL_TEXT
                       Value: !Ref WebAppConfBotInitialText
                     - Name: BOT_INITIAL_SPEECH

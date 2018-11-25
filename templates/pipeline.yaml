@@ -48,7 +48,7 @@ Parameters:
         MaxLength: 255
         AllowedPattern: '^[A-Za-z0-9][A-Za-z0-9\-_]{1,254}$'
         ConstraintDescription: >
-            Should start with Alphanumeric. May contain alphanumeric, undescore
+            Should start with Alphanumeric. May contain alphanumeric, underscore
             and dash.
 
     CognitoIdentityPoolId:
@@ -59,7 +59,17 @@ Parameters:
         MaxLength: 55
         AllowedPattern: '^[\w-]+:[0-9a-f-]+$'
         ConstraintDescription: >
-            Alphanumeric followed by a colum and ending with a hex uuid type.
+            Alphanumeric followed by a column and ending with a hex uuid type.
+
+    CognitoAppUserPoolClientId:
+        Type: String
+        Description: >
+            Cognito App User Pool Client Id to used in the web app configuration.
+
+    CognitoUserPoolId:
+        Type: String
+        Description: >
+            Cognito App User Pool Id
 
     BotName:
         Type: String
@@ -148,28 +158,27 @@ Resources:
                 Type: CODEPIPELINE
             Environment:
                 Type: LINUX_CONTAINER
-                Image: aws/codebuild/nodejs:6.3.1
-                ComputeType: BUILD_GENERAL1_LARGE
+                Image: aws/codebuild/nodejs:8.11.0
+                ComputeType: BUILD_GENERAL1_SMALL
                 EnvironmentVariables:
                     - Name: BUILD_TYPE
                       Value: full
                     - Name: POOL_ID
                       Value: !Ref CognitoIdentityPoolId
+                    - Name: APP_USER_POOL_CLIENT_ID
+                      Value: !Ref CognitoAppUserPoolClientId
+                    - Name: APP_USER_POOL_NAME
+                      Value: !Ref CognitoUserPoolId
                     - Name: WEBAPP_BUCKET
                       Value: !Ref WebAppBucket
-                    - Name: PARENT_PAGE_BUCKET
-                      Value: !If
-                        - NeedsParentOrigin
-                        - !Ref ParentPageBucket
-                        - ''
-                    - Name: BOT_NAME
-                      Value: !Ref BotName
                     - Name: AWS_DEFAULT_REGION
                       Value: !Sub "${AWS::Region}"
+                    - Name: BOT_NAME
+                      Value: !Ref BotName
                     - Name: PARENT_ORIGIN
                       Value: !If
                         - NeedsParentOrigin
-                        - !Sub "https://${ParentPageBucket.DomainName}"
+                        - !Sub "https://${WebAppBucket.DomainName}"
                         - !Ref ParentOrigin
                     - Name: IFRAME_ORIGIN
                       Value: !Sub "https://${WebAppBucket.DomainName}"
@@ -193,7 +202,7 @@ Resources:
                                 - make build
                         post_build:
                             commands:
-                                - make deploy-to-s3
+                                - make sync-website
 
     CodeBuildRole:
         Type: AWS::IAM::Role
@@ -428,17 +437,25 @@ Outputs:
         Value: !Sub "https://${WebAppBucket.DomainName}/index.html"
         Description: URL of the web application
 
+    WebAppBase:
+        Value: !Sub "https://${WebAppBucket.DomainName}"
+        Description: Base url portion of the web application
+
+    WebAppDomainName:
+        Value: !Sub "${WebAppBucket.DomainName}"
+        Description: DomainName of the web application
+
     ParentPageUrl:
-        Value: !Sub "https://${ParentPageBucket.DomainName}/parent.html"
+        Value: !Sub "https://${WebAppBucket.DomainName}/parent.html"
         Description: URL of the sample parent page
         Condition: NeedsParentOrigin
 
     LoaderScriptUrl:
-        Value: !Sub "https://${ParentPageBucket.DomainName}/lex-web-ui-loader.min.js"
+        Value: !Sub "https://${WebAppBucket.DomainName}/lex-web-ui-loader.min.js"
         Description: URL of the loader script
         Condition: NeedsParentOrigin
 
     SnippetUrl:
-        Value: !Sub "https://${ParentPageBucket.DomainName}/iframe-snippet.html"
+        Value: !Sub "https://${WebAppBucket.DomainName}/iframe-snippet.html"
         Description: URL of a page showing the snippet to load the chatbot UI as an iframe
         Condition: NeedsParentOrigin

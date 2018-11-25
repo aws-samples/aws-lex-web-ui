@@ -14,6 +14,7 @@ const config = require('../config');
 [
   'AWS_DEFAULT_REGION',
   'BOT_NAME',
+  'BOT_ALIAS',
   'BOT_INITIAL_TEXT',
   'BOT_INITIAL_SPEECH',
   'IFRAME_ORIGIN',

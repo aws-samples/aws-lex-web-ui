@@ -47,6 +47,9 @@ export default {
     switch (context.state.awsCreds.provider) {
       case 'cognito':
         awsCredentials = credentials;
+        if (lexClient) {
+          lexClient.initCredentials(awsCredentials);
+        }
         return context.dispatch('getCredentials');
       case 'parentWindow':
         return context.dispatch('getCredentials');
@@ -384,14 +387,18 @@ export default {
    **********************************************************************/
 
   pollyGetBlob(context, text, format = 'text') {
-    const synthReq = pollyClient.synthesizeSpeech({
-      Text: text,
-      VoiceId: context.state.polly.voiceId,
-      OutputFormat: context.state.polly.outputFormat,
-      TextType: format,
-    });
-    return context.dispatch('getCredentials')
-      .then(() => synthReq.promise())
+    return context.dispatch('refreshAuthTokens')
+      .then(() => context.dispatch('getCredentials'))
+      .then((creds) => {
+        pollyClient.config.credentials = creds;
+        const synthReq = pollyClient.synthesizeSpeech({
+          Text: text,
+          VoiceId: context.state.polly.voiceId,
+          OutputFormat: context.state.polly.outputFormat,
+          TextType: format,
+        });
+        return synthReq.promise();
+      })
       .then((data) => {
         const blob = new Blob([data.AudioStream], { type: data.ContentType });
         return Promise.resolve(blob);
@@ -635,7 +642,7 @@ export default {
   getCredentialsFromParent(context) {
     const expireTime = (awsCredentials && awsCredentials.expireTime) ?
       awsCredentials.expireTime : 0;
-    const credsExpirationDate = new Date(expireTime);
+    const credsExpirationDate = new Date(expireTime).getTime();
     const now = Date.now();
     if (credsExpirationDate > now) {
       return Promise.resolve(awsCredentials);
