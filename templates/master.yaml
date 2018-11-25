@@ -23,6 +23,19 @@ Parameters:
         ConstraintDescription: >
             Must conform with the permitted Lex Bot name pattern.
 
+    BotAlias:
+        Description: >
+            Alias to use of an existing Lex Bot. By default this is '$LATEST'.
+            Use this default if the lex-web-ui should always use the most
+            recent version of the bot.
+        Type: String
+        Default: '$LATEST'
+        MinLength: 2
+        MaxLength: 50
+        AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
+        ConstraintDescription: >
+            Must conform with the permitted Lex Alias name pattern.
+
     BotNamePrefix:
         Type: String
         Description: >
@@ -223,6 +236,7 @@ Metadata:
                 default: Lex Bot Configuration Parameters
               Parameters:
                   - BotName
+                  - BotAlias
                   - BotNamePrefix
                   - ShouldDeleteBot
                   - EnableCognitoLogin
@@ -292,6 +306,7 @@ Resources:
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotName
                       - !Ref BotName
+                BotAlias: !Ref BotAlias
                 CognitoIdentityPoolId:
                     !If
                       - NeedsCognito

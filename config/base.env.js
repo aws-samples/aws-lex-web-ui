@@ -10,6 +10,7 @@ module.exports = {
   },
   lex: {
     botName: process.env.BOT_NAME,
+    botAlias: process.env.BOT_ALIAS,
     initialText: process.env.BOT_INITIAL_TEXT,
     initialSpeechInstruction: process.env.BOT_INITIAL_SPEECH,
     reInitSessionAttributesOnRestart: (process.env.REINIT_SESSION_ATTRIBUTES_ON_RESTART === undefined) ? undefined : (process.env.REINIT_SESSION_ATTRIBUTES_ON_RESTART === 'true') ? true : false,

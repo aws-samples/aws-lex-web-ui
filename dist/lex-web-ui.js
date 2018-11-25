@@ -33859,6 +33859,9 @@ var recorder = void 0;
     switch (context.state.awsCreds.provider) {
       case 'cognito':
         awsCredentials = credentials;
+        if (lexClient) {
+          lexClient.initCredentials(awsCredentials);
+        }
         return context.dispatch('getCredentials');
       case 'parentWindow':
         return context.dispatch('getCredentials');
