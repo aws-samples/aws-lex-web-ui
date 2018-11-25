@@ -48,7 +48,7 @@ export default {
       case 'cognito':
         awsCredentials = credentials;
         if (lexClient) {
-          lexClient.initCredentials(awsCredentials)
+          lexClient.initCredentials(awsCredentials);
         }
         return context.dispatch('getCredentials');
       case 'parentWindow':
