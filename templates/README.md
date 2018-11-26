@@ -104,6 +104,10 @@ with an existing page, you may want to modify the following parameters:
   bot in the Lex
   [Getting Started](http://docs.aws.amazon.com/lex/latest/dg/gs-console.html)
   documentation.
+- `BotAlias`: Lex Bot Alias to use. This parameter defines the alias
+  to be used by the Lex Web UI. It defaults to a value of '$LATEST'. You can set 
+  this attribute to values which have been defined for the bot and are visible in the 
+  Amazon Lex Console. Typical values might be 'PROD' or 'DEV'.
 - `CognitoIdentityPoolId`: Id of an existing Cognito Identity Pool.
   This is an optional parameter. If left empty, a Cognito Identity Pool
   will be automatically created. The pool ID is used by the web ui to

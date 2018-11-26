@@ -54,6 +54,7 @@ You can import the library as a module and use it in your code:
     lex: {
       initialText: 'How can I help you?',
       botName: 'helpBot',
+      botAlias: '$LATEST',
     },
     ui: {
       toolbarTitle: 'Help Bot',
@@ -208,7 +209,6 @@ Once signed in, three tokens are managed by the lex-web-ui and provided on reque
 to Lex. These are the accesstoken, the idtoken, and a refreshtoken. These tokens 
 are passed as Lex session attributes on each request to Lex.
 
-
 Configured Fulfillment lambda handlers can utilize these
 tokens by accessing them from session attributes. They can be used to
 validate access or lookup attributes / assertions from the SSO provider. 
@@ -218,6 +218,11 @@ The session attributes are
 * session.accesstokenjwt
 * session.idtokenjwt
 * session.refreshtokenjwt
+
+The Lex Web UI initially will use the unauth role until a user logs in. 
+After login processing fully completes, an event fires in the browser indicating tokens 
+are now available. At that time, the Lex Web UI will switch to using auth based role by 
+using new temporary credentials.
 
 ### Adjusting existing Identity Pools to be used with the lex-web-ui
 
