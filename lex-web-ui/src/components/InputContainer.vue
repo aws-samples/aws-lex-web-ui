@@ -17,6 +17,7 @@
           v-on:keyup.enter.stop="postTextMessage"
           v-on:focus="onTextFieldFocus"
           v-on:blur="onTextFieldBlur"
+          ref="textInput"
           id="text-input"
           name="text-input"
           single-line
@@ -181,6 +182,9 @@ export default {
         this.isTextFieldFocused = false;
       }
     },
+    setInputTextFieldFocus() {
+      this.$refs.textInput.$refs.input.focus();
+    },
     playInitialInstruction() {
       const isInitialState = ['', 'Fulfilled', 'Failed']
         .some(initialState => (
@@ -210,6 +214,7 @@ export default {
       return this.$store.dispatch('postTextMessage', message)
         .then(() => {
           this.textInput = '';
+          this.setInputTextFieldFocus();
         });
     },
     startSpeechConversation() {

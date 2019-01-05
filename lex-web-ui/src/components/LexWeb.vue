@@ -20,6 +20,7 @@
     </v-content>
 
     <input-container
+      ref="InputContainer"
       v-if="!isUiMinimized"
       v-bind:text-input-placeholder="textInputPlaceholder"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
@@ -97,6 +98,7 @@ export default {
     // emit lex state on changes
     lexState() {
       this.$emit('updateLexState', this.lexState);
+      this.setFocusIfEnabled();
     },
   },
   created() {
@@ -145,6 +147,7 @@ export default {
         'sendMessageToParentWindow',
         { event: 'requestTokens' },
       );
+      this.setFocusIfEnabled();
     }
   },
   methods: {
@@ -213,6 +216,7 @@ export default {
             event: 'resolve',
             type: evt.data.event,
           });
+          this.setFocusIfEnabled();
           break;
         // received when the parent page has loaded the iframe
         case 'parentReady':
@@ -347,7 +351,15 @@ export default {
           (Object.keys(config).length) ?
             this.$store.dispatch('initConfig', config) : Promise.resolve()
         ))
-        .then(() => this.logRunningMode());
+        .then(() => {
+          this.setFocusIfEnabled();
+          this.logRunningMode();
+        });
+    },
+    setFocusIfEnabled() {
+      if (this.$store.state.config.ui.directFocusToBotInput) {
+        this.$refs.InputContainer.setInputTextFieldFocus();
+      }
     },
   },
 };

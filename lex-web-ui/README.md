@@ -186,7 +186,7 @@ parameter to true.
 - Post deployment by editing the lex-web-ui-loader-config.json file. Set the ui configuration
 value 
 
-```aidl
+```
 "ui": {
     ...
     "enableLogin": true,
@@ -263,11 +263,11 @@ The callback URLs is the URL to your application. The sample pages using CloudFo
 setup are deployed to S3 however your setup may be different. The default scripts use
 ?loggedin=yes and ?loggedout=yes. These portions of the URL should not be modified
 
-```aidl
+```
 https://YOURS3BUCKET.s3.amazonaws.com/index.html?loggedin=yes, https://YOURS3BUCKET.s3.amazonaws.com/parent.html?loggedin=yes
 ```
 The signout URLs will look something like
-```aidl
+```
 https://YOURS3BUCKET.s3.amazonaws.com/index.html?loggedout=yes, https://YOURS3BUCKERT.s3.amazonaws.com/parent.html?loggedout=yes
 ```
 The initial portion of the URL will need to be modified to match the domain where the web app
@@ -392,6 +392,34 @@ methods. Highest priority first.
 
 The standard message returned from Lex will not be shown if any content exists from any of Markdown
 or HTML mechanisms. 
+
+## Controlling the bot's input focus
+The Lex Web UI allows the user to input text and hit CR to send the request to the bot. Alternatively the user
+can enter text and press the Send button to send in the request. Finally the user can click on buttons provided in 
+response cards as a mechanism to generate a request. 
+
+Starting with version 0.14.5 of the Lex Web UI, each of these will return the browser's input focus back 
+input text area. In prior versions, when clicking on the Send button the user was required to click back in the 
+input text area for the next request. This version will resolve this problem. 
+
+In addition, a new optional attribute defined in the configuration json directs the browser to set the input
+focus to the chat bot when the page is first loaded or refreshed. This attribute is called 'directFocusToBotInput'.
+Set this value to true in lex-web-ui-loader-config.json to instruct the input focus to be placed in the bot after
+page load. A value of false preserves the prior behavior where the input focus will not be directed to the bot. 
+
+```
+  "ui": {
+    "parentOrigin": "",
+    "toolbarTitle": "Order Flowers",
+    "toolbarLogo": "",
+    "enableLogin": false,
+    "AllowSuperDangerousHTMLInMessage": false,
+    "shouldDisplayResponseCardTitle": false,
+    "pushInitialTextOnRestart": false,
+    "directFocusToBotInput": true
+  },
+
+```
 
 ## Configuration and Customization
 The chatbot UI requires configuration parameters pointing to external
@@ -569,7 +597,7 @@ using session attributes in the `appContext.responseCard` key of the
 can be used in a Lambda code hook to add a responseCard in a postContent
 API call:
 
-```python
+```
 response['sessionAttributes']['appContext'] =
     json.dumps({'responseCard': response_card})
 ```

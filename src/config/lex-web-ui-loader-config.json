@@ -20,7 +20,8 @@
     "enableLogin": false,
     "AllowSuperDangerousHTMLInMessage": false,
     "shouldDisplayResponseCardTitle": false,
-    "pushInitialTextOnRestart": false
+    "pushInitialTextOnRestart": false,
+    "directFocusToBotInput": false
   },
   "polly": {
     "voiceId": "Salli"
