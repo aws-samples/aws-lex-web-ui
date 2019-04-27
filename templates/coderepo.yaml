@@ -77,7 +77,7 @@ Resources:
                 Type: NO_ARTIFACTS
             Environment:
                 Type: LINUX_CONTAINER
-                Image: aws/codebuild/nodejs:6.3.1
+                Image: aws/codebuild/nodejs:8.11.0
                 ComputeType: BUILD_GENERAL1_SMALL
                 EnvironmentVariables:
                     - Name: REPO_URL
