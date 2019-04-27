@@ -85,7 +85,7 @@ module.exports = (env) => {
       isProd && new webpack.BannerPlugin({
         banner: `/*!
 * lex-web-ui v${VERSION}
-* (c) 2017-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* (c) 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 * Released under the Amazon Software License.
 */  `,
         raw: true,

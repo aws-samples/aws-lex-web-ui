@@ -7415,7 +7415,7 @@ var debugs = {};
 var debugEnviron;
 exports.debuglog = function(set) {
   if (isUndefined(debugEnviron))
-    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.14.4","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
+    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.14.6","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
   set = set.toUpperCase();
   if (!debugs[set]) {
     if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
@@ -10682,7 +10682,10 @@ var configDefault = {
     shouldDisplayResponseCardTitle: true,
 
     // Optionally display login menu
-    enableLogin: false
+    enableLogin: false,
+
+    // Optionally direct input focus to Bot text input as needed
+    directFocusToBotInput: false
   },
 
   /* Configuration to enable voice and to pass options to the recorder
@@ -11283,6 +11286,7 @@ module.exports = function (exec, skipClosing) {
 //
 //
 //
+//
 
 /*
 Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -11349,6 +11353,7 @@ var jwt = __webpack_require__(112);
     // emit lex state on changes
     lexState: function lexState() {
       this.$emit('updateLexState', this.lexState);
+      this.setFocusIfEnabled();
     }
   },
   created: function created() {
@@ -11375,6 +11380,7 @@ var jwt = __webpack_require__(112);
   mounted: function mounted() {
     if (!this.$store.state.isRunningEmbedded) {
       this.$store.dispatch('sendMessageToParentWindow', { event: 'requestTokens' });
+      this.setFocusIfEnabled();
     }
   },
 
@@ -11433,6 +11439,7 @@ var jwt = __webpack_require__(112);
             event: 'resolve',
             type: evt.data.event
           });
+          this.setFocusIfEnabled();
           break;
         // received when the parent page has loaded the iframe
         case 'parentReady':
@@ -11548,8 +11555,14 @@ var jwt = __webpack_require__(112);
       .then(function (config) {
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default()(config).length ? _this2.$store.dispatch('initConfig', config) : __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a.resolve();
       }).then(function () {
-        return _this2.logRunningMode();
+        _this2.setFocusIfEnabled();
+        _this2.logRunningMode();
       });
+    },
+    setFocusIfEnabled: function setFocusIfEnabled() {
+      if (this.$store.state.config.ui.directFocusToBotInput) {
+        this.$refs.InputContainer.setInputTextFieldFocus();
+      }
     }
   }
 });
@@ -12330,6 +12343,7 @@ License for the specific language governing permissions and limitations under th
 //
 //
 //
+//
 
 /*
 Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -12445,6 +12459,9 @@ License for the specific language governing permissions and limitations under th
         this.isTextFieldFocused = false;
       }
     },
+    setInputTextFieldFocus: function setInputTextFieldFocus() {
+      this.$refs.textInput.$refs.input.focus();
+    },
     playInitialInstruction: function playInitialInstruction() {
       var _this = this;
 
@@ -12471,6 +12488,7 @@ License for the specific language governing permissions and limitations under th
 
       return this.$store.dispatch('postTextMessage', message).then(function () {
         _this2.textInput = '';
+        _this2.setInputTextFieldFocus();
       });
     },
     startSpeechConversation: function startSpeechConversation() {
@@ -18026,7 +18044,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_185__;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LexWeb_vue__ = __webpack_require__(102);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5a3f6ea0_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__ = __webpack_require__(322);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1d307b90_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__ = __webpack_require__(322);
 function injectStyle (ssrContext) {
   __webpack_require__(187)
 }
@@ -18046,7 +18064,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LexWeb_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5a3f6ea0_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1d307b90_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19812,7 +19830,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_InputContainer_vue__ = __webpack_require__(110);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_62d75cef_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_10cee7ea_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__ = __webpack_require__(214);
 function injectStyle (ssrContext) {
   __webpack_require__(210)
 }
@@ -19832,7 +19850,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_InputContainer_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_62d75cef_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_10cee7ea_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19906,7 +19924,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-footer',{attrs:{"app":"","fixed":""}},[_c('v-layout',{staticClass:"input-container",attrs:{"row":"","justify-space-between":"","ma-0":""}},[_c('v-toolbar',{attrs:{"color":"white","dense":""}},[_c('v-text-field',{directives:[{name:"show",rawName:"v-show",value:(_vm.shouldShowTextInput),expression:"shouldShowTextInput"}],attrs:{"label":_vm.textInputPlaceholder,"id":"text-input","name":"text-input","single-line":"","hide-details":""},on:{"keyup":function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"enter",13,$event.key)){ return null; }$event.stopPropagation();_vm.postTextMessage($event)},"focus":_vm.onTextFieldFocus,"blur":_vm.onTextFieldBlur},model:{value:(_vm.textInput),callback:function ($$v) {_vm.textInput=$$v},expression:"textInput"}}),_vm._v(" "),_c('recorder-status',{directives:[{name:"show",rawName:"v-show",value:(!_vm.shouldShowTextInput),expression:"!shouldShowTextInput"}]}),_vm._v(" "),_c('v-tooltip',{ref:"tooltip",attrs:{"activator":".input-button","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"input-button-tooltip"}},[_vm._v(_vm._s(_vm.inputButtonTooltip))])]),_vm._v(" "),(_vm.shouldShowSendButton)?_c('v-btn',_vm._g({ref:"send",staticClass:"black--text input-button",attrs:{"disabled":_vm.isSendButtonDisabled,"icon":""},on:{"click":_vm.postTextMessage}},_vm.tooltipEventHandlers),[_c('v-icon',{attrs:{"medium":""}},[_vm._v("send")])],1):_c('v-btn',_vm._g({ref:"mic",staticClass:"black--text input-button",attrs:{"disabled":_vm.isMicButtonDisabled,"icon":""},on:{"click":_vm.onMicClick}},_vm.tooltipEventHandlers),[_c('v-icon',{attrs:{"medium":""}},[_vm._v(_vm._s(_vm.micButtonIcon))])],1)],1)],1)],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-footer',{attrs:{"app":"","fixed":""}},[_c('v-layout',{staticClass:"input-container",attrs:{"row":"","justify-space-between":"","ma-0":""}},[_c('v-toolbar',{attrs:{"color":"white","dense":""}},[_c('v-text-field',{directives:[{name:"show",rawName:"v-show",value:(_vm.shouldShowTextInput),expression:"shouldShowTextInput"}],ref:"textInput",attrs:{"label":_vm.textInputPlaceholder,"id":"text-input","name":"text-input","single-line":"","hide-details":""},on:{"keyup":function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"enter",13,$event.key)){ return null; }$event.stopPropagation();_vm.postTextMessage($event)},"focus":_vm.onTextFieldFocus,"blur":_vm.onTextFieldBlur},model:{value:(_vm.textInput),callback:function ($$v) {_vm.textInput=$$v},expression:"textInput"}}),_vm._v(" "),_c('recorder-status',{directives:[{name:"show",rawName:"v-show",value:(!_vm.shouldShowTextInput),expression:"!shouldShowTextInput"}]}),_vm._v(" "),_c('v-tooltip',{ref:"tooltip",attrs:{"activator":".input-button","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"input-button-tooltip"}},[_vm._v(_vm._s(_vm.inputButtonTooltip))])]),_vm._v(" "),(_vm.shouldShowSendButton)?_c('v-btn',_vm._g({ref:"send",staticClass:"black--text input-button",attrs:{"disabled":_vm.isSendButtonDisabled,"icon":""},on:{"click":_vm.postTextMessage}},_vm.tooltipEventHandlers),[_c('v-icon',{attrs:{"medium":""}},[_vm._v("send")])],1):_c('v-btn',_vm._g({ref:"mic",staticClass:"black--text input-button",attrs:{"disabled":_vm.isMicButtonDisabled,"icon":""},on:{"click":_vm.onMicClick}},_vm.tooltipEventHandlers),[_c('v-icon',{attrs:{"medium":""}},[_vm._v(_vm._s(_vm.micButtonIcon))])],1)],1)],1)],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -32686,7 +32704,7 @@ module.exports = once;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',{attrs:{"id":"lex-web"}},[_c('toolbar-container',{attrs:{"userName":_vm.userNameValue,"toolbar-title":_vm.toolbarTitle,"toolbar-color":_vm.toolbarColor,"toolbar-logo":_vm.toolbarLogo,"is-ui-minimized":_vm.isUiMinimized},on:{"toggleMinimizeUi":_vm.toggleMinimizeUi,"requestLogin":_vm.handleRequestLogin,"requestLogout":_vm.handleRequestLogout}}),_vm._v(" "),_c('v-content',[_c('v-container',{staticClass:"message-list-container",attrs:{"fluid":"","pa-0":""}},[_c('message-list',{directives:[{name:"show",rawName:"v-show",value:(!_vm.isUiMinimized),expression:"!isUiMinimized"}]})],1)],1),_vm._v(" "),(!_vm.isUiMinimized)?_c('input-container',{attrs:{"text-input-placeholder":_vm.textInputPlaceholder,"initial-speech-instruction":_vm.initialSpeechInstruction}}):_vm._e()],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',{attrs:{"id":"lex-web"}},[_c('toolbar-container',{attrs:{"userName":_vm.userNameValue,"toolbar-title":_vm.toolbarTitle,"toolbar-color":_vm.toolbarColor,"toolbar-logo":_vm.toolbarLogo,"is-ui-minimized":_vm.isUiMinimized},on:{"toggleMinimizeUi":_vm.toggleMinimizeUi,"requestLogin":_vm.handleRequestLogin,"requestLogout":_vm.handleRequestLogout}}),_vm._v(" "),_c('v-content',[_c('v-container',{staticClass:"message-list-container",attrs:{"fluid":"","pa-0":""}},[_c('message-list',{directives:[{name:"show",rawName:"v-show",value:(!_vm.isUiMinimized),expression:"!isUiMinimized"}]})],1)],1),_vm._v(" "),(!_vm.isUiMinimized)?_c('input-container',{ref:"InputContainer",attrs:{"text-input-placeholder":_vm.textInputPlaceholder,"initial-speech-instruction":_vm.initialSpeechInstruction}}):_vm._e()],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -32762,7 +32780,7 @@ License for the specific language governing permissions and limitations under th
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  version:  true ? "0.14.4" : '0.0.0',
+  version:  true ? "0.14.6" : '0.0.0',
   lex: {
     acceptFormat: 'audio/ogg',
     dialogState: '',
@@ -34238,7 +34256,7 @@ var recorder = void 0;
       if (response.message.includes('{"messages":')) {
         var tmsg = JSON.parse(response.message);
         if (tmsg && Array.isArray(tmsg.messages)) {
-          tmsg.messages.forEach(function (mes) {
+          tmsg.messages.forEach(function (mes, index) {
             var alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
             if (mes.type === 'CustomPayload') {
               if (alts === undefined) {
@@ -34250,7 +34268,8 @@ var recorder = void 0;
               text: mes.value,
               type: 'bot',
               dialogState: context.state.lex.dialogState,
-              responseCard: context.state.lex.responseCard,
+              responseCard: tmsg.messages.length - 1 === index // attach response card only
+              ? context.state.lex.responseCard : undefined, // for last response message
               alts: alts
             });
           });

@@ -180,6 +180,9 @@ const configDefault = {
 
     // Optionally display login menu
     enableLogin: false,
+
+    // Optionally direct input focus to Bot text input as needed
+    directFocusToBotInput: false,
   },
 
   /* Configuration to enable voice and to pass options to the recorder
