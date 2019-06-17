@@ -262,23 +262,27 @@ export default class {
     this._isSilentRecording = true;
     this._silentRecordingConsecutiveCount = 0;
 
-    // sets this._audioContext AudioContext object
-    return this._initAudioContext()
-      // inits AudioContext.createScriptProcessor object
-      // used to process mic audio input volume
-      // sets this._micVolumeProcessor
-      .then(() => this._initMicVolumeProcessor())
-      .then(() => this._initStream());
+    return Promise.resolve();
   }
 
   /**
    * Start recording
    */
-  start() {
+  async start() {
     if (this._state !== 'inactive' ||
       typeof this._stream === 'undefined') {
-      console.warn('recorder start called out of state');
-      return;
+      if (this._state !== 'inactive') {
+        console.warn('invalid state to start recording');
+        return;
+      }
+      console.warn('initializing audiocontext after first user interaction - chrome fix');
+      await this._initAudioContext()
+        .then(() => this._initMicVolumeProcessor())
+        .then(() => this._initStream());
+      if (typeof this._stream === 'undefined') {
+        console.warn('failed to initialize audiocontext');
+        return;
+      }
     }
 
     this._state = 'recording';
@@ -436,7 +440,9 @@ export default class {
       if (document.hidden) {
         this._audioContext.suspend();
       } else {
-        this._audioContext.resume();
+        this._audioContext.resume().then(() => {
+          console.info('Playback resumed successfully from visibility change');
+        });
       }
     });
     return Promise.resolve();
