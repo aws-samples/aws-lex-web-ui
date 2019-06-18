@@ -14,7 +14,7 @@ if [ -z "${WEBAPP_BUCKET}" ]; then
   echo "[WARN] WEBAPP_BUCKET environment variable not defined" >&2
   WEBAPP_URL=''
 else
-  WEBAPP_URL="https://${WEBAPP_BUCKET}.s3.amazonaws.com"
+  WEBAPP_URL="https://${WEBAPP_BUCKET}.s3-${AWS_DEFAULT_REGION}.amazonaws.com"
 fi
 
 [ -z "${PARENT_ORIGIN}" ] && \

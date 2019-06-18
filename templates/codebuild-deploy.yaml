@@ -239,10 +239,10 @@ Resources:
                     - Name: PARENT_ORIGIN
                       Value: !If
                         - NeedsParentOrigin
-                        - !Sub "https://${WebAppBucket.DomainName}"
+                        - !Sub "https://${WebAppBucket.RegionalDomainName}"
                         - !Ref ParentOrigin
                     - Name: IFRAME_ORIGIN
-                      Value: !Sub "https://${WebAppBucket.DomainName}"
+                      Value: !Sub "https://${WebAppBucket.RegionalDomainName}"
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
             Source:
@@ -434,25 +434,25 @@ Outputs:
         Value: !Ref CodeBuild
 
     WebAppUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/index.html"
+        Value: !Sub "https://${WebAppBucket.RegionalDomainName}/index.html"
         Description: URL of the web application
 
     WebAppBase:
-        Value: !Sub "https://${WebAppBucket.DomainName}"
+        Value: !Sub "https://${WebAppBucket.RegionalDomainName}"
         Description: Base url portion of the web application
 
     WebAppDomainName:
-        Value: !Sub "${WebAppBucket.DomainName}"
+        Value: !Sub "${WebAppBucket.RegionalDomainName}"
         Description: DomainName of the web application
 
     ParentPageUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/parent.html"
+        Value: !Sub "https://${WebAppBucket.RegionalDomainName}/parent.html"
         Description: URL of the sample parent page
 
     LoaderScriptUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/lex-web-ui-loader.min.js"
+        Value: !Sub "https://${WebAppBucket.RegionalDomainName}/lex-web-ui-loader.min.js"
         Description: URL of the loader script
 
     SnippetUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/iframe-snippet.html"
+        Value: !Sub "https://${WebAppBucket.RegionalDomainName}/iframe-snippet.html"
         Description: URL of a page showing the snippet to load the chatbot UI as an iframe
