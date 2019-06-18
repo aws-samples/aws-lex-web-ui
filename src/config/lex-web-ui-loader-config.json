@@ -1,9 +1,12 @@
 {
+  "region": "us-east-1",
   "cognito": {
     "poolId": "us-east-1:389f9063-82a0-4a8c-bdc3-3bbb4c3d36d0",
     "appUserPoolClientId": "",
     "appUserPoolName": "",
     "appDomainName": "",
+    "aws_cognito_region": "us-east-1",
+    "region": "us-east-1",
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
@@ -11,7 +14,8 @@
     "botAlias": "$LATEST",
     "initialText": "You can ask me for help ordering flowers. Just type \"Buy flowers\" or click on the mic and say it.",
     "initialSpeechInstruction": "Say 'Buy Flowers' to get started.",
-    "reInitSessionAttributesOnRestart": false
+    "reInitSessionAttributesOnRestart": false,
+    "region": "us-east-1"
   },
   "ui": {
     "parentOrigin": "",

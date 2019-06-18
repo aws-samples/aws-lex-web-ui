@@ -6166,7 +6166,7 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(24)(function () {
+module.exports = !__webpack_require__(23)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -6176,7 +6176,7 @@ module.exports = !__webpack_require__(24)(function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(1).Buffer
-var Transform = __webpack_require__(22).Transform
+var Transform = __webpack_require__(21).Transform
 var StringDecoder = __webpack_require__(73).StringDecoder
 var inherits = __webpack_require__(0)
 
@@ -6313,12 +6313,6 @@ module.exports = function (it, key) {
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(164), __esModule: true };
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -6449,7 +6443,7 @@ Stream.prototype.pipe = function(dest, options) {
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6579,7 +6573,7 @@ function forEach(xs, f) {
 }
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -6592,7 +6586,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
@@ -6602,6 +6596,12 @@ module.exports = function (it) {
   return IObject(defined(it));
 };
 
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(164), __esModule: true };
 
 /***/ }),
 /* 26 */
@@ -7415,7 +7415,7 @@ var debugs = {};
 var debugEnviron;
 exports.debuglog = function(set) {
   if (isUndefined(debugEnviron))
-    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.14.7","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
+    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.14.6","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
   set = set.toUpperCase();
   if (!debugs[set]) {
     if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
@@ -8876,7 +8876,7 @@ exports = module.exports = __webpack_require__(116);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(72);
-exports.Duplex = __webpack_require__(23);
+exports.Duplex = __webpack_require__(22);
 exports.Transform = __webpack_require__(119);
 exports.PassThrough = __webpack_require__(223);
 
@@ -8984,7 +8984,7 @@ util.inherits(Writable, Stream);
 function nop() {}
 
 function WritableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(23);
+  Duplex = Duplex || __webpack_require__(22);
 
   options = options || {};
 
@@ -9124,7 +9124,7 @@ if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.protot
 }
 
 function Writable(options) {
-  Duplex = Duplex || __webpack_require__(23);
+  Duplex = Duplex || __webpack_require__(22);
 
   // Writable ctor is applied to Duplexes, too.
   // `realHasInstance` is necessary because using plain `instanceof`
@@ -10862,7 +10862,7 @@ module.exports = { "default": __webpack_require__(157), __esModule: true };
 /* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(16) && !__webpack_require__(24)(function () {
+module.exports = !__webpack_require__(16) && !__webpack_require__(23)(function () {
   return Object.defineProperty(__webpack_require__(55)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -10872,7 +10872,7 @@ module.exports = !__webpack_require__(16) && !__webpack_require__(24)(function (
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(20);
-var toIObject = __webpack_require__(25);
+var toIObject = __webpack_require__(24);
 var arrayIndexOf = __webpack_require__(160)(false);
 var IE_PROTO = __webpack_require__(60)('IE_PROTO');
 
@@ -11250,7 +11250,7 @@ module.exports = function (exec, skipClosing) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_ToolbarContainer__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_MessageList__ = __webpack_require__(193);
@@ -12273,7 +12273,7 @@ License for the specific language governing permissions and limitations under th
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_RecorderStatus__ = __webpack_require__(211);
 
@@ -12765,7 +12765,7 @@ module.exports = Array.isArray || function (arr) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/*global module, process*/
 var Buffer = __webpack_require__(1).Buffer;
-var Stream = __webpack_require__(22);
+var Stream = __webpack_require__(21);
 var util = __webpack_require__(49);
 
 function DataStream(data) {
@@ -12929,7 +12929,7 @@ function prependListener(emitter, event, fn) {
 }
 
 function ReadableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(23);
+  Duplex = Duplex || __webpack_require__(22);
 
   options = options || {};
 
@@ -12997,7 +12997,7 @@ function ReadableState(options, stream) {
 }
 
 function Readable(options) {
-  Duplex = Duplex || __webpack_require__(23);
+  Duplex = Duplex || __webpack_require__(22);
 
   if (!(this instanceof Readable)) return new Readable(options);
 
@@ -13992,7 +13992,7 @@ module.exports = {
 
 module.exports = Transform;
 
-var Duplex = __webpack_require__(23);
+var Duplex = __webpack_require__(22);
 
 /*<replacement>*/
 var util = __webpack_require__(35);
@@ -17052,7 +17052,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_define_property__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_define_property___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_define_property__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_promise__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_promise__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_promise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue__ = __webpack_require__(181);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue__);
@@ -17270,7 +17270,7 @@ var IObject = __webpack_require__(89);
 var $assign = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __webpack_require__(24)(function () {
+module.exports = !$assign || __webpack_require__(23)(function () {
   var A = {};
   var B = {};
   // eslint-disable-next-line no-undef
@@ -17302,7 +17302,7 @@ module.exports = !$assign || __webpack_require__(24)(function () {
 
 // false -> Array#indexOf
 // true  -> Array#includes
-var toIObject = __webpack_require__(25);
+var toIObject = __webpack_require__(24);
 var toLength = __webpack_require__(58);
 var toAbsoluteIndex = __webpack_require__(161);
 module.exports = function (IS_INCLUDES) {
@@ -17461,7 +17461,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 var addToUnscopables = __webpack_require__(170);
 var step = __webpack_require__(171);
 var Iterators = __webpack_require__(26);
-var toIObject = __webpack_require__(25);
+var toIObject = __webpack_require__(24);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
@@ -18110,7 +18110,7 @@ __webpack_require__(190)('keys', function () {
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(12);
 var core = __webpack_require__(4);
-var fails = __webpack_require__(24);
+var fails = __webpack_require__(23);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
   var exp = {};
@@ -19937,7 +19937,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 var Buffer = __webpack_require__(1).Buffer;
 var DataStream = __webpack_require__(115);
 var jwa = __webpack_require__(120);
-var Stream = __webpack_require__(22);
+var Stream = __webpack_require__(21);
 var toString = __webpack_require__(149);
 var util = __webpack_require__(49);
 
@@ -20700,7 +20700,7 @@ module.exports = __webpack_require__(72);
 /* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(23);
+module.exports = __webpack_require__(22);
 
 
 /***/ }),
@@ -20953,7 +20953,7 @@ module.exports = function hash (buf, fn) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {
-var Transform = __webpack_require__(22).Transform
+var Transform = __webpack_require__(21).Transform
 var inherits = __webpack_require__(0)
 
 function HashBase (blockSize) {
@@ -21769,7 +21769,7 @@ module.exports = MD5
 "use strict";
 
 var Buffer = __webpack_require__(1).Buffer
-var Transform = __webpack_require__(22).Transform
+var Transform = __webpack_require__(21).Transform
 var inherits = __webpack_require__(0)
 
 function throwIfNotStringOrBuffer (val, prefix) {
@@ -23429,7 +23429,7 @@ function formatReturnValue(bn, enc) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var createHash = __webpack_require__(36)
-var stream = __webpack_require__(22)
+var stream = __webpack_require__(21)
 var inherits = __webpack_require__(0)
 var sign = __webpack_require__(267)
 var verify = __webpack_require__(303)
@@ -30283,7 +30283,7 @@ module.exports = getParamBytesForAlg;
 var Buffer = __webpack_require__(1).Buffer;
 var DataStream = __webpack_require__(115);
 var jwa = __webpack_require__(120);
-var Stream = __webpack_require__(22);
+var Stream = __webpack_require__(21);
 var toString = __webpack_require__(149);
 var util = __webpack_require__(49);
 var JWS_REGEX = /^[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$/;
@@ -32780,7 +32780,7 @@ License for the specific language governing permissions and limitations under th
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  version:  true ? "0.14.7" : '0.0.0',
+  version:  true ? "0.14.6" : '0.0.0',
   lex: {
     acceptFormat: 'audio/ogg',
     dialogState: '',
@@ -32874,7 +32874,7 @@ var DESCRIPTORS = __webpack_require__(16);
 var $export = __webpack_require__(12);
 var redefine = __webpack_require__(92);
 var META = __webpack_require__(330).KEY;
-var $fails = __webpack_require__(24);
+var $fails = __webpack_require__(23);
 var shared = __webpack_require__(61);
 var setToStringTag = __webpack_require__(46);
 var uid = __webpack_require__(42);
@@ -32885,7 +32885,7 @@ var enumKeys = __webpack_require__(331);
 var isArray = __webpack_require__(332);
 var anObject = __webpack_require__(14);
 var isObject = __webpack_require__(19);
-var toIObject = __webpack_require__(25);
+var toIObject = __webpack_require__(24);
 var toPrimitive = __webpack_require__(56);
 var createDesc = __webpack_require__(31);
 var _create = __webpack_require__(93);
@@ -33114,7 +33114,7 @@ var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(24)(function () {
+var FREEZE = !__webpack_require__(23)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function (it) {
@@ -33198,7 +33198,7 @@ module.exports = Array.isArray || function isArray(arg) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = __webpack_require__(25);
+var toIObject = __webpack_require__(24);
 var gOPN = __webpack_require__(153).f;
 var toString = {}.toString;
 
@@ -33224,7 +33224,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 var pIE = __webpack_require__(43);
 var createDesc = __webpack_require__(31);
-var toIObject = __webpack_require__(25);
+var toIObject = __webpack_require__(24);
 var toPrimitive = __webpack_require__(56);
 var has = __webpack_require__(20);
 var IE8_DOM_DEFINE = __webpack_require__(87);
@@ -33817,15 +33817,15 @@ License for the specific language governing permissions and limitations under th
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_lex_recorder__ = __webpack_require__(351);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_recorder_handlers__ = __webpack_require__(363);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__assets_silent_ogg__ = __webpack_require__(364);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_recorder_handlers__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__assets_silent_ogg__ = __webpack_require__(360);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__assets_silent_ogg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__assets_silent_ogg__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__assets_silent_mp3__ = __webpack_require__(365);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__assets_silent_mp3__ = __webpack_require__(361);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__assets_silent_mp3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__assets_silent_mp3__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_lex_client__ = __webpack_require__(366);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_lex_client__ = __webpack_require__(362);
 
 
 /*
@@ -34575,22 +34575,16 @@ var recorder = void 0;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(352);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator__ = __webpack_require__(357);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_asyncToGenerator__ = __webpack_require__(360);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_asyncToGenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_asyncToGenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_promise__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_core_js_object_assign__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_core_js_object_assign__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_classCallCheck__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_createClass__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__wav_worker__ = __webpack_require__(361);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__wav_worker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__wav_worker__);
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_assign__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_assign__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__wav_worker__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__wav_worker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__wav_worker__);
 
 
 
@@ -34736,7 +34730,7 @@ var _class = function () {
 
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-    __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_classCallCheck___default()(this, _class);
+    __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck___default()(this, _class);
 
     this.initOptions(options);
 
@@ -34744,7 +34738,7 @@ var _class = function () {
     this._eventTarget = document.createDocumentFragment();
 
     // encoder worker
-    this._encoderWorker = new __WEBPACK_IMPORTED_MODULE_7__wav_worker___default.a();
+    this._encoderWorker = new __WEBPACK_IMPORTED_MODULE_5__wav_worker___default.a();
 
     // worker uses this event listener to signal back
     // when wav has finished encoding
@@ -34761,14 +34755,14 @@ var _class = function () {
    */
 
 
-  __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_createClass___default()(_class, [{
+  __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default()(_class, [{
     key: 'initOptions',
     value: function initOptions() {
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       // TODO break this into functions, avoid side-effects, break into this.options.*
       if (options.preset) {
-        __WEBPACK_IMPORTED_MODULE_4_babel_runtime_core_js_object_assign___default()(options, this._getPresetOptions(options.preset));
+        __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_assign___default()(options, this._getPresetOptions(options.preset));
       }
 
       this.mimeType = options.mimeType || 'audio/wav';
@@ -34846,6 +34840,8 @@ var _class = function () {
   }, {
     key: 'init',
     value: function init() {
+      var _this2 = this;
+
       this._state = 'inactive';
 
       this._instant = 0.0;
@@ -34859,7 +34855,16 @@ var _class = function () {
       this._isSilentRecording = true;
       this._silentRecordingConsecutiveCount = 0;
 
-      return __WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_promise___default.a.resolve();
+      // sets this._audioContext AudioContext object
+      return this._initAudioContext()
+      // inits AudioContext.createScriptProcessor object
+      // used to process mic audio input volume
+      // sets this._micVolumeProcessor
+      .then(function () {
+        return _this2._initMicVolumeProcessor();
+      }).then(function () {
+        return _this2._initStream();
+      });
     }
 
     /**
@@ -34868,77 +34873,28 @@ var _class = function () {
 
   }, {
     key: 'start',
-    value: function () {
-      var _ref = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default.a.mark(function _callee() {
-        var _this2 = this;
-
-        return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (!(this._state !== 'inactive' || typeof this._stream === 'undefined')) {
-                  _context.next = 10;
-                  break;
-                }
-
-                if (!(this._state !== 'inactive')) {
-                  _context.next = 4;
-                  break;
-                }
-
-                console.warn('invalid state to start recording');
-                return _context.abrupt('return');
-
-              case 4:
-                console.warn('initializing audiocontext after first user interaction - chrome fix');
-                _context.next = 7;
-                return this._initAudioContext().then(function () {
-                  return _this2._initMicVolumeProcessor();
-                }).then(function () {
-                  return _this2._initStream();
-                });
-
-              case 7:
-                if (!(typeof this._stream === 'undefined')) {
-                  _context.next = 10;
-                  break;
-                }
-
-                console.warn('failed to initialize audiocontext');
-                return _context.abrupt('return');
-
-              case 10:
-
-                this._state = 'recording';
-
-                this._recordingStartTime = this._audioContext.currentTime;
-                this._eventTarget.dispatchEvent(new Event('start'));
-
-                this._encoderWorker.postMessage({
-                  command: 'init',
-                  config: {
-                    sampleRate: this._audioContext.sampleRate,
-                    numChannels: this.numChannels,
-                    useTrim: this.encoderUseTrim,
-                    quietTrimThreshold: this.encoderQuietTrimThreshold,
-                    quietTrimSlackBack: this.encoderQuietTrimSlackBack
-                  }
-                });
-
-              case 14:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function start() {
-        return _ref.apply(this, arguments);
+    value: function start() {
+      if (this._state !== 'inactive' || typeof this._stream === 'undefined') {
+        console.warn('recorder start called out of state');
+        return;
       }
 
-      return start;
-    }()
+      this._state = 'recording';
+
+      this._recordingStartTime = this._audioContext.currentTime;
+      this._eventTarget.dispatchEvent(new Event('start'));
+
+      this._encoderWorker.postMessage({
+        command: 'init',
+        config: {
+          sampleRate: this._audioContext.sampleRate,
+          numChannels: this.numChannels,
+          useTrim: this.encoderUseTrim,
+          quietTrimThreshold: this.encoderQuietTrimThreshold,
+          quietTrimSlackBack: this.encoderQuietTrimSlackBack
+        }
+      });
+    }
 
     /**
      * Stop recording
@@ -35071,7 +35027,7 @@ var _class = function () {
 
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!window.AudioContext) {
-        return __WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_promise___default.a.reject(new Error('Web Audio API not supported.'));
+        return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a.reject(new Error('Web Audio API not supported.'));
       }
       this._audioContext = new AudioContext();
       document.addEventListener('visibilitychange', function () {
@@ -35079,12 +35035,10 @@ var _class = function () {
         if (document.hidden) {
           _this3._audioContext.suspend();
         } else {
-          _this3._audioContext.resume().then(function () {
-            console.info('Playback resumed successfully from visibility change');
-          });
+          _this3._audioContext.resume();
         }
       });
-      return __WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_promise___default.a.resolve();
+      return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a.resolve();
     }
 
     /**
@@ -35138,7 +35092,7 @@ var _class = function () {
       };
 
       this._micVolumeProcessor = processor;
-      return __WEBPACK_IMPORTED_MODULE_3_babel_runtime_core_js_promise___default.a.resolve();
+      return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a.resolve();
     }
 
     /*
@@ -35448,837 +35402,12 @@ module.exports = function (object, index, value) {
 /* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(358);
-
+module.exports = function () {
+  return __webpack_require__(358)("/******/ (function(modules) { // webpackBootstrap\n/******/ \t// The module cache\n/******/ \tvar installedModules = {};\n/******/\n/******/ \t// The require function\n/******/ \tfunction __webpack_require__(moduleId) {\n/******/\n/******/ \t\t// Check if module is in cache\n/******/ \t\tif(installedModules[moduleId]) {\n/******/ \t\t\treturn installedModules[moduleId].exports;\n/******/ \t\t}\n/******/ \t\t// Create a new module (and put it into the cache)\n/******/ \t\tvar module = installedModules[moduleId] = {\n/******/ \t\t\ti: moduleId,\n/******/ \t\t\tl: false,\n/******/ \t\t\texports: {}\n/******/ \t\t};\n/******/\n/******/ \t\t// Execute the module function\n/******/ \t\tmodules[moduleId].call(module.exports, module, module.exports, __webpack_require__);\n/******/\n/******/ \t\t// Flag the module as loaded\n/******/ \t\tmodule.l = true;\n/******/\n/******/ \t\t// Return the exports of the module\n/******/ \t\treturn module.exports;\n/******/ \t}\n/******/\n/******/\n/******/ \t// expose the modules object (__webpack_modules__)\n/******/ \t__webpack_require__.m = modules;\n/******/\n/******/ \t// expose the module cache\n/******/ \t__webpack_require__.c = installedModules;\n/******/\n/******/ \t// define getter function for harmony exports\n/******/ \t__webpack_require__.d = function(exports, name, getter) {\n/******/ \t\tif(!__webpack_require__.o(exports, name)) {\n/******/ \t\t\tObject.defineProperty(exports, name, {\n/******/ \t\t\t\tconfigurable: false,\n/******/ \t\t\t\tenumerable: true,\n/******/ \t\t\t\tget: getter\n/******/ \t\t\t});\n/******/ \t\t}\n/******/ \t};\n/******/\n/******/ \t// getDefaultExport function for compatibility with non-harmony modules\n/******/ \t__webpack_require__.n = function(module) {\n/******/ \t\tvar getter = module && module.__esModule ?\n/******/ \t\t\tfunction getDefault() { return module['default']; } :\n/******/ \t\t\tfunction getModuleExports() { return module; };\n/******/ \t\t__webpack_require__.d(getter, 'a', getter);\n/******/ \t\treturn getter;\n/******/ \t};\n/******/\n/******/ \t// Object.prototype.hasOwnProperty.call\n/******/ \t__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };\n/******/\n/******/ \t// __webpack_public_path__\n/******/ \t__webpack_require__.p = \"/\";\n/******/\n/******/ \t// Load entry module and return exports\n/******/ \treturn __webpack_require__(__webpack_require__.s = 0);\n/******/ })\n/************************************************************************/\n/******/ ([\n/* 0 */\n/***/ (function(module, exports) {\n\n// based on https://github.com/mattdiamond/Recorderjs/blob/master/src/recorder.js\n// with a few optimizations including downsampling and trimming quiet samples\n\n/* global Blob self */\n/* eslint no-restricted-globals: off */\n/* eslint prefer-arrow-callback: [\"error\", { \"allowNamedFunctions\": true }] */\n/* eslint no-param-reassign: [\"error\", { \"props\": false }] */\n/* eslint no-use-before-define: [\"error\", { \"functions\": false }] */\n/* eslint no-plusplus: off */\n/* eslint comma-dangle: [\"error\", {\"functions\": \"never\", \"objects\": \"always-multiline\"}] */\n/* eslint-disable prefer-destructuring */\nconst bitDepth = 16;\nconst bytesPerSample = bitDepth / 8;\nconst outSampleRate = 16000;\nconst outNumChannels = 1;\n\nlet recLength = 0;\nlet recBuffers = [];\n\nconst options = {\n  sampleRate: 44000,\n  numChannels: 1,\n  useDownsample: true,\n  // controls if the encoder will trim silent samples at begining and end of buffer\n  useTrim: true,\n  // trim samples below this value at the beginnig and end of the buffer\n  // lower the value trim less silence (larger file size)\n  // reasonable values seem to be between 0.005 and 0.0005\n  quietTrimThreshold: 0.0008,\n  // how many samples to add back to the buffer before/after the quiet threshold\n  // higher values result in less silence trimming (larger file size)\n  // reasonable values seem to be between 3500 and 5000\n  quietTrimSlackBack: 4000,\n};\n\nself.onmessage = (evt) => {\n  switch (evt.data.command) {\n    case 'init':\n      init(evt.data.config);\n      break;\n    case 'record':\n      record(evt.data.buffer);\n      break;\n    case 'exportWav':\n      exportWAV(evt.data.type);\n      break;\n    case 'getBuffer':\n      getBuffer();\n      break;\n    case 'clear':\n      clear();\n      break;\n    case 'close':\n      self.close();\n      break;\n    default:\n      break;\n  }\n};\n\nfunction init(config) {\n  Object.assign(options, config);\n  initBuffers();\n}\n\nfunction record(inputBuffer) {\n  for (let channel = 0; channel < options.numChannels; channel++) {\n    recBuffers[channel].push(inputBuffer[channel]);\n  }\n  recLength += inputBuffer[0].length;\n}\n\nfunction exportWAV(type) {\n  const buffers = [];\n  for (let channel = 0; channel < options.numChannels; channel++) {\n    buffers.push(mergeBuffers(recBuffers[channel], recLength));\n  }\n  let interleaved;\n  if (options.numChannels === 2 && outNumChannels === 2) {\n    interleaved = interleave(buffers[0], buffers[1]);\n  } else {\n    interleaved = buffers[0];\n  }\n  const downsampledBuffer = downsampleTrimBuffer(interleaved, outSampleRate);\n  const dataview = encodeWAV(downsampledBuffer);\n  const audioBlob = new Blob([dataview], { type });\n\n  self.postMessage({\n    command: 'exportWAV',\n    data: audioBlob,\n  });\n}\n\nfunction getBuffer() {\n  const buffers = [];\n  for (let channel = 0; channel < options.numChannels; channel++) {\n    buffers.push(mergeBuffers(recBuffers[channel], recLength));\n  }\n  self.postMessage({ command: 'getBuffer', data: buffers });\n}\n\nfunction clear() {\n  recLength = 0;\n  recBuffers = [];\n  initBuffers();\n}\n\nfunction initBuffers() {\n  for (let channel = 0; channel < options.numChannels; channel++) {\n    recBuffers[channel] = [];\n  }\n}\n\nfunction mergeBuffers(recBuffer, length) {\n  const result = new Float32Array(length);\n  let offset = 0;\n  for (let i = 0; i < recBuffer.length; i++) {\n    result.set(recBuffer[i], offset);\n    offset += recBuffer[i].length;\n  }\n  return result;\n}\n\nfunction interleave(inputL, inputR) {\n  const length = inputL.length + inputR.length;\n  const result = new Float32Array(length);\n\n  let index = 0;\n  let inputIndex = 0;\n\n  while (index < length) {\n    result[index++] = inputL[inputIndex];\n    result[index++] = inputR[inputIndex];\n    inputIndex++;\n  }\n  return result;\n}\n\nfunction floatTo16BitPCM(output, offset, input) {\n  for (let i = 0, o = offset; i < input.length; i++, o += 2) {\n    const s = Math.max(-1, Math.min(1, input[i]));\n    output.setInt16(o, s < 0 ? s * 0x8000 : s * 0x7FFF, true);\n  }\n}\n\n// Lex doesn't require proper wav header\n// still inserting wav header for playing on client side\nfunction addHeader(view, length) {\n  // RIFF identifier 'RIFF'\n  view.setUint32(0, 1380533830, false);\n  // file length minus RIFF identifier length and file description length\n  view.setUint32(4, 36 + length, true);\n  // RIFF type 'WAVE'\n  view.setUint32(8, 1463899717, false);\n  // format chunk identifier 'fmt '\n  view.setUint32(12, 1718449184, false);\n  // format chunk length\n  view.setUint32(16, 16, true);\n  // sample format (raw)\n  view.setUint16(20, 1, true);\n  // channel count\n  view.setUint16(22, outNumChannels, true);\n  // sample rate\n  view.setUint32(24, outSampleRate, true);\n  // byte rate (sample rate * block align)\n  view.setUint32(28, outSampleRate * bytesPerSample * outNumChannels, true);\n  // block align (channel count * bytes per sample)\n  view.setUint16(32, bytesPerSample * outNumChannels, true);\n  // bits per sample\n  view.setUint16(34, bitDepth, true);\n  // data chunk identifier 'data'\n  view.setUint32(36, 1684108385, false);\n}\n\nfunction encodeWAV(samples) {\n  const buffer = new ArrayBuffer(44 + (samples.length * 2));\n  const view = new DataView(buffer);\n\n  addHeader(view, samples.length);\n  floatTo16BitPCM(view, 44, samples);\n\n  return view;\n}\n\nfunction downsampleTrimBuffer(buffer, rate) {\n  if (rate === options.sampleRate) {\n    return buffer;\n  }\n\n  const length = buffer.length;\n  const sampleRateRatio = options.sampleRate / rate;\n  const newLength = Math.round(length / sampleRateRatio);\n\n  const result = new Float32Array(newLength);\n  let offsetResult = 0;\n  let offsetBuffer = 0;\n  let firstNonQuiet = 0;\n  let lastNonQuiet = length;\n  while (offsetResult < result.length) {\n    const nextOffsetBuffer = Math.round((offsetResult + 1) * sampleRateRatio);\n    let accum = 0;\n    let count = 0;\n    for (let i = offsetBuffer; (i < nextOffsetBuffer) && (i < length); i++) {\n      accum += buffer[i];\n      count++;\n    }\n    // mark first and last sample over the quiet threshold\n    if (accum > options.quietTrimThreshold) {\n      if (firstNonQuiet === 0) {\n        firstNonQuiet = offsetResult;\n      }\n      lastNonQuiet = offsetResult;\n    }\n    result[offsetResult] = accum / count;\n    offsetResult++;\n    offsetBuffer = nextOffsetBuffer;\n  }\n\n  /*\n  console.info('encoder trim size reduction',\n    (Math.min(newLength, lastNonQuiet + options.quietTrimSlackBack) -\n    Math.max(0, firstNonQuiet - options.quietTrimSlackBack)) / result.length\n  );\n  */\n  return (options.useTrim) ?\n    // slice based on quiet threshold and put slack back into the buffer\n    result.slice(\n      Math.max(0, firstNonQuiet - options.quietTrimSlackBack),\n      Math.min(newLength, lastNonQuiet + options.quietTrimSlackBack)\n    ) :\n    result;\n}\n\n\n/***/ })\n/******/ ]);\n//# sourceMappingURL=wav-worker.js.map", __webpack_require__.p + "bundle/wav-worker.js");
+};
 
 /***/ }),
 /* 358 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-// This method of obtaining a reference to the global object needs to be
-// kept identical to the way it is obtained in runtime.js
-var g = (function() { return this })() || Function("return this")();
-
-// Use `getOwnPropertyNames` because not all browsers support calling
-// `hasOwnProperty` on the global `self` object in a worker. See #183.
-var hadRuntime = g.regeneratorRuntime &&
-  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
-
-// Save the old regeneratorRuntime in case it needs to be restored later.
-var oldRuntime = hadRuntime && g.regeneratorRuntime;
-
-// Force reevalutation of runtime.js.
-g.regeneratorRuntime = undefined;
-
-module.exports = __webpack_require__(359);
-
-if (hadRuntime) {
-  // Restore the original runtime.
-  g.regeneratorRuntime = oldRuntime;
-} else {
-  // Remove the global property added by runtime.js.
-  try {
-    delete g.regeneratorRuntime;
-  } catch(e) {
-    g.regeneratorRuntime = undefined;
-  }
-}
-
-
-/***/ }),
-/* 359 */
-/***/ (function(module, exports) {
-
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-!(function(global) {
-  "use strict";
-
-  var Op = Object.prototype;
-  var hasOwn = Op.hasOwnProperty;
-  var undefined; // More compressible than void 0.
-  var $Symbol = typeof Symbol === "function" ? Symbol : {};
-  var iteratorSymbol = $Symbol.iterator || "@@iterator";
-  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
-  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
-
-  var inModule = typeof module === "object";
-  var runtime = global.regeneratorRuntime;
-  if (runtime) {
-    if (inModule) {
-      // If regeneratorRuntime is defined globally and we're in a module,
-      // make the exports object identical to regeneratorRuntime.
-      module.exports = runtime;
-    }
-    // Don't bother evaluating the rest of this file if the runtime was
-    // already defined globally.
-    return;
-  }
-
-  // Define the runtime globally (as expected by generated code) as either
-  // module.exports (if we're in a module) or a new, empty object.
-  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
-
-  function wrap(innerFn, outerFn, self, tryLocsList) {
-    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
-    var generator = Object.create(protoGenerator.prototype);
-    var context = new Context(tryLocsList || []);
-
-    // The ._invoke method unifies the implementations of the .next,
-    // .throw, and .return methods.
-    generator._invoke = makeInvokeMethod(innerFn, self, context);
-
-    return generator;
-  }
-  runtime.wrap = wrap;
-
-  // Try/catch helper to minimize deoptimizations. Returns a completion
-  // record like context.tryEntries[i].completion. This interface could
-  // have been (and was previously) designed to take a closure to be
-  // invoked without arguments, but in all the cases we care about we
-  // already have an existing method we want to call, so there's no need
-  // to create a new function object. We can even get away with assuming
-  // the method takes exactly one argument, since that happens to be true
-  // in every case, so we don't have to touch the arguments object. The
-  // only additional allocation required is the completion record, which
-  // has a stable shape and so hopefully should be cheap to allocate.
-  function tryCatch(fn, obj, arg) {
-    try {
-      return { type: "normal", arg: fn.call(obj, arg) };
-    } catch (err) {
-      return { type: "throw", arg: err };
-    }
-  }
-
-  var GenStateSuspendedStart = "suspendedStart";
-  var GenStateSuspendedYield = "suspendedYield";
-  var GenStateExecuting = "executing";
-  var GenStateCompleted = "completed";
-
-  // Returning this object from the innerFn has the same effect as
-  // breaking out of the dispatch switch statement.
-  var ContinueSentinel = {};
-
-  // Dummy constructor functions that we use as the .constructor and
-  // .constructor.prototype properties for functions that return Generator
-  // objects. For full spec compliance, you may wish to configure your
-  // minifier not to mangle the names of these two functions.
-  function Generator() {}
-  function GeneratorFunction() {}
-  function GeneratorFunctionPrototype() {}
-
-  // This is a polyfill for %IteratorPrototype% for environments that
-  // don't natively support it.
-  var IteratorPrototype = {};
-  IteratorPrototype[iteratorSymbol] = function () {
-    return this;
-  };
-
-  var getProto = Object.getPrototypeOf;
-  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
-  if (NativeIteratorPrototype &&
-      NativeIteratorPrototype !== Op &&
-      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
-    // This environment has a native %IteratorPrototype%; use it instead
-    // of the polyfill.
-    IteratorPrototype = NativeIteratorPrototype;
-  }
-
-  var Gp = GeneratorFunctionPrototype.prototype =
-    Generator.prototype = Object.create(IteratorPrototype);
-  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
-  GeneratorFunctionPrototype.constructor = GeneratorFunction;
-  GeneratorFunctionPrototype[toStringTagSymbol] =
-    GeneratorFunction.displayName = "GeneratorFunction";
-
-  // Helper for defining the .next, .throw, and .return methods of the
-  // Iterator interface in terms of a single ._invoke method.
-  function defineIteratorMethods(prototype) {
-    ["next", "throw", "return"].forEach(function(method) {
-      prototype[method] = function(arg) {
-        return this._invoke(method, arg);
-      };
-    });
-  }
-
-  runtime.isGeneratorFunction = function(genFun) {
-    var ctor = typeof genFun === "function" && genFun.constructor;
-    return ctor
-      ? ctor === GeneratorFunction ||
-        // For the native GeneratorFunction constructor, the best we can
-        // do is to check its .name property.
-        (ctor.displayName || ctor.name) === "GeneratorFunction"
-      : false;
-  };
-
-  runtime.mark = function(genFun) {
-    if (Object.setPrototypeOf) {
-      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
-    } else {
-      genFun.__proto__ = GeneratorFunctionPrototype;
-      if (!(toStringTagSymbol in genFun)) {
-        genFun[toStringTagSymbol] = "GeneratorFunction";
-      }
-    }
-    genFun.prototype = Object.create(Gp);
-    return genFun;
-  };
-
-  // Within the body of any async function, `await x` is transformed to
-  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
-  // `hasOwn.call(value, "__await")` to determine if the yielded value is
-  // meant to be awaited.
-  runtime.awrap = function(arg) {
-    return { __await: arg };
-  };
-
-  function AsyncIterator(generator) {
-    function invoke(method, arg, resolve, reject) {
-      var record = tryCatch(generator[method], generator, arg);
-      if (record.type === "throw") {
-        reject(record.arg);
-      } else {
-        var result = record.arg;
-        var value = result.value;
-        if (value &&
-            typeof value === "object" &&
-            hasOwn.call(value, "__await")) {
-          return Promise.resolve(value.__await).then(function(value) {
-            invoke("next", value, resolve, reject);
-          }, function(err) {
-            invoke("throw", err, resolve, reject);
-          });
-        }
-
-        return Promise.resolve(value).then(function(unwrapped) {
-          // When a yielded Promise is resolved, its final value becomes
-          // the .value of the Promise<{value,done}> result for the
-          // current iteration. If the Promise is rejected, however, the
-          // result for this iteration will be rejected with the same
-          // reason. Note that rejections of yielded Promises are not
-          // thrown back into the generator function, as is the case
-          // when an awaited Promise is rejected. This difference in
-          // behavior between yield and await is important, because it
-          // allows the consumer to decide what to do with the yielded
-          // rejection (swallow it and continue, manually .throw it back
-          // into the generator, abandon iteration, whatever). With
-          // await, by contrast, there is no opportunity to examine the
-          // rejection reason outside the generator function, so the
-          // only option is to throw it from the await expression, and
-          // let the generator function handle the exception.
-          result.value = unwrapped;
-          resolve(result);
-        }, reject);
-      }
-    }
-
-    var previousPromise;
-
-    function enqueue(method, arg) {
-      function callInvokeWithMethodAndArg() {
-        return new Promise(function(resolve, reject) {
-          invoke(method, arg, resolve, reject);
-        });
-      }
-
-      return previousPromise =
-        // If enqueue has been called before, then we want to wait until
-        // all previous Promises have been resolved before calling invoke,
-        // so that results are always delivered in the correct order. If
-        // enqueue has not been called before, then it is important to
-        // call invoke immediately, without waiting on a callback to fire,
-        // so that the async generator function has the opportunity to do
-        // any necessary setup in a predictable way. This predictability
-        // is why the Promise constructor synchronously invokes its
-        // executor callback, and why async functions synchronously
-        // execute code before the first await. Since we implement simple
-        // async functions in terms of async generators, it is especially
-        // important to get this right, even though it requires care.
-        previousPromise ? previousPromise.then(
-          callInvokeWithMethodAndArg,
-          // Avoid propagating failures to Promises returned by later
-          // invocations of the iterator.
-          callInvokeWithMethodAndArg
-        ) : callInvokeWithMethodAndArg();
-    }
-
-    // Define the unified helper method that is used to implement .next,
-    // .throw, and .return (see defineIteratorMethods).
-    this._invoke = enqueue;
-  }
-
-  defineIteratorMethods(AsyncIterator.prototype);
-  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
-    return this;
-  };
-  runtime.AsyncIterator = AsyncIterator;
-
-  // Note that simple async functions are implemented on top of
-  // AsyncIterator objects; they just return a Promise for the value of
-  // the final result produced by the iterator.
-  runtime.async = function(innerFn, outerFn, self, tryLocsList) {
-    var iter = new AsyncIterator(
-      wrap(innerFn, outerFn, self, tryLocsList)
-    );
-
-    return runtime.isGeneratorFunction(outerFn)
-      ? iter // If outerFn is a generator, return the full iterator.
-      : iter.next().then(function(result) {
-          return result.done ? result.value : iter.next();
-        });
-  };
-
-  function makeInvokeMethod(innerFn, self, context) {
-    var state = GenStateSuspendedStart;
-
-    return function invoke(method, arg) {
-      if (state === GenStateExecuting) {
-        throw new Error("Generator is already running");
-      }
-
-      if (state === GenStateCompleted) {
-        if (method === "throw") {
-          throw arg;
-        }
-
-        // Be forgiving, per 25.3.3.3.3 of the spec:
-        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
-        return doneResult();
-      }
-
-      context.method = method;
-      context.arg = arg;
-
-      while (true) {
-        var delegate = context.delegate;
-        if (delegate) {
-          var delegateResult = maybeInvokeDelegate(delegate, context);
-          if (delegateResult) {
-            if (delegateResult === ContinueSentinel) continue;
-            return delegateResult;
-          }
-        }
-
-        if (context.method === "next") {
-          // Setting context._sent for legacy support of Babel's
-          // function.sent implementation.
-          context.sent = context._sent = context.arg;
-
-        } else if (context.method === "throw") {
-          if (state === GenStateSuspendedStart) {
-            state = GenStateCompleted;
-            throw context.arg;
-          }
-
-          context.dispatchException(context.arg);
-
-        } else if (context.method === "return") {
-          context.abrupt("return", context.arg);
-        }
-
-        state = GenStateExecuting;
-
-        var record = tryCatch(innerFn, self, context);
-        if (record.type === "normal") {
-          // If an exception is thrown from innerFn, we leave state ===
-          // GenStateExecuting and loop back for another invocation.
-          state = context.done
-            ? GenStateCompleted
-            : GenStateSuspendedYield;
-
-          if (record.arg === ContinueSentinel) {
-            continue;
-          }
-
-          return {
-            value: record.arg,
-            done: context.done
-          };
-
-        } else if (record.type === "throw") {
-          state = GenStateCompleted;
-          // Dispatch the exception by looping back around to the
-          // context.dispatchException(context.arg) call above.
-          context.method = "throw";
-          context.arg = record.arg;
-        }
-      }
-    };
-  }
-
-  // Call delegate.iterator[context.method](context.arg) and handle the
-  // result, either by returning a { value, done } result from the
-  // delegate iterator, or by modifying context.method and context.arg,
-  // setting context.delegate to null, and returning the ContinueSentinel.
-  function maybeInvokeDelegate(delegate, context) {
-    var method = delegate.iterator[context.method];
-    if (method === undefined) {
-      // A .throw or .return when the delegate iterator has no .throw
-      // method always terminates the yield* loop.
-      context.delegate = null;
-
-      if (context.method === "throw") {
-        if (delegate.iterator.return) {
-          // If the delegate iterator has a return method, give it a
-          // chance to clean up.
-          context.method = "return";
-          context.arg = undefined;
-          maybeInvokeDelegate(delegate, context);
-
-          if (context.method === "throw") {
-            // If maybeInvokeDelegate(context) changed context.method from
-            // "return" to "throw", let that override the TypeError below.
-            return ContinueSentinel;
-          }
-        }
-
-        context.method = "throw";
-        context.arg = new TypeError(
-          "The iterator does not provide a 'throw' method");
-      }
-
-      return ContinueSentinel;
-    }
-
-    var record = tryCatch(method, delegate.iterator, context.arg);
-
-    if (record.type === "throw") {
-      context.method = "throw";
-      context.arg = record.arg;
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    var info = record.arg;
-
-    if (! info) {
-      context.method = "throw";
-      context.arg = new TypeError("iterator result is not an object");
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    if (info.done) {
-      // Assign the result of the finished delegate to the temporary
-      // variable specified by delegate.resultName (see delegateYield).
-      context[delegate.resultName] = info.value;
-
-      // Resume execution at the desired location (see delegateYield).
-      context.next = delegate.nextLoc;
-
-      // If context.method was "throw" but the delegate handled the
-      // exception, let the outer generator proceed normally. If
-      // context.method was "next", forget context.arg since it has been
-      // "consumed" by the delegate iterator. If context.method was
-      // "return", allow the original .return call to continue in the
-      // outer generator.
-      if (context.method !== "return") {
-        context.method = "next";
-        context.arg = undefined;
-      }
-
-    } else {
-      // Re-yield the result returned by the delegate method.
-      return info;
-    }
-
-    // The delegate iterator is finished, so forget it and continue with
-    // the outer generator.
-    context.delegate = null;
-    return ContinueSentinel;
-  }
-
-  // Define Generator.prototype.{next,throw,return} in terms of the
-  // unified ._invoke helper method.
-  defineIteratorMethods(Gp);
-
-  Gp[toStringTagSymbol] = "Generator";
-
-  // A Generator should always return itself as the iterator object when the
-  // @@iterator function is called on it. Some browsers' implementations of the
-  // iterator prototype chain incorrectly implement this, causing the Generator
-  // object to not be returned from this call. This ensures that doesn't happen.
-  // See https://github.com/facebook/regenerator/issues/274 for more details.
-  Gp[iteratorSymbol] = function() {
-    return this;
-  };
-
-  Gp.toString = function() {
-    return "[object Generator]";
-  };
-
-  function pushTryEntry(locs) {
-    var entry = { tryLoc: locs[0] };
-
-    if (1 in locs) {
-      entry.catchLoc = locs[1];
-    }
-
-    if (2 in locs) {
-      entry.finallyLoc = locs[2];
-      entry.afterLoc = locs[3];
-    }
-
-    this.tryEntries.push(entry);
-  }
-
-  function resetTryEntry(entry) {
-    var record = entry.completion || {};
-    record.type = "normal";
-    delete record.arg;
-    entry.completion = record;
-  }
-
-  function Context(tryLocsList) {
-    // The root entry object (effectively a try statement without a catch
-    // or a finally block) gives us a place to store values thrown from
-    // locations where there is no enclosing try statement.
-    this.tryEntries = [{ tryLoc: "root" }];
-    tryLocsList.forEach(pushTryEntry, this);
-    this.reset(true);
-  }
-
-  runtime.keys = function(object) {
-    var keys = [];
-    for (var key in object) {
-      keys.push(key);
-    }
-    keys.reverse();
-
-    // Rather than returning an object with a next method, we keep
-    // things simple and return the next function itself.
-    return function next() {
-      while (keys.length) {
-        var key = keys.pop();
-        if (key in object) {
-          next.value = key;
-          next.done = false;
-          return next;
-        }
-      }
-
-      // To avoid creating an additional object, we just hang the .value
-      // and .done properties off the next function object itself. This
-      // also ensures that the minifier will not anonymize the function.
-      next.done = true;
-      return next;
-    };
-  };
-
-  function values(iterable) {
-    if (iterable) {
-      var iteratorMethod = iterable[iteratorSymbol];
-      if (iteratorMethod) {
-        return iteratorMethod.call(iterable);
-      }
-
-      if (typeof iterable.next === "function") {
-        return iterable;
-      }
-
-      if (!isNaN(iterable.length)) {
-        var i = -1, next = function next() {
-          while (++i < iterable.length) {
-            if (hasOwn.call(iterable, i)) {
-              next.value = iterable[i];
-              next.done = false;
-              return next;
-            }
-          }
-
-          next.value = undefined;
-          next.done = true;
-
-          return next;
-        };
-
-        return next.next = next;
-      }
-    }
-
-    // Return an iterator with no values.
-    return { next: doneResult };
-  }
-  runtime.values = values;
-
-  function doneResult() {
-    return { value: undefined, done: true };
-  }
-
-  Context.prototype = {
-    constructor: Context,
-
-    reset: function(skipTempReset) {
-      this.prev = 0;
-      this.next = 0;
-      // Resetting context._sent for legacy support of Babel's
-      // function.sent implementation.
-      this.sent = this._sent = undefined;
-      this.done = false;
-      this.delegate = null;
-
-      this.method = "next";
-      this.arg = undefined;
-
-      this.tryEntries.forEach(resetTryEntry);
-
-      if (!skipTempReset) {
-        for (var name in this) {
-          // Not sure about the optimal order of these conditions:
-          if (name.charAt(0) === "t" &&
-              hasOwn.call(this, name) &&
-              !isNaN(+name.slice(1))) {
-            this[name] = undefined;
-          }
-        }
-      }
-    },
-
-    stop: function() {
-      this.done = true;
-
-      var rootEntry = this.tryEntries[0];
-      var rootRecord = rootEntry.completion;
-      if (rootRecord.type === "throw") {
-        throw rootRecord.arg;
-      }
-
-      return this.rval;
-    },
-
-    dispatchException: function(exception) {
-      if (this.done) {
-        throw exception;
-      }
-
-      var context = this;
-      function handle(loc, caught) {
-        record.type = "throw";
-        record.arg = exception;
-        context.next = loc;
-
-        if (caught) {
-          // If the dispatched exception was caught by a catch block,
-          // then let that catch block handle the exception normally.
-          context.method = "next";
-          context.arg = undefined;
-        }
-
-        return !! caught;
-      }
-
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        var record = entry.completion;
-
-        if (entry.tryLoc === "root") {
-          // Exception thrown outside of any try block that could handle
-          // it, so set the completion value of the entire function to
-          // throw the exception.
-          return handle("end");
-        }
-
-        if (entry.tryLoc <= this.prev) {
-          var hasCatch = hasOwn.call(entry, "catchLoc");
-          var hasFinally = hasOwn.call(entry, "finallyLoc");
-
-          if (hasCatch && hasFinally) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            } else if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else if (hasCatch) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            }
-
-          } else if (hasFinally) {
-            if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else {
-            throw new Error("try statement without catch or finally");
-          }
-        }
-      }
-    },
-
-    abrupt: function(type, arg) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc <= this.prev &&
-            hasOwn.call(entry, "finallyLoc") &&
-            this.prev < entry.finallyLoc) {
-          var finallyEntry = entry;
-          break;
-        }
-      }
-
-      if (finallyEntry &&
-          (type === "break" ||
-           type === "continue") &&
-          finallyEntry.tryLoc <= arg &&
-          arg <= finallyEntry.finallyLoc) {
-        // Ignore the finally entry if control is not jumping to a
-        // location outside the try/catch block.
-        finallyEntry = null;
-      }
-
-      var record = finallyEntry ? finallyEntry.completion : {};
-      record.type = type;
-      record.arg = arg;
-
-      if (finallyEntry) {
-        this.method = "next";
-        this.next = finallyEntry.finallyLoc;
-        return ContinueSentinel;
-      }
-
-      return this.complete(record);
-    },
-
-    complete: function(record, afterLoc) {
-      if (record.type === "throw") {
-        throw record.arg;
-      }
-
-      if (record.type === "break" ||
-          record.type === "continue") {
-        this.next = record.arg;
-      } else if (record.type === "return") {
-        this.rval = this.arg = record.arg;
-        this.method = "return";
-        this.next = "end";
-      } else if (record.type === "normal" && afterLoc) {
-        this.next = afterLoc;
-      }
-
-      return ContinueSentinel;
-    },
-
-    finish: function(finallyLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.finallyLoc === finallyLoc) {
-          this.complete(entry.completion, entry.afterLoc);
-          resetTryEntry(entry);
-          return ContinueSentinel;
-        }
-      }
-    },
-
-    "catch": function(tryLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc === tryLoc) {
-          var record = entry.completion;
-          if (record.type === "throw") {
-            var thrown = record.arg;
-            resetTryEntry(entry);
-          }
-          return thrown;
-        }
-      }
-
-      // The context.catch method must only be called with a location
-      // argument that corresponds to a known catch block.
-      throw new Error("illegal catch attempt");
-    },
-
-    delegateYield: function(iterable, resultName, nextLoc) {
-      this.delegate = {
-        iterator: values(iterable),
-        resultName: resultName,
-        nextLoc: nextLoc
-      };
-
-      if (this.method === "next") {
-        // Deliberately forget the last sent value so that we don't
-        // accidentally pass it on to the delegate.
-        this.arg = undefined;
-      }
-
-      return ContinueSentinel;
-    }
-  };
-})(
-  // In sloppy mode, unbound `this` refers to the global object, fallback to
-  // Function constructor if we're in global strict mode. That is sadly a form
-  // of indirect eval which violates Content Security Policy.
-  (function() { return this })() || Function("return this")()
-);
-
-
-/***/ }),
-/* 360 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _promise = __webpack_require__(21);
-
-var _promise2 = _interopRequireDefault(_promise);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (fn) {
-  return function () {
-    var gen = fn.apply(this, arguments);
-    return new _promise2.default(function (resolve, reject) {
-      function step(key, arg) {
-        try {
-          var info = gen[key](arg);
-          var value = info.value;
-        } catch (error) {
-          reject(error);
-          return;
-        }
-
-        if (info.done) {
-          resolve(value);
-        } else {
-          return _promise2.default.resolve(value).then(function (value) {
-            step("next", value);
-          }, function (err) {
-            step("throw", err);
-          });
-        }
-      }
-
-      return step("next");
-    });
-  };
-};
-
-/***/ }),
-/* 361 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = function () {
-  return __webpack_require__(362)("/******/ (function(modules) { // webpackBootstrap\n/******/ \t// The module cache\n/******/ \tvar installedModules = {};\n/******/\n/******/ \t// The require function\n/******/ \tfunction __webpack_require__(moduleId) {\n/******/\n/******/ \t\t// Check if module is in cache\n/******/ \t\tif(installedModules[moduleId]) {\n/******/ \t\t\treturn installedModules[moduleId].exports;\n/******/ \t\t}\n/******/ \t\t// Create a new module (and put it into the cache)\n/******/ \t\tvar module = installedModules[moduleId] = {\n/******/ \t\t\ti: moduleId,\n/******/ \t\t\tl: false,\n/******/ \t\t\texports: {}\n/******/ \t\t};\n/******/\n/******/ \t\t// Execute the module function\n/******/ \t\tmodules[moduleId].call(module.exports, module, module.exports, __webpack_require__);\n/******/\n/******/ \t\t// Flag the module as loaded\n/******/ \t\tmodule.l = true;\n/******/\n/******/ \t\t// Return the exports of the module\n/******/ \t\treturn module.exports;\n/******/ \t}\n/******/\n/******/\n/******/ \t// expose the modules object (__webpack_modules__)\n/******/ \t__webpack_require__.m = modules;\n/******/\n/******/ \t// expose the module cache\n/******/ \t__webpack_require__.c = installedModules;\n/******/\n/******/ \t// define getter function for harmony exports\n/******/ \t__webpack_require__.d = function(exports, name, getter) {\n/******/ \t\tif(!__webpack_require__.o(exports, name)) {\n/******/ \t\t\tObject.defineProperty(exports, name, {\n/******/ \t\t\t\tconfigurable: false,\n/******/ \t\t\t\tenumerable: true,\n/******/ \t\t\t\tget: getter\n/******/ \t\t\t});\n/******/ \t\t}\n/******/ \t};\n/******/\n/******/ \t// getDefaultExport function for compatibility with non-harmony modules\n/******/ \t__webpack_require__.n = function(module) {\n/******/ \t\tvar getter = module && module.__esModule ?\n/******/ \t\t\tfunction getDefault() { return module['default']; } :\n/******/ \t\t\tfunction getModuleExports() { return module; };\n/******/ \t\t__webpack_require__.d(getter, 'a', getter);\n/******/ \t\treturn getter;\n/******/ \t};\n/******/\n/******/ \t// Object.prototype.hasOwnProperty.call\n/******/ \t__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };\n/******/\n/******/ \t// __webpack_public_path__\n/******/ \t__webpack_require__.p = \"/\";\n/******/\n/******/ \t// Load entry module and return exports\n/******/ \treturn __webpack_require__(__webpack_require__.s = 0);\n/******/ })\n/************************************************************************/\n/******/ ([\n/* 0 */\n/***/ (function(module, exports) {\n\n// based on https://github.com/mattdiamond/Recorderjs/blob/master/src/recorder.js\n// with a few optimizations including downsampling and trimming quiet samples\n\n/* global Blob self */\n/* eslint no-restricted-globals: off */\n/* eslint prefer-arrow-callback: [\"error\", { \"allowNamedFunctions\": true }] */\n/* eslint no-param-reassign: [\"error\", { \"props\": false }] */\n/* eslint no-use-before-define: [\"error\", { \"functions\": false }] */\n/* eslint no-plusplus: off */\n/* eslint comma-dangle: [\"error\", {\"functions\": \"never\", \"objects\": \"always-multiline\"}] */\n/* eslint-disable prefer-destructuring */\nconst bitDepth = 16;\nconst bytesPerSample = bitDepth / 8;\nconst outSampleRate = 16000;\nconst outNumChannels = 1;\n\nlet recLength = 0;\nlet recBuffers = [];\n\nconst options = {\n  sampleRate: 44000,\n  numChannels: 1,\n  useDownsample: true,\n  // controls if the encoder will trim silent samples at begining and end of buffer\n  useTrim: true,\n  // trim samples below this value at the beginnig and end of the buffer\n  // lower the value trim less silence (larger file size)\n  // reasonable values seem to be between 0.005 and 0.0005\n  quietTrimThreshold: 0.0008,\n  // how many samples to add back to the buffer before/after the quiet threshold\n  // higher values result in less silence trimming (larger file size)\n  // reasonable values seem to be between 3500 and 5000\n  quietTrimSlackBack: 4000,\n};\n\nself.onmessage = (evt) => {\n  switch (evt.data.command) {\n    case 'init':\n      init(evt.data.config);\n      break;\n    case 'record':\n      record(evt.data.buffer);\n      break;\n    case 'exportWav':\n      exportWAV(evt.data.type);\n      break;\n    case 'getBuffer':\n      getBuffer();\n      break;\n    case 'clear':\n      clear();\n      break;\n    case 'close':\n      self.close();\n      break;\n    default:\n      break;\n  }\n};\n\nfunction init(config) {\n  Object.assign(options, config);\n  initBuffers();\n}\n\nfunction record(inputBuffer) {\n  for (let channel = 0; channel < options.numChannels; channel++) {\n    recBuffers[channel].push(inputBuffer[channel]);\n  }\n  recLength += inputBuffer[0].length;\n}\n\nfunction exportWAV(type) {\n  const buffers = [];\n  for (let channel = 0; channel < options.numChannels; channel++) {\n    buffers.push(mergeBuffers(recBuffers[channel], recLength));\n  }\n  let interleaved;\n  if (options.numChannels === 2 && outNumChannels === 2) {\n    interleaved = interleave(buffers[0], buffers[1]);\n  } else {\n    interleaved = buffers[0];\n  }\n  const downsampledBuffer = downsampleTrimBuffer(interleaved, outSampleRate);\n  const dataview = encodeWAV(downsampledBuffer);\n  const audioBlob = new Blob([dataview], { type });\n\n  self.postMessage({\n    command: 'exportWAV',\n    data: audioBlob,\n  });\n}\n\nfunction getBuffer() {\n  const buffers = [];\n  for (let channel = 0; channel < options.numChannels; channel++) {\n    buffers.push(mergeBuffers(recBuffers[channel], recLength));\n  }\n  self.postMessage({ command: 'getBuffer', data: buffers });\n}\n\nfunction clear() {\n  recLength = 0;\n  recBuffers = [];\n  initBuffers();\n}\n\nfunction initBuffers() {\n  for (let channel = 0; channel < options.numChannels; channel++) {\n    recBuffers[channel] = [];\n  }\n}\n\nfunction mergeBuffers(recBuffer, length) {\n  const result = new Float32Array(length);\n  let offset = 0;\n  for (let i = 0; i < recBuffer.length; i++) {\n    result.set(recBuffer[i], offset);\n    offset += recBuffer[i].length;\n  }\n  return result;\n}\n\nfunction interleave(inputL, inputR) {\n  const length = inputL.length + inputR.length;\n  const result = new Float32Array(length);\n\n  let index = 0;\n  let inputIndex = 0;\n\n  while (index < length) {\n    result[index++] = inputL[inputIndex];\n    result[index++] = inputR[inputIndex];\n    inputIndex++;\n  }\n  return result;\n}\n\nfunction floatTo16BitPCM(output, offset, input) {\n  for (let i = 0, o = offset; i < input.length; i++, o += 2) {\n    const s = Math.max(-1, Math.min(1, input[i]));\n    output.setInt16(o, s < 0 ? s * 0x8000 : s * 0x7FFF, true);\n  }\n}\n\n// Lex doesn't require proper wav header\n// still inserting wav header for playing on client side\nfunction addHeader(view, length) {\n  // RIFF identifier 'RIFF'\n  view.setUint32(0, 1380533830, false);\n  // file length minus RIFF identifier length and file description length\n  view.setUint32(4, 36 + length, true);\n  // RIFF type 'WAVE'\n  view.setUint32(8, 1463899717, false);\n  // format chunk identifier 'fmt '\n  view.setUint32(12, 1718449184, false);\n  // format chunk length\n  view.setUint32(16, 16, true);\n  // sample format (raw)\n  view.setUint16(20, 1, true);\n  // channel count\n  view.setUint16(22, outNumChannels, true);\n  // sample rate\n  view.setUint32(24, outSampleRate, true);\n  // byte rate (sample rate * block align)\n  view.setUint32(28, outSampleRate * bytesPerSample * outNumChannels, true);\n  // block align (channel count * bytes per sample)\n  view.setUint16(32, bytesPerSample * outNumChannels, true);\n  // bits per sample\n  view.setUint16(34, bitDepth, true);\n  // data chunk identifier 'data'\n  view.setUint32(36, 1684108385, false);\n}\n\nfunction encodeWAV(samples) {\n  const buffer = new ArrayBuffer(44 + (samples.length * 2));\n  const view = new DataView(buffer);\n\n  addHeader(view, samples.length);\n  floatTo16BitPCM(view, 44, samples);\n\n  return view;\n}\n\nfunction downsampleTrimBuffer(buffer, rate) {\n  if (rate === options.sampleRate) {\n    return buffer;\n  }\n\n  const length = buffer.length;\n  const sampleRateRatio = options.sampleRate / rate;\n  const newLength = Math.round(length / sampleRateRatio);\n\n  const result = new Float32Array(newLength);\n  let offsetResult = 0;\n  let offsetBuffer = 0;\n  let firstNonQuiet = 0;\n  let lastNonQuiet = length;\n  while (offsetResult < result.length) {\n    const nextOffsetBuffer = Math.round((offsetResult + 1) * sampleRateRatio);\n    let accum = 0;\n    let count = 0;\n    for (let i = offsetBuffer; (i < nextOffsetBuffer) && (i < length); i++) {\n      accum += buffer[i];\n      count++;\n    }\n    // mark first and last sample over the quiet threshold\n    if (accum > options.quietTrimThreshold) {\n      if (firstNonQuiet === 0) {\n        firstNonQuiet = offsetResult;\n      }\n      lastNonQuiet = offsetResult;\n    }\n    result[offsetResult] = accum / count;\n    offsetResult++;\n    offsetBuffer = nextOffsetBuffer;\n  }\n\n  /*\n  console.info('encoder trim size reduction',\n    (Math.min(newLength, lastNonQuiet + options.quietTrimSlackBack) -\n    Math.max(0, firstNonQuiet - options.quietTrimSlackBack)) / result.length\n  );\n  */\n  return (options.useTrim) ?\n    // slice based on quiet threshold and put slack back into the buffer\n    result.slice(\n      Math.max(0, firstNonQuiet - options.quietTrimSlackBack),\n      Math.min(newLength, lastNonQuiet + options.quietTrimSlackBack)\n    ) :\n    result;\n}\n\n\n/***/ })\n/******/ ]);\n//# sourceMappingURL=wav-worker.js.map", __webpack_require__.p + "bundle/wav-worker.js");
-};
-
-/***/ }),
-/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36321,13 +35450,13 @@ module.exports = function (content, url) {
 };
 
 /***/ }),
-/* 363 */
+/* 359 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_slicedToArray__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_slicedToArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_slicedToArray__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise__);
 
 
@@ -36485,19 +35614,19 @@ var initRecorderHandlers = function initRecorderHandlers(context, recorder) {
 /* harmony default export */ __webpack_exports__["a"] = (initRecorderHandlers);
 
 /***/ }),
-/* 364 */
+/* 360 */
 /***/ (function(module, exports) {
 
 module.exports = "data:audio/ogg;base64,T2dnUwACAAAAAAAAAAAyzN3NAAAAAGFf2X8BM39GTEFDAQAAAWZMYUMAAAAiEgASAAAAAAAkFQrEQPAAAAAAAAAAAAAAAAAAAAAAAAAAAE9nZ1MAAAAAAAAAAAAAMszdzQEAAAD5LKCSATeEAAAzDQAAAExhdmY1NS40OC4xMDABAAAAGgAAAGVuY29kZXI9TGF2YzU1LjY5LjEwMCBmbGFjT2dnUwAEARIAAAAAAAAyzN3NAgAAAKWVljkCDAD/+GkIAAAdAAABICI="
 
 /***/ }),
-/* 365 */
+/* 361 */
 /***/ (function(module, exports) {
 
 module.exports = "data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU2LjM2LjEwMAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAEAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU2LjQxAAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV"
 
 /***/ }),
-/* 366 */
+/* 362 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

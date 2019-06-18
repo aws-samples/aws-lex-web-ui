@@ -76,7 +76,7 @@ export class FullPageComponentLoader {
       this.config.cognito;
     const region =
       this.config.cognito.region || this.config.region || 'us-east-1';
-    const poolName = `cognito-idp.us-east-1.amazonaws.com/${this.config.cognito.appUserPoolName}`;
+    const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
     let credentials;
     if (idtoken) { // auth role since logged in
       try {
@@ -176,7 +176,7 @@ export class FullPageComponentLoader {
         this.config.cognito;
       const region =
         this.config.cognito.region || this.config.region || 'us-east-1';
-      const poolName = `cognito-idp.us-east-1.amazonaws.com/${this.config.cognito.appUserPoolName}`;
+      const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
       if (!cognitoPoolId) {
         return reject(new Error('missing cognito poolId config'));
       }
