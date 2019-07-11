@@ -118,7 +118,7 @@ export default {
           return { icon: 'error', color: 'red', state: 'fail' };
         case 'Fulfilled':
         case 'ReadyForFulfillment':
-          return { icon: 'done', color: 'green', state: 'ok' };
+          return { icon: 'done', color: 'blue', state: 'ok' };
         default:
           return null;
       }
