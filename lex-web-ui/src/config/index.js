@@ -66,8 +66,7 @@ const configDefault = {
     botAlias: '$LATEST',
 
     // instruction message shown in the UI
-    initialText: 'You can ask me for help ordering flowers. ' +
-      'Just type "order flowers" or click on the mic and say it.',
+    initialText: 'Hi Tom Welcome to your custom chatbot',
 
     // instructions spoken when mic is clicked
     initialSpeechInstruction: 'Say "Order Flowers" to get started',
