@@ -13,7 +13,7 @@
   "ui": {
     "parentOrigin": "http://localhost:8080",
     "pageTitle": "Order Flowers Bot",
-    "toolbarTitle": "Order Flowers"
+    "toolbarTitle": "Toms Bot"
   },
   "recorder": {
     "preset": "speech_recognition"
