@@ -53,7 +53,7 @@
       icon
     >
       <v-icon>
-        {{ isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down' }}
+        {{ isUiMinimized ?  'arrow_drop_down' : 'arrow_drop_up' }}
       </v-icon>
     </v-btn>
   </v-toolbar>

@@ -10,7 +10,7 @@
     "botName": "QnABotTest_BotzZ",
     "botAlias": "$LATEST",
     "initialText": "Hello, I'm your friendly neighborhood chatbot",
-    "initialSpeechInstruction": "Try saying execute order 66, then we'll see if Yoda laughs",
+    "initialSpeechInstruction": "Try saying execute order 66",
     "reInitSessionAttributesOnRestart": false
   },
   "ui": {
