@@ -9,13 +9,13 @@
   "lex": {
     "botName": "QnABotTest_BotzZ",
     "botAlias": "$LATEST",
-    "initialText": "You can ask me for help ordering flowers. Just type \"Buy flowers\" or click on the mic and say it.",
-    "initialSpeechInstruction": "Say 'Buy Flowers' to get started.",
+    "initialText": "Hello, I'm your friendly neighborhood chatbot",
+    "initialSpeechInstruction": "Try saying execute order 66, then we'll see if Yoda laughs",
     "reInitSessionAttributesOnRestart": false
   },
   "ui": {
     "parentOrigin": "",
-    "toolbarTitle": "Order Flowers",
+    "toolbarTitle": "Chat Bot Test",
     "toolbarLogo": "",
     "enableLogin": false,
     "AllowSuperDangerousHTMLInMessage": false,
