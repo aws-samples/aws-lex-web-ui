@@ -1,0 +1,389 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+    Master Lex Web UI CloudFormation template.
+    It deploys:
+        - S3 buckets to host the web application
+        - CodeBuild project to build the configuration and deploy to S3
+        - Optional Lex Bot (based on OrderFlowers example)
+        - Optional Cognito Identity Pool for unauthenticated identities
+        - Optional Lambda function to delete S3 buckets
+        - CloudWatch Logs groups related to Lambda functions
+        - Associated IAM roles
+
+Parameters:
+    BotName:
+        Description: >
+            Name of an existing Lex Bot to be used by the web ui.
+            This is an optional parameter. If left empty, a Bot based
+            on the OrderFlowers sample will be automatically created.
+        Type: String
+        Default: ''
+        MaxLength: 50
+        AllowedPattern: '(^$|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_))'
+        ConstraintDescription: >
+            Must conform with the permitted Lex Bot name pattern.
+
+    BotAlias:
+        Description: >
+            Alias to use of an existing Lex Bot. By default this is '$LATEST'.
+            Use this default if the lex-web-ui should always use the most
+            recent version of the bot.
+        Type: String
+        Default: '$LATEST'
+        MinLength: 2
+        MaxLength: 50
+        AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
+        ConstraintDescription: >
+            Must conform with the permitted Lex Alias name pattern.
+
+    BotNamePrefix:
+        Type: String
+        Description: >
+            Prefix to add to Lex resource names when using the sample bot.
+            Ignored if you provide your own bot. Must conform to the
+            permitted Lex Bot name syntax (alpha characters).
+        Default: WebUi
+        MinLength: 3
+        MaxLength: 32
+        AllowedPattern: '^[a-zA-Z\._]+$'
+        ConstraintDescription: >
+            Must conform with the permitted Lex Bot name pattern.
+
+    ShouldDeleteBot:
+        Type: String
+        Default: true
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, the Lex bot and associated resources will
+            be deleted when the stack is deleted. Otherwise, the bot
+            will be preserved. Only applies if the bot is created by
+            this stack.
+
+    EnableCognitoLogin:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, a menu with a login action will be displayed
+            in the Lex Web Ui. This feature uses Cognito User Pools with
+            hosted login pages. After login, the menu will switch to logout.
+
+    CodeBuildName:
+        Type: String
+        Description: >
+            Name of the CodeBuild project to be created. Used to
+            configure and directly deploy the web app to S3. Must be
+            unique per region
+        Default: lex-web-ui
+        MinLength: 2
+        MaxLength: 255
+        AllowedPattern: '^[A-Za-z0-9][A-Za-z0-9\-_]{1,254}$'
+        ConstraintDescription: >
+            Should start with Alphanumeric. May contain alphanumeric, undescore
+            and dash.
+
+    WebAppParentOrigin:
+        Type: String
+        Description: >
+            Browser origin (e.g. http://mysite.example.com:8080)
+            of an existing site that is allowed to send/receive data
+            and events from the web ui in an iframe setup. This is an
+            optional parameter. If left empty, the sample parent page
+            will be hosted in the same S3 bucket as the iframe
+        Default: ''
+        AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
+        ConstraintDescription: Empty or valid browser origin
+
+    WebAppPath:
+        Type: String
+        Default: '/parent.html'
+        Description: >
+            Path to the page hosting the sample WebApp. This parameter defaults
+            to parent.html which is used by the sample app created when hosting the
+            bot in a separate iframe. This path should be updated to reflect the
+            path to the default (home) page used by the WebAppParentOrigin.
+            This may be /index.html rather than the default.
+
+    CognitoIdentityPoolId:
+        Type: String
+        Description: >
+            Id of an existing Cognito Identity Pool. This is an optional
+            parameter. If left empty, a Cognito Identity Pool will be
+            automatically created. The pool ID is used by the web ui
+            to get AWS credentials for making calls to Lex and Polly.
+        Default: ''
+        AllowedPattern: '(^$|^[\w-]+:[0-9a-f-]+$)'
+        ConstraintDescription: Empty or a valid Cognito Identity Pool ID
+
+    CognitoIdentityPoolName:
+        Type: String
+        Description: >
+            Name of Cognito identity pool to be created to provide
+            AWS credentials to the web ui. Only used if the
+            CognitoIdentityPoolId parameter is left empty (default).
+        Default: Lex Web UI
+        MinLength: 1
+        MaxLength: 128
+        AllowedPattern: '^[\w ]+$'
+        ConstraintDescription: Alphanumeric and spaces.
+
+    CleanupBuckets:
+        Type: String
+        Default: true
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, buckets created for the Pipeline and to store the
+            web application will be deleted on CloudFormation stack delete.
+            If set to False, S3 buckets will be retained.
+
+    EnableMarkdownSupport:
+        Type: String
+        Default: true
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, enable optional Markdown formatting.
+            Warning: Improper use of the Markdown/html feature can open you up to a cross-site
+            scripting (XSS) attack from insecure Bots. Make sure you trust the Bot being used
+            by the LexWebUi.
+
+    ReInitSessionAttributesOnRestart:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, session attributes sent on each request to Lex are reset. Use a value
+            of false, if session attributes need to be supported on subsequent Lex requests. The
+            default is false.
+
+    ShouldLoadIframeMinimized:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True and running embedded as an Iframe on a web page, minimize the
+            LexWebUi when first launched. If set to False, the Iframe will be maximized
+            on the hosting page.
+
+    ShowResponseCardTitle:
+        Type: String
+        Default: true
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, the ResponseCard title is displayed in the UI. When set to false,
+            a ResponseCard title is not displayed in the UI. Default is true. Note at the
+            present time this is a global setting. Should the UI need to display some form
+            of a title, use the optional sub-title property of a ResponseCard.
+
+    # Sub-templates and source artifacts are hosted in this bucket.
+    # The content of this bucket is maintained outside of this template
+    # by using the Makefile under the build directory of this project.
+    # See the README.md file for instructions on how to use your own bucket.
+    BootstrapBucket:
+        Type: String
+        Default: aws-bigdata-blog
+        Description: >
+            S3 bucket containing pre-staged nested templates and source artifacts
+    BootstrapPrefix:
+        Type: String
+        Default: artifacts/aws-lex-web-ui/artifacts
+        Description: >
+            S3 prefix where the templates and source are stored under
+
+    WebAppConfBotInitialText:
+        Type: String
+        Default: >
+            You can ask me for help ordering flowers. Just type "Buy
+            flowers" or click on the mic and say it.
+        Description: First bot message displayed in the chatbot UI
+
+    WebAppConfBotInitialSpeech:
+        Type: String
+        Default: Say 'Buy Flowers' to get started.
+        Description: >
+            Message spoken by bot when the microphone is first pressed in
+            a conversation
+
+    WebAppConfToolbarTitle:
+        Type: String
+        Default: Order Flowers
+        Description: Title displayed in the chatbot UI toobar
+
+Metadata:
+    AWS::CloudFormation::Interface:
+        ParameterGroups:
+            - Label:
+                default: Deployment Parameters
+              Parameters:
+                  - CodeBuildName
+                  - CleanupBuckets
+                  - BootstrapBucket
+                  - BootstrapPrefix
+            - Label:
+                default: Lex Bot Configuration Parameters
+              Parameters:
+                  - BotName
+                  - BotAlias
+                  - BotNamePrefix
+                  - ShouldDeleteBot
+                  - EnableCognitoLogin
+                  - EnableMarkdownSupport
+                  - ReInitSessionAttributesOnRestart
+                  - ShowResponseCardTitle
+            - Label:
+                default: Cognito Parameters
+              Parameters:
+                  - CognitoIdentityPoolId
+                  - CognitoIdentityPoolName
+            - Label:
+                default: Web Application Parameters
+              Parameters:
+                  - WebAppParentOrigin
+                  - WebAppPath
+                  - WebAppConfBotInitialText
+                  - WebAppConfBotInitialSpeech
+                  - WebAppConfToolbarTitle
+                  - ShouldLoadIframeMinimized
+Conditions:
+    NeedsBot: !Equals [!Ref BotName, '']
+    NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
+    NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
+
+Resources:
+    Bot:
+        Type: AWS::CloudFormation::Stack
+        Condition: NeedsBot
+        Properties:
+            TimeoutInMinutes: 15
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/lexbot.yaml"
+            Parameters:
+                NamePrefix: !Ref BotNamePrefix
+                ShouldDeleteBot: !Ref ShouldDeleteBot
+                CustomResourceCodeBucket: !Ref BootstrapBucket
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
+
+    CognitoIdentityPool:
+        Type: AWS::CloudFormation::Stack
+        Condition: NeedsCognito
+        Properties:
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/cognito.yaml"
+            Parameters:
+                CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
+                LexBotName:
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotName
+                      - !Ref BotName
+
+    ##########################################################################
+    # Simplified deployment using CodeBuild to build config and push to S3
+    ##########################################################################
+    CodeBuildDeploy:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/codebuild-deploy.yaml"
+            Parameters:
+                CodeBuildName: !Ref CodeBuildName
+                SourceBucket: !Ref BootstrapBucket
+                SourceObject: !Sub "${BootstrapPrefix}/src.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
+                CleanupBuckets: !Ref CleanupBuckets
+                BotName:
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotName
+                      - !Ref BotName
+                BotAlias: !Ref BotAlias
+                CognitoIdentityPoolId:
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
+                      - !Ref CognitoIdentityPoolId
+                ParentOrigin: !Ref WebAppParentOrigin
+                WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
+                WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
+                WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
+                ShouldEnableCognitoLogin: !Ref EnableCognitoLogin
+                ReInitSessionAttributesOnRestart: !Ref ReInitSessionAttributesOnRestart
+                EnableMarkdownSupport: !Ref EnableMarkdownSupport
+                ShouldLoadIframeMinimized: !Ref ShouldLoadIframeMinimized
+                ShowResponseCardTitle: !Ref ShowResponseCardTitle
+                CognitoAppUserPoolClientId:
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+                      - "UserMustSupply"
+                CognitoUserPoolId:
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+                      - "UserMustSupply"
+
+
+    CognitoIdentityPoolConfig:
+        Type: AWS::CloudFormation::Stack
+        Condition: NeedsCognito
+        Properties:
+            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/cognitouserpoolconfig.yaml"
+            Parameters:
+                WebAppUrl: !If [NeedsParentOrigin, !GetAtt CodeBuildDeploy.Outputs.WebAppBase, !Ref WebAppParentOrigin]
+                WebAppPath: !Ref WebAppPath
+                CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
+                CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+                CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+
+Outputs:
+    BotName:
+        Condition: NeedsBot
+        Description: >
+            Name of the Lex bot created by the stack
+        Value: !GetAtt Bot.Outputs.BotName
+
+    CodeBuildUrl:
+        Description: >
+            Monitor the pipeline URL to see when the application has been fully
+            built and deployed.
+        Value: !Sub "https://console.aws.amazon.com/codebuild/home?region=${AWS::Region}#/projects/${CodeBuildDeploy.Outputs.CodeBuildProject}/view"
+
+    WebAppUrl:
+        Description: >
+            URL of the stand-alone sample web application.
+            This page will be available after the pipeline/deployment completes.
+        Value: !GetAtt CodeBuildDeploy.Outputs.WebAppUrl
+
+    ParentPageUrl:
+        Condition: NeedsParentOrigin
+        Description: >
+            URL of the iframe based sample web application
+            This page will be available after the pipeline/deployment completes.
+        Value: !GetAtt CodeBuildDeploy.Outputs.ParentPageUrl
+
+    LoaderScriptUrl:
+        Description: >
+            URL of the loader script
+            This script will be available after the pipeline/deployment completes.
+        Value: !GetAtt CodeBuildDeploy.Outputs.LoaderScriptUrl
+
+    SnippetUrl:
+        Description: >
+            URL of a page showing the snippet to load the chatbot UI as
+            an iframe
+        Value: !GetAtt CodeBuildDeploy.Outputs.SnippetUrl
+
+    CognitoIdentityPoolId:
+        Condition: NeedsCognito
+        Description: Cognito Identity Pool Id
+        Value: !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId

@@ -1,0 +1,458 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+    This template creates a CodeBuild project used to configure and deploy
+    the chatbot UI
+
+Parameters:
+    CodeBuildName:
+        Type: String
+        Description: CodeBuild project used to configure and deploy the Lex Web UI
+        Default: lex-web-ui-conf-deploy
+        MinLength: 2
+        MaxLength: 255
+        AllowedPattern: '^[A-Za-z0-9][A-Za-z0-9\-_]{1,254}$'
+        ConstraintDescription: >
+            Should start with Alphanumeric. May contain alphanumeric, underscore
+            and dash.
+
+    SourceBucket:
+        Description: S3 bucket where the source is located
+        Type: String
+        Default: aws-bigdata-blog
+
+    SourceObject:
+        Description: S3 object zip file containing the project source
+        Type: String
+        Default: artifacts/aws-lex-web-ui/artifacts/src.zip
+
+    CustomResourceCodeObject:
+        Type: String
+        Description: >
+            S3 object zip file containing Lambda custom resource functions
+        Default: artifacts/aws-lex-web-ui/artifacts/custom-resources.zip
+
+    CleanupBuckets:
+        Type: String
+        Default: true
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, buckets and their associated data will be deleted on
+            CloudFormation stack delete. If set to False, S3 buckets will be retained.
+
+    ShouldEnableCognitoLogin:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, a menu with a login action will be displayed
+            in the Lex Web Ui. This feature uses Cognito User Pools with
+            hosted login pages. After login, the menu will switch to logout.
+
+    EnableMarkdownSupport:
+        Type: String
+        Default: true
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, Markdown formatting in ResponseCards will be enabled.
+
+    ReInitSessionAttributesOnRestart:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, session attributes sent on each request to Lex are reset. Use a value
+            of false, if session attributes need to be supported on subsequent Lex requests. The
+            default is false.
+
+    ShouldLoadIframeMinimized:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True and running embedded as an Iframe on a web page, minimize the
+            LexWebUi when first launched. If set to False, the Iframe will be maximized
+            on the hosting page.
+
+    ShowResponseCardTitle:
+        Type: String
+        Default: true
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, the ResponseCard title is displayed in the UI. When set to false,
+            a ResponseCard title is not displayed in the UI. Default is true. Note at the
+            present time this is a global setting. Should the UI need to display some form
+            of a title, use the optional sub-title property of a ResponseCard.
+
+    CognitoIdentityPoolId:
+        Type: String
+        Description: >
+            Cognito Identity Pool Id to used in the web app configuration.
+        MinLength: 1
+        MaxLength: 55
+        AllowedPattern: '^[\w-]+:[0-9a-f-]+$'
+        ConstraintDescription: >
+            Alphanumeric followed by a column and ending with a hex uuid type.
+
+    CognitoAppUserPoolClientId:
+        Type: String
+        Description: >
+            Cognito App User Pool Client Id to used in the web app configuration.
+
+    CognitoUserPoolId:
+        Type: String
+        Description: >
+            Cognito App User Pool Id
+
+    BotName:
+        Description: >
+            Name of Lex bot to be used in the web app configuration.
+        Type: String
+        MinLength: 2
+        MaxLength: 50
+        AllowedPattern: '^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)'
+        ConstraintDescription: >
+            Must conform with the permitted Lex Bot name pattern.
+
+    BotAlias:
+        Description: >
+            Alias to use of an existing Lex Bot. By default this is '$LATEST'.
+            Use this default if the lex-web-ui should always use the most
+            recent version of the bot.
+        Type: String
+        Default: '$LATEST'
+        MinLength: 2
+        MaxLength: 50
+        AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
+        ConstraintDescription: >
+            Must conform with the permitted Lex Alias name pattern.
+
+    ParentOrigin:
+        Type: String
+        Description: >
+            Browser origin (e.g. http://mysite.example.com:8080) of an
+            existing site that is allowed to send/receive data and events
+            from the web ui in an iframe setup. This is an optional
+            parameter. If left empty, an S3 bucket will be created to
+            host a sample parent site embedding the webapp as an iframe.
+        AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
+        ConstraintDescription: Empty or valid browser origin
+
+    WebAppConfBotInitialText:
+        Type: String
+        Default: >
+            You can ask me for help ordering flowers. Just type "Buy
+            flowers" or click on the mic and say it.
+        Description: First bot message displayed in the chatbot UI
+
+    WebAppConfBotInitialSpeech:
+        Type: String
+        Default: Say 'Buy Flowers' to get started.
+        Description: >
+            Message spoken by bot when the microphone is first pressed
+            in a conversation
+
+    WebAppConfToolbarTitle:
+        Type: String
+        Default: Order Flowers
+        Description: Title displayed in the chatbot UI toobar
+
+Conditions:
+    NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
+    ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
+
+Resources:
+    # Bucket where the web app is deployed
+    WebAppBucket:
+        Type: AWS::S3::Bucket
+        DeletionPolicy: Retain
+        Properties:
+            WebsiteConfiguration:
+                IndexDocument: index.html
+            VersioningConfiguration:
+                Status: Enabled
+            CorsConfiguration:
+                !If
+                  - NeedsParentOrigin
+                  - !Ref AWS::NoValue
+                  - CorsRules:
+                    - AllowedMethods:
+                        - GET
+                      AllowedOrigins:
+                        - !Ref ParentOrigin
+
+    CodeBuild:
+        Type: AWS::CodeBuild::Project
+        Properties:
+            Name: !Ref CodeBuildName
+            Description: Used to configure and deploy the Lex Web UI
+            Artifacts:
+                Type: NO_ARTIFACTS
+            Environment:
+                Type: LINUX_CONTAINER
+                Image: aws/codebuild/nodejs:8.11.0
+                ComputeType: BUILD_GENERAL1_SMALL
+                EnvironmentVariables:
+                    - Name: BUILD_TYPE
+                      Value: dist
+                    - Name: POOL_ID
+                      Value: !Ref CognitoIdentityPoolId
+                    - Name: APP_USER_POOL_CLIENT_ID
+                      Value: !Ref CognitoAppUserPoolClientId
+                    - Name: APP_USER_POOL_NAME
+                      Value: !Ref CognitoUserPoolId
+                    - Name: WEBAPP_BUCKET
+                      Value: !Ref WebAppBucket
+                    - Name: AWS_DEFAULT_REGION
+                      Value: !Sub "${AWS::Region}"
+                    - Name: BOT_NAME
+                      Value: !Ref BotName
+                    - Name: BOT_ALIAS
+                      Value: !Ref BotAlias
+                    - Name: BOT_INITIAL_TEXT
+                      Value: !Ref WebAppConfBotInitialText
+                    - Name: BOT_INITIAL_SPEECH
+                      Value: !Ref WebAppConfBotInitialSpeech
+                    - Name: UI_TOOLBAR_TITLE
+                      Value: !Ref WebAppConfToolbarTitle
+                    - Name: ENABLE_LOGIN
+                      Value: !Ref ShouldEnableCognitoLogin
+                    - Name: REINIT_SESSION_ATTRIBUTES_ON_RESTART
+                      Value: !Ref ReInitSessionAttributesOnRestart
+                    - Name: ENABLE_MARKDOWN_SUPPORT
+                      Value: !Ref EnableMarkdownSupport
+                    - Name: IFRAME_LOAD_MINIMIZED
+                      Value: !Ref ShouldLoadIframeMinimized
+                    - Name: SHOW_RESPONSE_CARD_TITLE
+                      Value: !Ref ShowResponseCardTitle
+                    - Name: PARENT_ORIGIN
+                      Value: !If
+                        - NeedsParentOrigin
+                        - !Sub "https://${WebAppBucket.DomainName}"
+                        - !Ref ParentOrigin
+                    - Name: IFRAME_ORIGIN
+                      Value: !Sub "https://${WebAppBucket.DomainName}"
+            ServiceRole: !GetAtt CodeBuildRole.Arn
+            TimeoutInMinutes: 10
+            Source:
+                Type: S3
+                Location: !Sub "${SourceBucket}/${SourceObject}"
+                BuildSpec: !Sub |
+                    version: 0.1
+                    phases:
+                        pre_build:
+                            commands:
+                                - aws configure set region "$AWS_DEFAULT_REGION"
+                                - make config
+                        post_build:
+                            commands:
+                                - make sync-website
+
+    # custom resource to start code build project
+    CodeBuildStarter:
+        Type: Custom::CodeBuildStarter
+        Properties:
+            ServiceToken: !GetAtt CodeBuildStarterLambda.Arn
+            ProjectName: !Ref CodeBuild
+
+    # Lambda function for custom resource
+    CodeBuildStarterLambda:
+        Type: AWS::Lambda::Function
+        Properties:
+            Code:
+                S3Bucket: !Ref SourceBucket
+                S3Key: !Ref CustomResourceCodeObject
+            Handler: codebuild-start.handler
+            Role: !GetAtt CodeBuildStarterLambdaRole.Arn
+            Runtime: python2.7
+            Timeout: 120
+
+    CodeBuildRole:
+        Type: AWS::IAM::Role
+        Properties:
+            Path: /
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Principal:
+                          Service:
+                              - codebuild.amazonaws.com
+                      Effect: Allow
+                      Action:
+                          - sts:AssumeRole
+            Policies:
+                - PolicyName: S3GetObject
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - s3:GetObject*
+                            Resource:
+                                - !Sub "arn:aws:s3:::${SourceBucket}/${SourceObject}"
+                - PolicyName: S3ReadWrite
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - s3:Get*
+                                - s3:Head*
+                                - s3:List*
+                                - s3:CreateMultipartUpload
+                                - s3:CompleteMultipartUpload
+                                - s3:AbortMultipartUpload
+                                - s3:CopyObject
+                                - s3:PutObject*
+                                - s3:DeleteObject*
+                                - s3:Upload*
+                            Resource:
+                                - !Sub "arn:aws:s3:::${WebAppBucket}"
+                                - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+                - PolicyName: CloudWatchLogsCodeBuild
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - logs:CreateLogGroup
+                                - logs:CreateLogStream
+                                - logs:PutLogEvents
+                            Resource:
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${CodeBuildName}"
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${CodeBuildName}:*"
+
+    CodeBuildStarterLambdaRole:
+        Type: AWS::IAM::Role
+        Properties:
+            Path: /
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Principal:
+                          Service:
+                              - lambda.amazonaws.com
+                      Effect: Allow
+                      Action:
+                          - sts:AssumeRole
+            Policies:
+                - PolicyName: LogsForLambda
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - logs:CreateLogGroup
+                                - logs:CreateLogStream
+                                - logs:PutLogEvents
+                            Resource:
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*:*"
+                - PolicyName: CodeBuildStart
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - codebuild:StartBuild
+                            Resource: !GetAtt CodeBuild.Arn
+
+    # custom resource to cleanup S3 buckets
+    S3Cleanup:
+        Type: Custom::S3Cleanup
+        Condition: ShouldCleanupBuckets
+        Properties:
+            ServiceToken: !GetAtt S3CleanupLambda.Arn
+            Buckets:
+                - !Ref WebAppBucket
+
+    # Lambda function for custom resource
+    S3CleanupLambda:
+        Type: AWS::Lambda::Function
+        Condition: ShouldCleanupBuckets
+        Properties:
+            Code:
+                S3Bucket: !Ref SourceBucket
+                S3Key: !Ref CustomResourceCodeObject
+            Handler: s3-cleanup.handler
+            Role: !GetAtt S3CleanupLambdaRole.Arn
+            Runtime: python2.7
+            Timeout: 120
+
+    S3CleanupLambdaRole:
+        Type: AWS::IAM::Role
+        Condition: ShouldCleanupBuckets
+        Properties:
+            Path: /
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Principal:
+                          Service:
+                              - lambda.amazonaws.com
+                      Effect: Allow
+                      Action:
+                          - sts:AssumeRole
+            Policies:
+                - PolicyName: LogsForLambda
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - logs:CreateLogGroup
+                                - logs:CreateLogStream
+                                - logs:PutLogEvents
+                            Resource:
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*:*"
+                - PolicyName: S3All
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - s3:*
+                            Resource:
+                                - !Sub "arn:aws:s3:::${WebAppBucket}"
+                                - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+
+Outputs:
+    CodeBuildProject:
+        Description: CodeBuild project name
+        Value: !Ref CodeBuild
+
+    WebAppUrl:
+        Value: !Sub "https://${WebAppBucket.DomainName}/index.html"
+        Description: URL of the web application
+
+    WebAppBase:
+        Value: !Sub "https://${WebAppBucket.DomainName}"
+        Description: Base url portion of the web application
+
+    WebAppDomainName:
+        Value: !Sub "${WebAppBucket.DomainName}"
+        Description: DomainName of the web application
+
+    ParentPageUrl:
+        Value: !Sub "https://${WebAppBucket.DomainName}/parent.html"
+        Description: URL of the sample parent page
+
+    LoaderScriptUrl:
+        Value: !Sub "https://${WebAppBucket.DomainName}/lex-web-ui-loader.min.js"
+        Description: URL of the loader script
+
+    SnippetUrl:
+        Value: !Sub "https://${WebAppBucket.DomainName}/iframe-snippet.html"
+        Description: URL of a page showing the snippet to load the chatbot UI as an iframe

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
+    <title>Chatbot UI iFrame Example</title>
+    <!--  bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container-fluid"><!-- main container -->
+      <h1>Lex Chatbot UI Sample Parent Page</h1>
+      <p class="lead">
+        Use the chatbot UI to drive your bot. This page will dynamically
+        update using the associated Lex variables as the bot dialog progresses.
+      </p>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Send "Buy Flowers" utterance to iframe</div>
+            <div class="panel-body">
+              <div>
+                <button id="send-intent" type="button" class="btn btn-default" disabled>
+                  Send
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Lex Dialog State</div>
+            <div class="panel-body">
+              <div>
+                <strong>dialogState:</strong>
+                <span id="dialog-state"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Lex Slots</div>
+            <div class="panel-body">
+              <div id="slots"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Lex Intent Name</div>
+            <div class="panel-body">
+              <div>
+                <strong>Intent Name:</strong>
+                <span id="intent-name"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Lex Session Attributes</div>
+            <div class="panel-body">
+              <div>
+                <pre id="session-attributes"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Lex Response Card</div>
+            <div class="panel-body">
+              <div>
+                <pre id="response-card"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-warning">
+            <div class="panel-heading">NOTE</div>
+            <div class="panel-body">
+              <p>
+              This application was created using the
+              <a href="https://github.com/awslabs/aws-lex-web-ui">aws-lex-web-ui</a>
+              project.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- main container -->
+
+    <!-- babel-polyfill required for IE 11 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js" integrity="sha256-WRc/eG3R84AverJv0zmqxAmdwQxstUpqkiE+avJ3WSo=" crossorigin="anonymous"></script>
+
+    <!-- jquery used as part on this example - not required by lex-web-ui -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <!-- bootstrap used as part of thie example - not required by lex-web-ui -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!--
+      Loader script tag
+
+      Add a script tag pointing to the loader library towards the bottom
+      of the html BODY section
+
+      The library and its dependencies can be hosted on another site,
+      S3 bucket or a CDN (e.g. CloudFront)
+
+      This script creates a global variable named ChatbotUiLoader which
+      provides the loader library functionality
+    -->
+    <script src="./lex-web-ui-loader.js"></script>
+
+    <!--
+      After the loader script tag has been included, you can use its global
+      variable to load the chatbot UI in an iframe
+    -->
+    <script>
+
+      // The loader constructor supports various configurable options used to
+      // control how the component configuration and dependencies are retrieved.
+      var loaderOpts = {
+        // Point the baseUrl option to the the base URL used to download
+        // the chatbot UI files and dependencies.
+        // In this example, the base URL is relative to the root path
+        // You can also use full URLs:
+        //    baseUrl: 'https://iframe-host.example.org/lex-web-ui/'
+        baseUrl: '/',
+
+        // enable receiving chatbot UI config from event
+        // the event is used as an alternative to passing the chatbot
+        // UI via JSON file or via the parameter in the load() function
+        shouldLoadConfigFromEvent: true
+      }
+
+      // ChatBotUiLoader contains the IframeLoader constructor
+      // Instantiate the loader and pass the loader options
+      var iframeLoader = new ChatBotUiLoader.IframeLoader(loaderOpts);
+
+      // You can override the chatbot UI config by passing a parameter
+      var chatbotUiconfig = {
+      // if the iframe page is hosted on a different site,
+      // you should configure the parentOrigin and iframeOrigin
+      /*
+        ui: {
+          // origin of the parent site where you are including the chatbot UI
+          parentOrigin: 'https://mysite.example.org'
+        },
+        iframe: {
+          // origin hosting the HTML file that will be embedded in the iframe
+          iframeOrigin: 'https://iframe-host.example.org'
+        }
+        */
+      };
+
+      // load the iframe
+      iframeLoader.load(chatbotUiconfig)
+        .then(function () {
+           // at this point the API is available
+           // so I can send a ping to the iframe
+           iframeLoader.api.ping();
+
+          // perform actions on the parent dependent on the chatbot
+          // loading. For example, enable the send button once the
+          // chatbot UI is loaded
+          $('#send-intent').prop('disabled', false);
+
+        })
+        .catch(function (error) {
+          console.error('chatbot UI failed to load', error);
+        });
+
+      // Sample function illustrating dynamic messaging with the iframe using
+      // the API. This function is called from the event handler of the "Send"
+      // button.
+      function sendUtterance(utterance) {
+        // function to determine if the iframe is minimized
+        function isBotMinimized() {
+          // look at the options of the loader to determine the iframe
+          // element ID
+          var elementId = iframeLoader.options.elementId;
+
+          // this class is present in the iframe when minimized
+          var minimizedClass = 'lex-web-ui-iframe--minimize';
+          return $('#' + elementId).hasClass(minimizedClass);
+        }
+
+        return Promise.resolve()
+          .then(function () {
+            // use the toggleMinimizeUi API if the iframe is minimized
+            return !isBotMinimized() || iframeLoader.api.toggleMinimizeUi();
+          })
+          .then(function () {
+            return iframeLoader.api.postText(utterance);
+          })
+          .then(function () { console.log('message succesfully sent'); })
+          .catch(function (err) { console.error('error sending message ', err); });
+      }
+    </script>
+
+    <!--
+      This script illustrates how to handle the various events supported by the
+      chatbot UI.
+    -->
+    <script>
+      $(document).ready(function chatbotHandler() {
+
+        // When the chatbot ui iframe is ready to receive the
+        // dynamic config it sends the 'receivelexconfig' event to the parent
+        // For example, you can send dynamic config/parameters
+        // (e.g. username, geolocation) to the chatbot ui from here
+        $(document).one('receivelexconfig', function onReceiveLexConfig() {
+          var localTimeZone;
+          try {
+            localTimeZone = JSON.stringify(
+              Intl.DateTimeFormat().resolvedOptions().timeZone
+            );
+          } catch (err) {
+            localTimeZone = JSON.stringify(
+              new Date().getTimezoneOffset()
+            )
+          }
+
+          // sample config passing the local timezone in a sessionAttribute
+          var config = {
+            lex: {
+              sessionAttributes: {
+                localTimeZone: JSON.stringify(
+                 Intl.DateTimeFormat().resolvedOptions().timeZone
+                )
+              }
+            }
+          };
+
+          // emit bot config event to send the dynamic config to the
+          // chatbot UI
+          // jquery can't trigger native events so use vanilla JS CustomEvent
+          var event = new CustomEvent('loadlexconfig', { detail: { config: config } });
+          document.dispatchEvent(event);
+        });
+
+        // Once the chatbot UI is ready, it sends a 'lexWebUiReady' event
+        $(document).on('lexWebUiReady', function onUpdateLexState(evt) {
+          // We are just sending a ping request here as an example
+          // This example uses an event instead of calling
+          // iframeLoader.api.ping() to show the asynchronous
+          // event API alternative
+          var event = new CustomEvent(
+            'lexWebUiMessage',
+            { detail: {message: {event: 'ping'} } }
+          );
+          document.dispatchEvent(event);
+        });
+
+        // setup Send button handler
+        $('#send-intent').on('click', function(event) {
+          event.preventDefault();
+          sendUtterance('Buy Flowers');
+        });
+
+
+        // bot update event handler
+        // In this example, the parent page is updated based on the state
+        $(document).on('updatelexstate', function onUpdateLexState(evt) {
+          var slots = {};
+          var dialogState = {};
+          var intentName = '';
+          var sessionAttributes = {};
+          var responseCard = {};
+
+          if (evt && ('detail' in evt) && evt.detail && ('state' in evt.detail)) {
+            slots = evt.detail.state.slots;
+            dialogState = evt.detail.state.dialogState;
+            intentName = evt.detail.state.intentName || intentName;
+            sessionAttributes = evt.detail.state.sessionAttributes || sessionAttributes;
+            responseCard = evt.detail.state.responseCard || responseCard;
+          }
+          if (!slots || !dialogState) {
+            console.warn('updatelexstate event is missing slot or dialogState field');
+            return;
+          }
+          $('#dialog-state').text(dialogState);
+          $('#intent-name').text(intentName);
+          $('#session-attributes').text(JSON.stringify(sessionAttributes, null, 2));
+          $('#response-card').text(JSON.stringify(responseCard, null, 2));
+
+          var $slotsContainerReplacement = $('<div>', { id: 'slots' });
+          Object.keys(slots).forEach(function updateOrder(slotName, index) {
+            var slotValue = JSON.stringify(slots[slotName]);
+            var $slotDiv = $('<div>', { id: 'slot-' + index });
+            var $slotName = $('<strong>').text(slotName + ': ');
+            var $slotValue = $('<span>').text(slotValue);
+
+            $slotDiv.append($slotName);
+            $slotDiv.append($slotValue);
+            $slotsContainerReplacement.append($slotDiv);
+          });
+
+          $('#slots').replaceWith($slotsContainerReplacement);
+        });
+      });
+    </script>
+  </body>
+</html>

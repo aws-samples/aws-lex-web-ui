@@ -1,0 +1,4 @@
+dist/*.js -diff
+dist/*.css -diff
+dist/*.map -diff
+dist/*.zip -diff
