@@ -8,7 +8,7 @@
         <v-layout column class="message-bubble-column">
 
           <!-- contains message bubble and avatar -->
-          <v-flex d-flex class="message-bubble-avatar-container">
+          <!-- <v-flex d-flex class="message-bubble-avatar-container">
             <v-layout row class="message-bubble-row">
               <div
                 v-if="shouldShowAvatarImage"
@@ -53,7 +53,7 @@
                 </v-icon>
               </div>
             </v-layout>
-          </v-flex>
+          </v-flex> -->
           <v-flex
             v-if="shouldShowMessageDate && isMessageFocused"
             class="text-xs-center message-date"
@@ -250,7 +250,7 @@ export default {
 }
 
 .icon.dialog-state-ok {
-  color: green;
+  color: blue;
 }
 .icon.dialog-state-fail {
   color: red;
