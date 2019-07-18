@@ -2,7 +2,23 @@
   height: 100%;
   width: 100%;
 }
-.lex-web-ui-iframe {
+
+/* .application .theme--dark.toolbar {
+  background: #434343 !important;
+}
+
+
+.message-bot .message-bubble {
+  background-color: blueviolet !important; /* red-50 from material palette */
+/* }
+
+.message-human .message-bubble {
+  background-color: gray !important; /* indigo-50 from material palette */
+
+
+/* .icon.dialog-state-ok {
+  /* color: blue !important; */
+/* }  */.lex-web-ui-iframe {
   bottom: 0;
   box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.25);
   display: none; /* hidden by default changed once iframe is loaded */

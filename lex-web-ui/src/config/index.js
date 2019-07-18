@@ -164,6 +164,12 @@ const configDefault = {
     // Show the diaglog state icon, check or alert, in the text bubble
     showDialogStateIcon: true,
 
+    // shows a thumbs up and thumbs down button which can be clicked
+    showDialogFeedback: false,
+
+    // for instances when you only want to show error icons and feedback
+    showErrorIcon: true,
+
     // Allows lex messages with session attribute
     // appContext.altMessages.html or appContext.altMessages.markdown
     // to be rendered as html in the message

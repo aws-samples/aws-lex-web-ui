@@ -7,7 +7,7 @@
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
-    "botName": "QnABotTest_BotzZ",
+    "botName": "OrderFlowers",
     "botAlias": "$LATEST",
     "initialText": "Hello, I'm your friendly neighborhood chatbot",
     "initialSpeechInstruction": "Try saying execute order 66",

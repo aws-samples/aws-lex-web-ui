@@ -10570,7 +10570,7 @@ var configDefault = {
     botAlias: '$LATEST',
 
     // instruction message shown in the UI
-    initialText: 'You can ask me for help ordering flowers. ' + 'Just type "order flowers" or click on the mic and say it.',
+    initialText: 'Hi Tom Welcome to your custom chatbot',
 
     // instructions spoken when mic is clicked
     initialSpeechInstruction: 'Say "Order Flowers" to get started',
@@ -10627,7 +10627,7 @@ var configDefault = {
     parentOrigin: null,
 
     // chat window text placeholder
-    textInputPlaceholder: 'Type here or click on the mic',
+    textInputPlaceholder: 'Type here or click on the mic TEST',
 
     toolbarColor: 'red',
 
@@ -10667,6 +10667,12 @@ var configDefault = {
 
     // Show the diaglog state icon, check or alert, in the text bubble
     showDialogStateIcon: true,
+
+    // shows a thumbs up and thumbs down button which can be clicked
+    showDialogFeedback: false,
+
+    // for instances when you only want to show error icons and feedback
+    showErrorIcon: true,
 
     // Allows lex messages with session attribute
     // appContext.altMessages.html or appContext.altMessages.markdown
@@ -11866,6 +11872,23 @@ License for the specific language governing permissions and limitations under th
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*
 Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -11892,7 +11915,8 @@ License for the specific language governing permissions and limitations under th
   data: function data() {
     return {
       isMessageFocused: false,
-      messageHumanDate: 'Now'
+      messageHumanDate: 'Now',
+      hasButtonBeenClicked: false
     };
   },
 
@@ -11906,7 +11930,7 @@ License for the specific language governing permissions and limitations under th
           return { icon: 'error', color: 'red', state: 'fail' };
         case 'Fulfilled':
         case 'ReadyForFulfillment':
-          return { icon: 'done', color: 'blue', state: 'ok' };
+          return { icon: 'done', color: 'green', state: 'ok' };
         default:
           return null;
       }
@@ -11916,6 +11940,12 @@ License for the specific language governing permissions and limitations under th
     },
     showDialogStateIcon: function showDialogStateIcon() {
       return this.$store.state.config.ui.showDialogStateIcon;
+    },
+    showDialogFeedback: function showDialogFeedback() {
+      return this.$store.state.config.ui.showDialogFeedback;
+    },
+    showErrorIcon: function showErrorIcon() {
+      return this.$store.state.config.ui.showErrorIcon;
     },
     shouldDisplayResponseCard: function shouldDisplayResponseCard() {
       return this.message.responseCard && (this.message.responseCard.version === '1' || this.message.responseCard.version === 1) && this.message.responseCard.contentType === 'application/vnd.amazonaws.card.generic' && 'genericAttachments' in this.message.responseCard && this.message.responseCard.genericAttachments instanceof Array;
@@ -11933,6 +11963,15 @@ License for the specific language governing permissions and limitations under th
     }
   },
   methods: {
+    onButtonClick: function onButtonClick(feedback) {
+      this.hasButtonBeenClicked = true;
+      var message = {
+        type: 'feedback',
+        text: feedback
+      };
+
+      this.$store.dispatch('postTextMessage', message);
+    },
     playAudio: function playAudio() {
       // XXX doesn't play in Firefox or Edge
       /* XXX also tried:
@@ -12116,6 +12155,7 @@ renderer.link = function link(href, title, text) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+//
 //
 //
 //
@@ -18213,7 +18253,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Message_vue__ = __webpack_require__(106);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_46cd8705_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Message_vue__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4b43294e_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Message_vue__ = __webpack_require__(204);
 function injectStyle (ssrContext) {
   __webpack_require__(196)
 }
@@ -18228,12 +18268,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-46cd8705"
+var __vue_scopeId__ = "data-v-4b43294e"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Message_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_46cd8705_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Message_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4b43294e_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Message_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -18256,7 +18296,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MessageText_vue__ = __webpack_require__(107);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4f01cfd4_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageText_vue__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ffdac4bc_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageText_vue__ = __webpack_require__(200);
 function injectStyle (ssrContext) {
   __webpack_require__(198)
 }
@@ -18271,12 +18311,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-4f01cfd4"
+var __vue_scopeId__ = "data-v-ffdac4bc"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MessageText_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4f01cfd4_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageText_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ffdac4bc_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageText_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19692,7 +19732,7 @@ if (true) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.message.text && _vm.message.type === 'human')?_c('div',{staticClass:"message-text"},[_vm._v("\n  "+_vm._s(_vm.message.text)+"\n")]):(_vm.altHtmlMessage && _vm.AllowSuperDangerousHTMLInMessage)?_c('div',{staticClass:"message-text",domProps:{"innerHTML":_vm._s(_vm.altHtmlMessage)}}):(_vm.message.text && _vm.shouldRenderAsHtml)?_c('div',{staticClass:"message-text",domProps:{"innerHTML":_vm._s(_vm.botMessageAsHtml)}}):(_vm.message.text && _vm.message.type === 'bot')?_c('div',{staticClass:"message-text"},[_vm._v("\n  "+_vm._s((_vm.shouldStripTags) ? _vm.stripTagsFromMessage(_vm.message.text) : _vm.message.text)+"\n")]):_vm._e()}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.message.text && _vm.message.type === 'human')?_c('div',{staticClass:"message-text"},[_vm._v("\n "+_vm._s(_vm.message.text)+"\n")]):(_vm.altHtmlMessage && _vm.AllowSuperDangerousHTMLInMessage)?_c('div',{staticClass:"message-text",domProps:{"innerHTML":_vm._s(_vm.altHtmlMessage)}}):(_vm.message.text && _vm.shouldRenderAsHtml)?_c('div',{staticClass:"message-text",domProps:{"innerHTML":_vm._s(_vm.botMessageAsHtml)}}):(_vm.message.text && _vm.message.type === 'bot')?_c('div',{staticClass:"message-text"},[_vm._v("\n  "+_vm._s((_vm.shouldStripTags) ? _vm.stripTagsFromMessage(_vm.message.text) : _vm.message.text)+"\n")]):_vm._e()}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -19704,7 +19744,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ResponseCard_vue__ = __webpack_require__(108);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_68d77481_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ResponseCard_vue__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ec56ff9c_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ResponseCard_vue__ = __webpack_require__(203);
 function injectStyle (ssrContext) {
   __webpack_require__(202)
 }
@@ -19719,12 +19759,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-68d77481"
+var __vue_scopeId__ = "data-v-ec56ff9c"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ResponseCard_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_68d77481_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ResponseCard_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ec56ff9c_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ResponseCard_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19745,7 +19785,7 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-card',[(_vm.shouldDisplayResponseCardTitle)?_c('div',[(_vm.responseCard.title.trim())?_c('v-card-title',{staticClass:"red lighten-5",attrs:{"primary-title":""}},[_c('span',{staticClass:"headline"},[_vm._v(_vm._s(_vm.responseCard.title))])]):_vm._e()],1):_vm._e(),_vm._v(" "),(_vm.responseCard.subTitle)?_c('v-card-text',[_c('span',[_vm._v(_vm._s(_vm.responseCard.subTitle))])]):_vm._e(),_vm._v(" "),(_vm.responseCard.imageUrl)?_c('v-card-media',{attrs:{"src":_vm.responseCard.imageUrl,"contain":"","height":"33vh"}}):_vm._e(),_vm._v(" "),_c('v-card-actions',{staticClass:"button-row"},_vm._l((_vm.responseCard.buttons),function(button){return (button.text && button.value)?_c('v-btn',{attrs:{"disabled":_vm.hasButtonBeenClicked,"round":"","default":""},nativeOn:{"~click":function($event){_vm.onButtonClick(button.value)}}},[_vm._v("\n      "+_vm._s(button.text)+"\n    ")]):_vm._e()})),_vm._v(" "),(_vm.responseCard.attachmentLinkUrl)?_c('v-card-actions',[_c('v-btn',{staticClass:"red lighten-5",attrs:{"flat":"","tag":"a","href":_vm.responseCard.attachmentLinkUrl,"target":"_blank"}},[_vm._v("\n      Open Link\n    ")])],1):_vm._e()],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-card',[(_vm.shouldDisplayResponseCardTitle)?_c('div',[(_vm.responseCard.title.trim())?_c('v-card-title',{staticClass:"red lighten-5",attrs:{"primary-title":""}},[_c('span',{staticClass:"headline"},[_vm._v(_vm._s(_vm.responseCard.title))])]):_vm._e()],1):_vm._e(),_vm._v(" "),(_vm.responseCard.subTitle)?_c('v-card-text',[_c('span',[_vm._v(_vm._s(_vm.responseCard.subTitle))])]):_vm._e(),_vm._v(" "),(_vm.responseCard.imageUrl)?_c('v-card-media',{attrs:{"src":_vm.responseCard.imageUrl,"contain":"","height":"33vh"}}):_vm._e(),_vm._v(" "),_c('v-card-actions',{staticClass:"button-row"},_vm._l((_vm.responseCard.buttons),function(button){return _c('v-btn',{directives:[{name:"show",rawName:"v-show",value:(button.text && button.value),expression:"button.text && button.value"}],key:button.id,attrs:{"disabled":_vm.hasButtonBeenClicked,"round":"","default":""},nativeOn:{"~click":function($event){_vm.onButtonClick(button.value)}}},[_vm._v("\n      "+_vm._s(button.text)+"\n    ")])})),_vm._v(" "),(_vm.responseCard.attachmentLinkUrl)?_c('v-card-actions',[_c('v-btn',{staticClass:"red lighten-5",attrs:{"flat":"","tag":"a","href":_vm.responseCard.attachmentLinkUrl,"target":"_blank"}},[_vm._v("\n      Open Link\n    ")])],1):_vm._e()],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -19755,7 +19795,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-flex',{staticClass:"message",attrs:{"d-flex":""}},[_c('v-layout',{staticClass:"message-layout",attrs:{"column":"","ma-2":""}},[_c('v-flex',{staticClass:"message-bubble-date-container",attrs:{"d-flex":""}},[_c('v-layout',{staticClass:"message-bubble-column",attrs:{"column":""}},[_c('v-flex',{staticClass:"message-bubble-avatar-container",attrs:{"d-flex":""}},[_c('v-layout',{staticClass:"message-bubble-row",attrs:{"row":""}},[(_vm.shouldShowAvatarImage)?_c('div',{staticClass:"bot-avatar focusable",style:(_vm.botAvatarBackground),attrs:{"tabindex":_vm.message.id + 1}}):_vm._e(),_vm._v(" "),_c('div',{staticClass:"message-bubble focusable",attrs:{"tabindex":_vm.message.id + 1},on:{"focus":_vm.onMessageFocus,"blur":_vm.onMessageBlur}},[('text' in _vm.message && _vm.message.text !== null && _vm.message.text.length)?_c('message-text',{attrs:{"message":_vm.message}}):_vm._e(),_vm._v(" "),(_vm.message.type === 'human' && _vm.message.audio)?_c('div',{staticClass:"message-audio"},[_c('audio',[_c('source',{attrs:{"src":_vm.message.audio,"type":"audio/wav"}})]),_vm._v(" "),_c('v-btn',{staticClass:"black--text ml-0 mr-0",attrs:{"tabindex":_vm.message.id + 1,"icon":""},on:{"click":_vm.playAudio}},[_c('v-icon',{staticClass:"play-icon"},[_vm._v("play_circle_outline")])],1)],1):_vm._e(),_vm._v(" "),(_vm.message.type === 'bot' && _vm.botDialogState && _vm.showDialogStateIcon)?_c('v-icon',{staticClass:"dialog-state",class:("dialog-state-" + (_vm.botDialogState.state)),attrs:{"medium":""}},[_vm._v("\n                "+_vm._s(_vm.botDialogState.icon)+"\n              ")]):_vm._e()],1)])],1),_vm._v(" "),(_vm.shouldShowMessageDate && _vm.isMessageFocused)?_c('v-flex',{staticClass:"text-xs-center message-date"},[_vm._v("\n          "+_vm._s(_vm.messageHumanDate)+"\n        ")]):_vm._e()],1)],1),_vm._v(" "),(_vm.shouldDisplayResponseCard)?_c('v-flex',{staticClass:"response-card",attrs:{"d-flex":"","mt-2":"","mr-2":"","ml-3":""}},_vm._l((_vm.message.responseCard.genericAttachments),function(card,index){return _c('response-card',{key:index,attrs:{"response-card":card}})})):_vm._e()],1)],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-flex',{staticClass:"message",attrs:{"d-flex":""}},[_c('v-layout',{staticClass:"message-layout",attrs:{"column":"","ma-2":""}},[_c('v-flex',{staticClass:"message-bubble-date-container",attrs:{"d-flex":""}},[_c('v-layout',{staticClass:"message-bubble-column",attrs:{"column":""}},[_c('v-flex',{staticClass:"message-bubble-avatar-container",attrs:{"d-flex":""}},[_c('v-layout',{staticClass:"message-bubble-row",attrs:{"row":""}},[(_vm.shouldShowAvatarImage)?_c('div',{staticClass:"bot-avatar focusable",style:(_vm.botAvatarBackground),attrs:{"tabindex":_vm.message.id + 1}}):_vm._e(),_vm._v(" "),_c('div',{staticClass:"message-bubble focusable",attrs:{"tabindex":_vm.message.id + 1},on:{"focus":_vm.onMessageFocus,"blur":_vm.onMessageBlur}},[('text' in _vm.message && _vm.message.text !== null && _vm.message.text.length)?_c('message-text',{attrs:{"message":_vm.message}}):_vm._e(),_vm._v(" "),(_vm.message.type === 'human' && _vm.message.audio)?_c('div',{staticClass:"message-audio"},[_c('audio',[_c('source',{attrs:{"src":_vm.message.audio,"type":"audio/wav"}})]),_vm._v(" "),_c('v-btn',{staticClass:"black--text ml-0 mr-0",attrs:{"tabindex":_vm.message.id + 1,"icon":""},on:{"click":_vm.playAudio}},[_c('v-icon',{staticClass:"play-icon"},[_vm._v("play_circle_outline")])],1)],1):_vm._e(),_vm._v(" "),(_vm.message.type === 'bot' && _vm.botDialogState && _vm.showDialogFeedback)?_c('div',{staticClass:"dialog-state"},[_c('v-icon',{staticClass:"feedback-icons-positive",on:{"click":function($event){_vm.onButtonClick('Thumbs up')}}},[_vm._v("\n                  thumb_up\n                ")]),_vm._v(" "),_c('v-icon',{staticClass:"feedback-icons-negative",on:{"click":function($event){_vm.onButtonClick('Thumbs down')}}},[_vm._v("\n                  thumb_down\n                ")])],1):_vm._e(),_vm._v(" "),(_vm.message.type === 'bot' && _vm.botDialogState && _vm.showDialogStateIcon)?_c('v-icon',{staticClass:"dialog-state",class:("dialog-state-" + (_vm.botDialogState.state)),attrs:{"medium":""}},[_vm._v("\n                "+_vm._s(_vm.botDialogState.icon)+"\n              ")]):_vm._e()],1)])],1),_vm._v(" "),(_vm.shouldShowMessageDate && _vm.isMessageFocused)?_c('v-flex',{staticClass:"text-xs-center message-date"},[_vm._v("\n         "+_vm._s(_vm.messageHumanDate)+"\n        ")]):_vm._e()],1)],1),_vm._v(" "),(_vm.shouldDisplayResponseCard)?_c('v-flex',{staticClass:"response-card",attrs:{"d-flex":"","mt-2":"","mr-2":"","ml-3":""}},_vm._l((_vm.message.responseCard.genericAttachments),function(card,index){return _c('response-card',{key:index,attrs:{"response-card":card}})})):_vm._e()],1)],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -19830,7 +19870,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_InputContainer_vue__ = __webpack_require__(110);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_10cee7ea_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_fe95a366_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__ = __webpack_require__(214);
 function injectStyle (ssrContext) {
   __webpack_require__(210)
 }
@@ -19850,7 +19890,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_InputContainer_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_10cee7ea_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_fe95a366_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19924,7 +19964,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-footer',{attrs:{"app":"","fixed":""}},[_c('v-layout',{staticClass:"input-container",attrs:{"row":"","justify-space-between":"","ma-0":""}},[_c('v-toolbar',{attrs:{"color":"white","dense":""}},[_c('v-text-field',{directives:[{name:"show",rawName:"v-show",value:(_vm.shouldShowTextInput),expression:"shouldShowTextInput"}],ref:"textInput",attrs:{"label":_vm.textInputPlaceholder,"id":"text-input","name":"text-input","single-line":"","hide-details":""},on:{"keyup":function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"enter",13,$event.key)){ return null; }$event.stopPropagation();_vm.postTextMessage($event)},"focus":_vm.onTextFieldFocus,"blur":_vm.onTextFieldBlur},model:{value:(_vm.textInput),callback:function ($$v) {_vm.textInput=$$v},expression:"textInput"}}),_vm._v(" "),_c('recorder-status',{directives:[{name:"show",rawName:"v-show",value:(!_vm.shouldShowTextInput),expression:"!shouldShowTextInput"}]}),_vm._v(" "),_c('v-tooltip',{ref:"tooltip",attrs:{"activator":".input-button","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"input-button-tooltip"}},[_vm._v(_vm._s(_vm.inputButtonTooltip))])]),_vm._v(" "),(_vm.shouldShowSendButton)?_c('v-btn',_vm._g({ref:"send",staticClass:"black--text input-button",attrs:{"disabled":_vm.isSendButtonDisabled,"icon":""},on:{"click":_vm.postTextMessage}},_vm.tooltipEventHandlers),[_c('v-icon',{attrs:{"medium":""}},[_vm._v("send")])],1):_c('v-btn',_vm._g({ref:"mic",staticClass:"black--text input-button",attrs:{"disabled":_vm.isMicButtonDisabled,"icon":""},on:{"click":_vm.onMicClick}},_vm.tooltipEventHandlers),[_c('v-icon',{attrs:{"medium":""}},[_vm._v(_vm._s(_vm.micButtonIcon))])],1)],1)],1)],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-footer',{attrs:{"app":"","fixed":""}},[_c('v-layout',{staticClass:"input-container",attrs:{"row":"","justify-space-between":"","ma-0":""}},[_c('v-toolbar',{attrs:{"color":"purple","dense":""}},[_c('v-text-field',{directives:[{name:"show",rawName:"v-show",value:(_vm.shouldShowTextInput),expression:"shouldShowTextInput"}],ref:"textInput",attrs:{"label":_vm.textInputPlaceholder,"id":"text-input","name":"text-input","single-line":"","hide-details":""},on:{"keyup":function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"enter",13,$event.key)){ return null; }$event.stopPropagation();_vm.postTextMessage($event)},"focus":_vm.onTextFieldFocus,"blur":_vm.onTextFieldBlur},model:{value:(_vm.textInput),callback:function ($$v) {_vm.textInput=$$v},expression:"textInput"}}),_vm._v(" "),_c('recorder-status',{directives:[{name:"show",rawName:"v-show",value:(!_vm.shouldShowTextInput),expression:"!shouldShowTextInput"}]}),_vm._v(" "),_c('v-tooltip',{ref:"tooltip",attrs:{"activator":".input-button","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"input-button-tooltip"}},[_vm._v(_vm._s(_vm.inputButtonTooltip))])]),_vm._v(" "),(_vm.shouldShowSendButton)?_c('v-btn',_vm._g({ref:"send",staticClass:"black--text input-button",attrs:{"disabled":_vm.isSendButtonDisabled,"icon":""},on:{"click":_vm.postTextMessage}},_vm.tooltipEventHandlers),[_c('v-icon',{attrs:{"medium":""}},[_vm._v("send")])],1):_c('v-btn',_vm._g({ref:"mic",staticClass:"black--text input-button",attrs:{"disabled":_vm.isMicButtonDisabled,"icon":""},on:{"click":_vm.onMicClick}},_vm.tooltipEventHandlers),[_c('v-icon',{attrs:{"medium":""}},[_vm._v(_vm._s(_vm.micButtonIcon))])],1)],1)],1)],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -23678,7 +23718,7 @@ module.exports.makeKey = makeKey
 /* 268 */
 /***/ (function(module, exports) {
 
-module.exports = {"_args":[["elliptic@6.4.0","/home/ec2-user/Source/aws-lex-web-ui/lex-web-ui"]],"_development":true,"_from":"elliptic@6.4.0","_id":"elliptic@6.4.0","_inBundle":false,"_integrity":"sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.4.0","name":"elliptic","escapedName":"elliptic","rawSpec":"6.4.0","saveSpec":null,"fetchSpec":"6.4.0"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz","_spec":"6.4.0","_where":"/home/ec2-user/Source/aws-lex-web-ui/lex-web-ui","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.0"}
+module.exports = {"_args":[["elliptic@6.4.0","/Users/tchramzn/Documents/edu/slu/lex-web-test/lex-web-ui"]],"_development":true,"_from":"elliptic@6.4.0","_id":"elliptic@6.4.0","_inBundle":false,"_integrity":"sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.4.0","name":"elliptic","escapedName":"elliptic","rawSpec":"6.4.0","saveSpec":null,"fetchSpec":"6.4.0"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz","_spec":"6.4.0","_where":"/Users/tchramzn/Documents/edu/slu/lex-web-test/lex-web-ui","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.0"}
 
 /***/ }),
 /* 269 */
@@ -33372,19 +33412,19 @@ webpackContext.id = 344;
 /* 345 */
 /***/ (function(module, exports) {
 
-module.exports = {"cognito":{"poolId":"us-east-1:f634ebd3-27ae-49eb-b4cd-2507093eb450"},"lex":{"botName":"WebUiOrderFlowers","initialText":"You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Flowers Bot","toolbarTitle":"Order Flowers","enableLogin":true},"recorder":{"preset":"speech_recognition"}}
+module.exports = {"cognito":{"poolId":"us-east-1:6768184b-c61a-4680-91e1-302ec0f389bd"},"lex":{"botName":"QnABotTest_BotzZ","initialText":"Hi Tom, how can I help you today?","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Flowers Bot","toolbarTitle":"Tomas Bot","enableLogin":true,"pushInitialTextOnRestart":false,"shouldDisplayResponseCardTitle":false,"showErrorIcon":true,"showDialogStateIcon":false,"showDialogFeedback":true},"recorder":{"preset":"speech_recognition"}}
 
 /***/ }),
 /* 346 */
 /***/ (function(module, exports) {
 
-module.exports = {"cognito":{"poolId":""},"lex":{"botName":"WebUiOrderFlowers","initialText":"You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"","pageTitle":"Order Flowers Bot","toolbarTitle":"Order Flowers"},"recorder":{"preset":"speech_recognition"}}
+module.exports = {"cognito":{"poolId":""},"lex":{"botName":"WebUiOrderFlowers","initialText":"You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"","pageTitle":"Order Flowers Bot","toolbarTitle":"Thomas Bot"},"recorder":{"preset":"speech_recognition"}}
 
 /***/ }),
 /* 347 */
 /***/ (function(module, exports) {
 
-module.exports = {"cognito":{"poolId":""},"lex":{"botName":"WebUiOrderFlowers","initialText":"You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Flowers Bot","toolbarTitle":"Order Flowers"},"recorder":{"preset":"speech_recognition"}}
+module.exports = {"cognito":{"poolId":""},"lex":{"botName":"WebUiOrderFlowers","initialText":"You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Flowers Bot","toolbarTitle":"Toms Bot"},"recorder":{"preset":"speech_recognition"}}
 
 /***/ }),
 /* 348 */

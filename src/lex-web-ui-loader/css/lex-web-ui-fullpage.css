@@ -2,3 +2,20 @@
   height: 100%;
   width: 100%;
 }
+
+/* .application .theme--dark.toolbar {
+  background: #434343 !important;
+}
+
+
+.message-bot .message-bubble {
+  background-color: blueviolet !important; /* red-50 from material palette */
+/* }
+
+.message-human .message-bubble {
+  background-color: gray !important; /* indigo-50 from material palette */
+
+
+/* .icon.dialog-state-ok {
+  /* color: blue !important; */
+/* }  */

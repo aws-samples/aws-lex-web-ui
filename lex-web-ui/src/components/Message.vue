@@ -8,7 +8,7 @@
         <v-layout column class="message-bubble-column">
 
           <!-- contains message bubble and avatar -->
-          <!-- <v-flex d-flex class="message-bubble-avatar-container">
+          <v-flex d-flex class="message-bubble-avatar-container">
             <v-layout row class="message-bubble-row">
               <div
                 v-if="shouldShowAvatarImage"
@@ -43,6 +43,23 @@
                     <v-icon class="play-icon">play_circle_outline</v-icon>
                   </v-btn>
                 </div>
+                <div
+                  v-if="message.type === 'bot' && botDialogState && showDialogFeedback"
+                  class="dialog-state"
+                >
+                  <v-icon 
+                    v-on:click="onButtonClick('Thumbs up')"
+                    class="feedback-icons-positive"
+                  >
+                    thumb_up
+                  </v-icon>
+                  <v-icon 
+                    v-on:click="onButtonClick('Thumbs down')"
+                    class="feedback-icons-negative"
+                  >
+                    thumb_down
+                  </v-icon>
+                </div>
                 <v-icon
                   medium
                   v-if="message.type === 'bot' && botDialogState && showDialogStateIcon"
@@ -53,12 +70,12 @@
                 </v-icon>
               </div>
             </v-layout>
-          </v-flex> -->
+          </v-flex>
           <v-flex
             v-if="shouldShowMessageDate && isMessageFocused"
             class="text-xs-center message-date"
           >
-            {{messageHumanDate}}
+           {{messageHumanDate}}
           </v-flex>
         </v-layout>
       </v-flex>
@@ -106,6 +123,7 @@ export default {
     return {
       isMessageFocused: false,
       messageHumanDate: 'Now',
+      hasButtonBeenClicked: false,
     };
   },
   computed: {
@@ -118,7 +136,7 @@ export default {
           return { icon: 'error', color: 'red', state: 'fail' };
         case 'Fulfilled':
         case 'ReadyForFulfillment':
-          return { icon: 'done', color: 'blue', state: 'ok' };
+          return { icon: 'done', color: 'green', state: 'ok' };
         default:
           return null;
       }
@@ -128,6 +146,12 @@ export default {
     },
     showDialogStateIcon() {
       return this.$store.state.config.ui.showDialogStateIcon;
+    },
+    showDialogFeedback() {
+      return this.$store.state.config.ui.showDialogFeedback;
+    },
+    showErrorIcon() {
+      return this.$store.state.config.ui.showErrorIcon;
     },
     shouldDisplayResponseCard() {
       return (
@@ -155,6 +179,15 @@ export default {
     },
   },
   methods: {
+    onButtonClick(feedback) {
+      this.hasButtonBeenClicked = true;
+      const message = {
+        type: 'feedback',
+        text: feedback,
+      };
+
+      this.$store.dispatch('postTextMessage', message);
+    },
     playAudio() {
       // XXX doesn't play in Firefox or Edge
       /* XXX also tried:
@@ -238,7 +271,8 @@ export default {
 }
 
 .message-bot .message-bubble {
-  background-color: #FFEBEE; /* red-50 from material palette */
+  background-color: blue; /* red-50 from material palette */
+  color: white;
 }
 
 .message-human .message-bubble {
@@ -250,7 +284,7 @@ export default {
 }
 
 .icon.dialog-state-ok {
-  color: blue;
+  color: green;
 }
 .icon.dialog-state-fail {
   color: red;
@@ -259,7 +293,20 @@ export default {
 .play-icon {
   font-size: 2em;
 }
-
+.feedback-icons-positive{
+  color: #E8EAF6;
+  padding: .125em;
+}
+.feedback-icons-positive:hover{
+  color:green;
+}
+.feedback-icons-negative{
+  color: #E8EAF6;
+  padding: .125em;
+}
+.feedback-icons-negative:hover{
+  color: red;
+}
 .response-card {
   justify-content: center;
   width: 85vw;

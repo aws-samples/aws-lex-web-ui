@@ -1,10 +1,10 @@
 {
   "cognito": {
-    "poolId": "us-east-1:f634ebd3-27ae-49eb-b4cd-2507093eb450"
+    "poolId": "us-east-1:6768184b-c61a-4680-91e1-302ec0f389bd"
   },
   "lex": {
-    "botName": "WebUiOrderFlowers",
-    "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
+    "botName": "QnABotTest_BotzZ",
+    "initialText": "Hi Tom, how can I help you today?",
     "initialSpeechInstruction": "Say 'Order Flowers' to get started."
   },
   "polly": {
@@ -14,7 +14,12 @@
     "parentOrigin": "http://localhost:8080",
     "pageTitle": "Order Flowers Bot",
     "toolbarTitle": "Tomas Bot",
-    "enableLogin": true
+    "enableLogin": true,
+    "pushInitialTextOnRestart": false,
+    "shouldDisplayResponseCardTitle": false,
+    "showErrorIcon": true,
+    "showDialogStateIcon": false,
+    "showDialogFeedback": true
   },
   "recorder": {
     "preset": "speech_recognition"
