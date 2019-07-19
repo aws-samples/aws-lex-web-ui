@@ -45,7 +45,7 @@
                 </div>
                 <div
                   v-if="message.type === 'bot' && botDialogState && showDialogFeedback"
-                  class="dialog-state"
+                  class="feedback-state"
                 >
                   <v-icon 
                     v-on:click="onButtonClick('Thumbs up')"
@@ -293,20 +293,30 @@ export default {
 .play-icon {
   font-size: 2em;
 }
+
+.feedback-state {
+  display: inline-flex;
+  align-self: center;
+}
+
 .feedback-icons-positive{
   color: #E8EAF6;
   padding: .125em;
 }
+
 .feedback-icons-positive:hover{
   color:green;
 }
+
 .feedback-icons-negative{
   color: #E8EAF6;
   padding: .125em;
 }
+
 .feedback-icons-negative:hover{
   color: red;
 }
+
 .response-card {
   justify-content: center;
   width: 85vw;

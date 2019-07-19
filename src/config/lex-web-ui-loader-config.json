@@ -15,7 +15,7 @@
   },
   "ui": {
     "parentOrigin": "",
-    "toolbarTitle": "Chat Bot Test",
+    "toolbarTitle": "AskSLU",
     "toolbarLogo": "",
     "enableLogin": false,
     "AllowSuperDangerousHTMLInMessage": false,

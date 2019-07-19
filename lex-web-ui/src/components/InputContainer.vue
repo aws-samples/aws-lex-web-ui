@@ -6,7 +6,7 @@
       ma-0
       class="input-container"
     >
-      <v-toolbar color="purple" dense>
+      <v-toolbar dense>
         <!--
           using v-show instead of v-if to make recorder-status transition work
         -->

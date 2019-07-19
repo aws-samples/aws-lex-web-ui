@@ -13,7 +13,7 @@
   "ui": {
     "parentOrigin": "http://localhost:8080",
     "pageTitle": "Order Flowers Bot",
-    "toolbarTitle": "Tomas Bot",
+    "toolbarTitle": "AskSLU",
     "enableLogin": true,
     "pushInitialTextOnRestart": false,
     "shouldDisplayResponseCardTitle": false,
@@ -23,5 +23,8 @@
   },
   "recorder": {
     "preset": "speech_recognition"
+  },
+  "iframe": {
+    "shouldLoadIframeMinimized": false
   }
 }

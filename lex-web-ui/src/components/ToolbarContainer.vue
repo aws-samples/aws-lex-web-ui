@@ -1,6 +1,6 @@
 <template>
   <v-toolbar
-    v-bind:color="toolbarColor"
+    class="toolbar-color"
     app
     dark
     dense
@@ -45,6 +45,14 @@
     >
       <span id="min-max-tooltip">{{toolTipMinimize}}</span>
     </v-tooltip>
+    <v-btn
+      v-on:click="sendHelp"
+      icon
+    >
+      <v-icon>
+        help_outline
+      </v-icon>
+    </v-btn>
     <v-btn
       v-if="$store.state.isRunningEmbedded"
       v-on:click="toggleMinimize"
@@ -113,6 +121,14 @@ export default {
       this.onInputButtonHoverLeave();
       this.$emit('toggleMinimizeUi');
     },
+    sendHelp() {
+      const message = {
+        type: 'help',
+        text: 'help',
+      };
+
+      this.$store.dispatch('postTextMessage', message);
+    },
     requestLogin() {
       this.$emit('requestLogin');
     },
@@ -126,3 +142,9 @@ export default {
   },
 };
 </script>
+<style>
+.toolbar-color {
+  background-color: blue !important;
+}
+</style>
+
