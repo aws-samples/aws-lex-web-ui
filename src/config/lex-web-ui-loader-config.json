@@ -23,7 +23,7 @@
     "pushInitialTextOnRestart": false,
     "directFocusToBotInput": false,
     "showDialogFeedback": true,
-    "showDialogStatIcon": false
+    "showDialogStateIcon": false
   },
   "polly": {
     "voiceId": "Salli"

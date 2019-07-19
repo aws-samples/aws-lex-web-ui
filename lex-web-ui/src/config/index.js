@@ -165,6 +165,7 @@ const configDefault = {
     showDialogStateIcon: true,
 
     // shows a thumbs up and thumbs down button which can be clicked
+    // TODO: create thumbs-up and thumbs-down with string utterances, to control what is uttered to the bot.
     showDialogFeedback: false,
 
     // for instances when you only want to show error icons and feedback
