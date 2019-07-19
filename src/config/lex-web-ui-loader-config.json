@@ -21,7 +21,9 @@
     "AllowSuperDangerousHTMLInMessage": false,
     "shouldDisplayResponseCardTitle": false,
     "pushInitialTextOnRestart": false,
-    "directFocusToBotInput": false
+    "directFocusToBotInput": false,
+    "showDialogFeedback": true,
+    "showDialogStatIcon": false
   },
   "polly": {
     "voiceId": "Salli"
