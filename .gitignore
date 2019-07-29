@@ -2,5 +2,4 @@ out/
 node_modules/
 .DS_Store
 .idea/
-./src/config/lex-web-ui-load-config.json
 
