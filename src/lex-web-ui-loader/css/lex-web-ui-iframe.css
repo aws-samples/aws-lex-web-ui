@@ -1,0 +1,68 @@
+.lex-web-ui-iframe {
+  bottom: 0;
+  box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.25);
+  display: none; /* hidden by default changed once iframe is loaded */
+  margin-bottom: 0px;
+  margin-left: 2px;
+  margin-right: 5vw;
+  margin-top: 2px;
+  max-width: 66vw;
+  height: 66vh; /* dynamically changed on iframe maximize/minimize */
+  min-width: 33vw;
+  position: fixed;
+  right: 0;
+  z-index: 2147483637; /* max z-index (2147483647) - 10 */
+}
+
+.lex-web-ui-iframe--show {
+  display: flex;
+}
+
+.lex-web-ui-iframe--minimize {
+  height: 48px;
+  min-height: 48px;
+  max-height: 48px;
+  max-width: 30vw;
+  min-width: 20vw;
+}
+
+/* hide on very small resolutions */
+@media only screen and (max-width: 240px),
+only screen and (max-height: 256px)
+{
+  .lex-web-ui-iframe {
+    display: none!important;
+  }
+}
+/* take most space on small resolutions (smart phones) */
+@media only screen
+and (min-width: 241px)
+and (max-width: 480px) {
+  .lex-web-ui-iframe {
+    min-width: 90vw;
+    height: 90vh;
+    margin-right: 2vw;
+    align-self: center;
+  }
+  .lex-web-ui-iframe--minimize {
+    min-width: 60vw;
+    height: 48px;
+  }
+}
+/* adjust down on medium resolutions */
+@media only screen
+and (min-width: 481px)
+and (max-width: 960px) {
+  .lex-web-ui-iframe {
+    min-width: 40vw;
+  }
+  .lex-web-ui-iframe--minimize {
+    min-width: 20vw;
+  }
+}
+
+.lex-web-ui-iframe iframe {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,461 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+    This template deploys a CI/CD pipeline used to build the Lex Web UI.
+    It deploys a CodePipeline pipeline, a CodeBuild project and and S3 buckets
+    to hold build artifacts and to host the application. It optionally deploys
+    a Lambda function to delete the S3 bucket. Additionally, it deploys the
+    related IAM roles needed for the stack.
+
+Parameters:
+    CodePipelineName:
+        Type: String
+        Description: Name of CodePipeline to be created.
+        Default: lex-web-ui
+        MinLength: 1
+        MaxLength: 100
+        AllowedPattern: '^[A-Za-z0-9.@\-_]+$'
+        ConstraintDescription: Alphanumeric, dot and dash.
+
+    CodeCommitRepoName:
+        Type: String
+        Description: >
+            CodeCommit repository name to be used as the source of the
+            pipeline.
+        Default: lex-web-ui
+        MinLength: 1
+        MaxLength: 100
+        AllowedPattern: '^[\w\.-]+$'
+        ConstraintDescription: Alphanumeric, dot and dash.
+
+    RepoBranchName:
+        Type: String
+        Description: >
+            CodeCommit repository branch name to be used as the source of the
+            pipeline.
+        Default: master
+        MinLength: 1
+        MaxLength: 100
+        AllowedPattern: '^[\w\.-]+$'
+        ConstraintDescription: Alphanumeric, dot and dash.
+
+    CodeBuildName:
+        Type: String
+        Description: >
+            CodeBuild project to be created. Used for building the web app with
+            the pipeline.
+        Default: lex-web-ui
+        MinLength: 2
+        MaxLength: 255
+        AllowedPattern: '^[A-Za-z0-9][A-Za-z0-9\-_]{1,254}$'
+        ConstraintDescription: >
+            Should start with Alphanumeric. May contain alphanumeric, underscore
+            and dash.
+
+    CognitoIdentityPoolId:
+        Type: String
+        Description: >
+            Cognito Identity Pool Id to used in the web app configuration.
+        MinLength: 1
+        MaxLength: 55
+        AllowedPattern: '^[\w-]+:[0-9a-f-]+$'
+        ConstraintDescription: >
+            Alphanumeric followed by a column and ending with a hex uuid type.
+
+    CognitoAppUserPoolClientId:
+        Type: String
+        Description: >
+            Cognito App User Pool Client Id to used in the web app configuration.
+
+    CognitoUserPoolId:
+        Type: String
+        Description: >
+            Cognito App User Pool Id
+
+    BotName:
+        Type: String
+        Description: >
+            Name of Lex bot to be used in the web app configuration.
+        MinLength: 2
+        MaxLength: 50
+        AllowedPattern: '^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)'
+        ConstraintDescription: >
+            Must conform with the permitted Lex Bot name pattern.
+
+    ParentOrigin:
+        Type: String
+        Description: >
+            Browser origin (e.g. http://mysite.example.com:8080) of an
+            existing site that is allowed to send/receive data and events
+            from the web ui in an iframe setup. This is an optional
+            parameter. If left empty, an S3 bucket will be created to
+            host a sample parent site embedding the webapp as an iframe.
+        AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
+        ConstraintDescription: Empty or valid browser origin
+
+    CleanupBuckets:
+        Type: String
+        Default: true
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, buckets and their associated data will be deleted on
+            CloudFormation stack delete. If set to False, S3 buckets will be retained.
+
+    CustomResourceCodeBucket:
+        Type: String
+        Description: S3 bucket name for custom resource Lambda bundle
+        Default: aws-bigdata-blog
+
+    CustomResourceCodeObject:
+        Type: String
+        Description: >
+            S3 object zip file containing Lambda custom resource functions
+        Default: artifacts/aws-lex-web-ui/artifacts/custom-resources.zip
+
+Conditions:
+    NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
+    ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
+
+Resources:
+    # Artifact Bucket used by CodePipeline and CodBuild
+    ArtifactStore:
+        Type: AWS::S3::Bucket
+        DeletionPolicy: Retain
+        Properties:
+            VersioningConfiguration:
+                Status: Enabled
+
+    # Bucket where the web app is deployed
+    WebAppBucket:
+        Type: AWS::S3::Bucket
+        DeletionPolicy: Retain
+        Properties:
+            WebsiteConfiguration:
+                IndexDocument: index.html
+            VersioningConfiguration:
+                Status: Enabled
+
+    # Bucket where the test parent page is hosted
+    ParentPageBucket:
+        Type: AWS::S3::Bucket
+        Condition: NeedsParentOrigin
+        DeletionPolicy: Retain
+        Properties:
+            WebsiteConfiguration:
+                IndexDocument: index.html
+            VersioningConfiguration:
+                Status: Enabled
+
+    CodeBuild:
+        Type: AWS::CodeBuild::Project
+        Properties:
+            Name: !Ref CodeBuildName
+            Description: Used to build the Lex Web UI
+            ServiceRole: !GetAtt CodeBuildRole.Arn
+            TimeoutInMinutes: 30
+            Artifacts:
+                Type: CODEPIPELINE
+            Environment:
+                Type: LINUX_CONTAINER
+                Image: aws/codebuild/nodejs:8.11.0
+                ComputeType: BUILD_GENERAL1_SMALL
+                EnvironmentVariables:
+                    - Name: BUILD_TYPE
+                      Value: full
+                    - Name: POOL_ID
+                      Value: !Ref CognitoIdentityPoolId
+                    - Name: APP_USER_POOL_CLIENT_ID
+                      Value: !Ref CognitoAppUserPoolClientId
+                    - Name: APP_USER_POOL_NAME
+                      Value: !Ref CognitoUserPoolId
+                    - Name: WEBAPP_BUCKET
+                      Value: !Ref WebAppBucket
+                    - Name: AWS_DEFAULT_REGION
+                      Value: !Sub "${AWS::Region}"
+                    - Name: BOT_NAME
+                      Value: !Ref BotName
+                    - Name: PARENT_ORIGIN
+                      Value: !If
+                        - NeedsParentOrigin
+                        - !Sub "https://${WebAppBucket.DomainName}"
+                        - !Ref ParentOrigin
+                    - Name: IFRAME_ORIGIN
+                      Value: !Sub "https://${WebAppBucket.DomainName}"
+            Source:
+                Type: CODEPIPELINE
+                BuildSpec: !Sub |
+                    version: 0.1
+                    phases:
+                        install:
+                            commands:
+                                - npm install -g n
+                                - n stable
+                                - npm update -g npm
+                                - make install-deps
+                        pre_build:
+                            commands:
+                                - aws configure set region "$AWS_DEFAULT_REGION"
+                                - make config
+                        build:
+                            commands:
+                                - make build
+                        post_build:
+                            commands:
+                                - make sync-website
+
+    CodeBuildRole:
+        Type: AWS::IAM::Role
+        Properties:
+            Path: /
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Principal:
+                          Service:
+                              - codebuild.amazonaws.com
+                      Effect: Allow
+                      Action:
+                          - sts:AssumeRole
+            Policies:
+                - PolicyName: CloudWatchLogsCodeBuild
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - logs:CreateLogGroup
+                                - logs:CreateLogStream
+                                - logs:PutLogEvents
+                            Resource:
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${CodeBuildName}"
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/${CodeBuildName}:*"
+                - PolicyName: S3ReadWrite
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - s3:Get*
+                                - s3:Head*
+                                - s3:List*
+                                - s3:CreateMultipartUpload
+                                - s3:CompleteMultipartUpload
+                                - s3:AbortMultipartUpload
+                                - s3:CopyObject
+                                - s3:PutObject*
+                                - s3:DeleteObject*
+                                - s3:Upload*
+                            Resource:
+                                - !Sub "arn:aws:s3:::${ArtifactStore}"
+                                - !Sub "arn:aws:s3:::${ArtifactStore}/*"
+                                - !Sub "arn:aws:s3:::${WebAppBucket}"
+                                - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+                                - !If
+                                    - NeedsParentOrigin
+                                    - !Sub "arn:aws:s3:::${ParentPageBucket}"
+                                    - !Ref AWS::NoValue
+                                - !If
+                                    - NeedsParentOrigin
+                                    - !Sub "arn:aws:s3:::${ParentPageBucket}/*"
+                                    - !Ref AWS::NoValue
+
+    CodePipeline:
+        Type: AWS::CodePipeline::Pipeline
+        Properties:
+            Name: !Ref CodePipelineName
+            ArtifactStore:
+                Type: S3
+                Location: !Ref ArtifactStore
+            RoleArn: !GetAtt CodePipelineRole.Arn
+            Stages:
+                - Name: Source
+                  Actions:
+                      - Name: CodeCommitRepo
+                        ActionTypeId:
+                            Category: Source
+                            Owner: AWS
+                            Version: 1
+                            Provider: CodeCommit
+                        OutputArtifacts:
+                            - Name: SourceOutput
+                        Configuration:
+                            RepositoryName: !Ref CodeCommitRepoName
+                            BranchName: !Ref RepoBranchName
+                        RunOrder: 1
+                - Name: BuildDeploy
+                  Actions:
+                      - Name: WebApp
+                        InputArtifacts:
+                            - Name: SourceOutput
+                        ActionTypeId:
+                            Category: Build
+                            Owner: AWS
+                            Version: 1
+                            Provider: CodeBuild
+                        Configuration:
+                            ProjectName: !Ref CodeBuild
+                        RunOrder: 1
+
+    CodePipelineRole:
+        Type: AWS::IAM::Role
+        Properties:
+            Path: /
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Principal:
+                          Service:
+                              - codepipeline.amazonaws.com
+                      Effect: Allow
+                      Action:
+                          - sts:AssumeRole
+            Policies:
+                - PolicyName: CodeCommit
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - codecommit:GetBranch
+                                - codecommit:GetCommit
+                                - codecommit:UploadArchive
+                                - codecommit:GetUploadArchiveStatus
+                                - codecommit:CancelUploadArchive
+                            Resource:
+                                - !Sub "arn:aws:codecommit:${AWS::Region}:${AWS::AccountId}:${CodeCommitRepoName}"
+                - PolicyName: S3ReadWrite
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - s3:Get*
+                                - s3:Head*
+                                - s3:List*
+                                - s3:CreateMultipartUpload
+                                - s3:CompleteMultipartUpload
+                                - s3:AbortMultipartUpload
+                                - s3:CopyObject
+                                - s3:PutObject*
+                                - s3:DeleteObject*
+                                - s3:Upload*
+                            Resource:
+                                - !Sub "arn:aws:s3:::${ArtifactStore}"
+                                - !Sub "arn:aws:s3:::${ArtifactStore}/*"
+                - PolicyName: CodeBuildStart
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - codebuild:BatchGetBuilds
+                                - codebuild:StartBuild
+                            Resource: !GetAtt CodeBuild.Arn
+
+    # custom resource to cleanup S3 buckets
+    S3Cleanup:
+        Type: Custom::S3Cleanup
+        Condition: ShouldCleanupBuckets
+        Properties:
+            ServiceToken: !GetAtt S3CleanupLambda.Arn
+            Buckets:
+                - !Ref ArtifactStore
+                - !Ref WebAppBucket
+                - !If
+                    - NeedsParentOrigin
+                    - !Ref ParentPageBucket
+                    - !Ref AWS::NoValue
+
+    # Lambda function for custom resource
+    S3CleanupLambda:
+        Type: AWS::Lambda::Function
+        Condition: ShouldCleanupBuckets
+        Properties:
+            Code:
+                S3Bucket: !Ref CustomResourceCodeBucket
+                S3Key: !Ref CustomResourceCodeObject
+            Handler: s3-cleanup.handler
+            Role: !GetAtt S3CleanupLambdaRole.Arn
+            Runtime: python2.7
+            Timeout: 120
+
+    S3CleanupLambdaRole:
+        Type: AWS::IAM::Role
+        Condition: ShouldCleanupBuckets
+        Properties:
+            Path: /
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Principal:
+                          Service:
+                              - lambda.amazonaws.com
+                      Effect: Allow
+                      Action:
+                          - sts:AssumeRole
+            Policies:
+                - PolicyName: LogsForLambda
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - logs:CreateLogGroup
+                                - logs:CreateLogStream
+                                - logs:PutLogEvents
+                            Resource:
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*:*"
+                - PolicyName: S3All
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - s3:*
+                            Resource:
+                                - !Sub "arn:aws:s3:::${ArtifactStore}"
+                                - !Sub "arn:aws:s3:::${ArtifactStore}/*"
+                                - !Sub "arn:aws:s3:::${WebAppBucket}"
+                                - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+                                - !If
+                                    - NeedsParentOrigin
+                                    - !Sub "arn:aws:s3:::${ParentPageBucket}"
+                                    - !Ref AWS::NoValue
+                                - !If
+                                    - NeedsParentOrigin
+                                    - !Sub "arn:aws:s3:::${ParentPageBucket}/*"
+                                    - !Ref AWS::NoValue
+
+Outputs:
+    PipelineName:
+        Value: !Ref CodePipeline
+        Description: Name of CodePipeline pipeline
+
+    WebAppUrl:
+        Value: !Sub "https://${WebAppBucket.DomainName}/index.html"
+        Description: URL of the web application
+
+    WebAppBase:
+        Value: !Sub "https://${WebAppBucket.DomainName}"
+        Description: Base url portion of the web application
+
+    WebAppDomainName:
+        Value: !Sub "${WebAppBucket.DomainName}"
+        Description: DomainName of the web application
+
+    ParentPageUrl:
+        Value: !Sub "https://${WebAppBucket.DomainName}/parent.html"
+        Description: URL of the sample parent page
+        Condition: NeedsParentOrigin
+
+    LoaderScriptUrl:
+        Value: !Sub "https://${WebAppBucket.DomainName}/lex-web-ui-loader.min.js"
+        Description: URL of the loader script
+        Condition: NeedsParentOrigin
+
+    SnippetUrl:
+        Value: !Sub "https://${WebAppBucket.DomainName}/iframe-snippet.html"
+        Description: URL of a page showing the snippet to load the chatbot UI as an iframe
+        Condition: NeedsParentOrigin

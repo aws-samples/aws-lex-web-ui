@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <title>LexWebUi Demo</title>
+
+    <!-- empty favicon to avoid 404 -->
+    <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=" rel="icon" type="image/x-icon" />
+    <!-- <link href="./test.css" rel="stylesheet" type="text/css"/> -->
+  </head>
+  <body>
+    <!-- babel-polyfill needed for IE11 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js" integrity="sha256-WRc/eG3R84AverJv0zmqxAmdwQxstUpqkiE+avJ3WSo=" crossorigin="anonymous"></script>
+
+    <!--
+      Loader script.
+      Creates a global variable named ChatbotUiLoader.
+    -->
+    <script src="./lex-web-ui-loader.js"></script>
+    <!--
+      The following script instantiate the full page loader and
+      calls its load function.
+    -->
+    <script>
+      // In the most simple form, you can load the component in a single statement:
+      //   new ChatBotUiLoader.FullPageLoader().load();
+
+      // The script below break the process into parts to further illustrate
+      // the load process.
+
+      // The ChatBotUiLoader variable contains the FullPageLoader field which is a
+      // constructor for the loader.
+      var Loader = ChatBotUiLoader.FullPageLoader;
+
+      // The loader constructor supports various configurable options used to
+      // control how the component configuration and dependencies are retrieved.
+      // In this case, we are just passing one option (which doesn't changethe
+      // default) for illustration purposes.
+      var loaderOpts = {
+        // The following option controls if the local config should be ignored
+        // when running this page embedded in an iframe.
+        // If set to true, only passes the parentOrigin field when run as an
+        // iframe and delegates the config to the parent
+        shouldIgnoreConfigWhenEmbedded: true
+      };
+
+      // Instantiate the loader by optionally passing the loader options to
+      // control its behavior. You may leave the options empty if you wish
+      // to take the defaults which works in most cases.
+      var loader = new Loader(loaderOpts);
+
+      // When loading the chatbot UI component, you can optionally pass it a
+      // configuration object
+      var chatbotUiConfig = {
+        lex: {
+          sessionAttributes: {
+            userAgent: navigator.userAgent
+          }
+        }
+      };
+
+      // Calling the load function of the loader does a few things:
+      //   1. Loads JavaScript and CSS dependencies to the DOM
+      //   2. Loads the chatbot UI configuration from various sources
+      //       (e.g. JSON file, mobile hub event)
+      //   3. Instantiates the chatbot UI component in the DOM
+      loader.load(chatbotUiConfig);
+    </script>
+  </body>
+</html>

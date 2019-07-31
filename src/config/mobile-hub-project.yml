@@ -1,0 +1,41 @@
+--- !com.amazonaws.mobilehub.v0.Project
+features:
+  bots: !com.amazonaws.mobilehub.v0.Bots
+    components:
+      OrderFlowers: !com.amazonaws.mobilehub.v0.Bot
+        attributes:
+          childDirected: false
+          description: Bot to order flowers.
+          existing: false
+          template: bot-flowers
+  content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery
+    attributes:
+      enabled: true
+      visibility: public-global
+    components:
+      release: !com.amazonaws.mobilehub.v0.Bucket {}
+  sign-in: !com.amazonaws.mobilehub.v0.SignIn {}
+name: lex-web-ui
+region: us-east-1
+uploads:
+  - !com.amazonaws.mobilehub.v0.Upload
+    fileName: index.html
+    targetS3Bucket: hosting
+  - !com.amazonaws.mobilehub.v0.Upload
+    fileName: parent.html
+    targetS3Bucket: hosting
+  - !com.amazonaws.mobilehub.v0.Upload
+    fileName: lex-web-ui.js
+    targetS3Bucket: hosting
+  - !com.amazonaws.mobilehub.v0.Upload
+    fileName: lex-web-ui-loader.js
+    targetS3Bucket: hosting
+  - !com.amazonaws.mobilehub.v0.Upload
+    fileName: lex-web-ui-loader.css
+    targetS3Bucket: hosting
+  - !com.amazonaws.mobilehub.v0.Upload
+    fileName: lex-web-ui.css
+    targetS3Bucket: hosting
+  - !com.amazonaws.mobilehub.v0.Upload
+    fileName: lex-web-ui-loader-config.json
+    targetS3Bucket: hosting

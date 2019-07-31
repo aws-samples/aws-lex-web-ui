@@ -1,0 +1,30 @@
+{
+  "cognito": {
+    "poolId": "us-east-1:6768184b-c61a-4680-91e1-302ec0f389bd"
+  },
+  "lex": {
+    "botName": "QnABotTest_BotzZ",
+    "initialText": "Hi Tom, how can I help you today?",
+    "initialSpeechInstruction": "Say 'Order Flowers' to get started."
+  },
+  "polly": {
+    "voiceId": "Salli"
+  },
+  "ui": {
+    "parentOrigin": "http://localhost:8080",
+    "pageTitle": "Order Flowers Bot",
+    "toolbarTitle": "AskSLU",
+    "enableLogin": true,
+    "pushInitialTextOnRestart": false,
+    "shouldDisplayResponseCardTitle": false,
+    "showErrorIcon": true,
+    "showDialogStateIcon": false,
+    "showDialogFeedback": true
+  },
+  "recorder": {
+    "preset": "speech_recognition"
+  },
+  "iframe": {
+    "shouldLoadIframeMinimized": false
+  }
+}
