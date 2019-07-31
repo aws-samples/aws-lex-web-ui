@@ -1,16 +1,16 @@
 {
   "cognito": {
-    "poolId": "us-east-1:6768184b-c61a-4680-91e1-302ec0f389bd",
-    "appUserPoolClientId": "",
-    "appUserPoolName": "",
-    "appDomainName": "",
+    "poolId": "us-east-1:aa8c83df-49e8-4a53-adea-c0a90d762a83",
+    "appUserPoolClientId": "727umf381vhdhorp3qh0dvi72f",
+    "appUserPoolName": "us-east-1_tz8P8iZcb",
+    "appDomainName": "lexkwebkuikidentitypoolconfigkjazfpzssdfhe238359442180.auth.us-east-1.amazoncognito.com",
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
-    "botName": "OrderFlowers",
+    "botName": "QnABot_BotuU",
     "botAlias": "$LATEST",
-    "initialText": "Hello, I'm your friendly neighborhood chatbot",
-    "initialSpeechInstruction": "Try saying execute order 66",
+    "initialText": "Hi I am the SLU chatbot.",
+    "initialSpeechInstruction": "Hi I am the SLU chatbot.",
     "reInitSessionAttributesOnRestart": false
   },
   "ui": {
