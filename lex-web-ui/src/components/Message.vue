@@ -44,18 +44,18 @@
                   </v-btn>
                 </div>
                 <div
-                  v-if="message.type === 'bot' && botDialogState && showDialogFeedback"
+                  v-if="message.type === 'bot' && botDialogState && showDialogFeedback && feedbackState"
                   class="feedback-state"
                 >
                   <v-icon 
                     v-on:click="onButtonClick('Thumbs up')"
-                    class="feedback-icons-positive"
+                    v-bind:class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
                   >
                     thumb_up
                   </v-icon>
                   <v-icon 
                     v-on:click="onButtonClick('Thumbs down')"
-                    class="feedback-icons-negative"
+                    v-bind:class="{'feedback-icons-negative': !negativeClick, 'negativeClick': negativeClick}"
                   >
                     thumb_down
                   </v-icon>
@@ -123,6 +123,8 @@ export default {
     return {
       isMessageFocused: false,
       messageHumanDate: 'Now',
+      positiveClick: false,
+      negativeClick: false,
       hasButtonBeenClicked: false,
     };
   },
@@ -140,6 +142,12 @@ export default {
         default:
           return null;
       }
+    },
+    feedbackState() {
+      if ('feedback' in this.$store.state.lex.sessionAttributes) {
+        return false;
+      }
+      return true;
     },
     botAvatarUrl() {
       return this.$store.state.config.ui.avatarImageUrl;
@@ -180,13 +188,19 @@ export default {
   },
   methods: {
     onButtonClick(feedback) {
-      this.hasButtonBeenClicked = true;
-      const message = {
-        type: 'feedback',
-        text: feedback,
-      };
-
-      this.$store.dispatch('postTextMessage', message);
+      if (!this.hasButtonBeenClicked) {
+        this.hasButtonBeenClicked = true;
+        if (feedback === 'Thumbs up') {
+          this.positiveClick = true;
+        } else {
+          this.negativeClick = true;
+        }
+        const message = {
+          type: 'feedback',
+          text: feedback,
+        };
+        this.$store.dispatch('postTextMessage', message);
+      }
     },
     playAudio() {
       // XXX doesn't play in Firefox or Edge
@@ -301,6 +315,17 @@ export default {
 
 .feedback-icons-positive{
   color: #E8EAF6;
+  /* color: green; */
+  padding: .125em;
+}
+
+.positiveClick{
+  color: green;
+  padding: .125em;
+}
+
+.negativeClick{
+  color: red;
   padding: .125em;
 }
 
@@ -320,5 +345,9 @@ export default {
 .response-card {
   justify-content: center;
   width: 85vw;
+}
+
+.no-point {
+  pointer-events: none;
 }
 </style>
