@@ -44,7 +44,7 @@
                   </v-btn>
                 </div>
                 <div
-                  v-if="message.type === 'bot' && botDialogState && showDialogFeedback && feedbackState"
+                  v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback"
                   class="feedback-state"
                 >
                   <v-icon 
@@ -114,7 +114,7 @@ import ResponseCard from './ResponseCard';
 
 export default {
   name: 'message',
-  props: ['message'],
+  props: ['message', 'feedback'],
   components: {
     MessageText,
     ResponseCard,
@@ -143,11 +143,11 @@ export default {
           return null;
       }
     },
-    feedbackState() {
-      if ('feedback' in this.$store.state.lex.sessionAttributes) {
-        return false;
+    isLastMessageFeedback() {
+      if (this.$store.state.messages.length > 2 && this.$store.state.messages[this.$store.state.messages.length - 2].type !== 'feedback') {
+        return true;
       }
-      return true;
+      return false;
     },
     botAvatarUrl() {
       return this.$store.state.config.ui.avatarImageUrl;
@@ -199,8 +199,14 @@ export default {
           type: 'feedback',
           text: feedback,
         };
+        this.$emit('feedbackButton');
         this.$store.dispatch('postTextMessage', message);
       }
+    },
+    feedbackState() {
+      // eslint-disable-next-line
+        console.log('im here');
+      this.feedbackButtons = false;
     },
     playAudio() {
       // XXX doesn't play in Firefox or Edge
