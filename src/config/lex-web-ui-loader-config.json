@@ -14,11 +14,11 @@
     "reInitSessionAttributesOnRestart": false
   },
   "ui": {
-    "parentOrigin": "",
+    "parentOrigin": "https://www.slu.edu",
     "toolbarTitle": "AskSLU",
     "toolbarLogo": "",
     "enableLogin": false,
-    "AllowSuperDangerousHTMLInMessage": false,
+    "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,
     "pushInitialTextOnRestart": false,
     "directFocusToBotInput": false,
