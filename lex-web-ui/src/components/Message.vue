@@ -203,11 +203,6 @@ export default {
         this.$store.dispatch('postTextMessage', message);
       }
     },
-    feedbackState() {
-      // eslint-disable-next-line
-        console.log('im here');
-      this.feedbackButtons = false;
-    },
     playAudio() {
       // XXX doesn't play in Firefox or Edge
       /* XXX also tried:
@@ -291,7 +286,7 @@ export default {
 }
 
 .message-bot .message-bubble {
-  background-color: red; /* red-50 from material palette */
+  background-color: blue; /* red-50 from material palette */
   color: white;
 }
 
