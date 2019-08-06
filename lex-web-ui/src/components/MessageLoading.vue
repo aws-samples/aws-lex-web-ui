@@ -84,6 +84,7 @@ export default {
 
 .message-bot .message-bubble {
   background-color: blue; /* red-50 from material palette */
+  color: white;
 }
 
 
