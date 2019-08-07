@@ -331,7 +331,7 @@ export default {
 }
 
 .feedback-icons-positive:hover{
-  color:green !important;
+  color:purple !important;
 }
 
 .feedback-icons-negative{

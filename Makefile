@@ -50,7 +50,7 @@ build: config
 	@echo "[INFO] Building loader"
 	npm run build
 	@echo "[INFO] Building component in dir [$(WEBAPP_DIR)]"
-	cd $(WEBAPP_DIR) && npm run build
+	cd $(WEBAPP_DIR) && npm run build && npm run build-dist
 .PHONY: build
 
 # creates an HTML file with a JavaScript snippet showing how to load the iframe
