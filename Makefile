@@ -51,11 +51,9 @@ build: config
 	npm run build
 	@echo "[INFO] Building component in dir [$(WEBAPP_DIR)]"
 	cd $(WEBAPP_DIR) && npm run build
-	npm run build-dist
-	cd ..
+	cd $(WEBAPP_DIR) && npm run build-dist
 	@echo "[INFO Building Dist"
 	cd $(DIST_DIR) && make
-	cd ..
 .PHONY: build
 
 # creates an HTML file with a JavaScript snippet showing how to load the iframe

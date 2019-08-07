@@ -286,7 +286,7 @@ export default {
 }
 
 .message-bot .message-bubble {
-  background-color: purple; /* red-50 from material palette */
+  background-color: purple !important; /* red-50 from material palette */
   color: white;
 }
 
