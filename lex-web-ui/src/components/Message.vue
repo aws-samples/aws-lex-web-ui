@@ -321,17 +321,17 @@ export default {
 }
 
 .positiveClick{
-  color: green;
+  color: green !important;
   padding: .125em;
 }
 
 .negativeClick{
-  color: red;
+  color: red !important;
   padding: .125em;
 }
 
 .feedback-icons-positive:hover{
-  color:green;
+  color:green !important;
 }
 
 .feedback-icons-negative{
@@ -340,7 +340,7 @@ export default {
 }
 
 .feedback-icons-negative:hover{
-  color: red;
+  color: red !important;
 }
 
 .response-card {
