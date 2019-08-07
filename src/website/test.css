@@ -12,6 +12,8 @@ font-size: 14px !important;
   font-size: 16px !important;
 }
 
+p {font-size: 16px !important;}
+
 .chip {
   border-radius: 5px;
   font-size: calc(.8em + .25vmin) !important;
