@@ -51,7 +51,6 @@ build: config
 	npm run build
 	@echo "[INFO] Building component in dir [$(WEBAPP_DIR)]"
 	cd $(WEBAPP_DIR) && npm run build
-	npm run build-dist
 	cd ..
 	cd $(DIST_DIR)
 	make
