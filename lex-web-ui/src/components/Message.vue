@@ -286,7 +286,7 @@ export default {
 }
 
 .message-bot .message-bubble {
-  background-color: blue; /* red-50 from material palette */
+  background-color: purple; /* red-50 from material palette */
   color: white;
 }
 
@@ -331,7 +331,7 @@ export default {
 }
 
 .feedback-icons-positive:hover{
-  color:purple !important;
+  color:green !important;
 }
 
 .feedback-icons-negative{
