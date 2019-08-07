@@ -315,7 +315,7 @@ export default {
 }
 
 .feedback-icons-positive{
-  color: #E8EAF6;
+  color: #E8EAF6 !important;
   /* color: green; */
   padding: .125em;
 }
@@ -335,7 +335,7 @@ export default {
 }
 
 .feedback-icons-negative{
-  color: #E8EAF6;
+  color: #E8EAF6 !important;
   padding: .125em;
 }
 
