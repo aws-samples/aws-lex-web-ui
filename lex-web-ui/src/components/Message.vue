@@ -286,7 +286,7 @@ export default {
 }
 
 .message-bot .message-bubble {
-  background-color: purple !important; /* red-50 from material palette */
+  background-color: blue; /* red-50 from material palette */
   color: white;
 }
 
@@ -315,32 +315,32 @@ export default {
 }
 
 .feedback-icons-positive{
-  color: #E8EAF6 !important;
+  color: #E8EAF6;
   /* color: green; */
   padding: .125em;
 }
 
 .positiveClick{
-  color: green !important;
+  color: green;
   padding: .125em;
 }
 
 .negativeClick{
-  color: red !important;
+  color: red;
   padding: .125em;
 }
 
 .feedback-icons-positive:hover{
-  color:green !important;
+  color:green;
 }
 
 .feedback-icons-negative{
-  color: #E8EAF6 !important;
+  color: #E8EAF6;
   padding: .125em;
 }
 
 .feedback-icons-negative:hover{
-  color: red !important;
+  color: red;
 }
 
 .response-card {
