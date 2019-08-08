@@ -314,7 +314,7 @@ export default {
   align-self: center;
 }
 
-.feedback-icons-positive{
+.icon.feedback-icons-positive{
   color: #E8EAF6;
   /* color: green; */
   padding: .125em;
@@ -330,16 +330,16 @@ export default {
   padding: .125em;
 }
 
-.feedback-icons-positive:hover{
+.icon.feedback-icons-positive:hover{
   color:green;
 }
 
-.feedback-icons-negative{
+.icon.feedback-icons-negative{
   color: #E8EAF6;
   padding: .125em;
 }
 
-.feedback-icons-negative:hover{
+.icon.feedback-icons-negative:hover{
   color: red;
 }
 
