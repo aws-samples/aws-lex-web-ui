@@ -155,12 +155,12 @@ Parameters:
     # See the README.md file for instructions on how to use your own bucket.
     BootstrapBucket:
         Type: String
-        Default: aws-bigdata-blog
+        Default: asksluhosting-test
         Description: >
             S3 bucket containing pre-staged nested templates and source artifacts
     BootstrapPrefix:
         Type: String
-        Default: artifacts/aws-lex-web-ui/artifacts
+        Default: /
         Description: >
             S3 prefix where the templates and source are stored under
 

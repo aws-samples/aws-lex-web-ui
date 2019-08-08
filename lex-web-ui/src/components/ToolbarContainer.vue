@@ -45,9 +45,19 @@
     >
       <span id="min-max-tooltip">{{toolTipMinimize}}</span>
     </v-tooltip>
+    <v-tooltip
+      v-model="shouldShowHelpTooltip"
+      activator=".help-toggle"
+      left
+    >
+      <span id="help-tooltip">help</span>
+    </v-tooltip>
     <v-btn
+      v-if="$store.state.isRunningEmbedded"
       v-on:click="sendHelp"
+      v-on="tooltipHelpEventHandlers"
       icon
+      class="help-toggle"
     >
       <v-icon>
         help_outline
@@ -89,6 +99,14 @@ export default {
         { title: 'Logout' },
       ],
       shouldShowTooltip: false,
+      shouldShowHelpTooltip: false,
+      tooltipHelpEventHandlers: {
+        mouseenter: this.onHelpButtonHoverEnter,
+        mouseleave: this.onHelpButtonHoverLeave,
+        touchstart: this.onHelpButtonHoverEnter,
+        touchend: this.onHelpButtonHoverLeave,
+        touchcancel: this.onHelpButtonHoverLeave,
+      },
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
         mouseleave: this.onInputButtonHoverLeave,
@@ -116,6 +134,12 @@ export default {
     },
     onInputButtonHoverLeave() {
       this.shouldShowTooltip = false;
+    },
+    onHelpButtonHoverEnter() {
+      this.shouldShowHelpTooltip = true;
+    },
+    onHelpButtonHoverLeave() {
+      this.shouldShowHelpTooltip = false;
     },
     toggleMinimize() {
       this.onInputButtonHoverLeave();
