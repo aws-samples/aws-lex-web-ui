@@ -21,4 +21,4 @@ neccessary to include !important */
   color: red !important;
 } */
 
-.message-bot .message-bubble[data-v-46cd8705] {-webkit-font-smoothing: antialiased;font-size:14px;}
+.message-bot .message-bubble[data-v-46cd8705], div.message-text {-webkit-font-smoothing: antialiased;font-size:14px;}
