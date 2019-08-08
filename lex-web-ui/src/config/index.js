@@ -179,7 +179,7 @@ const configDefault = {
     // Make sure that the HTML message has been properly
     // escaped/encoded/filtered in the Lambda function
     // https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
-    AllowSuperDangerousHTMLInMessage: false,
+    AllowSuperDangerousHTMLInMessage: true,
 
     // Lex webui should display response card titles. The response card
     // title can be optionally disabled by setting this value to false
