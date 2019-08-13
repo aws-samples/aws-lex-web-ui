@@ -18,12 +18,12 @@ Parameters:
     SourceBucket:
         Description: S3 bucket where the source is located
         Type: String
-        Default: aws-bigdata-blog
+        Default: asksluhosting-test
 
     SourceObject:
         Description: S3 object zip file containing the project source
         Type: String
-        Default: artifacts/aws-lex-web-ui/artifacts/src.zip
+        Default: askslu/src.zip
 
     CustomResourceCodeObject:
         Type: String

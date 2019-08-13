@@ -10683,7 +10683,7 @@ var configDefault = {
     // Make sure that the HTML message has been properly
     // escaped/encoded/filtered in the Lambda function
     // https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
-    AllowSuperDangerousHTMLInMessage: false,
+    AllowSuperDangerousHTMLInMessage: true,
 
     // Lex webui should display response card titles. The response card
     // title can be optionally disabled by setting this value to false
@@ -11655,6 +11655,16 @@ module.exports = { "default": __webpack_require__(188), __esModule: true };
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*
 Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -11674,6 +11684,14 @@ License for the specific language governing permissions and limitations under th
     return {
       items: [{ title: 'Login' }, { title: 'Logout' }],
       shouldShowTooltip: false,
+      shouldShowHelpTooltip: false,
+      tooltipHelpEventHandlers: {
+        mouseenter: this.onHelpButtonHoverEnter,
+        mouseleave: this.onHelpButtonHoverLeave,
+        touchstart: this.onHelpButtonHoverEnter,
+        touchend: this.onHelpButtonHoverLeave,
+        touchcancel: this.onHelpButtonHoverLeave
+      },
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
         mouseleave: this.onInputButtonHoverLeave,
@@ -11702,6 +11720,12 @@ License for the specific language governing permissions and limitations under th
     },
     onInputButtonHoverLeave: function onInputButtonHoverLeave() {
       this.shouldShowTooltip = false;
+    },
+    onHelpButtonHoverEnter: function onHelpButtonHoverEnter() {
+      this.shouldShowHelpTooltip = true;
+    },
+    onHelpButtonHoverLeave: function onHelpButtonHoverLeave() {
+      this.shouldShowHelpTooltip = false;
     },
     toggleMinimize: function toggleMinimize() {
       this.onInputButtonHoverLeave();
@@ -11925,7 +11949,7 @@ License for the specific language governing permissions and limitations under th
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   name: 'message',
-  props: ['message'],
+  props: ['message', 'feedback'],
   components: {
     MessageText: __WEBPACK_IMPORTED_MODULE_0__MessageText__["a" /* default */],
     ResponseCard: __WEBPACK_IMPORTED_MODULE_1__ResponseCard__["a" /* default */]
@@ -11934,6 +11958,8 @@ License for the specific language governing permissions and limitations under th
     return {
       isMessageFocused: false,
       messageHumanDate: 'Now',
+      positiveClick: false,
+      negativeClick: false,
       hasButtonBeenClicked: false
     };
   },
@@ -11952,6 +11978,12 @@ License for the specific language governing permissions and limitations under th
         default:
           return null;
       }
+    },
+    isLastMessageFeedback: function isLastMessageFeedback() {
+      if (this.$store.state.messages.length > 2 && this.$store.state.messages[this.$store.state.messages.length - 2].type !== 'feedback') {
+        return true;
+      }
+      return false;
     },
     botAvatarUrl: function botAvatarUrl() {
       return this.$store.state.config.ui.avatarImageUrl;
@@ -11982,13 +12014,20 @@ License for the specific language governing permissions and limitations under th
   },
   methods: {
     onButtonClick: function onButtonClick(feedback) {
-      this.hasButtonBeenClicked = true;
-      var message = {
-        type: 'feedback',
-        text: feedback
-      };
-
-      this.$store.dispatch('postTextMessage', message);
+      if (!this.hasButtonBeenClicked) {
+        this.hasButtonBeenClicked = true;
+        if (feedback === 'Thumbs up') {
+          this.positiveClick = true;
+        } else {
+          this.negativeClick = true;
+        }
+        var message = {
+          type: 'feedback',
+          text: feedback
+        };
+        this.$emit('feedbackButton');
+        this.$store.dispatch('postTextMessage', message);
+      }
     },
     playAudio: function playAudio() {
       // XXX doesn't play in Firefox or Edge
@@ -18184,7 +18223,7 @@ module.exports = function (KEY, exec) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ToolbarContainer_vue__ = __webpack_require__(104);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4210ca80_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_35b2d39d_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__ = __webpack_require__(193);
 function injectStyle (ssrContext) {
   __webpack_require__(192)
 }
@@ -18204,7 +18243,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ToolbarContainer_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4210ca80_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_35b2d39d_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -18225,7 +18264,7 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-toolbar',{staticClass:"toolbar-color",attrs:{"app":"","dark":"","dense":"","fixed":""}},[(_vm.toolbarLogo)?_c('img',{attrs:{"src":_vm.toolbarLogo}}):_vm._e(),_vm._v(" "),(_vm.isEnableLogin)?_c('v-menu',{attrs:{"offset-y":""}},[_c('v-btn',{attrs:{"slot":"activator","dark":"","icon":""},slot:"activator"},[_c('v-icon',[_vm._v("\n        "+_vm._s('menu')+"\n      ")])],1),_vm._v(" "),_c('v-list',[_c('v-list-tile',[(_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogout}},[_vm._v(_vm._s(_vm.items[1].title))]):_vm._e(),_vm._v(" "),(!_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogin}},[_vm._v(_vm._s(_vm.items[0].title))]):_vm._e()],1)],1)],1):_vm._e(),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_vm._v("\n    "+_vm._s(_vm.toolbarTitle)+"\n  ")]),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_vm._v("\n    "+_vm._s(_vm.userName)+"\n  ")]),_vm._v(" "),_c('v-spacer'),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".min-max-toggle","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"min-max-tooltip"}},[_vm._v(_vm._s(_vm.toolTipMinimize))])]),_vm._v(" "),_c('v-btn',{attrs:{"icon":""},on:{"click":_vm.sendHelp}},[_c('v-icon',[_vm._v("\n      help_outline\n    ")])],1),_vm._v(" "),(_vm.$store.state.isRunningEmbedded)?_c('v-btn',_vm._g({staticClass:"min-max-toggle",attrs:{"icon":""},on:{"click":_vm.toggleMinimize}},_vm.tooltipEventHandlers),[_c('v-icon',[_vm._v("\n      "+_vm._s(_vm.isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down')+"\n    ")])],1):_vm._e()],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-toolbar',{staticClass:"toolbar-color",attrs:{"app":"","dark":"","dense":"","fixed":""}},[(_vm.toolbarLogo)?_c('img',{attrs:{"src":_vm.toolbarLogo}}):_vm._e(),_vm._v(" "),(_vm.isEnableLogin)?_c('v-menu',{attrs:{"offset-y":""}},[_c('v-btn',{attrs:{"slot":"activator","dark":"","icon":""},slot:"activator"},[_c('v-icon',[_vm._v("\n        "+_vm._s('menu')+"\n      ")])],1),_vm._v(" "),_c('v-list',[_c('v-list-tile',[(_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogout}},[_vm._v(_vm._s(_vm.items[1].title))]):_vm._e(),_vm._v(" "),(!_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogin}},[_vm._v(_vm._s(_vm.items[0].title))]):_vm._e()],1)],1)],1):_vm._e(),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_vm._v("\n    "+_vm._s(_vm.toolbarTitle)+"\n  ")]),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_vm._v("\n    "+_vm._s(_vm.userName)+"\n  ")]),_vm._v(" "),_c('v-spacer'),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".min-max-toggle","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"min-max-tooltip"}},[_vm._v(_vm._s(_vm.toolTipMinimize))])]),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".help-toggle","left":""},model:{value:(_vm.shouldShowHelpTooltip),callback:function ($$v) {_vm.shouldShowHelpTooltip=$$v},expression:"shouldShowHelpTooltip"}},[_c('span',{attrs:{"id":"help-tooltip"}},[_vm._v("help")])]),_vm._v(" "),(_vm.$store.state.isRunningEmbedded)?_c('v-btn',_vm._g({staticClass:"help-toggle",attrs:{"icon":""},on:{"click":_vm.sendHelp}},_vm.tooltipHelpEventHandlers),[_c('v-icon',[_vm._v("\n      help_outline\n    ")])],1):_vm._e(),_vm._v(" "),(_vm.$store.state.isRunningEmbedded)?_c('v-btn',_vm._g({staticClass:"min-max-toggle",attrs:{"icon":""},on:{"click":_vm.toggleMinimize}},_vm.tooltipEventHandlers),[_c('v-icon',[_vm._v("\n      "+_vm._s(_vm.isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down')+"\n    ")])],1):_vm._e()],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -18280,7 +18319,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Message_vue__ = __webpack_require__(106);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_8be83fe6_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Message_vue__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_9c781c58_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Message_vue__ = __webpack_require__(205);
 function injectStyle (ssrContext) {
   __webpack_require__(197)
 }
@@ -18295,12 +18334,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-8be83fe6"
+var __vue_scopeId__ = "data-v-9c781c58"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Message_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_8be83fe6_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Message_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_9c781c58_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Message_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19822,7 +19861,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-flex',{staticClass:"message",attrs:{"d-flex":""}},[_c('v-layout',{staticClass:"message-layout",attrs:{"column":"","ma-2":""}},[_c('v-flex',{staticClass:"message-bubble-date-container",attrs:{"d-flex":""}},[_c('v-layout',{staticClass:"message-bubble-column",attrs:{"column":""}},[_c('v-flex',{staticClass:"message-bubble-avatar-container",attrs:{"d-flex":""}},[_c('v-layout',{staticClass:"message-bubble-row",attrs:{"row":""}},[(_vm.shouldShowAvatarImage)?_c('div',{staticClass:"bot-avatar focusable",style:(_vm.botAvatarBackground),attrs:{"tabindex":_vm.message.id + 1}}):_vm._e(),_vm._v(" "),_c('div',{staticClass:"message-bubble focusable",attrs:{"tabindex":_vm.message.id + 1},on:{"focus":_vm.onMessageFocus,"blur":_vm.onMessageBlur}},[('text' in _vm.message && _vm.message.text !== null && _vm.message.text.length)?_c('message-text',{attrs:{"message":_vm.message}}):_vm._e(),_vm._v(" "),(_vm.message.type === 'human' && _vm.message.audio)?_c('div',{staticClass:"message-audio"},[_c('audio',[_c('source',{attrs:{"src":_vm.message.audio,"type":"audio/wav"}})]),_vm._v(" "),_c('v-btn',{staticClass:"black--text ml-0 mr-0",attrs:{"tabindex":_vm.message.id + 1,"icon":""},on:{"click":_vm.playAudio}},[_c('v-icon',{staticClass:"play-icon"},[_vm._v("play_circle_outline")])],1)],1):_vm._e(),_vm._v(" "),(_vm.message.type === 'bot' && _vm.botDialogState && _vm.showDialogFeedback)?_c('div',{staticClass:"feedback-state"},[_c('v-icon',{staticClass:"feedback-icons-positive",on:{"click":function($event){_vm.onButtonClick('Thumbs up')}}},[_vm._v("\n                  thumb_up\n                ")]),_vm._v(" "),_c('v-icon',{staticClass:"feedback-icons-negative",on:{"click":function($event){_vm.onButtonClick('Thumbs down')}}},[_vm._v("\n                  thumb_down\n                ")])],1):_vm._e(),_vm._v(" "),(_vm.message.type === 'bot' && _vm.botDialogState && _vm.showDialogStateIcon)?_c('v-icon',{staticClass:"dialog-state",class:("dialog-state-" + (_vm.botDialogState.state)),attrs:{"medium":""}},[_vm._v("\n                "+_vm._s(_vm.botDialogState.icon)+"\n              ")]):_vm._e()],1)])],1),_vm._v(" "),(_vm.shouldShowMessageDate && _vm.isMessageFocused)?_c('v-flex',{staticClass:"text-xs-center message-date"},[_vm._v("\n         "+_vm._s(_vm.messageHumanDate)+"\n        ")]):_vm._e()],1)],1),_vm._v(" "),(_vm.shouldDisplayResponseCard)?_c('v-flex',{staticClass:"response-card",attrs:{"d-flex":"","mt-2":"","mr-2":"","ml-3":""}},_vm._l((_vm.message.responseCard.genericAttachments),function(card,index){return _c('response-card',{key:index,attrs:{"response-card":card}})})):_vm._e()],1)],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-flex',{staticClass:"message",attrs:{"d-flex":""}},[_c('v-layout',{staticClass:"message-layout",attrs:{"column":"","ma-2":""}},[_c('v-flex',{staticClass:"message-bubble-date-container",attrs:{"d-flex":""}},[_c('v-layout',{staticClass:"message-bubble-column",attrs:{"column":""}},[_c('v-flex',{staticClass:"message-bubble-avatar-container",attrs:{"d-flex":""}},[_c('v-layout',{staticClass:"message-bubble-row",attrs:{"row":""}},[(_vm.shouldShowAvatarImage)?_c('div',{staticClass:"bot-avatar focusable",style:(_vm.botAvatarBackground),attrs:{"tabindex":_vm.message.id + 1}}):_vm._e(),_vm._v(" "),_c('div',{staticClass:"message-bubble focusable",attrs:{"tabindex":_vm.message.id + 1},on:{"focus":_vm.onMessageFocus,"blur":_vm.onMessageBlur}},[('text' in _vm.message && _vm.message.text !== null && _vm.message.text.length)?_c('message-text',{attrs:{"message":_vm.message}}):_vm._e(),_vm._v(" "),(_vm.message.type === 'human' && _vm.message.audio)?_c('div',{staticClass:"message-audio"},[_c('audio',[_c('source',{attrs:{"src":_vm.message.audio,"type":"audio/wav"}})]),_vm._v(" "),_c('v-btn',{staticClass:"black--text ml-0 mr-0",attrs:{"tabindex":_vm.message.id + 1,"icon":""},on:{"click":_vm.playAudio}},[_c('v-icon',{staticClass:"play-icon"},[_vm._v("play_circle_outline")])],1)],1):_vm._e(),_vm._v(" "),(_vm.message.id === this.$store.state.messages.length - 1 && _vm.isLastMessageFeedback && _vm.message.type === 'bot' && _vm.botDialogState && _vm.showDialogFeedback)?_c('div',{staticClass:"feedback-state"},[_c('v-icon',{class:{'feedback-icons-positive': !_vm.positiveClick, 'positiveClick': _vm.positiveClick},on:{"click":function($event){_vm.onButtonClick('Thumbs up')}}},[_vm._v("\n                  thumb_up\n                ")]),_vm._v(" "),_c('v-icon',{class:{'feedback-icons-negative': !_vm.negativeClick, 'negativeClick': _vm.negativeClick},on:{"click":function($event){_vm.onButtonClick('Thumbs down')}}},[_vm._v("\n                  thumb_down\n                ")])],1):_vm._e(),_vm._v(" "),(_vm.message.type === 'bot' && _vm.botDialogState && _vm.showDialogStateIcon)?_c('v-icon',{staticClass:"dialog-state",class:("dialog-state-" + (_vm.botDialogState.state)),attrs:{"medium":""}},[_vm._v("\n                "+_vm._s(_vm.botDialogState.icon)+"\n              ")]):_vm._e()],1)])],1),_vm._v(" "),(_vm.shouldShowMessageDate && _vm.isMessageFocused)?_c('v-flex',{staticClass:"text-xs-center message-date"},[_vm._v("\n         "+_vm._s(_vm.messageHumanDate)+"\n        ")]):_vm._e()],1)],1),_vm._v(" "),(_vm.shouldDisplayResponseCard)?_c('v-flex',{staticClass:"response-card",attrs:{"d-flex":"","mt-2":"","mr-2":"","ml-3":""}},_vm._l((_vm.message.responseCard.genericAttachments),function(card,index){return _c('response-card',{key:index,attrs:{"response-card":card}})})):_vm._e()],1)],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -19834,7 +19873,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MessageLoading_vue__ = __webpack_require__(109);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6d624218_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageLoading_vue__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_743e8c76_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageLoading_vue__ = __webpack_require__(208);
 function injectStyle (ssrContext) {
   __webpack_require__(207)
 }
@@ -19849,12 +19888,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-6d624218"
+var __vue_scopeId__ = "data-v-743e8c76"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MessageLoading_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6d624218_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageLoading_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_743e8c76_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageLoading_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -33439,7 +33478,7 @@ webpackContext.id = 345;
 /* 346 */
 /***/ (function(module, exports) {
 
-module.exports = {"cognito":{"poolId":"us-east-1:6768184b-c61a-4680-91e1-302ec0f389bd"},"lex":{"botName":"QnABotTest_BotzZ","initialText":"Hi Tom, how can I help you today?","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Flowers Bot","toolbarTitle":"AskSLU","enableLogin":true,"pushInitialTextOnRestart":false,"shouldDisplayResponseCardTitle":false,"showErrorIcon":true,"showDialogStateIcon":false,"showDialogFeedback":true},"recorder":{"preset":"speech_recognition"},"iframe":{"shouldLoadIframeMinimized":false}}
+module.exports = {"cognito":{"poolId":"us-east-1:aa8c83df-49e8-4a53-adea-c0a90d762a83","appUserPoolClientId":"727umf381vhdhorp3qh0dvi72f","appUserPoolName":"us-east-1_tz8P8iZcb","appDomainName":"lexkwebkuikidentitypoolconfigkjazfpzssdfhe238359442180.auth.us-east-1.amazoncognito.com","appUserPoolIdentityProvider":""},"lex":{"botName":"QnABot_BotuU","initialText":"Hi Tom, how can I help you today?","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"AskSLU","toolbarTitle":"AskSLU","enableLogin":true,"pushInitialTextOnRestart":false,"shouldDisplayResponseCardTitle":false,"showErrorIcon":true,"showDialogStateIcon":false,"showDialogFeedback":true},"recorder":{"preset":"speech_recognition"},"iframe":{"shouldLoadIframeMinimized":false}}
 
 /***/ }),
 /* 347 */
