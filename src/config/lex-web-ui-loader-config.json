@@ -7,10 +7,10 @@
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
-    "botName": "SLUPOCQnABot_BottB",
+    "botName": "QNA_prod_dev_master_one_BotYu",
     "botAlias": "$LATEST",
-    "initialText": "Hi I am the SLU chatbot.",
-    "initialSpeechInstruction": "Hi I am the SLU chatbot.",
+    "initialText": "",
+    "initialSpeechInstruction": "",
     "reInitSessionAttributesOnRestart": false
   },
   "ui": {
