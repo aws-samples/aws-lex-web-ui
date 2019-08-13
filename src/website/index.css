@@ -20,3 +20,5 @@ neccessary to include !important */
 .feedback-icons-negative:hover{
   color: red !important;
 } */
+
+.message-text[data-v-4f01cfd4], div.message-text {font-size:15px;}
