@@ -9,8 +9,8 @@
   "lex": {
     "botName": "OrderFlowers",
     "botAlias": "$LATEST",
-    "initialText": "Hi I am the SLU chatbot.",
-    "initialSpeechInstruction": "Hi I am the SLU chatbot.",
+    "initialText": "Hi I am not the SLU chatbot.",
+    "initialSpeechInstruction": "Hi I am not the SLU chatbot.",
     "reInitSessionAttributesOnRestart": false
   },
   "ui": {
