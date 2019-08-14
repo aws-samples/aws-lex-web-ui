@@ -9,7 +9,7 @@
   "lex": {
     "botName": "OrderFlowers",
     "botAlias": "$LATEST",
-    "initialText": "Hi I am not the SLU chatbot.",
+    "initialText": "Whats for lunch today.",
     "initialSpeechInstruction": "Hi I am not the SLU chatbot.",
     "reInitSessionAttributesOnRestart": false
   },
