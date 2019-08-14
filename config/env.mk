@@ -17,7 +17,7 @@ export AWS_DEFAULT_PROFILE ?= default
 export AWS_DEFAULT_REGION ?= us-east-1
 
 # lex-web-ui config variables
-export BOT_NAME ?= OrderFlowers
+export BOT_NAME = QNA_prod_dev_master_one_BotYu
 # set to empty if not present in environment
 export POOL_ID ?= $()
 
