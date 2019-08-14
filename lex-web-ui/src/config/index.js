@@ -303,7 +303,7 @@ function getConfigFromQuery(query) {
  *
  * If deep is set to true, the merge is done recursively in both directions.
  */
-export function mergeConfig(baseConfig, srcConfig, deep = true) {
+export function mergeConfig(baseConfig, srcConfig, deep = false) {
   function mergeValue(base, src, key, shouldMergeDeep) {
     // nothing to merge as the base key is not found in the src
     if (!(key in src)) {
