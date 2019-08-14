@@ -7,7 +7,7 @@
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
-    "botName": "OrderFlowers",
+    "botName": "OrderFlowerss",
     "botAlias": "$LATEST",
     "initialText": "Hi I am the SLU chatbot.",
     "initialSpeechInstruction": "Hi I am the SLU chatbot.",
