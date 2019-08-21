@@ -9,8 +9,8 @@
   "lex": {
     "botName": "QnABot_BotuU",
     "botAlias": "$LATEST",
-    "initialText": "Whats for lunch tomorrow.",
-    "initialSpeechInstruction": "Hi I am not the SLU chatbot.",
+    "initialText": "Hi I am the SLU chatbot",
+    "initialSpeechInstruction": "Hi I am the SLU chatbot.",
     "reInitSessionAttributesOnRestart": false
   },
   "ui": {
