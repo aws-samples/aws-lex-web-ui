@@ -27,4 +27,4 @@ export UI_TOOLBAR_TITLE ?= $()
 export UI_TOOLBAR_LOGO ?= $()
 
 export IFRAME_ORIGIN ?= $()
-export PARENT_ORIGIN ?= $()
+export PARENT_ORIGIN = https://www.slu.edu
