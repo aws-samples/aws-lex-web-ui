@@ -14,7 +14,7 @@
     "reInitSessionAttributesOnRestart": false
   },
   "ui": {
-    "parentOrigin": "",
+    "parentOrigin": "https://www.slu.edu",
     "toolbarTitle": "AskSLU",
     "toolbarLogo": "",
     "enableLogin": false,
