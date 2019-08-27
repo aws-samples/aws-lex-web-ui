@@ -27,6 +27,26 @@
         </v-list-tile>
       </v-list>
     </v-menu>
+    <!-- test of the forward and back buttons -->
+    <v-item-group class="nav-buttons">
+        <v-btn small icon class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="shouldShowPrev">
+          <v-icon>
+            arrow_back
+          </v-icon>
+        </v-btn>
+        <v-tooltip v-model="prevNav" activator=".nav-button-prev" right>
+          <span>Previous</span>
+        </v-tooltip>
+      <v-btn small icon class="nav-button-next" v-on="nextNavEventHandlers" v-on:click="onNext" v-show="shouldShowNext">
+        <v-icon>
+          arrow_forward
+        </v-icon>
+      </v-btn>
+      <v-tooltip v-model="nextNav" activator=".nav-button-next" right>
+          <span>Next</span>
+        </v-tooltip>
+    </v-item-group>
+    
 
     <v-toolbar-title class="hidden-xs-and-down">
       {{ toolbarTitle }}
@@ -100,6 +120,22 @@ export default {
       ],
       shouldShowTooltip: false,
       shouldShowHelpTooltip: false,
+      prevNav: false,
+      nextNav: false,
+      nextNavEventHandlers: {
+        mouseenter: this.mouseOverNext,
+        mouseleave: this.mouseOverNext,
+        touchstart: this.mouseOverNext,
+        touchend: this.mouseOverNext,
+        touchcancel: this.mouseOverNext,
+      },
+      prevNavEventHandlers: {
+        mouseenter: this.mouseOverPrev,
+        mouseleave: this.mouseOverPrev,
+        touchstart: this.mouseOverPrev,
+        touchend: this.mouseOverPrev,
+        touchcancel: this.mouseOverPrev,
+      },
       tooltipHelpEventHandlers: {
         mouseenter: this.onHelpButtonHoverEnter,
         mouseleave: this.onHelpButtonHoverLeave,
@@ -127,8 +163,28 @@ export default {
     isLoggedIn() {
       return this.$store.state.isLoggedIn;
     },
+    shouldShowPrev() {
+      const prev = this.$store.state.config.ui.prevQuestionIntent;
+      if (prev.length > 2) {
+        return true;
+      }
+      return false;
+    },
+    shouldShowNext() {
+      const next = this.$store.state.config.ui.nextQuestionIntent;
+      if (next.length > 2) {
+        return true;
+      }
+      return false;
+    },
   },
   methods: {
+    mouseOverPrev() {
+      this.prevNav = !this.prevNav;
+    },
+    mouseOverNext() {
+      this.nextNav = !this.nextNav;
+    },
     onInputButtonHoverEnter() {
       this.shouldShowTooltip = true;
     },
@@ -141,6 +197,12 @@ export default {
     onHelpButtonHoverLeave() {
       this.shouldShowHelpTooltip = false;
     },
+    onNavHoverEnter() {
+      this.shouldShowNavToolTip = true;
+    },
+    onNavHoverLeave() {
+      this.shouldShowNavToolTip = false;
+    },
     toggleMinimize() {
       this.onInputButtonHoverLeave();
       this.$emit('toggleMinimizeUi');
@@ -151,6 +213,22 @@ export default {
         text: 'help',
       };
 
+      this.$store.dispatch('postTextMessage', message);
+    },
+    onNext() {
+      const message = {
+        type: 'human',
+        text: this.$store.state.config.ui.nextQuestionIntent,
+      };
+
+      this.$store.dispatch('postTextMessage', message);
+    },
+    onPrev() {
+      const message = {
+        type: 'human',
+        text: this.$store.state.config.ui.prevQuestionIntent,
+      };
+      console.log(message);
       this.$store.dispatch('postTextMessage', message);
     },
     requestLogin() {
@@ -169,6 +247,21 @@ export default {
 <style>
 .toolbar-color {
   background-color: blue !important;
+}
+
+.nav-buttons {
+  padding: 0;
+  margin-left: 8px !important;
+}
+
+.nav-button-prev {
+  padding: 0;
+  margin: 0;
+}
+
+.nav-button-next {
+  padding: 0;
+  margin: 0;
 }
 </style>
 

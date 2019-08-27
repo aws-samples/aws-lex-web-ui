@@ -23,7 +23,8 @@
     "shouldDisplayResponseCardTitle": false,
     "showErrorIcon": true,
     "showDialogStateIcon": false,
-    "showDialogFeedback": true
+    "postiveFeedbackIntent": "Thumbs up",
+    "negatieFeedbackIntent": "Thumbs down"
   },
   "recorder": {
     "preset": "speech_recognition"
