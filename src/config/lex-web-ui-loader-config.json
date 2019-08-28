@@ -7,7 +7,7 @@
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
-    "botName": "QNA_prod_dev_master_one_BotYu",
+    "botName": "QNA_dev_dev_master_one_Botqg",
     "botAlias": "$LATEST",
     "initialText": "",
     "initialSpeechInstruction": "",
