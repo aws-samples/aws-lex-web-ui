@@ -168,7 +168,7 @@ export default {
 </script>
 <style>
 .toolbar-color {
-  background-color: blue !important;
+  background-color: #003DA5 !important;
 }
 </style>
 
