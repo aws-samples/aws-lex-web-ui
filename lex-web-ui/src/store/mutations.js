@@ -347,12 +347,19 @@ export default {
    * Push a user's utterance onto the utterance stack to be used with back functionaligy
    */
   pushUtterance(state, utterance) {
-    state.utteranceStack.push({
-      t: utterance,
-    });
+    if (!state.isBackProcessing) {
+      state.utteranceStack.push({
+        t: utterance,
+      });
+    } else {
+      state.commit('toggleBackProcessing');
+    }
   },
   popUtterance(state) {
-    if (state.utteranceStack.length === 0) return;
+    if (state.utteranceStack.length > 1) return;
     state.utteranceStack.pop();
+  },
+  toggleBackProcessing(state) {
+    state.isBackProcessing = !state.isBackProcessing;
   },
 };

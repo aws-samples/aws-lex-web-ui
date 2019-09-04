@@ -224,12 +224,13 @@ export default {
       this.$store.dispatch('postTextMessage', message);
     },
     onPrev() {
+      this.$store.commit('popUtterance');
       const message = {
         type: 'human',
         text: this.$store.getters.lastUtterance(),
       };
       console.log(message);
-      this.$store.commit('popUtterance');
+      this.$store.commit('toggleBackProcessing');
       this.$store.dispatch('postTextMessage', message);
     },
     requestLogin() {
