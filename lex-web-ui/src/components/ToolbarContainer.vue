@@ -46,7 +46,7 @@
           <span>Next</span>
         </v-tooltip>
     </v-item-group>
-    
+
 
     <v-toolbar-title class="hidden-xs-and-down">
       {{ toolbarTitle }}
@@ -226,9 +226,10 @@ export default {
     onPrev() {
       const message = {
         type: 'human',
-        text: this.$store.state.config.ui.prevQuestionIntent,
+        text: this.$store.getters.lastUtterance(),
       };
       console.log(message);
+      this.$store.context.commit('popUtterance');
       this.$store.dispatch('postTextMessage', message);
     },
     requestLogin() {

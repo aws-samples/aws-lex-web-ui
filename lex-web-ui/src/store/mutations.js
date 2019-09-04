@@ -343,4 +343,16 @@ export default {
   setAwsCredsProvider(state, provider) {
     state.awsCreds.provider = provider;
   },
+  /**
+   * Push a user's utterance onto the utterance stack to be used with back functionaligy
+   */
+  pushUtterance(state, utterance) {
+    state.utteranceStack.push({
+      t: utterance,
+    });
+  },
+  popUtterance(state) {
+    if (state.utteranceStack.length === 0) return;
+    state.utteranceStack.pop();
+  },
 };

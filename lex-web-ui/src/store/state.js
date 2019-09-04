@@ -37,6 +37,7 @@ export default {
     slots: {},
   },
   messages: [],
+  utteranceStack: [],
   polly: {
     outputFormat: 'ogg_vorbis',
     voiceId: (

@@ -21,4 +21,8 @@ export default {
   isMicQuiet: state => state.recState.isMicQuiet,
   isRecorderSupported: state => state.recState.isRecorderSupported,
   isRecording: state => state.recState.isRecording,
+  lastUtterance: state => () => {
+    if (state.utteranceStack.length === 0) return '';
+    return state.utteranceStack[state.utteranceStack.length - 1].t;
+  },
 };
