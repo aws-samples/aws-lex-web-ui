@@ -229,7 +229,7 @@ export default {
         text: this.$store.getters.lastUtterance(),
       };
       console.log(message);
-      this.$store.context.commit('popUtterance');
+      this.$store.commit('popUtterance');
       this.$store.dispatch('postTextMessage', message);
     },
     requestLogin() {
