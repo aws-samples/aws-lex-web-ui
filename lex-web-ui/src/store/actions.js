@@ -448,7 +448,7 @@ export default {
   postTextMessage(context, message) {
     return context.dispatch('interruptSpeechConversation')
       .then(() => context.dispatch('pushMessage', message))
-      .then(() => context.dispatch('pushUtterance', message.text))
+      .then(() => context.commit('pushUtterance', message.text))
       .then(() => context.dispatch('lexPostText', message.text))
       .then((response) => {
         // check for an array of messages
