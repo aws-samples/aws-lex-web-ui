@@ -352,7 +352,7 @@ export default {
         t: utterance,
       });
     } else {
-      state.commit('toggleBackProcessing');
+      state.isBackProcessing = !state.isBackProcessing;
     }
   },
   popUtterance(state) {
