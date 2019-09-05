@@ -351,6 +351,10 @@ export default {
       state.utteranceStack.push({
         t: utterance,
       });
+      // max of 1000 utterances allowed in the stack
+      if (state.utteranceStack.length > 1000) {
+        state.utteranceStack.shift();
+      }
     } else {
       state.isBackProcessing = !state.isBackProcessing;
     }
