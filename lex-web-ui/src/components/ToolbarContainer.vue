@@ -225,13 +225,15 @@ export default {
     },
     onPrev() {
       this.$store.commit('popUtterance');
-      const message = {
-        type: 'human',
-        text: this.$store.getters.lastUtterance(),
-      };
-      console.log(message);
-      this.$store.commit('toggleBackProcessing');
-      this.$store.dispatch('postTextMessage', message);
+      const lastUtterance = this.$store.getters.lastUtterance();
+      if (lastUtterance && lastUtterance.length > 0) {
+        const message = {
+          type: 'human',
+          text: lastUtterance,
+        };
+        this.$store.commit('toggleBackProcessing');
+        this.$store.dispatch('postTextMessage', message);
+      }
     },
     requestLogin() {
       this.$emit('requestLogin');

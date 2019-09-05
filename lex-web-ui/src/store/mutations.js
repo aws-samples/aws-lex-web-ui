@@ -344,7 +344,7 @@ export default {
     state.awsCreds.provider = provider;
   },
   /**
-   * Push a user's utterance onto the utterance stack to be used with back functionaligy
+   * Push a user's utterance onto the utterance stack to be used with back functionality
    */
   pushUtterance(state, utterance) {
     if (!state.isBackProcessing) {
@@ -356,7 +356,7 @@ export default {
     }
   },
   popUtterance(state) {
-    if (state.utteranceStack.length > 1) return;
+    if (state.utteranceStack.length === 0) return;
     state.utteranceStack.pop();
   },
   toggleBackProcessing(state) {
