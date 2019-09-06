@@ -27,9 +27,9 @@
         </v-list-tile>
       </v-list>
     </v-menu>
-    <!-- test of the forward and back buttons -->
+
     <v-item-group class="nav-buttons">
-        <v-btn small icon class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance">
+        <v-btn small icon :disabled="isBackProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance">
           <v-icon>
             arrow_back
           </v-icon>
@@ -150,6 +150,9 @@ export default {
     isLoggedIn() {
       return this.$store.state.isLoggedIn;
     },
+    isBackProcessing() {
+      return this.$store.state.isBackProcessing;
+    },
   },
   methods: {
     mouseOverPrev() {
@@ -185,15 +188,17 @@ export default {
       this.$store.dispatch('postTextMessage', message);
     },
     onPrev() {
-      this.$store.commit('popUtterance');
-      const lastUtterance = this.$store.getters.lastUtterance();
-      if (lastUtterance && lastUtterance.length > 0) {
-        const message = {
-          type: 'human',
-          text: lastUtterance,
-        };
-        this.$store.commit('toggleBackProcessing');
-        this.$store.dispatch('postTextMessage', message);
+      if (!this.$store.state.isBackProcessing) {
+        this.$store.commit('popUtterance');
+        const lastUtterance = this.$store.getters.lastUtterance();
+        if (lastUtterance && lastUtterance.length > 0) {
+          const message = {
+            type: 'human',
+            text: lastUtterance,
+          };
+          this.$store.commit('toggleBackProcessing');
+          this.$store.dispatch('postTextMessage', message);
+        }
       }
     },
     requestLogin() {
