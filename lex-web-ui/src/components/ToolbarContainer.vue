@@ -28,16 +28,18 @@
       </v-list>
     </v-menu>
 
-    <v-item-group class="nav-buttons">
-        <v-btn small icon :disabled="isBackProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance">
-          <v-icon>
-            arrow_back
-          </v-icon>
-        </v-btn>
-        <v-tooltip v-model="prevNav" activator=".nav-button-prev" right>
-          <span>Previous</span>
-        </v-tooltip>
-    </v-item-group>
+    
+    <div class="nav-buttons">
+      <v-btn small icon :disabled="isBackProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance">
+        <v-icon>
+          arrow_back
+        </v-icon>
+      </v-btn>
+      <v-tooltip v-model="prevNav" activator=".nav-button-prev" right>
+        <span>Previous</span>
+      </v-tooltip>
+    </div>
+    
 
 
     <v-toolbar-title class="hidden-xs-and-down">
