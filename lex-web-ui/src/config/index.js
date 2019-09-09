@@ -123,7 +123,7 @@ const configDefault = {
     parentOrigin: null,
 
     // chat window text placeholder
-    textInputPlaceholder: 'Type here or click on the mic TEST',
+    textInputPlaceholder: 'Type here or click on the mic icon',
 
     toolbarColor: 'red',
 
@@ -167,7 +167,14 @@ const configDefault = {
     // shows a thumbs up and thumbs down button which can be clicked
     // TODO: create thumbs-up and thumbs-down with string utterances
     // to control what is uttered to the bot.
-    showDialogFeedback: false,
+    // showDialogFeedback: false,
+    postiveFeedbackIntent: '',
+    negativeFeedbackIntent: '',
+
+    // shows a forward and previous question button on the toolbar if
+    // the text is filled in
+    nextQuestionIntent: '',
+    prevQuestionIntent: '',
 
     // for instances when you only want to show error icons and feedback
     showErrorIcon: true,

@@ -110,6 +110,7 @@ const initRecorderHandlers = (context, recorder) => {
           audio: humanAudioUrl,
           text: context.state.lex.inputTranscript,
         });
+        context.commit('pushUtterance', context.state.lex.inputTranscript);
         if (context.state.lex.message.includes('{"messages":')) {
           const tmsg = JSON.parse(context.state.lex.message);
           if (tmsg && Array.isArray(tmsg.messages)) {
