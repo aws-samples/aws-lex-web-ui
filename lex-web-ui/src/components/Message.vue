@@ -292,11 +292,7 @@ export default {
 }
 
 .message-bot .message-bubble {
-<<<<<<< HEAD
   background-color: #53C3EE; /* red-50 from material palette */
-=======
-  background-color: blue; 
->>>>>>> c8b1044a2333a704b0aa1e307d3631735ddf5c0c
   color: white;
 }
 
