@@ -7,7 +7,7 @@
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
-    "botName": "QnABot_BotuU",
+    "botName": "OrderFlowers",
     "initialText": "Hi Tom, how can I help you today?",
     "initialSpeechInstruction": "Say 'Order Flowers' to get started."
   },
@@ -23,7 +23,8 @@
     "shouldDisplayResponseCardTitle": false,
     "showErrorIcon": true,
     "showDialogStateIcon": false,
-    "showDialogFeedback": true
+    "postiveFeedbackIntent": "Thumbs up",
+    "negatieFeedbackIntent": "Thumbs down"
   },
   "recorder": {
     "preset": "speech_recognition"

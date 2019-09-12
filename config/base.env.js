@@ -10,6 +10,7 @@ module.exports = {
   },
   lex: {
     botName: process.env.BOT_NAME,
+    // botName: 'OrderFlowers',
     botAlias: process.env.BOT_ALIAS,
     initialText: process.env.BOT_INITIAL_TEXT,
     initialSpeechInstruction: process.env.BOT_INITIAL_SPEECH,

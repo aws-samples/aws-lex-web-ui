@@ -22,7 +22,10 @@
     "shouldDisplayResponseCardTitle": false,
     "pushInitialTextOnRestart": false,
     "directFocusToBotInput": false,
-    "showDialogFeedback": true,
+    "postiveFeedbackIntent": "Thumbs up",
+    "negativeFeedbackIntent": "Thumbs down",
+    "prevQuestionIntent": "previous question",
+    "nextQuestionIntent": "",
     "showDialogStateIcon": false
   },
   "polly": {

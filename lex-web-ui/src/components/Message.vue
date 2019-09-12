@@ -48,13 +48,13 @@
                   class="feedback-state"
                 >
                   <v-icon 
-                    v-on:click="onButtonClick('Thumbs up')"
+                    v-on:click="onButtonClick(postiveIntent)"
                     v-bind:class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
                   >
                     thumb_up
                   </v-icon>
                   <v-icon 
-                    v-on:click="onButtonClick('Thumbs down')"
+                    v-on:click="onButtonClick(negativeIntent)"
                     v-bind:class="{'feedback-icons-negative': !negativeClick, 'negativeClick': negativeClick}"
                   >
                     thumb_down
@@ -126,6 +126,8 @@ export default {
       positiveClick: false,
       negativeClick: false,
       hasButtonBeenClicked: false,
+      positiveIntent: this.$store.state.config.ui.postiveFeedbackIntent,
+      negativeIntent: this.$store.state.config.ui.negativeFeedbackIntent,
     };
   },
   computed: {
@@ -156,7 +158,11 @@ export default {
       return this.$store.state.config.ui.showDialogStateIcon;
     },
     showDialogFeedback() {
-      return this.$store.state.config.ui.showDialogFeedback;
+      if (this.$store.state.config.ui.postiveFeedbackIntent.length > 2
+      && this.$store.state.config.ui.negativeFeedbackIntent.length > 2) {
+        return true;
+      }
+      return false;
     },
     showErrorIcon() {
       return this.$store.state.config.ui.showErrorIcon;
@@ -190,7 +196,7 @@ export default {
     onButtonClick(feedback) {
       if (!this.hasButtonBeenClicked) {
         this.hasButtonBeenClicked = true;
-        if (feedback === 'Thumbs up') {
+        if (feedback === this.$store.state.config.ui.postiveFeedbackIntent) {
           this.positiveClick = true;
         } else {
           this.negativeClick = true;
@@ -286,7 +292,11 @@ export default {
 }
 
 .message-bot .message-bubble {
+<<<<<<< HEAD
   background-color: #53C3EE; /* red-50 from material palette */
+=======
+  background-color: blue; 
+>>>>>>> c8b1044a2333a704b0aa1e307d3631735ddf5c0c
   color: white;
 }
 
