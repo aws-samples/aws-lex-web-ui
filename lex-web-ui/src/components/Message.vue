@@ -48,7 +48,7 @@
                   class="feedback-state"
                 >
                   <v-icon 
-                    v-on:click="onButtonClick(postiveIntent)"
+                    v-on:click="onButtonClick(positiveIntent)"
                     v-bind:class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
                   >
                     thumb_up
