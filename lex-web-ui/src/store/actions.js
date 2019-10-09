@@ -451,7 +451,7 @@ export default {
       .then(() => context.dispatch('lexPostText', message.text))
       .then((response) => {
         // check for an array of messages
-        if (response.message.includes('{"messages":')) {
+        if (response.message && response.message.includes('{"messages":')) {
           const tmsg = JSON.parse(response.message);
           if (tmsg && Array.isArray(tmsg.messages)) {
             tmsg.messages.forEach((mes, index) => {

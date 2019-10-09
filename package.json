@@ -43,7 +43,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015-ie": "^6.7.0",
     "babel-preset-stage-2": "^6.24.1",
-    "css-loader": "^0.28.8",
+    "css-loader": "^0.28.11",
     "eslint": "^4.15.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-friendly-formatter": "^3.0.0",
@@ -55,7 +55,7 @@
     "postcss-loader": "^2.0.10",
     "style-loader": "^0.19.1",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.10.1"
+    "webpack-dev-server": "^2.11.5"
   },
   "engines": {
     "node": ">= 8.16.0",
