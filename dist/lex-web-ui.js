@@ -23074,7 +23074,6 @@ function checkNative (algo) {
   checks[algo] = prom
   return prom
 }
-
 function browserPbkdf2 (password, salt, iterations, length, algo) {
   return subtle.importKey(
     'raw', password, {name: 'PBKDF2'}, false, ['deriveBits']
@@ -23091,7 +23090,6 @@ function browserPbkdf2 (password, salt, iterations, length, algo) {
     return Buffer.from(res)
   })
 }
-
 function resolvePromise (promise, callback) {
   promise.then(function (out) {
     process.nextTick(function () {
@@ -23179,7 +23177,6 @@ function createDecipher (suite, password) {
   } else {
     throw new TypeError('invalid suite type')
   }
-
   var keys = ebtk(password, false, keyLen, ivLen)
   return createDecipheriv(suite, keys.key, keys.iv)
 }

@@ -165,6 +165,21 @@ const configDefault = {
     // Show the diaglog state icon, check or alert, in the text bubble
     showDialogStateIcon: true,
 
+    // shows a thumbs up and thumbs down button which can be clicked
+    // TODO: create thumbs-up and thumbs-down with string utterances
+    // to control what is uttered to the bot.
+    // showDialogFeedback: false,
+    postiveFeedbackIntent: '',
+    negativeFeedbackIntent: '',
+
+    // shows a forward and previous question button on the toolbar if
+    // the text is filled in
+    nextQuestionIntent: '',
+    prevQuestionIntent: '',
+
+    // for instances when you only want to show error icons and feedback
+    showErrorIcon: true,
+
     // Allows lex messages with session attribute
     // appContext.altMessages.html or appContext.altMessages.markdown
     // to be rendered as html in the message
@@ -172,7 +187,7 @@ const configDefault = {
     // Make sure that the HTML message has been properly
     // escaped/encoded/filtered in the Lambda function
     // https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
-    AllowSuperDangerousHTMLInMessage: false,
+    AllowSuperDangerousHTMLInMessage: true,
 
     // Lex webui should display response card titles. The response card
     // title can be optionally disabled by setting this value to false

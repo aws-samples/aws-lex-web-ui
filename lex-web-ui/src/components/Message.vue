@@ -43,6 +43,23 @@
                     <v-icon class="play-icon">play_circle_outline</v-icon>
                   </v-btn>
                 </div>
+                <div
+                  v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback"
+                  class="feedback-state"
+                >
+                  <v-icon 
+                    v-on:click="onButtonClick(positiveIntent)"
+                    v-bind:class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
+                  >
+                    thumb_up
+                  </v-icon>
+                  <v-icon 
+                    v-on:click="onButtonClick(negativeIntent)"
+                    v-bind:class="{'feedback-icons-negative': !negativeClick, 'negativeClick': negativeClick}"
+                  >
+                    thumb_down
+                  </v-icon>
+                </div>
                 <v-icon
                   medium
                   v-if="message.type === 'bot' && botDialogState && showDialogStateIcon"
@@ -58,7 +75,7 @@
             v-if="shouldShowMessageDate && isMessageFocused"
             class="text-xs-center message-date"
           >
-            {{messageHumanDate}}
+           {{messageHumanDate}}
           </v-flex>
         </v-layout>
       </v-flex>
@@ -97,7 +114,7 @@ import ResponseCard from './ResponseCard';
 
 export default {
   name: 'message',
-  props: ['message'],
+  props: ['message', 'feedback'],
   components: {
     MessageText,
     ResponseCard,
@@ -106,6 +123,11 @@ export default {
     return {
       isMessageFocused: false,
       messageHumanDate: 'Now',
+      positiveClick: false,
+      negativeClick: false,
+      hasButtonBeenClicked: false,
+      positiveIntent: this.$store.state.config.ui.postiveFeedbackIntent,
+      negativeIntent: this.$store.state.config.ui.negativeFeedbackIntent,
     };
   },
   computed: {
@@ -123,11 +145,27 @@ export default {
           return null;
       }
     },
+    isLastMessageFeedback() {
+      if (this.$store.state.messages.length > 2 && this.$store.state.messages[this.$store.state.messages.length - 2].type !== 'feedback') {
+        return true;
+      }
+      return false;
+    },
     botAvatarUrl() {
       return this.$store.state.config.ui.avatarImageUrl;
     },
     showDialogStateIcon() {
       return this.$store.state.config.ui.showDialogStateIcon;
+    },
+    showDialogFeedback() {
+      if (this.$store.state.config.ui.postiveFeedbackIntent.length > 2
+      && this.$store.state.config.ui.negativeFeedbackIntent.length > 2) {
+        return true;
+      }
+      return false;
+    },
+    showErrorIcon() {
+      return this.$store.state.config.ui.showErrorIcon;
     },
     shouldDisplayResponseCard() {
       return (
@@ -155,6 +193,22 @@ export default {
     },
   },
   methods: {
+    onButtonClick(feedback) {
+      if (!this.hasButtonBeenClicked) {
+        this.hasButtonBeenClicked = true;
+        if (feedback === this.$store.state.config.ui.postiveFeedbackIntent) {
+          this.positiveClick = true;
+        } else {
+          this.negativeClick = true;
+        }
+        const message = {
+          type: 'feedback',
+          text: feedback,
+        };
+        this.$emit('feedbackButton');
+        this.$store.dispatch('postTextMessage', message);
+      }
+    },
     playAudio() {
       // XXX doesn't play in Firefox or Edge
       /* XXX also tried:
@@ -260,8 +314,46 @@ export default {
   font-size: 2em;
 }
 
+.feedback-state {
+  display: inline-flex;
+  align-self: center;
+}
+
+.icon.feedback-icons-positive{
+  color: #E8EAF6;
+  /* color: green; */
+  padding: .125em;
+}
+
+.positiveClick{
+  color: green;
+  padding: .125em;
+}
+
+.negativeClick{
+  color: red;
+  padding: .125em;
+}
+
+.icon.feedback-icons-positive:hover{
+  color:green;
+}
+
+.icon.feedback-icons-negative{
+  color: #E8EAF6;
+  padding: .125em;
+}
+
+.icon.feedback-icons-negative:hover{
+  color: red;
+}
+
 .response-card {
   justify-content: center;
   width: 85vw;
+}
+
+.no-point {
+  pointer-events: none;
 }
 </style>

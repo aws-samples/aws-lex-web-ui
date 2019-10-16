@@ -1,0 +1,24 @@
+/* put overriding CSS here,  
+because of the configuration of the code it may be 
+neccessary to include !important */
+
+/* for feedback thumbs up thumbs down */
+/* .feedback-icons-positive{
+  color: #E8EAF6 !important;
+  padding: .125em;
+}
+
+.feedback-icons-positive:hover{
+  color:green !important;
+}
+
+.feedback-icons-negative{
+  color: #E8EAF6 !important;
+  padding: .125em;
+}
+
+.feedback-icons-negative:hover{
+  color: red !important;
+} */
+
+.message-text[data-v-4f01cfd4], div.message-text {font-size:15px;}

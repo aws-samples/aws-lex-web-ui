@@ -343,4 +343,27 @@ export default {
   setAwsCredsProvider(state, provider) {
     state.awsCreds.provider = provider;
   },
+  /**
+   * Push a user's utterance onto the utterance stack to be used with back functionality
+   */
+  pushUtterance(state, utterance) {
+    if (!state.isBackProcessing) {
+      state.utteranceStack.push({
+        t: utterance,
+      });
+      // max of 1000 utterances allowed in the stack
+      if (state.utteranceStack.length > 1000) {
+        state.utteranceStack.shift();
+      }
+    } else {
+      state.isBackProcessing = !state.isBackProcessing;
+    }
+  },
+  popUtterance(state) {
+    if (state.utteranceStack.length === 0) return;
+    state.utteranceStack.pop();
+  },
+  toggleBackProcessing(state) {
+    state.isBackProcessing = !state.isBackProcessing;
+  },
 };

@@ -9,8 +9,8 @@
   "lex": {
     "botName": "QNA_dev_dev_master_one_BotNP",
     "botAlias": "$LATEST",
-    "initialText": "You can ask me for help ordering flowers. Just type \"Buy flowers\" or click on the mic and say it.",
-    "initialSpeechInstruction": "Say 'Buy Flowers' to get started.",
+    "initialText": "",
+    "initialSpeechInstruction": "",
     "reInitSessionAttributesOnRestart": false
   },
   "ui": {
@@ -18,10 +18,15 @@
     "toolbarTitle": "Order Flowers",
     "toolbarLogo": "",
     "enableLogin": false,
-    "AllowSuperDangerousHTMLInMessage": false,
+    "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,
     "pushInitialTextOnRestart": false,
-    "directFocusToBotInput": false
+    "directFocusToBotInput": false,
+    "postiveFeedbackIntent": "Thumbs up",
+    "negativeFeedbackIntent": "Thumbs down",
+    "prevQuestionIntent": "previous question",
+    "nextQuestionIntent": "",
+    "showDialogStateIcon": false
   },
   "polly": {
     "voiceId": "Salli"

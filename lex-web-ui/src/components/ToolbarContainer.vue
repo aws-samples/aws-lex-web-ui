@@ -28,6 +28,20 @@
       </v-list>
     </v-menu>
 
+    
+    <div class="nav-buttons">
+      <v-btn small icon :disabled="isBackProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance">
+        <v-icon>
+          arrow_back
+        </v-icon>
+      </v-btn>
+      <v-tooltip v-model="prevNav" activator=".nav-button-prev" right>
+        <span>Previous</span>
+      </v-tooltip>
+    </div>
+    
+
+
     <v-toolbar-title class="hidden-xs-and-down">
       {{ toolbarTitle }}
     </v-toolbar-title>
@@ -45,6 +59,24 @@
     >
       <span id="min-max-tooltip">{{toolTipMinimize}}</span>
     </v-tooltip>
+    <v-tooltip
+      v-model="shouldShowHelpTooltip"
+      activator=".help-toggle"
+      left
+    >
+      <span id="help-tooltip">help</span>
+    </v-tooltip>
+    <v-btn
+      v-if="$store.state.isRunningEmbedded"
+      v-on:click="sendHelp"
+      v-on="tooltipHelpEventHandlers"
+      icon
+      class="help-toggle"
+    >
+      <v-icon>
+        help_outline
+      </v-icon>
+    </v-btn>
     <v-btn
       v-if="$store.state.isRunningEmbedded"
       v-on:click="toggleMinimize"
@@ -81,6 +113,22 @@ export default {
         { title: 'Logout' },
       ],
       shouldShowTooltip: false,
+      shouldShowHelpTooltip: false,
+      prevNav: false,
+      prevNavEventHandlers: {
+        mouseenter: this.mouseOverPrev,
+        mouseleave: this.mouseOverPrev,
+        touchstart: this.mouseOverPrev,
+        touchend: this.mouseOverPrev,
+        touchcancel: this.mouseOverPrev,
+      },
+      tooltipHelpEventHandlers: {
+        mouseenter: this.onHelpButtonHoverEnter,
+        mouseleave: this.onHelpButtonHoverLeave,
+        touchstart: this.onHelpButtonHoverEnter,
+        touchend: this.onHelpButtonHoverLeave,
+        touchcancel: this.onHelpButtonHoverLeave,
+      },
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
         mouseleave: this.onInputButtonHoverLeave,
@@ -98,20 +146,62 @@ export default {
     isEnableLogin() {
       return this.$store.state.config.ui.enableLogin;
     },
+    hasPrevUtterance() {
+      return (this.$store.state.utteranceStack.length > 1);
+    },
     isLoggedIn() {
       return this.$store.state.isLoggedIn;
     },
+    isBackProcessing() {
+      return this.$store.state.isBackProcessing;
+    },
   },
   methods: {
+    mouseOverPrev() {
+      this.prevNav = !this.prevNav;
+    },
     onInputButtonHoverEnter() {
       this.shouldShowTooltip = true;
     },
     onInputButtonHoverLeave() {
       this.shouldShowTooltip = false;
     },
+    onHelpButtonHoverEnter() {
+      this.shouldShowHelpTooltip = true;
+    },
+    onHelpButtonHoverLeave() {
+      this.shouldShowHelpTooltip = false;
+    },
+    onNavHoverEnter() {
+      this.shouldShowNavToolTip = true;
+    },
+    onNavHoverLeave() {
+      this.shouldShowNavToolTip = false;
+    },
     toggleMinimize() {
       this.onInputButtonHoverLeave();
       this.$emit('toggleMinimizeUi');
+    },
+    sendHelp() {
+      const message = {
+        type: 'help',
+        text: 'help',
+      };
+      this.$store.dispatch('postTextMessage', message);
+    },
+    onPrev() {
+      if (!this.$store.state.isBackProcessing) {
+        this.$store.commit('popUtterance');
+        const lastUtterance = this.$store.getters.lastUtterance();
+        if (lastUtterance && lastUtterance.length > 0) {
+          const message = {
+            type: 'human',
+            text: lastUtterance,
+          };
+          this.$store.commit('toggleBackProcessing');
+          this.$store.dispatch('postTextMessage', message);
+        }
+      }
     },
     requestLogin() {
       this.$emit('requestLogin');
@@ -126,3 +216,20 @@ export default {
   },
 };
 </script>
+<style>
+.toolbar-color {
+  background-color: #003DA5 !important;
+}
+
+.nav-buttons {
+  padding: 0;
+  margin-left: 8px !important;
+}
+
+.nav-button-prev {
+  padding: 0;
+  margin: 0;
+}
+
+</style>
+

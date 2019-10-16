@@ -17,7 +17,8 @@
     <v-card-actions class="button-row">
       <v-btn
         v-for="(button) in responseCard.buttons"
-        v-if="button.text && button.value"
+        v-show="button.text && button.value"
+        v-bind:key="button.id"
         v-on:click.once.native="onButtonClick(button.value)"
         v-bind:disabled="hasButtonBeenClicked"
         round

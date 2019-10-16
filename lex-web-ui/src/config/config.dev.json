@@ -14,9 +14,18 @@
     "parentOrigin": "http://localhost:8080",
     "pageTitle": "Order Flowers Bot",
     "toolbarTitle": "Order Flowers",
-    "enableLogin": true
+    "enableLogin": true,
+    "pushInitialTextOnRestart": false,
+    "shouldDisplayResponseCardTitle": false,
+    "showErrorIcon": true,
+    "showDialogStateIcon": false,
+    "postiveFeedbackIntent": "Thumbs up",
+    "negatieFeedbackIntent": "Thumbs down"
   },
   "recorder": {
     "preset": "speech_recognition"
+  },
+  "iframe": {
+    "shouldLoadIframeMinimized": false
   }
 }
