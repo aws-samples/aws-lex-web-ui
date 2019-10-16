@@ -1,13 +1,13 @@
 {
   "cognito": {
-    "poolId": "us-east-1:389f9063-82a0-4a8c-bdc3-3bbb4c3d36d0",
+    "poolId": "us-east-1:fb2a55ec-c3f7-47e1-b836-fc6fbbdff81f",
     "appUserPoolClientId": "",
     "appUserPoolName": "",
     "appDomainName": "",
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
-    "botName": "OrderFlowers",
+    "botName": "QNA_dev_dev_master_one_BotNP",
     "botAlias": "$LATEST",
     "initialText": "You can ask me for help ordering flowers. Just type \"Buy flowers\" or click on the mic and say it.",
     "initialSpeechInstruction": "Say 'Buy Flowers' to get started.",
