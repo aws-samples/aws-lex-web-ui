@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # utility to manually bootstrap a bucket with source files
 # this is intended for testing - use the Makefile for prod
-BUCKET=${BUCKET:-""}
+# BUCKET=${BUCKET:-""}
 BOOTSTRAP_BUCKET_PATH="${BUCKET}/artifacts"
 
 [ "$BUCKET" ] || {

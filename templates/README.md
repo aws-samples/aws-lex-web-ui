@@ -134,6 +134,9 @@ using CloudFormation parameters. This includes the following parameters:
 - `WebAppConfBotInitialSpeech`: Message spoken by bot when the microphone
 is first pressed in a conversation
 - `WebAppConfToolbarTitle`: Title displayed in the chatbot UI toobar
+- `WebAppConfHelp`: If true help button icon will be displayed in chatbot UI toolbar and when clicked will send help intent
+- `WebAppConfNegativeFeedback`: String intent sent by the user to signal a negative feedback response
+- `WebAppConfPositiveFeedback`: String intent sent by the user to signal a positive feedback response
 - `EnableMarkdownSupport`: Enables support of Markdown formatting in the UI by 
 bots that provide Markdown formatting in their esponses.
 - `ShouldLoadIframeMinimized`: When set to true and using the lex-web-ui embedded

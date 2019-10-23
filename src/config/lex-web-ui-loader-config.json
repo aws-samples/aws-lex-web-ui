@@ -1,13 +1,13 @@
 {
   "cognito": {
-    "poolId": "us-east-1:fb2a55ec-c3f7-47e1-b836-fc6fbbdff81f",
+    "poolId": "us-east-1:da2aa9a0-0fa3-4023-8f56-c76d3bdf41c3",
     "appUserPoolClientId": "",
     "appUserPoolName": "",
     "appDomainName": "",
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
-    "botName": "QNA_dev_dev_master_one_BotNP",
+    "botName": "OrderFlowers",
     "botAlias": "$LATEST",
     "initialText": "",
     "initialSpeechInstruction": "",
@@ -17,15 +17,14 @@
     "parentOrigin": "",
     "toolbarTitle": "Order Flowers",
     "toolbarLogo": "",
+    "positiveFeedbackIntent": "",
+    "negativeFeedbackIntent": "",
+    "showHelpButtonIcon": false,
     "enableLogin": false,
     "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,
     "pushInitialTextOnRestart": false,
     "directFocusToBotInput": false,
-    "postiveFeedbackIntent": "Thumbs up",
-    "negativeFeedbackIntent": "Thumbs down",
-    "prevQuestionIntent": "previous question",
-    "nextQuestionIntent": "",
     "showDialogStateIcon": false
   },
   "polly": {

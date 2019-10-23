@@ -67,7 +67,7 @@
       <span id="help-tooltip">help</span>
     </v-tooltip>
     <v-btn
-      v-if="$store.state.isRunningEmbedded"
+      v-if="$store.state.isRunningEmbedded && showHelpButtonIcon"
       v-on:click="sendHelp"
       v-on="tooltipHelpEventHandlers"
       icon
@@ -154,6 +154,9 @@ export default {
     },
     isBackProcessing() {
       return this.$store.state.isBackProcessing;
+    },
+    showHelpButtonIcon() {
+      return this.$store.state.config.ui.showHelpButtonIcon;
     },
   },
   methods: {

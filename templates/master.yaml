@@ -216,11 +216,27 @@ Parameters:
         Description: >
             Message spoken by bot when the microphone is first pressed in
             a conversation
+    
+    WebAppConfNegativeFeedback:
+        Type: String
+        Default: ''
+        Description: Intent sent by the user to signal a negative feedback response
 
+    WebAppConfPositiveFeedback:
+        Type: String
+        Default: ''
+        Description: Intent sent by the user to signal a positive feedback response
+    
+    WebAppConfHelp:
+        Type: String
+        Default: false
+        AllowedValues: [true, false]
+        Description: Help button icon displayed in chatbot UI toolbar when clicked will send help intent
+        
     WebAppConfToolbarTitle:
         Type: String
         Default: Order Flowers
-        Description: Title displayed in the chatbot UI toobar
+        Description: Title displayed in the chatbot UI toolbar
 
 Metadata:
     AWS::CloudFormation::Interface:
@@ -255,6 +271,9 @@ Metadata:
                   - WebAppPath
                   - WebAppConfBotInitialText
                   - WebAppConfBotInitialSpeech
+                  - WebAppConfNegativeFeedback
+                  - WebAppConfPositiveFeedback
+                  - WebAppConfHelp
                   - WebAppConfToolbarTitle
                   - ShouldLoadIframeMinimized
 Conditions:
@@ -315,6 +334,9 @@ Resources:
                 ParentOrigin: !Ref WebAppParentOrigin
                 WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
                 WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
+                WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
+                WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
+                WebAppConfHelp: !Ref WebAppConfHelp
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
                 ShouldEnableCognitoLogin: !Ref EnableCognitoLogin
                 ReInitSessionAttributesOnRestart: !Ref ReInitSessionAttributesOnRestart
@@ -387,3 +409,9 @@ Outputs:
         Condition: NeedsCognito
         Description: Cognito Identity Pool Id
         Value: !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
+    
+    CognitoUserPoolPubKey:
+        Condition: NeedsCognito
+        Description: Include Cognito User Pool Public Key URL in stack outputs (needed for QnABot token auth)
+        Value: !Sub https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoIdentityPool.Outputs.CognitoUserPoolId}/.well-known/jwks.json
+
