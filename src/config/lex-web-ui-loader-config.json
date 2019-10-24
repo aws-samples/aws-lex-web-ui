@@ -1,6 +1,6 @@
 {
   "cognito": {
-    "poolId": "us-east-1:389f9063-82a0-4a8c-bdc3-3bbb4c3d36d0",
+    "poolId": "us-east-1:da2aa9a0-0fa3-4023-8f56-c76d3bdf41c3",
     "appUserPoolClientId": "",
     "appUserPoolName": "",
     "appDomainName": "",
@@ -9,19 +9,23 @@
   "lex": {
     "botName": "OrderFlowers",
     "botAlias": "$LATEST",
-    "initialText": "You can ask me for help ordering flowers. Just type \"Buy flowers\" or click on the mic and say it.",
-    "initialSpeechInstruction": "Say 'Buy Flowers' to get started.",
+    "initialText": "",
+    "initialSpeechInstruction": "",
     "reInitSessionAttributesOnRestart": false
   },
   "ui": {
     "parentOrigin": "",
     "toolbarTitle": "Order Flowers",
     "toolbarLogo": "",
+    "positiveFeedbackIntent": "",
+    "negativeFeedbackIntent": "",
+    "showHelpButtonIcon": false,
     "enableLogin": false,
-    "AllowSuperDangerousHTMLInMessage": false,
+    "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,
     "pushInitialTextOnRestart": false,
-    "directFocusToBotInput": false
+    "directFocusToBotInput": false,
+    "showDialogStateIcon": false
   },
   "polly": {
     "voiceId": "Salli"

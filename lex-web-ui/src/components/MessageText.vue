@@ -3,7 +3,7 @@
     v-if="message.text && message.type === 'human'"
     class="message-text"
   >
-    {{ message.text }}
+   {{ message.text }}
   </div>
   <div
     v-else-if="altHtmlMessage && AllowSuperDangerousHTMLInMessage"

@@ -407,11 +407,17 @@ focus to the chat bot when the page is first loaded or refreshed. This attribute
 Set this value to true in lex-web-ui-loader-config.json to instruct the input focus to be placed in the bot after
 page load. A value of false preserves the prior behavior where the input focus will not be directed to the bot. 
 
+### New UI Features
+New features in this version include feedback buttons inside the message bubble and a help button located on the toolbar of the UI.  These features are optional and can be included by using the settings showHelpButtonIcon, positiveFeedbackIntent and negativeFeedbackIntent.  To enable the help button change "showHelpButton" to true.  Enable the feedback buttons by adding a value to both positive and negative intents.  This value will be what is sent to the bot when the buttons are pressed.
+
 ```
   "ui": {
     "parentOrigin": "",
     "toolbarTitle": "Order Flowers",
     "toolbarLogo": "",
+    "showHelpButtonIcon": false,
+    "postiveFeedbackIntent": '',
+    "negativeFeedbackIntent": '',
     "enableLogin": false,
     "AllowSuperDangerousHTMLInMessage": false,
     "shouldDisplayResponseCardTitle": false,
