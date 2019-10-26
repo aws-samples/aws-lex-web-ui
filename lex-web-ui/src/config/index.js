@@ -166,7 +166,7 @@ const configDefault = {
     showDialogStateIcon: true,
 
     // shows a thumbs up and thumbs down button which can be clicked
-    postiveFeedbackIntent: '',
+    positiveFeedbackIntent: '',
     negativeFeedbackIntent: '',
 
     // shows a help button on the toolbar when true

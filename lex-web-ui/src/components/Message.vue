@@ -126,7 +126,7 @@ export default {
       positiveClick: false,
       negativeClick: false,
       hasButtonBeenClicked: false,
-      positiveIntent: this.$store.state.config.ui.postiveFeedbackIntent,
+      positiveIntent: this.$store.state.config.ui.positiveFeedbackIntent,
       negativeIntent: this.$store.state.config.ui.negativeFeedbackIntent,
     };
   },
@@ -158,7 +158,7 @@ export default {
       return this.$store.state.config.ui.showDialogStateIcon;
     },
     showDialogFeedback() {
-      if (this.$store.state.config.ui.postiveFeedbackIntent.length > 2
+      if (this.$store.state.config.ui.positiveFeedbackIntent.length > 2
       && this.$store.state.config.ui.negativeFeedbackIntent.length > 2) {
         return true;
       }
@@ -196,7 +196,7 @@ export default {
     onButtonClick(feedback) {
       if (!this.hasButtonBeenClicked) {
         this.hasButtonBeenClicked = true;
-        if (feedback === this.$store.state.config.ui.postiveFeedbackIntent) {
+        if (feedback === this.$store.state.config.ui.positiveFeedbackIntent) {
           this.positiveClick = true;
         } else {
           this.negativeClick = true;

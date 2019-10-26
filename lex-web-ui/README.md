@@ -416,7 +416,7 @@ New features in this version include feedback buttons inside the message bubble 
     "toolbarTitle": "Order Flowers",
     "toolbarLogo": "",
     "showHelpButtonIcon": false,
-    "postiveFeedbackIntent": '',
+    "positiveFeedbackIntent": '',
     "negativeFeedbackIntent": '',
     "enableLogin": false,
     "AllowSuperDangerousHTMLInMessage": false,

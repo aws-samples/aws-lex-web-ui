@@ -19,8 +19,8 @@
     "shouldDisplayResponseCardTitle": false,
     "showErrorIcon": true,
     "showDialogStateIcon": false,
-    "postiveFeedbackIntent": "Thumbs up",
-    "negatieFeedbackIntent": "Thumbs down"
+    "positiveFeedbackIntent": "Thumbs up",
+    "negativeFeedbackIntent": "Thumbs down"
   },
   "recorder": {
     "preset": "speech_recognition"
