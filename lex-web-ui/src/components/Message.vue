@@ -320,7 +320,8 @@ export default {
 }
 
 .icon.feedback-icons-positive{
-  color: #E8EAF6;
+  color: grey;
+  /* color: #E8EAF6; */
   /* color: green; */
   padding: .125em;
 }
@@ -340,7 +341,8 @@ export default {
 }
 
 .icon.feedback-icons-negative{
-  color: #E8EAF6;
+  /* color: #E8EAF6; */
+  color: grey;
   padding: .125em;
 }
 
