@@ -176,7 +176,6 @@ Parameters:
     WebAppConfHelp:
         Type: String
         Default: false
-        AllowedValues: [true, false]
         Description: Help button icon displayed on chatbot UI toolbar
 
     WebAppConfToolbarTitle:

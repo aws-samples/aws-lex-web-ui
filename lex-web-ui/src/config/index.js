@@ -170,7 +170,7 @@ const configDefault = {
     negativeFeedbackIntent: '',
 
     // shows a help button on the toolbar when true
-    showHelpButtonIcon: false,
+    helpIntent: '',
 
     // for instances when you only want to show error icons and feedback
     showErrorIcon: true,

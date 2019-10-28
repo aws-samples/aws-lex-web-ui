@@ -156,7 +156,7 @@ export default {
       return this.$store.state.isBackProcessing;
     },
     showHelpButtonIcon() {
-      return this.$store.state.config.ui.showHelpButtonIcon;
+      return this.$store.state.config.ui.helpIntent;
     },
   },
   methods: {

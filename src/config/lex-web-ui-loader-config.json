@@ -19,7 +19,7 @@
     "toolbarLogo": "",
     "positiveFeedbackIntent": "",
     "negativeFeedbackIntent": "",
-    "showHelpButtonIcon": false,
+    "helpIntent": "help",
     "enableLogin": false,
     "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,

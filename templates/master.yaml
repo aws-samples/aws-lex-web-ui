@@ -230,7 +230,6 @@ Parameters:
     WebAppConfHelp:
         Type: String
         Default: false
-        AllowedValues: [true, false]
         Description: Help button icon displayed in chatbot UI toolbar when clicked will send help intent
         
     WebAppConfToolbarTitle:
