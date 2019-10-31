@@ -20,7 +20,8 @@
     "showErrorIcon": true,
     "showDialogStateIcon": false,
     "positiveFeedbackIntent": "Thumbs up",
-    "negativeFeedbackIntent": "Thumbs down"
+    "negativeFeedbackIntent": "Thumbs down",
+    "helpIntent": "help"
   },
   "recorder": {
     "preset": "speech_recognition"

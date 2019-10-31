@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="message.text && message.type === 'human'"
+    v-if="message.text && (message.type === 'human' || message.type === 'feedback')"
     class="message-text"
   >
    {{ message.text }}

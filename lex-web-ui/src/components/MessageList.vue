@@ -77,4 +77,8 @@ export default {
 .message-human {
   align-self: flex-end;
 }
+
+.message-feedback {
+  align-self: flex-end;
+}
 </style>

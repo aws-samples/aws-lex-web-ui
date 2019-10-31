@@ -67,7 +67,7 @@
       <span id="help-tooltip">help</span>
     </v-tooltip>
     <v-btn
-      v-if="$store.state.isRunningEmbedded && showHelpButtonIcon"
+      v-if="showHelpButtonIcon"
       v-on:click="sendHelp"
       v-on="tooltipHelpEventHandlers"
       icon
@@ -187,7 +187,7 @@ export default {
     },
     sendHelp() {
       const message = {
-        type: 'help',
+        type: 'human',
         text: 'help',
       };
       this.$store.dispatch('postTextMessage', message);

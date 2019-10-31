@@ -299,6 +299,10 @@ export default {
   background-color: #E8EAF6; /* indigo-50 from material palette */
 }
 
+.message-feedback .message-bubble {
+  background-color: #E8EAF6;
+}
+
 .dialog-state {
   display: inline-flex;
 }
