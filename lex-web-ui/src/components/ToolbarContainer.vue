@@ -67,7 +67,7 @@
       <span id="help-tooltip">help</span>
     </v-tooltip>
     <v-btn
-      v-if="showHelpButtonIcon"
+      v-if="helpButton"
       v-on:click="sendHelp"
       v-on="tooltipHelpEventHandlers"
       icon
@@ -113,7 +113,6 @@ export default {
         { title: 'Logout' },
       ],
       shouldShowTooltip: false,
-      helpMessage: this.$store.state.config.ui.helpIntent,
       shouldShowHelpTooltip: false,
       prevNav: false,
       prevNavEventHandlers: {
@@ -156,7 +155,7 @@ export default {
     isBackProcessing() {
       return this.$store.state.isBackProcessing;
     },
-    showHelpButtonIcon() {
+    helpButton() {
       return this.$store.state.config.ui.helpIntent;
     },
   },
@@ -189,7 +188,7 @@ export default {
     sendHelp() {
       const message = {
         type: 'human',
-        text: this.helpMessage,
+        text: this.helpButton,
       };
       this.$store.dispatch('postTextMessage', message);
     },

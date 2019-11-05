@@ -18,25 +18,20 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
-#### New Features in version 0.14.0
-- Optionally support user login via Cognito User Pool and supports other Identity Providers
-<img src="./img/f.0.14.0_login.png" width=300>
+#### New Features in version 0.14.8
+- Inline message feedback buttons
 
-- Improved clickable response card button formatting
-<img src="./img/f.0.14.0_buttonA.png" width=300>
-<img src="./img/f.0.14.0_buttonB.png" width=300>
+<img src="./img/feedbackButtons.png" width="480">
 
-- Global setting to enable / disable display of response card titles
+Toolbar Buttons
+<img src="./img/toolbar.png" width="480">
+- Help Button
+</br>
+Sends a help message to the bot
+- Back Button
+</br>
+Resends the previous message
 
-- Support of Markdown from Lex 
-<img src="./img/f.0.14.0_markdown.png" width=300>
-
-- Support of Multiple messages in a response from Lex
-<img src="./img/f.0.14.0_multimessages.png" width=300>
-
-- Additional lex-web-ui parameters can be configured via CloudFormation template
-
-- API providing postText method from the FullPageComponentLoader similar to that provided with the IframeComponentLoader
 
 #### Ways the lex-web-ui chatbot can be deployed
 
