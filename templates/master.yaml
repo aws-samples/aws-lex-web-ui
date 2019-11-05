@@ -237,7 +237,7 @@ Parameters:
         Type: String
         Default: Help
         Description: >
-            This is an optional parameter, when full a help button will display on the chat bot toolbar.
+            This is an optional parameter, when defined with a value, a help button will display on the chat bot toolbar.
             When pressed the button will send the entered string to the bot as a help message.  If left empty
             the help button will be disabled.
         

@@ -164,6 +164,29 @@ Parameters:
         Description: >
             S3 prefix where the templates and source are stored under
 
+    WebAppConfNegativeFeedback:
+        Type: String
+        Default: Thumbs down
+        Description: >
+            This optional parameter defines the message to be sent by the user upon pressing
+            a feedback button signaling a negative feedback.
+            If left empty feedback buttons will be disabled on the UI.
+
+    WebAppConfPositiveFeedback:
+        Type: String
+        Default: Thumbs up
+        Description: >
+            This optional parameter defines the message to be sent by the user upon pressing
+            a feedback button signaling a positive feedback.
+            If left empty feedback buttons will be disabled on the UI.
+
+    WebAppConfHelp:
+        Type: String
+        Default: Help
+        Description: >
+            This is an optional parameter, when defined with a value, a help button will display on the chat bot toolbar.
+            When pressed the button will send the entered string to the bot as a help message.  If left empty
+            the help button will be disabled.
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -192,6 +215,9 @@ Metadata:
               Parameters:
                   - WebAppParentOrigin
                   - WebAppPath
+                  - WebAppConfNegativeFeedback
+                  - WebAppConfPositiveFeedback
+                  - WebAppConfHelp
 
 Conditions:
     NeedsBot: !Equals [!Ref BotName, '']
@@ -273,6 +299,9 @@ Resources:
                 CleanupBuckets: !Ref CleanupBuckets
                 CognitoAppUserPoolClientId: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
                 CognitoUserPoolId: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+                WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
+                WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
+                WebAppConfHelp: !Ref WebAppConfHelp
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack

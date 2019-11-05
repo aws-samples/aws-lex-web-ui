@@ -56,6 +56,10 @@ rm(distDir, err => {
       }) + '\n\n');
 
       if (stats.hasErrors()) {
+        console.log(stats.toString({
+          chunks: false,
+          colors: true
+        }));
         console.log(chalk.red('  Build failed with errors.\n'))
         process.exit(1)
       }
