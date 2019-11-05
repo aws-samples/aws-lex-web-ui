@@ -21,7 +21,7 @@ module.exports = {
     toolbarLogo: process.env.UI_TOOLBAR_LOGO,
     positiveFeedbackIntent: process.env.POSITIVE_INTENT,
     negativeFeedbackIntent: process.env.NEGATIVE_INTENT,
-    helpIntent: (process.env.HELP_INTENT === undefined) ? undefined : (process.env.HELP_INTENT === 'true') ? true : false,
+    helpIntent: process.env.HELP_INTENT,
     enableLogin: (process.env.ENABLE_LOGIN === undefined) ? undefined : (process.env.ENABLE_LOGIN === 'true') ? true : false,
     AllowSuperDangerousHTMLInMessage: (process.env.ENABLE_MARKDOWN_SUPPORT === undefined) ? undefined : (process.env.ENABLE_MARKDOWN_SUPPORT === 'true') ? true : false,
     shouldDisplayResponseCardTitle: (process.env.SHOW_RESPONSE_CARD_TITLE === undefined) ? undefined : (process.env.SHOW_RESPONSE_CARD_TITLE === 'true') ? true : false,
