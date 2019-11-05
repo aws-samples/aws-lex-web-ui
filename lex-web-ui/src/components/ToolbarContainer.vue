@@ -113,6 +113,7 @@ export default {
         { title: 'Logout' },
       ],
       shouldShowTooltip: false,
+      helpMessage: this.$store.state.config.ui.helpIntent,
       shouldShowHelpTooltip: false,
       prevNav: false,
       prevNavEventHandlers: {
@@ -188,7 +189,7 @@ export default {
     sendHelp() {
       const message = {
         type: 'human',
-        text: 'help',
+        text: this.helpMessage,
       };
       this.$store.dispatch('postTextMessage', message);
     },
