@@ -33,7 +33,7 @@ It adds a property named `$lexWebUi` to the Vue class and registers
 a global Vue component name `LexWebUi`.
 
 You can import the library as a module and use it in your code:
-```JavaScript
+```
   // dependencies
   import Vue from 'vue';
   import Vuex from 'vuex';
@@ -92,8 +92,11 @@ You can import the library as a module and use it in your code:
 ```
 
 Alternatively, for finer control, you can use the Vue plugin directly
-in your application:
-```JavaScript
+in your application as show below. Note as of verion 0.14.5, the lexRuntimeClient will
+be dynamically reinitialized using the region configured or specified in the cognito poolId. 
+Make sure that the Cognito Identity Pool is provisioned in the same region as the LexBot.
+Mixing regions is not supported.
+```
   import Vue from 'vue';
   import Vuex from 'vuex';
   import Vuetify from 'vuetify';
@@ -361,7 +364,7 @@ To utilize the second approach configure and use the following:
 
 * Program you lambda function to provide your Markdown and HTML messages as alt-messages in the session attribute `appContext.altMessages`. For example your session attribute could look like this or markdown messages:
 
-```json
+```
 {
     "appContext":{
         "altMessages":{
@@ -373,7 +376,7 @@ To utilize the second approach configure and use the following:
 
 or this for html messages:
 
-```json
+```
 {
     "appContext":{
         "altMessages":{
@@ -531,7 +534,7 @@ like this:
 `https://mybucket.s3.amazonaws.com/index.html#/?lexWebUiconfig=%7B%22lex%22%3A%7B%22initialText%22%3A%22Ask%20me%20a%20question%22%7D%7D`
 
 You can encode the `lexWebUiConfig` URL parameter like this:
-```javascript
+```
 var lexWebUiConfig = JSON.stringify({
   lex: {
     initialText: 'Ask me a question',

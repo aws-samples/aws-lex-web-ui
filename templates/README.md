@@ -33,6 +33,40 @@ the application from source. This mode provides finer customization and
 the ability to automatically push your own changes by committing to your
 code repository
 
+### Regions
+The lex-web-ui can be launched into regions other than us-east-1 where Lex, Polly, Cognito, Codebuild are supported. 
+Note that a pre-staged bootstrap S3 bucket is only available in us-east-1 at the moment. To work around this you can 
+build your own version and deploy to an S3 bucket you own in a region where you would like to run CloudFormation. 
+Here are the easiest steps to accomplish this.
+
+* Launch the Cloud9 IDE
+* In your Cloud9 workspace, clone the repository using git
+* cd into the root folder, aws-lex-web-ui
+* npm install
+* cd lex-web-ui
+* npm install
+* cd ../build
+* ./release.sh
+* aws s3 mb s3://[your-lex-bootstrap-bucket-name] --region eu-east-1
+* export BUCKET=[your-lex-bootstrap-bucket-name]
+* ./upload-bootstrap.sh
+ 
+Your bootstrap bucket now contains the necessary files which the CloudFormation template will utilize. When you
+launch your bucket in the target region using the master.yaml, make sure to change the Bootstrap Bucket parameter to
+"[your-lex-bootstrap-bucket-name]" and change the Bootstrap Prefix to be just "artifacts".
+
+There is also an important consideration when deploying into a region other than us-east-1. The S3 bucket created by the 
+CloudFormation template for the Lex-web-ui will not be DNS resolvable at the global level for several hours. S3 will update DNS settings 
+such that the bucket is available via a global path soon. However, until then any attempt to access to the global path
+will experience a temporary redirect. The redirect will point the resolved name to the region specific path
+for the S3 Bucket. This impacts the IFrame / parent page use of the Lex Web Ui due to CORS. The Lex-Web-Ui scripts handling CORS 
+have been updated to allow temporary redirects from a region specific S3 path. This will not be a major concern.
+
+However, one aspect that we could not correct is the ability for the browser to prompt the user to allow the use of 
+the microphone during a temporary redirect. This problem will resolve itself as soon as the global name for the S3 bucket
+becomes available. This could take a couple of hours. Going forward the global path should always be used and hence this 
+not be an issue after a couple of hours have past. 
+
 ### Launch
 To launch a stack using the CodeBuild Mode (faster and easier), click this button:
 

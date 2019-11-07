@@ -1,5 +1,5 @@
 /*
-Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Amazon Software License (the "License"). You may not use this file
 except in compliance with the License. A copy of the License is located at
@@ -265,6 +265,10 @@ export default {
       console.error('config is not an object', config);
       return;
     }
+
+    // region for lexRuntimeClient and cognito pool are required to be the same.
+    // Use cognito pool-id to adjust the region identified in the config.
+    state.config.region = config.cognito.poolId.split(':')[0] || 'us-east-1';
 
     // security: do not accept dynamic parentOrigin
     const parentOrigin = (

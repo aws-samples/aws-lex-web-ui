@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8dab9bfd737eb939d104"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d9a1134437da03167eef"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -743,7 +743,7 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
-// CONCATENATED MODULE: /Users/tchramzn/Documents/edu/reinvent/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAccessToken.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAccessToken.js
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -841,7 +841,7 @@ var CognitoAccessToken = function () {
 }();
 
 /* harmony default export */ var es_CognitoAccessToken = (CognitoAccessToken);
-// CONCATENATED MODULE: /Users/tchramzn/Documents/edu/reinvent/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoIdToken.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoIdToken.js
 function CognitoIdToken__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -925,7 +925,7 @@ var CognitoIdToken = function () {
 }();
 
 /* harmony default export */ var es_CognitoIdToken = (CognitoIdToken);
-// CONCATENATED MODULE: /Users/tchramzn/Documents/edu/reinvent/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoRefreshToken.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoRefreshToken.js
 function CognitoRefreshToken__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -982,7 +982,7 @@ var CognitoRefreshToken = function () {
 }();
 
 /* harmony default export */ var es_CognitoRefreshToken = (CognitoRefreshToken);
-// CONCATENATED MODULE: /Users/tchramzn/Documents/edu/reinvent/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoTokenScopes.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoTokenScopes.js
 function CognitoTokenScopes__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -1039,7 +1039,7 @@ var CognitoTokenScopes = function () {
 }();
 
 /* harmony default export */ var es_CognitoTokenScopes = (CognitoTokenScopes);
-// CONCATENATED MODULE: /Users/tchramzn/Documents/edu/reinvent/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuthSession.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuthSession.js
 function CognitoAuthSession__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -1238,7 +1238,7 @@ var CognitoAuthSession_CognitoAuthSession = function () {
 }();
 
 /* harmony default export */ var es_CognitoAuthSession = (CognitoAuthSession_CognitoAuthSession);
-// CONCATENATED MODULE: /Users/tchramzn/Documents/edu/reinvent/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/StorageHelper.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/StorageHelper.js
 function StorageHelper__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -1349,7 +1349,7 @@ var StorageHelper = function () {
 }();
 
 /* harmony default export */ var es_StorageHelper = (StorageHelper);
-// CONCATENATED MODULE: /Users/tchramzn/Documents/edu/reinvent/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuth.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuth.js
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function CognitoAuth__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2188,7 +2188,7 @@ var CognitoAuth_CognitoAuth = function () {
 }();
 
 /* harmony default export */ var es_CognitoAuth = (CognitoAuth_CognitoAuth);
-// CONCATENATED MODULE: /Users/tchramzn/Documents/edu/reinvent/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/DateHelper.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/DateHelper.js
 function DateHelper__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -2254,7 +2254,7 @@ var DateHelper = function () {
 }();
 
 /* harmony default export */ var es_DateHelper = (DateHelper);
-// CONCATENATED MODULE: /Users/tchramzn/Documents/edu/reinvent/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/index.js
+// CONCATENATED MODULE: /Users/potterve/Source/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/index.js
 /* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "CognitoAccessToken", function() { return es_CognitoAccessToken; });
 /* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "CognitoIdToken", function() { return es_CognitoIdToken; });
 /* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "CognitoRefreshToken", function() { return es_CognitoRefreshToken; });
@@ -25709,7 +25709,7 @@ utils.intFromLE = intFromLE;
 /***/ "../../../node_modules/elliptic/package.json":
 /***/ (function(module, exports) {
 
-module.exports = {"_args":[["elliptic@6.4.0","/Users/tchramzn/Documents/edu/reinvent/aws-lex-web-ui"]],"_development":true,"_from":"elliptic@6.4.0","_id":"elliptic@6.4.0","_inBundle":false,"_integrity":"sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.4.0","name":"elliptic","escapedName":"elliptic","rawSpec":"6.4.0","saveSpec":null,"fetchSpec":"6.4.0"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz","_spec":"6.4.0","_where":"/Users/tchramzn/Documents/edu/reinvent/aws-lex-web-ui","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.0"}
+module.exports = {"_args":[["elliptic@6.4.0","/Users/potterve/Source/aws-lex-web-ui"]],"_development":true,"_from":"elliptic@6.4.0","_id":"elliptic@6.4.0","_inBundle":false,"_integrity":"sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.4.0","name":"elliptic","escapedName":"elliptic","rawSpec":"6.4.0","saveSpec":null,"fetchSpec":"6.4.0"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz","_spec":"6.4.0","_where":"/Users/potterve/Source/aws-lex-web-ui","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.0"}
 
 /***/ }),
 
@@ -38346,7 +38346,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -38438,7 +38438,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -38491,7 +38491,7 @@ var _extends3 = _interopRequireDefault(_extends2);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -38665,7 +38665,7 @@ function setCustomEventShim() {
  * Base class used by the full page and iframe loaders
  */
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -39165,7 +39165,7 @@ var ConfigLoader = exports.ConfigLoader = function () {
   }]);
   return ConfigLoader;
 }(); /*
-      Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+      Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
      
       Licensed under the Amazon Software License (the "License"). You may not use this file
       except in compliance with the License. A copy of the License is located at
@@ -39210,7 +39210,7 @@ var _createClass3 = _interopRequireDefault(_createClass2);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -39510,7 +39510,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * scope
  */
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -39610,8 +39610,9 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
       });
       var cognitoPoolId = this.config.cognito.poolId;
 
-      var region = this.config.cognito.region || this.config.region || 'us-east-1';
-      var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + this.config.cognito.appUserPoolName;
+      var region = this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
+      var poolName = 'cognito-idp.' + region + '.amazonaws.com/' + this.config.cognito.appUserPoolName;
+
       var credentials = void 0;
       if (idtoken) {
         // auth role since logged in
@@ -39736,8 +39737,9 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
         }
         var cognitoPoolId = _this3.config.cognito.poolId;
 
-        var region = _this3.config.cognito.region || _this3.config.region || 'us-east-1';
-        var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + _this3.config.cognito.appUserPoolName;
+        var region = _this3.config.cognito.region || _this3.config.region || _this3.config.cognito.poolId.split(':')[0] || 'us-east-1';
+        var poolName = 'cognito-idp.' + region + '.amazonaws.com/' + _this3.config.cognito.appUserPoolName;
+
         if (!cognitoPoolId) {
           return reject(new Error('missing cognito poolId config'));
         }
@@ -39914,6 +39916,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
       var _this6 = this;
 
       var mergedConfig = _configLoader.ConfigLoader.mergeConfig(this.config, configParam);
+      mergedConfig.region = mergedConfig.region || mergedConfig.cognito.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1';
       this.config = mergedConfig;
       if (this.isRunningEmbeded()) {
         return FullPageComponentLoader.createComponent(mergedConfig).then(function (lexWebUi) {
@@ -40241,7 +40244,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  */
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -40387,8 +40390,8 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
     value: function updateCredentials() {
       var cognitoPoolId = this.config.cognito.poolId;
 
-      var region = this.config.cognito.region || this.config.region || 'us-east-1';
-      var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + this.config.cognito.appUserPoolName;
+      var region = this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
+      var poolName = 'cognito-idp.' + region + '.amazonaws.com/' + this.config.cognito.appUserPoolName;
       var credentials = void 0;
       var idtoken = localStorage.getItem('idtokenjwt');
       if (idtoken) {
@@ -40470,8 +40473,8 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
         }
         var cognitoPoolId = _this4.config.cognito.poolId;
 
-        var region = _this4.config.cognito.region || _this4.config.region || 'us-east-1';
-        var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + _this4.config.cognito.appUserPoolName;
+        var region = _this4.config.cognito.region || _this4.config.region || _this4.config.cognito.poolId.split(':')[0] || 'us-east-1';
+        var poolName = 'cognito-idp.' + region + '.amazonaws.com/' + _this4.config.cognito.appUserPoolName;
         if (!cognitoPoolId) {
           return reject(new Error('missing cognito poolId config'));
         }
@@ -40537,8 +40540,20 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
 
       // SECURITY: origin check
       if (evt.origin !== iframeOrigin) {
-        console.warn('postMessage from invalid origin', evt.origin);
-        return;
+        if (iframeOrigin.includes('s3.amazonaws.com')) {
+          // allow a region specific path to be valid
+          var p1 = evt.origin.split('.');
+          var p2 = iframeOrigin.split('.');
+          var regionAdjust1 = p1[0] + '.s3.' + p1[2] + '.' + p1[3];
+          var regionAdjust2 = p2[0] + '.s3.' + p2[2] + '.' + p2[3];
+          if (regionAdjust1 !== regionAdjust2) {
+            console.warn('postMessage from invalid origin', evt.origin);
+            return;
+          }
+        } else {
+          console.warn('postMessage from invalid origin', evt.origin);
+          return;
+        }
       }
       if (!evt.ports || !Array.isArray(evt.ports) || !evt.ports.length) {
         console.warn('postMessage not sent over MessageChannel', evt);
@@ -40895,7 +40910,16 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
             reject(new Error('iframe failed to handle message - ' + evt.data.error));
           }
         };
-        _this9.iframeElement.contentWindow.postMessage(message, iframeOrigin, [messageChannel.port2]);
+        var target = iframeOrigin;
+        if (target !== _this9.iframeElement.contentWindow.location.origin) {
+          // adjust to a region specific path if needed
+          var p1 = iframeOrigin.split('.');
+          var p2 = _this9.iframeElement.contentWindow.location.origin.split('.');
+          if (p1[0] === p2[0]) {
+            target = _this9.iframeElement.contentWindow.location.origin;
+          }
+        }
+        _this9.iframeElement.contentWindow.postMessage(message, target, [messageChannel.port2]);
       });
     }
 
