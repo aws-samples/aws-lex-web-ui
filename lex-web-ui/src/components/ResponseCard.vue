@@ -14,7 +14,7 @@
       contain
       height="33vh"
     ></v-card-media>
-    <v-card-actions class="button-row">
+    <v-card-actions v-if="responseCard.buttons" class="button-row">
       <v-btn
         v-for="(button) in responseCard.buttons"
         v-show="button.text && button.value"
