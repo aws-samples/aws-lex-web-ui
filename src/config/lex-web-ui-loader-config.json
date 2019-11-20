@@ -1,6 +1,6 @@
 {
   "cognito": {
-    "poolId": "us-east-1:da2aa9a0-0fa3-4023-8f56-c76d3bdf41c3",
+    "poolId": "us-east-1:06de3a58-1e89-4048-95bc-0d8cbd750d37",
     "appUserPoolClientId": "",
     "appUserPoolName": "",
     "appDomainName": "",
@@ -15,7 +15,7 @@
   },
   "ui": {
     "parentOrigin": "",
-    "toolbarTitle": "Order Flowers",
+    "toolbarTitle": "Order Config",
     "toolbarLogo": "",
     "positiveFeedbackIntent": "",
     "negativeFeedbackIntent": "",

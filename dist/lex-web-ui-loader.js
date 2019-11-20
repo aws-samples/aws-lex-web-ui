@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8dab9bfd737eb939d104"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "4a558e9b63f71680e0c7"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -40402,8 +40402,10 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
         }
       } else {
         // noauth role
+        var identityIdValue = localStorage.getItem('aws.cognito.identity-id.us-east-1:06de3a58-1e89-4048-95bc-0d8cbd750d37');
+        console.error(identityIdValue);
         try {
-          credentials = new AWS.CognitoIdentityCredentials({ IdentityPoolId: cognitoPoolId }, { region: region });
+          credentials = new AWS.CognitoIdentityCredentials({ IdentityPoolId: cognitoPoolId, IdentityId: 'us-east-1:a5a1a580-ab4f-420e-8b4b-376dc3c20d61' }, { region: region });
         } catch (err) {
           console.error(new Error('cognito noauth credentials could not be created ' + err));
         }
@@ -40501,7 +40503,9 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
           });
         }
         credentials = new AWS.CognitoIdentityCredentials({ IdentityPoolId: cognitoPoolId }, { region: region });
-        credentials.clearCachedId();
+        if (_this4.config.ui.enableLogin) {
+          credentials.clearCachedId();
+        }
         var self = _this4;
         return credentials.getPromise().then(function () {
           self.credentials = credentials;

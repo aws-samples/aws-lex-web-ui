@@ -105,7 +105,8 @@ Parameters:
     CustomResourceCodeBucket:
         Type: String
         Description: S3 bucket name for custom resource Lambda bundle
-        Default: aws-bigdata-blog
+        Default: tom-bootstrap-bucket
+        # Default: aws-bigdata-blog
 
     CustomResourceCodeObject:
         Type: String
@@ -182,7 +183,7 @@ Resources:
                 Type: CODEPIPELINE
             Environment:
                 Type: LINUX_CONTAINER
-                Image: aws/codebuild/nodejs:10.16
+                Image: aws/codebuild/nodejs:10.14.1
                 ComputeType: BUILD_GENERAL1_SMALL
                 EnvironmentVariables:
                     - Name: BUILD_TYPE
