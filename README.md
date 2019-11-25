@@ -18,6 +18,12 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### New Features in version 0.14.9
+- Use of NodeJS 10.x for Lambda functions.
+Note that this feature requires use of NodeJS 10.16.3 or higher and npm version 6.13.0 or higher
+to build the LexWebUi. 
+- Moved use of Polly for initial speech instruction to be used by Cognito Auth Role only
+
 #### New Features in version 0.14.8
 - Inline message feedback buttons
 

@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.14.9] - 2019-11-25
+### Added
+- Update to use NodeJS 10.x for Lambda functions
+- Moved Polly initial speech instruction use on mic click to be available in Cognito Auth Role only
+
+### Added
+- Inline message feedback buttons
+- Toolbar Buttons
+- Help Button
+- Back Button
+
+## [0.14.8] - 2019-11-15
+
+### Added
+- Inline message feedback buttons
+- Toolbar Buttons
+- Help Button
+- Back Button
+
 ## [0.13.2] - 2018-06-14
 
 ### Fixed
