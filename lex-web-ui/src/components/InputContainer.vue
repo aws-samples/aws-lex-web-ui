@@ -191,7 +191,7 @@ export default {
           this.$store.state.lex.dialogState === initialState
         ));
 
-      return (isInitialState) ?
+      return (this.$store.state.isLoggedIn && isInitialState) ?
         this.$store.dispatch(
           'pollySynthesizeSpeech',
           this.initialSpeechInstruction,

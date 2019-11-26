@@ -85,14 +85,6 @@ Resources:
                           ForAnyValue:StringLike:
                               cognito-identity.amazonaws.com:amr: unauthenticated
             Policies:
-                - PolicyName: PollySynth
-                  PolicyDocument:
-                      Version: 2012-10-17
-                      Statement:
-                          - Effect: Allow
-                            Action:
-                                - polly:SynthesizeSpeech
-                            Resource: '*'
                 - PolicyName: LexPost
                   PolicyDocument:
                       Version: 2012-10-17

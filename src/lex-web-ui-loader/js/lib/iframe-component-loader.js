@@ -178,9 +178,11 @@ export class IframeComponentLoader {
         console.error(new Error(`cognito auth credentials could not be created ${err}`));
       }
     } else { // noauth role
+      const identityIdValue = localStorage.getItem('aws.cognito.identity-id.us-east-1:06de3a58-1e89-4048-95bc-0d8cbd750d37');
+      console.error(identityIdValue);
       try {
         credentials = new AWS.CognitoIdentityCredentials(
-          { IdentityPoolId: cognitoPoolId },
+          { IdentityPoolId: cognitoPoolId, IdentityId: 'us-east-1:a5a1a580-ab4f-420e-8b4b-376dc3c20d61' },
           { region },
         );
       } catch (err) {
@@ -282,7 +284,9 @@ export class IframeComponentLoader {
         { IdentityPoolId: cognitoPoolId },
         { region },
       );
-      credentials.clearCachedId();
+      if (this.config.ui.enableLogin) {
+        credentials.clearCachedId();
+      }
       const self = this;
       return credentials.getPromise()
         .then(() => {
