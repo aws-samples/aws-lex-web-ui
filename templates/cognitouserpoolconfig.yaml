@@ -41,7 +41,6 @@ Resources:
             Timeout: 300
             Code:
                 ZipFile: !Sub |
-                    from __future__ import print_function
                     import json
                     import boto3
                     import cfnresponse
@@ -192,7 +191,6 @@ Resources:
             Timeout: 300
             Code:
                 ZipFile: !Sub |
-                    from __future__ import print_function
                     import json
                     import boto3
                     import cfnresponse
@@ -285,7 +283,6 @@ Resources:
             Timeout: 300
             Code:
                 ZipFile: !Sub |
-                    from __future__ import print_function
                     import json
                     import boto3
                     import cfnresponse
