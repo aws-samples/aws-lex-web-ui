@@ -15,31 +15,33 @@
 """ CodeBuild Starter
 
 CloudFormation Custom Resource Lambda Function
+
+Converted to python3 with 2to3 converter
+
 """
 
 import logging
+
 import boto3
 import cfnresponse
-
 
 codebuild_client = boto3.client('codebuild')
 
 DEFAULT_LOGGING_LEVEL = logging.INFO
-logging.basicConfig(format='[%(levelname)s] %(message)s', level=DEFAULT_LOGGING_LEVEL)
+logging.basicConfig(
+    format='[%(levelname)s] %(message)s', level=DEFAULT_LOGGING_LEVEL)
 logger = logging.getLogger(__name__)
 logger.setLevel(DEFAULT_LOGGING_LEVEL)
+
 
 def start_build(resource_properties):
     project_name = resource_properties.get('ProjectName')
     if (not project_name):
-        raise ValueError(
-          'missing ProjectName resource property'
-        )
+        raise ValueError('missing ProjectName resource property')
 
-    response = codebuild_client.start_build(
-        projectName=project_name
-    )
+    response = codebuild_client.start_build(projectName=project_name)
     return response
+
 
 def handler(event, context):
     logger.info('event: {}'.format(cfnresponse.json_dump_format(event)))
@@ -54,16 +56,13 @@ def handler(event, context):
     if (request_type in ['Create', 'Update']):
         try:
             start_build_response = start_build(resource_properties)
-            logger.info(
-                'start_build response: {}'.format(
-                    cfnresponse.json_dump_format(start_build_response)
-                )
-            )
+            logger.info('start_build response: {}'.format(
+                cfnresponse.json_dump_format(start_build_response)))
             # only return specific fields to prevent "response object is too long" errors
             response = {
-              'build_id':  start_build_response['build']['id'],
-              'project_name':  start_build_response['build']['projectName'],
-              'arn':  start_build_response['build']['arn'],
+                'build_id': start_build_response['build']['id'],
+                'project_name': start_build_response['build']['projectName'],
+                'arn': start_build_response['build']['arn'],
             }
             response_status = cfnresponse.SUCCESS
             request_id = start_build_response['ResponseMetadata']['RequestId']
@@ -75,11 +74,5 @@ def handler(event, context):
             reason = error
             pass
 
-    cfnresponse.send(
-        event,
-        context,
-        response_status,
-        response,
-        request_id,
-        reason
-    )
+    cfnresponse.send(event, context, response_status, response, request_id,
+                     reason)
