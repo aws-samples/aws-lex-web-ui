@@ -37,7 +37,7 @@ Resources:
         Properties:
             Handler: index.handler
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
-            Runtime: python2.7
+            Runtime: python3.6
             Timeout: 300
             Code:
                 ZipFile: !Sub |
@@ -187,7 +187,7 @@ Resources:
         Properties:
             Handler: index.handler
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
-            Runtime: python2.7
+            Runtime: python3.6
             Timeout: 300
             Code:
                 ZipFile: !Sub |
@@ -279,7 +279,7 @@ Resources:
         Properties:
             Handler: index.handler
             Role: !GetAtt CleanStackNameExecutionRole.Arn
-            Runtime: python2.7
+            Runtime: python3.6
             Timeout: 300
             Code:
                 ZipFile: !Sub |

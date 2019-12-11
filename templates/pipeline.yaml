@@ -409,7 +409,7 @@ Resources:
                 S3Key: !Ref CustomResourceCodeObject
             Handler: s3-cleanup.handler
             Role: !GetAtt S3CleanupLambdaRole.Arn
-            Runtime: python2.7
+            Runtime: python3.6
             Timeout: 120
 
     S3CleanupLambdaRole:
