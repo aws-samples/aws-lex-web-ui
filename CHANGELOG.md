@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Converted Lambda functions to python 3 with the help of [2to3 utility](https://python.org)
 - Removed unnecessary dependency from yaml template
+- Changed yaml template runtime as python3.6
 
 ## [0.14.9] - 2019-11-25
 
