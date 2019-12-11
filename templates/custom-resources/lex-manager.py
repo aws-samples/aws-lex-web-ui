@@ -19,6 +19,8 @@ Used to import/export/delete Lex bots and associated resources
 
 Can be run as a shell script or used as a Lambda Function for CloudFormation
 Custom Resources.
+
+Converted to python3 with 2to3 converter
 """
 
 import logging
@@ -80,9 +82,9 @@ def export_bot(bot_name=None, file_name=None):
 
     bot_definition = bot_exporter.export()
     if (file_name is None):
-        print(
+        print((
             json.dumps(bot_definition, indent=2, sort_keys=True, default=str)
-        )
+        ))
     else:
         write_bot_definition_file(bot_definition, file_name)
 
@@ -181,37 +183,25 @@ def add_prefix(bot_definition, prefix='WebUi'):
     bot = bot_definition['bot']
     bot['name'] = prefix + bot['name']
 
-    bot['intents'] = map(
-        lambda intent: dict(
+    bot['intents'] = [dict(
             intentName=(prefix + intent.pop('intentName')),
             **intent
-        ),
-        bot_definition['bot']['intents']
-    )
+        ) for intent in bot_definition['bot']['intents']]
 
-    slot_types = map(
-        lambda slot_type: dict(
+    slot_types = [dict(
             name=(prefix + slot_type.pop('name')),
             **slot_type
-        ),
-        bot_definition['slot_types']
-    )
+        ) for slot_type in bot_definition['slot_types']]
 
-    intents = map(
-        lambda intent: dict(
+    intents = [dict(
             name=(prefix + intent.pop('name')),
-            slots=map(
-                lambda slot: dict(
+            slots=[dict(
                     slotType=(prefix + slot.pop('slotType')),
                     **slot
                 ) if (prefix + slot['slotType']) in [s['name'] for s in slot_types]
-                else slot,
-                intent.pop('slots')
-            ),
+                else slot for slot in intent.pop('slots')],
             **intent
-        ),
-        bot_definition['intents']
-    )
+        ) for intent in bot_definition['intents']]
 
     return dict(
         bot=bot,

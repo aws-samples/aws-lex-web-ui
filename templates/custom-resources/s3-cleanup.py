@@ -15,6 +15,8 @@
 """ S3 Clean Up
 
 CloudFormation Custom Resource Lambda Function
+
+Converted to python3 with 2to3 converter
 """
 
 import logging
@@ -40,7 +42,7 @@ def get_buckets_from_properties(resource_properties):
         raise ValueError('empty Buckets property')
     for bucket in buckets:
         bucket_type = type(bucket)
-        if not (bucket_type == str or bucket_type == unicode):
+        if not (bucket_type == str or bucket_type == str):
             raise ValueError(
                 'invalid bucket name type in Buckets property: {}'.format(
                     bucket_type

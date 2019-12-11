@@ -13,6 +13,8 @@
 # License for the specific language governing permissions and limitations under the License.
 ##########################################################################
 """ Lex Model Building Service Helper Classes
+
+Converted to python3 with 2to3 converter
 """
 # TODO need to DRY codebase
 import logging
@@ -196,8 +198,8 @@ class LexBotExporter():
 
         return dict(
             bot=self._get_bot,
-            intents=self._bot_intents.values(),
-            slot_types=self._slot_types.values(),
+            intents=list(self._bot_intents.values()),
+            slot_types=list(self._slot_types.values()),
         )
 
     @staticmethod
