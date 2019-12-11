@@ -16,10 +16,10 @@
 
 Converted to python3 with 2to3 converter
 """
+import copy
+import json
 # TODO need to DRY codebase
 import logging
-import json
-import copy
 import time
 
 import boto3

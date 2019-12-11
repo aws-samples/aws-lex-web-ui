@@ -23,10 +23,10 @@ Custom Resources.
 Converted to python3 with 2to3 converter
 """
 
-import logging
 import json
+import logging
 
-from lexutils import LexBotImporter, LexBotExporter, LexBotDeleter
+from lexutils import LexBotDeleter, LexBotExporter, LexBotImporter
 
 DEFAULT_LOGGING_LEVEL = logging.INFO
 logging.basicConfig(
