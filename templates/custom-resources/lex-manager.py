@@ -30,35 +30,36 @@ from lexutils import LexBotDeleter, LexBotExporter, LexBotImporter
 
 DEFAULT_LOGGING_LEVEL = logging.INFO
 logging.basicConfig(
-    format='[%(levelname)s] %(message)s',
-    level=DEFAULT_LOGGING_LEVEL
-)
+    format='[%(levelname)s] %(message)s', level=DEFAULT_LOGGING_LEVEL)
 logger = logging.getLogger(__name__)
 logger.setLevel(DEFAULT_LOGGING_LEVEL)
 
 BOT_DEFINITION_FILENAME = 'bot-definition.json'
 BOT_EXPORT_FILENAME = 'bot-definition-export.json'
 
+
 def read_bot_definition_file(file_name=BOT_DEFINITION_FILENAME):
     with open(file_name) as bot_json_file:
         bot_definition = json.load(bot_json_file)
     logger.info(
-        'sucessfully read bot definition from file: {}'.format(file_name)
-    )
+        'sucessfully read bot definition from file: {}'.format(file_name))
     return bot_definition
+
 
 def write_bot_definition_file(bot_definition, file_name=BOT_EXPORT_FILENAME):
     with open(file_name, 'w') as bot_json_file:
-        json.dump(bot_definition, bot_json_file,
+        json.dump(
+            bot_definition,
+            bot_json_file,
             indent=2,
             sort_keys=True,
-            default=str
-        )
+            default=str)
     logger.info(
-        'sucessfully wrote bot definition to file: {}'.format(file_name)
-    )
+        'sucessfully wrote bot definition to file: {}'.format(file_name))
 
-def import_bot(bot_definition=None, definition_filename=BOT_DEFINITION_FILENAME):
+
+def import_bot(bot_definition=None,
+               definition_filename=BOT_DEFINITION_FILENAME):
     if (bot_definition is None):
         bot_definition = read_bot_definition_file(definition_filename)
 
@@ -69,6 +70,7 @@ def import_bot(bot_definition=None, definition_filename=BOT_DEFINITION_FILENAME)
     bot_importer.import_bot()
 
     return bot_definition
+
 
 def export_bot(bot_name=None, file_name=None):
     if (bot_name is None):
@@ -82,13 +84,13 @@ def export_bot(bot_name=None, file_name=None):
 
     bot_definition = bot_exporter.export()
     if (file_name is None):
-        print((
-            json.dumps(bot_definition, indent=2, sort_keys=True, default=str)
-        ))
+        print((json.dumps(
+            bot_definition, indent=2, sort_keys=True, default=str)))
     else:
         write_bot_definition_file(bot_definition, file_name)
 
     return bot_definition
+
 
 def delete_bot(bot_name=None):
     if (bot_name is None):
@@ -104,32 +106,38 @@ def delete_bot(bot_name=None):
 
     return bot_definition
 
+
 def get_parsed_args():
     """ Parse arguments passed when running as a shell script
     """
     parser = argparse.ArgumentParser(
         description='Lex bot manager. Import, export or delete a Lex bot.'
-            ' Used to import/export/delete Lex bots and associated resources'
-            ' (i.e. intents, slot types).'
-    )
+        ' Used to import/export/delete Lex bots and associated resources'
+        ' (i.e. intents, slot types).')
     format_group = parser.add_mutually_exclusive_group()
-    format_group.add_argument('-i', '--import',
+    format_group.add_argument(
+        '-i',
+        '--import',
         nargs='?',
         default=argparse.SUPPRESS,
         const=BOT_DEFINITION_FILENAME,
         metavar='file',
-        help='Import bot definition from file into account. Defaults to: {}'
-            .format(BOT_DEFINITION_FILENAME),
+        help='Import bot definition from file into account. Defaults to: {}'.
+        format(BOT_DEFINITION_FILENAME),
     )
-    format_group.add_argument('-e', '--export',
+    format_group.add_argument(
+        '-e',
+        '--export',
         nargs='?',
         default=argparse.SUPPRESS,
         metavar='botname',
         help='Export bot definition as JSON to stdout'
-            ' Defaults to reading the botname from the definition file: {}'
-            .format(BOT_DEFINITION_FILENAME),
+        ' Defaults to reading the botname from the definition file: {}'.format(
+            BOT_DEFINITION_FILENAME),
     )
-    format_group.add_argument('-d', '--delete',
+    format_group.add_argument(
+        '-d',
+        '--delete',
         nargs=1,
         default=argparse.SUPPRESS,
         metavar='botname',
@@ -143,6 +151,7 @@ def get_parsed_args():
 
     return args
 
+
 def main(argv):
     """ Main function used when running as a shell script
     """
@@ -155,7 +164,7 @@ def main(argv):
             import_bot(definition_filename=vars(parsed_args)['import'])
         except Exception as e:
             error = 'failed to import bot {}'.format(e)
-            logging.error(error);
+            logging.error(error)
             sys.exit(1)
 
     if 'export' in parsed_args:
@@ -163,7 +172,7 @@ def main(argv):
             export_bot(bot_name=parsed_args.export)
         except Exception as e:
             error = 'failed to export bot {}'.format(e)
-            logging.error(error);
+            logging.error(error)
             sys.exit(1)
 
     if 'delete' in parsed_args:
@@ -171,8 +180,9 @@ def main(argv):
             delete_bot(parsed_args.delete.pop())
         except Exception as e:
             error = 'failed to delete bot {}'.format(e)
-            logging.error(error);
+            logging.error(error)
             sys.exit(1)
+
 
 def add_prefix(bot_definition, prefix='WebUi'):
     """ Adds a prefix to resource names in a bot definition
@@ -183,41 +193,37 @@ def add_prefix(bot_definition, prefix='WebUi'):
     bot = bot_definition['bot']
     bot['name'] = prefix + bot['name']
 
-    bot['intents'] = [dict(
-            intentName=(prefix + intent.pop('intentName')),
-            **intent
-        ) for intent in bot_definition['bot']['intents']]
+    bot['intents'] = [
+        dict(intentName=(prefix + intent.pop('intentName')), **intent)
+        for intent in bot_definition['bot']['intents']
+    ]
 
-    slot_types = [dict(
-            name=(prefix + slot_type.pop('name')),
-            **slot_type
-        ) for slot_type in bot_definition['slot_types']]
+    slot_types = [
+        dict(name=(prefix + slot_type.pop('name')), **slot_type)
+        for slot_type in bot_definition['slot_types']
+    ]
 
-    intents = [dict(
+    intents = [
+        dict(
             name=(prefix + intent.pop('name')),
-            slots=[dict(
-                    slotType=(prefix + slot.pop('slotType')),
-                    **slot
-                ) if (prefix + slot['slotType']) in [s['name'] for s in slot_types]
-                else slot for slot in intent.pop('slots')],
-            **intent
-        ) for intent in bot_definition['intents']]
+            slots=[
+                dict(slotType=(prefix + slot.pop('slotType')), **slot) if
+                (prefix + slot['slotType']) in [s['name']
+                                                for s in slot_types] else slot
+                for slot in intent.pop('slots')
+            ],
+            **intent) for intent in bot_definition['intents']
+    ]
 
-    return dict(
-        bot=bot,
-        intents=intents,
-        slot_types=slot_types
-    )
+    return dict(bot=bot, intents=intents, slot_types=slot_types)
+
 
 def test_handler():
     import time
     handler(
         event=dict(
             RequestType='Create',
-            ResourceProperties=dict(
-                NamePrefix='WebUiTest',
-            )
-        ),
+            ResourceProperties=dict(NamePrefix='WebUiTest', )),
         context={},
     )
     sleep_time = 30
@@ -226,12 +232,10 @@ def test_handler():
     handler(
         event=dict(
             RequestType='Delete',
-            ResourceProperties=dict(
-                NamePrefix='WebUiTest',
-            )
-        ),
+            ResourceProperties=dict(NamePrefix='WebUiTest', )),
         context={},
     )
+
 
 def handler(event, context):
     """ CloudFormation Custom Resource Lambda Handler
@@ -252,7 +256,7 @@ def handler(event, context):
     should_delete = resource_properties.get('ShouldDelete', True)
 
     bot_definition = read_bot_definition_file(BOT_DEFINITION_FILENAME)
-    bot_definition_prefix =  add_prefix(bot_definition, name_prefix)
+    bot_definition_prefix = add_prefix(bot_definition, name_prefix)
 
     if (request_type in ['Create', 'Update']):
         try:
@@ -277,14 +281,9 @@ def handler(event, context):
         reason = error
 
     if bool(context):
-        cfnresponse.send(
-            event,
-            context,
-            response_status,
-            response,
-            response_id,
-            reason
-        )
+        cfnresponse.send(event, context, response_status, response,
+                         response_id, reason)
+
 
 if __name__ == '__main__':
     #from IPython.core.debugger import Pdb ; Pdb().set_trace() # XXX

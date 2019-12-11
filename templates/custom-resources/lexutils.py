@@ -25,8 +25,10 @@ import time
 import boto3
 
 DEFAULT_LOGGING_LEVEL = logging.WARNING
-logging.basicConfig(format='[%(levelname)s] %(message)s', level=DEFAULT_LOGGING_LEVEL)
+logging.basicConfig(
+    format='[%(levelname)s] %(message)s', level=DEFAULT_LOGGING_LEVEL)
 logger = logging.getLogger(__name__)
+
 
 class LexClient():
     def __init__(self, profile_name=''):
@@ -34,16 +36,12 @@ class LexClient():
 
         if self._profile_name:
             try:
-                self._lex_client = (
-                    boto3.session
-                    .Session(profile_name=self._profile_name).client('lex-models')
-                )
+                self._lex_client = (boto3.session.Session(
+                    profile_name=self._profile_name).client('lex-models'))
             except Exception as e:
                 logger.error(
                     'Failed to create boto3 client using profile: {}'.format(
-                        profile_name
-                    )
-                )
+                        profile_name))
                 logger.error(e)
                 raise
         else:
@@ -80,14 +78,13 @@ class LexBotExporter():
         If empty, the standard credential resolver will be used.
     :type profile_name: str
     """
-    def __init__(
-            self,
-            bot_name,
-            bot_version='$LATEST',
-            lambda_arn=None,
-            profile_name='',
-            logging_level=DEFAULT_LOGGING_LEVEL
-        ):
+
+    def __init__(self,
+                 bot_name,
+                 bot_version='$LATEST',
+                 lambda_arn=None,
+                 profile_name='',
+                 logging_level=DEFAULT_LOGGING_LEVEL):
         self._bot_name = bot_name
         self._bot_version = bot_version
         self._lambda_arn = lambda_arn
@@ -104,8 +101,7 @@ class LexBotExporter():
     def _get_bot(self):
         try:
             self._get_bot_response = self._lex_client.get_bot(
-                name=self._bot_name, versionOrAlias=self._bot_version
-            )
+                name=self._bot_name, versionOrAlias=self._bot_version)
         except Exception as e:
             logger.error('Lex get_bot call failed')
             logger.error(e)
@@ -118,8 +114,7 @@ class LexBotExporter():
             intent_name = intent['intentName']
             try:
                 intent_response = self._lex_client.get_intent(
-                    name=intent_name, version=intent['intentVersion']
-                )
+                    name=intent_name, version=intent['intentVersion'])
             except Exception as e:
                 logger.error('Lex get_intent call failed')
                 logger.error(e)
@@ -135,20 +130,17 @@ class LexBotExporter():
             for slot in self._get_intent_responses[intent_name]['slots']:
                 slot_type = slot['slotType']
                 # ignore AMAZON and types seen before
-                if (not slot_type.startswith('AMAZON.') and
-                    not self._get_slot_type_responses.get(slot_type)
-                ):
+                if (not slot_type.startswith('AMAZON.')
+                        and not self._get_slot_type_responses.get(slot_type)):
                     try:
                         slot_type_response = self._lex_client.get_slot_type(
-                            name=slot_type, version=slot['slotTypeVersion']
-                        )
+                            name=slot_type, version=slot['slotTypeVersion'])
                     except Exception as e:
                         logger.error('Lex get_slot_type call failed')
                         logger.error(e)
                         raise
                     self._get_slot_type_responses[slot_type] = (
-                        slot_type_response
-                    )
+                        slot_type_response)
 
         return self._get_slot_type_responses
 
@@ -165,7 +157,8 @@ class LexBotExporter():
             intent = intents_export[intent_name]
             intent = self.filter_unneeded_keys(intent)
             if self._lambda_arn:
-                intent = self.change_intent_code_hooks(intent, self._lambda_arn)
+                intent = self.change_intent_code_hooks(intent,
+                                                       self._lambda_arn)
             intent = self.change_intent_slot_versions(intent)
             intents_export[intent_name] = intent
 
@@ -225,8 +218,10 @@ class LexBotExporter():
             'status',
             'version',
         ]
-        return {key: get_response[key]
-                for key in get_response if key not in KEYS_TO_FILTER}
+        return {
+            key: get_response[key]
+            for key in get_response if key not in KEYS_TO_FILTER
+        }
 
     @staticmethod
     def change_intent_versions(response, version='$LATEST'):
@@ -258,18 +253,15 @@ class LexBotExporter():
     def change_intent_code_hooks(response, lambda_arn):
         response_copy = copy.deepcopy(response)
 
-        if (response_copy.get('dialogCodeHook') and
-            response_copy['dialogCodeHook'].get('uri')
-        ):
+        if (response_copy.get('dialogCodeHook')
+                and response_copy['dialogCodeHook'].get('uri')):
             response_copy['dialogCodeHook']['uri'] = lambda_arn
 
-        if (response_copy.get('fulfillmentActivity') and
-            response_copy['fulfillmentActivity'].get('codeHook') and
-            response_copy['fulfillmentActivity']['codeHook'].get('uri')
-        ):
+        if (response_copy.get('fulfillmentActivity')
+                and response_copy['fulfillmentActivity'].get('codeHook') and
+                response_copy['fulfillmentActivity']['codeHook'].get('uri')):
             response_copy['fulfillmentActivity']['codeHook']['uri'] = (
-                lambda_arn
-            )
+                lambda_arn)
 
         return response_copy
 
@@ -281,18 +273,17 @@ class LexBotExporter():
     def bot_version(self):
         return self._bot_version
 
+
 class LexBotImporter():
     def __init__(
             self,
             bot_definition,
             profile_name='',
             logging_level=DEFAULT_LOGGING_LEVEL,
-        ):
+    ):
 
-        if (not bot_definition.get('bot') or
-            not bot_definition.get('intents') or
-            not bot_definition.get('slot_types')
-        ):
+        if (not bot_definition.get('bot') or not bot_definition.get('intents')
+                or not bot_definition.get('slot_types')):
             raise ValueError('invalid bot_definition argument')
 
         self._bot_definition = bot_definition
@@ -311,14 +302,11 @@ class LexBotImporter():
         '''
         # XXX it seems like the Lex SDK doesn't have can_paginate() support
         nextToken = ''
-        count=20
+        count = 20
         while True:
             try:
-                get_slot_types_response = (
-                    self._lex_client.get_slot_types(
-                        maxResults=50, nextToken=nextToken
-                    )
-                )
+                get_slot_types_response = (self._lex_client.get_slot_types(
+                    maxResults=50, nextToken=nextToken))
             except Exception as e:
                 logger.error('Lex get_slot_types call failed')
                 logger.error(e)
@@ -328,7 +316,7 @@ class LexBotImporter():
                 self._slot_types[name] = slot_type
 
             nextToken = get_slot_types_response.get('nextToken')
-            count-=1
+            count -= 1
             if count and not nextToken:
                 break
 
@@ -339,12 +327,11 @@ class LexBotImporter():
         '''
         # XXX it seems like the Lex SDK doesn't have can_paginate() support
         nextToken = ''
-        count=20
+        count = 20
         while True:
             try:
                 get_intents_response = self._lex_client.get_intents(
-                    maxResults=50, nextToken=nextToken
-                )
+                    maxResults=50, nextToken=nextToken)
             except Exception as e:
                 logger.error('Lex get_intents call failed')
                 logger.error(e)
@@ -354,7 +341,7 @@ class LexBotImporter():
                 self._intents[name] = intent
 
             nextToken = get_intents_response.get('nextToken')
-            count-=1
+            count -= 1
             if count and not nextToken:
                 break
 
@@ -365,12 +352,11 @@ class LexBotImporter():
         '''
         # XXX it seems like the Lex SDK doesn't have can_paginate() support
         nextToken = ''
-        count=20
+        count = 20
         while True:
             try:
                 get_bots_response = self._lex_client.get_bots(
-                    maxResults=50, nextToken=nextToken
-                )
+                    maxResults=50, nextToken=nextToken)
             except Exception as e:
                 logger.error('Lex get_intents call failed')
                 logger.error(e)
@@ -380,7 +366,7 @@ class LexBotImporter():
                 self._bots[name] = bot
 
             nextToken = get_bots_response.get('nextToken')
-            count-=1
+            count -= 1
             if count and not nextToken:
                 break
 
@@ -397,8 +383,7 @@ class LexBotImporter():
 
                 try:
                     get_slot_type_response = self._lex_client.get_slot_type(
-                        name=name, version=version
-                    )
+                        name=name, version=version)
                 except Exception as e:
                     logger.error('Lex get_slot_type call failed')
                     logger.error(e)
@@ -406,9 +391,9 @@ class LexBotImporter():
                 checksum = get_slot_type_response['checksum']
                 try:
                     self._lex_client.put_slot_type(
-                        checksum=checksum, **slot_type
-                    )
-                    logger.info('successfully updated slot type: {}'.format(name))
+                        checksum=checksum, **slot_type)
+                    logger.info(
+                        'successfully updated slot type: {}'.format(name))
                 except Exception as e:
                     logger.error('Lex put_slot_type call failed')
                     logger.error(e)
@@ -417,7 +402,8 @@ class LexBotImporter():
                 logger.info('creating slot type: {}'.format(name))
                 try:
                     self._lex_client.put_slot_type(**slot_type)
-                    logger.info('sucessfully created slot type: {}'.format(name))
+                    logger.info(
+                        'sucessfully created slot type: {}'.format(name))
                 except Exception as e:
                     logger.error('Lex put_slot_type call failed')
                     logger.error(e)
@@ -434,8 +420,7 @@ class LexBotImporter():
 
                 try:
                     get_intent_response = self._lex_client.get_intent(
-                        name=name, version=version
-                    )
+                        name=name, version=version)
                 except Exception as e:
                     logger.error('Lex get_intent call failed')
                     logger.error(e)
@@ -468,8 +453,7 @@ class LexBotImporter():
         if self._bots.get(bot_name):
             try:
                 get_bot_response = self._lex_client.get_bot(
-                    name=bot_name, versionOrAlias=version
-                )
+                    name=bot_name, versionOrAlias=version)
             except Exception as e:
                 logger.error('Lex get_bot call failed')
                 logger.error(e)
@@ -493,12 +477,9 @@ class LexBotImporter():
                 logger.error(e)
                 raise
 
-
     def import_bot(self):
         logger.info('importing bot definition for bot name {}'.format(
-              self._bot_definition['bot']['name']
-            )
-        )
+            self._bot_definition['bot']['name']))
         self._get_slot_types()
         self._get_intents()
         self._get_bots()
@@ -508,26 +489,24 @@ class LexBotImporter():
         self._import_bot()
         logger.info('successfully imported bot and associated resources')
 
+
 class LexBotDeleter(LexBotExporter):
     """Class to delete a Lex bot and associated resources
     """
     MAX_DELETE_TRIES = 5
     RETRY_SLEEP = 5
 
-    def __init__(
-            self,
-            bot_name,
-            bot_version='$LATEST',
-            profile_name='',
-            logging_level=DEFAULT_LOGGING_LEVEL
-        ):
+    def __init__(self,
+                 bot_name,
+                 bot_version='$LATEST',
+                 profile_name='',
+                 logging_level=DEFAULT_LOGGING_LEVEL):
         LexBotExporter.__init__(
             self,
             bot_name=bot_name,
             bot_version=bot_version,
             profile_name=profile_name,
-            logging_level=logging_level
-        )
+            logging_level=logging_level)
         logger.setLevel(logging_level)
         logging.getLogger('botocore').setLevel(logging_level)
 
@@ -542,24 +521,23 @@ class LexBotDeleter(LexBotExporter):
         for slot_type in self._bot_definition['slot_types']:
             name = slot_type['name']
             logger.info('deleting slot type: {}'.format(name))
-            count=self.MAX_DELETE_TRIES
+            count = self.MAX_DELETE_TRIES
             while True:
                 try:
                     self._lex_client.delete_slot_type(name=name)
-                    logger.info('successfully deleted slot type: {}'.format(name))
+                    logger.info(
+                        'successfully deleted slot type: {}'.format(name))
                     break
                 except Exception as e:
                     logger.warning('Lex delete_slot_type call failed')
                     logger.warning(e)
-                    count-=1
+                    count -= 1
                     if count:
-                        logger.warning(
-                            'Lex delete_slot_type retry: {}. '
-                            'Sleeping for {} seconds'.format(
-                                self.MAX_DELETE_TRIES - count,
-                                self.RETRY_SLEEP,
-                            )
-                        )
+                        logger.warning('Lex delete_slot_type retry: {}. '
+                                       'Sleeping for {} seconds'.format(
+                                           self.MAX_DELETE_TRIES - count,
+                                           self.RETRY_SLEEP,
+                                       ))
                         time.sleep(self.RETRY_SLEEP)
                         continue
                     else:
@@ -572,7 +550,7 @@ class LexBotDeleter(LexBotExporter):
         for intent in self._bot_definition['intents']:
             name = intent['name']
             logger.info('deleting intent: {}'.format(name))
-            count=self.MAX_DELETE_TRIES
+            count = self.MAX_DELETE_TRIES
             while True:
                 try:
                     self._lex_client.delete_intent(name=name)
@@ -581,15 +559,13 @@ class LexBotDeleter(LexBotExporter):
                 except Exception as e:
                     logger.warning('Lex delete_intent call failed')
                     logger.warning(e)
-                    count-=1
+                    count -= 1
                     if count:
-                        logger.warning(
-                            'Lex delete_intent retry: {}. '
-                            'Sleeping for {} seconds'.format(
-                                self.MAX_DELETE_TRIES - count,
-                                self.RETRY_SLEEP,
-                            )
-                        )
+                        logger.warning('Lex delete_intent retry: {}. '
+                                       'Sleeping for {} seconds'.format(
+                                           self.MAX_DELETE_TRIES - count,
+                                           self.RETRY_SLEEP,
+                                       ))
                         time.sleep(self.RETRY_SLEEP)
                         continue
                     else:
@@ -601,15 +577,12 @@ class LexBotDeleter(LexBotExporter):
         '''
         # XXX it seems like the Lex SDK doesn't have can_paginate() support
         nextToken = ''
-        count=20
+        count = 20
         bot_name = self._bot_definition['bot']['name']
         while True:
             try:
-                get_bot_aliases_response = (
-                    self._lex_client.get_bot_aliases(
-                        botName=bot_name, maxResults=50, nextToken=nextToken
-                    )
-                )
+                get_bot_aliases_response = (self._lex_client.get_bot_aliases(
+                    botName=bot_name, maxResults=50, nextToken=nextToken))
             except Exception as e:
                 logger.error('Lex get_bot_aliases call failed')
                 logger.error(e)
@@ -619,7 +592,7 @@ class LexBotDeleter(LexBotExporter):
                 self._bot_aliases[name] = alias
 
             nextToken = get_bot_aliases_response.get('nextToken')
-            count-=1
+            count -= 1
             if count and not nextToken:
                 break
 
@@ -631,24 +604,24 @@ class LexBotDeleter(LexBotExporter):
         bot_name = self._bot_definition['bot']['name']
         for name in self._get_bot_aliases():
             logger.info('deleting alias: {}'.format(name))
-            count=self.MAX_DELETE_TRIES
+            count = self.MAX_DELETE_TRIES
             while True:
                 try:
-                    self._lex_client.delete_bot_alias(name=name, botName=bot_name)
-                    logger.info('successfully deleted bot alias: {}'.format(name))
+                    self._lex_client.delete_bot_alias(
+                        name=name, botName=bot_name)
+                    logger.info(
+                        'successfully deleted bot alias: {}'.format(name))
                     break
                 except Exception as e:
                     logger.warning('Lex delete_bot_alias call failed')
                     logger.warning(e)
-                    count-=1
+                    count -= 1
                     if count:
-                        logger.warning(
-                            'Lex delete_bot_alias retry: {}. '
-                            'Sleeping for {} seconds'.format(
-                                self.MAX_DELETE_TRIES - count,
-                                self.RETRY_SLEEP,
-                            )
-                        )
+                        logger.warning('Lex delete_bot_alias retry: {}. '
+                                       'Sleeping for {} seconds'.format(
+                                           self.MAX_DELETE_TRIES - count,
+                                           self.RETRY_SLEEP,
+                                       ))
                         time.sleep(self.RETRY_SLEEP)
                         continue
                     else:
@@ -660,7 +633,7 @@ class LexBotDeleter(LexBotExporter):
         '''
         name = self._bot_definition['bot']['name']
         logger.info('deleting bot: {}'.format(name))
-        count=self.MAX_DELETE_TRIES
+        count = self.MAX_DELETE_TRIES
         while True:
             try:
                 self._lex_client.delete_bot(name=name)
@@ -669,15 +642,13 @@ class LexBotDeleter(LexBotExporter):
             except Exception as e:
                 logger.warning('Lex delete_bot call failed')
                 logger.warning(e)
-                count-=1
+                count -= 1
                 if count:
-                    logger.warning(
-                        'Lex delete_bot retry: {}. '
-                        'Sleeping for {} seconds'.format(
-                            self.MAX_DELETE_TRIES - count,
-                            self.RETRY_SLEEP,
-                        )
-                    )
+                    logger.warning('Lex delete_bot retry: {}. '
+                                   'Sleeping for {} seconds'.format(
+                                       self.MAX_DELETE_TRIES - count,
+                                       self.RETRY_SLEEP,
+                                   ))
                     time.sleep(self.RETRY_SLEEP)
                     continue
                 else:
@@ -686,13 +657,8 @@ class LexBotDeleter(LexBotExporter):
 
     def delete(self):
         logger.info('deleting bot with definition: \n{}'.format(
-                json.dumps(self._bot_definition,
-                    indent=2,
-                    sort_keys=True,
-                    default=str
-                )
-            )
-        )
+            json.dumps(
+                self._bot_definition, indent=2, sort_keys=True, default=str)))
         self._delete_bot_aliases()
         self._delete_bot()
         self._delete_intents()

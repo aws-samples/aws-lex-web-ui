@@ -20,11 +20,13 @@ Converted to python3 with 2to3 converter
 """
 
 import logging
+
 import boto3
 import cfnresponse
 
 DEFAULT_LOGGING_LEVEL = logging.INFO
-logging.basicConfig(format='[%(levelname)s] %(message)s', level=DEFAULT_LOGGING_LEVEL)
+logging.basicConfig(
+    format='[%(levelname)s] %(message)s', level=DEFAULT_LOGGING_LEVEL)
 logger = logging.getLogger(__name__)
 logger.setLevel(DEFAULT_LOGGING_LEVEL)
 
@@ -32,6 +34,7 @@ boto3.set_stream_logger('boto3', level=DEFAULT_LOGGING_LEVEL)
 
 s3_client = boto3.client('s3')
 s3_resource = boto3.resource('s3')
+
 
 def get_buckets_from_properties(resource_properties):
     buckets = resource_properties.get('Buckets')
@@ -45,12 +48,11 @@ def get_buckets_from_properties(resource_properties):
         if not (bucket_type == str or bucket_type == str):
             raise ValueError(
                 'invalid bucket name type in Buckets property: {}'.format(
-                    bucket_type
-                )
-            )
+                    bucket_type))
         s3_client.head_bucket(Bucket=bucket)
 
     return buckets
+
 
 def delete_buckets(buckets):
     for bucket in buckets:
@@ -61,6 +63,7 @@ def delete_buckets(buckets):
             s3_object.delete()
 
         bucket_resource.delete()
+
 
 def handler(event, context):
     logger.info('event: {}'.format(cfnresponse.json_dump_format(event)))
@@ -88,11 +91,5 @@ def handler(event, context):
         response_status = cfnresponse.FAILED
         reason = error
 
-    cfnresponse.send(
-        event,
-        context,
-        response_status,
-        response,
-        response_id,
-        reason
-    )
+    cfnresponse.send(event, context, response_status, response, response_id,
+                     reason)
