@@ -573,7 +573,7 @@ conform to the the latest airbnb eslint config
 ### Fixed
 - Improved interruption of bot speech conversation when switching to text by
   avoiding Lex service conflicts (postText text while postContent processing)
-- Mute autodetection config issue
+- Mute auto detection config issue
 
 ## [0.2.0] - 2017-04-28
 ### Added

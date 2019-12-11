@@ -83,7 +83,7 @@ Parameters:
         MaxLength: 255
         AllowedPattern: '^[A-Za-z0-9][A-Za-z0-9\-_]{1,254}$'
         ConstraintDescription: >
-            Should start with Alphanumeric. May contain alphanumeric, undescore
+            Should start with Alphanumeric. May contain alphanumeric, underscore
             and dash.
 
     WebAppParentOrigin:
