@@ -41,92 +41,92 @@ Resources:
             Timeout: 300
             Code:
                 ZipFile: !Sub |
-                    import json
-                    import boto3
-                    import cfnresponse
-                    import time
-                    def handler(event, context):
-                        print(json.dumps(event))
-                        stackname = '${CleanStackName.CleanStackNameValue}'[0:50]
-                        id = stackname + '${AWS::AccountId}'
-                        id = id.lower().replace("cognito","")
-                        print('final id: ' + id)
-                        if (event["RequestType"] == "Delete"):
-                            try:
-                                deleteDomain(id)
-                            except Exception as e:
-                                print("Exception thrown: %s" % str(e))
-                                pass
-                        elif (event["RequestType"] == "Create"):
-                            try:
-                                name = createDomain(id)
-                                print('name: ' + name)
-                                fullname = name + '.auth.' + '${AWS::Region}' + '.amazoncognito.com'
-                                print('fullname: ' + fullname)
-                                updateCodeBuildEnvironment('${CodeBuildProjectName}', fullname)
-                            except Exception as e:
-                                print("Exception thrown: %s" % str(e))
-                                pass
-                        else:
-                            print("RequestType %s, nothing to do" % event["RequestType"])
-                        time.sleep(30)  # pause for CloudWatch logs
-                        print('Done')
-                        responseData={"domainid":id}
+                """
+                Converted to python3 with 2to3 converter
+                """
+                import json
+                import time
+                
+                import boto3
+                import cfnresponse
+                
+                
+                def handler(event, context):
+                    print(json.dumps(event))
+                    stackname = '${CleanStackName.CleanStackNameValue}' [0:50]
+                    id = stackname + '${AWS::AccountId}'
+                    id = id.lower().replace("cognito", "")
+                    print('final id: ' + id)
+                    if (event["RequestType"] == "Delete"):
                         try:
-                            cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData, id)
+                            deleteDomain(id)
                         except Exception as e:
-                            print("Exception thrown in cfnresponse: %s" % str(e))
+                            print("Exception thrown: %s" % str(e))
                             pass
-                    def deleteDomain(stackName):
-                        normalized = stackName.lower()
-                        print("Deleting domain %s" % normalized)
-                        client = boto3.client('cognito-idp')
-                        response = client.delete_user_pool_domain(
-                            Domain=normalized,
-                            UserPoolId='${CognitoUserPool}'
-                        )
-                        return response
-                    def createDomain(stackName):
-                        normalized = stackName.lower()
-                        print("Creating domain %s" % normalized)
-                        client = boto3.client('cognito-idp')
-                        response = client.create_user_pool_domain(
-                            Domain=normalized,
-                            UserPoolId='${CognitoUserPool}'
-                        )
-                        return normalized
-                    def updateCodeBuildEnvironment(projectname, domainname):
-                        print("Updating codebuild project %s" % projectname)
-                        client = boto3.client('codebuild')
-                        data = client.batch_get_projects(
-                        names=[
-                              projectname
-                            ]
-                        )
-                        projects = data.get('projects')
-                        project = projects[0]
-                        environment = project.get('environment')
-                        variables = environment.get('environmentVariables')
-                        updated = False
-                        for element in variables :
-                            if element.get('name') == 'APP_DOMAIN_NAME':
-                                element.update({'value': domainname})
-                                updated = True
-                        if not updated:
-                            item = {
-                                'name': 'APP_DOMAIN_NAME',
-                                'value': domainname,
-                                'type': 'PLAINTEXT'
-                            }
-                            variables.append(item)
-                        response = client.update_project(
-                            name=projectname,
-                            environment=environment
-                        )
-                        response = client.start_build(
-                            projectName=projectname
-                        )
-                        return response
+                    elif (event["RequestType"] == "Create"):
+                        try:
+                            name = createDomain(id)
+                            print('name: ' + name)
+                            fullname = name + '.auth.' + '${AWS::Region}' + '.amazoncognito.com'
+                            print('fullname: ' + fullname)
+                            updateCodeBuildEnvironment('${CodeBuildProjectName}', fullname)
+                        except Exception as e:
+                            print("Exception thrown: %s" % str(e))
+                            pass
+                    else:
+                        print("RequestType %s, nothing to do" % event["RequestType"])
+                    time.sleep(30)  # pause for CloudWatch logs
+                    print('Done')
+                    responseData = {"domainid": id}
+                    try:
+                        cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData, id)
+                    except Exception as e:
+                        print("Exception thrown in cfnresponse: %s" % str(e))
+                        pass
+                
+                
+                def deleteDomain(stackName):
+                    normalized = stackName.lower()
+                    print("Deleting domain %s" % normalized)
+                    client = boto3.client('cognito-idp')
+                    response = client.delete_user_pool_domain(
+                        Domain=normalized, UserPoolId='${CognitoUserPool}')
+                    return response
+                
+                
+                def createDomain(stackName):
+                    normalized = stackName.lower()
+                    print("Creating domain %s" % normalized)
+                    client = boto3.client('cognito-idp')
+                    response = client.create_user_pool_domain(
+                        Domain=normalized, UserPoolId='${CognitoUserPool}')
+                    return normalized
+                
+                
+                def updateCodeBuildEnvironment(projectname, domainname):
+                    print("Updating codebuild project %s" % projectname)
+                    client = boto3.client('codebuild')
+                    data = client.batch_get_projects(names=[projectname])
+                    projects = data.get('projects')
+                    project = projects[0]
+                    environment = project.get('environment')
+                    variables = environment.get('environmentVariables')
+                    updated = False
+                    for element in variables:
+                        if element.get('name') == 'APP_DOMAIN_NAME':
+                            element.update({'value': domainname})
+                            updated = True
+                    if not updated:
+                        item = {
+                            'name': 'APP_DOMAIN_NAME',
+                            'value': domainname,
+                            'type': 'PLAINTEXT'
+                        }
+                        variables.append(item)
+                    response = client.update_project(name=projectname, environment=environment)
+                    response = client.start_build(projectName=projectname)
+                    return response
+                
 
     CognitoUserPoolDomainExecutionRole:
         Type: AWS::IAM::Role
@@ -191,58 +191,64 @@ Resources:
             Timeout: 300
             Code:
                 ZipFile: !Sub |
-                    import json
-                    import boto3
-                    import cfnresponse
-                    import time
-                    def handler(event, context):
-                        print(json.dumps(event))
-                        if (event["RequestType"] == "Create"):
-                            try:
-                                updatePool("${CleanStackName.CleanStackNameValue}")
-                            except Exception as e:
-                                print("Exception thrown: %s" % str(e))
-                                pass
-                        else:
-                            print("RequestType %s, nothing to do" % event["RequestType"])
-                        time.sleep(30)  # pause for CloudWatch logs
-                        print('Done')
-                        responseData={"Data":"OK"}
+                """
+                Converted to python3 with 2to3 converter
+                """
+                import json
+                import time
+                
+                import boto3
+                import cfnresponse
+                
+                
+                def handler(event, context):
+                    print(json.dumps(event))
+                    if (event["RequestType"] == "Create"):
                         try:
-                            cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData)
+                            updatePool("${CleanStackName.CleanStackNameValue}")
                         except Exception as e:
-                            print("Exception thrown in cfnresponse: %s" % str(e))
+                            print("Exception thrown: %s" % str(e))
                             pass
-                    def updatePool(stackName):
-                        normalized = stackName.lower()
-                        print("Updating Pool domain %s" % normalized)
-                        client = boto3.client('cognito-idp')
-                        response = client.update_user_pool_client(
-                            UserPoolId='${CognitoUserPool}',
-                            ClientId='${CognitoUserPoolClient}',
-                            ClientName=normalized,
-                            RefreshTokenValidity=365,
-                            CallbackURLs=[
-                                '${WebAppUrl}${WebAppPath}?loggedin=yes',
-                                '${WebAppUrl}/index.html?loggedin=yes',
-                                '${WebAppUrl}/parent.html?loggedin=yes',
-                            ],
-                            LogoutURLs=[
-                                '${WebAppUrl}${WebAppPath}?loggedout=yes',
-                                '${WebAppUrl}/index.html?loggedout=yes',
-                                '${WebAppUrl}/parent.html?loggedout=yes',
-                            ],
-                            SupportedIdentityProviders=[
-                                    'COGNITO',
-                            ],
-                            AllowedOAuthFlows=[
-                                'code',
-                            ],
-                            AllowedOAuthScopes=[
-                                'phone', 'email', 'openid', 'profile'
-                            ],
-                            AllowedOAuthFlowsUserPoolClient=True
-                        )
+                    else:
+                        print("RequestType %s, nothing to do" % event["RequestType"])
+                    time.sleep(30)  # pause for CloudWatch logs
+                    print('Done')
+                    responseData = {"Data": "OK"}
+                    try:
+                        cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData)
+                    except Exception as e:
+                        print("Exception thrown in cfnresponse: %s" % str(e))
+                        pass
+                
+                
+                def updatePool(stackName):
+                    normalized = stackName.lower()
+                    print("Updating Pool domain %s" % normalized)
+                    client = boto3.client('cognito-idp')
+                    response = client.update_user_pool_client(
+                        UserPoolId='${CognitoUserPool}',
+                        ClientId='${CognitoUserPoolClient}',
+                        ClientName=normalized,
+                        RefreshTokenValidity=365,
+                        CallbackURLs=[
+                            '${WebAppUrl}${WebAppPath}?loggedin=yes',
+                            '${WebAppUrl}/index.html?loggedin=yes',
+                            '${WebAppUrl}/parent.html?loggedin=yes',
+                        ],
+                        LogoutURLs=[
+                            '${WebAppUrl}${WebAppPath}?loggedout=yes',
+                            '${WebAppUrl}/index.html?loggedout=yes',
+                            '${WebAppUrl}/parent.html?loggedout=yes',
+                        ],
+                        SupportedIdentityProviders=[
+                            'COGNITO',
+                        ],
+                        AllowedOAuthFlows=[
+                            'code',
+                        ],
+                        AllowedOAuthScopes=['phone', 'email', 'openid', 'profile'],
+                        AllowedOAuthFlowsUserPoolClient=True)
+                
     CleanStackNameExecutionRole:
         Type: AWS::IAM::Role
         Properties:
@@ -283,35 +289,44 @@ Resources:
             Timeout: 300
             Code:
                 ZipFile: !Sub |
-                    import json
-                    import boto3
-                    import cfnresponse
-                    import time
-                    def handler(event, context):
-                        print(json.dumps(event))
-                        if (event["RequestType"] == "Delete"):
-                            responseData={"Data":"OK"}
-                            try:
-                                cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData)
-                            except Exception as e:
-                                print("Exception thrown in cfnresponse: %s" % str(e))
-                                pass
-                        else:
-                            val = enforceSyntax("${AWS::StackName}")
-                            time.sleep(10)  # pause for CloudWatch logs
-                            responseData={"Data":"OK","CleanStackNameValue":val}
-                            try:
-                                cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData)
-                            except Exception as e:
-                                print("Exception thrown in cfnresponse: %s" % str(e))
-                                pass
-                    def enforceSyntax(val):
-                        badChars=['0','1','2','3','4','5','6','7','8','9','-']
-                        goodChars=['a','b','c','d','e','f','g','h','i','j','k']
-                        i=0
-                        res = val
-                        for b in badChars:
-                            res = res.replace(b,goodChars[i])
-                            i +=1
-                        return res
+                """
+                Converted to python3 with 2to3 converter
+                """
+                import json
+                import time
+                
+                import boto3
+                import cfnresponse
+                
+                
+                def handler(event, context):
+                    print(json.dumps(event))
+                    if (event["RequestType"] == "Delete"):
+                        responseData = {"Data": "OK"}
+                        try:
+                            cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData)
+                        except Exception as e:
+                            print("Exception thrown in cfnresponse: %s" % str(e))
+                            pass
+                    else:
+                        val = enforceSyntax("${AWS::StackName}")
+                        time.sleep(10)  # pause for CloudWatch logs
+                        responseData = {"Data": "OK", "CleanStackNameValue": val}
+                        try:
+                            cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData)
+                        except Exception as e:
+                            print("Exception thrown in cfnresponse: %s" % str(e))
+                            pass
+                
+                
+                def enforceSyntax(val):
+                    badChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-']
+                    goodChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
+                    i = 0
+                    res = val
+                    for b in badChars:
+                        res = res.replace(b, goodChars[i])
+                        i += 1
+                    return res
+                
 
