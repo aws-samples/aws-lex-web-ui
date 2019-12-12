@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Converted Lambda functions to python 3 with the help of [2to3 utility](https://python.org)
 - Removed unnecessary dependency from yaml template
 - Changed yaml template runtime as python3.6
+- Changed template code to python3
 
 ## [0.14.9] - 2019-11-25
 
@@ -329,9 +330,9 @@ issue will be further investigated.
   changed using environmental variables. This is in preparation to set
   these variables from CloudFormation parameters. The new variables include:
   _ BOT_INITIAL_TEXT
-  _ BOT_INITIAL_SPEECH
-  _ UI_TOOLBAR_TITLE
-  _ UI_TOOLBAR_LOGO
+  _ BOT*INITIAL_SPEECH
+  * UI*TOOLBAR_TITLE
+  * UI_TOOLBAR_LOGO
 - Added a new `config` directory in the root of the repo that includes
   build configuration
 - Added a new `src` directory in the root of the repo to hold the
