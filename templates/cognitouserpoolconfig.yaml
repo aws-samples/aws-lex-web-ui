@@ -41,16 +41,11 @@ Resources:
             Timeout: 300
             Code:
                 ZipFile: !Sub |
-                """
-                Converted to python3 with 2to3 converter
-                """
+                """Converted to python3 with 2to3 converter"""
                 import json
                 import time
-                
                 import boto3
                 import cfnresponse
-                
-                
                 def handler(event, context):
                     print(json.dumps(event))
                     stackname = '${CleanStackName.CleanStackNameValue}' [0:50]
@@ -83,8 +78,6 @@ Resources:
                     except Exception as e:
                         print("Exception thrown in cfnresponse: %s" % str(e))
                         pass
-                
-                
                 def deleteDomain(stackName):
                     normalized = stackName.lower()
                     print("Deleting domain %s" % normalized)
@@ -92,8 +85,6 @@ Resources:
                     response = client.delete_user_pool_domain(
                         Domain=normalized, UserPoolId='${CognitoUserPool}')
                     return response
-                
-                
                 def createDomain(stackName):
                     normalized = stackName.lower()
                     print("Creating domain %s" % normalized)
@@ -101,8 +92,6 @@ Resources:
                     response = client.create_user_pool_domain(
                         Domain=normalized, UserPoolId='${CognitoUserPool}')
                     return normalized
-                
-                
                 def updateCodeBuildEnvironment(projectname, domainname):
                     print("Updating codebuild project %s" % projectname)
                     client = boto3.client('codebuild')
@@ -196,11 +185,8 @@ Resources:
                 """
                 import json
                 import time
-                
                 import boto3
                 import cfnresponse
-                
-                
                 def handler(event, context):
                     print(json.dumps(event))
                     if (event["RequestType"] == "Create"):
@@ -219,8 +205,6 @@ Resources:
                     except Exception as e:
                         print("Exception thrown in cfnresponse: %s" % str(e))
                         pass
-                
-                
                 def updatePool(stackName):
                     normalized = stackName.lower()
                     print("Updating Pool domain %s" % normalized)
@@ -248,7 +232,6 @@ Resources:
                         ],
                         AllowedOAuthScopes=['phone', 'email', 'openid', 'profile'],
                         AllowedOAuthFlowsUserPoolClient=True)
-                
     CleanStackNameExecutionRole:
         Type: AWS::IAM::Role
         Properties:
@@ -294,11 +277,8 @@ Resources:
                 """
                 import json
                 import time
-                
                 import boto3
                 import cfnresponse
-                
-                
                 def handler(event, context):
                     print(json.dumps(event))
                     if (event["RequestType"] == "Delete"):
@@ -317,8 +297,6 @@ Resources:
                         except Exception as e:
                             print("Exception thrown in cfnresponse: %s" % str(e))
                             pass
-                
-                
                 def enforceSyntax(val):
                     badChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-']
                     goodChars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
