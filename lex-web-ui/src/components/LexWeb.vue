@@ -126,11 +126,11 @@ export default {
         this.$store.dispatch('initLexClient', this.$lexWebUi.lexRuntimeClient),
       ]))
       .then(() => {
-          this.$store.dispatch(
-            'sendMessageToParentWindow',
-            { event: 'ready' },
-          )
-          Promise.resolve()
+        this.$store.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'ready' },
+        );
+        Promise.resolve();
       })
       .then(() => console.info(
         'sucessfully initialized lex web ui version: ',
