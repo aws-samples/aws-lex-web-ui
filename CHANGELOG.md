@@ -5,15 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.14.9] - 2019-11-25
-### Added
-- Update to use NodeJS 10.x for Lambda functions
-- Moved Polly initial speech instruction use on mic click to be available in Cognito Auth Role only
 
 ### Added
-- Inline message feedback buttons
-- Toolbar Buttons
-- Help Button
-- Back Button
+- Update to use NodeJS 10.x for pipeline based build
+- Moved Polly initial speech instruction use on mic click to be available in Cognito Auth Role only
 
 ## [0.14.8] - 2019-11-15
 
