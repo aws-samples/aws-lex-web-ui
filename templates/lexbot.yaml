@@ -90,7 +90,10 @@ Resources:
                           - Effect: Allow
                             Action:
                                 - lex:Get*
-                            Resource: '*'
+                            Resource:
+                                - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${NamePrefix}*:*"
+                                - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:intent:${NamePrefix}*:*"
+                                - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:slottype:${NamePrefix}*:*"
                 - PolicyName: LexMutating
                   PolicyDocument:
                       Version: 2012-10-17

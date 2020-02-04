@@ -7562,7 +7562,7 @@ var debugs = {};
 var debugEnviron;
 exports.debuglog = function(set) {
   if (isUndefined(debugEnviron))
-    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.14.9","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
+    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.14.10","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
   set = set.toUpperCase();
   if (!debugs[set]) {
     if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
@@ -12646,6 +12646,7 @@ module.exports = { "default": __webpack_require__(196), __esModule: true };
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+//
 //
 //
 //
@@ -19574,7 +19575,7 @@ module.exports = function (KEY, exec) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ToolbarContainer_vue__ = __webpack_require__(108);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_33467959_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3223acd1_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__ = __webpack_require__(201);
 function injectStyle (ssrContext) {
   __webpack_require__(200)
 }
@@ -19594,7 +19595,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ToolbarContainer_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_33467959_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3223acd1_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19615,7 +19616,7 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-toolbar',{attrs:{"color":_vm.toolbarColor,"app":"","dark":"","dense":"","fixed":""}},[(_vm.toolbarLogo)?_c('img',{attrs:{"src":_vm.toolbarLogo}}):_vm._e(),_vm._v(" "),(_vm.isEnableLogin)?_c('v-menu',{attrs:{"offset-y":""}},[_c('v-btn',{attrs:{"slot":"activator","dark":"","icon":""},slot:"activator"},[_c('v-icon',[_vm._v("\n        "+_vm._s('menu')+"\n      ")])],1),_vm._v(" "),_c('v-list',[_c('v-list-tile',[(_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogout}},[_vm._v(_vm._s(_vm.items[1].title))]):_vm._e(),_vm._v(" "),(!_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogin}},[_vm._v(_vm._s(_vm.items[0].title))]):_vm._e()],1)],1)],1):_vm._e(),_vm._v(" "),_c('div',{staticClass:"nav-buttons"},[_c('v-btn',_vm._g({directives:[{name:"show",rawName:"v-show",value:(_vm.hasPrevUtterance),expression:"hasPrevUtterance"}],staticClass:"nav-button-prev",attrs:{"small":"","icon":"","disabled":_vm.isBackProcessing},on:{"click":_vm.onPrev}},_vm.prevNavEventHandlers),[_c('v-icon',[_vm._v("\n        arrow_back\n      ")])],1),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".nav-button-prev","right":""},model:{value:(_vm.prevNav),callback:function ($$v) {_vm.prevNav=$$v},expression:"prevNav"}},[_c('span',[_vm._v("Previous")])])],1),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_vm._v("\n    "+_vm._s(_vm.toolbarTitle)+"\n  ")]),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_vm._v("\n    "+_vm._s(_vm.userName)+"\n  ")]),_vm._v(" "),_c('v-spacer'),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".min-max-toggle","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"min-max-tooltip"}},[_vm._v(_vm._s(_vm.toolTipMinimize))])]),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".help-toggle","left":""},model:{value:(_vm.shouldShowHelpTooltip),callback:function ($$v) {_vm.shouldShowHelpTooltip=$$v},expression:"shouldShowHelpTooltip"}},[_c('span',{attrs:{"id":"help-tooltip"}},[_vm._v("help")])]),_vm._v(" "),(_vm.helpButton)?_c('v-btn',_vm._g({staticClass:"help-toggle",attrs:{"icon":""},on:{"click":_vm.sendHelp}},_vm.tooltipHelpEventHandlers),[_c('v-icon',[_vm._v("\n      help_outline\n    ")])],1):_vm._e(),_vm._v(" "),(_vm.$store.state.isRunningEmbedded)?_c('v-btn',_vm._g({staticClass:"min-max-toggle",attrs:{"icon":""},on:{"click":_vm.toggleMinimize}},_vm.tooltipEventHandlers),[_c('v-icon',[_vm._v("\n      "+_vm._s(_vm.isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down')+"\n    ")])],1):_vm._e()],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-toolbar',{attrs:{"color":_vm.toolbarColor,"app":"","dark":"","dense":"","fixed":""}},[(_vm.toolbarLogo)?_c('img',{attrs:{"src":_vm.toolbarLogo}}):_vm._e(),_vm._v(" "),(_vm.isEnableLogin)?_c('v-menu',{attrs:{"offset-y":""}},[_c('v-btn',{directives:[{name:"show",rawName:"v-show",value:(!_vm.isUiMinimized),expression:"!isUiMinimized"}],attrs:{"slot":"activator","dark":"","icon":""},slot:"activator"},[_c('v-icon',[_vm._v("\n        "+_vm._s('menu')+"\n      ")])],1),_vm._v(" "),_c('v-list',[_c('v-list-tile',[(_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogout}},[_vm._v(_vm._s(_vm.items[1].title))]):_vm._e(),_vm._v(" "),(!_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogin}},[_vm._v(_vm._s(_vm.items[0].title))]):_vm._e()],1)],1)],1):_vm._e(),_vm._v(" "),_c('div',{staticClass:"nav-buttons"},[_c('v-btn',_vm._g({directives:[{name:"show",rawName:"v-show",value:(_vm.hasPrevUtterance && !_vm.isUiMinimized),expression:"hasPrevUtterance && !isUiMinimized"}],staticClass:"nav-button-prev",attrs:{"small":"","icon":"","disabled":_vm.isBackProcessing},on:{"click":_vm.onPrev}},_vm.prevNavEventHandlers),[_c('v-icon',[_vm._v("\n        arrow_back\n      ")])],1),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".nav-button-prev","right":""},model:{value:(_vm.prevNav),callback:function ($$v) {_vm.prevNav=$$v},expression:"prevNav"}},[_c('span',[_vm._v("Previous")])])],1),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_vm._v("\n    "+_vm._s(_vm.toolbarTitle)+"\n  ")]),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_vm._v("\n    "+_vm._s(_vm.userName)+"\n  ")]),_vm._v(" "),_c('v-spacer'),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".min-max-toggle","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"min-max-tooltip"}},[_vm._v(_vm._s(_vm.toolTipMinimize))])]),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".help-toggle","left":""},model:{value:(_vm.shouldShowHelpTooltip),callback:function ($$v) {_vm.shouldShowHelpTooltip=$$v},expression:"shouldShowHelpTooltip"}},[_c('span',{attrs:{"id":"help-tooltip"}},[_vm._v("help")])]),_vm._v(" "),(_vm.helpButton && !_vm.isUiMinimized)?_c('v-btn',_vm._g({staticClass:"help-toggle",attrs:{"icon":""},on:{"click":_vm.sendHelp}},_vm.tooltipHelpEventHandlers),[_c('v-icon',[_vm._v("\n      help_outline\n    ")])],1):_vm._e(),_vm._v(" "),(_vm.$store.state.isRunningEmbedded)?_c('v-btn',_vm._g({staticClass:"min-max-toggle",attrs:{"icon":""},on:{"click":_vm.toggleMinimize}},_vm.tooltipEventHandlers),[_c('v-icon',[_vm._v("\n      "+_vm._s(_vm.isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down')+"\n    ")])],1):_vm._e()],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -31593,9 +31594,9 @@ function plural(ms, msAbs, n, name) {
 var debug
 /* istanbul ignore next */
 if (typeof process === 'object' &&
-    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.14.9","DIST_BUILD":"true","PUBLIC_PATH":"/"}) &&
-    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.14.9","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG &&
-    /\bsemver\b/i.test(Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.14.9","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG)) {
+    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.14.10","DIST_BUILD":"true","PUBLIC_PATH":"/"}) &&
+    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.14.10","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG &&
+    /\bsemver\b/i.test(Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.14.10","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG)) {
   debug = function () {
     var args = Array.prototype.slice.call(arguments, 0)
     args.unshift('SEMVER')
@@ -35097,7 +35098,7 @@ License for the specific language governing permissions and limitations under th
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  version:  true ? "0.14.9" : '0.0.0',
+  version:  true ? "0.14.10" : '0.0.0',
   lex: {
     acceptFormat: 'audio/ogg',
     dialogState: '',
