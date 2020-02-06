@@ -102,9 +102,9 @@ export default {
 }
 
 .btn {
-  margin: 10px !important;
-  font-size: 12px !important;
-  min-width: 44px !important;
+  margin: 10px;
+  font-size: 1em;
+  min-width: 44px;
 }
 
 .card__actions.button-row {
