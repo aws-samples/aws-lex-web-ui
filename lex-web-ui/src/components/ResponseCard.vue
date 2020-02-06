@@ -23,6 +23,8 @@
         v-bind:disabled="hasButtonBeenClicked"
         round
         default
+        v-bind:color="button.text.toLowerCase() === 'more' ? '' : 'accent'"
+        class="secondary--text"
       >
         {{button.text}}
       </v-btn>
