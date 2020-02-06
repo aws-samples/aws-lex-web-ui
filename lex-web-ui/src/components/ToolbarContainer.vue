@@ -41,10 +41,8 @@
       </v-tooltip>
     </div>
 
-
-
     <v-toolbar-title class="hidden-xs-and-down" v-on:click="toggleMinimize">
-      {{ toolbarTitle }}
+      <h1>{{ toolbarTitle }}</h1>
     </v-toolbar-title>
 
     <v-toolbar-title class="hidden-xs-and-down">
