@@ -14,6 +14,7 @@
         slot="activator"
         dark
         icon
+        v-show="!isUiMinimized"
       >
         <v-icon>
           {{'menu'}}
@@ -30,7 +31,7 @@
 
     
     <div class="nav-buttons">
-      <v-btn small icon :disabled="isBackProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance">
+      <v-btn small icon :disabled="isBackProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance && !isUiMinimized">
         <v-icon>
           arrow_back
         </v-icon>
@@ -67,7 +68,7 @@
       <span id="help-tooltip">help</span>
     </v-tooltip>
     <v-btn
-      v-if="helpButton"
+      v-if="helpButton && !isUiMinimized"
       v-on:click="sendHelp"
       v-on="tooltipHelpEventHandlers"
       icon
