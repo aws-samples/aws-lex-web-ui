@@ -3,8 +3,8 @@
     v-bind:color="toolbarColor"
     app
     dark
-    dense
     fixed
+    v-bind:dense="this.$store.state.isRunningEmbedded"
   >
     <img v-if="toolbarLogo" v-bind:src="toolbarLogo"/>
 
@@ -28,7 +28,7 @@
       </v-list>
     </v-menu>
 
-    
+
     <div class="nav-buttons">
       <v-btn small icon :disabled="isBackProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance">
         <v-icon>
@@ -39,11 +39,11 @@
         <span>Previous</span>
       </v-tooltip>
     </div>
-    
+
 
 
     <v-toolbar-title class="hidden-xs-and-down">
-      {{ toolbarTitle }}
+      <h1>{{ toolbarTitle }}</h1>
     </v-toolbar-title>
 
     <v-toolbar-title class="hidden-xs-and-down">
