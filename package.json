@@ -55,7 +55,7 @@
     "postcss-loader": "^2.0.10",
     "style-loader": "^0.19.1",
     "webpack": "3.10.0",
-    "webpack-dev-server": "^2.11.5"
+    "webpack-dev-server": "^3.1.11"
   },
   "engines": {
     "node": ">= 10.16.3",
