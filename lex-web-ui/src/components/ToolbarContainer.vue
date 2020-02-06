@@ -3,8 +3,8 @@
     v-bind:color="toolbarColor"
     app
     dark
-    dense
     fixed
+    v-bind:dense="this.$store.state.isRunningEmbedded"
   >
     <img v-if="toolbarLogo" v-bind:src="toolbarLogo"/>
 
