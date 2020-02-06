@@ -57,7 +57,7 @@ describe('Message.vue', function () {
         expect(avatarEl, 'avatar Element').is.not.equal(null);
         expect(avatarEl.style['background-image'], 'background image')
           .is.equal(`url(${imageUrl})`);
-        expect(avatarEl.tabIndex, 'avatar tab index').is.equal(message.id + 1);
+        expect(avatarEl.tabIndex, 'avatar tab index').is.equal(0);
 
         vm.$store.commit('mergeConfig', { ui: { avatarImageUrl: '' } });
         return vm.$nextTick();

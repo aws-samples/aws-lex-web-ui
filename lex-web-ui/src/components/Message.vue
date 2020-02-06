@@ -13,12 +13,12 @@
               <div
                 v-if="shouldShowAvatarImage"
                 v-bind:style="botAvatarBackground"
-                v-bind:tabindex="message.id + 1"
+                tabindex="0"
                 class="bot-avatar focusable"
               >
               </div>
               <div
-                v-bind:tabindex="message.id + 1"
+                tabindex="0"
                 v-on:focus="onMessageFocus"
                 v-on:blur="onMessageBlur"
                 class="message-bubble focusable"
@@ -36,7 +36,7 @@
                   </audio>
                   <v-btn
                     v-on:click="playAudio"
-                    v-bind:tabindex="message.id + 1"
+                    tabindex="0"
                     icon
                     class="black--text ml-0 mr-0"
                   >
