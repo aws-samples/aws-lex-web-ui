@@ -3,8 +3,8 @@
     v-bind:color="toolbarColor"
     app
     dark
-    dense
     fixed
+    v-bind:dense="this.$store.state.isRunningEmbedded"
   >
     <img v-if="toolbarLogo" v-bind:src="toolbarLogo"/>
 
@@ -28,7 +28,7 @@
       </v-list>
     </v-menu>
 
-    
+
     <div class="nav-buttons">
       <v-btn small icon :disabled="isBackProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance">
         <v-icon>

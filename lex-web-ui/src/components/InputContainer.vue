@@ -6,7 +6,10 @@
       ma-0
       class="input-container"
     >
-      <v-toolbar color="white" dense>
+      <v-toolbar
+        color="white"
+        v-bind:dense="this.$store.state.isRunningEmbedded"
+      >
         <!--
           using v-show instead of v-if to make recorder-status transition work
         -->
