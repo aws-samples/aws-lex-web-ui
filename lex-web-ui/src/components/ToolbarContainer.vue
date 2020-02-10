@@ -6,7 +6,7 @@
     dense
     fixed
   >
-    <img v-if="toolbarLogo" v-bind:src="toolbarLogo"/>
+    <img v-if="toolbarLogo" v-bind:src="toolbarLogo" v-on:click="toggleMinimize"/>
 
     <v-menu v-if="isEnableLogin" offset-y>
 
@@ -29,7 +29,7 @@
       </v-list>
     </v-menu>
 
-    
+
     <div class="nav-buttons">
       <v-btn small icon :disabled="isBackProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance && !isUiMinimized">
         <v-icon>
@@ -40,10 +40,10 @@
         <span>Previous</span>
       </v-tooltip>
     </div>
-    
 
 
-    <v-toolbar-title class="hidden-xs-and-down">
+
+    <v-toolbar-title class="hidden-xs-and-down" v-on:click="toggleMinimize">
       {{ toolbarTitle }}
     </v-toolbar-title>
 
@@ -183,8 +183,10 @@ export default {
       this.shouldShowNavToolTip = false;
     },
     toggleMinimize() {
-      this.onInputButtonHoverLeave();
-      this.$emit('toggleMinimizeUi');
+      if (this.$store.state.isRunningEmbedded) {
+        this.onInputButtonHoverLeave();
+        this.$emit('toggleMinimizeUi');
+      }
     },
     sendHelp() {
       const message = {
