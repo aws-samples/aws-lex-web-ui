@@ -1,8 +1,7 @@
 <template>
-  <v-layout
-    column
-    fill-height
-    class="message-list"
+  <div
+    aria-live="polite"
+    class="layout message-list column fill-height"
   >
     <message
       ref="messages"
@@ -15,7 +14,7 @@
     <MessageLoading
       v-if="loading"
     ></MessageLoading>
-  </v-layout>
+  </div>
 </template>
 
 <script>
