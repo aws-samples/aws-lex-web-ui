@@ -20,7 +20,6 @@
         v-show="button.text && button.value"
         v-bind:key="button.id"
         v-on:click.once.native="onButtonClick(button.value)"
-        v-bind:disabled="hasButtonBeenClicked"
         round
         default
         v-bind:color="button.text.toLowerCase() === 'more' ? '' : 'accent'"

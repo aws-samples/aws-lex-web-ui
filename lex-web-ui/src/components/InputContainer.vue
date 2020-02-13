@@ -45,7 +45,6 @@
           v-if="shouldShowSendButton"
           v-on:click="postTextMessage"
           v-on="tooltipEventHandlers"
-          v-bind:disabled="isSendButtonDisabled"
           ref="send"
           class="black--text input-button"
           icon
