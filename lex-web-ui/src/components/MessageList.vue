@@ -65,6 +65,7 @@ export default {
 
 <style scoped>
 .message-list {
+  padding-top: 2rem;
   overflow-y: auto;
   overflow-x: hidden;
 }
