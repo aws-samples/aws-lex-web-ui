@@ -51,12 +51,14 @@
                   <v-icon
                     v-on:click="onButtonClick(positiveIntent)"
                     v-bind:class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
+                    tabindex="0"
                   >
                     thumb_up
                   </v-icon>
                   <v-icon
                     v-on:click="onButtonClick(negativeIntent)"
                     v-bind:class="{'feedback-icons-negative': !negativeClick, 'negativeClick': negativeClick}"
+                    tabindex="0"
                   >
                     thumb_down
                   </v-icon>
