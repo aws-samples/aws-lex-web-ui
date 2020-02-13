@@ -78,10 +78,12 @@ export default {
     context.commit('mergeConfig', configObj);
   },
   initMessageList(context) {
-    context.commit('pushMessage', {
-      type: 'bot',
-      text: context.state.config.lex.initialText,
-    });
+    if (context.state.config.lex.initialText.length > 0) {
+      context.commit('pushMessage', {
+        type: 'bot',
+        text: context.state.config.lex.initialText,
+      });
+    }
   },
   initLexClient(context, lexRuntimeClient) {
     lexClient = new LexClient({
