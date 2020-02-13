@@ -48,6 +48,7 @@
           ref="send"
           class="black--text input-button"
           icon
+          aria-label="Send Message"
         >
           <v-icon medium>send</v-icon>
         </v-btn>
