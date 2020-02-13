@@ -13,8 +13,9 @@
               <div
                 v-if="shouldShowAvatarImage"
                 v-bind:style="botAvatarBackground"
-                tabindex="0"
-                class="bot-avatar focusable"
+                tabindex="-1"
+                class="bot-avatar"
+                aria-hidden="true"
               >
               </div>
               <div
