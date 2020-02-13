@@ -3,7 +3,7 @@
     v-if="message.text && (message.type === 'human' || message.type === 'feedback')"
     class="message-text"
   >
-   {{ message.text }}
+    <span class="sr-only">I say: </span>{{ message.text }}
   </div>
   <div
     v-else-if="altHtmlMessage && AllowSuperDangerousHTMLInMessage"
@@ -19,7 +19,7 @@
     v-else-if="message.text && message.type === 'bot'"
     class="message-text"
   >
-    {{ (shouldStripTags) ? stripTagsFromMessage(message.text) : message.text }}
+    <span class="sr-only">dog says: </span>{{ (shouldStripTags) ? stripTagsFromMessage(message.text) : message.text }}
   </div>
 </template>
 
@@ -66,6 +66,7 @@ export default {
           out = marked(this.message.alts.markdown, { renderer });
         }
       }
+      if (out) out = this.prependBotScreenReader(out);
       return out;
     },
     shouldRenderAsHtml() {
@@ -76,7 +77,8 @@ export default {
       // to context (e.g. URL, HTML). This is rendered as HTML
       const messageText = this.stripTagsFromMessage(this.message.text);
       const messageWithLinks = this.botMessageWithLinks(messageText);
-      return messageWithLinks;
+      const messageWithSR = this.prependBotScreenReader(messageWithLinks);
+      return messageWithSR;
     },
   },
   methods: {
@@ -138,6 +140,9 @@ export default {
       const doc = document.implementation.createHTMLDocument('').body;
       doc.innerHTML = messageText;
       return doc.textContent || doc.innerText || '';
+    },
+    prependBotScreenReader(messageText) {
+      return `<span class="sr-only">dog says: </span>${messageText}`;
     },
   },
 };
