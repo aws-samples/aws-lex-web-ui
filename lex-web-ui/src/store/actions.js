@@ -446,6 +446,10 @@ export default {
     });
   },
   postTextMessage(context, message) {
+    context.dispatch(
+      'sendMessageToParentWindow',
+      { event: 'messageSent' },
+    );
     return context.dispatch('interruptSpeechConversation')
       .then(() => context.dispatch('pushMessage', message))
       .then(() => context.commit('pushUtterance', message.text))
@@ -497,6 +501,10 @@ export default {
         }
       })
       .then(() => {
+        context.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'messageReceived' },
+        );
         if (context.state.lex.dialogState === 'Fulfilled') {
           context.dispatch('reInitBot');
         }
