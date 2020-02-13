@@ -75,6 +75,7 @@
           <v-flex
             v-if="shouldShowMessageDate && isMessageFocused"
             class="text-xs-center message-date"
+            aria-hidden="true"
           >
            {{messageHumanDate}}
           </v-flex>
