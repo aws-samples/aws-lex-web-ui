@@ -45,10 +45,10 @@
           v-if="shouldShowSendButton"
           v-on:click="postTextMessage"
           v-on="tooltipEventHandlers"
-          v-bind:disabled="isSendButtonDisabled"
           ref="send"
           class="black--text input-button"
           icon
+          aria-label="Send Message"
         >
           <v-icon medium>send</v-icon>
         </v-btn>

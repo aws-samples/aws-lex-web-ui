@@ -13,8 +13,9 @@
               <div
                 v-if="shouldShowAvatarImage"
                 v-bind:style="botAvatarBackground"
-                tabindex="0"
-                class="bot-avatar focusable"
+                tabindex="-1"
+                class="bot-avatar"
+                aria-hidden="true"
               >
               </div>
               <div
@@ -50,12 +51,14 @@
                   <v-icon
                     v-on:click="onButtonClick(positiveIntent)"
                     v-bind:class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
+                    tabindex="0"
                   >
                     thumb_up
                   </v-icon>
                   <v-icon
                     v-on:click="onButtonClick(negativeIntent)"
                     v-bind:class="{'feedback-icons-negative': !negativeClick, 'negativeClick': negativeClick}"
+                    tabindex="0"
                   >
                     thumb_down
                   </v-icon>
@@ -74,6 +77,7 @@
           <v-flex
             v-if="shouldShowMessageDate && isMessageFocused"
             class="text-xs-center message-date"
+            aria-hidden="true"
           >
            {{messageHumanDate}}
           </v-flex>
