@@ -123,6 +123,12 @@ const configDefault = {
     // to allow runing embedded in a single origin setup
     parentOrigin: null,
 
+    // mp3 audio file url for message send sound FX
+    messageSentSFX: 'send.mp3',
+
+    // mp3 audio file url for message received sound FX
+    messageReceivedSFX: 'received.mp3',
+
     // chat window text placeholder
     textInputPlaceholder: 'Type here or click on the mic',
 
