@@ -6,7 +6,7 @@
     fixed
     v-bind:dense="this.$store.state.isRunningEmbedded"
   >
-    <img v-if="toolbarLogo" v-bind:src="toolbarLogo"/>
+    <img v-if="toolbarLogo" v-bind:src="toolbarLogo" alt="logo" aria-hidden="true"/>
 
     <v-menu v-if="isEnableLogin" offset-y>
 
