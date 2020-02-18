@@ -66,6 +66,13 @@
     >
       <span id="help-tooltip">help</span>
     </v-tooltip>
+    <v-tooltip
+      v-model="shouldShowSFXTooltip"
+      activator=".sfx-toggle"
+      left
+    >
+      <span id="sfx-tooltip">sound effects on/off</span>
+    </v-tooltip>
     <v-btn
       v-if="helpButton"
       v-on:click="sendHelp"
@@ -77,12 +84,27 @@
         help_outline
       </v-icon>
     </v-btn>
+
+    <v-btn
+      v-if="sfxMuteButton"
+      v-on:click="toggleSFXMute"
+      v-on="tooltipSFXEventHandlers"
+      class="sfx-toggle"
+      icon
+      aria-label="sound effects on off toggle"
+    >
+      <v-icon>
+        {{ isSFXOn ?  'volume_up' : 'volume_off' }}
+      </v-icon>
+    </v-btn>
+
     <v-btn
       v-if="$store.state.isRunningEmbedded"
       v-on:click="toggleMinimize"
       v-on="tooltipEventHandlers"
       class="min-max-toggle"
       icon
+      aria-label="minimize chat window toggle"
     >
       <v-icon>
         {{ isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down' }}
@@ -114,6 +136,7 @@ export default {
       ],
       shouldShowTooltip: false,
       shouldShowHelpTooltip: false,
+      shouldShowSFXTooltip: false,
       prevNav: false,
       prevNavEventHandlers: {
         mouseenter: this.mouseOverPrev,
@@ -128,6 +151,13 @@ export default {
         touchstart: this.onHelpButtonHoverEnter,
         touchend: this.onHelpButtonHoverLeave,
         touchcancel: this.onHelpButtonHoverLeave,
+      },
+      tooltipSFXEventHandlers: {
+        mouseenter: this.onSFXButtonHoverEnter,
+        mouseleave: this.onSFXButtonHoverLeave,
+        touchstart: this.onSFXButtonHoverEnter,
+        touchend: this.onSFXButtonHoverLeave,
+        touchcancel: this.onSFXButtonHoverLeave,
       },
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
@@ -158,6 +188,13 @@ export default {
     helpButton() {
       return this.$store.state.config.ui.helpIntent;
     },
+    sfxMuteButton() {
+      return this.$store.state.config.ui.messageSentSFX
+      || this.$store.state.config.ui.messageReceivedSFX;
+    },
+    isSFXOn() {
+      return this.$store.state.isSFXOn;
+    },
   },
   methods: {
     mouseOverPrev() {
@@ -175,11 +212,21 @@ export default {
     onHelpButtonHoverLeave() {
       this.shouldShowHelpTooltip = false;
     },
+    onSFXButtonHoverEnter() {
+      this.shouldShowSFXTooltip = true;
+    },
+    onSFXButtonHoverLeave() {
+      this.shouldShowSFXTooltip = false;
+    },
     onNavHoverEnter() {
       this.shouldShowNavToolTip = true;
     },
     onNavHoverLeave() {
       this.shouldShowNavToolTip = false;
+    },
+    toggleSFXMute() {
+      this.onInputButtonHoverLeave();
+      this.$store.dispatch('toggleIsSFXOn');
     },
     toggleMinimize() {
       this.onInputButtonHoverLeave();

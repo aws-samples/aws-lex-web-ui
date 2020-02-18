@@ -25,6 +25,11 @@
       v-bind:text-input-placeholder="textInputPlaceholder"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
     ></input-container>
+    <div
+      v-if="isSFXOn"
+      id="sound"
+      aria-hidden="true"
+    />
   </v-app>
 </template>
 
@@ -77,6 +82,9 @@ export default {
     },
     toolbarLogo() {
       return this.$store.state.config.ui.toolbarLogo;
+    },
+    isSFXOn() {
+      return this.$store.state.isSFXOn;
     },
     isUiMinimized() {
       return this.$store.state.isUiMinimized;

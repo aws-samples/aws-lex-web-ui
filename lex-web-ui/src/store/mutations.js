@@ -302,6 +302,10 @@ export default {
   toggleIsUiMinimized(state) {
     state.isUiMinimized = !state.isUiMinimized;
   },
+
+  toggleIsSFXOn(state) {
+    state.isSFXOn = !state.isSFXOn;
+  },
   /**
    * used to track the expand/minimize status of the window when
    * running embedded in an iframe
