@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1cec4ddfd3387fc999e6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7fea91f12b011e129bbf"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -44229,7 +44229,12 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
             });
           }
         },
-
+        messageSent: function messageSent() {
+          this.sendMessageToIframe({ event: 'messageSent' });
+        },
+        messageReceived: function messageReceived() {
+          this.sendMessageToIframe({ event: 'messageReceived' });
+        },
 
         // iframe sends Lex updates based on Lex API responses
         updateLexState: function updateLexState(evt) {

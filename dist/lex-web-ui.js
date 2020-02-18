@@ -11685,6 +11685,12 @@ var configDefault = {
     // to allow runing embedded in a single origin setup
     parentOrigin: null,
 
+    // mp3 audio file url for message send sound FX
+    messageSentSFX: 'send.mp3',
+
+    // mp3 audio file url for message received sound FX
+    messageReceivedSFX: 'received.mp3',
+
     // chat window text placeholder
     textInputPlaceholder: 'Type here or click on the mic',
 
@@ -12355,6 +12361,11 @@ module.exports = function (exec, skipClosing) {
 //
 //
 //
+//
+//
+//
+//
+//
 
 /*
 Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -12405,6 +12416,9 @@ var jwt = __webpack_require__(116);
     },
     toolbarLogo: function toolbarLogo() {
       return this.$store.state.config.ui.toolbarLogo;
+    },
+    isSFXOn: function isSFXOn() {
+      return this.$store.state.isSFXOn;
     },
     isUiMinimized: function isUiMinimized() {
       return this.$store.state.isUiMinimized;
@@ -12740,6 +12754,28 @@ module.exports = { "default": __webpack_require__(196), __esModule: true };
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*
 Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -12760,6 +12796,7 @@ License for the specific language governing permissions and limitations under th
       items: [{ title: 'Login' }, { title: 'Logout' }],
       shouldShowTooltip: false,
       shouldShowHelpTooltip: false,
+      shouldShowSFXTooltip: false,
       prevNav: false,
       prevNavEventHandlers: {
         mouseenter: this.mouseOverPrev,
@@ -12774,6 +12811,13 @@ License for the specific language governing permissions and limitations under th
         touchstart: this.onHelpButtonHoverEnter,
         touchend: this.onHelpButtonHoverLeave,
         touchcancel: this.onHelpButtonHoverLeave
+      },
+      tooltipSFXEventHandlers: {
+        mouseenter: this.onSFXButtonHoverEnter,
+        mouseleave: this.onSFXButtonHoverLeave,
+        touchstart: this.onSFXButtonHoverEnter,
+        touchend: this.onSFXButtonHoverLeave,
+        touchcancel: this.onSFXButtonHoverLeave
       },
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
@@ -12804,6 +12848,12 @@ License for the specific language governing permissions and limitations under th
     },
     helpButton: function helpButton() {
       return this.$store.state.config.ui.helpIntent;
+    },
+    sfxMuteButton: function sfxMuteButton() {
+      return this.$store.state.config.ui.messageSentSFX || this.$store.state.config.ui.messageReceivedSFX;
+    },
+    isSFXOn: function isSFXOn() {
+      return this.$store.state.isSFXOn;
     }
   },
   methods: {
@@ -12822,11 +12872,21 @@ License for the specific language governing permissions and limitations under th
     onHelpButtonHoverLeave: function onHelpButtonHoverLeave() {
       this.shouldShowHelpTooltip = false;
     },
+    onSFXButtonHoverEnter: function onSFXButtonHoverEnter() {
+      this.shouldShowSFXTooltip = true;
+    },
+    onSFXButtonHoverLeave: function onSFXButtonHoverLeave() {
+      this.shouldShowSFXTooltip = false;
+    },
     onNavHoverEnter: function onNavHoverEnter() {
       this.shouldShowNavToolTip = true;
     },
     onNavHoverLeave: function onNavHoverLeave() {
       this.shouldShowNavToolTip = false;
+    },
+    toggleSFXMute: function toggleSFXMute() {
+      this.onInputButtonHoverLeave();
+      this.$store.dispatch('toggleIsSFXOn');
     },
     toggleMinimize: function toggleMinimize() {
       this.onInputButtonHoverLeave();
@@ -19506,7 +19566,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_193__;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LexWeb_vue__ = __webpack_require__(106);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ed0f3f54_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__ = __webpack_require__(326);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_030a968b_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__ = __webpack_require__(326);
 function injectStyle (ssrContext) {
   __webpack_require__(195)
 }
@@ -19526,7 +19586,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LexWeb_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ed0f3f54_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_030a968b_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19588,7 +19648,7 @@ module.exports = function (KEY, exec) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ToolbarContainer_vue__ = __webpack_require__(108);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_01baf39a_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_db09b44c_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__ = __webpack_require__(201);
 function injectStyle (ssrContext) {
   __webpack_require__(200)
 }
@@ -19608,7 +19668,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ToolbarContainer_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_01baf39a_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_db09b44c_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19629,7 +19689,7 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-toolbar',{attrs:{"color":_vm.toolbarColor,"app":"","dark":"","fixed":"","dense":this.$store.state.isRunningEmbedded}},[(_vm.toolbarLogo)?_c('img',{attrs:{"src":_vm.toolbarLogo}}):_vm._e(),_vm._v(" "),(_vm.isEnableLogin)?_c('v-menu',{attrs:{"offset-y":""}},[_c('v-btn',{attrs:{"slot":"activator","dark":"","icon":""},slot:"activator"},[_c('v-icon',[_vm._v("\n        "+_vm._s('menu')+"\n      ")])],1),_vm._v(" "),_c('v-list',[_c('v-list-tile',[(_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogout}},[_vm._v(_vm._s(_vm.items[1].title))]):_vm._e(),_vm._v(" "),(!_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogin}},[_vm._v(_vm._s(_vm.items[0].title))]):_vm._e()],1)],1)],1):_vm._e(),_vm._v(" "),_c('div',{staticClass:"nav-buttons"},[_c('v-btn',_vm._g({directives:[{name:"show",rawName:"v-show",value:(_vm.hasPrevUtterance),expression:"hasPrevUtterance"}],staticClass:"nav-button-prev",attrs:{"small":"","icon":"","disabled":_vm.isBackProcessing},on:{"click":_vm.onPrev}},_vm.prevNavEventHandlers),[_c('v-icon',[_vm._v("\n        arrow_back\n      ")])],1),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".nav-button-prev","right":""},model:{value:(_vm.prevNav),callback:function ($$v) {_vm.prevNav=$$v},expression:"prevNav"}},[_c('span',[_vm._v("Previous")])])],1),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_c('h1',[_vm._v(_vm._s(_vm.toolbarTitle))])]),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_vm._v("\n    "+_vm._s(_vm.userName)+"\n  ")]),_vm._v(" "),_c('v-spacer'),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".min-max-toggle","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"min-max-tooltip"}},[_vm._v(_vm._s(_vm.toolTipMinimize))])]),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".help-toggle","left":""},model:{value:(_vm.shouldShowHelpTooltip),callback:function ($$v) {_vm.shouldShowHelpTooltip=$$v},expression:"shouldShowHelpTooltip"}},[_c('span',{attrs:{"id":"help-tooltip"}},[_vm._v("help")])]),_vm._v(" "),(_vm.helpButton)?_c('v-btn',_vm._g({staticClass:"help-toggle",attrs:{"icon":""},on:{"click":_vm.sendHelp}},_vm.tooltipHelpEventHandlers),[_c('v-icon',[_vm._v("\n      help_outline\n    ")])],1):_vm._e(),_vm._v(" "),(_vm.$store.state.isRunningEmbedded)?_c('v-btn',_vm._g({staticClass:"min-max-toggle",attrs:{"icon":""},on:{"click":_vm.toggleMinimize}},_vm.tooltipEventHandlers),[_c('v-icon',[_vm._v("\n      "+_vm._s(_vm.isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down')+"\n    ")])],1):_vm._e()],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-toolbar',{attrs:{"color":_vm.toolbarColor,"app":"","dark":"","fixed":"","dense":this.$store.state.isRunningEmbedded}},[(_vm.toolbarLogo)?_c('img',{attrs:{"src":_vm.toolbarLogo}}):_vm._e(),_vm._v(" "),(_vm.isEnableLogin)?_c('v-menu',{attrs:{"offset-y":""}},[_c('v-btn',{attrs:{"slot":"activator","dark":"","icon":""},slot:"activator"},[_c('v-icon',[_vm._v("\n        "+_vm._s('menu')+"\n      ")])],1),_vm._v(" "),_c('v-list',[_c('v-list-tile',[(_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogout}},[_vm._v(_vm._s(_vm.items[1].title))]):_vm._e(),_vm._v(" "),(!_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogin}},[_vm._v(_vm._s(_vm.items[0].title))]):_vm._e()],1)],1)],1):_vm._e(),_vm._v(" "),_c('div',{staticClass:"nav-buttons"},[_c('v-btn',_vm._g({directives:[{name:"show",rawName:"v-show",value:(_vm.hasPrevUtterance),expression:"hasPrevUtterance"}],staticClass:"nav-button-prev",attrs:{"small":"","icon":"","disabled":_vm.isBackProcessing},on:{"click":_vm.onPrev}},_vm.prevNavEventHandlers),[_c('v-icon',[_vm._v("\n        arrow_back\n      ")])],1),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".nav-button-prev","right":""},model:{value:(_vm.prevNav),callback:function ($$v) {_vm.prevNav=$$v},expression:"prevNav"}},[_c('span',[_vm._v("Previous")])])],1),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_c('h1',[_vm._v(_vm._s(_vm.toolbarTitle))])]),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_vm._v("\n    "+_vm._s(_vm.userName)+"\n  ")]),_vm._v(" "),_c('v-spacer'),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".min-max-toggle","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"min-max-tooltip"}},[_vm._v(_vm._s(_vm.toolTipMinimize))])]),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".help-toggle","left":""},model:{value:(_vm.shouldShowHelpTooltip),callback:function ($$v) {_vm.shouldShowHelpTooltip=$$v},expression:"shouldShowHelpTooltip"}},[_c('span',{attrs:{"id":"help-tooltip"}},[_vm._v("help")])]),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".sfx-toggle","left":""},model:{value:(_vm.shouldShowSFXTooltip),callback:function ($$v) {_vm.shouldShowSFXTooltip=$$v},expression:"shouldShowSFXTooltip"}},[_c('span',{attrs:{"id":"sfx-tooltip"}},[_vm._v("sound effects on/off")])]),_vm._v(" "),(_vm.helpButton)?_c('v-btn',_vm._g({staticClass:"help-toggle",attrs:{"icon":""},on:{"click":_vm.sendHelp}},_vm.tooltipHelpEventHandlers),[_c('v-icon',[_vm._v("\n      help_outline\n    ")])],1):_vm._e(),_vm._v(" "),(_vm.sfxMuteButton)?_c('v-btn',_vm._g({staticClass:"sfx-toggle",attrs:{"icon":"","aria-label":"sound effects on off toggle"},on:{"click":_vm.toggleSFXMute}},_vm.tooltipSFXEventHandlers),[_c('v-icon',[_vm._v("\n      "+_vm._s(_vm.isSFXOn ?  'volume_up' : 'volume_off')+"\n    ")])],1):_vm._e(),_vm._v(" "),(_vm.$store.state.isRunningEmbedded)?_c('v-btn',_vm._g({staticClass:"min-max-toggle",attrs:{"icon":"","aria-label":"minimize chat window toggle"},on:{"click":_vm.toggleMinimize}},_vm.tooltipEventHandlers),[_c('v-icon',[_vm._v("\n      "+_vm._s(_vm.isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down')+"\n    ")])],1):_vm._e()],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -35035,7 +35095,7 @@ module.exports = once;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',{attrs:{"id":"lex-web"}},[_c('toolbar-container',{attrs:{"userName":_vm.userNameValue,"toolbar-title":_vm.toolbarTitle,"toolbar-color":_vm.toolbarColor,"toolbar-logo":_vm.toolbarLogo,"is-ui-minimized":_vm.isUiMinimized},on:{"toggleMinimizeUi":_vm.toggleMinimizeUi,"requestLogin":_vm.handleRequestLogin,"requestLogout":_vm.handleRequestLogout}}),_vm._v(" "),_c('v-content',[_c('v-container',{staticClass:"message-list-container",attrs:{"fluid":"","pa-0":""}},[_c('message-list',{directives:[{name:"show",rawName:"v-show",value:(!_vm.isUiMinimized),expression:"!isUiMinimized"}]})],1)],1),_vm._v(" "),(!_vm.isUiMinimized)?_c('input-container',{ref:"InputContainer",attrs:{"text-input-placeholder":_vm.textInputPlaceholder,"initial-speech-instruction":_vm.initialSpeechInstruction}}):_vm._e()],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',{attrs:{"id":"lex-web"}},[_c('toolbar-container',{attrs:{"userName":_vm.userNameValue,"toolbar-title":_vm.toolbarTitle,"toolbar-color":_vm.toolbarColor,"toolbar-logo":_vm.toolbarLogo,"is-ui-minimized":_vm.isUiMinimized},on:{"toggleMinimizeUi":_vm.toggleMinimizeUi,"requestLogin":_vm.handleRequestLogin,"requestLogout":_vm.handleRequestLogout}}),_vm._v(" "),_c('v-content',[_c('v-container',{staticClass:"message-list-container",attrs:{"fluid":"","pa-0":""}},[_c('message-list',{directives:[{name:"show",rawName:"v-show",value:(!_vm.isUiMinimized),expression:"!isUiMinimized"}]})],1)],1),_vm._v(" "),(!_vm.isUiMinimized)?_c('input-container',{ref:"InputContainer",attrs:{"text-input-placeholder":_vm.textInputPlaceholder,"initial-speech-instruction":_vm.initialSpeechInstruction}}):_vm._e(),_vm._v(" "),(_vm.isSFXOn)?_c('div',{attrs:{"id":"sound","aria-hidden":"true"}}):_vm._e()],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -35151,6 +35211,7 @@ License for the specific language governing permissions and limitations under th
   },
 
   isRunningEmbedded: false, // am I running in an iframe?
+  isSFXOn: __WEBPACK_IMPORTED_MODULE_2__config__["a" /* config */].ui ? !!__WEBPACK_IMPORTED_MODULE_2__config__["a" /* config */].ui.messageSentSFX || !!__WEBPACK_IMPORTED_MODULE_2__config__["a" /* config */].ui.messageReceivedSFX : false,
   isUiMinimized: false, // when running embedded, is the iframe minimized?
   isEnableLogin: false, // true when a login/logout menu should be displayed
   isLoggedIn: false, // when running with login/logout enabled
@@ -36125,6 +36186,9 @@ License for the specific language governing permissions and limitations under th
   toggleIsUiMinimized: function toggleIsUiMinimized(state) {
     state.isUiMinimized = !state.isUiMinimized;
   },
+  toggleIsSFXOn: function toggleIsSFXOn(state) {
+    state.isSFXOn = !state.isSFXOn;
+  },
 
   /**
    * used to track the expand/minimize status of the window when
@@ -36633,8 +36697,14 @@ var recorder = void 0;
       });
     });
   },
+  playSound: function playSound(context, fileUrl) {
+    document.getElementById('sound').innerHTML = '<audio autoplay="autoplay"><source src="' + fileUrl + '" type="audio/mpeg" /><embed hidden="true" autostart="true" loop="false" src="' + fileUrl + '" /></audio>';
+  },
   postTextMessage: function postTextMessage(context, message) {
-    context.dispatch('sendMessageToParentWindow', { event: 'messageSent' });
+    if (context.state.isSFXOn) {
+      context.dispatch('playSound', context.state.config.ui.messageSentSFX);
+      context.dispatch('sendMessageToParentWindow', { event: 'messageSent' });
+    }
     return context.dispatch('interruptSpeechConversation').then(function () {
       return context.dispatch('pushMessage', message);
     }).then(function () {
@@ -36681,7 +36751,10 @@ var recorder = void 0;
         });
       }
     }).then(function () {
-      context.dispatch('sendMessageToParentWindow', { event: 'messageReceived' });
+      if (context.state.isSFXOn) {
+        context.dispatch('playSound', context.state.config.ui.messageReceivedSFX);
+        context.dispatch('sendMessageToParentWindow', { event: 'messageReceived' });
+      }
       if (context.state.lex.dialogState === 'Fulfilled') {
         context.dispatch('reInitBot');
       }
@@ -36918,6 +36991,9 @@ var recorder = void 0;
   toggleIsLoggedIn: function toggleIsLoggedIn(context) {
     context.commit('toggleIsLoggedIn');
     return context.dispatch('sendMessageToParentWindow', { event: 'toggleIsLoggedIn' });
+  },
+  toggleIsSFXOn: function toggleIsSFXOn(context) {
+    context.commit('toggleIsSFXOn');
   },
 
   /**
