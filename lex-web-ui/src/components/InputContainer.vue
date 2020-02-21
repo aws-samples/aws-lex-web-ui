@@ -1,5 +1,5 @@
 <template>
-  <v-footer app fixed>
+  <div app fixed>
     <v-layout
       row
       justify-space-between
@@ -65,7 +65,7 @@
         </v-btn>
       </v-toolbar>
     </v-layout>
-  </v-footer>
+  </div>
 </template>
 
 <script>
@@ -257,7 +257,7 @@ export default {
 };
 </script>
 <style>
-.footer {
+.input-container {
   /* make footer same height as dense toolbar */
   min-height: 48px;
 }
