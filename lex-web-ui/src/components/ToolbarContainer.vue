@@ -5,6 +5,7 @@
     dark
     fixed
     v-bind:dense="this.$store.state.isRunningEmbedded"
+    aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
   >
     <img v-if="toolbarLogo" v-bind:src="toolbarLogo" alt="logo" aria-hidden="true"/>
 
@@ -30,7 +31,13 @@
 
 
     <div class="nav-buttons">
-      <v-btn small icon :disabled="isBackProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance">
+      <v-btn small icon :disabled="isBackProcessing"
+             class="nav-button-prev"
+             v-on="prevNavEventHandlers"
+             v-on:click="onPrev"
+             v-show="hasPrevUtterance"
+             aria-label="go back to previous message"
+      >
         <v-icon>
           arrow_back
         </v-icon>
