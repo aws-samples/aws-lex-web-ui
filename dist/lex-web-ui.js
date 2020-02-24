@@ -12776,6 +12776,14 @@ module.exports = { "default": __webpack_require__(196), __esModule: true };
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*
 Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -12993,7 +13001,8 @@ License for the specific language governing permissions and limitations under th
       var _this = this;
 
       return this.$nextTick(function () {
-        _this.$el.scrollTop = _this.$el.scrollHeight;
+        var lastMessageOffset = _this.$el.lastElementChild ? _this.$el.lastElementChild.getBoundingClientRect().height : 0;
+        _this.$el.scrollTop = _this.$el.scrollHeight - lastMessageOffset;
       });
     }
   }
@@ -19648,7 +19657,7 @@ module.exports = function (KEY, exec) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ToolbarContainer_vue__ = __webpack_require__(108);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_23d9cea2_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6e7e40e3_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__ = __webpack_require__(201);
 function injectStyle (ssrContext) {
   __webpack_require__(200)
 }
@@ -19668,7 +19677,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ToolbarContainer_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_23d9cea2_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6e7e40e3_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ToolbarContainer_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19689,7 +19698,7 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-toolbar',{attrs:{"color":_vm.toolbarColor,"app":"","dark":"","fixed":"","dense":this.$store.state.isRunningEmbedded}},[(_vm.toolbarLogo)?_c('img',{attrs:{"src":_vm.toolbarLogo,"alt":"logo","aria-hidden":"true"}}):_vm._e(),_vm._v(" "),(_vm.isEnableLogin)?_c('v-menu',{attrs:{"offset-y":""}},[_c('v-btn',{attrs:{"slot":"activator","dark":"","icon":""},slot:"activator"},[_c('v-icon',[_vm._v("\n        "+_vm._s('menu')+"\n      ")])],1),_vm._v(" "),_c('v-list',[_c('v-list-tile',[(_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogout}},[_vm._v(_vm._s(_vm.items[1].title))]):_vm._e(),_vm._v(" "),(!_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogin}},[_vm._v(_vm._s(_vm.items[0].title))]):_vm._e()],1)],1)],1):_vm._e(),_vm._v(" "),_c('div',{staticClass:"nav-buttons"},[_c('v-btn',_vm._g({directives:[{name:"show",rawName:"v-show",value:(_vm.hasPrevUtterance),expression:"hasPrevUtterance"}],staticClass:"nav-button-prev",attrs:{"small":"","icon":"","disabled":_vm.isBackProcessing},on:{"click":_vm.onPrev}},_vm.prevNavEventHandlers),[_c('v-icon',[_vm._v("\n        arrow_back\n      ")])],1),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".nav-button-prev","right":""},model:{value:(_vm.prevNav),callback:function ($$v) {_vm.prevNav=$$v},expression:"prevNav"}},[_c('span',[_vm._v("Previous")])])],1),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_c('h1',[_vm._v(_vm._s(_vm.toolbarTitle))])]),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_vm._v("\n    "+_vm._s(_vm.userName)+"\n  ")]),_vm._v(" "),_c('v-spacer'),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".min-max-toggle","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"min-max-tooltip"}},[_vm._v(_vm._s(_vm.toolTipMinimize))])]),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".help-toggle","left":""},model:{value:(_vm.shouldShowHelpTooltip),callback:function ($$v) {_vm.shouldShowHelpTooltip=$$v},expression:"shouldShowHelpTooltip"}},[_c('span',{attrs:{"id":"help-tooltip"}},[_vm._v("help")])]),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".sfx-toggle","left":""},model:{value:(_vm.shouldShowSFXTooltip),callback:function ($$v) {_vm.shouldShowSFXTooltip=$$v},expression:"shouldShowSFXTooltip"}},[_c('span',{attrs:{"id":"sfx-tooltip"}},[_vm._v("sound effects on/off")])]),_vm._v(" "),(_vm.helpButton)?_c('v-btn',_vm._g({staticClass:"help-toggle",attrs:{"icon":""},on:{"click":_vm.sendHelp}},_vm.tooltipHelpEventHandlers),[_c('v-icon',[_vm._v("\n      help_outline\n    ")])],1):_vm._e(),_vm._v(" "),(_vm.sfxMuteButton)?_c('v-btn',_vm._g({staticClass:"sfx-toggle",attrs:{"icon":"","aria-label":"sound effects on off toggle"},on:{"click":_vm.toggleSFXMute}},_vm.tooltipSFXEventHandlers),[_c('v-icon',[_vm._v("\n      "+_vm._s(_vm.isSFXOn ?  'volume_up' : 'volume_off')+"\n    ")])],1):_vm._e(),_vm._v(" "),(_vm.$store.state.isRunningEmbedded)?_c('v-btn',_vm._g({staticClass:"min-max-toggle",attrs:{"icon":"","aria-label":"minimize chat window toggle"},on:{"click":_vm.toggleMinimize}},_vm.tooltipEventHandlers),[_c('v-icon',[_vm._v("\n      "+_vm._s(_vm.isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down')+"\n    ")])],1):_vm._e()],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-toolbar',{attrs:{"color":_vm.toolbarColor,"app":"","dark":"","fixed":"","dense":this.$store.state.isRunningEmbedded,"role":"navigation","aria-label":"Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"}},[(_vm.toolbarLogo)?_c('img',{attrs:{"src":_vm.toolbarLogo,"alt":"logo","aria-hidden":"true"}}):_vm._e(),_vm._v(" "),(_vm.isEnableLogin)?_c('v-menu',{attrs:{"offset-y":""}},[_c('v-btn',{attrs:{"slot":"activator","dark":"","icon":""},slot:"activator"},[_c('v-icon',[_vm._v("\n        "+_vm._s('menu')+"\n      ")])],1),_vm._v(" "),_c('v-list',[_c('v-list-tile',[(_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogout}},[_vm._v(_vm._s(_vm.items[1].title))]):_vm._e(),_vm._v(" "),(!_vm.isLoggedIn)?_c('v-list-tile-title',{on:{"click":_vm.requestLogin}},[_vm._v(_vm._s(_vm.items[0].title))]):_vm._e()],1)],1)],1):_vm._e(),_vm._v(" "),_c('div',{staticClass:"nav-buttons"},[_c('v-btn',_vm._g({directives:[{name:"show",rawName:"v-show",value:(_vm.hasPrevUtterance),expression:"hasPrevUtterance"}],staticClass:"nav-button-prev",attrs:{"small":"","icon":"","disabled":_vm.isBackProcessing,"aria-label":"go back to previous message"},on:{"click":_vm.onPrev}},_vm.prevNavEventHandlers),[_c('v-icon',[_vm._v("\n        arrow_back\n      ")])],1),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".nav-button-prev","right":""},model:{value:(_vm.prevNav),callback:function ($$v) {_vm.prevNav=$$v},expression:"prevNav"}},[_c('span',[_vm._v("Previous")])])],1),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_c('h1',[_vm._v(_vm._s(_vm.toolbarTitle))])]),_vm._v(" "),_c('v-toolbar-title',{staticClass:"hidden-xs-and-down"},[_vm._v("\n    "+_vm._s(_vm.userName)+"\n  ")]),_vm._v(" "),_c('v-spacer'),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".min-max-toggle","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"min-max-tooltip"}},[_vm._v(_vm._s(_vm.toolTipMinimize))])]),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".help-toggle","left":""},model:{value:(_vm.shouldShowHelpTooltip),callback:function ($$v) {_vm.shouldShowHelpTooltip=$$v},expression:"shouldShowHelpTooltip"}},[_c('span',{attrs:{"id":"help-tooltip"}},[_vm._v("help")])]),_vm._v(" "),_c('v-tooltip',{attrs:{"activator":".sfx-toggle","left":""},model:{value:(_vm.shouldShowSFXTooltip),callback:function ($$v) {_vm.shouldShowSFXTooltip=$$v},expression:"shouldShowSFXTooltip"}},[_c('span',{attrs:{"id":"sfx-tooltip"}},[_vm._v("sound effects on/off")])]),_vm._v(" "),(_vm.helpButton)?_c('v-btn',_vm._g({staticClass:"help-toggle",attrs:{"icon":""},on:{"click":_vm.sendHelp}},_vm.tooltipHelpEventHandlers),[_c('v-icon',[_vm._v("\n      help_outline\n    ")])],1):_vm._e(),_vm._v(" "),(_vm.sfxMuteButton)?_c('v-btn',_vm._g({staticClass:"sfx-toggle",attrs:{"icon":"","aria-label":"sound effects on off toggle"},on:{"click":_vm.toggleSFXMute}},_vm.tooltipSFXEventHandlers),[_c('v-icon',[_vm._v("\n      "+_vm._s(_vm.isSFXOn ?  'volume_up' : 'volume_off')+"\n    ")])],1):_vm._e(),_vm._v(" "),(_vm.$store.state.isRunningEmbedded)?_c('v-btn',_vm._g({staticClass:"min-max-toggle",attrs:{"icon":"","aria-label":"minimize chat window toggle"},on:{"click":_vm.toggleMinimize}},_vm.tooltipEventHandlers),[_c('v-icon',[_vm._v("\n      "+_vm._s(_vm.isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down')+"\n    ")])],1):_vm._e()],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -19701,7 +19710,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MessageList_vue__ = __webpack_require__(109);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_225977d3_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageList_vue__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_71d4ac7a_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageList_vue__ = __webpack_require__(217);
 function injectStyle (ssrContext) {
   __webpack_require__(203)
 }
@@ -19716,12 +19725,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-225977d3"
+var __vue_scopeId__ = "data-v-71d4ac7a"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MessageList_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_225977d3_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageList_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_71d4ac7a_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MessageList_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -21677,7 +21686,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_InputContainer_vue__ = __webpack_require__(114);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_105acab6_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_db83d832_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__ = __webpack_require__(223);
 function injectStyle (ssrContext) {
   __webpack_require__(219)
 }
@@ -21697,7 +21706,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_InputContainer_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_105acab6_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_db83d832_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -21771,7 +21780,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-footer',{attrs:{"app":"","fixed":""}},[_c('v-layout',{staticClass:"input-container",attrs:{"row":"","justify-space-between":"","ma-0":""}},[_c('v-toolbar',{attrs:{"color":"white","dense":this.$store.state.isRunningEmbedded}},[_c('v-text-field',{directives:[{name:"show",rawName:"v-show",value:(_vm.shouldShowTextInput),expression:"shouldShowTextInput"}],ref:"textInput",attrs:{"label":_vm.textInputPlaceholder,"id":"text-input","name":"text-input","single-line":"","hide-details":""},on:{"keyup":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }$event.stopPropagation();return _vm.postTextMessage($event)},"focus":_vm.onTextFieldFocus,"blur":_vm.onTextFieldBlur},model:{value:(_vm.textInput),callback:function ($$v) {_vm.textInput=$$v},expression:"textInput"}}),_vm._v(" "),_c('recorder-status',{directives:[{name:"show",rawName:"v-show",value:(!_vm.shouldShowTextInput),expression:"!shouldShowTextInput"}]}),_vm._v(" "),_c('v-tooltip',{ref:"tooltip",attrs:{"activator":".input-button","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"input-button-tooltip"}},[_vm._v(_vm._s(_vm.inputButtonTooltip))])]),_vm._v(" "),(_vm.shouldShowSendButton)?_c('v-btn',_vm._g({ref:"send",staticClass:"black--text input-button",attrs:{"icon":"","aria-label":"Send Message"},on:{"click":_vm.postTextMessage}},_vm.tooltipEventHandlers),[_c('v-icon',{attrs:{"medium":""}},[_vm._v("send")])],1):_c('v-btn',_vm._g({ref:"mic",staticClass:"black--text input-button",attrs:{"disabled":_vm.isMicButtonDisabled,"icon":""},on:{"click":_vm.onMicClick}},_vm.tooltipEventHandlers),[_c('v-icon',{attrs:{"medium":""}},[_vm._v(_vm._s(_vm.micButtonIcon))])],1)],1)],1)],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"app":"","fixed":""}},[_c('v-layout',{staticClass:"input-container",attrs:{"row":"","justify-space-between":"","ma-0":""}},[_c('v-toolbar',{attrs:{"color":"white","dense":this.$store.state.isRunningEmbedded}},[_c('v-text-field',{directives:[{name:"show",rawName:"v-show",value:(_vm.shouldShowTextInput),expression:"shouldShowTextInput"}],ref:"textInput",attrs:{"label":_vm.textInputPlaceholder,"id":"text-input","name":"text-input","single-line":"","hide-details":""},on:{"keyup":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }$event.stopPropagation();return _vm.postTextMessage($event)},"focus":_vm.onTextFieldFocus,"blur":_vm.onTextFieldBlur},model:{value:(_vm.textInput),callback:function ($$v) {_vm.textInput=$$v},expression:"textInput"}}),_vm._v(" "),_c('recorder-status',{directives:[{name:"show",rawName:"v-show",value:(!_vm.shouldShowTextInput),expression:"!shouldShowTextInput"}]}),_vm._v(" "),_c('v-tooltip',{ref:"tooltip",attrs:{"activator":".input-button","left":""},model:{value:(_vm.shouldShowTooltip),callback:function ($$v) {_vm.shouldShowTooltip=$$v},expression:"shouldShowTooltip"}},[_c('span',{attrs:{"id":"input-button-tooltip"}},[_vm._v(_vm._s(_vm.inputButtonTooltip))])]),_vm._v(" "),(_vm.shouldShowSendButton)?_c('v-btn',_vm._g({ref:"send",staticClass:"black--text input-button",attrs:{"icon":"","aria-label":"Send Message"},on:{"click":_vm.postTextMessage}},_vm.tooltipEventHandlers),[_c('v-icon',{attrs:{"medium":""}},[_vm._v("send")])],1):_c('v-btn',_vm._g({ref:"mic",staticClass:"black--text input-button",attrs:{"disabled":_vm.isMicButtonDisabled,"icon":""},on:{"click":_vm.onMicClick}},_vm.tooltipEventHandlers),[_c('v-icon',{attrs:{"medium":""}},[_vm._v(_vm._s(_vm.micButtonIcon))])],1)],1)],1)],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
