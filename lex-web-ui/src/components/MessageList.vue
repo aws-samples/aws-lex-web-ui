@@ -56,7 +56,9 @@ export default {
   methods: {
     scrollDown() {
       return this.$nextTick(() => {
-        this.$el.scrollTop = this.$el.scrollHeight;
+        const lastMessageOffset = (this.$el.lastElementChild) ?
+          this.$el.lastElementChild.getBoundingClientRect().height : 0;
+        this.$el.scrollTop = this.$el.scrollHeight - lastMessageOffset;
       });
     },
   },
