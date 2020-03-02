@@ -36,6 +36,7 @@
         <!-- tooltip should be before btn to avoid right margin issue in mobile -->
         <v-tooltip
           activator=".input-button"
+          content-class="tooltip-custom"
           v-model="shouldShowTooltip"
           ref="tooltip"
           left
@@ -48,7 +49,7 @@
           v-on="tooltipEventHandlers"
           v-bind:disabled="isLexProcessing"
           ref="send"
-          class="black--text input-button"
+          class="icon-color input-button"
           icon
           aria-label="Send Message"
         >
@@ -60,7 +61,7 @@
           v-on="tooltipEventHandlers"
           v-bind:disabled="isMicButtonDisabled"
           ref="mic"
-          class="black--text input-button"
+          class="icon-color input-button"
           icon
         >
           <v-icon medium>{{micButtonIcon}}</v-icon>

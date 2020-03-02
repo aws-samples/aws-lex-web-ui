@@ -43,7 +43,7 @@
           arrow_back
         </v-icon>
       </v-btn>
-      <v-tooltip v-model="prevNav" activator=".nav-button-prev" right>
+      <v-tooltip v-model="prevNav" activator=".nav-button-prev" content-class="tooltip-custom" right>
         <span>Previous</span>
       </v-tooltip>
     </div>
@@ -60,6 +60,7 @@
     <!-- tooltip should be before btn to avoid right margin issue in mobile -->
     <v-tooltip
       v-model="shouldShowTooltip"
+      content-class="tooltip-custom"
       activator=".min-max-toggle"
       left
     >
@@ -67,6 +68,7 @@
     </v-tooltip>
     <v-tooltip
       v-model="shouldShowHelpTooltip"
+      content-class="tooltip-custom"
       activator=".help-toggle"
       left
     >
@@ -74,6 +76,7 @@
     </v-tooltip>
     <v-tooltip
       v-model="shouldShowSFXTooltip"
+      content-class="tooltip-custom"
       activator=".sfx-toggle"
       left
     >
