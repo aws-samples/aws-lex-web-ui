@@ -39,7 +39,7 @@
                     v-on:click="playAudio"
                     tabindex="0"
                     icon
-                    class="black--text ml-0 mr-0"
+                    class="icon-color ml-0 mr-0"
                   >
                     <v-icon class="play-icon">play_circle_outline</v-icon>
                   </v-btn>
