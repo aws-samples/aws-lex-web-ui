@@ -93,6 +93,7 @@ Resources:
                             Resource:
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${NamePrefix}*:*"
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:intent:${NamePrefix}*:*"
+                                - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:slottype:*"
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:slottype:${NamePrefix}*:*"
                 - PolicyName: LexMutating
                   PolicyDocument:
@@ -105,6 +106,7 @@ Resources:
                             Resource:
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${NamePrefix}*:*"
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:intent:${NamePrefix}*:*"
+                                - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:slottype:*"
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:slottype:${NamePrefix}*:*"
 
 Outputs:
