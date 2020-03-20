@@ -83,6 +83,20 @@ Resources:
                             Resource:
                                 - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
                                 - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*:*"
+                - PolicyName: LexGetLists
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - lex:GetBots
+                                - lex:GetBotAliases
+                                - lex:GetIntents
+                                - lex:GetSlotTypes
+                            Resource:
+                                - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:*"
+                                - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:intent:*"
+                                - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:slottype:*"
                 - PolicyName: LexGet
                   PolicyDocument:
                       Version: 2012-10-17
