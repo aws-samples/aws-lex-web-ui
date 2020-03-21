@@ -9,6 +9,10 @@ BOOTSTRAP_BUCKET_PATH="${BUCKET}/artifacts"
   exit 1
 }
 
+if ! test -d out; then
+mkdir out
+fi
+
 # assumes that it is running from build dir
 rm -f out/*.zip
 pushd .

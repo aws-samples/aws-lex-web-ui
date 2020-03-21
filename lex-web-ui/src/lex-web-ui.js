@@ -1,5 +1,5 @@
 /*
-Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Amazon Software License (the "License"). You may not use this file
 except in compliance with the License. A copy of the License is located at
@@ -143,11 +143,11 @@ export class Loader {
 
     const credentials = new CognitoConstructor(
       { IdentityPoolId: mergedConfig.cognito.poolId },
-      { region: mergedConfig.region || 'us-east-1' },
+      { region: mergedConfig.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1' },
     );
 
     const awsConfig = new AWSConfigConstructor({
-      region: mergedConfig.region || 'us-east-1',
+      region: mergedConfig.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1',
       credentials,
     });
 

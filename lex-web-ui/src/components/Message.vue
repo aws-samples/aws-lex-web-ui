@@ -47,13 +47,13 @@
                   v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback"
                   class="feedback-state"
                 >
-                  <v-icon 
+                  <v-icon
                     v-on:click="onButtonClick(positiveIntent)"
                     v-bind:class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
                   >
                     thumb_up
                   </v-icon>
-                  <v-icon 
+                  <v-icon
                     v-on:click="onButtonClick(negativeIntent)"
                     v-bind:class="{'feedback-icons-negative': !negativeClick, 'negativeClick': negativeClick}"
                   >
@@ -98,7 +98,7 @@
 
 <script>
 /*
-Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Amazon Software License (the "License"). You may not use this file
 except in compliance with the License. A copy of the License is located at

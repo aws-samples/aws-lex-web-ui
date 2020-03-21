@@ -1,5 +1,5 @@
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -75,8 +75,9 @@ export class FullPageComponentLoader {
     const { poolId: cognitoPoolId } =
       this.config.cognito;
     const region =
-      this.config.cognito.region || this.config.region || 'us-east-1';
-    const poolName = `cognito-idp.us-east-1.amazonaws.com/${this.config.cognito.appUserPoolName}`;
+        this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
+    const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
+
     let credentials;
     if (idtoken) { // auth role since logged in
       try {
@@ -175,8 +176,9 @@ export class FullPageComponentLoader {
       const { poolId: cognitoPoolId } =
         this.config.cognito;
       const region =
-        this.config.cognito.region || this.config.region || 'us-east-1';
-      const poolName = `cognito-idp.us-east-1.amazonaws.com/${this.config.cognito.appUserPoolName}`;
+          this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
+      const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
+
       if (!cognitoPoolId) {
         return reject(new Error('missing cognito poolId config'));
       }
@@ -286,6 +288,8 @@ export class FullPageComponentLoader {
    */
   load(configParam) {
     const mergedConfig = ConfigLoader.mergeConfig(this.config, configParam);
+    mergedConfig.region =
+        mergedConfig.region || mergedConfig.cognito.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1';
     this.config = mergedConfig;
     if (this.isRunningEmbeded()) {
       return FullPageComponentLoader.createComponent(mergedConfig)
