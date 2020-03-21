@@ -127,7 +127,8 @@ export class IframeComponentLoader {
       let containerEl = document.getElementById(this.elementId);
       if (containerEl) {
         console.warn('chatbot iframe container already exists');
-        this.containerElement = containerEl;/*place the chatbot to the already available element */
+        /* place the chatbot to the already available element */
+        this.containerElement = containerEl;
         return resolve(containerEl);
       }
       try {
