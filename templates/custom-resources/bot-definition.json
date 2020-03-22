@@ -45,6 +45,15 @@
           }
         ]
       },
+      "conclusionStatement": {
+        "messages": [
+          {
+            "groupNumber": 1,
+            "contentType": "PlainText",
+            "content": "Thanks for your order"
+          }
+        ]
+      },
       "description": "Intent to order a bouquet of flowers for pick up",
       "fulfillmentActivity": {
         "type": "ReturnIntent"

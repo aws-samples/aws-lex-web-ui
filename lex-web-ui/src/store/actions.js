@@ -1,5 +1,5 @@
 /*
-Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Amazon Software License (the "License"). You may not use this file
 except in compliance with the License. A copy of the License is located at
@@ -452,7 +452,7 @@ export default {
       .then(() => context.dispatch('lexPostText', message.text))
       .then((response) => {
         // check for an array of messages
-        if (response.message.includes('{"messages":')) {
+        if (response.message && response.message.includes('{"messages":')) {
           const tmsg = JSON.parse(response.message);
           if (tmsg && Array.isArray(tmsg.messages)) {
             tmsg.messages.forEach((mes, index) => {
@@ -789,9 +789,18 @@ export default {
           reject(new Error(errorMessage));
         }
       };
+      let target = context.state.config.ui.parentOrigin;
+      if (target !== window.location.origin) {
+        // simple check to determine if a region specific path has been provided
+        const p1 = context.state.config.ui.parentOrigin.split('.');
+        const p2 = window.location.origin.split('.');
+        if (p1[0] === p2[0]) {
+          target = window.location.origin;
+        }
+      }
       window.parent.postMessage(
         message,
-        context.state.config.ui.parentOrigin,
+        target,
         [messageChannel.port2],
       );
     });

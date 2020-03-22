@@ -1,5 +1,5 @@
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -127,6 +127,8 @@ export class IframeComponentLoader {
       let containerEl = document.getElementById(this.elementId);
       if (containerEl) {
         console.warn('chatbot iframe container already exists');
+        /* place the chatbot to the already available element */
+        this.containerElement = containerEl;
         return resolve(containerEl);
       }
       try {
@@ -162,8 +164,8 @@ export class IframeComponentLoader {
     const { poolId: cognitoPoolId } =
       this.config.cognito;
     const region =
-      this.config.cognito.region || this.config.region || 'us-east-1';
-    const poolName = `cognito-idp.us-east-1.amazonaws.com/${this.config.cognito.appUserPoolName}`;
+      this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
+    const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
     let credentials;
     const idtoken = localStorage.getItem('idtokenjwt');
     if (idtoken) { // auth role since logged in
@@ -242,11 +244,10 @@ export class IframeComponentLoader {
           console.debug('completeLogout successful');
         }
       }
-      const { poolId: cognitoPoolId } =
-        this.config.cognito;
+      const { poolId: cognitoPoolId } = this.config.cognito;
       const region =
-        this.config.cognito.region || this.config.region || 'us-east-1';
-      const poolName = `cognito-idp.us-east-1.amazonaws.com/${this.config.cognito.appUserPoolName}`;
+          this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
+      const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
       if (!cognitoPoolId) {
         return reject(new Error('missing cognito poolId config'));
       }
@@ -328,8 +329,20 @@ export class IframeComponentLoader {
 
     // SECURITY: origin check
     if (evt.origin !== iframeOrigin) {
-      console.warn('postMessage from invalid origin', evt.origin);
-      return;
+      if (iframeOrigin.includes('s3.amazonaws.com')) {
+        // allow a region specific path to be valid
+        const p1 = evt.origin.split('.');
+        const p2 = iframeOrigin.split('.');
+        const regionAdjust1 = `${p1[0]}.s3.${p1[2]}.${p1[3]}`;
+        const regionAdjust2 = `${p2[0]}.s3.${p2[2]}.${p2[3]}`;
+        if (regionAdjust1 !== regionAdjust2) {
+          console.warn('postMessage from invalid origin', evt.origin);
+          return;
+        }
+      } else {
+        console.warn('postMessage from invalid origin', evt.origin);
+        return;
+      }
     }
     if (!evt.ports || !Array.isArray(evt.ports) || !evt.ports.length) {
       console.warn('postMessage not sent over MessageChannel', evt);
@@ -673,9 +686,18 @@ export class IframeComponentLoader {
           reject(new Error(`iframe failed to handle message - ${evt.data.error}`));
         }
       };
+      let target = iframeOrigin;
+      if (target !== this.iframeElement.contentWindow.location.origin) {
+        // adjust to a region specific path if needed
+        const p1 = iframeOrigin.split('.');
+        const p2 = this.iframeElement.contentWindow.location.origin.split('.');
+        if (p1[0] === p2[0]) {
+          target = this.iframeElement.contentWindow.location.origin;
+        }
+      }
       this.iframeElement.contentWindow.postMessage(
         message,
-        iframeOrigin,
+        target,
         [messageChannel.port2],
       );
     });

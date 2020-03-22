@@ -18,6 +18,18 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### New Features in version 0.14.11
+- Installation now supported in several regions using the following region bootstrap buckets urls. Use these when
+launching within CloudFormation->Create new stack
+    - us-east-1
+        - https://s3.amazonaws.com/aws-bigdata-blog/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - eu-west-1
+        - https://s3.amazonaws.com/aws-bigdata-blog-replica-eu-west-1/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - ap-southeast-2
+        - https://s3.amazonaws.com/aws-bigdata-blog-replica-ap-southeast-2/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+- Added css guide and default customization css file to allow style modifications used by index.html
+- Bug fixes related to installing sample Order Flowers bot
+
 #### New Features in version 0.14.9
 - Use of NodeJS 10.x for Lambda functions.
 Note that this feature requires use of NodeJS 10.16.3 or higher and npm version 6.13.0 or higher
