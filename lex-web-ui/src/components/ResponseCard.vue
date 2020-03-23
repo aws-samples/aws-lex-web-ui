@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <div v-if=shouldDisplayResponseCardTitle>
-      <v-card-title v-if="responseCard.title.trim()" primary-title class="red lighten-5">
+      <v-card-title v-if="responseCard.title && responseCard.title.trim()" primary-title class="red lighten-5">
         <span class="headline">{{responseCard.title}}</span>
       </v-card-title>
     </div>
@@ -44,7 +44,7 @@
 
 <script>
 /*
-Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Amazon Software License (the "License"). You may not use this file
 except in compliance with the License. A copy of the License is located at

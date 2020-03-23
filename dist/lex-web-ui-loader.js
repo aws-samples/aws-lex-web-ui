@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "cb8284141de0a055a780"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e45a131e1a3f32b06796"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -41721,7 +41721,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -41813,7 +41813,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -41866,7 +41866,7 @@ var _extends3 = _interopRequireDefault(_extends2);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -42040,7 +42040,7 @@ function setCustomEventShim() {
  * Base class used by the full page and iframe loaders
  */
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -42540,7 +42540,7 @@ var ConfigLoader = exports.ConfigLoader = function () {
   }]);
   return ConfigLoader;
 }(); /*
-      Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+      Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
      
       Licensed under the Amazon Software License (the "License"). You may not use this file
       except in compliance with the License. A copy of the License is located at
@@ -42585,7 +42585,7 @@ var _createClass3 = _interopRequireDefault(_createClass2);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -42885,7 +42885,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * scope
  */
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -42985,8 +42985,9 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
       });
       var cognitoPoolId = this.config.cognito.poolId;
 
-      var region = this.config.cognito.region || this.config.region || 'us-east-1';
-      var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + this.config.cognito.appUserPoolName;
+      var region = this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
+      var poolName = 'cognito-idp.' + region + '.amazonaws.com/' + this.config.cognito.appUserPoolName;
+
       var credentials = void 0;
       if (idtoken) {
         // auth role since logged in
@@ -43111,8 +43112,9 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
         }
         var cognitoPoolId = _this3.config.cognito.poolId;
 
-        var region = _this3.config.cognito.region || _this3.config.region || 'us-east-1';
-        var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + _this3.config.cognito.appUserPoolName;
+        var region = _this3.config.cognito.region || _this3.config.region || _this3.config.cognito.poolId.split(':')[0] || 'us-east-1';
+        var poolName = 'cognito-idp.' + region + '.amazonaws.com/' + _this3.config.cognito.appUserPoolName;
+
         if (!cognitoPoolId) {
           return reject(new Error('missing cognito poolId config'));
         }
@@ -43289,6 +43291,7 @@ var FullPageComponentLoader = exports.FullPageComponentLoader = function () {
       var _this6 = this;
 
       var mergedConfig = _configLoader.ConfigLoader.mergeConfig(this.config, configParam);
+      mergedConfig.region = mergedConfig.region || mergedConfig.cognito.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1';
       this.config = mergedConfig;
       if (this.isRunningEmbeded()) {
         return FullPageComponentLoader.createComponent(mergedConfig).then(function (lexWebUi) {
@@ -43616,7 +43619,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  */
 /*
- Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -43724,6 +43727,8 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
         var containerEl = document.getElementById(_this2.elementId);
         if (containerEl) {
           console.warn('chatbot iframe container already exists');
+          /* place the chatbot to the already available element */
+          _this2.containerElement = containerEl;
           return resolve(containerEl);
         }
         try {
@@ -43762,8 +43767,8 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
     value: function updateCredentials() {
       var cognitoPoolId = this.config.cognito.poolId;
 
-      var region = this.config.cognito.region || this.config.region || 'us-east-1';
-      var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + this.config.cognito.appUserPoolName;
+      var region = this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
+      var poolName = 'cognito-idp.' + region + '.amazonaws.com/' + this.config.cognito.appUserPoolName;
       var credentials = void 0;
       var idtoken = localStorage.getItem('idtokenjwt');
       if (idtoken) {
@@ -43847,8 +43852,8 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
         }
         var cognitoPoolId = _this4.config.cognito.poolId;
 
-        var region = _this4.config.cognito.region || _this4.config.region || 'us-east-1';
-        var poolName = 'cognito-idp.us-east-1.amazonaws.com/' + _this4.config.cognito.appUserPoolName;
+        var region = _this4.config.cognito.region || _this4.config.region || _this4.config.cognito.poolId.split(':')[0] || 'us-east-1';
+        var poolName = 'cognito-idp.' + region + '.amazonaws.com/' + _this4.config.cognito.appUserPoolName;
         if (!cognitoPoolId) {
           return reject(new Error('missing cognito poolId config'));
         }
@@ -43916,8 +43921,20 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
 
       // SECURITY: origin check
       if (evt.origin !== iframeOrigin) {
-        console.warn('postMessage from invalid origin', evt.origin);
-        return;
+        if (iframeOrigin.includes('s3.amazonaws.com')) {
+          // allow a region specific path to be valid
+          var p1 = evt.origin.split('.');
+          var p2 = iframeOrigin.split('.');
+          var regionAdjust1 = p1[0] + '.s3.' + p1[2] + '.' + p1[3];
+          var regionAdjust2 = p2[0] + '.s3.' + p2[2] + '.' + p2[3];
+          if (regionAdjust1 !== regionAdjust2) {
+            console.warn('postMessage from invalid origin', evt.origin);
+            return;
+          }
+        } else {
+          console.warn('postMessage from invalid origin', evt.origin);
+          return;
+        }
       }
       if (!evt.ports || !Array.isArray(evt.ports) || !evt.ports.length) {
         console.warn('postMessage not sent over MessageChannel', evt);
@@ -44279,7 +44296,16 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
             reject(new Error('iframe failed to handle message - ' + evt.data.error));
           }
         };
-        _this9.iframeElement.contentWindow.postMessage(message, iframeOrigin, [messageChannel.port2]);
+        var target = iframeOrigin;
+        if (target !== _this9.iframeElement.contentWindow.location.origin) {
+          // adjust to a region specific path if needed
+          var p1 = iframeOrigin.split('.');
+          var p2 = _this9.iframeElement.contentWindow.location.origin.split('.');
+          if (p1[0] === p2[0]) {
+            target = _this9.iframeElement.contentWindow.location.origin;
+          }
+        }
+        _this9.iframeElement.contentWindow.postMessage(message, target, [messageChannel.port2]);
       });
     }
 

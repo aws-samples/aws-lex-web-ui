@@ -35,7 +35,7 @@
 
 <script>
 /*
-Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Amazon Software License (the "License"). You may not use this file
 except in compliance with the License. A copy of the License is located at
@@ -52,6 +52,9 @@ License for the specific language governing permissions and limitations under th
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
+import LexRuntime from 'aws-sdk/clients/lexruntime';
+import { Config as AWSConfig, CognitoIdentityCredentials }
+  from 'aws-sdk/global';
 
 const jwt = require('jsonwebtoken');
 
@@ -128,20 +131,59 @@ export default {
           (window.Audio) ? new Audio() : null,
         ),
       ]))
-      .then(() => Promise.all([
-        this.$store.dispatch('initMessageList'),
-        this.$store.dispatch('initPollyClient', this.$lexWebUi.pollyClient),
-        this.$store.dispatch('initLexClient', this.$lexWebUi.lexRuntimeClient),
-      ]))
       .then(() => {
-        this.$store.dispatch(
-          'sendMessageToParentWindow',
-          { event: 'ready' },
-        );
-        Promise.resolve();
+        // This processing block adjusts the LexRunTime client dynamically based on the
+        // currently configured region and poolId. Both values by this time should be
+        // available in $store.state.
+        //
+        // A new lexRunTimeClient is constructed targeting Lex in the identified region
+        // using credentials built from the identified poolId.
+        //
+        // The Cognito Identity Pool should be a resource in the identified region.
+        if (this.$store.state && this.$store.state.config
+          && this.$store.state.config.region && this.$store.state.config.cognito.poolId) {
+          const AWSConfigConstructor = (window.AWS && window.AWS.Config) ?
+            window.AWS.Config :
+            AWSConfig;
+
+          const CognitoConstructor =
+            (window.AWS && window.AWS.CognitoIdentityCredentials) ?
+              window.AWS.CognitoIdentityCredentials :
+              CognitoIdentityCredentials;
+
+          const LexRuntimeConstructor = (window.AWS && window.AWS.LexRuntime) ?
+            window.AWS.LexRuntime :
+            LexRuntime;
+
+          const credentials = new CognitoConstructor(
+            { IdentityPoolId: this.$store.state.config.cognito.poolId },
+            { region: this.$store.state.config.region },
+          );
+
+          const awsConfig = new AWSConfigConstructor({
+            region: this.$store.state.config.region,
+            credentials,
+          });
+
+          this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
+        }
+
+        Promise.all([
+          this.$store.dispatch('initMessageList'),
+          this.$store.dispatch('initPollyClient', this.$lexWebUi.pollyClient),
+          this.$store.dispatch('initLexClient', this.$lexWebUi.lexRuntimeClient),
+        ]);
       })
+      .then(() => (
+        (this.$store.state.isRunningEmbedded) ?
+          this.$store.dispatch(
+            'sendMessageToParentWindow',
+            { event: 'ready' },
+          ) :
+          Promise.resolve()
+      ))
       .then(() => console.info(
-        'sucessfully initialized lex web ui version: ',
+        'successfully initialized lex web ui version: ',
         this.$store.state.version,
       ))
       .catch((error) => {
@@ -209,8 +251,19 @@ export default {
     messageHandler(evt) {
       // security check
       if (evt.origin !== this.$store.state.config.ui.parentOrigin) {
-        console.warn('ignoring event - invalid origin:', evt.origin);
-        return;
+        if (this.$store.state.config.ui.parentOrigin.includes('s3.amazonaws.com')) {
+          const p1 = evt.origin.split('.');
+          const p2 = this.$store.state.config.ui.parentOrigin.split('.');
+          const regionAdjust1 = `${p1[0]}.s3.${p1[2]}.${p1[3]}`;
+          const regionAdjust2 = `${p2[0]}.s3.${p2[2]}.${p2[3]}`;
+          if (regionAdjust1 !== regionAdjust2) {
+            console.warn('ignoring event - invalid origin:', evt.origin);
+            return;
+          }
+        } else {
+          console.warn('ignoring event - invalid origin:', evt.origin);
+          return;
+        }
       }
       if (!evt.ports || !Array.isArray(evt.ports) || !evt.ports.length) {
         console.warn('postMessage not sent over MessageChannel', evt);

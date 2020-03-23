@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.14.11] - 2020-03-22
+
+### Added 
+- Installation support for eu-west-1 and ap-southeast-2
+- CSS Style information and default customization css file
+- Fixed defects with respect to the default Order Flowers Bot installation
+- Several pull requests
+
 ## [0.14.9] - 2019-11-25
 
 ### Added

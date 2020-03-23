@@ -15,6 +15,7 @@
         slot="activator"
         dark
         icon
+        v-show="!isUiMinimized"
       >
         <v-icon>
           {{'menu'}}
@@ -35,7 +36,7 @@
              class="nav-button-prev"
              v-on="prevNavEventHandlers"
              v-on:click="onPrev"
-             v-show="hasPrevUtterance"
+             v-show="hasPrevUtterance && !isUiMinimized"
              aria-label="go back to previous message"
       >
         <v-icon>
@@ -49,7 +50,7 @@
 
 
 
-    <v-toolbar-title class="hidden-xs-and-down">
+    <v-toolbar-title class="hidden-xs-and-down" v-on:click="toggleMinimize">
       <h1>{{ toolbarTitle }}</h1>
     </v-toolbar-title>
 
@@ -84,7 +85,7 @@
       <span id="sfx-tooltip">sound effects on/off</span>
     </v-tooltip>
     <v-btn
-      v-if="helpButton"
+      v-if="helpButton && !isUiMinimized"
       v-on:click="sendHelp"
       v-on="tooltipHelpEventHandlers"
       icon
@@ -125,7 +126,7 @@
 
 <script>
 /*
-Copyright 2017-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Amazon Software License (the "License"). You may not use this file
 except in compliance with the License. A copy of the License is located at
@@ -239,8 +240,10 @@ export default {
       this.$store.dispatch('toggleIsSFXOn');
     },
     toggleMinimize() {
-      this.onInputButtonHoverLeave();
-      this.$emit('toggleMinimizeUi');
+      if (this.$store.state.isRunningEmbedded) {
+        this.onInputButtonHoverLeave();
+        this.$emit('toggleMinimizeUi');
+      }
     },
     sendHelp() {
       const message = {
