@@ -230,7 +230,7 @@ Resources:
         Condition: NeedsBot
         Properties:
             TimeoutInMinutes: 15
-            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/lexbot.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3-${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/lexbot.yaml"
             Parameters:
                 NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
@@ -241,7 +241,7 @@ Resources:
         Type: AWS::CloudFormation::Stack
         Condition: NeedsCognito
         Properties:
-            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/cognito.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3-${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/cognito.yaml"
             Parameters:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
                 LexBotName:
@@ -257,7 +257,7 @@ Resources:
         Type: AWS::CloudFormation::Stack
         Properties:
             TimeoutInMinutes: 15
-            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/coderepo.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3-${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/coderepo.yaml"
             Parameters:
                 BotName:
                     !If
@@ -278,7 +278,7 @@ Resources:
     Pipeline:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/pipeline.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3-${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/pipeline.yaml"
             Parameters:
                 BotName:
                     !If
@@ -307,7 +307,7 @@ Resources:
         Type: AWS::CloudFormation::Stack
         Condition: NeedsCognito
         Properties:
-            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/cognitouserpoolconfig.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3-${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/cognitouserpoolconfig.yaml"
             Parameters:
                 WebAppUrl: !If [NeedsParentOrigin, !GetAtt Pipeline.Outputs.WebAppBase, !Ref WebAppParentOrigin]
                 WebAppPath: !Ref WebAppPath

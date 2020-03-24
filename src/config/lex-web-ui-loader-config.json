@@ -1,9 +1,12 @@
 {
+  "region": "us-east-1",
   "cognito": {
     "poolId": "us-east-1:06de3a58-1e89-4048-95bc-0d8cbd750d37",
     "appUserPoolClientId": "",
     "appUserPoolName": "",
     "appDomainName": "",
+    "aws_cognito_region": "us-east-1",
+    "region": "us-east-1",
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
@@ -11,7 +14,8 @@
     "botAlias": "$LATEST",
     "initialText": "",
     "initialSpeechInstruction": "",
-    "reInitSessionAttributesOnRestart": false
+    "reInitSessionAttributesOnRestart": false,
+    "region": "us-east-1"
   },
   "ui": {
     "parentOrigin": "",
