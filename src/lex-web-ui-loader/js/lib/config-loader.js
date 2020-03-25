@@ -203,12 +203,18 @@ export class ConfigLoader {
   filterConfigWhenEmedded(config) {
     const url = window.location.href;
     // when shouldIgnoreConfigEmbedded is true
-    // ignore most of the config with the exception of the parentOrigin
+    // ignore most of the config with the exception of the parentOrigin and region
     const parentOrigin = config.ui && config.ui.parentOrigin;
-    return (this.options &&
+    if (this.options &&
       this.options.shouldIgnoreConfigWhenEmbedded &&
-      url.indexOf('lexWebUiEmbed=true') !== -1) ?
-      { ui: { parentOrigin } } : config;
+      url.indexOf('lexWebUiEmbed=true') !== -1) {
+      return {
+        ui: { parentOrigin },
+        region: config.region,
+        cognito: { region: config.cognito.region },
+      };
+    }
+    return config;
   }
 
   /**
