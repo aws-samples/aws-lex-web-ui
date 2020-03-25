@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.14.12] - 2020-03-25
+- Defect fixes for CORS processing
+- Updates for multi-region support
+- Easy URLs to launch in us-east-1 (N. Virginia), eu-west-1 (Ireland), ap-southeast-2 (Sydney)
+
 ## [0.14.11] - 2020-03-22
 
 ### Added 

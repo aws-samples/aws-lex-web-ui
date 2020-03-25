@@ -243,19 +243,8 @@ export default {
     messageHandler(evt) {
       // security check
       if (evt.origin !== this.$store.state.config.ui.parentOrigin) {
-        if (this.$store.state.config.ui.parentOrigin.includes('s3.amazonaws.com')) {
-          const p1 = evt.origin.split('.');
-          const p2 = this.$store.state.config.ui.parentOrigin.split('.');
-          const regionAdjust1 = `${p1[0]}.s3.${p1[2]}.${p1[3]}`;
-          const regionAdjust2 = `${p2[0]}.s3.${p2[2]}.${p2[3]}`;
-          if (regionAdjust1 !== regionAdjust2) {
-            console.warn('ignoring event - invalid origin:', evt.origin);
-            return;
-          }
-        } else {
-          console.warn('ignoring event - invalid origin:', evt.origin);
-          return;
-        }
+        console.warn('ignoring event - invalid origin:', evt.origin);
+        return;
       }
       if (!evt.ports || !Array.isArray(evt.ports) || !evt.ports.length) {
         console.warn('postMessage not sent over MessageChannel', evt);

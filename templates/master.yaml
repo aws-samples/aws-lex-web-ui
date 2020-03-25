@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.14.11)
+    Master Lex Web UI CloudFormation template (v0.14.12)
     It deploys:
         - S3 buckets to host the web application
         - CodeBuild project to build the configuration and deploy to S3
@@ -295,7 +295,7 @@ Resources:
         Condition: NeedsBot
         Properties:
             TimeoutInMinutes: 15
-            TemplateURL: !Sub "https://${BootstrapBucket}.s3-${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/lexbot.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/lexbot.yaml"
             Parameters:
                 NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
@@ -306,7 +306,7 @@ Resources:
         Type: AWS::CloudFormation::Stack
         Condition: NeedsCognito
         Properties:
-            TemplateURL: !Sub "https://${BootstrapBucket}.s3-${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/cognito.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/cognito.yaml"
             Parameters:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
                 LexBotName:
@@ -321,7 +321,7 @@ Resources:
     CodeBuildDeploy:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: !Sub "https://${BootstrapBucket}.s3-${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/codebuild-deploy.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/codebuild-deploy.yaml"
             Parameters:
                 CodeBuildName: !Ref CodeBuildName
                 SourceBucket: !Ref BootstrapBucket
@@ -367,7 +367,7 @@ Resources:
         Type: AWS::CloudFormation::Stack
         Condition: NeedsCognito
         Properties:
-            TemplateURL: !Sub "https://${BootstrapBucket}.s3-${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/cognitouserpoolconfig.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/cognitouserpoolconfig.yaml"
             Parameters:
                 WebAppUrl: !If [NeedsParentOrigin, !GetAtt CodeBuildDeploy.Outputs.WebAppBase, !Ref WebAppParentOrigin]
                 WebAppPath: !Ref WebAppPath

@@ -10,11 +10,11 @@ if [ -z "${IFRAME_SNIPPET_FILE}" ]; then
   exit 1
 fi
 
-if [ -z "${WEBAPP_BUCKET}" ]; then
-  echo "[WARN] WEBAPP_BUCKET environment variable not defined" >&2
+if [ -z "${WEBAPP_BUCKET_REGIONALDOMAINNAME}" ]; then
+  echo "[WARN] WEBAPP_BUCKET_REGIONALDOMAINNAME environment variable not defined" >&2
   WEBAPP_URL=''
 else
-  WEBAPP_URL="https://${WEBAPP_BUCKET}.s3.amazonaws.com"
+  WEBAPP_URL="https://${WEBAPP_BUCKET_REGIONALDOMAINNAME}"
 fi
 
 [ -z "${PARENT_ORIGIN}" ] && \

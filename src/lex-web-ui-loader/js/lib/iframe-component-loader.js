@@ -180,11 +180,9 @@ export class IframeComponentLoader {
         console.error(new Error(`cognito auth credentials could not be created ${err}`));
       }
     } else { // noauth role
-      const identityIdValue = localStorage.getItem('aws.cognito.identity-id.us-east-1:06de3a58-1e89-4048-95bc-0d8cbd750d37');
-      console.error(identityIdValue);
       try {
         credentials = new AWS.CognitoIdentityCredentials(
-          { IdentityPoolId: cognitoPoolId, IdentityId: 'us-east-1:a5a1a580-ab4f-420e-8b4b-376dc3c20d61' },
+          { IdentityPoolId: cognitoPoolId },
           { region },
         );
       } catch (err) {
@@ -329,20 +327,8 @@ export class IframeComponentLoader {
 
     // SECURITY: origin check
     if (evt.origin !== iframeOrigin) {
-      if (iframeOrigin.includes('s3.amazonaws.com')) {
-        // allow a region specific path to be valid
-        const p1 = evt.origin.split('.');
-        const p2 = iframeOrigin.split('.');
-        const regionAdjust1 = `${p1[0]}.s3.${p1[2]}.${p1[3]}`;
-        const regionAdjust2 = `${p2[0]}.s3.${p2[2]}.${p2[3]}`;
-        if (regionAdjust1 !== regionAdjust2) {
-          console.warn('postMessage from invalid origin', evt.origin);
-          return;
-        }
-      } else {
-        console.warn('postMessage from invalid origin', evt.origin);
-        return;
-      }
+      console.warn('postMessage from invalid origin', evt.origin);
+      return;
     }
     if (!evt.ports || !Array.isArray(evt.ports) || !evt.ports.length) {
       console.warn('postMessage not sent over MessageChannel', evt);
@@ -686,18 +672,9 @@ export class IframeComponentLoader {
           reject(new Error(`iframe failed to handle message - ${evt.data.error}`));
         }
       };
-      let target = iframeOrigin;
-      if (target !== this.iframeElement.contentWindow.location.origin) {
-        // adjust to a region specific path if needed
-        const p1 = iframeOrigin.split('.');
-        const p2 = this.iframeElement.contentWindow.location.origin.split('.');
-        if (p1[0] === p2[0]) {
-          target = this.iframeElement.contentWindow.location.origin;
-        }
-      }
       this.iframeElement.contentWindow.postMessage(
         message,
-        target,
+        iframeOrigin,
         [messageChannel.port2],
       );
     });
