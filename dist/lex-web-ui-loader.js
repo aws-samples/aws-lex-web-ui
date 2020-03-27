@@ -755,10 +755,10 @@ var decode = function (str) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
-// EXTERNAL MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/DecodingHelper.js
+// EXTERNAL MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/DecodingHelper.js
 var DecodingHelper = __webpack_require__("../../../node_modules/amazon-cognito-auth-js/es/DecodingHelper.js");
 
-// CONCATENATED MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAccessToken.js
+// CONCATENATED MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAccessToken.js
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -859,7 +859,7 @@ var CognitoAccessToken_CognitoAccessToken = function () {
 }();
 
 /* harmony default export */ var es_CognitoAccessToken = (CognitoAccessToken_CognitoAccessToken);
-// CONCATENATED MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoIdToken.js
+// CONCATENATED MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoIdToken.js
 function CognitoIdToken__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -946,7 +946,7 @@ var CognitoIdToken_CognitoIdToken = function () {
 }();
 
 /* harmony default export */ var es_CognitoIdToken = (CognitoIdToken_CognitoIdToken);
-// CONCATENATED MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoRefreshToken.js
+// CONCATENATED MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoRefreshToken.js
 function CognitoRefreshToken__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -1003,7 +1003,7 @@ var CognitoRefreshToken = function () {
 }();
 
 /* harmony default export */ var es_CognitoRefreshToken = (CognitoRefreshToken);
-// CONCATENATED MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoTokenScopes.js
+// CONCATENATED MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoTokenScopes.js
 function CognitoTokenScopes__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -1060,7 +1060,7 @@ var CognitoTokenScopes = function () {
 }();
 
 /* harmony default export */ var es_CognitoTokenScopes = (CognitoTokenScopes);
-// CONCATENATED MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuthSession.js
+// CONCATENATED MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuthSession.js
 function CognitoAuthSession__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -1259,7 +1259,7 @@ var CognitoAuthSession_CognitoAuthSession = function () {
 }();
 
 /* harmony default export */ var es_CognitoAuthSession = (CognitoAuthSession_CognitoAuthSession);
-// CONCATENATED MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/StorageHelper.js
+// CONCATENATED MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/StorageHelper.js
 function StorageHelper__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -1370,13 +1370,13 @@ var StorageHelper = function () {
 }();
 
 /* harmony default export */ var es_StorageHelper = (StorageHelper);
-// CONCATENATED MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/UriHelper.js
+// CONCATENATED MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/UriHelper.js
 var SELF = '_self';
 
 var launchUri = function (url) {
   return window.open(url, SELF);
 };
-// CONCATENATED MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuth.js
+// CONCATENATED MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuth.js
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function CognitoAuth__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2219,7 +2219,7 @@ var CognitoAuth_CognitoAuth = function () {
 }();
 
 /* harmony default export */ var es_CognitoAuth = (CognitoAuth_CognitoAuth);
-// CONCATENATED MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/DateHelper.js
+// CONCATENATED MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/DateHelper.js
 function DateHelper__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*!
@@ -2285,11 +2285,11 @@ var DateHelper = function () {
 }();
 
 /* harmony default export */ var es_DateHelper = (DateHelper);
-// EXTERNAL MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/js-cookie/src/js.cookie.js
+// EXTERNAL MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/js-cookie/src/js.cookie.js
 var js_cookie = __webpack_require__("../../../node_modules/js-cookie/src/js.cookie.js");
 var js_cookie_default = /*#__PURE__*/__webpack_require__.n(js_cookie);
 
-// CONCATENATED MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CookieStorage.js
+// CONCATENATED MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CookieStorage.js
 function CookieStorage__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
@@ -2391,7 +2391,7 @@ var CookieStorage_CookieStorage = function () {
 }();
 
 /* harmony default export */ var es_CookieStorage = (CookieStorage_CookieStorage);
-// CONCATENATED MODULE: /Users/paddy.keane/Documents/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/index.js
+// CONCATENATED MODULE: /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/aws/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/index.js
 /* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "CognitoAccessToken", function() { return es_CognitoAccessToken; });
 /* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "CognitoIdToken", function() { return es_CognitoIdToken; });
 /* concated harmony reexport */__webpack_require__.d(__webpack_exports__, "CognitoRefreshToken", function() { return es_CognitoRefreshToken; });

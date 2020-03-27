@@ -174,14 +174,16 @@ export default {
           this.$store.dispatch('initLexClient', this.$lexWebUi.lexRuntimeClient),
         ]);
       })
-      .then(() => (
-        (this.$store.state.isRunningEmbedded) ?
-          this.$store.dispatch(
-            'sendMessageToParentWindow',
-            { event: 'ready' },
-          ) :
-          Promise.resolve()
-      ))
+      .then(() => {
+        console.info(`isRunningEmbedded : ${this.$store.state.isRunningEmbedded}`);
+        const evt = this.$store.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'ready' },
+        );
+        return (this.$store.state.isRunningEmbedded) ?
+          evt :
+          Promise.resolve();
+      })
       .then(() => console.info(
         'successfully initialized lex web ui version: ',
         this.$store.state.version,
