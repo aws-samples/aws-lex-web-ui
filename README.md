@@ -18,6 +18,14 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### New Features in version 0.14.13
+- Added new feature that allows the input area to be hidden if Response Card buttons are present. User
+must select from the available set of buttons. To enable this feature set the property 
+ui.hideInputFieldsForButtonResponse to true in the lex-web-ui-loader-config.json. This file is stored in
+the S3 bucket hosting the UI. Upload back to the S3 bucket and ensure the file has --acl public-read. This feature
+is disabled by default. 
+- Removed use of botocore.vendored.requests. Now imports this module for python based lambda functions. 
+
 #### New Features in version 0.14.12
 - Defect fixes for CORS processing
 - Updates for multi-region support

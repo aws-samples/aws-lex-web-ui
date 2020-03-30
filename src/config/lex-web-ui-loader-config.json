@@ -10,7 +10,7 @@
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
-    "botName": "QNA_dev_dev_master_three_BotPh",
+    "botName": "Order Flowers",
     "botAlias": "$LATEST",
     "initialText": "",
     "initialSpeechInstruction": "",

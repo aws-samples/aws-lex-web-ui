@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.14.12)
+    Master Lex Web UI CloudFormation template (v0.14.13)
     It deploys:
         - S3 buckets to host the web application
         - CodeBuild project to build the configuration and deploy to S3

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.14.13] - 2020-03-30
+- Added configuration setting that allows the input area of the UI to be hidden when Response Card
+buttons are present. This feature is disabled by default.
+- Removed use of botocore.vendored.requests module
+
 ## [0.14.12] - 2020-03-25
 - Defect fixes for CORS processing
 - Updates for multi-region support

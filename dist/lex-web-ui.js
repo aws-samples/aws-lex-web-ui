@@ -12427,6 +12427,9 @@ var jwt = __webpack_require__(118);
     isUiMinimized: function isUiMinimized() {
       return this.$store.state.isUiMinimized;
     },
+    hasButtons: function hasButtons() {
+      return this.$store.state.hasButtons;
+    },
     lexState: function lexState() {
       return this.$store.state.lex;
     },
@@ -13121,7 +13124,8 @@ License for the specific language governing permissions and limitations under th
       negativeClick: false,
       hasButtonBeenClicked: false,
       positiveIntent: this.$store.state.config.ui.positiveFeedbackIntent,
-      negativeIntent: this.$store.state.config.ui.negativeFeedbackIntent
+      negativeIntent: this.$store.state.config.ui.negativeFeedbackIntent,
+      hideInputFields: this.$store.state.config.ui.hideInputFieldsForButtonResponse
     };
   },
 
@@ -13232,6 +13236,17 @@ License for the specific language governing permissions and limitations under th
         return this.message.date.toLocaleTimeString();
       }
       return this.message.date.toLocaleString();
+    }
+  },
+  created: function created() {
+    if (this.message.responseCard && 'genericAttachments' in this.message.responseCard) {
+      if (this.message.responseCard.genericAttachments[0].buttons && this.hideInputFields && !this.$store.state.hasButtons) {
+        this.$store.dispatch('toggleHasButtons');
+      }
+    } else if (this.$store.state.config.ui.hideInputFieldsForButtonResponse) {
+      if (this.$store.state.hasButtons) {
+        this.$store.dispatch('toggleHasButtons');
+      }
     }
   }
 });
@@ -19526,7 +19541,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_193__;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LexWeb_vue__ = __webpack_require__(108);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_36890369_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__ = __webpack_require__(326);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05d6f1e2_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__ = __webpack_require__(326);
 function injectStyle (ssrContext) {
   __webpack_require__(195)
 }
@@ -19546,7 +19561,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LexWeb_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_36890369_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05d6f1e2_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19704,7 +19719,7 @@ var Component = normalizeComponent(
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Message_vue__ = __webpack_require__(112);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3d8e4444_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Message_vue__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_62f63fe7_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Message_vue__ = __webpack_require__(213);
 function injectStyle (ssrContext) {
   __webpack_require__(205)
 }
@@ -19719,12 +19734,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-3d8e4444"
+var __vue_scopeId__ = "data-v-62f63fe7"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Message_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3d8e4444_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Message_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_62f63fe7_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Message_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -25234,7 +25249,7 @@ module.exports.makeKey = makeKey
 /* 275 */
 /***/ (function(module, exports) {
 
-module.exports = {"_args":[["elliptic@6.5.1","/home/ec2-user/Source/aws-lex-web-ui/lex-web-ui"]],"_development":true,"_from":"elliptic@6.5.1","_id":"elliptic@6.5.1","_inBundle":false,"_integrity":"sha512-xvJINNLbTeWQjrl6X+7eQCrIy/YPv5XCpKW6kB5mKvtnGILoLDcySuwomfdzt0BMdLNVnuRNTuzKNHj0bva1Cg==","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.5.1","name":"elliptic","escapedName":"elliptic","rawSpec":"6.5.1","saveSpec":null,"fetchSpec":"6.5.1"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.5.1.tgz","_spec":"6.5.1","_where":"/home/ec2-user/Source/aws-lex-web-ui/lex-web-ui","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^3.0.4","grunt":"^1.0.4","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^9.0.1","istanbul":"^0.4.2","jscs":"^3.0.7","jshint":"^2.6.0","mocha":"^6.1.4"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.5.1"}
+module.exports = {"_args":[["elliptic@6.5.1","/Users/potterve/Source/aws-lex-web-ui/lex-web-ui"]],"_development":true,"_from":"elliptic@6.5.1","_id":"elliptic@6.5.1","_inBundle":false,"_integrity":"sha512-xvJINNLbTeWQjrl6X+7eQCrIy/YPv5XCpKW6kB5mKvtnGILoLDcySuwomfdzt0BMdLNVnuRNTuzKNHj0bva1Cg==","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.5.1","name":"elliptic","escapedName":"elliptic","rawSpec":"6.5.1","saveSpec":null,"fetchSpec":"6.5.1"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.5.1.tgz","_spec":"6.5.1","_where":"/Users/potterve/Source/aws-lex-web-ui/lex-web-ui","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^3.0.4","grunt":"^1.0.4","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^9.0.1","istanbul":"^0.4.2","jscs":"^3.0.7","jshint":"^2.6.0","mocha":"^6.1.4"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.5.1"}
 
 /***/ }),
 /* 276 */
@@ -35055,7 +35070,7 @@ module.exports = once;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',{attrs:{"id":"lex-web"}},[_c('toolbar-container',{attrs:{"userName":_vm.userNameValue,"toolbar-title":_vm.toolbarTitle,"toolbar-color":_vm.toolbarColor,"toolbar-logo":_vm.toolbarLogo,"is-ui-minimized":_vm.isUiMinimized},on:{"toggleMinimizeUi":_vm.toggleMinimizeUi,"requestLogin":_vm.handleRequestLogin,"requestLogout":_vm.handleRequestLogout}}),_vm._v(" "),_c('v-content',[_c('v-container',{staticClass:"message-list-container",attrs:{"fluid":"","pa-0":""}},[_c('message-list',{directives:[{name:"show",rawName:"v-show",value:(!_vm.isUiMinimized),expression:"!isUiMinimized"}]})],1)],1),_vm._v(" "),(!_vm.isUiMinimized)?_c('input-container',{ref:"InputContainer",attrs:{"text-input-placeholder":_vm.textInputPlaceholder,"initial-speech-instruction":_vm.initialSpeechInstruction}}):_vm._e()],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-app',{attrs:{"id":"lex-web"}},[_c('toolbar-container',{attrs:{"userName":_vm.userNameValue,"toolbar-title":_vm.toolbarTitle,"toolbar-color":_vm.toolbarColor,"toolbar-logo":_vm.toolbarLogo,"is-ui-minimized":_vm.isUiMinimized},on:{"toggleMinimizeUi":_vm.toggleMinimizeUi,"requestLogin":_vm.handleRequestLogin,"requestLogout":_vm.handleRequestLogout}}),_vm._v(" "),_c('v-content',[_c('v-container',{staticClass:"message-list-container",attrs:{"fluid":"","pa-0":""}},[_c('message-list',{directives:[{name:"show",rawName:"v-show",value:(!_vm.isUiMinimized),expression:"!isUiMinimized"}]})],1)],1),_vm._v(" "),(!_vm.isUiMinimized && !_vm.hasButtons)?_c('input-container',{ref:"InputContainer",attrs:{"text-input-placeholder":_vm.textInputPlaceholder,"initial-speech-instruction":_vm.initialSpeechInstruction}}):_vm._e()],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -35174,6 +35189,7 @@ License for the specific language governing permissions and limitations under th
   isUiMinimized: false, // when running embedded, is the iframe minimized?
   isEnableLogin: false, // true when a login/logout menu should be displayed
   isLoggedIn: false, // when running with login/logout enabled
+  hasButtons: false, // does the response card have buttons?
   tokens: {},
   config: __WEBPACK_IMPORTED_MODULE_2__config__["a" /* config */],
 
@@ -35744,7 +35760,7 @@ module.exports = {"cognito":{"poolId":"us-east-1:aa8c83df-49e8-4a53-adea-c0a90d7
 /* 350 */
 /***/ (function(module, exports) {
 
-module.exports = {"cognito":{"poolId":"us-east-1:06de3a58-1e89-4048-95bc-0d8cbd750d37"},"lex":{"botName":"QNA_dev_dev_master_two_Botba","initialText":"You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Config Bot","toolbarTitle":"Order Config","enableLogin":true,"pushInitialTextOnRestart":false,"shouldDisplayResponseCardTitle":false,"showErrorIcon":true,"showDialogStateIcon":false,"positiveFeedbackIntent":"Thumbs up","negativeFeedbackIntent":"Thumbs down","helpIntent":"help"},"recorder":{"preset":"speech_recognition"},"iframe":{"shouldLoadIframeMinimized":false}}
+module.exports = {"cognito":{"poolId":"us-east-1:0cd403d3-76c0-40d0-9d60-afb02bfcb8ff"},"lex":{"botName":"QNA_dev_dev_master_three_BotPh","initialText":"You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Config Bot","toolbarTitle":"Order Config","enableLogin":true,"pushInitialTextOnRestart":false,"shouldDisplayResponseCardTitle":false,"showErrorIcon":true,"showDialogStateIcon":false,"positiveFeedbackIntent":"Thumbs up","negativeFeedbackIntent":"Thumbs down","helpIntent":"help","hideInputFieldsForButtonResponse":true},"recorder":{"preset":"speech_recognition"},"iframe":{"shouldLoadIframeMinimized":false}}
 
 /***/ }),
 /* 351 */
@@ -36148,6 +36164,14 @@ License for the specific language governing permissions and limitations under th
   */
   toggleIsUiMinimized: function toggleIsUiMinimized(state) {
     state.isUiMinimized = !state.isUiMinimized;
+  },
+
+  /**
+   * used to track the appearance of the input container
+   * when the appearance of buttons should hide it
+   */
+  toggleHasButtons: function toggleHasButtons(state) {
+    state.hasButtons = !state.hasButtons;
   },
 
   /**
@@ -36938,6 +36962,10 @@ var recorder = void 0;
   toggleIsLoggedIn: function toggleIsLoggedIn(context) {
     context.commit('toggleIsLoggedIn');
     return context.dispatch('sendMessageToParentWindow', { event: 'toggleIsLoggedIn' });
+  },
+  toggleHasButtons: function toggleHasButtons(context) {
+    context.commit('toggleHasButtons');
+    return context.dispatch('sendMessageToParentWindow', { event: 'toggleHasButtons' });
   },
 
   /**
