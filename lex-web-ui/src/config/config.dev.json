@@ -22,7 +22,7 @@
     "positiveFeedbackIntent": "Thumbs up",
     "negativeFeedbackIntent": "Thumbs down",
     "helpIntent": "help",
-    "buttonResponseRequired": true
+    "hideInputFieldsForButtonResponse": true
   },
   "recorder": {
     "preset": "speech_recognition"

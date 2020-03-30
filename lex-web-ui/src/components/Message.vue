@@ -128,7 +128,7 @@ export default {
       hasButtonBeenClicked: false,
       positiveIntent: this.$store.state.config.ui.positiveFeedbackIntent,
       negativeIntent: this.$store.state.config.ui.negativeFeedbackIntent,
-      buttonResponseRequired: this.$store.state.config.ui.buttonResponseRequired,
+      hideInputFields: this.$store.state.config.ui.hideInputFieldsForButtonResponse,
     };
   },
   computed: {
@@ -253,10 +253,11 @@ export default {
   },
   created() {
     if (this.message.responseCard && 'genericAttachments' in this.message.responseCard) {
-      if (this.message.responseCard.genericAttachments[0].buttons && this.buttonResponseRequired) {
+      if (this.message.responseCard.genericAttachments[0].buttons &&
+          this.hideInputFields && !this.$store.state.hasButtons) {
         this.$store.dispatch('toggleHasButtons');
       }
-    } else if (this.$store.state.config.ui.buttonResponseRequired) {
+    } else if (this.$store.state.config.ui.hideInputFieldsForButtonResponse) {
       if (this.$store.state.hasButtons) {
         this.$store.dispatch('toggleHasButtons');
       }
