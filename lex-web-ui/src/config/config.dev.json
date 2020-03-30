@@ -1,9 +1,9 @@
 {
   "cognito": {
-    "poolId": "us-east-1:06de3a58-1e89-4048-95bc-0d8cbd750d37"
+    "poolId": "us-east-1:0cd403d3-76c0-40d0-9d60-afb02bfcb8ff"
   },
   "lex": {
-    "botName": "QNA_dev_dev_master_two_Botba",
+    "botName": "QNA_dev_dev_master_three_BotPh",
     "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
     "initialSpeechInstruction": "Say 'Order Flowers' to get started."
   },
@@ -21,7 +21,8 @@
     "showDialogStateIcon": false,
     "positiveFeedbackIntent": "Thumbs up",
     "negativeFeedbackIntent": "Thumbs down",
-    "helpIntent": "help"
+    "helpIntent": "help",
+    "buttonResponseRequired": true
   },
   "recorder": {
     "preset": "speech_recognition"

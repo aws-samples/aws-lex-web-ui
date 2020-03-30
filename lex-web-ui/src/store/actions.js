@@ -754,6 +754,13 @@ export default {
       { event: 'toggleIsLoggedIn' },
     );
   },
+  toggleHasButtons(context) {
+    context.commit('toggleHasButtons');
+    return context.dispatch(
+      'sendMessageToParentWindow',
+      { event: 'toggleHasButtons' },
+    );
+  },
   /**
    * sendMessageToParentWindow will either dispatch an event using a CustomEvent to a handler when
    * the lex-web-ui is running as a VUE component on a page or will send a message via postMessage

@@ -21,7 +21,7 @@
 
     <input-container
       ref="InputContainer"
-      v-if="!isUiMinimized"
+      v-if="!isUiMinimized && !hasButtons"
       v-bind:text-input-placeholder="textInputPlaceholder"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
     ></input-container>
@@ -83,6 +83,9 @@ export default {
     },
     isUiMinimized() {
       return this.$store.state.isUiMinimized;
+    },
+    hasButtons() {
+      return this.$store.state.hasButtons;
     },
     lexState() {
       return this.$store.state.lex;

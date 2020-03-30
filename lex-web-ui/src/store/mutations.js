@@ -307,6 +307,13 @@ export default {
     state.isUiMinimized = !state.isUiMinimized;
   },
   /**
+   * used to track the appearance of the input container
+   * when the appearance of buttons should hide it
+   */
+  toggleHasButtons(state) {
+    state.hasButtons = !state.hasButtons;
+  },
+  /**
    * used to track the expand/minimize status of the window when
    * running embedded in an iframe
    */

@@ -128,6 +128,7 @@ export default {
       hasButtonBeenClicked: false,
       positiveIntent: this.$store.state.config.ui.positiveFeedbackIntent,
       negativeIntent: this.$store.state.config.ui.negativeFeedbackIntent,
+      buttonResponseRequired: this.$store.state.config.ui.buttonResponseRequired,
     };
   },
   computed: {
@@ -249,6 +250,17 @@ export default {
       }
       return this.message.date.toLocaleString();
     },
+  },
+  created() {
+    if (this.message.responseCard && 'genericAttachments' in this.message.responseCard) {
+      if (this.message.responseCard.genericAttachments[0].buttons && this.buttonResponseRequired) {
+        this.$store.dispatch('toggleHasButtons');
+      }
+    } else if (this.$store.state.config.ui.buttonResponseRequired) {
+      if (this.$store.state.hasButtons) {
+        this.$store.dispatch('toggleHasButtons');
+      }
+    }
   },
 };
 </script>
