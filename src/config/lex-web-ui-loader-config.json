@@ -10,7 +10,7 @@
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
-    "botName": "Order Flowers",
+    "botName": "OrderFlowers",
     "botAlias": "$LATEST",
     "initialText": "",
     "initialSpeechInstruction": "",
@@ -24,10 +24,10 @@
     "positiveFeedbackIntent": "",
     "negativeFeedbackIntent": "",
     "helpIntent": "help",
-    "hideInputFieldsForButtonResponse": false,
     "enableLogin": false,
     "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,
+    "hideInputFieldsForButtonResponse": false,
     "pushInitialTextOnRestart": false,
     "directFocusToBotInput": false,
     "showDialogStateIcon": false
