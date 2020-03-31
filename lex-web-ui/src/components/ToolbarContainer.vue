@@ -280,10 +280,6 @@ export default {
 };
 </script>
 <style>
-.toolbar-color {
-  background-color: #003DA5 !important;
-}
-
 .nav-buttons {
   padding: 0;
   margin-left: 8px !important;
@@ -293,6 +289,5 @@ export default {
   padding: 0;
   margin: 0;
 }
-
 </style>
 
