@@ -4,7 +4,7 @@
     app
     dark
     fixed
-    v-bind:dense="this.$store.state.isRunningEmbedded"
+    v-bind:dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
     aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
   >
     <img v-if="toolbarLogo" v-bind:src="toolbarLogo" alt="logo" aria-hidden="true"/>
@@ -50,11 +50,11 @@
 
 
 
-    <v-toolbar-title class="hidden-xs-and-down" v-on:click="toggleMinimize">
+    <v-toolbar-title class="hidden-xs-and-down" v-on:click="toggleMinimize" v-show="!isUiMinimized">
       <h1>{{ toolbarTitle }}</h1>
     </v-toolbar-title>
 
-    <v-toolbar-title class="hidden-xs-and-down">
+    <v-toolbar-title class="hidden-xs-and-down" v-show="!isUiMinimized">
       {{ userName }}
     </v-toolbar-title>
 
@@ -97,7 +97,7 @@
     </v-btn>
 
     <v-btn
-      v-if="sfxMuteButton"
+      v-if="sfxMuteButton && !isUiMinimized"
       v-on:click="toggleSFXMute"
       v-on="tooltipSFXEventHandlers"
       class="sfx-toggle"
@@ -118,7 +118,7 @@
       aria-label="minimize chat window toggle"
     >
       <v-icon>
-        {{ isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down' }}
+        {{ isUiMinimized ?  'chat' : 'arrow_drop_down' }}
       </v-icon>
     </v-btn>
   </v-toolbar>
@@ -212,7 +212,7 @@ export default {
       this.prevNav = !this.prevNav;
     },
     onInputButtonHoverEnter() {
-      this.shouldShowTooltip = true;
+      this.shouldShowTooltip = !this.isUiMinimized;
     },
     onInputButtonHoverLeave() {
       this.shouldShowTooltip = false;
