@@ -4,7 +4,9 @@
     app
     dark
     fixed
+    v-on="{ click: (isUiMinimized) ? toggleMinimize : null  }"
     v-bind:dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
+    v-bind:class="{ 'minimized': isUiMinimized }"
     aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
   >
     <img v-if="toolbarLogo" v-bind:src="toolbarLogo" alt="logo" aria-hidden="true"/>
