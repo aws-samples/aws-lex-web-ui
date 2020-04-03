@@ -1,9 +1,9 @@
 {
   "cognito": {
-    "poolId": "us-east-1:0cd403d3-76c0-40d0-9d60-afb02bfcb8ff"
+    "poolId": "us-east-1:e6e7ab15-f97a-46c1-9d2f-de274463d5c1"
   },
   "lex": {
-    "botName": "QNA_dev_dev_master_three_BotPh",
+    "botName": "WebUiOrderFlowers",
     "initialText": "This **IS** a _cool_ `markdown text`. <br><h1>hello</h1>",
     "initialSpeechInstruction": "Say 'Order Flowers' to get started."
   },
