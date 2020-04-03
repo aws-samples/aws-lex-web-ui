@@ -43,6 +43,10 @@ export default {
    *
    **********************************************************************/
 
+  initialStore(context) {
+    context.commit('initialStore');
+  },
+
   initCredentials(context, credentials) {
     switch (context.state.awsCreds.provider) {
       case 'cognito':
@@ -78,10 +82,17 @@ export default {
     context.commit('mergeConfig', configObj);
   },
   initMessageList(context) {
-    context.commit('pushMessage', {
-      type: 'bot',
-      text: context.state.config.lex.initialText,
-    });
+    console.log(" >>> current messages:: ", context.state.messages)
+
+    if (!context.state.messages.length) {
+      context.commit('pushMessage', {
+        type: 'bot',
+        text: context.state.config.lex.initialText,
+        alts: {
+          markdown: context.state.config.lex.initialText
+        }
+      });
+    }
   },
   initLexClient(context, lexRuntimeClient) {
     lexClient = new LexClient({
@@ -515,6 +526,7 @@ export default {
   lexPostText(context, text) {
     context.commit('setIsLexProcessing', true);
     const session = context.state.lex.sessionAttributes;
+    console.log('session>> ', session)
     delete session.appContext;
     return context.dispatch('refreshAuthTokens')
       .then(() => context.dispatch('getCredentials'))

@@ -159,6 +159,9 @@ export class Loader {
 
     // TODO name space store
     this.store = new VuexConstructor.Store({ ...VuexStore });
+    this.store.subscribe((mutation, state) => {
+      sessionStorage.setItem('store', JSON.stringify(state))
+    })
 
     VueConstructor.use(Plugin, {
       config: mergedConfig,

@@ -4,7 +4,7 @@
   },
   "lex": {
     "botName": "QNA_dev_dev_master_three_BotPh",
-    "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
+    "initialText": "This **IS** a _cool_ `markdown text`. <br><h1>hello</h1>",
     "initialSpeechInstruction": "Say 'Order Flowers' to get started."
   },
   "polly": {
@@ -22,7 +22,8 @@
     "positiveFeedbackIntent": "Thumbs up",
     "negativeFeedbackIntent": "Thumbs down",
     "helpIntent": "help",
-    "hideInputFieldsForButtonResponse": true
+    "hideInputFieldsForButtonResponse": true,
+    "AllowSuperDangerousHTMLInMessage": true
   },
   "recorder": {
     "preset": "speech_recognition"
