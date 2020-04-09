@@ -89,6 +89,16 @@
         {{ isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down' }}
       </v-icon>
     </v-btn>
+    <v-btn
+      v-if="$store.state.isRunningEmbedded"
+      v-on:click="closeIFrame"
+      class="close-iframe"
+      icon
+    >
+      <v-icon>
+        close
+      </v-icon>
+    </v-btn>
   </v-toolbar>
 </template>
 
@@ -185,7 +195,13 @@ export default {
     toggleMinimize() {
       if (this.$store.state.isRunningEmbedded) {
         this.onInputButtonHoverLeave();
+        console.info("toggleMinimize");
         this.$emit('toggleMinimizeUi');
+      }
+    },
+    closeIFrame() {
+      if (this.$store.state.isRunningEmbedded) {
+        this.$emit('closeIFrame');
       }
     },
     sendHelp() {

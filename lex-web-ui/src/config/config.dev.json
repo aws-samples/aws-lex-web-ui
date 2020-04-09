@@ -1,6 +1,6 @@
 {
   "cognito": {
-    "poolId": "us-east-1:e6e7ab15-f97a-46c1-9d2f-de274463d5c1"
+    "poolId": "us-east-1:e1660340-feed-463f-bd46-f2505db0b83e"
   },
   "lex": {
     "botName": "WebUiOrderFlowers",
@@ -11,9 +11,9 @@
     "voiceId": "Salli"
   },
   "ui": {
-    "parentOrigin": "http://localhost:8080",
+    "parentOrigin": "http://localhost:8000",
     "pageTitle": "Order Config Bot",
-    "toolbarTitle": "Order Config",
+    "toolbarTitle": "Dev Environment",
     "enableLogin": true,
     "pushInitialTextOnRestart": false,
     "shouldDisplayResponseCardTitle": false,

@@ -7,6 +7,7 @@
       v-bind:toolbar-logo="toolbarLogo"
       v-bind:is-ui-minimized="isUiMinimized"
       v-on:toggleMinimizeUi="toggleMinimizeUi"
+      v-on:closeIFrame="closeIFrame"
       @requestLogin="handleRequestLogin"
       @requestLogout="handleRequestLogout"
     ></toolbar-container>
@@ -212,6 +213,9 @@ export default {
     }
   },
   methods: {
+    closeIFrame(){
+      return this.$store.dispatch("closeIFrame");
+    },
     toggleMinimizeUi() {
       return this.$store.dispatch("toggleIsUiMinimized");
     },
@@ -287,6 +291,14 @@ export default {
             })
           );
           break;
+        case "closeIFrame":
+          this.$store.dispatch("closeIFrame").then(() =>
+            evt.ports[0].postMessage({
+              event: "resolve",
+              type: evt.data.event
+            })
+          );
+          break;
         case "postText":
           if (!evt.data.message) {
             evt.ports[0].postMessage({
@@ -296,7 +308,6 @@ export default {
             });
             return;
           }
-
           this.$store
             .dispatch("postTextMessage", {
               type: "human",
@@ -307,7 +318,7 @@ export default {
                 event: "resolve",
                 type: evt.data.event
               })
-            );
+            );       
           break;
         case "confirmLogin":
           this.loginConfirmed(evt);
@@ -334,6 +345,8 @@ export default {
           this.$store.dispatch("sendMessageToParentWindow", { event: "pong" });
           break;
         case "postText":
+          // debugger
+          console.info(">>> componentMessageHandler >>> FUNCTION CALL GOES HERE");
           this.$store.dispatch("postTextMessage", {
             type: "human",
             text: evt.detail.message

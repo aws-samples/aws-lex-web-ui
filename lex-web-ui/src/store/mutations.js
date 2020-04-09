@@ -320,6 +320,9 @@ export default {
   toggleIsUiMinimized(state) {
     state.isUiMinimized = !state.isUiMinimized;
   },
+  closeIFrame(state) {
+    state.closeIFrame = !state.closeIFrame;
+  },
   /**
    * used to track the appearance of the input container
    * when the appearance of buttons should hide it

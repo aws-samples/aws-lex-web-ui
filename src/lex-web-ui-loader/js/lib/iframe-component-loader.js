@@ -586,6 +586,22 @@ export class IframeComponentLoader {
           });
       },
 
+      // close the iframe component when close button is clicked
+      closeIFrame(evt) {
+        this.closeIFrameClass()
+          .then(() => (
+            evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event })
+          ))
+          .catch((error) => {
+            console.error('failed to closeIFrame', error);
+            evt.ports[0].postMessage({
+              event: 'reject',
+              type: evt.data.event,
+              error: 'failed to closeIFrame',
+            });
+          });
+      },
+
       // sent when login is requested from iframe
       requestLogin(evt) {
         evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
@@ -709,6 +725,15 @@ export class IframeComponentLoader {
     }
   }
 
+  closeIFrameClass() {
+    try {
+      this.containerElement.classList.toggle(`${this.containerClass}--show`);
+      return Promise.resolve();
+    } catch (err) {
+      return Promise.reject(new Error(`failed to toggle minimize UI ${err}`));
+    }
+  }
+
   /**
    * Shows the iframe
    */
@@ -757,6 +782,9 @@ export class IframeComponentLoader {
       ),
       postText: message => (
         this.sendMessageToIframe({ event: 'postText', message })
+      ),
+      closeIFrame: () => (
+        this.sendMessageToIframe({ event: 'closeIFrame' })
       ),
     };
 

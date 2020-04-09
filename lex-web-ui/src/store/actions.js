@@ -462,6 +462,7 @@ export default {
       .then(() => context.commit('pushUtterance', message.text))
       .then(() => context.dispatch('lexPostText', message.text))
       .then((response) => {
+        console.info(">>> postTextMessage(context, message), POST TEXT MESSAGE >>> FUNCTION HERE")
         // check for an array of messages
         if (response.message && response.message.includes('{"messages":')) {
           const tmsg = JSON.parse(response.message);
@@ -753,6 +754,7 @@ export default {
    **********************************************************************/
 
   toggleIsUiMinimized(context) {
+    debugger
     context.commit('toggleIsUiMinimized');
     return context.dispatch(
       'sendMessageToParentWindow',
@@ -771,6 +773,14 @@ export default {
     return context.dispatch(
       'sendMessageToParentWindow',
       { event: 'toggleHasButtons' },
+    );
+  },
+  closeIFrame(context) {
+    debugger
+    context.commit('closeIFrame');
+    return context.dispatch(
+      'sendMessageToParentWindow',
+      { event: 'closeIFrame' },
     );
   },
   /**

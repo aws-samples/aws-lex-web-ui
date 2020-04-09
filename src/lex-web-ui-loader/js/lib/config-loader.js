@@ -81,6 +81,7 @@ export class ConfigLoader {
    * Loads the config from a JSON file URL
    */
   static loadJsonFile(url) {
+    // debugger;
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open('GET', url);

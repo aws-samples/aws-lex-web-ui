@@ -1,34 +1,32 @@
 {
   "region": "us-east-1",
   "cognito": {
-    "poolId": "us-east-1:0cd403d3-76c0-40d0-9d60-afb02bfcb8ff",
-    "appUserPoolClientId": "",
-    "appUserPoolName": "",
-    "appDomainName": "",
+    "poolId": "us-east-1:e1660340-feed-463f-bd46-f2505db0b83e",
+    "appUserPoolClientId": "5k84tqbs7popssqpi96cv5su13",
+    "appUserPoolName": "CognitoUserPool-b9DAb8EgRPif",
+    "appDomainName": "https://lexkwebkuikpipelinekpublickidentitypoolconf197212235886.auth.us-east-1.amazoncognito.com",
     "aws_cognito_region": "us-east-1",
     "region": "us-east-1",
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
-    "botName": "OrderFlowers",
+    "botName": "WebUiOrderFlowers",
     "botAlias": "$LATEST",
-    "initialText": "",
+    "initialText": "# This is the initial *message*",
     "initialSpeechInstruction": "",
-    "reInitSessionAttributesOnRestart": false,
     "region": "us-east-1"
   },
   "ui": {
-    "parentOrigin": "",
-    "toolbarTitle": "Order Config",
+    "parentOrigin": "http://localhost:8000",
+    "toolbarTitle": "Test Env",
     "toolbarLogo": "",
     "positiveFeedbackIntent": "",
     "negativeFeedbackIntent": "",
     "helpIntent": "help",
-    "enableLogin": false,
+    "enableLogin": true,
     "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,
     "hideInputFieldsForButtonResponse": false,
-    "pushInitialTextOnRestart": false,
     "directFocusToBotInput": false,
     "showDialogStateIcon": false
   },

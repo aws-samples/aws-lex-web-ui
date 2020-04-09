@@ -63,6 +63,7 @@ const lexWebUi = new LexWebUi({
   }
 });
 
+//exports the component, its store etc
 export default {
   name: "lex-app",
   store: lexWebUi.store,

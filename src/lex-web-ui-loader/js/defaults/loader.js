@@ -46,7 +46,7 @@ export const options = {
   shouldLoadConfigFromJsonFile: true,
 
   // controls whether the config should be downloaded from Mobile Hub aws-config.js
-  shouldLoadConfigFromMobileHubFile: true,
+  shouldLoadConfigFromMobileHubFile: false,
 
   // Controls if it should load minimized production dependecies
   // set to true for production

@@ -25,6 +25,9 @@
                 <button id="send-intent" type="button" class="btn btn-default" disabled>
                   Send
                 </button>
+                <button id="send-intent2" type="button" class="btn btn-default" disabled>
+                  Reopen Chatbot
+                </button>
               </div>
             </div>
           </div>
@@ -148,6 +151,7 @@
         // In this example, the base URL is relative to the root path
         // You can also use full URLs:
         //    baseUrl: 'https://iframe-host.example.org/lex-web-ui/'
+        //  https://g0x2iyyvdc.execute-api.us-east-1.amazonaws.com/test2/
         baseUrl: '/',
 
         // enable receiving chatbot UI config from event
@@ -187,7 +191,14 @@
           // loading. For example, enable the send button once the
           // chatbot UI is loaded
           $('#send-intent').prop('disabled', false);
-
+          $('#send-intent2').prop('disabled', false);
+        }).then(function (){
+            return iframeLoader.api.postText('Buy flowers')
+          }
+        ).then(function(){
+          
+          // iframeLoader.api.toggleShowUiClass()
+          // setTimeout(function(){}, 3000)
         })
         .catch(function (error) {
           console.error('chatbot UI failed to load', error);
@@ -273,14 +284,22 @@
             { detail: {message: {event: 'ping'} } }
           );
           document.dispatchEvent(event);
-        });
+          // debugger
+          // sendUtterance('Buy Flowers');
+        })
 
         // setup Send button handler
         $('#send-intent').on('click', function(event) {
           event.preventDefault();
           sendUtterance('Buy Flowers');
         });
+        $('#send-intent2').on('click', function(event) {
+          event.preventDefault();
+          iframeLoader.api.closeIFrame();
+        });
 
+        // debugger
+        // $(document).on('closeiframe', alert("RECEIVED"))
 
         // bot update event handler
         // In this example, the parent page is updated based on the state

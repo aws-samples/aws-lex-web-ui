@@ -211,6 +211,8 @@ export default {
         text: this.textInput,
       };
 
+      // console.info(">>> INPUT CONTAINER, POST TEXT MESSAGE >>> FUNCTION HERE")
+
       return this.$store.dispatch('postTextMessage', message)
         .then(() => {
           this.textInput = '';
