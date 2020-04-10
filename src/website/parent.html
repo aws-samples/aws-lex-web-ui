@@ -195,11 +195,7 @@
         }).then(function (){
             return iframeLoader.api.postText('Buy flowers')
           }
-        ).then(function(){
-          
-          // iframeLoader.api.toggleShowUiClass()
-          // setTimeout(function(){}, 3000)
-        })
+        )
         .catch(function (error) {
           console.error('chatbot UI failed to load', error);
         });
