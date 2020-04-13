@@ -23,11 +23,19 @@
             <div class="panel-body">
               <div>
                 <button id="send-intent" type="button" class="btn btn-default" disabled>
-                  Send
+                  Send Intent
                 </button>
                 <button id="send-intent2" type="button" class="btn btn-default" disabled>
-                  Reopen Chatbot
+                  Load Chatbot
                 </button>
+                <button id="send-intent3" type="button" class="btn btn-default">
+                  Reshow Chatbot
+                </button>
+                <button id="send-intent4" type="button" class="btn btn-default">
+                  hide
+                </button>
+                <br>
+                <p id="hidetarget">Thing I want to hide</p>
               </div>
             </div>
           </div>
@@ -193,11 +201,15 @@
           $('#send-intent').prop('disabled', false);
           $('#send-intent2').prop('disabled', false);
         }).then(function (){
-            return iframeLoader.api.postText('Buy flowers')
+            iframeLoader.api.postText('Buy flowers')
           }
         )
         .catch(function (error) {
           console.error('chatbot UI failed to load', error);
+        });
+
+        $(document).on('IFrameOpened', function(){
+            iframeLoader.api.postText('Order Flowers')
         });
 
       // Sample function illustrating dynamic messaging with the iframe using
@@ -290,6 +302,10 @@
           sendUtterance('Buy Flowers');
         });
         $('#send-intent2').on('click', function(event) {
+          event.preventDefault();
+          iframeLoader.load(chatbotUiconfig);
+        });
+        $('#send-intent3').on('click', function(event) {
           event.preventDefault();
           iframeLoader.api.closeIFrame();
         });

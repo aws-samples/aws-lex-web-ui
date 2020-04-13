@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "4d3285878c47e28d0643"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2566423f972b16837c23"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -44328,10 +44328,6 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
     key: 'toggleMinimizeUiClass',
     value: function toggleMinimizeUiClass() {
       try {
-        debugger;
-        // This code works
-        // this.containerElement.classList.toggle(`${this.containerClass}--show`);
-
         this.containerElement.classList.toggle(this.containerClass + '--minimize');
         if (this.containerElement.classList.contains(this.containerClass + '--minimize')) {
           localStorage.setItem('lastUiIsMinimized', 'true');
@@ -44348,14 +44344,17 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
     value: function closeIFrameClass() {
       try {
         this.containerElement.classList.toggle(this.containerClass + '--show');
-        // if (this.containerElement.classList.contains(`${this.containerClass}--minimize`)) {
-        //   localStorage.setItem('lastUiIsMinimized', 'true');
-        // } else {
-        //   localStorage.setItem('lastUiIsMinimized', 'false');
-        // }
+        document.dispatchEvent(new CustomEvent('IFrameToggled'));
+        // commit('resetInitialStore')
+        sessionStorage.setItem('store', '');
+        if (this.containerElement.classList.contains(this.containerClass + '--show')) {
+          localStorage.setItem('lastUiIsToggled', 'true');
+        } else {
+          localStorage.setItem('lastUiIsToggled', 'false');
+        }
         return _promise2.default.resolve();
       } catch (err) {
-        return _promise2.default.reject(new Error('failed to toggle minimize UI ' + err));
+        return _promise2.default.reject(new Error('failed to toggle the UI ' + err));
       }
     }
 

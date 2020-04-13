@@ -7,6 +7,7 @@
       v-bind:toolbar-logo="toolbarLogo"
       v-bind:is-ui-minimized="isUiMinimized"
       v-on:toggleMinimizeUi="toggleMinimizeUi"
+      v-bind:is-ui-toggled="isUiToggled"
       v-on:closeIFrame="closeIFrame"
       @requestLogin="handleRequestLogin"
       @requestLogout="handleRequestLogout"
@@ -84,6 +85,9 @@ export default {
     },
     isUiMinimized() {
       return this.$store.state.isUiMinimized;
+    },
+    isUiToggled() {
+      return this.$store.state.isUiToggled;
     },
     hasButtons() {
       return this.$store.state.hasButtons;
@@ -214,7 +218,10 @@ export default {
   },
   methods: {
     closeIFrame(){
-      return this.$store.dispatch("closeIFrame");
+      // return 
+      this.$store.dispatch("closeIFrame");
+      this.$store.dispatch("resetAction");
+      // this.$store.dispatch("resetAction", defaultState());
     },
     toggleMinimizeUi() {
       return this.$store.dispatch("toggleIsUiMinimized");

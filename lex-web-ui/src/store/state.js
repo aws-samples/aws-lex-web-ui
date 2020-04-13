@@ -14,6 +14,8 @@ License for the specific language governing permissions and limitations under th
 /**
  * Sets up the initial state of the store
  */
+
+ 
 import { config } from '@/config';
 
 export default {
@@ -67,6 +69,7 @@ export default {
 
   isRunningEmbedded: false, // am I running in an iframe?
   isUiMinimized: false, // when running embedded, is the iframe minimized?
+  isUiToggled: false, // Valor
   isEnableLogin: false, // true when a login/logout menu should be displayed
   isLoggedIn: false, // when running with login/logout enabled
   hasButtons: false, // does the response card have buttons?

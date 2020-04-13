@@ -754,7 +754,6 @@ export default {
    **********************************************************************/
 
   toggleIsUiMinimized(context) {
-    debugger
     context.commit('toggleIsUiMinimized');
     return context.dispatch(
       'sendMessageToParentWindow',
@@ -776,7 +775,7 @@ export default {
     );
   },
   closeIFrame(context) {
-    debugger
+    // this is just for the state?
     context.commit('closeIFrame');
     return context.dispatch(
       'sendMessageToParentWindow',
@@ -833,5 +832,37 @@ export default {
         [messageChannel.port2],
       );
     });
+  },
+  
+  /***********************************************************************
+   *
+   * Teardown Actions
+   *
+   **********************************************************************/
+  resetAction (context) {
+    context.commit('reset')
+    context.dispatch('initMessageList')
+    // context.dispatch(
+    //   'postTextMessage',
+    //   {
+    //     context,
+    //     message: "Order Flowers"
+    //   }
+    // );
+
+    // context.dispatch(
+    //   'pushMessage',
+    //   {
+    //     text: response.message,
+    //     type: 'bot',
+    //     dialogState: context.state.lex.dialogState,
+    //     responseCard: context.state.lex.responseCard,
+    //     alts,
+    //   },
+    // );
+    // context.commit('pushMessage', {
+    //   type: 'human',
+    //   text: 'Order Flowers'
+    // });
   },
 };

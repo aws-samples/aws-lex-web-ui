@@ -187,9 +187,13 @@ export default {
     },
     playInitialInstruction() {
       const isInitialState = ['', 'Fulfilled', 'Failed']
-        .some(initialState => (
-          this.$store.state.lex.dialogState === initialState
-        ));
+        .some((initialState) => {
+          console.log("initialState", typeof initialState)
+          console.log("initialState", initialState)
+          return this.$store.state.lex.dialogState === initialState
+        });
+
+        // ));
 
       return (this.$store.state.isLoggedIn && isInitialState) ?
         this.$store.dispatch(
@@ -210,9 +214,6 @@ export default {
         type: 'human',
         text: this.textInput,
       };
-
-      // console.info(">>> INPUT CONTAINER, POST TEXT MESSAGE >>> FUNCTION HERE")
-
       return this.$store.dispatch('postTextMessage', message)
         .then(() => {
           this.textInput = '';

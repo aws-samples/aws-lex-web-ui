@@ -20,6 +20,8 @@ License for the specific language governing permissions and limitations under th
 /* eslint spaced-comment: ["error", "always", { "exceptions": ["*"] }] */
 
 import { mergeConfig } from "@/config";
+import { getDefaultState } from "./defaultState.js";
+// import state
 
 export default {
   /***********************************************************************
@@ -321,7 +323,7 @@ export default {
     state.isUiMinimized = !state.isUiMinimized;
   },
   closeIFrame(state) {
-    state.closeIFrame = !state.closeIFrame;
+    state.isUiToggled = !state.isUiToggled;
   },
   /**
    * used to track the appearance of the input container
@@ -336,6 +338,16 @@ export default {
    */
   setIsLoggedIn(state, bool) {
     state.isLoggedIn = bool;
+  },
+
+  reset (state) {
+    const s = {
+      messages: [],
+      utteranceStack: []
+    }
+    Object.keys(s).forEach(key => {
+        state[key] = s[key]
+     })
   },
 
   /**

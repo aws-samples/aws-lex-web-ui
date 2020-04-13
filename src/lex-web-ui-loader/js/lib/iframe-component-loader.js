@@ -728,9 +728,18 @@ export class IframeComponentLoader {
   closeIFrameClass() {
     try {
       this.containerElement.classList.toggle(`${this.containerClass}--show`);
+
+      sessionStorage.setItem('store', '');
+      if (this.containerElement.classList.contains(`${this.containerClass}--show`)) {
+        localStorage.setItem('lastUiIsDisplayed', 'true');
+        document.dispatchEvent(new CustomEvent('IFrameOpened'));
+      } else {
+        localStorage.setItem('lastUiIsDisplayed', 'false');
+        document.dispatchEvent(new CustomEvent('IFrameClosed'));
+      }
       return Promise.resolve();
     } catch (err) {
-      return Promise.reject(new Error(`failed to toggle minimize UI ${err}`));
+      return Promise.reject(new Error(`failed to toggle the UI ${err}`));
     }
   }
 
