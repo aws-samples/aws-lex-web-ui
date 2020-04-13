@@ -586,21 +586,6 @@ export class IframeComponentLoader {
           });
       },
 
-      // close the iframe component when close button is clicked
-      toggleIFrame(evt) {
-        this.toggleIFrameClass()
-          .then(() => (
-            evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event })
-          ))
-          .catch((error) => {
-            console.error('failed to toggleIFrame', error);
-            evt.ports[0].postMessage({
-              event: 'reject',
-              type: evt.data.event,
-              error: 'failed to toggleIFrame',
-            });
-          });
-      },
 
       // sent when login is requested from iframe
       requestLogin(evt) {
@@ -725,24 +710,6 @@ export class IframeComponentLoader {
     }
   }
 
-  toggleIFrameClass() {
-    try {
-      this.containerElement.classList.toggle(`${this.containerClass}--show`);
-
-      sessionStorage.setItem('store', '');
-      if (this.containerElement.classList.contains(`${this.containerClass}--show`)) {
-        localStorage.setItem('lastUiIsDisplayed', 'true');
-        document.dispatchEvent(new CustomEvent('IFrameOpened'));
-      } else {
-        localStorage.setItem('lastUiIsDisplayed', 'false');
-        document.dispatchEvent(new CustomEvent('IFrameClosed'));
-      }
-      return Promise.resolve();
-    } catch (err) {
-      return Promise.reject(new Error(`failed to toggle the UI ${err}`));
-    }
-  }
-
   /**
    * Shows the iframe
    */
@@ -792,11 +759,7 @@ export class IframeComponentLoader {
       postText: message => (
         this.sendMessageToIframe({ event: 'postText', message })
       ),
-      toggleIFrame: () => (
-        this.sendMessageToIframe({ event: 'toggleIFrame' })
-      ),
     };
-
     return Promise.resolve()
       .then(() => {
         // Add listener for parent to iframe event based API

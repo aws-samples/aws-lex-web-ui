@@ -7,8 +7,6 @@
       v-bind:toolbar-logo="toolbarLogo"
       v-bind:is-ui-minimized="isUiMinimized"
       v-on:toggleMinimizeUi="toggleMinimizeUi"
-      v-bind:is-ui-toggled="isUiToggled"
-      v-on:toggleIFrame="toggleIFrame"
       @requestLogin="handleRequestLogin"
       @requestLogout="handleRequestLogout"
     ></toolbar-container>
@@ -216,12 +214,6 @@ export default {
     }
   },
   methods: {
-    toggleIFrame(){
-      // return 
-      this.$store.dispatch("toggleIFrame");
-      this.$store.dispatch("resetAction");
-      // this.$store.dispatch("resetAction", defaultState());
-    },
     toggleMinimizeUi() {
       return this.$store.dispatch("toggleIsUiMinimized");
     },
@@ -291,14 +283,6 @@ export default {
           break;
         case "toggleMinimizeUi":
           this.$store.dispatch("toggleIsUiMinimized").then(() =>
-            evt.ports[0].postMessage({
-              event: "resolve",
-              type: evt.data.event
-            })
-          );
-          break;
-        case "toggleIFrame":
-          this.$store.dispatch("toggleIFrame").then(() =>
             evt.ports[0].postMessage({
               event: "resolve",
               type: evt.data.event

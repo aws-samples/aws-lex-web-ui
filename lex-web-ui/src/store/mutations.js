@@ -20,8 +20,6 @@ License for the specific language governing permissions and limitations under th
 /* eslint spaced-comment: ["error", "always", { "exceptions": ["*"] }] */
 
 import { mergeConfig } from "@/config";
-import { getDefaultState } from "./defaultState.js";
-// import state
 
 export default {
   /***********************************************************************
@@ -320,9 +318,6 @@ export default {
    */
   toggleIsUiMinimized(state) {
     state.isUiMinimized = !state.isUiMinimized;
-  },
-  toggleIFrame(state) {
-    state.isUiToggled = !state.isUiToggled;
   },
   /**
    * used to track the appearance of the input container

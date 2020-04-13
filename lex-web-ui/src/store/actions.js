@@ -774,14 +774,6 @@ export default {
       { event: 'toggleHasButtons' },
     );
   },
-  toggleIFrame(context) {
-    // this is just for the state?
-    context.commit('toggleIFrame');
-    return context.dispatch(
-      'sendMessageToParentWindow',
-      { event: 'toggleIFrame' },
-    );
-  },
   /**
    * sendMessageToParentWindow will either dispatch an event using a CustomEvent to a handler when
    * the lex-web-ui is running as a VUE component on a page or will send a message via postMessage
