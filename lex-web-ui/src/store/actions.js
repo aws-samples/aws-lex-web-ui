@@ -774,12 +774,12 @@ export default {
       { event: 'toggleHasButtons' },
     );
   },
-  closeIFrame(context) {
+  toggleIFrame(context) {
     // this is just for the state?
-    context.commit('closeIFrame');
+    context.commit('toggleIFrame');
     return context.dispatch(
       'sendMessageToParentWindow',
-      { event: 'closeIFrame' },
+      { event: 'toggleIFrame' },
     );
   },
   /**

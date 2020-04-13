@@ -30,11 +30,10 @@ export default {
    *
    **********************************************************************/
 
+  // Checks whether a state object exists in sessionStorage and sets the states messages to the previous session
   initialStore(state) {
     if (sessionStorage.getItem("store")) {
       let sessionStore = JSON.parse(sessionStorage.getItem("store"));
-      console.log(" >>>>>> curr state: ", state)
-      console.log(">>> local store: ", sessionStore);
       state.messages = sessionStore.messages
     }
   },
@@ -322,7 +321,7 @@ export default {
   toggleIsUiMinimized(state) {
     state.isUiMinimized = !state.isUiMinimized;
   },
-  closeIFrame(state) {
+  toggleIFrame(state) {
     state.isUiToggled = !state.isUiToggled;
   },
   /**

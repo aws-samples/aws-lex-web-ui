@@ -91,8 +91,8 @@
     </v-btn>
     <v-btn
       v-if="$store.state.isRunningEmbedded"
-      v-on:click="closeIFrame"
-      class="close-iframe"
+      v-on:click="toggleIFrame"
+      class="toggle-iframe"
       icon
     >
       <v-icon>
@@ -199,9 +199,9 @@ export default {
         this.$emit('toggleMinimizeUi');
       }
     },
-    closeIFrame() {
+    toggleIFrame() {
       if (this.$store.state.isRunningEmbedded) {
-        this.$emit('closeIFrame');
+        this.$emit('toggleIFrame');
       }
     },
     sendHelp() {

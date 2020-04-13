@@ -587,17 +587,17 @@ export class IframeComponentLoader {
       },
 
       // close the iframe component when close button is clicked
-      closeIFrame(evt) {
-        this.closeIFrameClass()
+      toggleIFrame(evt) {
+        this.toggleIFrameClass()
           .then(() => (
             evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event })
           ))
           .catch((error) => {
-            console.error('failed to closeIFrame', error);
+            console.error('failed to toggleIFrame', error);
             evt.ports[0].postMessage({
               event: 'reject',
               type: evt.data.event,
-              error: 'failed to closeIFrame',
+              error: 'failed to toggleIFrame',
             });
           });
       },
@@ -725,7 +725,7 @@ export class IframeComponentLoader {
     }
   }
 
-  closeIFrameClass() {
+  toggleIFrameClass() {
     try {
       this.containerElement.classList.toggle(`${this.containerClass}--show`);
 
@@ -792,8 +792,8 @@ export class IframeComponentLoader {
       postText: message => (
         this.sendMessageToIframe({ event: 'postText', message })
       ),
-      closeIFrame: () => (
-        this.sendMessageToIframe({ event: 'closeIFrame' })
+      toggleIFrame: () => (
+        this.sendMessageToIframe({ event: 'toggleIFrame' })
       ),
     };
 

@@ -8,7 +8,7 @@
       v-bind:is-ui-minimized="isUiMinimized"
       v-on:toggleMinimizeUi="toggleMinimizeUi"
       v-bind:is-ui-toggled="isUiToggled"
-      v-on:closeIFrame="closeIFrame"
+      v-on:toggleIFrame="toggleIFrame"
       @requestLogin="handleRequestLogin"
       @requestLogout="handleRequestLogout"
     ></toolbar-container>
@@ -121,9 +121,8 @@ export default {
       document.documentElement.style.overflowY = "hidden";
     }
 
-    console.log(">>> dispatching initial Storage::: ");
+    // this triggers the VueX action, which subsequently triggers a mutation
     this.$store.dispatch("initialStore");
-    console.log(" >>> done with initial Storage");
 
     this.initConfig()
       .then(() =>
@@ -217,9 +216,9 @@ export default {
     }
   },
   methods: {
-    closeIFrame(){
+    toggleIFrame(){
       // return 
-      this.$store.dispatch("closeIFrame");
+      this.$store.dispatch("toggleIFrame");
       this.$store.dispatch("resetAction");
       // this.$store.dispatch("resetAction", defaultState());
     },
@@ -298,8 +297,8 @@ export default {
             })
           );
           break;
-        case "closeIFrame":
-          this.$store.dispatch("closeIFrame").then(() =>
+        case "toggleIFrame":
+          this.$store.dispatch("toggleIFrame").then(() =>
             evt.ports[0].postMessage({
               event: "resolve",
               type: evt.data.event

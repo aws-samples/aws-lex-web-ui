@@ -1,4 +1,4 @@
-Example custom css file for lex-web-ui. Entire file is commented out as a default. Uncomment and
+/* Example custom css file for lex-web-ui. Entire file is commented out as a default. Uncomment and
  adjust as needed.
 
 .toolbar.theme--dark {
@@ -71,7 +71,4 @@ Example custom css file for lex-web-ui. Entire file is commented out as a defaul
 .input-group--text-field label {
     font-size: 14px !important;
 }
-
-.message-bubble[tabindex="2"] {
-    display: none;
-}
+*/

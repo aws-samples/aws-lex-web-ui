@@ -188,12 +188,8 @@ export default {
     playInitialInstruction() {
       const isInitialState = ['', 'Fulfilled', 'Failed']
         .some((initialState) => {
-          console.log("initialState", typeof initialState)
-          console.log("initialState", initialState)
           return this.$store.state.lex.dialogState === initialState
         });
-
-        // ));
 
       return (this.$store.state.isLoggedIn && isInitialState) ?
         this.$store.dispatch(

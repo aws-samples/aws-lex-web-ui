@@ -25,17 +25,9 @@
                 <button id="send-intent" type="button" class="btn btn-default" disabled>
                   Send Intent
                 </button>
-                <button id="send-intent2" type="button" class="btn btn-default" disabled>
-                  Load Chatbot
+                <button id="toggle-open-close" type="button" class="btn btn-default">
+                  Toggle Chatbot UI
                 </button>
-                <button id="send-intent3" type="button" class="btn btn-default">
-                  Reshow Chatbot
-                </button>
-                <button id="send-intent4" type="button" class="btn btn-default">
-                  hide
-                </button>
-                <br>
-                <p id="hidetarget">Thing I want to hide</p>
               </div>
             </div>
           </div>
@@ -199,17 +191,10 @@
           // loading. For example, enable the send button once the
           // chatbot UI is loaded
           $('#send-intent').prop('disabled', false);
-          $('#send-intent2').prop('disabled', false);
-        }).then(function (){
-            iframeLoader.api.postText('Buy flowers')
-          }
-        )
+          $('#toggle-open-close').prop('disabled', false);
+        })
         .catch(function (error) {
           console.error('chatbot UI failed to load', error);
-        });
-
-        $(document).on('IFrameOpened', function(){
-            iframeLoader.api.postText('Order Flowers')
         });
 
       // Sample function illustrating dynamic messaging with the iframe using
@@ -292,8 +277,6 @@
             { detail: {message: {event: 'ping'} } }
           );
           document.dispatchEvent(event);
-          // debugger
-          // sendUtterance('Buy Flowers');
         })
 
         // setup Send button handler
@@ -301,17 +284,10 @@
           event.preventDefault();
           sendUtterance('Buy Flowers');
         });
-        $('#send-intent2').on('click', function(event) {
+        $('#toggle-open-close').on('click', function(event) {
           event.preventDefault();
-          iframeLoader.load(chatbotUiconfig);
+          iframeLoader.api.toggleIFrame();
         });
-        $('#send-intent3').on('click', function(event) {
-          event.preventDefault();
-          iframeLoader.api.closeIFrame();
-        });
-
-        // debugger
-        // $(document).on('closeiframe', alert("RECEIVED"))
 
         // bot update event handler
         // In this example, the parent page is updated based on the state

@@ -159,6 +159,9 @@ export class Loader {
 
     // TODO name space store
     this.store = new VuexConstructor.Store({ ...VuexStore });
+
+    // whenever the VueX store updates so will the session store
+    // this enables persistance of the chatbot across page refreshes
     this.store.subscribe((mutation, state) => {
       sessionStorage.setItem('store', JSON.stringify(state))
     })
