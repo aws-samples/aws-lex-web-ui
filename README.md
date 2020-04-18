@@ -18,6 +18,10 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### New Features in version 0.14.14
+- Added css to resolve message-text width issue in IE11. 
+
+
 #### New Features in version 0.14.13
 - Added new feature that allows the input area to be hidden if Response Card buttons are present. User
 must select from the available set of buttons. To enable this feature set the property 

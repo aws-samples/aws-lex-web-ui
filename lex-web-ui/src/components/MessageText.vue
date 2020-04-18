@@ -150,5 +150,6 @@ export default {
   padding: 0.8em;
   white-space: normal;
   word-break: break-word;
+  width: 100%;
 }
 </style>

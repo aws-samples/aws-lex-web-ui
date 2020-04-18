@@ -44,7 +44,8 @@
 }
 
 .message-text {
-  color: #000000
+  color: #000000;
+  width: 100%;
 }
 
 .headline {
