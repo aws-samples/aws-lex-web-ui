@@ -31,7 +31,7 @@
 
 
     <div class="nav-buttons">
-      <v-btn small icon :disabled="isBackProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance && !isUiMinimized">
+      <v-btn small icon :disabled="isLexProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance && !isUiMinimized">
         <v-icon>
           arrow_back
         </v-icon>
@@ -71,6 +71,7 @@
       v-if="helpButton && !isUiMinimized"
       v-on:click="sendHelp"
       v-on="tooltipHelpEventHandlers"
+      v-bind:disabled="isLexProcessing"
       icon
       class="help-toggle"
     >
@@ -153,8 +154,8 @@ export default {
     isLoggedIn() {
       return this.$store.state.isLoggedIn;
     },
-    isBackProcessing() {
-      return this.$store.state.isBackProcessing;
+    isLexProcessing() {
+      return this.$store.state.isBackProcessing || this.$store.state.lex.isProcessing;
     },
     helpButton() {
       return this.$store.state.config.ui.helpIntent;
@@ -194,8 +195,10 @@ export default {
         text: this.helpButton,
       };
       this.$store.dispatch('postTextMessage', message);
+      this.shouldShowHelpTooltip = false;
     },
     onPrev() {
+      if (this.prevNav) { this.mouseOverPrev(); }
       if (!this.$store.state.isBackProcessing) {
         this.$store.commit('popUtterance');
         const lastUtterance = this.$store.getters.lastUtterance();
