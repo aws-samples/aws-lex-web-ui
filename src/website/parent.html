@@ -132,7 +132,7 @@
       This script creates a global variable named ChatbotUiLoader which
       provides the loader library functionality
     -->
-    <script src="./lex-web-ui-loader.js"></script>
+    <script src="./lex-web-ui-loader.min.js"></script>
 
     <!--
       After the loader script tag has been included, you can use its global
@@ -153,7 +153,11 @@
         // enable receiving chatbot UI config from event
         // the event is used as an alternative to passing the chatbot
         // UI via JSON file or via the parameter in the load() function
-        shouldLoadConfigFromEvent: true
+        shouldLoadConfigFromEvent: true,
+
+        // Controls if it should load minimized production dependecies
+        // defaults to true for production builds and false in development
+        shouldLoadMinDeps: true,
       }
 
       // ChatBotUiLoader contains the IframeLoader constructor

@@ -49,7 +49,8 @@ cat <<EOF > ${IFRAME_SNIPPET_FILE}
 &lt;script src="${WEBAPP_URL}/lex-web-ui-loader.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   var loaderOpts = {
-    baseUrl: '${WEBAPP_URL}/'
+    baseUrl: '${WEBAPP_URL}/',
+    shouldLoadMinDeps: true
   };
   var loader = new ChatBotUiLoader.IframeLoader(loaderOpts);
   loader.load()

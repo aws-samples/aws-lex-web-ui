@@ -16,7 +16,7 @@
       Loader script.
       Creates a global variable named ChatbotUiLoader.
     -->
-    <script src="./lex-web-ui-loader.js"></script>
+    <script src="./lex-web-ui-loader.min.js"></script>
     <!--
       The following script instantiate the full page loader and
       calls its load function.
@@ -41,7 +41,11 @@
         // when running this page embedded in an iframe.
         // If set to true, only passes the parentOrigin field when run as an
         // iframe and delegates the config to the parent
-        shouldIgnoreConfigWhenEmbedded: true
+        shouldIgnoreConfigWhenEmbedded: true,
+
+        // Controls if it should load minimized production dependecies
+        // defaults to true for production builds and false in development
+        shouldLoadMinDeps: true,
       };
 
       // Instantiate the loader by optionally passing the loader options to
