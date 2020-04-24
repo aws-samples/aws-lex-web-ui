@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.14.14] - 2020-04-23
+- Disabled text input fields during Lex processing
+- Fixed IE11 message bubble width issue via css adjustment
+- Switched default load option to use minimized libraries
+- Removed default of '$LATEST' from template and added message for Bot Alias to indicate that a real alias should be specified
+
 ## [0.14.13] - 2020-03-30
 - Added configuration setting that allows the input area of the UI to be hidden when Response Card
 buttons are present. This feature is disabled by default.
