@@ -187,7 +187,10 @@ export default {
       }
     },
     setInputTextFieldFocus() {
-      this.$refs.textInput.$refs.input.focus();
+      // focus() needs to be wrapped in setTimeout for IE11
+      setTimeout(() => {
+        this.$refs.textInput.$refs.input.focus();
+      }, 10);
     },
     playInitialInstruction() {
       const isInitialState = ['', 'Fulfilled', 'Failed']
