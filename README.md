@@ -18,6 +18,10 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### New Features in version 0.14.15
+- Fixed text input focus issues on IE11 after pressing enter to send request. 
+- Added new Iframe API entry points to deleteSession and startNewSession for fine grain control of Lex sessions
+
 #### New Features in version 0.14.14
 - Added css to resolve message-text width issue in IE11. 
 - Disabled text input components when the UI is performing Lex postText processing (sending / receiving)
