@@ -12582,6 +12582,20 @@ var jwt = __webpack_require__(118);
             });
           });
           break;
+        case 'deleteSession':
+          this.$store.dispatch('deleteSession').then(function () {
+            return evt.ports[0].postMessage({
+              event: 'resolve', type: evt.data.event
+            });
+          });
+          break;
+        case 'startNewSession':
+          this.$store.dispatch('startNewSession').then(function () {
+            return evt.ports[0].postMessage({
+              event: 'resolve', type: evt.data.event
+            });
+          });
+          break;
         case 'confirmLogin':
           this.loginConfirmed(evt);
           this.userNameValue = this.userName();
@@ -13745,19 +13759,24 @@ License for the specific language governing permissions and limitations under th
       }
     },
     setInputTextFieldFocus: function setInputTextFieldFocus() {
-      this.$refs.textInput.$refs.input.focus();
-    },
-    playInitialInstruction: function playInitialInstruction() {
       var _this = this;
 
+      // focus() needs to be wrapped in setTimeout for IE11
+      setTimeout(function () {
+        _this.$refs.textInput.$refs.input.focus();
+      }, 10);
+    },
+    playInitialInstruction: function playInitialInstruction() {
+      var _this2 = this;
+
       var isInitialState = ['', 'Fulfilled', 'Failed'].some(function (initialState) {
-        return _this.$store.state.lex.dialogState === initialState;
+        return _this2.$store.state.lex.dialogState === initialState;
       });
 
       return this.$store.state.isLoggedIn && isInitialState ? this.$store.dispatch('pollySynthesizeSpeech', this.initialSpeechInstruction) : __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a.resolve();
     },
     postTextMessage: function postTextMessage() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.onInputButtonHoverLeave();
       this.textInput = this.textInput.trim();
@@ -13772,25 +13791,25 @@ License for the specific language governing permissions and limitations under th
       };
 
       return this.$store.dispatch('postTextMessage', message).then(function () {
-        _this2.textInput = '';
-        _this2.setInputTextFieldFocus();
+        _this3.textInput = '';
+        _this3.setInputTextFieldFocus();
       });
     },
     startSpeechConversation: function startSpeechConversation() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.isMicMuted) {
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a.resolve();
       }
       return this.setAutoPlay().then(function () {
-        return _this3.playInitialInstruction();
+        return _this4.playInitialInstruction();
       }).then(function () {
-        return _this3.$store.dispatch('startConversation');
+        return _this4.$store.dispatch('startConversation');
       }).catch(function (error) {
         console.error('error in startSpeechConversation', error);
-        var errorMessage = _this3.$store.state.config.ui.showErrorDetails ? ' ' + error : '';
+        var errorMessage = _this4.$store.state.config.ui.showErrorDetails ? ' ' + error : '';
 
-        _this3.$store.dispatch('pushErrorMessage', "Sorry, I couldn't start the conversation. Please try again." + ('' + errorMessage));
+        _this4.$store.dispatch('pushErrorMessage', "Sorry, I couldn't start the conversation. Please try again." + ('' + errorMessage));
       });
     },
 
@@ -19550,7 +19569,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_193__;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LexWeb_vue__ = __webpack_require__(108);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05d6f1e2_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__ = __webpack_require__(326);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_fac36d56_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__ = __webpack_require__(326);
 function injectStyle (ssrContext) {
   __webpack_require__(195)
 }
@@ -19570,7 +19589,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LexWeb_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05d6f1e2_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_fac36d56_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -21661,7 +21680,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_InputContainer_vue__ = __webpack_require__(116);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1b41e468_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6027c612_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__ = __webpack_require__(223);
 function injectStyle (ssrContext) {
   __webpack_require__(219)
 }
@@ -21681,7 +21700,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_InputContainer_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1b41e468_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6027c612_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -36744,6 +36763,38 @@ var recorder = void 0;
       context.dispatch('pushErrorMessage', 'Sorry, I was unable to process your message. Try again later.' + ('' + errorMessage));
     });
   },
+  deleteSession: function deleteSession(context) {
+    context.commit('setIsLexProcessing', true);
+    return context.dispatch('refreshAuthTokens').then(function () {
+      return context.dispatch('getCredentials');
+    }).then(function () {
+      return lexClient.deleteSession();
+    }).then(function (data) {
+      context.commit('setIsLexProcessing', false);
+      return context.dispatch('updateLexState', data).then(function () {
+        return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a.resolve(data);
+      });
+    }).catch(function (error) {
+      console.error(error);
+      context.commit('setIsLexProcessing', false);
+    });
+  },
+  startNewSession: function startNewSession(context) {
+    context.commit('setIsLexProcessing', true);
+    return context.dispatch('refreshAuthTokens').then(function () {
+      return context.dispatch('getCredentials');
+    }).then(function () {
+      return lexClient.startNewSession();
+    }).then(function (data) {
+      context.commit('setIsLexProcessing', false);
+      return context.dispatch('updateLexState', data).then(function () {
+        return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a.resolve(data);
+      });
+    }).catch(function (error) {
+      console.error(error);
+      context.commit('setIsLexProcessing', false);
+    });
+  },
   lexPostText: function lexPostText(context, text) {
     context.commit('setIsLexProcessing', true);
     var session = context.state.lex.sessionAttributes;
@@ -39011,9 +39062,44 @@ var _class = function () {
       this.userId = credentials.identityId ? credentials.identityId : this.userId;
     }
   }, {
+    key: 'deleteSession',
+    value: function deleteSession() {
+      var _this = this;
+
+      var deleteSessionReq = this.lexRuntimeClient.deleteSession({
+        botAlias: this.botAlias,
+        botName: this.botName,
+        userId: this.userId
+      });
+      return this.credentials.getPromise().then(function (creds) {
+        return creds && _this.initCredentials(creds);
+      }).then(function () {
+        return deleteSessionReq.promise();
+      });
+    }
+  }, {
+    key: 'startNewSession',
+    value: function startNewSession() {
+      var _this2 = this;
+
+      var putSessionReq = this.lexRuntimeClient.putSession({
+        botAlias: this.botAlias,
+        botName: this.botName,
+        userId: this.userId,
+        dialogAction: {
+          type: 'ElicitIntent'
+        }
+      });
+      return this.credentials.getPromise().then(function (creds) {
+        return creds && _this2.initCredentials(creds);
+      }).then(function () {
+        return putSessionReq.promise();
+      });
+    }
+  }, {
     key: 'postText',
     value: function postText(inputText) {
-      var _this = this;
+      var _this3 = this;
 
       var sessionAttributes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
@@ -39025,7 +39111,7 @@ var _class = function () {
         sessionAttributes: sessionAttributes
       });
       return this.credentials.getPromise().then(function (creds) {
-        return creds && _this.initCredentials(creds);
+        return creds && _this3.initCredentials(creds);
       }).then(function () {
         return postTextReq.promise();
       });
@@ -39035,7 +39121,7 @@ var _class = function () {
     value: function postContent(blob) {
       var sessionAttributes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-      var _this2 = this;
+      var _this4 = this;
 
       var acceptFormat = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'audio/ogg';
       var offset = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
@@ -39062,7 +39148,7 @@ var _class = function () {
       });
 
       return this.credentials.getPromise().then(function (creds) {
-        return creds && _this2.initCredentials(creds);
+        return creds && _this4.initCredentials(creds);
       }).then(function () {
         return postContentReq.promise();
       });

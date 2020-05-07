@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a999bb5756496ddcf5d9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7fde749defdce248c4a0"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -41743,7 +41743,7 @@ Object.defineProperty(exports, "__esModule", {
 var dependenciesFullPage = exports.dependenciesFullPage = {
   script: [{
     name: 'AWS',
-    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.332.0.js',
+    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.671.0.js',
     canUseMin: true
   }, {
     // mobile hub generated aws config
@@ -41787,7 +41787,7 @@ var dependenciesFullPage = exports.dependenciesFullPage = {
 var dependenciesIframe = exports.dependenciesIframe = {
   script: [{
     name: 'AWS',
-    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.176.0.js',
+    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.671.0.js',
     canUseMin: true
   }, {
     // mobile hub generated aws config
@@ -43412,6 +43412,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.IframeComponentLoader = undefined;
 
+var _stringify = __webpack_require__("../../../node_modules/babel-runtime/core-js/json/stringify.js");
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
 var _promise = __webpack_require__("../../../node_modules/babel-runtime/core-js/promise.js");
 
 var _promise2 = _interopRequireDefault(_promise);
@@ -44152,10 +44156,11 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
         // requests credentials from the parent
         getCredentials: function getCredentials(evt) {
           return this.getCredentials().then(function (creds) {
-            return evt.ports[0].postMessage({
+            var tcreds = JSON.parse((0, _stringify2.default)(creds));
+            evt.ports[0].postMessage({
               event: 'resolve',
               type: evt.data.event,
-              data: creds
+              data: tcreds
             });
           }).catch(function (error) {
             console.error('failed to get credentials', error);
@@ -44385,6 +44390,12 @@ var IframeComponentLoader = exports.IframeComponentLoader = function () {
         },
         postText: function postText(message) {
           return _this11.sendMessageToIframe({ event: 'postText', message: message });
+        },
+        deleteSession: function deleteSession() {
+          return _this11.sendMessageToIframe({ event: 'deleteSession' });
+        },
+        startNewSession: function startNewSession() {
+          return _this11.sendMessageToIframe({ event: 'startNewSession' });
         }
       };
 

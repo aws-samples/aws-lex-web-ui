@@ -512,6 +512,36 @@ export default {
         );
       });
   },
+  deleteSession(context) {
+    context.commit('setIsLexProcessing', true);
+    return context.dispatch('refreshAuthTokens')
+      .then(() => context.dispatch('getCredentials'))
+      .then(() => lexClient.deleteSession())
+      .then((data) => {
+        context.commit('setIsLexProcessing', false);
+        return context.dispatch('updateLexState', data)
+          .then(() => Promise.resolve(data));
+      })
+      .catch((error) => {
+        console.error(error);
+        context.commit('setIsLexProcessing', false);
+      });
+  },
+  startNewSession(context) {
+    context.commit('setIsLexProcessing', true);
+    return context.dispatch('refreshAuthTokens')
+      .then(() => context.dispatch('getCredentials'))
+      .then(() => lexClient.startNewSession())
+      .then((data) => {
+        context.commit('setIsLexProcessing', false);
+        return context.dispatch('updateLexState', data)
+          .then(() => Promise.resolve(data));
+      })
+      .catch((error) => {
+        console.error(error);
+        context.commit('setIsLexProcessing', false);
+      });
+  },
   lexPostText(context, text) {
     context.commit('setIsLexProcessing', true);
     const session = context.state.lex.sessionAttributes;

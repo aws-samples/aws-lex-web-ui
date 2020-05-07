@@ -42,6 +42,31 @@ export default class {
       this.userId;
   }
 
+  deleteSession() {
+    const deleteSessionReq = this.lexRuntimeClient.deleteSession({
+      botAlias: this.botAlias,
+      botName: this.botName,
+      userId: this.userId,
+    });
+    return this.credentials.getPromise()
+      .then(creds => creds && this.initCredentials(creds))
+      .then(() => deleteSessionReq.promise());
+  }
+
+  startNewSession() {
+    const putSessionReq = this.lexRuntimeClient.putSession({
+      botAlias: this.botAlias,
+      botName: this.botName,
+      userId: this.userId,
+      dialogAction: {
+        type: 'ElicitIntent',
+      },
+    });
+    return this.credentials.getPromise()
+      .then(creds => creds && this.initCredentials(creds))
+      .then(() => putSessionReq.promise());
+  }
+
   postText(inputText, sessionAttributes = {}) {
     const postTextReq = this.lexRuntimeClient.postText({
       botAlias: this.botAlias,
