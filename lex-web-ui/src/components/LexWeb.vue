@@ -290,6 +290,18 @@ export default {
               event: 'resolve', type: evt.data.event,
             }));
           break;
+        case 'deleteSession':
+          this.$store.dispatch('deleteSession')
+            .then(() => evt.ports[0].postMessage({
+              event: 'resolve', type: evt.data.event,
+            }));
+          break;
+        case 'startNewSession':
+          this.$store.dispatch('startNewSession')
+            .then(() => evt.ports[0].postMessage({
+              event: 'resolve', type: evt.data.event,
+            }));
+          break;
         case 'confirmLogin':
           this.loginConfirmed(evt);
           this.userNameValue = this.userName();

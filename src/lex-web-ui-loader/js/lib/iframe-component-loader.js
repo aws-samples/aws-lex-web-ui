@@ -544,13 +544,14 @@ export class IframeComponentLoader {
       // requests credentials from the parent
       getCredentials(evt) {
         return this.getCredentials()
-          .then(creds => (
+          .then((creds) => {
+            const tcreds = JSON.parse(JSON.stringify(creds));
             evt.ports[0].postMessage({
               event: 'resolve',
               type: evt.data.event,
-              data: creds,
-            })
-          ))
+              data: tcreds,
+            });
+          })
           .catch((error) => {
             console.error('failed to get credentials', error);
             evt.ports[0].postMessage({
@@ -757,6 +758,12 @@ export class IframeComponentLoader {
       ),
       postText: message => (
         this.sendMessageToIframe({ event: 'postText', message })
+      ),
+      deleteSession: () => (
+        this.sendMessageToIframe({ event: 'deleteSession' })
+      ),
+      startNewSession: () => (
+        this.sendMessageToIframe({ event: 'startNewSession' })
       ),
     };
 

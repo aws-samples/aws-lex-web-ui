@@ -93,6 +93,8 @@ Resources:
                             Action:
                                 - lex:PostText
                                 - lex:PostContent
+                                - lex:DeleteSession
+                                - lex:PutSession
                             Resource:
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
 
@@ -130,6 +132,8 @@ Resources:
                             Action:
                                 - lex:PostText
                                 - lex:PostContent
+                                - lex:DeleteSession
+                                - lex:PutSession
                             Resource:
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
 

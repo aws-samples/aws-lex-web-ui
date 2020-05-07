@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.14.15] - 2020-05-06
+- Fixed text input focus issues on IE11 after pressing enter to send request. 
+- Added new Iframe API entry points to deleteSession and startNewSession for fine grain control of Lex sessions
+
 ## [0.14.14] - 2020-04-23
 - Disabled text input fields during Lex processing
 - Fixed IE11 message bubble width issue via css adjustment
