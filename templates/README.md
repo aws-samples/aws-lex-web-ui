@@ -173,7 +173,7 @@ bots that provide Markdown formatting in their esponses.
 in an iframe, the ChatBot Iframe will be minimized when the page is loaded. 
 - `ShowResponseCardTitle`: Lex and Alexa based bots may return ResponseCards. 
 ResponseCards always include a title. If this parameter is set to true, this title
-is rendered in the lex-web-ui. Optionallty this can be set to false, and the 
+is rendered in the lex-web-ui. Optionally this can be set to false, and the 
 title is not displayed. This is a global setting. 
 
 ### Output
