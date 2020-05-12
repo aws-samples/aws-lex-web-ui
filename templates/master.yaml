@@ -14,7 +14,7 @@ Parameters:
     BotName:
         Description: >
             Name of an existing Lex Bot to be used by the web ui. NOTE: You must
-            also enter your published bot alias in the BotAlias field below below.
+            also enter your published bot alias in the BotAlias field below.
             (If BotName is left empty, a Bot based on the OrderFlowers sample will be
             automatically created.)
         Type: String
@@ -288,10 +288,6 @@ Metadata:
                   - ShouldLoadIframeMinimized
 Conditions:
     NeedsBot: !Equals [!Ref BotName, '']
-    NeedsBotAlias: !Equals [!Ref BotAlias, '<INSERT_INVALID_ALIAS>']
-    NeedsBotAndAlias: !And
-        - !Equals [!Ref BotName, '']
-        - !Equals [!Ref BotAlias, '<INSERT_INVALID_ALIAS>']
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
 
@@ -339,11 +335,7 @@ Resources:
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotName
                       - !Ref BotName
-                BotAlias:
-                    !If
-                      - NeedsBotAndAlias
-                      - !GetAtt Bot.Outputs.BotAlias
-                      - !Ref BotAlias
+                BotAlias: !Ref BotAlias
                 CognitoIdentityPoolId:
                     !If
                       - NeedsCognito
