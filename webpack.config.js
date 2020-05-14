@@ -1,22 +1,29 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const eslintFriendlyFormatter = require('eslint-friendly-formatter');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const eslintFormatterFriendly = require('eslint-formatter-friendly');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+
+
+const VERSION = require('./package.json').version;
 
 const basePath = __dirname;
-const VERSION = JSON.stringify(require('./package.json').version);
+const distDir = path.join(basePath, 'dist');
 const devServerPort = (process.env.PORT) ? Number(process.env.PORT) : 8000;
 
 module.exports = (env) => {
   const buildEnv = env || 'development';
   const isProd = (buildEnv === 'production');
+
   return {
+    mode: (isProd) ? 'production' : 'development',
     context: path.join(basePath, 'src/lex-web-ui-loader/js'),
     entry: {
       'lex-web-ui-loader': './index.js',
     },
     output: {
-      path: path.join(basePath, 'dist'),
+      path: distDir,
       filename: (isProd) ? '[name].min.js' : '[name].js',
       library: 'ChatBotUiLoader',
       libraryExport: 'ChatBotUiLoader',
@@ -24,82 +31,101 @@ module.exports = (env) => {
     },
     module: {
       rules: [
+        /* TODO pending clean-up to re-enable
         {
           test: /\.js$/,
-          exclude: /node_modules/,
+          exclude: /[\\/]node_modules[\\/]/,
           enforce: 'pre',
           loader: 'eslint-loader',
           options: {
-            formatter: eslintFriendlyFormatter,
+            formatter: eslintFormatterFriendly,
           },
         },
+        */
         {
           test: /\.js$/,
-          exclude: /node_modules/,
+          exclude: /[\\/]node_modules[\\/]/,
           loader: 'babel-loader',
         },
         {
           test: /\.css$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: (isProd) ?
-              ['css-loader', 'postcss-loader'] :
-              ['css-loader'],
-          }),
+          use: (isProd) ? [
+            {
+              loader: MiniCssExtractPlugin.loader,
+            },
+            'css-loader',
+            'postcss-loader',
+          ] : [
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                hmr: true,
+              },
+            },
+            'css-loader',
+          ],
         },
       ],
     },
     devtool: (isProd) ? 'source-map' : 'cheap-module-source-map',
     devServer: {
       contentBase: [
-        path.join(__dirname, 'dist'),
         path.join(__dirname, 'src/config'),
         path.join(__dirname, 'src/website'),
+        distDir,
       ],
       clientLogLevel: 'warning',
       hot: true,
       port: devServerPort,
       overlay: { warnings: false, errors: true },
       stats: 'errors-only',
-      watchOptions: {
-        poll: true,
-      },
     },
     stats: {
       modules: false,
     },
     plugins: [
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(buildEnv),
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: path.join(basePath, 'src/website/index.html'),
+        // script is included in template
+        inject: false,
       }),
-      new webpack.optimize.ModuleConcatenationPlugin(),
-      isProd && new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
-          drop_console: true,
-          drop_debugger: true,
-        },
-        sourceMap: true,
-        parallel: true,
+      new HtmlWebpackPlugin({
+        filename: 'parent.html',
+        template: path.join(basePath, 'src/website/parent.html'),
+        // script is included in template
+        inject: false,
       }),
       isProd && new webpack.BannerPlugin({
         banner: `/*!
 * lex-web-ui v${VERSION}
-* (c) 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* (c) 2017-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 * Released under the Amazon Software License.
 */  `,
         raw: true,
         entryOnly: true,
+        exclude: /[\\/]node_modules[\\/]/,
       }),
-      new ExtractTextPlugin({
+      new MiniCssExtractPlugin({
         filename: (isProd) ? '[name].min.css' : '[name].css',
       }),
-      // dev plugins
-      !isProd && new webpack.NamedModulesPlugin(),
-      !isProd && new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
-    ]
-      // filter empty items produced by isProd conditionals
-      .filter(i => !!i),
+      new CopyPlugin([
+        // copy parent page
+        {
+          from: path.join(basePath, 'src/website/parent.html'),
+          to: distDir,
+        },
+        // copy custom css
+        {
+          from: path.join(basePath, 'src/website/custom-chatbot-style.css'),
+          to: distDir,
+        },
+        // copy lex-web-ui library
+        {
+          from: path.join(basePath, 'lex-web-ui/dist/bundle'),
+          to: distDir,
+        },
+      ]),
+    ].filter(Boolean),
   };
 };

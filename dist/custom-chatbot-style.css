@@ -1,0 +1,77 @@
+/* Example custom css file for lex-web-ui. Entire file is commented out as a default. Uncomment and
+ adjust as needed.
+
+.toolbar.theme--dark {
+    background-color: #2b2b2b !important;
+}
+
+.toolbar__title {
+  font-family:"Sans-serif" !important;
+  font-size: 1.875em !important;
+  color: #ffffff !important; 
+} 
+
+.message-list-container {
+  background-color: #dcdbdc !important
+}
+
+.message-bot .message-bubble {
+    background-color: #eeedeb !important;
+}
+
+.message-human .message-bubble {
+    background-color: #afcffa !important;
+}
+
+.message-bubble p {
+    margin-bottom: 8px;
+}
+
+.message-bubble p:last-child {
+    margin-bottom: 0px;
+}
+
+.message-bubble .message-text {
+    padding-left:  0;
+    padding-right: 0;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.message-bubble {
+    border-radius: 10px !important;
+    padding: 2px 18px !important;
+}
+
+.message-text {
+  color: #000000;
+  width: 100%;
+}
+
+.headline {
+    font-size: 1.2rem !important;
+    line-height: 1.4 !important;
+}
+
+.card__title {
+    padding: 10px 16px !important;
+}
+
+.card__text {
+    padding: 8px 16px 16px !important;
+    line-height: 1.4;
+}
+
+.card__title.card__title--primary {
+    background-color: #eeedeb !important;
+}
+
+
+.input-group--text-field input,
+.input-group--text-field textarea,
+.input-group--text-field label {
+    font-size: 14px !important;
+}
+
+
+*/
