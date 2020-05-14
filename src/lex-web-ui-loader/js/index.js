@@ -18,8 +18,10 @@
  * Exports the loader classes
  */
 
-// import default config
-// import { configIframe, configFullPage } from './defaults/lex-web-ui';
+// adds polyfills for ie11 compatibility
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import { configBase } from './defaults/lex-web-ui';
 import { optionsIframe, optionsFullPage } from './defaults/loader';
 import { dependenciesIframe, dependenciesFullPage } from './defaults/dependencies';

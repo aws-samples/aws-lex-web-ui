@@ -16,7 +16,6 @@ BUILD_DIR := build
 DIST_DIR := dist
 SRC_DIR := src
 CONFIG_DIR := $(SRC_DIR)/config
-WEBSITE_DIR := $(SRC_DIR)/website
 
 # this install all the npm dependencies needed to build from scratch
 install-deps:
@@ -47,18 +46,19 @@ config: $(UPDATE_CONFIG_SCRIPT) $(CONFIG_ENV) $(CONFIG_FILES)
 .PHONY: config
 
 build: config
-	@echo "[INFO] Building loader"
-	npm run build
 	@echo "[INFO] Building component in dir [$(WEBAPP_DIR)]"
 	cd $(WEBAPP_DIR) && npm run build
 	cd $(WEBAPP_DIR) && npm run build-dist
+	@echo "[INFO] Building loader"
+	npm run build-dev
+	npm run build-prod
 	@echo "[INFO Building Dist"
 	cd $(DIST_DIR) && make
 .PHONY: build
 
 # creates an HTML file with a JavaScript snippet showing how to load the iframe
 CREATE_IFRAME_SNIPPET_SCRIPT := $(BUILD_DIR)/create-iframe-snippet-file.sh
-export IFRAME_SNIPPET_FILE := $(WEBSITE_DIR)/iframe-snippet.html
+export IFRAME_SNIPPET_FILE := $(DIST_DIR)/iframe-snippet.html
 $(IFRAME_SNIPPET_FILE): $(CREATE_IFRAME_SNIPPET_SCRIPT)
 	@echo "[INFO] Creating iframe snippet file: [$(@)]"
 	bash $(?)
@@ -87,12 +87,9 @@ deploy-to-s3: create-iframe-snippet
 			"$(CONFIG_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" && \
 		aws s3 sync --acl public-read \
 			--exclude '*' \
+			--include 'lex-web-ui-loader.*' \
 			--include 'parent.html' \
 			--include 'iframe-snippet.html' \
-			"$(WEBSITE_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" && \
-		aws s3 sync --acl public-read \
-			--exclude '*' \
-			--include 'lex-web-ui-loader.*' \
 			"$(DIST_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" ) || \
 		echo "[INFO] no parent bucket to deploy"
 	@echo "[INFO] all done deploying"
@@ -105,14 +102,11 @@ deploy-to-s3: create-iframe-snippet
 sync-website: create-iframe-snippet
 	@[ "$(WEBAPP_BUCKET)" ] || \
 		(echo "[ERROR] WEBAPP_BUCKET variable not set" ; exit 1)
-	@echo "[INFO] copying libary files"
+	@echo "[INFO] copying web site files"
 	aws s3 sync --acl public-read \
 		--exclude Makefile \
 		--exclude lex-web-ui-mobile-hub.zip \
 		$(DIST_DIR) s3://$(WEBAPP_BUCKET)
-	@echo "[INFO] copying website files"
-	aws s3 sync --acl public-read \
-		$(WEBSITE_DIR) s3://$(WEBAPP_BUCKET)
 	@echo "[INFO] copying config files"
 	aws s3 sync --acl public-read \
 		--exclude '*' \
