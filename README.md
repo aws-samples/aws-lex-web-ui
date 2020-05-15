@@ -18,6 +18,13 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### New Features in version 0.14.16
+- Moved to Webpack 4 
+- Changed default parameter ShowResponseCardTitle to be false - was default of true
+- Added back default parameter BotAlias of '$LATEST'. The '$LATEST' 
+alias should only be used for manual testing. Amazon Lex limits
+the number of runtime requests that you can make to the $LATEST version of the bot.
+
 #### New Features in version 0.14.15
 - Fixed text input focus issues on IE11 after pressing enter to send request. 
 - Added new Iframe API entry points to deleteSession and startNewSession for fine grain control of Lex sessions
