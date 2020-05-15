@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.15.0] - 2020-05-15
+- Moved to Webpack 4 
+- Changed default parameter ShowResponseCardTitle to be false - was default of true
+- Added back default parameter BotAlias of '$LATEST'. The '$LATEST' 
+alias should only be used for manual testing. Amazon Lex limits
+the number of runtime requests that you can make to the $LATEST version of the bot.
+
 ## [0.14.15] - 2020-05-06
 - Fixed text input focus issues on IE11 after pressing enter to send request. 
 - Added new Iframe API entry points to deleteSession and startNewSession for fine grain control of Lex sessions

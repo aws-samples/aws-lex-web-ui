@@ -85,7 +85,7 @@ Parameters:
 
     ShowResponseCardTitle:
         Type: String
-        Default: true
+        Default: false
         AllowedValues:
         - true
         - false
@@ -117,7 +117,10 @@ Parameters:
 
     BotName:
         Description: >
-            Name of Lex bot to be used in the web app configuration.
+            Name of an existing Lex Bot to be used by the web ui. NOTE: You must
+            also enter your published bot alias in the BotAlias field below.
+            (If BotName is left empty, a Bot based on the OrderFlowers sample will be
+            automatically created.)
         Type: String
         MinLength: 2
         MaxLength: 50
@@ -127,10 +130,12 @@ Parameters:
 
     BotAlias:
         Description: >
-            Alias to use of an existing Lex Bot. Use a Bot's real alias. Use of
-            $LATEST is highly discouraged and should only be used when testing
-            a new Bot.
+            WARNING: For production deployments, use your bot's published alias here.
+            The $LATEST alias should only be used for manual testing. Amazon Lex limits
+            the number of runtime requests that you can make to the $LATEST version of
+            the bot.
         Type: String
+        Default: '$LATEST'
         MinLength: 2
         MaxLength: 50
         AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'

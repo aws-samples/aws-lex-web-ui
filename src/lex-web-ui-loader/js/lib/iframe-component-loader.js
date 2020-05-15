@@ -14,7 +14,6 @@
 /* eslint no-console: ["error", { allow: ["warn", "error", "debug"] }] */
 /* global AWS */
 
-import 'babel-polyfill';
 import { ConfigLoader } from './config-loader';
 import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired } from './loginutil';
 
