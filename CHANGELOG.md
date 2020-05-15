@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.14.16] - 2020-05-15
+## [0.15.0] - 2020-05-15
 - Moved to Webpack 4 
 - Changed default parameter ShowResponseCardTitle to be false - was default of true
 - Added back default parameter BotAlias of '$LATEST'. The '$LATEST' 
