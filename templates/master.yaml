@@ -186,7 +186,7 @@ Parameters:
         - false
         Description: >
             If set to True, the ResponseCard title is displayed in the UI. When set to false,
-            a ResponseCard title is not displayed in the UI. Default is true. Note at the
+            a ResponseCard title is not displayed in the UI. Default is false. Note at the
             present time this is a global setting. Should the UI need to display some form
             of a title, use the optional sub-title property of a ResponseCard.
 
