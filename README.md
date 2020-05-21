@@ -1,6 +1,6 @@
 # Sample Amazon Lex Web Interface
 
-> Sample Amazon Lex Web Interface
+> sample Amazon Lex Web Interface
 
 # Overview
 This is a sample [Amazon Lex](https://aws.amazon.com/lex/)
