@@ -10,11 +10,11 @@ if [ -z "${IFRAME_SNIPPET_FILE}" ]; then
   exit 1
 fi
 
-if [ -z "${WEBAPP_BUCKET_REGIONALDOMAINNAME}" ]; then
-  echo "[WARN] WEBAPP_BUCKET_REGIONALDOMAINNAME environment variable not defined" >&2
+if [ -z "${CLOUDFRONT_DOMAIN}" ]; then
+  echo "[WARN] CLOUDFRONT_DOMAIN environment variable not defined" >&2
   WEBAPP_URL=''
 else
-  WEBAPP_URL="https://${WEBAPP_BUCKET_REGIONALDOMAINNAME}"
+  WEBAPP_URL="https://${CLOUDFRONT_DOMAIN}"
 fi
 
 [ -z "${PARENT_ORIGIN}" ] && \

@@ -75,17 +75,17 @@ deploy-to-s3: create-iframe-snippet
 	aws s3 cp --recursive "$(WEBAPP_DIST_DIR)" \
 		"s3://$(WEBAPP_BUCKET)/builds/$(CODEBUILD_BUILD_ID)/"
 	@echo "[INFO] copying new version"
-	aws s3 cp --recursive --acl public-read \
+	aws s3 cp --recursive \
 		"s3://$(WEBAPP_BUCKET)/builds/$(CODEBUILD_BUILD_ID)/" \
 		"s3://$(WEBAPP_BUCKET)/"
 	@[ "$(PARENT_PAGE_BUCKET)" ] && \
 		( echo "[INFO] synching parent page to bucket: [$(PARENT_PAGE_BUCKET)]" && \
-		aws s3 sync --acl public-read \
+		aws s3 sync \
 			--exclude '*' \
 			--include 'aws-config.js' \
 			--include 'lex-web-ui-loader-config.json' \
 			"$(CONFIG_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" && \
-		aws s3 sync --acl public-read \
+		aws s3 sync \
 			--exclude '*' \
 			--include 'lex-web-ui-loader.*' \
 			--include 'parent.html' \
@@ -103,18 +103,18 @@ sync-website: create-iframe-snippet
 	@[ "$(WEBAPP_BUCKET)" ] || \
 		(echo "[ERROR] WEBAPP_BUCKET variable not set" ; exit 1)
 	@echo "[INFO] copying web site files"
-	aws s3 sync --acl public-read \
+	aws s3 sync \
 		--exclude Makefile \
 		--exclude lex-web-ui-mobile-hub.zip \
 		$(DIST_DIR) s3://$(WEBAPP_BUCKET)
 	@echo "[INFO] copying config files"
-	aws s3 sync --acl public-read \
+	aws s3 sync  \
 		--exclude '*' \
 		--include 'lex-web-ui-loader-config.json' \
 		$(CONFIG_DIR) s3://$(WEBAPP_BUCKET)
 	@[ "$(BUILD_TYPE)" = 'dist' ] && \
 		echo "[INFO] copying aws-config.js" ;\
-		aws s3 sync --acl public-read \
+		aws s3 sync  \
 			--exclude '*' \
 			--include 'aws-config.js' \
 			$(CONFIG_DIR) s3://$(WEBAPP_BUCKET)
