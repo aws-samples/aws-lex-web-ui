@@ -4,7 +4,7 @@
     app
     dark
     fixed
-    v-on="{ click: (isUiMinimized) ? toggleMinimize : ()=>{} }"
+    v-on="toolbarClickHandler"
     v-bind:dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
     v-bind:class="{ 'minimized': isUiMinimized }"
     aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
@@ -183,6 +183,12 @@ export default {
   },
   props: ['toolbarTitle', 'toolbarColor', 'toolbarLogo', 'isUiMinimized', 'userName'],
   computed: {
+    toolbarClickHandler() {
+      if (this.isUiMinimized) {
+        return { click: this.toggleMinimize };
+      }
+      return null;
+    },
     toolTipMinimize() {
       return (this.isUiMinimized) ? 'maximize' : 'minimize';
     },
