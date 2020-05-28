@@ -190,24 +190,38 @@ Resources:
         Properties:
           DistributionConfig:
             Origins:
-            - DomainName: !Sub "${WebAppBucket}.s3.${AWS::Region}.amazonaws.com" 
+            - DomainName: !Sub "${WebAppBucket}.s3.${AWS::Region}.amazonaws.com"
+              S3OriginConfig:
+                OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${WebAppBucketOriginAccessIdentity}"
               Id: webuiorigin
-              CustomOriginConfig: 
-                OriginProtocolPolicy: match-viewer
             Enabled: 'true'
             Comment: cloudfront distribution for lex-web-ui
             DefaultRootObject: index.html
+            CustomErrorResponses:
+              # Send errors to index file
+              # TODO move TTL to mapping or parameter
+              - ErrorCachingMinTTL: 300
+                ErrorCode: 403
+                ResponseCode: 200
+                ResponsePagePath: /index.html
+              - ErrorCachingMinTTL: 300
+                ErrorCode: 404
+                ResponseCode: 200
+                ResponsePagePath: /index.html
             DefaultCacheBehavior:
               AllowedMethods:
-              - GET
-              - HEAD
-              - OPTIONS
+                - GET
+                - HEAD
+                - OPTIONS
+              Compress: true
               TargetOriginId: webuiorigin
               ForwardedValues:
-                QueryString: 'false'
-              ViewerProtocolPolicy: allow-all
+                QueryString: 'true'
+              ViewerProtocolPolicy: redirect-to-https
             ViewerCertificate:
               CloudFrontDefaultCertificate: 'true'
+            HttpVersion: http2
+            IPV6Enabled: true
 
 
     # Bucket where the test parent page is hosted
