@@ -160,7 +160,28 @@ Resources:
                 IndexDocument: index.html
             VersioningConfiguration:
                 Status: Enabled
-    
+                
+    WebAppBucketOriginAccessIdentity:
+        Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+        Properties:
+          CloudFrontOriginAccessIdentityConfig:
+            Comment: !Sub "access-identity-${WebAppBucket}"
+
+    WebAppBucketBucketPolicy:
+        Type: "AWS::S3::BucketPolicy"
+        Properties:
+          Bucket:
+            Ref: "WebAppBucket"
+          PolicyDocument:
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "s3:GetObject"
+                Resource:
+                  - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+                Principal:
+                  CanonicalUser: !GetAtt WebAppBucketOriginAccessIdentity.S3CanonicalUserId
+
     #cloudfront distribution            
     LexWebUiDistribution:
         Type: AWS::CloudFront::Distribution
@@ -231,7 +252,7 @@ Resources:
                     - Name: PARENT_ORIGIN
                       Value: !If
                         - NeedsParentOrigin
-                        - !Sub "https://${WebAppBucket.RegionalDomainName}"
+                        - !Sub "https://${LexWebUiDistribution.DomainName}"
                         - !Ref ParentOrigin
                     - Name: IFRAME_ORIGIN
                       Value: !Sub "https://${LexWebUiDistribution.DomainName}"
