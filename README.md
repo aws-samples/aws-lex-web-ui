@@ -568,3 +568,4 @@ the files instead of rendering it, you will have to re-sync the files
 to the S3 bucket using the S3 console or aws cli. See the
 [Add Mobile Hub Hosting and Streaming to Your Mobile App](https://docs.aws.amazon.com/mobile-hub/latest/developerguide/add-aws-mobile-hosting-and-streaming.html#add-aws-mobile-hosting-and-streaming-app)
 section of the Mobile Hub documentation for details.
+
