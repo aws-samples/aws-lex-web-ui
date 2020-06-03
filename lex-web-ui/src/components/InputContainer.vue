@@ -188,6 +188,7 @@ export default {
     },
     setInputTextFieldFocus() {
       // focus() needs to be wrapped in setTimeout for IE11
+
       setTimeout(() => {
         this.$refs.textInput.$refs.input.focus();
       }, 10);
@@ -221,7 +222,9 @@ export default {
       return this.$store.dispatch('postTextMessage', message)
         .then(() => {
           this.textInput = '';
-          this.setInputTextFieldFocus();
+          if (!this.shouldShowTextInput) {
+            this.setInputTextFieldFocus();
+          }
         });
     },
     startSpeechConversation() {
