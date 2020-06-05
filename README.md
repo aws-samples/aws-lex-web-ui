@@ -18,6 +18,13 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### New Features in version 0.16.0
+- Lex-web-ui now ships with cloudfront as the default distribution method 
+  * better load times 
+  * non public access to S3 bucket
+  * better future integration to cloudfront features such as WAF and Lambda@Edge
+
+
 #### New Features in version 0.15.0
 - Moved to Webpack 4 
 - Changed default parameter ShowResponseCardTitle to be false - was default of true
@@ -39,7 +46,7 @@ the number of runtime requests that you can make to the $LATEST version of the b
 - Added new feature that allows the input area to be hidden if Response Card buttons are present. User
 must select from the available set of buttons. To enable this feature set the property 
 ui.hideInputFieldsForButtonResponse to true in the lex-web-ui-loader-config.json. This file is stored in
-the S3 bucket hosting the UI. Upload back to the S3 bucket and ensure the file has --acl public-read. This feature
+the S3 bucket hosting the UI. Upload back to the S3 bucket. This feature
 is disabled by default. 
 - Removed use of botocore.vendored.requests. Now imports this module for python based lambda functions. 
 
