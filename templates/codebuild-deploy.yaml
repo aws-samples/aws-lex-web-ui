@@ -91,7 +91,7 @@ Parameters:
         - false
         Description: >
             If set to True, the ResponseCard title is displayed in the UI. When set to false,
-            a ResponseCard title is not displayed in the UI. Default is true. Note at the
+            a ResponseCard title is not displayed in the UI. Default is false. Note at the
             present time this is a global setting. Should the UI need to display some form
             of a title, use the optional sub-title property of a ResponseCard.
 
@@ -220,6 +220,67 @@ Resources:
                       AllowedOrigins:
                         - !Ref ParentOrigin
 
+    WebAppBucketOriginAccessIdentity:
+        Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+        Properties:
+          CloudFrontOriginAccessIdentityConfig:
+            Comment: !Sub "access-identity-${WebAppBucket}"
+
+    WebAppBucketBucketPolicy:
+        Type: "AWS::S3::BucketPolicy"
+        Properties:
+          Bucket:
+            Ref: "WebAppBucket"
+          PolicyDocument:
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "s3:GetObject"
+                Resource:
+                  - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+                Principal:
+                  CanonicalUser: !GetAtt WebAppBucketOriginAccessIdentity.S3CanonicalUserId
+
+    LexWebUiDistribution:
+        Type: AWS::CloudFront::Distribution
+        DependsOn:
+        - WebAppBucket
+        Properties:
+          DistributionConfig:
+            Origins:
+            - DomainName: !Sub "${WebAppBucket}.s3.${AWS::Region}.amazonaws.com"
+              S3OriginConfig:
+                OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${WebAppBucketOriginAccessIdentity}"
+              Id: webuiorigin
+            Enabled: 'true'
+            Comment: cloudfront distribution for lex-web-ui
+            DefaultRootObject: index.html
+            CustomErrorResponses:
+              # Send errors to index file
+              # TODO move TTL to mapping or parameter
+              - ErrorCachingMinTTL: 300
+                ErrorCode: 403
+                ResponseCode: 200
+                ResponsePagePath: /index.html
+              - ErrorCachingMinTTL: 300
+                ErrorCode: 404
+                ResponseCode: 200
+                ResponsePagePath: /index.html
+            DefaultCacheBehavior:
+              AllowedMethods:
+                - GET
+                - HEAD
+                - OPTIONS
+              Compress: true
+              TargetOriginId: webuiorigin
+              ForwardedValues:
+                QueryString: 'true'
+              ViewerProtocolPolicy: redirect-to-https
+            ViewerCertificate:
+              CloudFrontDefaultCertificate: 'true'
+            HttpVersion: http2
+            IPV6Enabled: true
+            
     CodeBuild:
         Type: AWS::CodeBuild::Project
         Properties:
@@ -273,12 +334,15 @@ Resources:
                     - Name: PARENT_ORIGIN
                       Value: !If
                         - NeedsParentOrigin
-                        - !Sub "https://${WebAppBucket.RegionalDomainName}"
+                        - !Sub "https://${LexWebUiDistribution.DomainName}"
                         - !Ref ParentOrigin
                     - Name: IFRAME_ORIGIN
-                      Value: !Sub "https://${WebAppBucket.RegionalDomainName}"
+                      Value: !Sub "https://${LexWebUiDistribution.DomainName}"
                     - Name: WEBAPP_BUCKET_REGIONALDOMAINNAME
                       Value: !Sub "${WebAppBucket.RegionalDomainName}"
+                    - Name: CLOUDFRONT_DOMAIN
+                      Value: !Sub "${LexWebUiDistribution.DomainName}"
+                    
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
             Source:
@@ -470,25 +534,25 @@ Outputs:
         Value: !Ref CodeBuild
 
     WebAppUrl:
-        Value: !Sub "https://${WebAppBucket.RegionalDomainName}/index.html"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}/index.html"
         Description: URL of the web application
 
     WebAppBase:
-        Value: !Sub "https://${WebAppBucket.RegionalDomainName}"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}"
         Description: Base url portion of the web application
 
     WebAppDomainName:
-        Value: !Sub "${WebAppBucket.RegionalDomainName}"
+        Value: !Sub "${LexWebUiDistribution.DomainName}"
         Description: DomainName of the web application
 
     ParentPageUrl:
-        Value: !Sub "https://${WebAppBucket.RegionalDomainName}/parent.html"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}/parent.html"
         Description: URL of the sample parent page
 
     LoaderScriptUrl:
-        Value: !Sub "https://${WebAppBucket.RegionalDomainName}/lex-web-ui-loader.min.js"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}/lex-web-ui-loader.min.js"
         Description: URL of the loader script
 
     SnippetUrl:
-        Value: !Sub "https://${WebAppBucket.RegionalDomainName}/iframe-snippet.html"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}/iframe-snippet.html"
         Description: URL of a page showing the snippet to load the chatbot UI as an iframe

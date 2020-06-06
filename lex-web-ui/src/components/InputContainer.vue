@@ -221,7 +221,9 @@ export default {
       return this.$store.dispatch('postTextMessage', message)
         .then(() => {
           this.textInput = '';
-          this.setInputTextFieldFocus();
+          if (this.shouldShowTextInput) {
+            this.setInputTextFieldFocus();
+          }
         });
     },
     startSpeechConversation() {

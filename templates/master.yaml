@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.15.0)
+    Master Lex Web UI CloudFormation template (v0.16.0)
     It deploys:
         - S3 buckets to host the web application
         - CodeBuild project to build the configuration and deploy to S3
@@ -186,7 +186,7 @@ Parameters:
         - false
         Description: >
             If set to True, the ResponseCard title is displayed in the UI. When set to false,
-            a ResponseCard title is not displayed in the UI. Default is true. Note at the
+            a ResponseCard title is not displayed in the UI. Default is false. Note at the
             present time this is a global setting. Should the UI need to display some form
             of a title, use the optional sub-title property of a ResponseCard.
 

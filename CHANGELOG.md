@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.16.0] - 2020-06-06
+- Lex-web-ui now ships with cloudfront as the default distribution method 
+  * better load times 
+  * non public access to S3 bucket
+  * better future integration to cloudfront features such as WAF and Lambda@Edge
+- Updated package.json dependencies
+
 ## [0.15.0] - 2020-05-15
 - Moved to Webpack 4 
 - Changed default parameter ShowResponseCardTitle to be false - was default of true

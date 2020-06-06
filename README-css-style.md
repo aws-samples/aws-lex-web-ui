@@ -31,16 +31,14 @@ Use the following process to set style after the lex-web-ui has been deployed.
 
 *Note: Version 0.14.11 pre-installs with the file custom-chatbot-style.css and pre-configures its use in index.html. 
 Download the file from S3. Follow steps 2 and 3. The default file has all styles commented out. Enable style changes
-you desire and upload the file back to S3. Make sure after uploading back to S3 you have set the acl on this object to
-public-read.* 
+you desire and upload the file back to S3.
 
 1) Create a new css file named 'custom-chatbot-style.css'.
 2) Configure/update the style as needed
-3) Upload the 'custom-chatbot-style.css' file to the S3 bucket hosting the lex-web-ui. Make sure this file has
-an acl of public-read.
+3) Upload the 'custom-chatbot-style.css' file to the S3 bucket hosting the lex-web-ui.
 4) Download and modify the index.html file from the S3 bucket. Insert the html below
 within the \<head\> element at the end of this element.
-5) Upload the index.html back to the S3 bucket and make sure the file has an acl of public-read.
+5) Upload the index.html back to the S3 bucket.
 
 Changes for index.html for versions prior to 0.14.11.
 ```
