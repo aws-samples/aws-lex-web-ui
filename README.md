@@ -23,7 +23,7 @@ UI using JavaScript
   * better load times 
   * non public access to S3 bucket
   * better future integration to cloudfront features such as WAF and Lambda@Edge
-
+- Updated package.json dependencies
 
 #### New Features in version 0.15.0
 - Moved to Webpack 4 
