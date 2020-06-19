@@ -4,6 +4,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.17.0] - 2020-06-XX
+- Improved accessibility - big thanks to @pdkn for this significant contribution
+  * Improve screen reader experience
+    - Add screen reader specific text to questions & answer (hidden visually) so messages are prepended with ( `bot says: `/ `I say: `)  helping to give context to visually impaired
+    - Hide message date from screen readers
+    - Hide loading message from screen readers
+    - Hide avatar image from screen readers
+    - Make the chatbot titlebar title a \<h1> heading – (Pages must contain a level-one heading)
+    - Change \<footer> tag to a \<div> as it's content doesn't conform to normal content of a footer so adding role="contentinfo" isn't applicable
+  * Improve aria
+    - Add aria-label and aria-hidden
+    - Add alt attribute to images (logo)
+    - Add aria-live 'polite' to chat messages list
+  * Improve tabbing
+    - Fix element tabindex greater than zero
+    - Make feedback buttons tabbable
+    - Remove focusability from loading message
+    - Remove focusability from avatar image
+  * Add sound effects
+    - Dispatch event when a message is sent or received (so client app can respond and play audio effect)
+    - Play a SFX when sending/receiving messages
+    - Add a SFX on/off button in toolbar
+    - Allow setting of SFX .mp3 files in config
+      * ui.messageSentSFX and ui.messageReceived
+    - Add config ui.enableSFX to enable sound effects
+* Style changes
+  - ResponseCard buttons css, remove !important so it can be overridden by custom implementation
+  - ResponseCard buttons, change font-size from 12px to 1em so it defaults to a percent size of parent
+  - Adjusted panel dimensions
+  - Removed toolbar dense setting in fullscreen
+* Other
+  - Message list window auto scrolls to top of response message rather than bottom (handy if responses are long else user may have to scroll back up to the start of message)
+  - Allow tooltips and icons to be easily customised/themed via css
+
 ## [0.16.0] - 2020-06-06
 - Lex-web-ui now ships with cloudfront as the default distribution method 
   * better load times 
