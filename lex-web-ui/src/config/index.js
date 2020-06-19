@@ -123,6 +123,9 @@ const configDefault = {
     // to allow runing embedded in a single origin setup
     parentOrigin: null,
 
+    // enable Sound Effects
+    enableSFX: false,
+
     // mp3 audio file url for message send sound FX
     messageSentSFX: 'send.mp3',
 

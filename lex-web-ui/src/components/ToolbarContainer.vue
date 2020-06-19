@@ -96,7 +96,7 @@
     </v-btn>
 
     <v-btn
-      v-if="sfxMuteButton"
+      v-if="shouldRenderSfxButton"
       v-on:click="toggleSFXMute"
       v-on="tooltipSFXEventHandlers"
       class="sfx-toggle"
@@ -198,9 +198,9 @@ export default {
     helpButton() {
       return this.$store.state.config.ui.helpIntent;
     },
-    sfxMuteButton() {
-      return this.$store.state.config.ui.messageSentSFX
-      || this.$store.state.config.ui.messageReceivedSFX;
+    shouldRenderSfxButton() {
+      return this.$store.state.config.ui.enableSFX && this.$store.state.config.ui.messageSentSFX
+      && this.$store.state.config.ui.messageReceivedSFX;
     },
     isSFXOn() {
       return this.$store.state.isSFXOn;
