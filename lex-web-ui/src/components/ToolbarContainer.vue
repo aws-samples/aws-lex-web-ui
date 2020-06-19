@@ -83,7 +83,7 @@
       <span id="sfx-tooltip">sound effects on/off</span>
     </v-tooltip>
     <v-btn
-      v-if="helpButton && !isUiMinimized"
+      v-if="shouldRenderHelpButton && !isUiMinimized"
       v-on:click="sendHelp"
       v-on="tooltipHelpEventHandlers"
       v-bind:disabled="isLexProcessing"
@@ -195,8 +195,8 @@ export default {
     isLexProcessing() {
       return this.$store.state.isBackProcessing || this.$store.state.lex.isProcessing;
     },
-    helpButton() {
-      return this.$store.state.config.ui.helpIntent;
+    shouldRenderHelpButton() {
+      return !!this.$store.state.config.ui.helpIntent;
     },
     shouldRenderSfxButton() {
       return this.$store.state.config.ui.enableSFX && this.$store.state.config.ui.messageSentSFX
@@ -247,7 +247,7 @@ export default {
     sendHelp() {
       const message = {
         type: 'human',
-        text: this.helpButton,
+        text: this.$store.state.config.ui.helpIntent,
       };
       this.$store.dispatch('postTextMessage', message);
       this.shouldShowHelpTooltip = false;
