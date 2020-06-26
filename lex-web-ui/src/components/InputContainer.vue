@@ -194,7 +194,9 @@ export default {
     setInputTextFieldFocus() {
       // focus() needs to be wrapped in setTimeout for IE11
       setTimeout(() => {
-        this.$refs.textInput.$refs.input.focus();
+        if (this.$refs && this.$refs.textInput && this.shouldShowTextInput) {
+          this.$refs.textInput.$refs.input.focus();
+        }
       }, 10);
     },
     playInitialInstruction() {
