@@ -50,11 +50,11 @@
       </v-tooltip>
     </div>
 
-    <v-toolbar-title class="hidden-xs-and-down" v-on:click="toggleMinimize">
+    <v-toolbar-title class="hidden-xs-and-down" v-on:click="toggleMinimize" v-show="!isUiMinimized">
       <h1>{{ toolbarTitle }}</h1>
     </v-toolbar-title>
 
-    <v-toolbar-title class="hidden-xs-and-down">
+    <v-toolbar-title class="hidden-xs-and-down" v-show="!isUiMinimized">
       {{ userName }}
     </v-toolbar-title>
 
@@ -98,7 +98,7 @@
     </v-btn>
 
     <v-btn
-      v-if="shouldRenderSfxButton"
+      v-if="shouldRenderSfxButton && isUiMinimized"
       v-on:click="toggleSFXMute"
       v-on="tooltipSFXEventHandlers"
       class="sfx-toggle"
@@ -119,7 +119,7 @@
       aria-label="minimize chat window toggle"
     >
       <v-icon>
-        {{ isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down' }}
+        {{ isUiMinimized ?  'chat' : 'arrow_drop_down' }}
       </v-icon>
     </v-btn>
   </v-toolbar>
@@ -219,7 +219,7 @@ export default {
       this.prevNav = !this.prevNav;
     },
     onInputButtonHoverEnter() {
-      this.shouldShowTooltip = true;
+      this.shouldShowTooltip = !this.isUiMinimized;
     },
     onInputButtonHoverLeave() {
       this.shouldShowTooltip = false;
