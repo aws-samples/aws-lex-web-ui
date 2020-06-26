@@ -197,6 +197,9 @@ const configDefault = {
     // title can be optionally disabled by setting this value to false
     shouldDisplayResponseCardTitle: true,
 
+    // Controls whether response card buttons are disabled after being clicked
+    shouldDisableClickedResponseCardButtons: true,
+
     // Optionally display login menu
     enableLogin: false,
 
