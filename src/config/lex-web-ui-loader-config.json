@@ -21,6 +21,7 @@
     "parentOrigin": "",
     "toolbarTitle": "Order Config",
     "toolbarLogo": "",
+    "minButtonToolTipContent": "Chatbot",
     "positiveFeedbackIntent": "",
     "negativeFeedbackIntent": "",
     "helpIntent": "help",

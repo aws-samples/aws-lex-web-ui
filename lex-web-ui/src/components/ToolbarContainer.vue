@@ -4,6 +4,7 @@
     app
     dark
     fixed
+    v-if="!isUiMinimized"
     v-on="toolbarClickHandler"
     v-bind:dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
     v-bind:class="{ 'minimized': isUiMinimized }"
@@ -50,7 +51,7 @@
       </v-tooltip>
     </div>
 
-    <v-toolbar-title class="hidden-xs-and-down" v-on:click="toggleMinimize" v-show="!isUiMinimized">
+    <v-toolbar-title class="hidden-xs-and-down" v-on:click.stop="toggleMinimize" v-show="!isUiMinimized">
       <h1>{{ toolbarTitle }}</h1>
     </v-toolbar-title>
 
@@ -112,11 +113,11 @@
 
     <v-btn
       v-if="$store.state.isRunningEmbedded"
-      v-on:click="toggleMinimize"
+      v-on:click.stop="toggleMinimize"
       v-on="tooltipEventHandlers"
       class="min-max-toggle"
       icon
-      aria-label="minimize chat window toggle"
+      v-bind:aria-label="(isUiMinimized) ? 'chat' : 'minimize chat window toggle'"
     >
       <v-icon>
         {{ isUiMinimized ?  'chat' : 'arrow_drop_down' }}
@@ -127,7 +128,7 @@
 
 <script>
 /*
-Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Amazon Software License (the "License"). You may not use this file
 except in compliance with the License. A copy of the License is located at
