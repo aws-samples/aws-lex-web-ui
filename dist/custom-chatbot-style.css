@@ -8,8 +8,8 @@
 .toolbar__title {
   font-family:"Sans-serif" !important;
   font-size: 1.875em !important;
-  color: #ffffff !important; 
-} 
+  color: #ffffff !important;
+}
 
 .message-list-container {
   background-color: #dcdbdc !important
@@ -74,4 +74,8 @@
 }
 
 
+button.min-button {
+    background-color: blue !important;
+    border-color: blue !important;
+}
 */

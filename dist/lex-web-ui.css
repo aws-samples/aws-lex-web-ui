@@ -1,11 +1,600 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+The Vuetify toolbar height is based on screen width breakpoints
+The toolbar can be 48px, 56px and 64px.
+It is fixed to 48px when using 'dense'
+
+The message list is placed between the toolbar at the top and input
+container on the bottom. Both the toolbar and the input-container
+dynamically change height based on width breakpoints.
+So we duplicate the height and substract it from the total height
+of the message list to make it fit between the toolbar and input container
+
+NOTE: not using var() for different heights due to IE11 compatibility
+*/
 .message-list-container {
-  /* vuetify toolbar and footer are 48px each when using 'dense' */
-  /* vuetify toolbar and footer are 64px each when not using 'dense' */
-  height: calc(100% - 128px);
   position: fixed;
-  top: 64px;
 }
+.message-list-container.toolbar-height-sm {
+  top: 56px;
+  height: calc(100% - 2 * 56px);
+}
+/* yes, the height is smaller in mid sizes */
+.message-list-container.toolbar-height-md {
+  top: 48px;
+  height: calc(100% - 2 * 48px);
+}
+.message-list-container.toolbar-height-lg {
+  top: 64px;
+  height: calc(100% - 2 * 64px);
+}
+#lex-web[ui-minimized] {
+  /* make background transparent when running minimized so only
+  the button is shown */
+  background: transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .toolbar-color {
   background-color: #003DA5 !important;
@@ -20,19 +609,20 @@
 }
 
 
-.message-list[data-v-7889bbfc] {
+.message-list[data-v-676b0989] {
+  padding-top: 1rem;
   overflow-y: auto;
   overflow-x: hidden;
 }
-.message-bot[data-v-7889bbfc] {
+.message-bot[data-v-676b0989] {
   -ms-flex-item-align: start;
       align-self: flex-start;
 }
-.message-human[data-v-7889bbfc] {
+.message-human[data-v-676b0989] {
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
-.message-feedback[data-v-7889bbfc] {
+.message-feedback[data-v-676b0989] {
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
@@ -170,7 +760,7 @@
   border: 0 !important;
 }
 
-.card[data-v-66775980] {
+.card[data-v-ddab8a4a] {
   width: 75vw;
   position: inherit; /* workaround to card being displayed on top of toolbar shadow */
   padding-bottom: 0.5em;
@@ -178,22 +768,22 @@
           box-shadow: none !important;
   background-color: unset !important;
 }
-.card__title[data-v-66775980] {
+.card__title[data-v-ddab8a4a] {
   padding: 0.5em;
   padding-top: 0.75em;
 }
-.card__text[data-v-66775980] {
+.card__text[data-v-ddab8a4a] {
   padding: 0.33em;
 }
-.button-row[data-v-66775980] {
+.button-row[data-v-ddab8a4a] {
   display: inline-block;
 }
-.btn[data-v-66775980] {
+.btn[data-v-ddab8a4a] {
   margin: 10px;
   font-size: 1em;
   min-width: 44px;
 }
-.card__actions.button-row[data-v-66775980] {
+.card__actions.button-row[data-v-ddab8a4a] {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;

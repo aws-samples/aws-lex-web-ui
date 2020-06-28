@@ -49377,16 +49377,6 @@ var IframeComponentLoader = /*#__PURE__*/function () {
             });
           }
         },
-        messageSent: function messageSent() {
-          this.sendMessageToIframe({
-            event: 'messageSent'
-          });
-        },
-        messageReceived: function messageReceived() {
-          this.sendMessageToIframe({
-            event: 'messageReceived'
-          });
-        },
         // iframe sends Lex updates based on Lex API responses
         updateLexState: function updateLexState(evt) {
           // evt.data will contain the Lex state
