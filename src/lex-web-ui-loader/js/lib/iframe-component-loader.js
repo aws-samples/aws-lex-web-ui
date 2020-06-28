@@ -631,12 +631,6 @@ export class IframeComponentLoader {
           });
         }
       },
-      messageSent() {
-        this.sendMessageToIframe({ event: 'messageSent' });
-      },
-      messageReceived() {
-        this.sendMessageToIframe({ event: 'messageReceived' });
-      },
       // iframe sends Lex updates based on Lex API responses
       updateLexState(evt) {
         // evt.data will contain the Lex state
