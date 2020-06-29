@@ -1,9 +1,9 @@
 # Quick CSS guide for Lex Web Ui
 
-The ability to update the style of the lex-web-ui to conform to an existing site's style 
+The ability to update the style of the lex-web-ui to conform to an existing site's style
 is important. This guide will walk you through adjusting the UI to meet your needs.
 
-This guide does not cover the case if you are building lex-web-ui for use as a component 
+This guide does not cover the case if you are building lex-web-ui for use as a component
 in other Vue apps or modifing Vue source components for your own implementation.
 
 ## Summary of available css modifications
@@ -12,8 +12,8 @@ in other Vue apps or modifing Vue source components for your own implementation.
 
 ## Iframe width and height
 
-As noted on the bottom of the diagram, if using a parent page to host the lex-web-ui as an iframe, 
-the iframe size and width and position an be controlled using css applied to the parent page. 
+As noted on the bottom of the diagram, if using a parent page to host the lex-web-ui as an iframe,
+the iframe size and width and position an be controlled using css applied to the parent page.
 
 ```shell script
 .lex-web-ui-iframe {
@@ -24,12 +24,12 @@ the iframe size and width and position an be controlled using css applied to the
 }
 ```
 Note that these values can be specified using vw and vh to reflect percentages of the view
-window's width and height. 
+window's width and height.
 
 ## Style for elements of the Lex-Web-Ui
-Use the following process to set style after the lex-web-ui has been deployed. 
+Use the following process to set style after the lex-web-ui has been deployed.
 
-*Note: Version 0.14.11 pre-installs with the file custom-chatbot-style.css and pre-configures its use in index.html. 
+*Note: Version 0.14.11 pre-installs with the file custom-chatbot-style.css and pre-configures its use in index.html.
 Download the file from S3. Follow steps 2 and 3. The default file has all styles commented out. Enable style changes
 you desire and upload the file back to S3.
 
@@ -49,7 +49,7 @@ The new css file will then hold style changes for the elements in the UI.
 
 ### Toolbar
 #### Toolbar Background Color
-There are two distinct mechanisms for changing the background color. 
+There are two distinct mechanisms for changing the background color.
 1) Update lex-web-ui-loader-config.json. Change the property ui.toolbarColor. You must select a value
 from.
 https://vuetifyjs.com/en/styles/colors#
@@ -65,8 +65,8 @@ https://vuetifyjs.com/en/styles/colors#
 .toolbar__title {
   font-family:"Sans-serif" !important;
   font-size: 16px !important;
-  color: #ffffff !important; 
-} 
+  color: #ffffff !important;
+}
 ```
 
 #### Toolbar logo - easily set in lex-web-ui-loader-config.json
@@ -74,7 +74,21 @@ Modify lex-web-ui-loader-config.json
 ```
 ui.toolbarLogo: "url"
 ```
- 
+
+### Minimized button tooltip content
+Modify lex-web-ui-loader-config.json
+```
+"minButtonToolTipContent": "My Chatbot",
+```
+
+### Minimized button color
+```css
+button.min-button {
+    background-color: blue !important;
+    border-color: blue !important;
+}
+```
+
 #### Message Avatar Icons - easily set in lex-web-ui-loader-config.json
 Modify lex-web-ui-loader-config.json
 ```
@@ -88,7 +102,7 @@ ui.avatarImageUrl: "url"
 }
 ```
 
-#### Messages from bot 
+#### Messages from bot
 Set background of the bot's response messages
 ```
 .message-bot .message-bubble {
@@ -166,5 +180,5 @@ Set background of the bot's response messages
 ```
 
 #### Other
-Other CSS can be applied to the classes above in addition to what is listed. Be creative and 
-create a compelling style for your site. 
+Other CSS can be applied to the classes above in addition to what is listed. Be creative and
+create a compelling style for your site.
