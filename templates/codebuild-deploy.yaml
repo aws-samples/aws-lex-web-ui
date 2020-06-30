@@ -166,12 +166,12 @@ Parameters:
         Description: >
             Message spoken by bot when the microphone is first pressed
             in a conversation
-    
+
     WebAppConfNegativeFeedback:
         Type: String
         Default: Thumbs down
         Description: >
-            This optional parameter defines the message to be sent by the user upon pressing 
+            This optional parameter defines the message to be sent by the user upon pressing
             a feedback button signaling a negative feedback.
             If left empty feedback buttons will be disabled on the UI.
 
@@ -179,7 +179,7 @@ Parameters:
         Type: String
         Default: Thumbs up
         Description: >
-            This optional parameter defines the message to be sent by the user upon pressing 
+            This optional parameter defines the message to be sent by the user upon pressing
             a feedback button signaling a positive feedback.
             If left empty feedback buttons will be disabled on the UI.
 
@@ -271,16 +271,24 @@ Resources:
                 - GET
                 - HEAD
                 - OPTIONS
+              CachedMethods:
+                - GET
+                - HEAD
+                - OPTIONS
               Compress: true
               TargetOriginId: webuiorigin
               ForwardedValues:
-                QueryString: 'true'
+                QueryString: true
+                Headers:
+                  - Origin
+                  - Access-Control-Request-Method
+                  - Access-Control-Request-Headers
               ViewerProtocolPolicy: redirect-to-https
             ViewerCertificate:
-              CloudFrontDefaultCertificate: 'true'
+              CloudFrontDefaultCertificate: true
             HttpVersion: http2
             IPV6Enabled: true
-            
+
     CodeBuild:
         Type: AWS::CodeBuild::Project
         Properties:
@@ -316,7 +324,7 @@ Resources:
                     - Name: NEGATIVE_INTENT
                       Value: !Ref WebAppConfNegativeFeedback
                     - Name: POSITIVE_INTENT
-                      Value: !Ref WebAppConfPositiveFeedback  
+                      Value: !Ref WebAppConfPositiveFeedback
                     - Name: HELP_INTENT
                       Value: !Ref WebAppConfHelp
                     - Name: UI_TOOLBAR_TITLE
@@ -342,7 +350,7 @@ Resources:
                       Value: !Sub "${WebAppBucket.RegionalDomainName}"
                     - Name: CLOUDFRONT_DOMAIN
                       Value: !Sub "${LexWebUiDistribution.DomainName}"
-                    
+
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
             Source:
