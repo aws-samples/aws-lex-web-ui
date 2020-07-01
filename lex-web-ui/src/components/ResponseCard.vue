@@ -20,7 +20,7 @@
         v-show="button.text && button.value"
         v-bind:key="button.id"
         v-on:click.once.native="onButtonClick(button.value)"
-        v-bind:disabled="hasButtonBeenClicked"
+        v-bind:disabled="shouldDisableClickedResponseCardButtons"
         round
         default
         v-bind:color="button.text.toLowerCase() === 'more' ? '' : 'accent'"
@@ -67,6 +67,12 @@ export default {
   computed: {
     shouldDisplayResponseCardTitle() {
       return this.$store.state.config.ui.shouldDisplayResponseCardTitle;
+    },
+    shouldDisableClickedResponseCardButtons() {
+      return (
+        this.$store.state.config.ui.shouldDisableClickedResponseCardButtons &&
+        this.hasButtonBeenClicked
+      );
     },
   },
   methods: {

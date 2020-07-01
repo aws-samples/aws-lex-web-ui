@@ -4,7 +4,10 @@
     app
     dark
     fixed
-    v-bind:dense="this.$store.state.isRunningEmbedded"
+    v-if="!isUiMinimized"
+    v-on="toolbarClickHandler"
+    v-bind:dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
+    v-bind:class="{ 'minimized': isUiMinimized }"
     aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
   >
     <img v-if="toolbarLogo" v-bind:src="toolbarLogo" alt="logo" aria-hidden="true"/>
@@ -48,11 +51,11 @@
       </v-tooltip>
     </div>
 
-    <v-toolbar-title class="hidden-xs-and-down" v-on:click="toggleMinimize">
+    <v-toolbar-title class="hidden-xs-and-down" v-on:click.stop="toggleMinimize" v-show="!isUiMinimized">
       <h1>{{ toolbarTitle }}</h1>
     </v-toolbar-title>
 
-    <v-toolbar-title class="hidden-xs-and-down">
+    <v-toolbar-title class="hidden-xs-and-down" v-show="!isUiMinimized">
       {{ userName }}
     </v-toolbar-title>
 
@@ -96,7 +99,7 @@
     </v-btn>
 
     <v-btn
-      v-if="shouldRenderSfxButton"
+      v-if="shouldRenderSfxButton && isUiMinimized"
       v-on:click="toggleSFXMute"
       v-on="tooltipSFXEventHandlers"
       class="sfx-toggle"
@@ -110,14 +113,14 @@
 
     <v-btn
       v-if="$store.state.isRunningEmbedded"
-      v-on:click="toggleMinimize"
+      v-on:click.stop="toggleMinimize"
       v-on="tooltipEventHandlers"
       class="min-max-toggle"
       icon
-      aria-label="minimize chat window toggle"
+      v-bind:aria-label="(isUiMinimized) ? 'chat' : 'minimize chat window toggle'"
     >
       <v-icon>
-        {{ isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down' }}
+        {{ isUiMinimized ?  'chat' : 'arrow_drop_down' }}
       </v-icon>
     </v-btn>
   </v-toolbar>
@@ -125,7 +128,7 @@
 
 <script>
 /*
-Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Amazon Software License (the "License"). You may not use this file
 except in compliance with the License. A copy of the License is located at
@@ -180,6 +183,12 @@ export default {
   },
   props: ['toolbarTitle', 'toolbarColor', 'toolbarLogo', 'isUiMinimized', 'userName'],
   computed: {
+    toolbarClickHandler() {
+      if (this.isUiMinimized) {
+        return { click: this.toggleMinimize };
+      }
+      return null;
+    },
     toolTipMinimize() {
       return (this.isUiMinimized) ? 'maximize' : 'minimize';
     },
@@ -211,7 +220,7 @@ export default {
       this.prevNav = !this.prevNav;
     },
     onInputButtonHoverEnter() {
-      this.shouldShowTooltip = true;
+      this.shouldShowTooltip = !this.isUiMinimized;
     },
     onInputButtonHoverLeave() {
       this.shouldShowTooltip = false;

@@ -135,6 +135,9 @@ const configDefault = {
     // chat window text placeholder
     textInputPlaceholder: 'Type here or click on the mic',
 
+    // text shown when you hover over the minimized bot button
+    minButtonToolTipContent: 'Chatbot',
+
     toolbarColor: 'red',
 
     // chat window title
@@ -196,6 +199,9 @@ const configDefault = {
     // Lex webui should display response card titles. The response card
     // title can be optionally disabled by setting this value to false
     shouldDisplayResponseCardTitle: true,
+
+    // Controls whether response card buttons are disabled after being clicked
+    shouldDisableClickedResponseCardButtons: true,
 
     // Optionally display login menu
     enableLogin: false,
