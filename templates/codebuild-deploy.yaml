@@ -564,3 +564,7 @@ Outputs:
     SnippetUrl:
         Value: !Sub "https://${LexWebUiDistribution.DomainName}/iframe-snippet.html"
         Description: URL of a page showing the snippet to load the chatbot UI as an iframe
+        
+    WebAppBucket:
+        Value: !Sub "${WebAppBucket}"
+        Description: S3 bucket hosting lexwebui artifacts
