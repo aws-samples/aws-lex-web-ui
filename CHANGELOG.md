@@ -54,6 +54,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     bottom (handy if responses are long else user may have to scroll back up
     to the start of message)
   - Allow tooltips and icons to be easily customised/themed via css
+- Fix CloudFront CORS issue. Added CloudFront configuration `CacheMethods` for
+  GET, HEAD and OPTIONS; Also forward headers: Origin,
+  Access-Control-Request-Method and Access-Control-Request-Headers
 
 ## [0.16.0] - 2020-06-06
 - Lex-web-ui now ships with cloudfront as the default distribution method
