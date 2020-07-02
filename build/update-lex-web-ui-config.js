@@ -26,7 +26,8 @@ const config = require('../config');
   'UI_TOOLBAR_LOGO',
   'NEGATIVE_INTENT',
   'POSITIVE_INTENT',
-  'HELP_INTENT'
+  'HELP_INTENT',
+  'MIN_BUTTON_TOOLTIP_CONTENT',
 ].forEach(function (envVar) {
   console.log('[INFO] Env var - %s: [%s]', envVar, process.env[envVar]);
 });

@@ -26,6 +26,7 @@ module.exports = {
     positiveFeedbackIntent: process.env.POSITIVE_INTENT,
     negativeFeedbackIntent: process.env.NEGATIVE_INTENT,
     helpIntent: process.env.HELP_INTENT,
+    minButtonToolTipContent: process.env.MIN_BUTTON_TOOLTIP_CONTENT,
     enableLogin: (process.env.ENABLE_LOGIN === undefined) ? undefined : (process.env.ENABLE_LOGIN === 'true') ? true : false,
     AllowSuperDangerousHTMLInMessage: (process.env.ENABLE_MARKDOWN_SUPPORT === undefined) ? undefined : (process.env.ENABLE_MARKDOWN_SUPPORT === 'true') ? true : false,
     shouldDisplayResponseCardTitle: (process.env.SHOW_RESPONSE_CARD_TITLE === undefined) ? undefined : (process.env.SHOW_RESPONSE_CARD_TITLE === 'true') ? true : false,
