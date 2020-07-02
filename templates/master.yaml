@@ -395,6 +395,20 @@ Outputs:
             URL of the stand-alone sample web application.
             This page will be available after the pipeline/deployment completes.
         Value: !GetAtt CodeBuildDeploy.Outputs.WebAppUrl
+        
+    WebAppDomainName:
+        Description: >
+            DomainName of the web application
+        Value: !GetAtt CodeBuildDeploy.Outputs.WebAppDomainName
+        Export:
+          Name: !Join [":", [!Ref "AWS::StackName", WebAppDomainName]]
+
+    WebAppBucket:
+        Description: >
+            S3 bucket hosting lexwebui artifacts
+        Value: !GetAtt CodeBuildDeploy.Outputs.WebAppBucket
+        Export:
+          Name: !Join [":", [!Ref "AWS::StackName", WebAppBucket]]
 
     ParentPageUrl:
         Condition: NeedsParentOrigin
@@ -425,3 +439,9 @@ Outputs:
         Description: Include Cognito User Pool Public Key URL in stack outputs (needed for QnABot token auth)
         Value: !Sub https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoIdentityPool.Outputs.CognitoUserPoolId}/.well-known/jwks.json
 
+    CognitoUserPoolClientId:
+        Condition: NeedsCognito
+        Description: Cognito User Pool Client Id
+        Value: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+        Export:
+          Name: !Join [":", [!Ref "AWS::StackName", CognitoUserPoolClientId]]
