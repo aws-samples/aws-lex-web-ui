@@ -46,6 +46,15 @@
 .message-text {
   color: #000000;
   width: 100%;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  padding: 0.8em;
+  word-break: break-word;
+  white-space: pre-line;
+}
+
+.message-text.bot-message-alt-html  {
+  white-space: normal;
 }
 
 .headline {
