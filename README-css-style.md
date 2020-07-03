@@ -146,6 +146,23 @@ Set background of the bot's response messages
 }
 ```
 
+
+#### Message text white space
+There are 3 different flavors of `.message-text`, depending on if the UI is configured to use html or not and if html is allowed on the element, if html tags should be stripped out of the content. They now each have a separate class `.bot-message-plain, .bot-message-html & .bot-message-alt-html`. To allow `/n` to appear as line-breaks for content which has html stripped out or disallowed, the default `white-space` is set to `pre-line`. For full-blown html content this can produce extras line-breaks so is overritten.
+````
+.message-text {
+  hyphens: auto;
+  overflow-wrap: break-word;
+  padding: 0.8em;
+  word-break: break-word;
+  white-space: pre-line;
+}
+
+.message-text.bot-message-alt-html  {
+  white-space: normal;
+}
+````
+
 #### Message text color
 ````
 .message-text {
