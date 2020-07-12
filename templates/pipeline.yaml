@@ -213,13 +213,21 @@ Resources:
                 - GET
                 - HEAD
                 - OPTIONS
+              CachedMethods:
+                - GET
+                - HEAD
+                - OPTIONS
               Compress: true
               TargetOriginId: webuiorigin
               ForwardedValues:
-                QueryString: 'true'
+                QueryString: true
+                Headers:
+                  - Origin
+                  - Access-Control-Request-Method
+                  - Access-Control-Request-Headers
               ViewerProtocolPolicy: redirect-to-https
             ViewerCertificate:
-              CloudFrontDefaultCertificate: 'true'
+              CloudFrontDefaultCertificate: true
             HttpVersion: http2
             IPV6Enabled: true
 

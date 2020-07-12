@@ -631,7 +631,6 @@ export class IframeComponentLoader {
           });
         }
       },
-
       // iframe sends Lex updates based on Lex API responses
       updateLexState(evt) {
         // evt.data will contain the Lex state

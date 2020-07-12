@@ -13,12 +13,13 @@
               <div
                 v-if="shouldShowAvatarImage"
                 v-bind:style="botAvatarBackground"
-                v-bind:tabindex="message.id + 1"
-                class="bot-avatar focusable"
+                tabindex="-1"
+                class="bot-avatar"
+                aria-hidden="true"
               >
               </div>
               <div
-                v-bind:tabindex="message.id + 1"
+                tabindex="0"
                 v-on:focus="onMessageFocus"
                 v-on:blur="onMessageBlur"
                 class="message-bubble focusable"
@@ -36,9 +37,9 @@
                   </audio>
                   <v-btn
                     v-on:click="playAudio"
-                    v-bind:tabindex="message.id + 1"
+                    tabindex="0"
                     icon
-                    class="black--text ml-0 mr-0"
+                    class="icon-color ml-0 mr-0"
                   >
                     <v-icon class="play-icon">play_circle_outline</v-icon>
                   </v-btn>
@@ -50,12 +51,14 @@
                   <v-icon
                     v-on:click="onButtonClick(positiveIntent)"
                     v-bind:class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
+                    tabindex="0"
                   >
                     thumb_up
                   </v-icon>
                   <v-icon
                     v-on:click="onButtonClick(negativeIntent)"
                     v-bind:class="{'feedback-icons-negative': !negativeClick, 'negativeClick': negativeClick}"
+                    tabindex="0"
                   >
                     thumb_down
                   </v-icon>
@@ -74,6 +77,7 @@
           <v-flex
             v-if="shouldShowMessageDate && isMessageFocused"
             class="text-xs-center message-date"
+            aria-hidden="true"
           >
            {{messageHumanDate}}
           </v-flex>

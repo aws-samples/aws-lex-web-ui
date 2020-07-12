@@ -24,6 +24,7 @@
     "positiveFeedbackIntent": "",
     "negativeFeedbackIntent": "",
     "helpIntent": "help",
+    "minButtonToolTipContent": "Open Chatbot",
     "enableLogin": false,
     "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,

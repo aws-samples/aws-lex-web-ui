@@ -66,6 +66,8 @@ export default {
   },
 
   isRunningEmbedded: false, // am I running in an iframe?
+  isSFXOn: (config.ui) ? (!!config.ui.enableSFX &&
+    !!config.ui.messageSentSFX && !!config.ui.messageReceivedSFX) : false,
   isUiMinimized: false, // when running embedded, is the iframe minimized?
   isEnableLogin: false, // true when a login/logout menu should be displayed
   isLoggedIn: false, // when running with login/logout enabled

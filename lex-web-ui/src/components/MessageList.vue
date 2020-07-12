@@ -1,8 +1,7 @@
 <template>
-  <v-layout
-    column
-    fill-height
-    class="message-list"
+  <div
+    aria-live="polite"
+    class="layout message-list column fill-height"
   >
     <message
       ref="messages"
@@ -15,7 +14,7 @@
     <MessageLoading
       v-if="loading"
     ></MessageLoading>
-  </v-layout>
+  </div>
 </template>
 
 <script>
@@ -57,7 +56,9 @@ export default {
   methods: {
     scrollDown() {
       return this.$nextTick(() => {
-        this.$el.scrollTop = this.$el.scrollHeight;
+        const lastMessageOffset = (this.$el.lastElementChild) ?
+          this.$el.lastElementChild.getBoundingClientRect().height : 0;
+        this.$el.scrollTop = this.$el.scrollHeight - lastMessageOffset;
       });
     },
   },
@@ -66,6 +67,7 @@ export default {
 
 <style scoped>
 .message-list {
+  padding-top: 1rem;
   overflow-y: auto;
   overflow-x: hidden;
 }

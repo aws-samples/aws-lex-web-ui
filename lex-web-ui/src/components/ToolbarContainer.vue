@@ -3,10 +3,14 @@
     v-bind:color="toolbarColor"
     app
     dark
-    dense
     fixed
+    v-if="!isUiMinimized"
+    v-on="toolbarClickHandler"
+    v-bind:dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
+    v-bind:class="{ 'minimized': isUiMinimized }"
+    aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
   >
-    <img v-if="toolbarLogo" v-bind:src="toolbarLogo"/>
+    <img v-if="toolbarLogo" v-bind:src="toolbarLogo" alt="logo" aria-hidden="true"/>
 
     <v-menu v-if="isEnableLogin" offset-y>
 
@@ -31,23 +35,27 @@
 
 
     <div class="nav-buttons">
-      <v-btn small icon :disabled="isLexProcessing" class="nav-button-prev" v-on="prevNavEventHandlers" v-on:click="onPrev" v-show="hasPrevUtterance && !isUiMinimized">
+      <v-btn small icon :disabled="isLexProcessing"
+             class="nav-button-prev"
+             v-on="prevNavEventHandlers"
+             v-on:click="onPrev"
+             v-show="hasPrevUtterance && !isUiMinimized"
+             aria-label="go back to previous message"
+      >
         <v-icon>
           arrow_back
         </v-icon>
       </v-btn>
-      <v-tooltip v-model="prevNav" activator=".nav-button-prev" right>
+      <v-tooltip v-model="prevNav" activator=".nav-button-prev" content-class="tooltip-custom" right>
         <span>Previous</span>
       </v-tooltip>
     </div>
 
-
-
-    <v-toolbar-title class="hidden-xs-and-down" v-on:click="toggleMinimize">
-      {{ toolbarTitle }}
+    <v-toolbar-title class="hidden-xs-and-down" v-on:click.stop="toggleMinimize" v-show="!isUiMinimized">
+      <h1>{{ toolbarTitle }}</h1>
     </v-toolbar-title>
 
-    <v-toolbar-title class="hidden-xs-and-down">
+    <v-toolbar-title class="hidden-xs-and-down" v-show="!isUiMinimized">
       {{ userName }}
     </v-toolbar-title>
 
@@ -55,6 +63,7 @@
     <!-- tooltip should be before btn to avoid right margin issue in mobile -->
     <v-tooltip
       v-model="shouldShowTooltip"
+      content-class="tooltip-custom"
       activator=".min-max-toggle"
       left
     >
@@ -62,13 +71,22 @@
     </v-tooltip>
     <v-tooltip
       v-model="shouldShowHelpTooltip"
+      content-class="tooltip-custom"
       activator=".help-toggle"
       left
     >
       <span id="help-tooltip">help</span>
     </v-tooltip>
+    <v-tooltip
+      v-model="shouldShowSFXTooltip"
+      content-class="tooltip-custom"
+      activator=".sfx-toggle"
+      left
+    >
+      <span id="sfx-tooltip">sound effects on/off</span>
+    </v-tooltip>
     <v-btn
-      v-if="helpButton && !isUiMinimized"
+      v-if="shouldRenderHelpButton && !isUiMinimized"
       v-on:click="sendHelp"
       v-on="tooltipHelpEventHandlers"
       v-bind:disabled="isLexProcessing"
@@ -79,15 +97,30 @@
         help_outline
       </v-icon>
     </v-btn>
+
+    <v-btn
+      v-if="shouldRenderSfxButton && isUiMinimized"
+      v-on:click="toggleSFXMute"
+      v-on="tooltipSFXEventHandlers"
+      class="sfx-toggle"
+      icon
+      aria-label="sound effects on off toggle"
+    >
+      <v-icon>
+        {{ isSFXOn ?  'volume_up' : 'volume_off' }}
+      </v-icon>
+    </v-btn>
+
     <v-btn
       v-if="$store.state.isRunningEmbedded"
-      v-on:click="toggleMinimize"
+      v-on:click.stop="toggleMinimize"
       v-on="tooltipEventHandlers"
       class="min-max-toggle"
       icon
+      v-bind:aria-label="(isUiMinimized) ? 'chat' : 'minimize chat window toggle'"
     >
       <v-icon>
-        {{ isUiMinimized ?  'arrow_drop_up' : 'arrow_drop_down' }}
+        {{ isUiMinimized ?  'chat' : 'arrow_drop_down' }}
       </v-icon>
     </v-btn>
   </v-toolbar>
@@ -95,7 +128,7 @@
 
 <script>
 /*
-Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Amazon Software License (the "License"). You may not use this file
 except in compliance with the License. A copy of the License is located at
@@ -116,6 +149,7 @@ export default {
       ],
       shouldShowTooltip: false,
       shouldShowHelpTooltip: false,
+      shouldShowSFXTooltip: false,
       prevNav: false,
       prevNavEventHandlers: {
         mouseenter: this.mouseOverPrev,
@@ -131,6 +165,13 @@ export default {
         touchend: this.onHelpButtonHoverLeave,
         touchcancel: this.onHelpButtonHoverLeave,
       },
+      tooltipSFXEventHandlers: {
+        mouseenter: this.onSFXButtonHoverEnter,
+        mouseleave: this.onSFXButtonHoverLeave,
+        touchstart: this.onSFXButtonHoverEnter,
+        touchend: this.onSFXButtonHoverLeave,
+        touchcancel: this.onSFXButtonHoverLeave,
+      },
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
         mouseleave: this.onInputButtonHoverLeave,
@@ -142,6 +183,12 @@ export default {
   },
   props: ['toolbarTitle', 'toolbarColor', 'toolbarLogo', 'isUiMinimized', 'userName'],
   computed: {
+    toolbarClickHandler() {
+      if (this.isUiMinimized) {
+        return { click: this.toggleMinimize };
+      }
+      return null;
+    },
     toolTipMinimize() {
       return (this.isUiMinimized) ? 'maximize' : 'minimize';
     },
@@ -157,8 +204,15 @@ export default {
     isLexProcessing() {
       return this.$store.state.isBackProcessing || this.$store.state.lex.isProcessing;
     },
-    helpButton() {
-      return this.$store.state.config.ui.helpIntent;
+    shouldRenderHelpButton() {
+      return !!this.$store.state.config.ui.helpIntent;
+    },
+    shouldRenderSfxButton() {
+      return this.$store.state.config.ui.enableSFX && this.$store.state.config.ui.messageSentSFX
+      && this.$store.state.config.ui.messageReceivedSFX;
+    },
+    isSFXOn() {
+      return this.$store.state.isSFXOn;
     },
   },
   methods: {
@@ -166,7 +220,7 @@ export default {
       this.prevNav = !this.prevNav;
     },
     onInputButtonHoverEnter() {
-      this.shouldShowTooltip = true;
+      this.shouldShowTooltip = !this.isUiMinimized;
     },
     onInputButtonHoverLeave() {
       this.shouldShowTooltip = false;
@@ -177,11 +231,21 @@ export default {
     onHelpButtonHoverLeave() {
       this.shouldShowHelpTooltip = false;
     },
+    onSFXButtonHoverEnter() {
+      this.shouldShowSFXTooltip = true;
+    },
+    onSFXButtonHoverLeave() {
+      this.shouldShowSFXTooltip = false;
+    },
     onNavHoverEnter() {
       this.shouldShowNavToolTip = true;
     },
     onNavHoverLeave() {
       this.shouldShowNavToolTip = false;
+    },
+    toggleSFXMute() {
+      this.onInputButtonHoverLeave();
+      this.$store.dispatch('toggleIsSFXOn');
     },
     toggleMinimize() {
       if (this.$store.state.isRunningEmbedded) {
@@ -192,7 +256,7 @@ export default {
     sendHelp() {
       const message = {
         type: 'human',
-        text: this.helpButton,
+        text: this.$store.state.config.ui.helpIntent,
       };
       this.$store.dispatch('postTextMessage', message);
       this.shouldShowHelpTooltip = false;

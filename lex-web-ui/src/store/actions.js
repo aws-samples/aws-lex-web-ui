@@ -78,10 +78,12 @@ export default {
     context.commit('mergeConfig', configObj);
   },
   initMessageList(context) {
-    context.commit('pushMessage', {
-      type: 'bot',
-      text: context.state.config.lex.initialText,
-    });
+    if (context.state.config.lex.initialText.length > 0) {
+      context.commit('pushMessage', {
+        type: 'bot',
+        text: context.state.config.lex.initialText,
+      });
+    }
   },
   initLexClient(context, lexRuntimeClient) {
     lexClient = new LexClient({
@@ -445,7 +447,17 @@ export default {
         });
     });
   },
+  playSound(context, fileUrl) {
+    document.getElementById('sound').innerHTML = `<audio autoplay="autoplay"><source src="${fileUrl}" type="audio/mpeg" /><embed hidden="true" autostart="true" loop="false" src="${fileUrl}" /></audio>`;
+  },
   postTextMessage(context, message) {
+    if (context.state.isSFXOn) {
+      context.dispatch('playSound', context.state.config.ui.messageSentSFX);
+      context.dispatch(
+        'sendMessageToParentWindow',
+        { event: 'messageSent' },
+      );
+    }
     return context.dispatch('interruptSpeechConversation')
       .then(() => context.dispatch('pushMessage', message))
       .then(() => context.commit('pushUtterance', message.text))
@@ -478,11 +490,15 @@ export default {
           }
         } else {
           let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+          let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
           if (response.messageFormat === 'CustomPayload') {
             if (alts === undefined) {
               alts = {};
             }
             alts.markdown = response.message;
+          }
+          if (responseCardObject === undefined) {
+            responseCardObject = context.state.lex.responseCard;
           }
           context.dispatch(
             'pushMessage',
@@ -490,13 +506,20 @@ export default {
               text: response.message,
               type: 'bot',
               dialogState: context.state.lex.dialogState,
-              responseCard: context.state.lex.responseCard,
+              responseCard: responseCardObject, // prefering appcontext over lex.responsecard
               alts,
             },
           );
         }
       })
       .then(() => {
+        if (context.state.isSFXOn) {
+          context.dispatch('playSound', context.state.config.ui.messageReceivedSFX);
+          context.dispatch(
+            'sendMessageToParentWindow',
+            { event: 'messageReceived' },
+          );
+        }
         if (context.state.lex.dialogState === 'Fulfilled') {
           context.dispatch('reInitBot');
         }
@@ -790,6 +813,9 @@ export default {
       'sendMessageToParentWindow',
       { event: 'toggleHasButtons' },
     );
+  },
+  toggleIsSFXOn(context) {
+    context.commit('toggleIsSFXOn');
   },
   /**
    * sendMessageToParentWindow will either dispatch an event using a CustomEvent to a handler when

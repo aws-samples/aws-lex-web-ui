@@ -306,6 +306,10 @@ export default {
   toggleIsUiMinimized(state) {
     state.isUiMinimized = !state.isUiMinimized;
   },
+
+  toggleIsSFXOn(state) {
+    state.isSFXOn = !state.isSFXOn;
+  },
   /**
    * used to track the appearance of the input container
    * when the appearance of buttons should hide it

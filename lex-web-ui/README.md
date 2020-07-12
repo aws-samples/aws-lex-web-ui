@@ -340,6 +340,19 @@ NOTE: browsers may require the application to be served using HTTPS for
 the WebRTC API to work. Make sure to serve the application from an HTTPS
 enabled server or if hosting on S3 or CloudFront, use https in the URL.
 
+## Sound Effects
+You can enable sound effects when a message is sent or received. This
+feature also enables a sound button in the toolbar that can be used to
+mute the sound effects.
+```
+  "ui": {
+    "enableSFX": true,
+    // uri to sound files
+    "messageSentSFX": "sent.mp3",
+    "messageReceivedSFX": "received.mp3",
+  }
+```
+
 ## Markdown and HTML Support 
 The chatbot UI supports HTML and Markdown in bot responses. Markdown can be provided in
 one of two methods. 

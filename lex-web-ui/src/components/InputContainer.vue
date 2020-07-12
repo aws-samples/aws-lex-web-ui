@@ -1,12 +1,15 @@
 <template>
-  <v-footer app fixed>
+  <div app fixed>
     <v-layout
       row
       justify-space-between
       ma-0
       class="input-container"
     >
-      <v-toolbar color="white" dense>
+      <v-toolbar
+        color="white"
+        v-bind:dense="this.$store.state.isRunningEmbedded"
+      >
         <!--
           using v-show instead of v-if to make recorder-status transition work
         -->
@@ -33,6 +36,7 @@
         <!-- tooltip should be before btn to avoid right margin issue in mobile -->
         <v-tooltip
           activator=".input-button"
+          content-class="tooltip-custom"
           v-model="shouldShowTooltip"
           ref="tooltip"
           left
@@ -45,8 +49,9 @@
           v-on="tooltipEventHandlers"
           v-bind:disabled="isLexProcessing"
           ref="send"
-          class="black--text input-button"
+          class="icon-color input-button"
           icon
+          aria-label="Send Message"
         >
           <v-icon medium>send</v-icon>
         </v-btn>
@@ -56,14 +61,14 @@
           v-on="tooltipEventHandlers"
           v-bind:disabled="isMicButtonDisabled"
           ref="mic"
-          class="black--text input-button"
+          class="icon-color input-button"
           icon
         >
           <v-icon medium>{{micButtonIcon}}</v-icon>
         </v-btn>
       </v-toolbar>
     </v-layout>
-  </v-footer>
+  </div>
 </template>
 
 <script>
@@ -189,7 +194,9 @@ export default {
     setInputTextFieldFocus() {
       // focus() needs to be wrapped in setTimeout for IE11
       setTimeout(() => {
-        this.$refs.textInput.$refs.input.focus();
+        if (this.$refs && this.$refs.textInput && this.shouldShowTextInput) {
+          this.$refs.textInput.$refs.input.focus();
+        }
       }, 10);
     },
     playInitialInstruction() {
@@ -263,7 +270,7 @@ export default {
 };
 </script>
 <style>
-.footer {
+.input-container {
   /* make footer same height as dense toolbar */
   min-height: 48px;
 }

@@ -1,5 +1,5 @@
 <template>
-  <v-flex d-flex class="message message-bot">
+  <div class="flex message d-flex message-bot" aria-hidden="true">
     <!-- contains message and response card -->
     <v-layout column ma-2 class="message-layout">
 
@@ -11,7 +11,8 @@
           <v-flex d-flex class="message-bubble-avatar-container">
             <v-layout row class="message-bubble-row">
               <div
-                class="message-bubble focusable"
+                class="message-bubble"
+                aria-hidden="true"
               >
                 {{ progress }}
               </div>
@@ -20,7 +21,7 @@
         </v-layout>
       </v-flex>
     </v-layout>
-  </v-flex>
+  </div>
 </template>
 
 <script>

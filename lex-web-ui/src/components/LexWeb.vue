@@ -1,7 +1,14 @@
 <template>
   <v-app id="lex-web"
+    v-bind:ui-minimized="isUiMinimized"
   >
+    <min-button
+      v-bind:toolbar-color="toolbarColor"
+      v-bind:is-ui-minimized="isUiMinimized"
+      v-on:toggleMinimizeUi="toggleMinimizeUi"
+    ></min-button>
     <toolbar-container
+      v-if="!isUiMinimized"
       v-bind:userName="userNameValue"
       v-bind:toolbar-title="toolbarTitle"
       v-bind:toolbar-color="toolbarColor"
@@ -12,9 +19,15 @@
       @requestLogout="handleRequestLogout"
     ></toolbar-container>
 
-    <v-content>
-      <v-container class="message-list-container" fluid pa-0>
-        <message-list v-show="!isUiMinimized"
+    <v-content
+      v-if="!isUiMinimized"
+    >
+      <v-container
+        class="message-list-container"
+        v-bind:class="`toolbar-height-${toolbarHeightClassSuffix}`"
+        fluid pa-0
+      >
+        <message-list v-if="!isUiMinimized"
         ></message-list>
       </v-container>
     </v-content>
@@ -25,12 +38,17 @@
       v-bind:text-input-placeholder="textInputPlaceholder"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
     ></input-container>
+    <div
+      v-if="isSFXOn"
+      id="sound"
+      aria-hidden="true"
+    />
   </v-app>
 </template>
 
 <script>
 /*
-Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Amazon Software License (the "License"). You may not use this file
 except in compliance with the License. A copy of the License is located at
@@ -44,6 +62,7 @@ License for the specific language governing permissions and limitations under th
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
 
+import MinButton from '@/components/MinButton';
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
@@ -58,9 +77,11 @@ export default {
   data() {
     return {
       userNameValue: '',
+      toolbarHeightClassSuffix: 'md',
     };
   },
   components: {
+    MinButton,
     ToolbarContainer,
     MessageList,
     InputContainer,
@@ -80,6 +101,9 @@ export default {
     },
     toolbarLogo() {
       return this.$store.state.config.ui.toolbarLogo;
+    },
+    isSFXOn() {
+      return this.$store.state.isSFXOn;
     },
     isUiMinimized() {
       return this.$store.state.isUiMinimized;
@@ -185,6 +209,11 @@ export default {
         console.error('could not initialize application while mounting:', error);
       });
   },
+  beforeDestroy() {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.onResize, { passive: true });
+    }
+  },
   mounted() {
     if (!this.$store.state.isRunningEmbedded) {
       this.$store.dispatch(
@@ -193,8 +222,32 @@ export default {
       );
       this.setFocusIfEnabled();
     }
+    this.onResize();
+    window.addEventListener('resize', this.onResize, { passive: true });
   },
   methods: {
+    onResize() {
+      const { innerWidth } = window;
+      this.setToolbarHeigthClassSuffix(innerWidth);
+    },
+    setToolbarHeigthClassSuffix(innerWidth) {
+      // Vuetify toolbar changes height based on innerWidth
+
+      // when running embedded the toolbar is fixed to dense
+      if (this.$store.state.isRunningEmbedded) {
+        this.toolbarHeightClassSuffix = 'md';
+        return;
+      }
+
+      // in full screen the toolbar changes size
+      if (innerWidth < 640) {
+        this.toolbarHeightClassSuffix = 'sm';
+      } else if (innerWidth > 640 && innerWidth < 960) {
+        this.toolbarHeightClassSuffix = 'md';
+      } else {
+        this.toolbarHeightClassSuffix = 'lg';
+      }
+    },
     toggleMinimizeUi() {
       return this.$store.dispatch('toggleIsUiMinimized');
     },
@@ -422,10 +475,39 @@ export default {
 </script>
 
 <style>
+/*
+The Vuetify toolbar height is based on screen width breakpoints
+The toolbar can be 48px, 56px and 64px.
+It is fixed to 48px when using 'dense'
+
+The message list is placed between the toolbar at the top and input
+container on the bottom. Both the toolbar and the input-container
+dynamically change height based on width breakpoints.
+So we duplicate the height and substract it from the total height
+of the message list to make it fit between the toolbar and input container
+
+NOTE: not using var() for different heights due to IE11 compatibility
+*/
 .message-list-container {
-  /* vuetify toolbar and footer are 48px each when using 'dense' */
-  height: calc(100% - 96px);
   position: fixed;
+}
+.message-list-container.toolbar-height-sm {
+  top: 56px;
+  height: calc(100% - 2 * 56px);
+}
+/* yes, the height is smaller in mid sizes */
+.message-list-container.toolbar-height-md {
   top: 48px;
+  height: calc(100% - 2 * 48px);
+}
+.message-list-container.toolbar-height-lg {
+  top: 64px;
+  height: calc(100% - 2 * 64px);
+}
+
+#lex-web[ui-minimized] {
+  /* make background transparent when running minimized so only
+  the button is shown */
+  background: transparent;
 }
 </style>
