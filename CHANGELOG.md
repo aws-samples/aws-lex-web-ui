@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.17.0] - 2020-06-XX
+## [0.17.0] - 2020-07-12
 - Improved accessibility - big thanks to @pdkn for this significant contribution
   * Improve screen reader experience
     - Add screen reader specific text to questions & answer (hidden visually)

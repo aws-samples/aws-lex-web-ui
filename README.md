@@ -18,6 +18,14 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### New Features in version 0.17.0
+- Improved screen reader / accessibility features 
+- Added CloudFormation stack outputs for CloudFront and S3 bucket
+- Use response card defined in session attribute "appContext" over that defined by Lex based response Card 
+- Updated dependent packages in package-lock.json identified by Dependabot security alerts 
+- Resolved additional CloudFront CORS issues
+- See [CHANGELOG](CHANGELOG.md) for additional details
+
 #### New Features in version 0.16.0
 - Lex-web-ui now ships with cloudfront as the default distribution method 
   * better load times 
@@ -31,43 +39,6 @@ UI using JavaScript
 - Added back default parameter BotAlias of '$LATEST'. The '$LATEST' 
 alias should only be used for manual testing. Amazon Lex limits
 the number of runtime requests that you can make to the $LATEST version of the bot.
-
-#### New Features in version 0.14.15
-- Fixed text input focus issues on IE11 after pressing enter to send request. 
-- Added new Iframe API entry points to deleteSession and startNewSession for fine grain control of Lex sessions
-
-#### New Features in version 0.14.14
-- Added css to resolve message-text width issue in IE11. 
-- Disabled text input components when the UI is performing Lex postText processing (sending / receiving)
-- Switched default load options to use minimized components
-- Removed use of default Alias '$LATEST'. Users must specify the appropriate alias to use. 
-
-#### New Features in version 0.14.13
-- Added new feature that allows the input area to be hidden if Response Card buttons are present. User
-must select from the available set of buttons. To enable this feature set the property 
-ui.hideInputFieldsForButtonResponse to true in the lex-web-ui-loader-config.json. This file is stored in
-the S3 bucket hosting the UI. Upload back to the S3 bucket. This feature
-is disabled by default. 
-- Removed use of botocore.vendored.requests. Now imports this module for python based lambda functions. 
-
-#### New Features in version 0.14.12
-- Defect fixes for CORS processing
-- Updates for multi-region support
-- Easy URLs to launch in us-east-1 (N. Virginia), us-west-2 (Oregon), eu-west-1 (Ireland), ap-southeast-2 (Sydney) - see Launch links below
-
-#### New Features in version 0.14.11
-- Installation now supported in several regions - see the Launch links below
-- Added css guide and default customization css file to allow style modifications used by index.html
-- Bug fixes related to installing sample Order Flowers bot
-
-#### New Features in version 0.14.9
-- Use of NodeJS 10.x for Lambda functions.
-Note that this feature requires use of NodeJS 10.16.3 or higher and npm version 6.13.0 or higher
-to build the LexWebUi. 
-- Moved use of Polly for initial speech instruction to be used by Cognito Auth Role only
-
-#### New Features in version 0.14.8
-- Inline message feedback buttons
 
 <img src="./img/feedbackButtons.png" width="480">
 
