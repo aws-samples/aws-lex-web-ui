@@ -37061,17 +37061,21 @@ var recorder = void 0;
         }
       } else {
         var alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+        var responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
         if (response.messageFormat === 'CustomPayload') {
           if (alts === undefined) {
             alts = {};
           }
           alts.markdown = response.message;
         }
+        if (responseCardObject === undefined) {
+          responseCardObject = context.state.lex.responseCard;
+        }
         context.dispatch('pushMessage', {
           text: response.message,
           type: 'bot',
           dialogState: context.state.lex.dialogState,
-          responseCard: context.state.lex.responseCard,
+          responseCard: responseCardObject, // prefering appcontext over lex.responsecard
           alts: alts
         });
       }
