@@ -29,22 +29,6 @@
                   v-if="'text' in message && message.text !== null && message.text.length"
                 ></message-text>
                 <div
-                  v-if="message.type === 'human' && message.audio"
-                  class="message-audio"
-                >
-                  <audio>
-                    <source v-bind:src="message.audio" type="audio/wav">
-                  </audio>
-                  <v-btn
-                    v-on:click="playAudio"
-                    tabindex="0"
-                    icon
-                    class="icon-color ml-0 mr-0"
-                  >
-                    <v-icon class="play-icon">play_circle_outline</v-icon>
-                  </v-btn>
-                </div>
-                <div
                   v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback"
                   class="feedback-state"
                 >
@@ -71,6 +55,35 @@
                 >
                   {{botDialogState.icon}}
                 </v-icon>
+                <div v-if="message.type === 'human' && message.audio">
+                    <audio>
+                      <source v-bind:src="message.audio" type="audio/wav">
+                    </audio>
+                </div>
+                 <v-menu offset-y v-if="message.type === 'human'">
+                  <v-btn
+                    slot="activator"
+                    icon
+                  >
+                    <v-icon class="smicon">
+                      menu
+                    </v-icon>
+                  </v-btn>
+                  <v-list>
+                    <v-list-tile>
+                      <v-list-tile-title v-on:click="resendMessage(message.text)">
+                          <v-icon>replay</v-icon>
+                      </v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile
+                      v-if="message.type === 'human' && message.audio"
+                      class="message-audio">
+                      <v-list-tile-title v-on:click="playAudio">
+                            <v-icon>play_circle_outline</v-icon>
+                      </v-list-tile-title>
+                    </v-list-tile>
+                  </v-list>
+                </v-menu>
               </div>
             </v-layout>
           </v-flex>
@@ -198,6 +211,14 @@ export default {
     },
   },
   methods: {
+    resendMessage(messageText, oMessage) {
+      console.log(oMessage);
+      const message = {
+        type: 'human',
+        text: messageText,
+      };
+      this.$store.dispatch('postTextMessage', message);
+    },
     onButtonClick(feedback) {
       if (!this.hasButtonBeenClicked) {
         this.hasButtonBeenClicked = true;
@@ -215,12 +236,14 @@ export default {
       }
     },
     playAudio() {
+      console.log('hi tom am here');
       // XXX doesn't play in Firefox or Edge
       /* XXX also tried:
       const audio = new Audio(this.message.audio);
       audio.play();
       */
       const audioElem = this.$el.querySelector('audio');
+      // console.log(message);
       if (audioElem) {
         audioElem.play();
       }
@@ -271,6 +294,10 @@ export default {
 </script>
 
 <style scoped>
+.smicon {
+  font-size: 14px;
+}
+
 .message, .message-bubble-column {
   flex: 0 0 auto;
 }

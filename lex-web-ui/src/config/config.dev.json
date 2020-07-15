@@ -22,7 +22,8 @@
     "positiveFeedbackIntent": "Thumbs up",
     "negativeFeedbackIntent": "Thumbs down",
     "helpIntent": "help",
-    "hideInputFieldsForButtonResponse": true
+    "hideInputFieldsForButtonResponse": true,
+    "backButton": false
   },
   "recorder": {
     "preset": "speech_recognition"
