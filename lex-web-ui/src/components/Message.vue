@@ -60,7 +60,7 @@
                       <source v-bind:src="message.audio" type="audio/wav">
                     </audio>
                 </div>
-                 <v-menu offset-y v-if="message.type === 'human'">
+                 <v-menu offset-y v-if="message.type === 'human'" v-show="showMessageMenu">
                   <v-btn
                     slot="activator"
                     icon
@@ -174,6 +174,9 @@ export default {
     },
     showDialogStateIcon() {
       return this.$store.state.config.ui.showDialogStateIcon;
+    },
+    showMessageMenu() {
+      return this.$store.state.config.ui.messageMenu;
     },
     showDialogFeedback() {
       if (this.$store.state.config.ui.positiveFeedbackIntent.length > 2
