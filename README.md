@@ -21,7 +21,8 @@ UI using JavaScript
 #### New Features in version 0.17.0
 - Improved screen reader / accessibility features 
 - Added CloudFormation stack outputs for CloudFront and S3 bucket
-- Use response card defined in session attribute "appContext" over that defined by Lex based response Card 
+- Use response card defined in session attribute "appContext" over that defined by Lex based response Card
+- lex web ui now supports greater than 5 buttons when response card is defined in session attributes "appcontext"
 - Updated dependent packages in package-lock.json identified by Dependabot security alerts 
 - Resolved additional CloudFront CORS issues
 - See [CHANGELOG](CHANGELOG.md) for additional details
