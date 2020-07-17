@@ -59,6 +59,15 @@
                     <audio>
                       <source v-bind:src="message.audio" type="audio/wav">
                     </audio>
+                    <v-btn
+                    v-on:click="playAudio"
+                    tabindex="0"
+                    icon
+                    v-show="!showMessageMenu"
+                    class="icon-color ml-0 mr-0"
+                  >
+                    <v-icon class="play-icon">play_circle_outline</v-icon>
+                  </v-btn>
                 </div>
                  <v-menu offset-y v-if="message.type === 'human'" v-show="showMessageMenu">
                   <v-btn
@@ -66,7 +75,7 @@
                     icon
                   >
                     <v-icon class="smicon">
-                      menu
+                      more_vert
                     </v-icon>
                   </v-btn>
                   <v-list>
@@ -214,8 +223,7 @@ export default {
     },
   },
   methods: {
-    resendMessage(messageText, oMessage) {
-      console.log(oMessage);
+    resendMessage(messageText) {
       const message = {
         type: 'human',
         text: messageText,
@@ -239,14 +247,12 @@ export default {
       }
     },
     playAudio() {
-      console.log('hi tom am here');
       // XXX doesn't play in Firefox or Edge
       /* XXX also tried:
       const audio = new Audio(this.message.audio);
       audio.play();
       */
       const audioElem = this.$el.querySelector('audio');
-      // console.log(message);
       if (audioElem) {
         audioElem.play();
       }

@@ -31,7 +31,9 @@
     "hideInputFieldsForButtonResponse": false,
     "pushInitialTextOnRestart": false,
     "directFocusToBotInput": false,
-    "showDialogStateIcon": false
+    "showDialogStateIcon": false,
+    "backButton": false,
+    "messageMenu": true
   },
   "polly": {
     "voiceId": "Salli"
