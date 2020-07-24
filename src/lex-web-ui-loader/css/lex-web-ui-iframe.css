@@ -22,10 +22,16 @@
   display: flex;
 }
 
+.lex-web-ui-iframe--minimize {
+  min-width: 1vw !important;
+  min-height: 1vh !important;
+}
+
 /* disable box shadow when minimized */
 .lex-web-ui-iframe.lex-web-ui-iframe--minimize iframe {
   box-shadow: none;
   border-radius: none;
+  z-index: -999;
 }
 
 /* hide on very small resolutions */
@@ -54,6 +60,10 @@ and (min-width: 481px)
 and (max-width: 960px) {
   .lex-web-ui-iframe {
     min-width: 90vw;
+  }
+
+  .lex-web-ui-iframe--minimize {
+    min-width: 1vw !important;
   }
 }
 
