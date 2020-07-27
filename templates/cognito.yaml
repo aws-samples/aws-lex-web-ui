@@ -60,6 +60,7 @@ Resources:
                   Name: "preferred_username"
                   Required: true
                   Mutable: true
+            UserPoolName: !Join [ '-', [ 'UserPool', !Select [0, !Split ["-CognitoIdentityPool", !Ref "AWS::StackName"]]]]
 
     CognitoUserPoolClient:
         Type: AWS::Cognito::UserPoolClient
