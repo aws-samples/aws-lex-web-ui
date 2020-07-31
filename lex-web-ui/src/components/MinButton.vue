@@ -1,13 +1,14 @@
 <template>
   <v-container fluid class="min-button-container">
-    <v-tooltip
+    <!-- Temporarily suspending the tool tip on the minimized button -->
+    <!-- <v-tooltip
       v-model="shouldShowTooltip"
       content-class="tooltip-min-button"
       activator=".min-button"
       left
     >
       <span id="min-button-tooltip">{{minButtonToolTipContent}}</span>
-    </v-tooltip>
+    </v-tooltip> -->
     <v-fab-transition>
       <v-btn
         bottom
