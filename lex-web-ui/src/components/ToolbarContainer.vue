@@ -39,7 +39,7 @@
              class="nav-button-prev"
              v-on="prevNavEventHandlers"
              v-on:click="onPrev"
-             v-show="hasPrevUtterance && !isUiMinimized"
+             v-show="hasPrevUtterance && !isUiMinimized && shouldRenderBackButton"
              aria-label="go back to previous message"
       >
         <v-icon>
@@ -210,6 +210,9 @@ export default {
     shouldRenderSfxButton() {
       return this.$store.state.config.ui.enableSFX && this.$store.state.config.ui.messageSentSFX
       && this.$store.state.config.ui.messageReceivedSFX;
+    },
+    shouldRenderBackButton() {
+      return this.$store.state.config.ui.backButton;
     },
     isSFXOn() {
       return this.$store.state.isSFXOn;

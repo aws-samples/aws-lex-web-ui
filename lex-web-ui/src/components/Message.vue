@@ -29,22 +29,6 @@
                   v-if="'text' in message && message.text !== null && message.text.length"
                 ></message-text>
                 <div
-                  v-if="message.type === 'human' && message.audio"
-                  class="message-audio"
-                >
-                  <audio>
-                    <source v-bind:src="message.audio" type="audio/wav">
-                  </audio>
-                  <v-btn
-                    v-on:click="playAudio"
-                    tabindex="0"
-                    icon
-                    class="icon-color ml-0 mr-0"
-                  >
-                    <v-icon class="play-icon">play_circle_outline</v-icon>
-                  </v-btn>
-                </div>
-                <div
                   v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback"
                   class="feedback-state"
                 >
@@ -71,6 +55,44 @@
                 >
                   {{botDialogState.icon}}
                 </v-icon>
+                <div v-if="message.type === 'human' && message.audio">
+                    <audio>
+                      <source v-bind:src="message.audio" type="audio/wav">
+                    </audio>
+                    <v-btn
+                    v-on:click="playAudio"
+                    tabindex="0"
+                    icon
+                    v-show="!showMessageMenu"
+                    class="icon-color ml-0 mr-0"
+                  >
+                    <v-icon class="play-icon">play_circle_outline</v-icon>
+                  </v-btn>
+                </div>
+                 <v-menu offset-y v-if="message.type === 'human'" v-show="showMessageMenu">
+                  <v-btn
+                    slot="activator"
+                    icon
+                  >
+                    <v-icon class="smicon">
+                      more_vert
+                    </v-icon>
+                  </v-btn>
+                  <v-list>
+                    <v-list-tile>
+                      <v-list-tile-title v-on:click="resendMessage(message.text)">
+                          <v-icon>replay</v-icon>
+                      </v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile
+                      v-if="message.type === 'human' && message.audio"
+                      class="message-audio">
+                      <v-list-tile-title v-on:click="playAudio">
+                            <v-icon>play_circle_outline</v-icon>
+                      </v-list-tile-title>
+                    </v-list-tile>
+                  </v-list>
+                </v-menu>
               </div>
             </v-layout>
           </v-flex>
@@ -162,6 +184,9 @@ export default {
     showDialogStateIcon() {
       return this.$store.state.config.ui.showDialogStateIcon;
     },
+    showMessageMenu() {
+      return this.$store.state.config.ui.messageMenu;
+    },
     showDialogFeedback() {
       if (this.$store.state.config.ui.positiveFeedbackIntent.length > 2
       && this.$store.state.config.ui.negativeFeedbackIntent.length > 2) {
@@ -198,6 +223,13 @@ export default {
     },
   },
   methods: {
+    resendMessage(messageText) {
+      const message = {
+        type: 'human',
+        text: messageText,
+      };
+      this.$store.dispatch('postTextMessage', message);
+    },
     onButtonClick(feedback) {
       if (!this.hasButtonBeenClicked) {
         this.hasButtonBeenClicked = true;
@@ -271,6 +303,10 @@ export default {
 </script>
 
 <style scoped>
+.smicon {
+  font-size: 14px;
+}
+
 .message, .message-bubble-column {
   flex: 0 0 auto;
 }
