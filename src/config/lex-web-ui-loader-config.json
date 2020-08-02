@@ -1,7 +1,7 @@
 {
   "region": "us-east-1",
   "cognito": {
-    "poolId": "us-east-1:0cd403d3-76c0-40d0-9d60-afb02bfcb8ff",
+    "poolId": "",
     "appUserPoolClientId": "",
     "appUserPoolName": "",
     "appDomainName": "",
@@ -10,7 +10,7 @@
     "appUserPoolIdentityProvider": ""
   },
   "lex": {
-    "botName": "OrderFlowers",
+    "botName": "",
     "botAlias": "$LATEST",
     "initialText": "",
     "initialSpeechInstruction": "",
