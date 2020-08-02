@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.17.1] - 2020-08-01
+- Create uniquely named Cognito UserPool on stack creation
+- Removed display of Back button in title bar and instead provide a replay button using the text from prior 
+message directly in the message bubble. Back button can be re-enabled though configuration json if desired. 
+- Enhanced css attributes of the minimized chatbot button to help allow clicking on items in the parent
+window as well as selecting text next the button. 
+
 ## [0.17.0] - 2020-07-12
 - Improved accessibility - big thanks to @pdkn for this significant contribution
   * Improve screen reader experience
