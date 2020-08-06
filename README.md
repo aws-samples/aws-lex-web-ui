@@ -18,6 +18,13 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### Fixes in version 0.17.1
+- Create uniquely named Cognito UserPool on stack creation
+- Removed display of Back button in title bar and instead provide a replay button using the text from prior 
+message directly in the message bubble. Back button can be re-enabled though configuration json if desired. 
+- Enhanced css attributes of the minimized chatbot button to help allow clicking on items in the parent
+window as well as selecting text next the button. 
+
 #### New Features in version 0.17.0
 - Improved screen reader / accessibility features 
 - Added CloudFormation stack outputs for CloudFront and S3 bucket
