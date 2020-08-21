@@ -20,7 +20,6 @@ License for the specific language governing permissions and limitations under th
  */
 import Vue from 'vue';
 import Vuex from 'vuex';
-import VueMask from 'v-mask';
 import { Config as AWSConfig, CognitoIdentityCredentials }
   from 'aws-sdk/global';
 import LexRuntime from 'aws-sdk/clients/lexruntime';
@@ -167,6 +166,5 @@ export class Loader {
       lexRuntimeClient,
       pollyClient,
     });
-    VueConstructor.use(VueMask);
   }
 }

@@ -150,6 +150,8 @@ Mixing regions is not supported.
     @import 'node_modules/aws-lex-web-ui/dist/lex-web-ui.css';
   */
 ```
+#### Adding New Dependencies
+To add new dependencies you will need to add them to the lex-web-ui Vue plugin.  This can be done in 'lex-web-ui/lex-web-ui.js'. By adding them via the VueConstructor.  For example to add a depency such as [VueMask](https://www.npmjs.com/package/v-mask) From within the 'lex-web-ui' directory npm install v-mask.  Then ```import VueMask from 'v-mask'``` finally at the bottom of the file add ```VueConstructor.use(VueMask)```.  Now VueMask will be available throughout the entire UI.
 
 ## Credential Management
 This sample application uses [Amazon

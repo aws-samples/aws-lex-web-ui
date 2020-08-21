@@ -11740,6 +11740,9 @@ var configDefault = {
     // Show the diaglog state icon, check or alert, in the text bubble
     showDialogStateIcon: true,
 
+    // Hide the message bubble on a response card button press
+    hideButtonMessageBubble: false,
+
     // shows a thumbs up and thumbs down button which can be clicked
     positiveFeedbackIntent: '',
     negativeFeedbackIntent: '',

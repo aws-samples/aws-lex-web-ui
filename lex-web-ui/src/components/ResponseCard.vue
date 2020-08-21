@@ -78,8 +78,10 @@ export default {
   methods: {
     onButtonClick(value) {
       this.hasButtonBeenClicked = true;
+
+      const messageType = this.$store.state.config.ui.hideButtonMessageBubble ? 'button' : 'human';
       const message = {
-        type: 'button',
+        type: messageType,
         text: value,
       };
 
