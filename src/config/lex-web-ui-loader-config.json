@@ -33,8 +33,7 @@
     "directFocusToBotInput": false,
     "showDialogStateIcon": false,
     "backButton": false,
-    "messageMenu": true,
-    "hideButtonMessageBubble": true
+    "messageMenu": true
   },
   "polly": {
     "voiceId": "Salli"
