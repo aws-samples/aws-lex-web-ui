@@ -150,6 +150,10 @@ Resources:
         Properties:
             VersioningConfiguration:
                 Status: Enabled
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                    SSEAlgorithm: AES256
 
     # Bucket where the web app is deployed
     WebAppBucket:
@@ -160,6 +164,10 @@ Resources:
                 IndexDocument: index.html
             VersioningConfiguration:
                 Status: Enabled
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                    SSEAlgorithm: AES256
                 
     WebAppBucketOriginAccessIdentity:
         Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
@@ -242,6 +250,10 @@ Resources:
                 IndexDocument: index.html
             VersioningConfiguration:
                 Status: Enabled
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                    SSEAlgorithm: AES256
 
     CodeBuild:
         Type: AWS::CodeBuild::Project

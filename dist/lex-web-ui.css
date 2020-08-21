@@ -764,7 +764,7 @@ NOTE: not using var() for different heights due to IE11 compatibility
   border: 0 !important;
 }
 
-.card[data-v-ddab8a4a] {
+.card[data-v-5ac08f60] {
   width: 75vw;
   position: inherit; /* workaround to card being displayed on top of toolbar shadow */
   padding-bottom: 0.5em;
@@ -772,22 +772,22 @@ NOTE: not using var() for different heights due to IE11 compatibility
           box-shadow: none !important;
   background-color: unset !important;
 }
-.card__title[data-v-ddab8a4a] {
+.card__title[data-v-5ac08f60] {
   padding: 0.5em;
   padding-top: 0.75em;
 }
-.card__text[data-v-ddab8a4a] {
+.card__text[data-v-5ac08f60] {
   padding: 0.33em;
 }
-.button-row[data-v-ddab8a4a] {
+.button-row[data-v-5ac08f60] {
   display: inline-block;
 }
-.btn[data-v-ddab8a4a] {
+.btn[data-v-5ac08f60] {
   margin: 10px;
   font-size: 1em;
   min-width: 44px;
 }
-.card__actions.button-row[data-v-ddab8a4a] {
+.card__actions.button-row[data-v-5ac08f60] {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;

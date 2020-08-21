@@ -210,6 +210,10 @@ Resources:
                 IndexDocument: index.html
             VersioningConfiguration:
                 Status: Enabled
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                    SSEAlgorithm: AES256
             CorsConfiguration:
                 !If
                   - NeedsParentOrigin

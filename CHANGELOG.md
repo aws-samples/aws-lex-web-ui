@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.17.2] - 2020-08-21
+- Added option to hide message bubble on button click
+- Resolved current github dependabot security issues
+- Use default encryption for all S3 buckets using AES-256 encryption
+- Added instructions in readme for adding additional vue components 
+
 ## [0.17.1] - 2020-08-01
 - Create uniquely named Cognito UserPool on stack creation
 - Removed display of Back button in title bar and instead provide a replay button using the text from prior 

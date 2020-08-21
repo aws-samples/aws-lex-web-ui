@@ -18,6 +18,12 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### Fixes in version 0.17.2
+- Added option to hide message bubble on button click
+- Resolved current github dependabot security issues
+- Use default encryption for all S3 buckets using AES-256 encryption
+- Added instructions in readme for adding additional vue components 
+
 #### Fixes in version 0.17.1
 - Create uniquely named Cognito UserPool on stack creation
 - Removed display of Back button in title bar and instead provide a replay button using the text from prior 
