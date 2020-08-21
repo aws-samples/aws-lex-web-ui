@@ -79,7 +79,7 @@ export default {
     onButtonClick(value) {
       this.hasButtonBeenClicked = true;
       const message = {
-        type: 'human',
+        type: 'button',
         text: value,
       };
 

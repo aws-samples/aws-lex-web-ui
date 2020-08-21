@@ -23,6 +23,7 @@
     "minimist": "^1.2.5",
     "roboto-fontface": "^0.8.0",
     "serialize-javascript": "^2.1.1",
+    "v-mask": "^2.2.3",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
     "vuetify": "^0.17.6",
