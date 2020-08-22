@@ -22,7 +22,7 @@
     "mem": "^4.0.0",
     "minimist": "^1.2.5",
     "roboto-fontface": "^0.8.0",
-    "serialize-javascript": "^2.1.1",
+    "serialize-javascript": "^3.1.0",
     "v-mask": "^2.2.3",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
