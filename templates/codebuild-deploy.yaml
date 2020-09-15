@@ -52,6 +52,16 @@ Parameters:
             in the Lex Web Ui. This feature uses Cognito User Pools with
             hosted login pages. After login, the menu will switch to logout.
 
+    ShouldForceCognitoLogin:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, the menu with a login action will not be displayed
+            in the Lex Web Ui, and the Cognito login will be executed automatically.
+
     EnableMarkdownSupport:
         Type: String
         Default: true
@@ -335,6 +345,8 @@ Resources:
                       Value: !Ref WebAppConfToolbarTitle
                     - Name: ENABLE_LOGIN
                       Value: !Ref ShouldEnableCognitoLogin
+                    - Name: FORCE_LOGIN
+                      Value: !Ref ShouldForceCognitoLogin
                     - Name: REINIT_SESSION_ATTRIBUTES_ON_RESTART
                       Value: !Ref ReInitSessionAttributesOnRestart
                     - Name: ENABLE_MARKDOWN_SUPPORT

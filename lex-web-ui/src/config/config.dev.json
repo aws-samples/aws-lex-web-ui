@@ -15,6 +15,7 @@
     "pageTitle": "Order Config Bot",
     "toolbarTitle": "Order Config",
     "enableLogin": true,
+    "forceLogin": true,
     "pushInitialTextOnRestart": false,
     "shouldDisplayResponseCardTitle": false,
     "showErrorIcon": true,

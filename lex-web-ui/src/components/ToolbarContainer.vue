@@ -12,7 +12,7 @@
   >
     <img v-if="toolbarLogo" v-bind:src="toolbarLogo" alt="logo" aria-hidden="true"/>
 
-    <v-menu v-if="isEnableLogin" offset-y>
+    <v-menu v-if="isEnableLogin && !isForceLogin" offset-y>
 
       <v-btn
         slot="activator"
@@ -194,6 +194,9 @@ export default {
     },
     isEnableLogin() {
       return this.$store.state.config.ui.enableLogin;
+    },
+    isForceLogin() {
+      return this.$store.state.config.ui.forceLogin;
     },
     hasPrevUtterance() {
       return (this.$store.state.utteranceStack.length > 1);

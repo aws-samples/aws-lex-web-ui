@@ -15,7 +15,7 @@
 /* global AWS */
 
 import { ConfigLoader } from './config-loader';
-import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired } from './loginutil';
+import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin } from './loginutil';
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -228,7 +228,9 @@ export class IframeComponentLoader {
   /* eslint-disable no-restricted-globals */
   initCognitoCredentials() {
     document.addEventListener('tokensavailable', this.updateCredentials.bind(this), false);
+
     return new Promise((resolve, reject) => {
+
       const curUrl = window.location.href;
       if (curUrl.indexOf('loggedin') >= 0) {
         if (completeLogin(this.generateConfigObj())) {
@@ -463,11 +465,12 @@ export class IframeComponentLoader {
     return new Promise((resolve, reject) => {
       const timeoutInMs = 15000;
 
-      readyManager.checkIsChatBotReady = () => {
+      readyManager.checkIsChatBotReady =  () => {
         // isChatBotReady set by event received from iframe
         if (this.isChatBotReady) {
           clearTimeout(readyManager.timeoutId);
           clearInterval(readyManager.intervalId);
+
           if (this.config.ui.enableLogin && this.config.ui.enableLogin === true) {
             const auth = getAuth(this.generateConfigObj());
             const session = auth.getSignInUserSession();
@@ -480,7 +483,14 @@ export class IframeComponentLoader {
                 event: 'confirmLogin',
                 data: tokens,
               });
-            } else {
+            } else if (this.config.ui.enableLogin && this.config.ui.forceLogin){
+                forceLogin(this.generateConfigObj())
+                this.sendMessageToIframe({
+                  event: 'confirmLogin',
+                  data: tokens,
+                });
+            }
+            else {
               const refToken = localStorage.getItem('refreshtoken');
               if (refToken) {
                 refreshLogin(this.generateConfigObj(), refToken, (refSession) => {

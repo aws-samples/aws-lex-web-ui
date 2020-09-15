@@ -209,6 +209,9 @@ const configDefault = {
     // Optionally display login menu
     enableLogin: false,
 
+    // Optionally force login automatically when load
+    forceLogin: false,
+
     // Optionally direct input focus to Bot text input as needed
     directFocusToBotInput: false,
   },
