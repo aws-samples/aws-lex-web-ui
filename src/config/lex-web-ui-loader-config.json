@@ -1,10 +1,10 @@
 {
   "region": "us-east-1",
   "cognito": {
-    "poolId": "us-east-1:9fb3b721-17e3-4e1a-8e5d-52a44a7487af",
-    "appUserPoolClientId": "4bj2d0o5dbuo2tb5f6ku6dvef0",
-    "appUserPoolName": "us-east-1_1ZxSLe6x5",
-    "appDomainName": "lexkwebkuikidentitypoolconfigkbjjbhhnnuaiuj002664601310.auth.us-east-1.amazoncognito.com",
+    "poolId": "",
+    "appUserPoolClientId": "",
+    "appUserPoolName": "",
+    "appDomainName": "",
     "aws_cognito_region": "us-east-1",
     "region": "us-east-1",
     "appUserPoolIdentityProvider": ""
