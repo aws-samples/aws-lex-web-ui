@@ -17,6 +17,12 @@ Parameters:
         Description: Lex bot name used to build IAM policy
         Default: OrderFlowers
 
+    ForceCognitoLogin:
+        Type: String
+
+Conditions:
+    NeedsForceLogin: !Equals [!Ref ForceCognitoLogin, 'true']
+
 Resources:
     CognitoIdentityPool:
         Type: AWS::Cognito::IdentityPool
@@ -70,6 +76,7 @@ Resources:
 
     CognitoUnauthRole:
         Type: AWS::IAM::Role
+        Condition: NeedsForceLogin
         Properties:
             Path: /
             AssumeRolePolicyDocument:
