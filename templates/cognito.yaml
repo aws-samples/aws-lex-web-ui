@@ -19,9 +19,13 @@ Parameters:
 
     ForceCognitoLogin:
         Type: String
+        Default: false
+        Description: >
+            If set to True, the menu with a login action will not be displayed
+            in the Lex Web Ui, and the Cognito login will be executed automatically. 
 
 Conditions:
-    NeedsForceLogin: !Equals [!Ref ForceCognitoLogin, 'true']
+    NeedsForceLogin: !Equals [!Ref ForceCognitoLogin, 'false']
 
 Resources:
     CognitoIdentityPool:
@@ -39,7 +43,7 @@ Resources:
             IdentityPoolId: !Ref CognitoIdentityPool
             Roles:
                 authenticated: !GetAtt CognitoAuthRole.Arn
-                unauthenticated: !GetAtt CognitoUnauthRole.Arn
+                unauthenticated: !If [NeedsForceLogin, !GetAtt CognitoUnauthRole.Arn, !Ref "AWS::NoValue"]
 
     CognitoUserPool:
         Type: AWS::Cognito::UserPool
@@ -75,8 +79,8 @@ Resources:
             UserPoolId: !Ref CognitoUserPool
 
     CognitoUnauthRole:
-        Type: AWS::IAM::Role
         Condition: NeedsForceLogin
+        Type: AWS::IAM::Role
         Properties:
             Path: /
             AssumeRolePolicyDocument:

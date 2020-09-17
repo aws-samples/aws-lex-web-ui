@@ -322,6 +322,7 @@ Resources:
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/cognito.yaml"
             Parameters:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
+                ForceCognitoLogin: !Ref ForceCognitoLogin
                 LexBotName:
                     !If
                       - NeedsBot
