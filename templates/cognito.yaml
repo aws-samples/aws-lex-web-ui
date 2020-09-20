@@ -25,7 +25,7 @@ Parameters:
             in the Lex Web Ui, and the Cognito login will be executed automatically. 
 
 Conditions:
-    NeedsForceLogin: !Equals [!Ref ForceCognitoLogin, 'false']
+    NeedsForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, 'true']
 
 Resources:
     CognitoIdentityPool:
@@ -43,7 +43,7 @@ Resources:
             IdentityPoolId: !Ref CognitoIdentityPool
             Roles:
                 authenticated: !GetAtt CognitoAuthRole.Arn
-                unauthenticated: !If [NeedsForceLogin, !GetAtt CognitoUnauthRole.Arn, !Ref "AWS::NoValue"]
+                unauthenticated: !GetAtt CognitoUnauthRole.Arn
 
     CognitoUserPool:
         Type: AWS::Cognito::UserPool
@@ -79,7 +79,6 @@ Resources:
             UserPoolId: !Ref CognitoUserPool
 
     CognitoUnauthRole:
-        Condition: NeedsForceLogin
         Type: AWS::IAM::Role
         Properties:
             Path: /
@@ -101,7 +100,7 @@ Resources:
                   PolicyDocument:
                       Version: 2012-10-17
                       Statement:
-                          - Effect: Allow
+                          - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
                             Action:
                                 - lex:PostText
                                 - lex:PostContent
@@ -109,7 +108,7 @@ Resources:
                                 - lex:PutSession
                             Resource:
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
-
+                   
     CognitoAuthRole:
         Type: AWS::IAM::Role
         Properties:
