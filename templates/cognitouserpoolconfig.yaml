@@ -39,6 +39,8 @@ Resources:
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
             Runtime: python2.7
             Timeout: 300
+            TracingConfig:
+                Mode: Active
             Code:
                 ZipFile: !Sub |
                     from __future__ import print_function
@@ -177,6 +179,26 @@ Resources:
                                 - codebuild:StartBuild
                             Resource:
                                 - !Sub "arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/${CodeBuildProjectName}"
+                - PolicyName: XRay
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - xray:PutTraceSegments
+                                - xray:PutTelemetryRecords
+                            Resource:
+                                - "*"
+                - PolicyName: AllowVPCSupport
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - ec2:DescribeNetworkInterfaces
+                                - ec2:CreateNetworkInterface
+                                - ec2:DeleteNetworkInterface
+                            Resource: "*"
 
     CognitoUserPoolUpdates:
         Type: Custom::CognitoUserPoolUpdates
@@ -190,6 +212,8 @@ Resources:
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
             Runtime: python2.7
             Timeout: 300
+            TracingConfig:
+                Mode: Active
             Code:
                 ZipFile: !Sub |
                     from __future__ import print_function
@@ -271,6 +295,26 @@ Resources:
                             Resource:
                                 - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
                                 - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*:*"
+                - PolicyName: XRay
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - xray:PutTraceSegments
+                                - xray:PutTelemetryRecords
+                            Resource: "*"
+                - PolicyName: AllowVPCSupport
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - ec2:DescribeNetworkInterfaces
+                                - ec2:CreateNetworkInterface
+                                - ec2:DeleteNetworkInterface
+                            Resource: "*"
+
     CleanStackName:
         DependsOn: CleanStackNameExecutionRole
         Type: Custom::CleanStackName
@@ -283,6 +327,8 @@ Resources:
             Role: !GetAtt CleanStackNameExecutionRole.Arn
             Runtime: python2.7
             Timeout: 300
+            TracingConfig:
+                Mode: Active
             Code:
                 ZipFile: !Sub |
                     from __future__ import print_function

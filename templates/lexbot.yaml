@@ -56,6 +56,8 @@ Resources:
             Role: !GetAtt LexBotLambdaRole.Arn
             Runtime: python2.7
             Timeout: 300
+            TracingConfig:
+                Mode: Active
 
     LexBotLambdaRole:
         Type: AWS::IAM::Role
@@ -122,6 +124,25 @@ Resources:
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:intent:${NamePrefix}*:*"
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:slottype:*"
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:slottype:${NamePrefix}*:*"
+                - PolicyName: XRay
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - xray:PutTraceSegments
+                                - xray:PutTelemetryRecords
+                            Resource: "*"
+                - PolicyName: AllowVPCSupport
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - ec2:DescribeNetworkInterfaces
+                                - ec2:CreateNetworkInterface
+                                - ec2:DeleteNetworkInterface
+                            Resource: "*"
 
 Outputs:
     BotName:

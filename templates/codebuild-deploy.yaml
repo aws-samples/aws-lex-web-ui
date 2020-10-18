@@ -224,6 +224,18 @@ Resources:
                       AllowedOrigins:
                         - !Ref ParentOrigin
 
+    # Bucket for CloudFrontDistributionLogs
+    LexWebUiCloudFrontDistributionLogsBucket:
+      Type: AWS::S3::Bucket
+      DeletionPolicy: Retain
+      Properties:
+        VersioningConfiguration:
+          Status: Enabled
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
+
     WebAppBucketOriginAccessIdentity:
         Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
         Properties:
@@ -249,6 +261,7 @@ Resources:
         Type: AWS::CloudFront::Distribution
         DependsOn:
         - WebAppBucket
+        - LexWebUiCloudFrontDistributionLogsBucket
         Properties:
           DistributionConfig:
             Origins:
@@ -259,6 +272,10 @@ Resources:
             Enabled: 'true'
             Comment: cloudfront distribution for lex-web-ui
             DefaultRootObject: index.html
+            Logging:
+              Bucket: !GetAtt LexWebUiCloudFrontDistributionLogsBucket.DomainName
+              IncludeCookies: True
+              Prefix: "lexwebui/"
             CustomErrorResponses:
               # Send errors to index file
               # TODO move TTL to mapping or parameter
@@ -389,6 +406,8 @@ Resources:
             Role: !GetAtt CodeBuildStarterLambdaRole.Arn
             Runtime: python2.7
             Timeout: 120
+            TracingConfig:
+                Mode: Active
 
     CodeBuildRole:
         Type: AWS::IAM::Role
@@ -479,6 +498,25 @@ Resources:
                             Action:
                                 - codebuild:StartBuild
                             Resource: !GetAtt CodeBuild.Arn
+                - PolicyName: XRay
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                              - xray:PutTraceSegments
+                              - xray:PutTelemetryRecords
+                            Resource: "*"
+                - PolicyName: AllowVPCSupport
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                              - ec2:DescribeNetworkInterfaces
+                              - ec2:CreateNetworkInterface
+                              - ec2:DeleteNetworkInterface
+                            Resource: "*"
 
     # custom resource to cleanup S3 buckets
     S3Cleanup:
@@ -489,7 +527,7 @@ Resources:
             Buckets:
                 - !Ref WebAppBucket
 
-    # Lambda function for custom resource
+  # Lambda function for custom resource
     S3CleanupLambda:
         Type: AWS::Lambda::Function
         Condition: ShouldCleanupBuckets
@@ -501,6 +539,8 @@ Resources:
             Role: !GetAtt S3CleanupLambdaRole.Arn
             Runtime: python2.7
             Timeout: 120
+            TracingConfig:
+                Mode: Active
 
     S3CleanupLambdaRole:
         Type: AWS::IAM::Role
@@ -539,6 +579,26 @@ Resources:
                             Resource:
                                 - !Sub "arn:aws:s3:::${WebAppBucket}"
                                 - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+                - PolicyName: XRay
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - xray:PutTraceSegments
+                                - xray:PutTelemetryRecords
+                            Resource:
+                                - "*"
+                - PolicyName: AllowVPCSupport
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - ec2:DescribeNetworkInterfaces
+                                - ec2:CreateNetworkInterface
+                                - ec2:DeleteNetworkInterface
+                            Resource: "*"
 
 Outputs:
     CodeBuildProject:
