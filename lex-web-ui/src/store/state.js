@@ -70,6 +70,7 @@ export default {
     !!config.ui.messageSentSFX && !!config.ui.messageReceivedSFX) : false,
   isUiMinimized: false, // when running embedded, is the iframe minimized?
   isEnableLogin: false, // true when a login/logout menu should be displayed
+  isForceLogin: false, // true when a login/logout menu should be displayed
   isLoggedIn: false, // when running with login/logout enabled
   hasButtons: false, // does the response card have buttons?
   tokens: {},

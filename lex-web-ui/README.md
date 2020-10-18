@@ -197,7 +197,6 @@ value
     "enableLogin": true,
     ...
 }
-
 ```
 
 This enables the menu icon in the toolbar area with a single menu item that toggles 
@@ -228,6 +227,25 @@ The Lex Web UI initially will use the unauth role until a user logs in.
 After login processing fully completes, an event fires in the browser indicating tokens 
 are now available. At that time, the Lex Web UI will switch to using auth based role by 
 using new temporary credentials.
+
+
+#### Force Login
+Optionally, if set to True, the menu with a login action will not be displayed in the Lex Web Ui, and the Cognito login will be executed automatically. 
+
+- During deployment of the CloudFormation template. Set the ForceCognitoLogin 
+parameter to true.
+
+
+- Post deployment by editing the lex-web-ui-loader-config.json file. Set the ui configuration
+value 
+
+```
+"ui": {
+    ...
+    "forceLogin": true,
+    ...
+}
+```
 
 ### Adjusting existing Identity Pools to be used with the lex-web-ui
 

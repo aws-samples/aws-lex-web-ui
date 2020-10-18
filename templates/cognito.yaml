@@ -17,6 +17,16 @@ Parameters:
         Description: Lex bot name used to build IAM policy
         Default: OrderFlowers
 
+    ForceCognitoLogin:
+        Type: String
+        Default: false
+        Description: >
+            If set to True, the menu with a login action will not be displayed
+            in the Lex Web Ui, and the Cognito login will be executed automatically. 
+
+Conditions:
+    NeedsForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, 'true']
+
 Resources:
     CognitoIdentityPool:
         Type: AWS::Cognito::IdentityPool
@@ -90,7 +100,7 @@ Resources:
                   PolicyDocument:
                       Version: 2012-10-17
                       Statement:
-                          - Effect: Allow
+                          - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
                             Action:
                                 - lex:PostText
                                 - lex:PostContent
@@ -98,7 +108,7 @@ Resources:
                                 - lex:PutSession
                             Resource:
                                 - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
-
+                   
     CognitoAuthRole:
         Type: AWS::IAM::Role
         Properties:

@@ -74,6 +74,16 @@ Parameters:
             in the Lex Web Ui. This feature uses Cognito User Pools with
             hosted login pages. After login, the menu will switch to logout.
 
+    ForceCognitoLogin:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, the menu with a login action will not be displayed
+            in the Lex Web Ui, and the Cognito login will be executed automatically. 
+
     CodeBuildName:
         Type: String
         Description: >
@@ -266,6 +276,7 @@ Metadata:
                   - BotNamePrefix
                   - ShouldDeleteBot
                   - EnableCognitoLogin
+                  - ForceCognitoLogin
                   - EnableMarkdownSupport
                   - ReInitSessionAttributesOnRestart
                   - ShowResponseCardTitle
@@ -311,6 +322,7 @@ Resources:
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/cognito.yaml"
             Parameters:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
+                ForceCognitoLogin: !Ref ForceCognitoLogin
                 LexBotName:
                     !If
                       - NeedsBot
@@ -349,6 +361,7 @@ Resources:
                 WebAppConfHelp: !Ref WebAppConfHelp
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
                 ShouldEnableCognitoLogin: !Ref EnableCognitoLogin
+                ShouldForceCognitoLogin: !Ref ForceCognitoLogin
                 ReInitSessionAttributesOnRestart: !Ref ReInitSessionAttributesOnRestart
                 EnableMarkdownSupport: !Ref EnableMarkdownSupport
                 ShouldLoadIframeMinimized: !Ref ShouldLoadIframeMinimized
