@@ -82,7 +82,8 @@ Parameters:
           - false
         Description: >
             If set to True, the menu with a login action will not be displayed
-            in the Lex Web Ui, and the Cognito login will be executed automatically. 
+            in the Lex Web Ui, and the Cognito login will be executed automatically. This implicitly sets
+            EnableCognitoLogin to be true.
 
     CodeBuildName:
         Type: String
@@ -301,6 +302,7 @@ Conditions:
     NeedsBot: !Equals [!Ref BotName, '']
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
+    ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
 
 Resources:
     Bot:
@@ -360,7 +362,11 @@ Resources:
                 WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
                 WebAppConfHelp: !Ref WebAppConfHelp
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
-                ShouldEnableCognitoLogin: !Ref EnableCognitoLogin
+                ShouldEnableCognitoLogin:
+                  !If
+                    - ShouldForceCognitoLogin
+                    - true
+                    - !Ref EnableCognitoLogin
                 ShouldForceCognitoLogin: !Ref ForceCognitoLogin
                 ReInitSessionAttributesOnRestart: !Ref ReInitSessionAttributesOnRestart
                 EnableMarkdownSupport: !Ref EnableMarkdownSupport
