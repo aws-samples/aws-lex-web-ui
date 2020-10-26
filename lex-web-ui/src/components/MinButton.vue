@@ -14,7 +14,6 @@
         bottom
         dark
         depressed
-        fab
         fixed
         right
         v-show="isUiMinimized"
@@ -24,7 +23,8 @@
         aria-label="show chat window"
         class="min-button"
       >
-        <v-icon>
+        Account Help   
+        <v-icon right>
           {{'chat'}}
         </v-icon>
       </v-btn>

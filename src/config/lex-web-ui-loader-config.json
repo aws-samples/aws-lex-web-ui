@@ -1,24 +1,15 @@
 {
   "region": "us-east-1",
   "cognito": {
-    "poolId": "",
-    "appUserPoolClientId": "",
-    "appUserPoolName": "",
-    "appDomainName": "",
-    "aws_cognito_region": "us-east-1",
-    "region": "us-east-1",
-    "appUserPoolIdentityProvider": ""
+    "poolId": "us-east-1:2f9f4c44-4d08-4a4e-9e00-c66035f76a21"
   },
   "lex": {
-    "botName": "QNA_dev_dev_master_one_BotshvFm",
-    "botAlias": "$LATEST",
-    "initialText": "You can ask me for help ordering flowers. Just type \"Buy flowers\" or click on the mic and say it.",
-    "initialSpeechInstruction": "Say 'Buy Flowers' to get started.",
-    "reInitSessionAttributesOnRestart": false,
-    "region": "us-east-1"
+    "botName": "QNA_test_dev_master_two_BotEdhqW",
+    "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
+    "initialSpeechInstruction": "Say 'Order Flowers' to get started."
   },
   "ui": {
-    "parentOrigin": "",
+    "parentOrigin": "http://localhost:8000",
     "toolbarTitle": "Order Flowers",
     "toolbarLogo": "",
     "positiveFeedbackIntent": "Thumbs up",
