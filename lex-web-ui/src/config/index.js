@@ -136,7 +136,7 @@ const configDefault = {
     textInputPlaceholder: 'Type here or click on the mic',
 
     // text shown when you hover over the minimized bot button
-    minButtonToolTipContent: 'Chatbot',
+    minButtonContent: '',
 
     toolbarColor: 'red',
 

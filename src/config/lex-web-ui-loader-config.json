@@ -1,12 +1,15 @@
 {
   "region": "us-east-1",
   "cognito": {
-    "poolId": "us-east-1:2f9f4c44-4d08-4a4e-9e00-c66035f76a21"
+    "poolId": "us-east-1:2f9f4c44-4d08-4a4e-9e00-c66035f76a21",
+    "aws_cognito_region": "us-east-1",
+    "region": "us-east-1"
   },
   "lex": {
-    "botName": "QNA_test_dev_master_two_BotEdhqW",
+    "botName": "OrderFlowers",
     "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
-    "initialSpeechInstruction": "Say 'Order Flowers' to get started."
+    "initialSpeechInstruction": "Say 'Order Flowers' to get started.",
+    "region": "us-east-1"
   },
   "ui": {
     "parentOrigin": "http://localhost:8000",
@@ -15,11 +18,11 @@
     "positiveFeedbackIntent": "Thumbs up",
     "negativeFeedbackIntent": "Thumbs down",
     "helpIntent": "Help",
-    "minButtonToolTipContent": "Open Chatbot",
     "enableLogin": false,
     "forceLogin": false,
     "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,
+    "minButtonContent": "",
     "hideInputFieldsForButtonResponse": false,
     "pushInitialTextOnRestart": false,
     "directFocusToBotInput": false,

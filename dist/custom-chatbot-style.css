@@ -74,8 +74,7 @@
 }
 
 
-button.min-button {
-    background-color: blue !important;
-    border-color: blue !important;
-}
 */
+    button.min-button {
+        border-radius: 60px;
+    }

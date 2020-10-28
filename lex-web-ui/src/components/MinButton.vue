@@ -16,6 +16,28 @@
         depressed
         fixed
         right
+        v-if="minButtonContent"
+        v-show="isUiMinimized"
+        v-bind:color="toolbarColor"
+        v-on:click.stop="toggleMinimize"
+        v-on="tooltipEventHandlers"
+        aria-label="show chat window"
+        class="min-button min-button-content"
+      >
+        {{minButtonContent}}   
+        <v-icon right>
+          {{'chat'}}
+        </v-icon>
+      </v-btn>
+      <!-- seperate button for button with text vs w/o -->
+      <v-btn
+        bottom
+        dark
+        depressed
+        fab
+        fixed
+        right
+        v-else
         v-show="isUiMinimized"
         v-bind:color="toolbarColor"
         v-on:click.stop="toggleMinimize"
@@ -23,8 +45,7 @@
         aria-label="show chat window"
         class="min-button"
       >
-        Account Help   
-        <v-icon right>
+        <v-icon>
           {{'chat'}}
         </v-icon>
       </v-btn>
@@ -64,8 +85,9 @@ export default {
     toolTipMinimize() {
       return (this.isUiMinimized) ? 'maximize' : 'minimize';
     },
-    minButtonToolTipContent() {
-      return this.$store.state.config.ui.minButtonToolTipContent;
+    minButtonContent() {
+      const n = this.$store.state.config.ui.minButtonContent.length;
+      return (n > 1) ? this.$store.state.config.ui.minButtonContent : false;
     },
   },
   methods: {
@@ -85,4 +107,7 @@ export default {
 };
 </script>
 <style>
+  .min-button-content {
+    border-radius: 60px;
+  }
 </style>

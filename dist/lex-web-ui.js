@@ -11699,7 +11699,7 @@ var configDefault = {
     textInputPlaceholder: 'Type here or click on the mic',
 
     // text shown when you hover over the minimized bot button
-    minButtonToolTipContent: 'Chatbot',
+    minButtonContent: '',
 
     toolbarColor: 'red',
 
@@ -12818,6 +12818,27 @@ module.exports = { "default": __webpack_require__(197), __esModule: true };
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*
 Copyright 2017-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -12851,8 +12872,9 @@ License for the specific language governing permissions and limitations under th
     toolTipMinimize: function toolTipMinimize() {
       return this.isUiMinimized ? 'maximize' : 'minimize';
     },
-    minButtonToolTipContent: function minButtonToolTipContent() {
-      return this.$store.state.config.ui.minButtonToolTipContent;
+    minButtonContent: function minButtonContent() {
+      var n = this.$store.state.config.ui.minButtonContent.length;
+      return n > 1 ? this.$store.state.config.ui.minButtonContent : false;
     }
   },
   methods: {
@@ -19948,7 +19970,7 @@ module.exports = function (KEY, exec) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MinButton_vue__ = __webpack_require__(110);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1607d840_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MinButton_vue__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1e54e576_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MinButton_vue__ = __webpack_require__(202);
 function injectStyle (ssrContext) {
   __webpack_require__(201)
 }
@@ -19968,7 +19990,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_MinButton_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1607d840_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MinButton_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1e54e576_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_MinButton_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -19989,7 +20011,7 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-container',{staticClass:"min-button-container",attrs:{"fluid":""}},[_c('v-fab-transition',[_c('v-btn',_vm._g({directives:[{name:"show",rawName:"v-show",value:(_vm.isUiMinimized),expression:"isUiMinimized"}],staticClass:"min-button",attrs:{"bottom":"","dark":"","depressed":"","fixed":"","right":"","color":_vm.toolbarColor,"aria-label":"show chat window"},on:{"click":function($event){$event.stopPropagation();return _vm.toggleMinimize($event)}}},_vm.tooltipEventHandlers),[_vm._v("\n      Account Help   \n      "),_c('v-icon',{attrs:{"right":""}},[_vm._v("\n        "+_vm._s('chat')+"\n      ")])],1)],1)],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-container',{staticClass:"min-button-container",attrs:{"fluid":""}},[_c('v-fab-transition',[(_vm.minButtonContent)?_c('v-btn',_vm._g({directives:[{name:"show",rawName:"v-show",value:(_vm.isUiMinimized),expression:"isUiMinimized"}],staticClass:"min-button min-button-content",attrs:{"bottom":"","dark":"","depressed":"","fixed":"","right":"","color":_vm.toolbarColor,"aria-label":"show chat window"},on:{"click":function($event){$event.stopPropagation();return _vm.toggleMinimize($event)}}},_vm.tooltipEventHandlers),[_vm._v("\n      "+_vm._s(_vm.minButtonContent)+"   \n      "),_c('v-icon',{attrs:{"right":""}},[_vm._v("\n        "+_vm._s('chat')+"\n      ")])],1):_c('v-btn',_vm._g({directives:[{name:"show",rawName:"v-show",value:(_vm.isUiMinimized),expression:"isUiMinimized"}],staticClass:"min-button",attrs:{"bottom":"","dark":"","depressed":"","fab":"","fixed":"","right":"","color":_vm.toolbarColor,"aria-label":"show chat window"},on:{"click":function($event){$event.stopPropagation();return _vm.toggleMinimize($event)}}},_vm.tooltipEventHandlers),[_c('v-icon',[_vm._v("\n        "+_vm._s('chat')+"\n      ")])],1)],1)],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
