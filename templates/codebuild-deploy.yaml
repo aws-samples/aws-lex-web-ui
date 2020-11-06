@@ -211,6 +211,18 @@ Conditions:
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
 
 Resources:
+    # Bucket where S3 access logs are stored
+    S3ServerAccessLogs:
+        Type: AWS::S3::Bucket
+        DeletionPolicy: Retain
+        Properties:
+          VersioningConfiguration:
+            Status: Enabled
+          BucketEncryption:
+            ServerSideEncryptionConfiguration:
+              - ServerSideEncryptionByDefault:
+                  SSEAlgorithm: AES256
+
     # Bucket where the web app is deployed
     WebAppBucket:
         Type: AWS::S3::Bucket
@@ -220,6 +232,9 @@ Resources:
                 IndexDocument: index.html
             VersioningConfiguration:
                 Status: Enabled
+            LoggingConfiguration:
+                DestinationBucketName: !Ref S3ServerAccessLogs
+                LogFilePrefix: "webappbucket/"
             BucketEncryption:
               ServerSideEncryptionConfiguration:
                 - ServerSideEncryptionByDefault:

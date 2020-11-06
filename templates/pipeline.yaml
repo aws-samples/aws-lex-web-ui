@@ -143,6 +143,18 @@ Conditions:
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
 
 Resources:
+    # Bucket where S3 access logs are stored
+    S3ServerAccessLogs:
+      Type: AWS::S3::Bucket
+      DeletionPolicy: Retain
+      Properties:
+        VersioningConfiguration:
+          Status: Enabled
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
+
     # Artifact Bucket used by CodePipeline and CodBuild
     ArtifactStore:
         Type: AWS::S3::Bucket
@@ -150,6 +162,9 @@ Resources:
         Properties:
             VersioningConfiguration:
                 Status: Enabled
+            LoggingConfiguration:
+                DestinationBucketName: !Ref S3ServerAccessLogs
+                LogFilePrefix: "artifactstore/"
             BucketEncryption:
               ServerSideEncryptionConfiguration:
                 - ServerSideEncryptionByDefault:
@@ -164,6 +179,9 @@ Resources:
                 IndexDocument: index.html
             VersioningConfiguration:
                 Status: Enabled
+            LoggingConfiguration:
+                DestinationBucketName: !Ref S3ServerAccessLogs
+                LogFilePrefix: "webappbucket/"
             BucketEncryption:
               ServerSideEncryptionConfiguration:
                 - ServerSideEncryptionByDefault:
@@ -267,6 +285,9 @@ Resources:
                 IndexDocument: index.html
             VersioningConfiguration:
                 Status: Enabled
+            LoggingConfiguration:
+                DestinationBucketName: !Ref S3ServerAccessLogs
+                LogFilePrefix: "parentpagebucket/"
             BucketEncryption:
               ServerSideEncryptionConfiguration:
                 - ServerSideEncryptionByDefault:
