@@ -218,6 +218,7 @@ Resources:
         Properties:
           VersioningConfiguration:
             Status: Enabled
+          AccessControl: "LogDeliveryWrite"
           BucketEncryption:
             ServerSideEncryptionConfiguration:
               - ServerSideEncryptionByDefault:
