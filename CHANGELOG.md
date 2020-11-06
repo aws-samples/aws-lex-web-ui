@@ -5,11 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.17.3] - 2020-11-05
-- Added config option to templates which configures UI to require the user to authenticate through Cognito user pool or federation.
-- Added ability to add Text to the button which appears on the parent page when the UI is minimized. 
+- Added loader config option (forceLogin) to templates which configures UI to require the user to authenticate through Cognito prior to using the bot.
+- Added loader config option (minButtonContent) which allows text to be added to the button which appears on the parent page when the iframe is minimized. 
 - Added XRay support to Lambda functions.
 - Added VPC actions to Lambda IAM Roles to support future deployment of Lambdas in VPC. 
 - Encrypted S3 buckets using AES-256 default KMS key
+- Prebuilt deployments now available for Singapore, Tokyo, London, and Frankfurt regions
 
 ## [0.17.2] - 2020-08-21
 - Added option to hide message bubble on button click
