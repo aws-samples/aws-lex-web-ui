@@ -18,7 +18,7 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
-### Fixes in version 0.17.3
+#### Fixes in version 0.17.3
 - Added loader config option (forceLogin) to templates which configures UI to require the user to authenticate through Cognito prior to using the bot.
 - Added loader config option (minButtonContent) which allows text to be added to the button which appears on the parent page when the iframe is minimized. 
 - Added XRay support to Lambda functions.
