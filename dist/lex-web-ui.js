@@ -36632,6 +36632,31 @@ License for the specific language governing permissions and limitations under th
    * @param state
    * @param tokens
    */
+  reapplyTokensToSessionAttributes: function reapplyTokensToSessionAttributes(state) {
+    console.error('reapplyTokensToSessionAttributes');
+    if (state) {
+      console.error('setting attributes if they exist');
+      if (state.tokens.idtokenjwt) {
+        console.error('found idtokenjwt');
+        state.lex.sessionAttributes.idtokenjwt = state.tokens.idtokenjwt;
+      }
+      if (state.tokens.accesstokenjwt) {
+        console.error('found accesstokenjwt');
+        state.lex.sessionAttributes.accesstokenjwt = state.tokens.accesstokenjwt;
+      }
+      if (state.tokens.refreshtoken) {
+        console.error('found refreshtoken');
+        state.lex.sessionAttributes.refreshtoken = state.tokens.refreshtoken;
+      }
+    }
+  },
+
+
+  /**
+   * Update tokens from cognito authentication
+   * @param state
+   * @param tokens
+   */
   setTokens: function setTokens(state, tokens) {
     if (tokens) {
       state.tokens.idtokenjwt = tokens.idtokenjwt;
@@ -37230,6 +37255,7 @@ var recorder = void 0;
   },
   lexPostText: function lexPostText(context, text) {
     context.commit('setIsLexProcessing', true);
+    context.commit('reapplyTokensToSessionAttributes');
     var session = context.state.lex.sessionAttributes;
     delete session.appContext;
     return context.dispatch('refreshAuthTokens').then(function () {
@@ -37250,6 +37276,7 @@ var recorder = void 0;
     var offset = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
     context.commit('setIsLexProcessing', true);
+    context.commit('reapplyTokensToSessionAttributes');
     var session = context.state.lex.sessionAttributes;
     delete session.appContext;
     console.info('audio blob size:', audioBlob.size);

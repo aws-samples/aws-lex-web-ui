@@ -567,6 +567,7 @@ export default {
   },
   lexPostText(context, text) {
     context.commit('setIsLexProcessing', true);
+    context.commit('reapplyTokensToSessionAttributes');
     const session = context.state.lex.sessionAttributes;
     delete session.appContext;
     return context.dispatch('refreshAuthTokens')
@@ -584,6 +585,7 @@ export default {
   },
   lexPostContent(context, audioBlob, offset = 0) {
     context.commit('setIsLexProcessing', true);
+    context.commit('reapplyTokensToSessionAttributes');
     const session = context.state.lex.sessionAttributes;
     delete session.appContext;
     console.info('audio blob size:', audioBlob.size);

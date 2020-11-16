@@ -330,6 +330,30 @@ export default {
    * @param state
    * @param tokens
    */
+  reapplyTokensToSessionAttributes(state) {
+    console.error('reapplyTokensToSessionAttributes');
+    if (state) {
+      console.error('setting attributes if they exist');
+      if (state.tokens.idtokenjwt) {
+        console.error('found idtokenjwt');
+        state.lex.sessionAttributes.idtokenjwt = state.tokens.idtokenjwt;
+      }
+      if (state.tokens.accesstokenjwt) {
+        console.error('found accesstokenjwt');
+        state.lex.sessionAttributes.accesstokenjwt = state.tokens.accesstokenjwt;
+      }
+      if (state.tokens.refreshtoken) {
+        console.error('found refreshtoken');
+        state.lex.sessionAttributes.refreshtoken = state.tokens.refreshtoken;
+      }
+    }
+  },
+
+  /**
+   * Update tokens from cognito authentication
+   * @param state
+   * @param tokens
+   */
   setTokens(state, tokens) {
     if (tokens) {
       state.tokens.idtokenjwt = tokens.idtokenjwt;
