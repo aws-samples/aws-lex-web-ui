@@ -37,7 +37,7 @@ Resources:
         Properties:
             Handler: index.handler
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
-            Runtime: python2.7
+            Runtime: python3.7
             Timeout: 300
             TracingConfig:
                 Mode: Active
@@ -210,7 +210,7 @@ Resources:
         Properties:
             Handler: index.handler
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
-            Runtime: python2.7
+            Runtime: python3.7
             Timeout: 300
             TracingConfig:
                 Mode: Active
@@ -325,7 +325,7 @@ Resources:
         Properties:
             Handler: index.handler
             Role: !GetAtt CleanStackNameExecutionRole.Arn
-            Runtime: python2.7
+            Runtime: python3.7
             Timeout: 300
             TracingConfig:
                 Mode: Active

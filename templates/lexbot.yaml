@@ -54,7 +54,7 @@ Resources:
                 S3Key: !Ref CustomResourceCodeObject
             Handler: lex-manager.handler
             Role: !GetAtt LexBotLambdaRole.Arn
-            Runtime: python2.7
+            Runtime: python3.7
             Timeout: 300
             TracingConfig:
                 Mode: Active

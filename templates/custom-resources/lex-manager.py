@@ -180,34 +180,33 @@ def add_prefix(bot_definition, prefix='WebUi'):
     """
     bot = bot_definition['bot']
     bot['name'] = prefix + bot['name']
-
-    bot['intents'] = map(
+    bot['intents'] = list(map(
         lambda intent: dict(
             intentName=(prefix + intent.pop('intentName')),
             **intent
         ),
         bot_definition['bot']['intents']
-    )
+    ))
 
-    slot_types = map(
+    slot_types = list(map(
         lambda slot_type: dict(
             name=(prefix + slot_type.pop('name')),
             **slot_type
         ),
         bot_definition['slot_types']
-    )
+    ))
 
     intents = map(
         lambda intent: dict(
             name=(prefix + intent.pop('name')),
-            slots=map(
+            slots=list(map(
                 lambda slot: dict(
                     slotType=(prefix + slot.pop('slotType')),
                     **slot
                 ) if (prefix + slot['slotType']) in [s['name'] for s in slot_types]
                 else slot,
                 intent.pop('slots')
-            ),
+            )),
             **intent
         ),
         bot_definition['intents']
@@ -215,7 +214,7 @@ def add_prefix(bot_definition, prefix='WebUi'):
 
     return dict(
         bot=bot,
-        intents=intents,
+        intents=list(intents),
         slot_types=slot_types
     )
 
