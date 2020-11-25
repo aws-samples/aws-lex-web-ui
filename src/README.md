@@ -693,7 +693,7 @@ var lexWebUiLoader = new ChatBotUiLoader.IframeLoader();
 lexWebUiLoader.load()
   .then(function () {
     // test communication channel
-    return lexWebUiLoder.ping();
+    return lexWebUiLoader.api.ping();
   })
   .then(function () {
     // toggles chatbot UI between minimize and maximized
