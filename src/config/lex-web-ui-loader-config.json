@@ -29,7 +29,8 @@
     "showDialogStateIcon": false,
     "backButton": false,
     "messageMenu": true,
-    "hideButtonMessageBubble": false
+    "hideButtonMessageBubble": false,
+    "refreshWindowOnLinkClick": ""
   },
   "polly": {
     "voiceId": "Salli"

@@ -426,8 +426,18 @@ methods. Highest priority first.
 2. HTML provided via appContext.altMessages
 3. Markdown provided via appContext.altMessages 
 
-The standard message returned from Lex will not be shown if any content exists from any of Markdown
-or HTML mechanisms. 
+The standard message returned from Lex will not be shown if any content exists from any of Markdown 
+or HTML mechanisms.
+
+#### Markdown with links
+Markdown `<a href>` links open in a new window by default. If you want links of a specific domain to
+refresh the current window rather than launch a new one you can add the domain to match in the config `ui.refreshWindowOnLinkClick`.
+Using a matching string allows you to set the value to a doamin name, a root domain or a subdomain. i.e
+```
+ui.refreshWindowOnLinkClick = "amazon." will refresh the window if links match this domain name irrespective of the top-level domain
+ui.refreshWindowOnLinkClick = "amazon.com" will refresh the window if links match this root domain
+ui.refreshWindowOnLinkClick = "aws.amazon.com" will only refresh the window if links match this subdomain
+```
 
 ## Controlling the bot's input focus
 The Lex Web UI allows the user to input text and hit CR to send the request to the bot. Alternatively the user

@@ -609,6 +609,14 @@ export class IframeComponentLoader {
         this.sendMessageToIframe({ event: 'confirmLogout' });
       },
 
+      // refresh window from chatbot event
+      refreshWindowWithLink(evt) {
+        const href = evt.data.payload;
+        if (href && href.includes('http')) {
+          window.location = href;
+        }
+      },
+
       // sent to refresh auth tokens as requested by iframe
       refreshAuthTokens(evt) {
         const refToken = localStorage.getItem('refreshtoken');

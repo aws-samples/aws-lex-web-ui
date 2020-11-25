@@ -61,7 +61,7 @@ License for the specific language governing permissions and limitations under th
 */
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
-
+import 'element-closest/browser';
 import MinButton from '@/components/MinButton';
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
@@ -224,11 +224,32 @@ export default {
     }
     this.onResize();
     window.addEventListener('resize', this.onResize, { passive: true });
+    const { refreshWindowOnLinkClick } = this.$store.state.config.ui
+    if (refreshWindowOnLinkClick && refreshWindowOnLinkClick.includes('.')) {
+      window.addEventListener('click', this.onLinkClickHandler);
+    }
   },
   methods: {
     onResize() {
       const { innerWidth } = window;
       this.setToolbarHeigthClassSuffix(innerWidth);
+    },
+    onLinkClickHandler(e) {
+      // listens out for <a href> Link clicks and if they match the config domain
+      if (e.target.localName === 'a') {
+        const origin = e.target.closest('a');
+        const { href } = origin;
+        // let mailto: or tel: links and other domains pass through
+        if (href.includes('http') && href.includes(this.$store.state.config.ui.refreshWindowOnLinkClick)) {
+          e.preventDefault(); // stop the event propagating any further
+          this.$store.dispatch(
+            'sendMessageToParentWindow',
+            { event: 'refreshWindowWithLink', payload: href },
+          );
+          return false;
+        }
+      }
+      return true;
     },
     setToolbarHeigthClassSuffix(innerWidth) {
       // Vuetify toolbar changes height based on innerWidth
