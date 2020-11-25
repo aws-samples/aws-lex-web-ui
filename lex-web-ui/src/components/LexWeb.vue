@@ -224,7 +224,7 @@ export default {
     }
     this.onResize();
     window.addEventListener('resize', this.onResize, { passive: true });
-    const { refreshWindowOnLinkClick } = this.$store.state.config.ui
+    const { refreshWindowOnLinkClick } = this.$store.state.config.ui;
     if (refreshWindowOnLinkClick && refreshWindowOnLinkClick.includes('.')) {
       window.addEventListener('click', this.onLinkClickHandler);
     }
