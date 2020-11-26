@@ -432,11 +432,11 @@ or HTML mechanisms.
 #### Markdown with links
 Markdown `<a href>` links open in a new window by default. If you want links of a specific domain to
 refresh the current window rather than launch a new one you can add the domain to match in the config `ui.refreshWindowOnLinkClick`.
-Using a matching string allows you to set the value to; a domain name, a root domain or a subdomain.The value is required to contain a '.' i.e
+Using a matching string allows you to set the value to; a full domain name (including subdomain prefix) or a root domain (excluding subdomain prefix). i.e
 ```
-ui.refreshWindowOnLinkClick = "amazon." will refresh the window if links match this domain name irrespective of the top-level domain
-ui.refreshWindowOnLinkClick = "amazon.com" will refresh the window if links match this root domain
-ui.refreshWindowOnLinkClick = "aws.amazon.com" will only refresh the window if links match this subdomain
+ui.refreshWindowOnLinkClick = "" (default) all links will launch a new window
+ui.refreshWindowOnLinkClick = "amazon.com" current window will refresh if any links match this root domain
+ui.refreshWindowOnLinkClick = "www.amazon.com" or "aws.amazon.com" current window will only refresh if links match the subdomain
 ```
 
 ## Controlling the bot's input focus

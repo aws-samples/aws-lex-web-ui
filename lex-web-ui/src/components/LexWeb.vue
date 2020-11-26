@@ -61,7 +61,7 @@ License for the specific language governing permissions and limitations under th
 */
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
-import 'element-closest/browser';
+import 'core-js/features/url';
 import MinButton from '@/components/MinButton';
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
@@ -236,11 +236,26 @@ export default {
     },
     onLinkClickHandler(e) {
       // listens out for <a href> Link clicks and if they match the config domain
+      // let mailto: or tel: links and other domains pass through
       if (e.target.localName === 'a') {
-        const origin = e.target.closest('a');
-        const { href } = origin;
-        // let mailto: or tel: links and other domains pass through
-        if (href.includes('http') && href.includes(this.$store.state.config.ui.refreshWindowOnLinkClick)) {
+        const { href } = e.target;
+        const { refreshWindowOnLinkClick } = this.$store.state.config.ui;
+
+        if (!href) {
+          return true;
+        }
+
+        const url = new URL(href);
+
+        if (
+          (url.protocol === 'http:' || url.protocol === 'https:') &&
+          (
+            // full hostname match (i.e includes subdomain check)
+            url.hostname === refreshWindowOnLinkClick ||
+            // partial hostname match (root domain, i.e ignores subdomain check)
+            url.hostname.endsWith(`.${refreshWindowOnLinkClick}`)
+          )
+        ) {
           e.preventDefault(); // stop the event propagating any further
           this.$store.dispatch(
             'sendMessageToParentWindow',

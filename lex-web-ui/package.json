@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.671.0",
-    "element-closest": "^3.0.2",
+    "core-js": "^3.6.5",
     "jsonwebtoken": "^8.3.0",
     "marked": "^0.7.0",
     "material-design-icons": "^3.0.1",
