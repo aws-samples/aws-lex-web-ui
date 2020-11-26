@@ -240,13 +240,10 @@ export default {
       if (e.target.localName === 'a') {
         const { href } = e.target;
         const { refreshWindowOnLinkClick } = this.$store.state.config.ui;
-
         if (!href) {
           return true;
         }
-
         const url = new URL(href);
-
         if (
           (url.protocol === 'http:' || url.protocol === 'https:') &&
           (
@@ -259,7 +256,7 @@ export default {
           e.preventDefault(); // stop the event propagating any further
           this.$store.dispatch(
             'sendMessageToParentWindow',
-            { event: 'refreshWindowWithLink', payload: href },
+            { event: 'refreshWindowWithLink', payload: url.href },
           );
           return false;
         }

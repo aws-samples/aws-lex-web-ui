@@ -16,6 +16,7 @@
 
 import { ConfigLoader } from './config-loader';
 import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin } from './loginutil';
+import 'core-js/features/url';
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -612,9 +613,14 @@ export class IframeComponentLoader {
       // refresh window from chatbot event
       refreshWindowWithLink(evt) {
         const href = evt.data.payload;
-        if (href && href.includes('http')) {
-          window.location = href;
+        if (!href) {
+          return;
         }
+        const url = new URL(href);
+        if (url.protocol === 'http:' || url.protocol === 'https:') {
+          window.location = url.href;
+        }
+
       },
 
       // sent to refresh auth tokens as requested by iframe
