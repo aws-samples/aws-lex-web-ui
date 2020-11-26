@@ -388,6 +388,8 @@ Resources:
                       Value: !Ref ShouldLoadIframeMinimized
                     - Name: SHOW_RESPONSE_CARD_TITLE
                       Value: !Ref ShowResponseCardTitle
+                    - Name: DOMAIN_MATCH_ON_LINK_CLICK
+                      Value: !Ref DomainMatchOnLinkClick
                     - Name: PARENT_ORIGIN
                       Value: !If
                         - NeedsParentOrigin

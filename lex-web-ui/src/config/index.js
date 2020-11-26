@@ -214,6 +214,10 @@ const configDefault = {
 
     // Optionally direct input focus to Bot text input as needed
     directFocusToBotInput: false,
+
+    // Optionally if an <a href> link is clicked with the same domain
+    // enforce refreshing main page rather than launching a new window
+    refreshWindowOnLinkClick: '',
   },
 
   /* Configuration to enable voice and to pass options to the recorder
