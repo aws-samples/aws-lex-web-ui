@@ -17,6 +17,11 @@ DIST_DIR := dist
 SRC_DIR := src
 CONFIG_DIR := $(SRC_DIR)/config
 
+# merge existing user modified lex-web-ui-loader-config.json during upgrade
+# replace user custom-chatbot-style.css files during upgrade
+CURRENT_CONFIG_FILE := $(WEBAPP_DIR)/current/user-lex-web-ui-loader-config.json
+USER_CUSTOM_CSS_COPY := $(WEBAPP_DIR)/current/user-custom-chatbot-style.css
+
 # this install all the npm dependencies needed to build from scratch
 install-deps:
 	@echo "[INFO] Installing loader npm dependencies"
@@ -24,6 +29,19 @@ install-deps:
 	@echo "[INFO] Installing component npm dependencies"
 	cd $(WEBAPP_DIR) && npm install
 .PHONY: install-deps
+
+
+load-current-config:
+	@echo "[INFO] Downloading current lex-web-ui-loader-config.json from s3 to merge user changes"
+	@echo "[INFO] Downloading s3://$(WEBAPP_BUCKET)/lex-web-ui-loader-config.json if it exists or load defaults"
+	-aws s3 ls "s3://$(WEBAPP_BUCKET)/lex-web-ui-loader-config.json" && \
+    	aws s3 cp "s3://$(WEBAPP_BUCKET)/lex-web-ui-loader-config.json" "$(CURRENT_CONFIG_FILE)" || \
+        cp "$(CONFIG_DIR)/default-lex-web-ui-loader-config.json" "$(CURRENT_CONFIG_FILE)"
+	@echo "[INFO] Downloading s3://$(WEBAPP_BUCKET)/custom-chatbot-style.css file if it exists or load defaults"
+	-aws s3 ls "s3://$(WEBAPP_BUCKET)/custom-chatbot-style.css" && \
+    	aws s3 cp "s3://$(WEBAPP_BUCKET)/custom-chatbot-style.css" "$(USER_CUSTOM_CSS_COPY)" || \
+        cp "$(DIST_DIR)/custom-chatbot-style.css" "$(USER_CUSTOM_CSS_COPY)"
+.PHONY: load-current-config
 
 # BUILD_TYPE controls whether the configuration is done for a full build or
 # for using the prebuilt/dist libraries
@@ -33,6 +51,7 @@ BUILD_TYPE ?= $()
 
 # updates the config files with values from the environment
 UPDATE_CONFIG_SCRIPT := $(BUILD_DIR)/update-lex-web-ui-config.js
+export CURRENT_CONFIG_FILE ?= $(realpath $(CURRENT_CONFIG_FILE))
 export WEBAPP_CONFIG_PROD ?= $(realpath $(WEBAPP_DIR)/src/config/config.prod.json)
 export WEBAPP_CONFIG_DEV ?= $(realpath $(WEBAPP_DIR)/src/config/config.dev.json)
 export LOADER_CONFIG ?= $(realpath $(SRC_DIR)/config/lex-web-ui-loader-config.json)
@@ -82,7 +101,6 @@ deploy-to-s3: create-iframe-snippet
 		--metadata-directive REPLACE --cache-control max-age=0 \
 		"s3://$(WEBAPP_BUCKET)/builds/$(CODEBUILD_BUILD_ID)/custom-chatbot-style.css" \
 		"s3://$(WEBAPP_BUCKET)/"
-
 	@[ "$(PARENT_PAGE_BUCKET)" ] && \
 		( echo "[INFO] synching parent page to bucket: [$(PARENT_PAGE_BUCKET)]" && \
 		aws s3 sync \
@@ -114,10 +132,18 @@ sync-website: create-iframe-snippet
 		--exclude lex-web-ui-mobile-hub.zip \
 		--exclude custom-chatbot-style.css \
 		"$(DIST_DIR)" s3://$(WEBAPP_BUCKET)
-	@echo "[INFO] copying custom-chatbot-style.css and setting cache max-age=0"
+	@echo "[INFO] Restoring existing custom css file"
+	@[ -f "$(USER_CUSTOM_CSS_COPY)" ] && \
 	aws s3 cp \
 		--metadata-directive REPLACE --cache-control max-age=0 \
-		"$(DIST_DIR)/custom-chatbot-style.css" s3://$(WEBAPP_BUCKET)
+		"$(USER_CUSTOM_CSS_COPY)" "s3://$(WEBAPP_BUCKET)/custom-chatbot-style.css"
+	@echo "[INFO] Saving a backup copy of previous loader config json"
+	aws s3 cp \
+		"$(CURRENT_CONFIG_FILE)" "s3://$(WEBAPP_BUCKET)/lex-web-ui-loader-config.$(shell date +%Y%m%d%H%M%S).json"
+#	@echo "[INFO] copying custom-chatbot-style.css and setting cache max-age=0"
+#	aws s3 cp \
+#		--metadata-directive REPLACE --cache-control max-age=0 \
+#		"$(DIST_DIR)/custom-chatbot-style.css" s3://$(WEBAPP_BUCKET)
 	@echo "[INFO] copying config files"
 	aws s3 sync  \
 		--exclude '*' \

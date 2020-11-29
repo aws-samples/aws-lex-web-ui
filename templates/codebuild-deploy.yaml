@@ -411,6 +411,7 @@ Resources:
                         pre_build:
                             commands:
                                 - aws configure set region "$AWS_DEFAULT_REGION"
+                                - make load-current-config
                                 - make config
                         post_build:
                             commands:
