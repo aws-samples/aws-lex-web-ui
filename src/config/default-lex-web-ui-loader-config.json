@@ -1,7 +1,7 @@
 {
   "region": "us-east-1",
   "cognito": {
-    "poolId": "us-east-1:2f9f4c44-4d08-4a4e-9e00-c66035f76a21",
+    "poolId": "",
     "aws_cognito_region": "us-east-1",
     "region": "us-east-1"
   },
