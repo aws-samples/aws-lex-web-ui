@@ -28,6 +28,15 @@ export default {
    *
    **********************************************************************/
 
+  // Checks whether a state object exists in sessionStorage and sets the states
+  // messages to the previous session.
+  initialStore(state) {
+    if (sessionStorage.getItem('store')) {
+      const sessionStore = JSON.parse(sessionStorage.getItem('store'));
+      state.messages = sessionStore.messages;
+    }
+  },
+
   /**
    * true if recorder seems to be muted
    */
@@ -324,7 +333,15 @@ export default {
   setIsLoggedIn(state, bool) {
     state.isLoggedIn = bool;
   },
-
+  reset(state) {
+    const s = {
+      messages: [],
+      utteranceStack: [],
+    };
+    Object.keys(s).forEach((key) => {
+      state[key] = s[key];
+    });
+  },
   /**
    * Update tokens from cognito authentication
    * @param state

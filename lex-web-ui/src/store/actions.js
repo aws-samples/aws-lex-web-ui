@@ -43,6 +43,10 @@ export default {
    *
    **********************************************************************/
 
+  initialStore(context) {
+    context.commit('initialStore');
+  },
+
   initCredentials(context, credentials) {
     switch (context.state.awsCreds.provider) {
       case 'cognito':
@@ -78,10 +82,14 @@ export default {
     context.commit('mergeConfig', configObj);
   },
   initMessageList(context) {
-    if (context.state.config.lex.initialText.length > 0) {
+    console.info('current messages:: ', context.state.messages);
+    if (!context.state.messages.length) {
       context.commit('pushMessage', {
         type: 'bot',
         text: context.state.config.lex.initialText,
+        alts: {
+          markdown: context.state.config.lex.initialText,
+        },
       });
     }
   },
@@ -869,5 +877,15 @@ export default {
         [messageChannel.port2],
       );
     });
+  },
+
+  /***********************************************************************
+   *
+   * Teardown Actions
+   *
+   **********************************************************************/
+  resetAction(context) {
+    context.commit('reset');
+    context.dispatch('initMessageList');
   },
 };
