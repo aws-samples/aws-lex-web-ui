@@ -411,17 +411,37 @@ Resources:
                         pre_build:
                             commands:
                                 - aws configure set region "$AWS_DEFAULT_REGION"
+                                - make load-current-config
                                 - make config
                         post_build:
                             commands:
                                 - make sync-website
 
     # custom resource to start code build project
+    # parameters apart from ProjectName are not used but are required to trigger codebuild on any param changes
     CodeBuildStarter:
         Type: Custom::CodeBuildStarter
         Properties:
             ServiceToken: !GetAtt CodeBuildStarterLambda.Arn
             ProjectName: !Ref CodeBuild
+            CognitoIdentityPoolId: !Ref CognitoIdentityPoolId
+            CognitoAppUserPoolClientId: !Ref CognitoAppUserPoolClientId
+            CognitoUserPoolId: !Ref CognitoUserPoolId
+            WebAppBucket: !Ref WebAppBucket
+            BotName: !Ref BotName
+            BotAlias: !Ref BotAlias
+            WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
+            WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
+            WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
+            WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
+            WebAppConfHelp: !Ref WebAppConfHelp
+            WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
+            ShouldEnableCognitoLogin: !Ref ShouldEnableCognitoLogin
+            ShouldForceCognitoLogin: !Ref ShouldForceCognitoLogin
+            ReInitSessionAttributesOnRestart: !Ref ReInitSessionAttributesOnRestart
+            EnableMarkdownSupport: !Ref EnableMarkdownSupport
+            ShouldLoadIframeMinimized: !Ref ShouldLoadIframeMinimized
+            ShowResponseCardTitle: !Ref ShowResponseCardTitle
 
     # Lambda function for custom resource
     CodeBuildStarterLambda:
@@ -656,7 +676,7 @@ Outputs:
     SnippetUrl:
         Value: !Sub "https://${LexWebUiDistribution.DomainName}/iframe-snippet.html"
         Description: URL of a page showing the snippet to load the chatbot UI as an iframe
-        
+
     WebAppBucket:
         Value: !Sub "${WebAppBucket}"
         Description: S3 bucket hosting lexwebui artifacts

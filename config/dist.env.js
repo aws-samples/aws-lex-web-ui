@@ -11,9 +11,15 @@ const loaderConfigFileName =
   path.resolve(__dirname, '../src/config/lex-web-ui-loader-config.json');
 const loaderConfig = require(loaderConfigFileName);
 
+
+const currentConfigFileName = path.resolve(__dirname, '../' + process.env.CURRENT_CONFIG_FILE);
+const currentConfig = require(currentConfigFileName);
+/* merge currentConfig with loader default config*/
+const userConfig = mergeConfig(currentConfig, baseConfig);
+
 module.exports = {
   appPreBuilt: {
     file: loaderConfigFileName,
-    conf: mergeConfig(loaderConfig, baseConfig),
+    conf: mergeConfig(userConfig, baseConfig),
   },
 };

@@ -18,6 +18,14 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### Fixes in version 0.17.3
+- Added loader config option (forceLogin) to templates which configures UI to require the user to authenticate through Cognito prior to using the bot.
+- Added loader config option (minButtonContent) which allows text to be added to the button which appears on the parent page when the iframe is minimized. 
+- Added XRay support to Lambda functions.
+- Added VPC actions to Lambda IAM Roles to support future deployment of Lambdas in VPC. 
+- Encrypted S3 buckets using AES-256 default KMS key
+- Prebuilt deployments now available for Singapore, Tokyo, London, and Frankfurt regions
+
 #### Fixes in version 0.17.2
 - Added option to hide message bubble on button click
 - Resolved current github dependabot security issues
