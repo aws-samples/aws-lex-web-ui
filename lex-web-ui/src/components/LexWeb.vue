@@ -304,6 +304,7 @@ export default {
     },
     // messages from parent
     messageHandler(evt) {
+      const messageType = this.$store.state.config.ui.hideButtonMessageBubble ? 'button' : 'human';
       // security check
       if (evt.origin !== this.$store.state.config.ui.parentOrigin) {
         console.warn('ignoring event - invalid origin:', evt.origin);
@@ -341,10 +342,9 @@ export default {
             });
             return;
           }
-
           this.$store.dispatch(
             'postTextMessage',
-            { type: 'human', text: evt.data.message },
+            { type: messageType, text: evt.data.message },
           )
             .then(() => evt.ports[0].postMessage({
               event: 'resolve', type: evt.data.event,
