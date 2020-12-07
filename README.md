@@ -18,6 +18,36 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### Features in version 0.17.4
+- Improved upgrade support. 
+  * The CloudFormation upgrade stack operation from the AWS Console should now be used to 
+    change configuration using the available parameters. After the upgrade is complete, the
+    lex-web-ui-loader-config.json file deployed to the web app S3 bucket will be updated 
+    with the values specified in the template. Prior versions of the config file are archived 
+    using a date timestamp in the S3 bucket should you need to refer to prior configuration values.
+  * Users can now upgrade to new versions of Lex-Web-Ui using the AWS CloudFormation console 
+    by replacing the template and specifying the S3 template location from the original regional
+    S3 bucket. As new releases of Lex-Web-Ui are published to the distribution repositories, you
+    can now upgrade to this version using the CloudFormation Upgrade/replace template process.
+  * Regional upgrade distribution locations
+    - us-east-1:  https://aws-bigdata-blog.s3.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - us-west-2:  https://aws-bigdata-blog-replica-us-west-2.s3-ap-northeast-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - ap-northeast-1: https://aws-bigdata-blog-replica-ap-northeast-1.s3-ap-northeast-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - ap-southeast-1a: https://aws-bigdata-blog-replica-ap-southeast-1a.s3-ap-southeast-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - ap-southeast-2: https://aws-bigdata-blog-replica-ap-southeast-2.s3-ap-southeast-2.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - eu-central-1: https://aws-bigdata-blog-replica-eu-central-1.s3.eu-central-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - eu-west-1: https://aws-bigdata-blog-replica-eu-west-1.s3-eu-west-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - eu-west-2: https://aws-bigdata-blog-replica-eu-west-2.s3.eu-west-2.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+- Chat history can now be preserved and redisplayed when the user comes back to the original parent page
+  hosting the Lex-Web-Ui. This features is controlled using the SaveHistory template parameter. When
+  this feature is enabled, a new menu is visible in the user interface that allows the user to
+  clear chat history. The following are the methods you can enable this feature. Note that you can 
+  toggle this feature on and off using the upgrade process. 
+  * During a new deployment, specify true for the Save History parameter
+  * Using the new upgrade feature, specify true for Save History parameter in the CloudFormation 
+  console.
+- Lambda function upgrade to Python 3.7.   
+
 #### Fixes in version 0.17.3
 - Added loader config option (forceLogin) to templates which configures UI to require the user to authenticate through Cognito prior to using the bot.
 - Added loader config option (minButtonContent) which allows text to be added to the button which appears on the parent page when the iframe is minimized. 

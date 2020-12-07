@@ -72,6 +72,7 @@ export default {
   isEnableLogin: false, // true when a login/logout menu should be displayed
   isForceLogin: false, // true when a login/logout menu should be displayed
   isLoggedIn: false, // when running with login/logout enabled
+  isSaveHistory: false, // when running with saveHistory enabled
   hasButtons: false, // does the response card have buttons?
   tokens: {},
   config,

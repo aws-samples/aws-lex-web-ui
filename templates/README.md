@@ -41,7 +41,7 @@ and ap-southeast-2 (Sydney). See the
 You can also build your own version and deploy to an S3 bucket you own in a region 
 where you would like to run CloudFormation. Here are the easiest steps to accomplish this.
 
-One required needed to build lex-web-ui version 0.14.13 and higher is python3. The release.sh
+One requirement to build lex-web-ui version 0.14.13 and higher is python3. The release.sh
 step below will fail until python3 becomes available. The build must now 
 package the python requests module separately and python3 is required to 
 install this module. Cloud9 environments based on Amazon Linux 

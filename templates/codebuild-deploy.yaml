@@ -206,6 +206,22 @@ Parameters:
         Default: Order Flowers
         Description: Title displayed in the chatbot UI toolbar
 
+    SaveHistory:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          This is an optional parameter, if set to True, the history of the chat is maintained over sessions.
+          A item to clean the chat will appear at the menu.
+
+    Timestamp:
+        Type: Number
+        Description: >
+          This is a required parameter. It defines a timestamp allow the codebuild to execute as long as the
+          timestamp from master.yaml and master-pipeline.yaml varies.
+
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
@@ -399,6 +415,10 @@ Resources:
                       Value: !Sub "${WebAppBucket.RegionalDomainName}"
                     - Name: CLOUDFRONT_DOMAIN
                       Value: !Sub "${LexWebUiDistribution.DomainName}"
+                    - Name: SAVE_HISTORY
+                      Value: !Ref SaveHistory
+                    - Name: TIMESTAMP
+                      Value: !Ref Timestamp
 
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
@@ -442,6 +462,8 @@ Resources:
             EnableMarkdownSupport: !Ref EnableMarkdownSupport
             ShouldLoadIframeMinimized: !Ref ShouldLoadIframeMinimized
             ShowResponseCardTitle: !Ref ShowResponseCardTitle
+            SaveHistory: !Ref SaveHistory
+            Timestamp: !Ref Timestamp
 
     # Lambda function for custom resource
     CodeBuildStarterLambda:

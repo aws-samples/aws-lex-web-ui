@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.17.4] - 2020-12-06
+- Improved upgrade support
+- Chat history can now be preserved and redisplayed when the user comes back to the original parent page.
+- Lambda function upgrade to Python 3.7.
+
 ## [0.17.3] - 2020-11-05
 - Added loader config option (forceLogin) to templates which configures UI to require the user to authenticate through Cognito prior to using the bot.
 - Added loader config option (minButtonContent) which allows text to be added to the button which appears on the parent page when the iframe is minimized. 

@@ -22,20 +22,24 @@ License for the specific language governing permissions and limitations under th
 import { mergeConfig } from '@/config';
 
 export default {
+  /**
+   * state mutations
+   */
+  // Checks whether a state object exists in sessionStorage and sets the states
+  // messages to the previous session.
+  reloadMessages(state) {
+    const value = sessionStorage.getItem('store');
+    if (value !== null) {
+      const sessionStore = JSON.parse(value);
+      state.messages = sessionStore.messages;
+    }
+  },
+
   /***********************************************************************
    *
    * Recorder State Mutations
    *
    **********************************************************************/
-
-  // Checks whether a state object exists in sessionStorage and sets the states
-  // messages to the previous session.
-  initialStore(state) {
-    if (sessionStorage.getItem('store')) {
-      const sessionStore = JSON.parse(sessionStorage.getItem('store'));
-      state.messages = sessionStore.messages;
-    }
-  },
 
   /**
    * true if recorder seems to be muted
@@ -333,6 +337,12 @@ export default {
   setIsLoggedIn(state, bool) {
     state.isLoggedIn = bool;
   },
+  /**
+   * use to set the state of keep session history
+   */
+  setIsSaveHistory(state, bool) {
+    state.isSaveHistory = bool;
+  },
   reset(state) {
     const s = {
       messages: [],
@@ -421,5 +431,9 @@ export default {
   },
   toggleBackProcessing(state) {
     state.isBackProcessing = !state.isBackProcessing;
+  },
+  clearMessages(state) {
+    state.messages = [];
+    state.lex.sessionAttributes = {};
   },
 };

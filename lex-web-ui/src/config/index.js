@@ -214,6 +214,9 @@ const configDefault = {
 
     // Optionally direct input focus to Bot text input as needed
     directFocusToBotInput: false,
+
+    // Optionally keep chat session automatically when load
+    saveHistory: false,
   },
 
   /* Configuration to enable voice and to pass options to the recorder

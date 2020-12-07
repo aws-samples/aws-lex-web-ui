@@ -475,6 +475,13 @@
 
 
 
+
+
+
+
+
+
+
 /*
 The Vuetify toolbar height is based on screen width breakpoints
 The toolbar can be 48px, 56px and 64px.
@@ -515,7 +522,7 @@ NOTE: not using var() for different heights due to IE11 compatibility
 }
 
 .toolbar-color {
-  background-color: #003DA5 !important;
+  background-color: #003da5 !important;
 }
 .nav-buttons {
   padding: 0;
@@ -526,21 +533,20 @@ NOTE: not using var() for different heights due to IE11 compatibility
   margin: 0;
 }
 
-
-.message-list[data-v-676b0989] {
+.message-list[data-v-c328d2b2] {
   padding-top: 1rem;
   overflow-y: auto;
   overflow-x: hidden;
 }
-.message-bot[data-v-676b0989] {
+.message-bot[data-v-c328d2b2] {
   -ms-flex-item-align: start;
       align-self: flex-start;
 }
-.message-human[data-v-676b0989] {
+.message-human[data-v-c328d2b2] {
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
-.message-feedback[data-v-676b0989] {
+.message-feedback[data-v-c328d2b2] {
   -ms-flex-item-align: end;
       align-self: flex-end;
 }

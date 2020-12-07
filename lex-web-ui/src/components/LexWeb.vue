@@ -201,6 +201,13 @@ export default {
           ) :
           Promise.resolve()
       ))
+      .then(() => {
+        if (this.$store.state.config.ui.saveHistory === true) {
+          this.$store.subscribe((mutation, state) => {
+            sessionStorage.setItem('store', JSON.stringify(state));
+          });
+        }
+      })
       .then(() => console.info(
         'successfully initialized lex web ui version: ',
         this.$store.state.version,

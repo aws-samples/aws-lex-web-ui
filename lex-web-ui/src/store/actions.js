@@ -43,10 +43,6 @@ export default {
    *
    **********************************************************************/
 
-  initialStore(context) {
-    context.commit('initialStore');
-  },
-
   initCredentials(context, credentials) {
     switch (context.state.awsCreds.provider) {
       case 'cognito':
@@ -82,14 +78,11 @@ export default {
     context.commit('mergeConfig', configObj);
   },
   initMessageList(context) {
-    console.info('current messages:: ', context.state.messages);
-    if (!context.state.messages.length) {
+    context.commit('reloadMessages');
+    if (context.state.messages && context.state.messages.length === 0) {
       context.commit('pushMessage', {
         type: 'bot',
         text: context.state.config.lex.initialText,
-        alts: {
-          markdown: context.state.config.lex.initialText,
-        },
       });
     }
   },
@@ -193,23 +186,19 @@ export default {
     return Promise.resolve();
   },
   reInitBot(context) {
-    return Promise.resolve()
-      .then(() => (
-        (context.state.config.ui.pushInitialTextOnRestart) ?
-          context.dispatch('pushMessage', {
-            text: context.state.config.lex.initialText,
-            type: 'bot',
-          }) :
-          Promise.resolve()
-      ))
-      .then(() => (
-        (context.state.config.lex.reInitSessionAttributesOnRestart) ?
-          context.commit(
-            'setLexSessionAttributes',
-            context.state.config.lex.sessionAttributes,
-          ) :
-          Promise.resolve()
-      ));
+    if (context.state.config.lex.reInitSessionAttributesOnRestart) {
+      context.commit('setLexSessionAttributes', context.state.config.lex.sessionAttributes);
+    }
+    if (context.state.config.ui.pushInitialTextOnRestart) {
+      context.commit('pushMessage', {
+        type: 'bot',
+        text: context.state.config.lex.initialText,
+        alts: {
+          markdown: context.state.config.lex.initialText,
+        },
+      });
+    }
+    return Promise.resolve();
   },
 
   /***********************************************************************
@@ -878,14 +867,14 @@ export default {
       );
     });
   },
-
-  /***********************************************************************
-   *
-   * Teardown Actions
-   *
-   **********************************************************************/
-  resetAction(context) {
-    context.commit('reset');
-    context.dispatch('initMessageList');
+  resetHistory(context) {
+    context.commit('clearMessages');
+    context.commit('pushMessage', {
+      type: 'bot',
+      text: context.state.config.lex.initialText,
+      alts: {
+        markdown: context.state.config.lex.initialText,
+      },
+    });
   },
 };

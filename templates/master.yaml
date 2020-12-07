@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.17.3)
+    Master Lex Web UI CloudFormation template (v0.17.4)
     It deploys:
         - S3 buckets to host the web application
         - CodeBuild project to build the configuration and deploy to S3
@@ -84,6 +84,16 @@ Parameters:
             If set to True, the menu with a login action will not be displayed
             in the Lex Web Ui, and the Cognito login will be executed automatically. This implicitly sets
             EnableCognitoLogin to be true.
+
+    SaveHistory:
+        Type: String
+        Default: false
+        AllowedValues:
+            - true
+            - false
+        Description: >
+            This is an optional parameter, if set to True, the history of the chat is maintained over sessions. 
+            A item to clean the chat will appear at the menu.
 
     CodeBuildName:
         Type: String
@@ -281,6 +291,7 @@ Metadata:
                   - EnableMarkdownSupport
                   - ReInitSessionAttributesOnRestart
                   - ShowResponseCardTitle
+                  - SaveHistory
             - Label:
                 default: Cognito Parameters
               Parameters:
@@ -362,6 +373,7 @@ Resources:
                 WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
                 WebAppConfHelp: !Ref WebAppConfHelp
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
+                SaveHistory: !Ref SaveHistory
                 ShouldEnableCognitoLogin:
                   !If
                     - ShouldForceCognitoLogin
@@ -382,7 +394,7 @@ Resources:
                       - NeedsCognito
                       - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                       - "UserMustSupply"
-
+                Timestamp: 1607312918
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack

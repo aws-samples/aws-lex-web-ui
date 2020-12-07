@@ -53,6 +53,11 @@ export default {
       this.scrollDown();
     },
   },
+  mounted() {
+    setTimeout(() => {
+      this.scrollDown();
+    }, 1000);
+  },
   methods: {
     scrollDown() {
       return this.$nextTick(() => {
