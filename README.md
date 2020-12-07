@@ -29,6 +29,8 @@ UI using JavaScript
     by replacing the template and specifying the S3 template location from the original regional
     S3 bucket. As new releases of Lex-Web-Ui are published to the distribution repositories, you
     can now upgrade to this version using the CloudFormation Upgrade/replace template process.
+  * After an upgrade, the CloudFront distribution cache will need to be invalidated for the changes to be seen 
+    immediately. 
   * Regional upgrade distribution locations
     - us-east-1:  https://aws-bigdata-blog.s3.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
     - us-west-2:  https://aws-bigdata-blog-replica-us-west-2.s3-ap-northeast-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
