@@ -1,5 +1,5 @@
 /*!
-* lex-web-ui v"0.17.4"
+* lex-web-ui v"0.17.5"
 * (c) 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 * Released under the Amazon Software License.
 */   

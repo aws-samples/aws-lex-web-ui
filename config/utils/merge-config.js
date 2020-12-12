@@ -23,14 +23,20 @@ module.exports = function mergeConfig(baseConfig, srcConfig) {
       let mergedConfig = {};
       let value = baseConfig[key];
       // merge from source if its value is not empty
-      if (key in srcConfig && !isEmpty(srcConfig[key])) {
-        value = (typeof(baseConfig[key]) === 'object') ?
-          // recursively merge sub-objects in both directions
-          Object.assign(
-            mergeConfig(srcConfig[key], baseConfig[key]),
-            mergeConfig(baseConfig[key], srcConfig[key]),
-          ) :
-          srcConfig[key];
+      // allow merging of emtpy values from helpIntent, positiveFeedbackIntent, and negativeFeedbackIntent
+      if (key in srcConfig ) {
+        if (key==='helpIntent' ||
+            key==='positiveFeedbackIntent' ||
+            key=== 'negativeFeedbackIntent' ||
+            !isEmpty(srcConfig[key]) ) {
+            value = (typeof (baseConfig[key]) === 'object') ?
+                // recursively merge sub-objects in both directions
+                Object.assign(
+                    mergeConfig(srcConfig[key], baseConfig[key]),
+                    mergeConfig(baseConfig[key], srcConfig[key]),
+                ) :
+                srcConfig[key];
+        }
       }
       mergedConfig[key] = value;
       return mergedConfig;

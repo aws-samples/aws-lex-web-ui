@@ -7561,7 +7561,7 @@ var debugs = {};
 var debugEnviron;
 exports.debuglog = function(set) {
   if (isUndefined(debugEnviron))
-    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.4","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
+    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.5","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
   set = set.toUpperCase();
   if (!debugs[set]) {
     if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
@@ -12633,6 +12633,7 @@ var jwt = __webpack_require__(119);
 
     // messages from parent
     messageHandler: function messageHandler(evt) {
+      var messageType = this.$store.state.config.ui.hideButtonMessageBubble ? 'button' : 'human';
       // security check
       if (evt.origin !== this.$store.state.config.ui.parentOrigin) {
         console.warn('ignoring event - invalid origin:', evt.origin);
@@ -12671,8 +12672,7 @@ var jwt = __webpack_require__(119);
             });
             return;
           }
-
-          this.$store.dispatch('postTextMessage', { type: 'human', text: evt.data.message }).then(function () {
+          this.$store.dispatch('postTextMessage', { type: messageType, text: evt.data.message }).then(function () {
             return evt.ports[0].postMessage({
               event: 'resolve', type: evt.data.event
             });
@@ -19931,7 +19931,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_194__;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LexWeb_vue__ = __webpack_require__(109);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_57cfcea7_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_80e1214c_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__ = __webpack_require__(333);
 function injectStyle (ssrContext) {
   __webpack_require__(196)
 }
@@ -19951,7 +19951,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_LexWeb_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_57cfcea7_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_80e1214c_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_LexWeb_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -25716,7 +25716,7 @@ module.exports.makeKey = makeKey
 /* 282 */
 /***/ (function(module, exports) {
 
-module.exports = {"_args":[["elliptic@6.5.3","/home/ec2-user/Source/aws-lex-web-ui/lex-web-ui"]],"_development":true,"_from":"elliptic@6.5.3","_id":"elliptic@6.5.3","_inBundle":false,"_integrity":"sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.5.3","name":"elliptic","escapedName":"elliptic","rawSpec":"6.5.3","saveSpec":null,"fetchSpec":"6.5.3"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz","_spec":"6.5.3","_where":"/home/ec2-user/Source/aws-lex-web-ui/lex-web-ui","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^3.0.8","grunt":"^1.0.4","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^9.0.1","istanbul":"^0.4.2","jscs":"^3.0.7","jshint":"^2.10.3","mocha":"^6.2.2"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.5.3"}
+module.exports = {"_from":"elliptic@6.5.3","_id":"elliptic@6.5.3","_inBundle":false,"_integrity":"sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.5.3","name":"elliptic","escapedName":"elliptic","rawSpec":"6.5.3","saveSpec":null,"fetchSpec":"6.5.3"},"_requiredBy":["#USER","/","/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz","_shasum":"cb59eb2efdaf73a0bd78ccd7015a62ad6e0f93d6","_spec":"elliptic@6.5.3","_where":"/Users/potterve/Source/aws-lex-web-ui/lex-web-ui","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"bundleDependencies":false,"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"deprecated":false,"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^3.0.8","grunt":"^1.0.4","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^9.0.1","istanbul":"^0.4.2","jscs":"^3.0.7","jshint":"^2.10.3","mocha":"^6.2.2"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.5.3"}
 
 /***/ }),
 /* 283 */
@@ -32141,9 +32141,9 @@ function plural(ms, msAbs, n, name) {
 var debug
 /* istanbul ignore next */
 if (typeof process === 'object' &&
-    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.4","DIST_BUILD":"true","PUBLIC_PATH":"/"}) &&
-    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.4","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG &&
-    /\bsemver\b/i.test(Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.4","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG)) {
+    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.5","DIST_BUILD":"true","PUBLIC_PATH":"/"}) &&
+    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.5","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG &&
+    /\bsemver\b/i.test(Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.5","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG)) {
   debug = function () {
     var args = Array.prototype.slice.call(arguments, 0)
     args.unshift('SEMVER')
@@ -35645,7 +35645,7 @@ License for the specific language governing permissions and limitations under th
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  version:  true ? "0.17.4" : '0.0.0',
+  version:  true ? "0.17.5" : '0.0.0',
   lex: {
     acceptFormat: 'audio/ogg',
     dialogState: '',

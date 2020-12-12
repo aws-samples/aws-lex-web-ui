@@ -18,6 +18,10 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### Fixes in version 0.17.5
+- Fix to allow use of CF template upgrade to disable WebAppConfHelp, WebAppConfPositiveFeedback, and WebAppConfNegativeFeedback
+- Fix to improve resizing of lex-web-ui button at bottom of page when text is used in addition to icon
+
 #### Features in version 0.17.4
 - Improved upgrade support. 
   * The CloudFormation upgrade stack operation from the AWS Console should now be used to 
