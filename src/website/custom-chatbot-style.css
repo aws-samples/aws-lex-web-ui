@@ -73,11 +73,17 @@
     font-size: 14px !important;
 }
 
+.card__actions .btn {
+  margin: 4px 4px;
+  font-size: 1em;
+  min-width: 44px;
+}
 
 */
-    button.min-button {
-        border-radius: 60px;
-    }
+
+button.min-button {
+    border-radius: 60px;
+}
 
 .message-button {
     display: none;
