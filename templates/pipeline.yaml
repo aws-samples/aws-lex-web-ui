@@ -138,6 +138,12 @@ Parameters:
             When pressed the button will send the entered string to the bot as a help message.  If left empty
             the help button will be disabled.
 
+    Timestamp:
+      Type: Number
+      Description: >
+        This is a required parameter. It defines a timestamp allow the codebuild to execute as long as the
+        timestamp from master.yaml and master-pipeline.yaml varies.
+
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
@@ -602,6 +608,15 @@ Resources:
                                 - ec2:CreateNetworkInterface
                                 - ec2:DeleteNetworkInterface
                             Resource: "*"
+                - PolicyName: LambdaUpgrades
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - lambda:UpdateFunctionCode
+                            Resource:
+                                - "arn::lambda:::function:testwebold2-CodeBuildDeploy-14UJA4-S3CleanupLambda-NBGV5CPVCU3I"
 
 Outputs:
     PipelineName:

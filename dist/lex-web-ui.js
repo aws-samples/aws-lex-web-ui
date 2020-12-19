@@ -7561,7 +7561,7 @@ var debugs = {};
 var debugEnviron;
 exports.debuglog = function(set) {
   if (isUndefined(debugEnviron))
-    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.5","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
+    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.6","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
   set = set.toUpperCase();
   if (!debugs[set]) {
     if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
@@ -32141,9 +32141,9 @@ function plural(ms, msAbs, n, name) {
 var debug
 /* istanbul ignore next */
 if (typeof process === 'object' &&
-    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.5","DIST_BUILD":"true","PUBLIC_PATH":"/"}) &&
-    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.5","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG &&
-    /\bsemver\b/i.test(Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.5","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG)) {
+    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.6","DIST_BUILD":"true","PUBLIC_PATH":"/"}) &&
+    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.6","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG &&
+    /\bsemver\b/i.test(Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.6","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG)) {
   debug = function () {
     var args = Array.prototype.slice.call(arguments, 0)
     args.unshift('SEMVER')
@@ -35645,7 +35645,7 @@ License for the specific language governing permissions and limitations under th
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  version:  true ? "0.17.5" : '0.0.0',
+  version:  true ? "0.17.6" : '0.0.0',
   lex: {
     acceptFormat: 'audio/ogg',
     dialogState: '',
