@@ -74,7 +74,7 @@ $(SRC_ZIP): $(SRC_FILES) | $(OUT)
 upload-src-zip: $(SRC_ZIP) | $(OUT)
 	@echo "[INFO] uploading git repo archive"
 	aws s3 cp --acl public-read \
-		"$(OUT)/$(SRC_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/src.zip" \
+		"$(OUT)/$(SRC_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/$(SRC_ZIP)" \
 		| tee -a "$(OUT)/$(@)"
 
 RESPONSE_CARD_IMAGE := ../lex-web-ui/static/img/flowers.jpeg
