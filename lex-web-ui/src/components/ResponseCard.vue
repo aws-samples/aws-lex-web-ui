@@ -111,8 +111,8 @@ export default {
   display: inline-block;
 }
 
-.btn {
-  margin: 10px;
+.card__actions .btn {
+  margin: 4px 4px;
   font-size: 1em;
   min-width: 44px;
 }

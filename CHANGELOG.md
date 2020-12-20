@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.17.6] - 2020-12-20
+- Additional fixes to support upgrades. Upgrades from 0.17.1 and above are supported. Older versions will need to perform a fresh install to migrate to this version.
+- Additions to CSS style documentation
+
 ## [0.17.5] - 2020-12-12
 - Fix to allow use of CF template upgrade to disable WebAppConfHelp, WebAppConfPositiveFeedback, and WebAppConfNegativeFeedback
 - Fix to improve resizing of lex-web-ui button at bottom of page when text is used in addition to icon

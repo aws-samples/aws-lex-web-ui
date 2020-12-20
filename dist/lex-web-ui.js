@@ -7561,7 +7561,7 @@ var debugs = {};
 var debugEnviron;
 exports.debuglog = function(set) {
   if (isUndefined(debugEnviron))
-    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.5","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
+    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.6","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
   set = set.toUpperCase();
   if (!debugs[set]) {
     if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
@@ -21993,7 +21993,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ResponseCard_vue__ = __webpack_require__(115);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5ac08f60_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ResponseCard_vue__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_78356de8_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ResponseCard_vue__ = __webpack_require__(219);
 function injectStyle (ssrContext) {
   __webpack_require__(218)
 }
@@ -22008,12 +22008,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-5ac08f60"
+var __vue_scopeId__ = "data-v-78356de8"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_ResponseCard_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5ac08f60_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ResponseCard_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_78356de8_hasScoped_true_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_ResponseCard_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -32141,9 +32141,9 @@ function plural(ms, msAbs, n, name) {
 var debug
 /* istanbul ignore next */
 if (typeof process === 'object' &&
-    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.5","DIST_BUILD":"true","PUBLIC_PATH":"/"}) &&
-    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.5","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG &&
-    /\bsemver\b/i.test(Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.5","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG)) {
+    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.6","DIST_BUILD":"true","PUBLIC_PATH":"/"}) &&
+    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.6","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG &&
+    /\bsemver\b/i.test(Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.6","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG)) {
   debug = function () {
     var args = Array.prototype.slice.call(arguments, 0)
     args.unshift('SEMVER')
@@ -35645,7 +35645,7 @@ License for the specific language governing permissions and limitations under th
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  version:  true ? "0.17.5" : '0.0.0',
+  version:  true ? "0.17.6" : '0.0.0',
   lex: {
     acceptFormat: 'audio/ogg',
     dialogState: '',
@@ -36269,7 +36269,7 @@ module.exports = {}
 /* 358 */
 /***/ (function(module, exports) {
 
-module.exports = {"cognito":{"poolId":"us-east-1:0cd403d3-76c0-40d0-9d60-afb02bfcb8ff"},"lex":{"botName":"OrderFlowers","initialText":"You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Config Bot","toolbarTitle":"Order Config","enableLogin":true,"forceLogin":true,"pushInitialTextOnRestart":false,"shouldDisplayResponseCardTitle":false,"showErrorIcon":true,"showDialogStateIcon":false,"positiveFeedbackIntent":"Thumbs up","negativeFeedbackIntent":"Thumbs down","helpIntent":"help","hideInputFieldsForButtonResponse":true,"backButton":false,"messageMenu":true},"recorder":{"preset":"speech_recognition"},"iframe":{"shouldLoadIframeMinimized":false}}
+module.exports = {"cognito":{"poolId":"us-east-1:1cfee538-850b-4891-a41f-558a07e44c21"},"lex":{"botName":"potterve_test_one_BotOQHxz","initialText":"You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Config Bot","toolbarTitle":"Order Config","enableLogin":true,"forceLogin":true,"pushInitialTextOnRestart":false,"shouldDisplayResponseCardTitle":false,"showErrorIcon":true,"showDialogStateIcon":false,"positiveFeedbackIntent":"Thumbs up","negativeFeedbackIntent":"Thumbs down","helpIntent":"help","hideInputFieldsForButtonResponse":true,"backButton":false,"messageMenu":true},"recorder":{"preset":"speech_recognition"},"iframe":{"shouldLoadIframeMinimized":false}}
 
 /***/ }),
 /* 359 */
