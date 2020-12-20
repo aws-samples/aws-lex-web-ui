@@ -58,7 +58,6 @@ export default {
     setTimeout(() => {
       this.scrollDown();
     }, 1000);
-
     EventBus.$on('handleAriaLiveAtt', (eventType) => {
       const attAriaLive = document.createAttribute('aria-live');
       const chatMessageList = document.getElementsByClassName('message-list')[0];
