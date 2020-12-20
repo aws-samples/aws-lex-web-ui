@@ -74,9 +74,10 @@
 }
 
 .card__actions .btn {
-  margin: 4px 4px;
-  font-size: 1em;
-  min-width: 44px;
+  margin: 4px 4px !important;
+  font-size: 1em !important;
+  min-width: 44px !important;
+  background-color: #afcffa !important;
 }
 
 */
