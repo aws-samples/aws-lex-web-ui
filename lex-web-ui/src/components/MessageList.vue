@@ -32,6 +32,7 @@ License for the specific language governing permissions and limitations under th
 */
 import Message from './Message';
 import MessageLoading from './MessageLoading';
+import EventBus from '../event-bus';
 
 export default {
   name: 'message-list',
@@ -57,6 +58,25 @@ export default {
     setTimeout(() => {
       this.scrollDown();
     }, 1000);
+    // Put focus on the answer (triggering vocalization for ScreenReaders)
+    EventBus.$on('messageEvent', (eventType) => {
+      const chatMessageList = document.getElementsByClassName('message-list')[0];
+      const lastElChild = chatMessageList.lastElementChild;
+      if (eventType === 'messageReceived') {
+        if (lastElChild && lastElChild.classList.contains('message-bot')) {
+          const lastMessage = lastElChild.getElementsByClassName('message-bubble')[0];
+          // focus() needs to be wrapped in setTimeout for IE11
+          const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+          if (isIE11) {
+            setTimeout(() => {
+              lastMessage.focus();
+            }, 10);
+          } else {
+            lastMessage.focus();
+          }
+        }
+      }
+    });
   },
   methods: {
     scrollDown() {

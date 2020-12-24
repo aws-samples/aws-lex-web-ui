@@ -24,6 +24,7 @@ import silentOgg from '@/assets/silent.ogg';
 import silentMp3 from '@/assets/silent.mp3';
 
 import LexClient from '@/lib/lex/client';
+import EventBus from '../event-bus';
 
 const jwt = require('jsonwebtoken');
 
@@ -450,11 +451,12 @@ export default {
   postTextMessage(context, message) {
     if (context.state.isSFXOn) {
       context.dispatch('playSound', context.state.config.ui.messageSentSFX);
-      context.dispatch(
-        'sendMessageToParentWindow',
-        { event: 'messageSent' },
-      );
     }
+    context.dispatch(
+      'sendMessageToParentWindow',
+      { event: 'messageSent' },
+    );
+    EventBus.$emit('messageEvent', 'messageSent');
     return context.dispatch('interruptSpeechConversation')
       .then(() => context.dispatch('pushMessage', message))
       .then(() => context.commit('pushUtterance', message.text))
@@ -512,11 +514,12 @@ export default {
       .then(() => {
         if (context.state.isSFXOn) {
           context.dispatch('playSound', context.state.config.ui.messageReceivedSFX);
-          context.dispatch(
-            'sendMessageToParentWindow',
-            { event: 'messageReceived' },
-          );
         }
+        context.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'messageReceived' },
+        );
+        EventBus.$emit('messageEvent', 'messageReceived');
         if (context.state.lex.dialogState === 'Fulfilled') {
           context.dispatch('reInitBot');
         }
