@@ -24,10 +24,10 @@
         aria-label="show chat window"
         class="min-button min-button-content"
       >
-        {{minButtonContent}}   
-        <v-icon right>
+        <v-icon left>
           {{'chat'}}
         </v-icon>
+        {{minButtonContent}}   
       </v-btn>
       <!-- seperate button for button with text vs w/o -->
       <v-btn
