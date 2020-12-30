@@ -29,3 +29,4 @@ export UI_TOOLBAR_LOGO ?= $()
 export IFRAME_ORIGIN ?= $()
 export PARENT_ORIGIN ?= $()
 
+export version := v$(shell node -p "require('../package.json').version")

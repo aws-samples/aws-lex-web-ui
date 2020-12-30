@@ -73,8 +73,19 @@
     font-size: 14px !important;
 }
 
+.card__actions .btn {
+  margin: 4px 4px !important;
+  font-size: 1em !important;
+  min-width: 44px !important;
+  background-color: #afcffa !important;
+}
 
 */
-    button.min-button {
-        border-radius: 60px;
-    }
+
+button.min-button {
+    border-radius: 60px;
+}
+
+.message-button {
+    display: none;
+}

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # utility to manually bootstrap a bucket with source files
 # this is intended for testing - use the Makefile for prod
+export version=v$(node -p "require('../package.json').version")
+echo version is $version
 BUCKET=${BUCKET:-""}
 BOOTSTRAP_BUCKET_PATH="${BUCKET}/artifacts"
 
@@ -14,18 +16,18 @@ mkdir out
 fi
 
 # assumes that it is running from build dir
-rm -f out/src.zip
+rm -f out/src-$version.zip
 # no longer removes custom-resources.zip - this is created in build using ./release.sh as a required step
 
 pushd .
 cd ..
-git ls-files | xargs zip -u build/out/src.zip
+git ls-files | xargs zip -u build/out/src-$version.zip
 popd
-aws s3 cp --acl public-read out/src.zip \
-  "s3://${BOOTSTRAP_BUCKET_PATH}/src.zip"
+aws s3 cp --acl public-read out/src-$version.zip \
+  "s3://${BOOTSTRAP_BUCKET_PATH}/src-$version.zip"
 
-aws s3 cp --acl public-read out/custom-resources.zip \
-  "s3://${BOOTSTRAP_BUCKET_PATH}/custom-resources.zip"
+aws s3 cp --acl public-read out/custom-resources-$version.zip \
+  "s3://${BOOTSTRAP_BUCKET_PATH}/custom-resources-$version.zip"
 
 aws s3 sync --acl public-read --exclude "*" --include "*.yaml" \
   ../templates "s3://${BOOTSTRAP_BUCKET_PATH}/templates/"

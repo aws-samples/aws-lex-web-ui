@@ -687,7 +687,7 @@ NOTE: not using var() for different heights due to IE11 compatibility
   border: 0 !important;
 }
 
-.card[data-v-5ac08f60] {
+.card[data-v-78356de8] {
   width: 75vw;
   position: inherit; /* workaround to card being displayed on top of toolbar shadow */
   padding-bottom: 0.5em;
@@ -695,22 +695,22 @@ NOTE: not using var() for different heights due to IE11 compatibility
           box-shadow: none !important;
   background-color: unset !important;
 }
-.card__title[data-v-5ac08f60] {
+.card__title[data-v-78356de8] {
   padding: 0.5em;
   padding-top: 0.75em;
 }
-.card__text[data-v-5ac08f60] {
+.card__text[data-v-78356de8] {
   padding: 0.33em;
 }
-.button-row[data-v-5ac08f60] {
+.button-row[data-v-78356de8] {
   display: inline-block;
 }
-.btn[data-v-5ac08f60] {
-  margin: 10px;
+.card__actions .btn[data-v-78356de8] {
+  margin: 4px 4px;
   font-size: 1em;
   min-width: 44px;
 }
-.card__actions.button-row[data-v-5ac08f60] {
+.card__actions.button-row[data-v-78356de8] {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;

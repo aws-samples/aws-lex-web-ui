@@ -42,7 +42,7 @@ CUSTOM_RESOURCES_DIR := $(TEMPLATES_DIR)/custom-resources
 # zip cfn custom resource lambda files
 BOT_DEFINITION_FILE := $(CUSTOM_RESOURCES_DIR)/bot-definition.json
 PY_MODULES := $(CUSTOM_RESOURCES_DIR)/py_modules
-CUSTOM_RESOURCES_ZIP := custom-resources.zip
+CUSTOM_RESOURCES_ZIP := custom-resources-$(version).zip
 CUSTOM_RESOURCES_FILES := $(wildcard $(CUSTOM_RESOURCES_DIR)/*.py)
 CUSTOM_RESOURCES_FILES += $(BOT_DEFINITION_FILE)
 CUSTOM_RESOURCES_FILES += $(PY_MODULES)
@@ -65,7 +65,7 @@ upload-custom-resources-zip: $(CUSTOM_RESOURCES_ZIP) | $(OUT)
 		| tee -a "$(OUT)/$(@)"
 
 # files in this repo are bundled in a zip file to boostrap the codecommit repo
-SRC_ZIP := src.zip
+SRC_ZIP := src-$(version).zip
 SRC_FILES := $(shell git ls-files ..)
 $(SRC_ZIP): $(SRC_FILES) | $(OUT)
 	@echo "[INFO] creating git repo archive"
@@ -74,7 +74,7 @@ $(SRC_ZIP): $(SRC_FILES) | $(OUT)
 upload-src-zip: $(SRC_ZIP) | $(OUT)
 	@echo "[INFO] uploading git repo archive"
 	aws s3 cp --acl public-read \
-		"$(OUT)/$(SRC_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/src.zip" \
+		"$(OUT)/$(SRC_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/$(SRC_ZIP)" \
 		| tee -a "$(OUT)/$(@)"
 
 RESPONSE_CARD_IMAGE := ../lex-web-ui/static/img/flowers.jpeg
