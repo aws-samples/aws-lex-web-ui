@@ -58,23 +58,28 @@ export default {
     setTimeout(() => {
       this.scrollDown();
     }, 1000);
-    // Put focus on the answer (triggering vocalization for ScreenReaders)
-    EventBus.$on('messageEvent', (eventType) => {
+    EventBus.$on('handleAriaLiveAtt', (eventType) => {
+      const attAriaLive = document.createAttribute('aria-live');
       const chatMessageList = document.getElementsByClassName('message-list')[0];
-      const lastElChild = chatMessageList.lastElementChild;
-      if (eventType === 'messageReceived') {
-        if (lastElChild && lastElChild.classList.contains('message-bot')) {
-          const lastMessage = lastElChild.getElementsByClassName('message-bubble')[0];
+
+      if (eventType === 'messageSent') {
+        // Deactivation of aria-live (avoid double vocalization)
+        attAriaLive.value = 'off';
+        chatMessageList.setAttributeNode(attAriaLive);
+      } else if (eventType === 'messageReceived') {
+        if (chatMessageList.lastElementChild) {
+          const lastMessage = chatMessageList.lastElementChild.getElementsByClassName('message-bubble')[0];
+          // Put focus on the question (triggering of the vocalization)
           // focus() needs to be wrapped in setTimeout for IE11
-          const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
-          if (isIE11) {
-            setTimeout(() => {
-              lastMessage.focus();
-            }, 10);
-          } else {
+          setTimeout(() => {
             lastMessage.focus();
-          }
+          }, 10);
         }
+        // Reactivation of aria-live
+        window.setTimeout(() => {
+          attAriaLive.value = 'polite';
+          chatMessageList.setAttributeNode(attAriaLive);
+        }, 0);
       }
     });
   },

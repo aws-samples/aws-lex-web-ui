@@ -19,7 +19,7 @@
         v-for="(button) in responseCard.buttons"
         v-show="button.text && button.value"
         v-bind:key="button.id"
-        v-on:click.once.native="(evt) => onButtonClick(evt, button.value)"
+        v-on:click.once.native="onButtonClick(button.value)"
         v-bind:disabled="shouldDisableClickedResponseCardButtons"
         round
         default
@@ -76,9 +76,8 @@ export default {
     },
   },
   methods: {
-    onButtonClick(evt, value) {
+    onButtonClick(value) {
       this.hasButtonBeenClicked = true;
-      evt.target.blur();
 
       const messageType = this.$store.state.config.ui.hideButtonMessageBubble ? 'button' : 'human';
       const message = {
