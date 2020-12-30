@@ -24,7 +24,6 @@ import silentOgg from '@/assets/silent.ogg';
 import silentMp3 from '@/assets/silent.mp3';
 
 import LexClient from '@/lib/lex/client';
-import EventBus from '../event-bus';
 
 const jwt = require('jsonwebtoken');
 
@@ -455,7 +454,6 @@ export default {
         'sendMessageToParentWindow',
         { event: 'messageSent' },
       );
-      EventBus.$emit('handleAriaLiveAtt', 'messageSent');
     }
     return context.dispatch('interruptSpeechConversation')
       .then(() => context.dispatch('pushMessage', message))
@@ -518,7 +516,6 @@ export default {
             'sendMessageToParentWindow',
             { event: 'messageReceived' },
           );
-          EventBus.$emit('handleAriaLiveAtt', 'messageReceived');
         }
         if (context.state.lex.dialogState === 'Fulfilled') {
           context.dispatch('reInitBot');

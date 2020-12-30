@@ -32,7 +32,6 @@ License for the specific language governing permissions and limitations under th
 */
 import Message from './Message';
 import MessageLoading from './MessageLoading';
-import EventBus from '../event-bus';
 
 export default {
   name: 'message-list',
@@ -58,31 +57,6 @@ export default {
     setTimeout(() => {
       this.scrollDown();
     }, 1000);
-
-    EventBus.$on('handleAriaLiveAtt', (eventType) => {
-      const attAriaLive = document.createAttribute('aria-live');
-      const chatMessageList = document.getElementsByClassName('message-list')[0];
-
-      if (eventType === 'messageSent') {
-        // Deactivation of aria-live (avoid double vocalization)
-        attAriaLive.value = 'off';
-        chatMessageList.setAttributeNode(attAriaLive);
-      } else if (eventType === 'messageReceived') {
-        if (chatMessageList.lastElementChild) {
-          const lastMessage = chatMessageList.lastElementChild.getElementsByClassName('message-bubble')[0];
-          // Put focus on the question (triggering of the vocalization)
-          // focus() needs to be wrapped in setTimeout for IE11
-          setTimeout(() => {
-            lastMessage.focus();
-          }, 10);
-        }
-        // Reactivation of aria-live
-        window.setTimeout(() => {
-          attAriaLive.value = 'polite';
-          chatMessageList.setAttributeNode(attAriaLive);
-        }, 0);
-      }
-    });
   },
   methods: {
     scrollDown() {
