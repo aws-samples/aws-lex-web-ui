@@ -18,6 +18,10 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### Fixes in version 0.17.7
+- Build script fix
+- Move min button icon to the left of text
+
 #### Fixes in version 0.17.6
 - Additional fixes to support upgrades. Upgrades from 0.17.1 and above are supported. 
   Older versions will need to perform a fresh install to migrate to this version.

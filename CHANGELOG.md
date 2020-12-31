@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.17.7] - 2020-12-31
+- Build script fix
+- Move min button icon to the left of text
+
 ## [0.17.6] - 2020-12-20
 - Additional fixes to support upgrades. Upgrades from 0.17.1 and above are supported. Older versions will need to perform a fresh install to migrate to this version.
 - Additions to CSS style documentation

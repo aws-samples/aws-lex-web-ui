@@ -48,7 +48,7 @@ only screen and (max-height: 256px)
   }
 
   .lex-web-ui-iframe--minimize {
-    max-width: 190px !important;
+    max-width: 300px !important;
     max-height: 85px !important;
   }
 }
@@ -80,7 +80,7 @@ and (max-width: 960px) {
   }
 
   .lex-web-ui-iframe.lex-web-ui-iframe--show.lex-web-ui-iframe--minimize {
-    max-width: 190px !important;
+    max-width: 300px !important;
     max-height: 85px !important;
     border-radius: 85px !important;
     min-width: 85px !important;
