@@ -1,5 +1,5 @@
 <template>
-  <div class="flex message d-flex message-bot" aria-hidden="true">
+  <div class="flex message d-flex message-bot messsge-loading" aria-hidden="true">
     <!-- contains message and response card -->
     <v-layout column ma-2 class="message-layout">
 
