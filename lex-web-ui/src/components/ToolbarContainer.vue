@@ -114,7 +114,7 @@
     </v-btn>
 
     <v-btn
-      v-if="shouldRenderSfxButton && isUiMinimized"
+      v-if="shouldRenderSfxButton && !isUiMinimized"
       v-on:click="toggleSFXMute"
       v-on="tooltipSFXEventHandlers"
       class="sfx-toggle"
