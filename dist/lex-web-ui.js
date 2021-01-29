@@ -7561,7 +7561,7 @@ var debugs = {};
 var debugEnviron;
 exports.debuglog = function(set) {
   if (isUndefined(debugEnviron))
-    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.7","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
+    debugEnviron = Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.8","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG || '';
   set = set.toUpperCase();
   if (!debugs[set]) {
     if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
@@ -11671,7 +11671,13 @@ var configDefault = {
     playbackInterruptNoiseThreshold: -75,
 
     // only allow to interrupt playback longer than this value (in seconds)
-    playbackInterruptMinDuration: 2
+    playbackInterruptMinDuration: 2,
+
+    // when set to true, allow lex-web-ui to retry the current request if an exception is detected.
+    retryOnLexPostTextTimeout: false,
+
+    // defines the retry count. default is 1. Only used if retryOnLexError is set to true.
+    retryCountPostTextTimeout: 1
   },
 
   polly: {
@@ -32141,9 +32147,9 @@ function plural(ms, msAbs, n, name) {
 var debug
 /* istanbul ignore next */
 if (typeof process === 'object' &&
-    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.7","DIST_BUILD":"true","PUBLIC_PATH":"/"}) &&
-    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.7","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG &&
-    /\bsemver\b/i.test(Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.7","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG)) {
+    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.8","DIST_BUILD":"true","PUBLIC_PATH":"/"}) &&
+    Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.8","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG &&
+    /\bsemver\b/i.test(Object({"NODE_ENV":"production","PACKAGE_VERSION":"0.17.8","DIST_BUILD":"true","PUBLIC_PATH":"/"}).NODE_DEBUG)) {
   debug = function () {
     var args = Array.prototype.slice.call(arguments, 0)
     args.unshift('SEMVER')
@@ -35645,12 +35651,14 @@ License for the specific language governing permissions and limitations under th
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  version:  true ? "0.17.7" : '0.0.0',
+  version:  true ? "0.17.8" : '0.0.0',
   lex: {
     acceptFormat: 'audio/ogg',
     dialogState: '',
     isInterrupting: false,
     isProcessing: false,
+    isPostTextRetry: false,
+    retryCountPostTextTimeout: 0,
     inputTranscript: '',
     intentName: '',
     message: '',
@@ -36269,7 +36277,7 @@ module.exports = {}
 /* 358 */
 /***/ (function(module, exports) {
 
-module.exports = {"cognito":{"poolId":"us-east-1:0cd403d3-76c0-40d0-9d60-afb02bfcb8ff"},"lex":{"botName":"OrderFlowers","initialText":"You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.","initialSpeechInstruction":"Say 'Order Flowers' to get started."},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Config Bot","toolbarTitle":"Order Config","enableLogin":true,"forceLogin":true,"pushInitialTextOnRestart":false,"shouldDisplayResponseCardTitle":false,"showErrorIcon":true,"showDialogStateIcon":false,"positiveFeedbackIntent":"Thumbs up","negativeFeedbackIntent":"Thumbs down","helpIntent":"help","hideInputFieldsForButtonResponse":true,"backButton":false,"messageMenu":true},"recorder":{"preset":"speech_recognition"},"iframe":{"shouldLoadIframeMinimized":false}}
+module.exports = {"cognito":{"poolId":"us-east-1:0cd403d3-76c0-40d0-9d60-afb02bfcb8ff"},"lex":{"botName":"OrderFlowers","initialText":"You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.","initialSpeechInstruction":"Say 'Order Flowers' to get started.","retryOnLexPostTextTimeout":false,"retryCountPostTextTimeout":1},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Config Bot","toolbarTitle":"Order Config","enableLogin":true,"forceLogin":true,"pushInitialTextOnRestart":false,"shouldDisplayResponseCardTitle":false,"showErrorIcon":true,"showDialogStateIcon":false,"positiveFeedbackIntent":"Thumbs up","negativeFeedbackIntent":"Thumbs down","helpIntent":"help","hideInputFieldsForButtonResponse":true,"backButton":false,"messageMenu":true},"recorder":{"preset":"speech_recognition"},"iframe":{"shouldLoadIframeMinimized":false}}
 
 /***/ }),
 /* 359 */
@@ -36813,6 +36821,18 @@ License for the specific language governing permissions and limitations under th
   clearMessages: function clearMessages(state) {
     state.messages = [];
     state.lex.sessionAttributes = {};
+  },
+  setPostTextRetry: function setPostTextRetry(state, bool) {
+    if (typeof bool !== 'boolean') {
+      console.error('setPostTextRetry status not boolean', bool);
+      return;
+    }
+    if (bool === false) {
+      state.lex.retryCountPostTextTimeout = 0;
+    } else {
+      state.lex.retryCountPostTextTimeout += 1;
+    }
+    state.lex.isPostTextRetry = bool;
   }
 });
 
@@ -37264,7 +37284,7 @@ var recorder = void 0;
     document.getElementById('sound').innerHTML = '<audio autoplay="autoplay"><source src="' + fileUrl + '" type="audio/mpeg" /><embed hidden="true" autostart="true" loop="false" src="' + fileUrl + '" /></audio>';
   },
   postTextMessage: function postTextMessage(context, message) {
-    if (context.state.isSFXOn) {
+    if (context.state.isSFXOn && !context.state.lex.isPostTextRetry) {
       context.dispatch('playSound', context.state.config.ui.messageSentSFX);
       context.dispatch('sendMessageToParentWindow', { event: 'messageSent' });
     }
@@ -37325,10 +37345,19 @@ var recorder = void 0;
       if (context.state.lex.dialogState === 'Fulfilled') {
         context.dispatch('reInitBot');
       }
+      if (context.state.isPostTextRetry) {
+        context.commit('setPostTextRetry', false);
+      }
     }).catch(function (error) {
-      var errorMessage = context.state.config.ui.showErrorDetails ? ' ' + error : '';
-      console.error('error in postTextMessage', error);
-      context.dispatch('pushErrorMessage', 'Sorry, I was unable to process your message. Try again later.' + ('' + errorMessage));
+      if (error.message.indexOf('permissible time') === -1 || context.state.config.lex.retryOnLexPostTextTimeout === false || context.state.lex.isPostTextRetry && context.state.lex.retryCountPostTextTimeout >= context.state.config.lex.retryCountPostTextTimeout) {
+        context.commit('setPostTextRetry', false);
+        var errorMessage = context.state.config.ui.showErrorDetails ? ' ' + error : '';
+        console.error('error in postTextMessage', error);
+        context.dispatch('pushErrorMessage', 'Sorry, I was unable to process your message. Try again later.' + ('' + errorMessage));
+      } else {
+        context.commit('setPostTextRetry', true);
+        context.dispatch('postTextMessage', message);
+      }
     });
   },
   deleteSession: function deleteSession(context) {
@@ -37465,7 +37494,9 @@ var recorder = void 0;
    **********************************************************************/
 
   pushMessage: function pushMessage(context, message) {
-    context.commit('pushMessage', message);
+    if (context.state.lex.isPostTextRetry === false) {
+      context.commit('pushMessage', message);
+    }
   },
   pushErrorMessage: function pushErrorMessage(context, text) {
     var dialogState = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'Failed';

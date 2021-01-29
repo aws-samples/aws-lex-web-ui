@@ -48397,6 +48397,10 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
 
       document.addEventListener('tokensavailable', this.propagateTokensUpdateCredentials.bind(this), false);
       return new Promise(function (resolve, reject) {
+        if (_this3.config.ui.enableLogin && _this3.config.ui.forceLogin) {
+          Object(_loginutil__WEBPACK_IMPORTED_MODULE_11__["forceLogin"])(_this3.generateConfigObj());
+        }
+
         var curUrl = window.location.href;
 
         if (curUrl.indexOf('loggedin') >= 0) {

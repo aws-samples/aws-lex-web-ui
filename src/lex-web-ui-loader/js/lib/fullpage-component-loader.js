@@ -14,7 +14,7 @@
 /* eslint no-console: ["error", { allow: ["warn", "error", "debug", "info"] }] */
 /* global AWS LexWebUi Vue */
 import { ConfigLoader } from './config-loader';
-import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired } from './loginutil';
+import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin } from './loginutil';
 
 /**
  * Instantiates and mounts the chatbot component
@@ -162,6 +162,9 @@ export class FullPageComponentLoader {
   initCognitoCredentials() {
     document.addEventListener('tokensavailable', this.propagateTokensUpdateCredentials.bind(this), false);
     return new Promise((resolve, reject) => {
+      if (this.config.ui.enableLogin && this.config.ui.forceLogin) {
+        forceLogin(this.generateConfigObj())
+      }
       const curUrl = window.location.href;
       if (curUrl.indexOf('loggedin') >= 0) {
         if (completeLogin(this.generateConfigObj())) {

@@ -216,6 +216,24 @@ Parameters:
           This is an optional parameter, if set to True, the history of the chat is maintained over sessions.
           A item to clean the chat will appear at the menu.
 
+    retryOnLexPostTextTimeout:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          When set to true, operations against the Lex PostText API that result in a timeout
+          will be retried up the the defined retry count. This is useful to enable if 30 second
+          timeouts in Lex are frequently observed and subsequent operations will must likely succeed.
+
+    retryCountPostTextTimeout:
+        Type: Number
+        Default: 1
+        Description: >
+          Defines the number of times the lex-web-ui will retry the Lex post text API operation when an exception
+          is detected.
+
     Timestamp:
         Type: Number
         Description: >
@@ -417,6 +435,10 @@ Resources:
                       Value: !Sub "${LexWebUiDistribution.DomainName}"
                     - Name: SAVE_HISTORY
                       Value: !Ref SaveHistory
+                    - Name: BOT_RETRY_ON_LEX_POST_TEXT_TIMEOUT
+                      Value: !Ref retryOnLexPostTextTimeout
+                    - Name: BOT_RETRY_COUNT_POST_TEXT_TIMEOUT
+                      Value: !Ref retryCountPostTextTimeout
                     - Name: TIMESTAMP
                       Value: !Ref Timestamp
 
@@ -463,6 +485,9 @@ Resources:
             ShouldLoadIframeMinimized: !Ref ShouldLoadIframeMinimized
             ShowResponseCardTitle: !Ref ShowResponseCardTitle
             SaveHistory: !Ref SaveHistory
+            ParentOrigin: !Ref ParentOrigin
+            retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
+            retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
             Timestamp: !Ref Timestamp
 
     # Lambda function for custom resource

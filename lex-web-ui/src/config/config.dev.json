@@ -5,7 +5,9 @@
   "lex": {
     "botName": "OrderFlowers",
     "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
-    "initialSpeechInstruction": "Say 'Order Flowers' to get started."
+    "initialSpeechInstruction": "Say 'Order Flowers' to get started.",
+    "retryOnLexPostTextTimeout": false,
+    "retryCountPostTextTimeout": 1
   },
   "polly": {
     "voiceId": "Salli"

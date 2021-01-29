@@ -448,7 +448,7 @@ export default {
     document.getElementById('sound').innerHTML = `<audio autoplay="autoplay"><source src="${fileUrl}" type="audio/mpeg" /><embed hidden="true" autostart="true" loop="false" src="${fileUrl}" /></audio>`;
   },
   postTextMessage(context, message) {
-    if (context.state.isSFXOn) {
+    if (context.state.isSFXOn && !context.state.lex.isPostTextRetry) {
       context.dispatch('playSound', context.state.config.ui.messageSentSFX);
       context.dispatch(
         'sendMessageToParentWindow',
@@ -520,16 +520,31 @@ export default {
         if (context.state.lex.dialogState === 'Fulfilled') {
           context.dispatch('reInitBot');
         }
+        if (context.state.isPostTextRetry) {
+          context.commit('setPostTextRetry', false);
+        }
       })
       .catch((error) => {
-        const errorMessage = (context.state.config.ui.showErrorDetails) ?
-          ` ${error}` : '';
-        console.error('error in postTextMessage', error);
-        context.dispatch(
-          'pushErrorMessage',
-          'Sorry, I was unable to process your message. Try again later.' +
-          `${errorMessage}`,
-        );
+        if (((error.message.indexOf('permissible time') === -1))
+          || context.state.config.lex.retryOnLexPostTextTimeout === false
+          || (context.state.lex.isPostTextRetry &&
+            (context.state.lex.retryCountPostTextTimeout >=
+              context.state.config.lex.retryCountPostTextTimeout)
+          )
+        ) {
+          context.commit('setPostTextRetry', false);
+          const errorMessage = (context.state.config.ui.showErrorDetails) ?
+            ` ${error}` : '';
+          console.error('error in postTextMessage', error);
+          context.dispatch(
+            'pushErrorMessage',
+            'Sorry, I was unable to process your message. Try again later.' +
+            `${errorMessage}`,
+          );
+        } else {
+          context.commit('setPostTextRetry', true);
+          context.dispatch('postTextMessage', message);
+        }
       });
   },
   deleteSession(context) {
@@ -677,7 +692,9 @@ export default {
    **********************************************************************/
 
   pushMessage(context, message) {
-    context.commit('pushMessage', message);
+    if (context.state.lex.isPostTextRetry === false) {
+      context.commit('pushMessage', message);
+    }
   },
   pushErrorMessage(context, text, dialogState = 'Failed') {
     context.commit('pushMessage', {
