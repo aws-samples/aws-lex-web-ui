@@ -274,7 +274,6 @@ Resources:
                 SourceBucket: !Ref BootstrapBucket
                 SourceObject: !Sub "${BootstrapPrefix}/src-v0.17.8.zip"
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.17.8.zip"
-                Timestamp: 1612128942
 
     Pipeline:
         Type: AWS::CloudFormation::Stack
@@ -303,7 +302,6 @@ Resources:
                 WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
                 WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
                 WebAppConfHelp: !Ref WebAppConfHelp
-                Timestamp: 1612128942
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
