@@ -24,6 +24,8 @@ export default {
     dialogState: '',
     isInterrupting: false,
     isProcessing: false,
+    isPostTextRetry: false,
+    retryCountPostTextTimeout: 0,
     inputTranscript: '',
     intentName: '',
     message: '',

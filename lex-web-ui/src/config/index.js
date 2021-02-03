@@ -103,6 +103,12 @@ const configDefault = {
 
     // only allow to interrupt playback longer than this value (in seconds)
     playbackInterruptMinDuration: 2,
+
+    // when set to true, allow lex-web-ui to retry the current request if an exception is detected.
+    retryOnLexPostTextTimeout: false,
+
+    // defines the retry count. default is 1. Only used if retryOnLexError is set to true.
+    retryCountPostTextTimeout: 1,
   },
 
   polly: {

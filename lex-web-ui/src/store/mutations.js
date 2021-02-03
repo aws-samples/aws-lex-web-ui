@@ -436,4 +436,16 @@ export default {
     state.messages = [];
     state.lex.sessionAttributes = {};
   },
+  setPostTextRetry(state, bool) {
+    if (typeof bool !== 'boolean') {
+      console.error('setPostTextRetry status not boolean', bool);
+      return;
+    }
+    if (bool === false) {
+      state.lex.retryCountPostTextTimeout = 0;
+    } else {
+      state.lex.retryCountPostTextTimeout += 1;
+    }
+    state.lex.isPostTextRetry = bool;
+  },
 };

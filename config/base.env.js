@@ -18,6 +18,8 @@ module.exports = {
     initialSpeechInstruction: process.env.BOT_INITIAL_SPEECH,
     reInitSessionAttributesOnRestart: (process.env.REINIT_SESSION_ATTRIBUTES_ON_RESTART === undefined) ? undefined : (process.env.REINIT_SESSION_ATTRIBUTES_ON_RESTART === 'true') ? true : false,
     region: process.env.AWS_DEFAULT_REGION,
+    retryOnLexPostTextTimeout: process.env.BOT_RETRY_ON_LEX_POST_TEXT_TIMEOUT,
+    retryCountPostTextTimeout: process.env.BOT_RETRY_COUNT_POST_TEXT_TIMEOUT
   },
   ui: {
     parentOrigin: process.env.PARENT_ORIGIN,
