@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.17.8] - 2020-02-02
+## [0.17.8] - 2021-02-02
 - Fix for pipeline based deployments - issue 264 - template error
 - Fix to full page web client (index.html) using forceLogin to require a direct to login page
 - Fix to move to python 3.8 Lambda Runtime for yaml CloudFormation template embedded functions which remove use of boto3 vendored library
