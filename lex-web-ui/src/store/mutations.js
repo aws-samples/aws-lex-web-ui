@@ -22,6 +22,19 @@ License for the specific language governing permissions and limitations under th
 import { mergeConfig } from '@/config';
 
 export default {
+  /**
+   * state mutations
+   */
+  // Checks whether a state object exists in sessionStorage and sets the states
+  // messages to the previous session.
+  reloadMessages(state) {
+    const value = sessionStorage.getItem('store');
+    if (value !== null) {
+      const sessionStore = JSON.parse(value);
+      state.messages = sessionStore.messages;
+    }
+  },
+
   /***********************************************************************
    *
    * Recorder State Mutations
@@ -311,11 +324,56 @@ export default {
     state.isSFXOn = !state.isSFXOn;
   },
   /**
+   * used to track the appearance of the input container
+   * when the appearance of buttons should hide it
+   */
+  toggleHasButtons(state) {
+    state.hasButtons = !state.hasButtons;
+  },
+  /**
    * used to track the expand/minimize status of the window when
    * running embedded in an iframe
    */
   setIsLoggedIn(state, bool) {
     state.isLoggedIn = bool;
+  },
+  /**
+   * use to set the state of keep session history
+   */
+  setIsSaveHistory(state, bool) {
+    state.isSaveHistory = bool;
+  },
+  reset(state) {
+    const s = {
+      messages: [],
+      utteranceStack: [],
+    };
+    Object.keys(s).forEach((key) => {
+      state[key] = s[key];
+    });
+  },
+  /**
+   * Update tokens from cognito authentication
+   * @param state
+   * @param tokens
+   */
+  reapplyTokensToSessionAttributes(state) {
+    console.error('reapplyTokensToSessionAttributes');
+    if (state) {
+      console.error('setting attributes if they exist');
+      if (state.tokens.idtokenjwt) {
+        console.error('found idtokenjwt');
+        state.lex.sessionAttributes.idtokenjwt = state.tokens.idtokenjwt;
+      }
+      if (state.tokens.accesstokenjwt) {
+        console.error('found accesstokenjwt');
+        state.lex.sessionAttributes.accesstokenjwt = state.tokens.accesstokenjwt;
+      }
+      if (state.tokens.refreshtoken) {
+        console.error('found refreshtoken');
+        state.lex.sessionAttributes.refreshtoken = state.tokens.refreshtoken;
+      }
+    }
   },
 
   /**
@@ -373,5 +431,21 @@ export default {
   },
   toggleBackProcessing(state) {
     state.isBackProcessing = !state.isBackProcessing;
+  },
+  clearMessages(state) {
+    state.messages = [];
+    state.lex.sessionAttributes = {};
+  },
+  setPostTextRetry(state, bool) {
+    if (typeof bool !== 'boolean') {
+      console.error('setPostTextRetry status not boolean', bool);
+      return;
+    }
+    if (bool === false) {
+      state.lex.retryCountPostTextTimeout = 0;
+    } else {
+      state.lex.retryCountPostTextTimeout += 1;
+    }
+    state.lex.isPostTextRetry = bool;
   },
 };

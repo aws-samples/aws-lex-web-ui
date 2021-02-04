@@ -52,6 +52,16 @@ Parameters:
             in the Lex Web Ui. This feature uses Cognito User Pools with
             hosted login pages. After login, the menu will switch to logout.
 
+    ShouldForceCognitoLogin:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, the menu with a login action will not be displayed
+            in the Lex Web Ui, and the Cognito login will be executed automatically.
+
     EnableMarkdownSupport:
         Type: String
         Default: true
@@ -85,13 +95,13 @@ Parameters:
 
     ShowResponseCardTitle:
         Type: String
-        Default: true
+        Default: false
         AllowedValues:
         - true
         - false
         Description: >
             If set to True, the ResponseCard title is displayed in the UI. When set to false,
-            a ResponseCard title is not displayed in the UI. Default is true. Note at the
+            a ResponseCard title is not displayed in the UI. Default is false. Note at the
             present time this is a global setting. Should the UI need to display some form
             of a title, use the optional sub-title property of a ResponseCard.
 
@@ -117,7 +127,10 @@ Parameters:
 
     BotName:
         Description: >
-            Name of Lex bot to be used in the web app configuration.
+            Name of an existing Lex Bot to be used by the web ui. NOTE: You must
+            also enter your published bot alias in the BotAlias field below.
+            (If BotName is left empty, a Bot based on the OrderFlowers sample will be
+            automatically created.)
         Type: String
         MinLength: 2
         MaxLength: 50
@@ -127,9 +140,10 @@ Parameters:
 
     BotAlias:
         Description: >
-            Alias to use of an existing Lex Bot. By default this is '$LATEST'.
-            Use this default if the lex-web-ui should always use the most
-            recent version of the bot.
+            WARNING: For production deployments, use your bot's published alias here.
+            The $LATEST alias should only be used for manual testing. Amazon Lex limits
+            the number of runtime requests that you can make to the $LATEST version of
+            the bot.
         Type: String
         Default: '$LATEST'
         MinLength: 2
@@ -162,12 +176,12 @@ Parameters:
         Description: >
             Message spoken by bot when the microphone is first pressed
             in a conversation
-    
+
     WebAppConfNegativeFeedback:
         Type: String
         Default: Thumbs down
         Description: >
-            This optional parameter defines the message to be sent by the user upon pressing 
+            This optional parameter defines the message to be sent by the user upon pressing
             a feedback button signaling a negative feedback.
             If left empty feedback buttons will be disabled on the UI.
 
@@ -175,7 +189,7 @@ Parameters:
         Type: String
         Default: Thumbs up
         Description: >
-            This optional parameter defines the message to be sent by the user upon pressing 
+            This optional parameter defines the message to be sent by the user upon pressing
             a feedback button signaling a positive feedback.
             If left empty feedback buttons will be disabled on the UI.
 
@@ -192,11 +206,58 @@ Parameters:
         Default: Order Flowers
         Description: Title displayed in the chatbot UI toolbar
 
+    SaveHistory:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          This is an optional parameter, if set to True, the history of the chat is maintained over sessions.
+          A item to clean the chat will appear at the menu.
+
+    retryOnLexPostTextTimeout:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          When set to true, operations against the Lex PostText API that result in a timeout
+          will be retried up the the defined retry count. This is useful to enable if 30 second
+          timeouts in Lex are frequently observed and subsequent operations will must likely succeed.
+
+    retryCountPostTextTimeout:
+        Type: Number
+        Default: 1
+        Description: >
+          Defines the number of times the lex-web-ui will retry the Lex post text API operation when an exception
+          is detected.
+
+    Timestamp:
+        Type: Number
+        Description: >
+          This is a required parameter. It defines a timestamp allow the codebuild to execute as long as the
+          timestamp from master.yaml and master-pipeline.yaml varies.
+
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
 
 Resources:
+    # Bucket where S3 access logs are stored
+    S3ServerAccessLogs:
+        Type: AWS::S3::Bucket
+        DeletionPolicy: Retain
+        Properties:
+          VersioningConfiguration:
+            Status: Enabled
+          AccessControl: "LogDeliveryWrite"
+          BucketEncryption:
+            ServerSideEncryptionConfiguration:
+              - ServerSideEncryptionByDefault:
+                  SSEAlgorithm: AES256
+
     # Bucket where the web app is deployed
     WebAppBucket:
         Type: AWS::S3::Bucket
@@ -206,6 +267,13 @@ Resources:
                 IndexDocument: index.html
             VersioningConfiguration:
                 Status: Enabled
+            LoggingConfiguration:
+                DestinationBucketName: !Ref S3ServerAccessLogs
+                LogFilePrefix: "webappbucket/"
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                    SSEAlgorithm: AES256
             CorsConfiguration:
                 !If
                   - NeedsParentOrigin
@@ -215,6 +283,92 @@ Resources:
                         - GET
                       AllowedOrigins:
                         - !Ref ParentOrigin
+
+    # Bucket for CloudFrontDistributionLogs
+    LexWebUiCloudFrontDistributionLogsBucket:
+      Type: AWS::S3::Bucket
+      DeletionPolicy: Retain
+      Properties:
+        VersioningConfiguration:
+          Status: Enabled
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
+
+    WebAppBucketOriginAccessIdentity:
+        Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+        Properties:
+          CloudFrontOriginAccessIdentityConfig:
+            Comment: !Sub "access-identity-${WebAppBucket}"
+
+    WebAppBucketBucketPolicy:
+        Type: "AWS::S3::BucketPolicy"
+        Properties:
+          Bucket:
+            Ref: "WebAppBucket"
+          PolicyDocument:
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "s3:GetObject"
+                Resource:
+                  - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+                Principal:
+                  CanonicalUser: !GetAtt WebAppBucketOriginAccessIdentity.S3CanonicalUserId
+
+    LexWebUiDistribution:
+        Type: AWS::CloudFront::Distribution
+        DependsOn:
+        - WebAppBucket
+        - LexWebUiCloudFrontDistributionLogsBucket
+        Properties:
+          DistributionConfig:
+            Origins:
+            - DomainName: !Sub "${WebAppBucket}.s3.${AWS::Region}.amazonaws.com"
+              S3OriginConfig:
+                OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${WebAppBucketOriginAccessIdentity}"
+              Id: webuiorigin
+            Enabled: 'true'
+            Comment: cloudfront distribution for lex-web-ui
+            DefaultRootObject: index.html
+            Logging:
+              Bucket: !GetAtt LexWebUiCloudFrontDistributionLogsBucket.DomainName
+              IncludeCookies: True
+              Prefix: "lexwebui/"
+            CustomErrorResponses:
+              # Send errors to index file
+              # TODO move TTL to mapping or parameter
+              - ErrorCachingMinTTL: 300
+                ErrorCode: 403
+                ResponseCode: 200
+                ResponsePagePath: /index.html
+              - ErrorCachingMinTTL: 300
+                ErrorCode: 404
+                ResponseCode: 200
+                ResponsePagePath: /index.html
+            DefaultCacheBehavior:
+              AllowedMethods:
+                - GET
+                - HEAD
+                - OPTIONS
+              CachedMethods:
+                - GET
+                - HEAD
+                - OPTIONS
+              Compress: true
+              TargetOriginId: webuiorigin
+              ForwardedValues:
+                QueryString: true
+                Headers:
+                  - Origin
+                  - Access-Control-Request-Method
+                  - Access-Control-Request-Headers
+              ViewerProtocolPolicy: redirect-to-https
+            ViewerCertificate:
+              CloudFrontDefaultCertificate: true
+            HttpVersion: http2
+            IPV6Enabled: true
 
     CodeBuild:
         Type: AWS::CodeBuild::Project
@@ -251,13 +405,15 @@ Resources:
                     - Name: NEGATIVE_INTENT
                       Value: !Ref WebAppConfNegativeFeedback
                     - Name: POSITIVE_INTENT
-                      Value: !Ref WebAppConfPositiveFeedback  
+                      Value: !Ref WebAppConfPositiveFeedback
                     - Name: HELP_INTENT
                       Value: !Ref WebAppConfHelp
                     - Name: UI_TOOLBAR_TITLE
                       Value: !Ref WebAppConfToolbarTitle
                     - Name: ENABLE_LOGIN
                       Value: !Ref ShouldEnableCognitoLogin
+                    - Name: FORCE_LOGIN
+                      Value: !Ref ShouldForceCognitoLogin
                     - Name: REINIT_SESSION_ATTRIBUTES_ON_RESTART
                       Value: !Ref ReInitSessionAttributesOnRestart
                     - Name: ENABLE_MARKDOWN_SUPPORT
@@ -269,10 +425,23 @@ Resources:
                     - Name: PARENT_ORIGIN
                       Value: !If
                         - NeedsParentOrigin
-                        - !Sub "https://${WebAppBucket.DomainName}"
+                        - !Sub "https://${LexWebUiDistribution.DomainName}"
                         - !Ref ParentOrigin
                     - Name: IFRAME_ORIGIN
-                      Value: !Sub "https://${WebAppBucket.DomainName}"
+                      Value: !Sub "https://${LexWebUiDistribution.DomainName}"
+                    - Name: WEBAPP_BUCKET_REGIONALDOMAINNAME
+                      Value: !Sub "${WebAppBucket.RegionalDomainName}"
+                    - Name: CLOUDFRONT_DOMAIN
+                      Value: !Sub "${LexWebUiDistribution.DomainName}"
+                    - Name: SAVE_HISTORY
+                      Value: !Ref SaveHistory
+                    - Name: BOT_RETRY_ON_LEX_POST_TEXT_TIMEOUT
+                      Value: !Ref retryOnLexPostTextTimeout
+                    - Name: BOT_RETRY_COUNT_POST_TEXT_TIMEOUT
+                      Value: !Ref retryCountPostTextTimeout
+                    - Name: TIMESTAMP
+                      Value: !Ref Timestamp
+
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
             Source:
@@ -284,17 +453,42 @@ Resources:
                         pre_build:
                             commands:
                                 - aws configure set region "$AWS_DEFAULT_REGION"
+                                - make load-current-config
                                 - make config
                         post_build:
                             commands:
                                 - make sync-website
 
     # custom resource to start code build project
+    # parameters apart from ProjectName are not used but are required to trigger codebuild on any param changes
     CodeBuildStarter:
         Type: Custom::CodeBuildStarter
         Properties:
             ServiceToken: !GetAtt CodeBuildStarterLambda.Arn
             ProjectName: !Ref CodeBuild
+            CognitoIdentityPoolId: !Ref CognitoIdentityPoolId
+            CognitoAppUserPoolClientId: !Ref CognitoAppUserPoolClientId
+            CognitoUserPoolId: !Ref CognitoUserPoolId
+            WebAppBucket: !Ref WebAppBucket
+            BotName: !Ref BotName
+            BotAlias: !Ref BotAlias
+            WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
+            WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
+            WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
+            WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
+            WebAppConfHelp: !Ref WebAppConfHelp
+            WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
+            ShouldEnableCognitoLogin: !Ref ShouldEnableCognitoLogin
+            ShouldForceCognitoLogin: !Ref ShouldForceCognitoLogin
+            ReInitSessionAttributesOnRestart: !Ref ReInitSessionAttributesOnRestart
+            EnableMarkdownSupport: !Ref EnableMarkdownSupport
+            ShouldLoadIframeMinimized: !Ref ShouldLoadIframeMinimized
+            ShowResponseCardTitle: !Ref ShowResponseCardTitle
+            SaveHistory: !Ref SaveHistory
+            ParentOrigin: !Ref ParentOrigin
+            retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
+            retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
+            Timestamp: !Ref Timestamp
 
     # Lambda function for custom resource
     CodeBuildStarterLambda:
@@ -305,8 +499,10 @@ Resources:
                 S3Key: !Ref CustomResourceCodeObject
             Handler: codebuild-start.handler
             Role: !GetAtt CodeBuildStarterLambdaRole.Arn
-            Runtime: python2.7
+            Runtime: python3.7
             Timeout: 120
+            TracingConfig:
+                Mode: Active
 
     CodeBuildRole:
         Type: AWS::IAM::Role
@@ -397,6 +593,25 @@ Resources:
                             Action:
                                 - codebuild:StartBuild
                             Resource: !GetAtt CodeBuild.Arn
+                - PolicyName: XRay
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                              - xray:PutTraceSegments
+                              - xray:PutTelemetryRecords
+                            Resource: "*"
+                - PolicyName: AllowVPCSupport
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                              - ec2:DescribeNetworkInterfaces
+                              - ec2:CreateNetworkInterface
+                              - ec2:DeleteNetworkInterface
+                            Resource: "*"
 
     # custom resource to cleanup S3 buckets
     S3Cleanup:
@@ -407,7 +622,7 @@ Resources:
             Buckets:
                 - !Ref WebAppBucket
 
-    # Lambda function for custom resource
+  # Lambda function for custom resource
     S3CleanupLambda:
         Type: AWS::Lambda::Function
         Condition: ShouldCleanupBuckets
@@ -417,8 +632,10 @@ Resources:
                 S3Key: !Ref CustomResourceCodeObject
             Handler: s3-cleanup.handler
             Role: !GetAtt S3CleanupLambdaRole.Arn
-            Runtime: python2.7
+            Runtime: python3.7
             Timeout: 120
+            TracingConfig:
+                Mode: Active
 
     S3CleanupLambdaRole:
         Type: AWS::IAM::Role
@@ -457,6 +674,26 @@ Resources:
                             Resource:
                                 - !Sub "arn:aws:s3:::${WebAppBucket}"
                                 - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+                - PolicyName: XRay
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - xray:PutTraceSegments
+                                - xray:PutTelemetryRecords
+                            Resource:
+                                - "*"
+                - PolicyName: AllowVPCSupport
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - ec2:DescribeNetworkInterfaces
+                                - ec2:CreateNetworkInterface
+                                - ec2:DeleteNetworkInterface
+                            Resource: "*"
 
 Outputs:
     CodeBuildProject:
@@ -464,25 +701,29 @@ Outputs:
         Value: !Ref CodeBuild
 
     WebAppUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/index.html"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}/index.html"
         Description: URL of the web application
 
     WebAppBase:
-        Value: !Sub "https://${WebAppBucket.DomainName}"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}"
         Description: Base url portion of the web application
 
     WebAppDomainName:
-        Value: !Sub "${WebAppBucket.DomainName}"
+        Value: !Sub "${LexWebUiDistribution.DomainName}"
         Description: DomainName of the web application
 
     ParentPageUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/parent.html"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}/parent.html"
         Description: URL of the sample parent page
 
     LoaderScriptUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/lex-web-ui-loader.min.js"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}/lex-web-ui-loader.min.js"
         Description: URL of the loader script
 
     SnippetUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/iframe-snippet.html"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}/iframe-snippet.html"
         Description: URL of a page showing the snippet to load the chatbot UI as an iframe
+
+    WebAppBucket:
+        Value: !Sub "${WebAppBucket}"
+        Description: S3 bucket hosting lexwebui artifacts

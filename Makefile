@@ -16,7 +16,11 @@ BUILD_DIR := build
 DIST_DIR := dist
 SRC_DIR := src
 CONFIG_DIR := $(SRC_DIR)/config
-WEBSITE_DIR := $(SRC_DIR)/website
+
+# merge existing user modified lex-web-ui-loader-config.json during upgrade
+# replace user custom-chatbot-style.css files during upgrade
+CURRENT_CONFIG_FILE := $(WEBAPP_DIR)/current/user-lex-web-ui-loader-config.json
+USER_CUSTOM_CSS_COPY := $(WEBAPP_DIR)/current/user-custom-chatbot-style.css
 
 # this install all the npm dependencies needed to build from scratch
 install-deps:
@@ -26,6 +30,19 @@ install-deps:
 	cd $(WEBAPP_DIR) && npm install
 .PHONY: install-deps
 
+
+load-current-config:
+	@echo "[INFO] Downloading current lex-web-ui-loader-config.json from s3 to merge user changes"
+	@echo "[INFO] Downloading s3://$(WEBAPP_BUCKET)/lex-web-ui-loader-config.json if it exists or load defaults"
+	-aws s3 ls "s3://$(WEBAPP_BUCKET)/lex-web-ui-loader-config.json" && \
+    	aws s3 cp "s3://$(WEBAPP_BUCKET)/lex-web-ui-loader-config.json" "$(CURRENT_CONFIG_FILE)" || \
+        cp "$(CONFIG_DIR)/default-lex-web-ui-loader-config.json" "$(CURRENT_CONFIG_FILE)"
+	@echo "[INFO] Downloading s3://$(WEBAPP_BUCKET)/custom-chatbot-style.css file if it exists or load defaults"
+	-aws s3 ls "s3://$(WEBAPP_BUCKET)/custom-chatbot-style.css" && \
+    	aws s3 cp "s3://$(WEBAPP_BUCKET)/custom-chatbot-style.css" "$(USER_CUSTOM_CSS_COPY)" || \
+        cp "$(DIST_DIR)/custom-chatbot-style.css" "$(USER_CUSTOM_CSS_COPY)"
+.PHONY: load-current-config
+
 # BUILD_TYPE controls whether the configuration is done for a full build or
 # for using the prebuilt/dist libraries
 # Expected values: full || dist
@@ -34,6 +51,7 @@ BUILD_TYPE ?= $()
 
 # updates the config files with values from the environment
 UPDATE_CONFIG_SCRIPT := $(BUILD_DIR)/update-lex-web-ui-config.js
+export CURRENT_CONFIG_FILE ?= $(realpath $(CURRENT_CONFIG_FILE))
 export WEBAPP_CONFIG_PROD ?= $(realpath $(WEBAPP_DIR)/src/config/config.prod.json)
 export WEBAPP_CONFIG_DEV ?= $(realpath $(WEBAPP_DIR)/src/config/config.dev.json)
 export LOADER_CONFIG ?= $(realpath $(SRC_DIR)/config/lex-web-ui-loader-config.json)
@@ -47,18 +65,19 @@ config: $(UPDATE_CONFIG_SCRIPT) $(CONFIG_ENV) $(CONFIG_FILES)
 .PHONY: config
 
 build: config
-	@echo "[INFO] Building loader"
-	npm run build
 	@echo "[INFO] Building component in dir [$(WEBAPP_DIR)]"
 	cd $(WEBAPP_DIR) && npm run build
 	cd $(WEBAPP_DIR) && npm run build-dist
+	@echo "[INFO] Building loader"
+	npm run build-dev
+	npm run build-prod
 	@echo "[INFO Building Dist"
 	cd $(DIST_DIR) && make
 .PHONY: build
 
 # creates an HTML file with a JavaScript snippet showing how to load the iframe
 CREATE_IFRAME_SNIPPET_SCRIPT := $(BUILD_DIR)/create-iframe-snippet-file.sh
-export IFRAME_SNIPPET_FILE := $(WEBSITE_DIR)/iframe-snippet.html
+export IFRAME_SNIPPET_FILE := $(DIST_DIR)/iframe-snippet.html
 $(IFRAME_SNIPPET_FILE): $(CREATE_IFRAME_SNIPPET_SCRIPT)
 	@echo "[INFO] Creating iframe snippet file: [$(@)]"
 	bash $(?)
@@ -75,24 +94,26 @@ deploy-to-s3: create-iframe-snippet
 	aws s3 cp --recursive "$(WEBAPP_DIST_DIR)" \
 		"s3://$(WEBAPP_BUCKET)/builds/$(CODEBUILD_BUILD_ID)/"
 	@echo "[INFO] copying new version"
-	aws s3 cp --recursive --acl public-read \
+	aws s3 cp --recursive \
 		"s3://$(WEBAPP_BUCKET)/builds/$(CODEBUILD_BUILD_ID)/" \
+		"s3://$(WEBAPP_BUCKET)/"
+	aws s3 cp \
+		--metadata-directive REPLACE --cache-control max-age=0 \
+		"s3://$(WEBAPP_BUCKET)/builds/$(CODEBUILD_BUILD_ID)/custom-chatbot-style.css" \
 		"s3://$(WEBAPP_BUCKET)/"
 	@[ "$(PARENT_PAGE_BUCKET)" ] && \
 		( echo "[INFO] synching parent page to bucket: [$(PARENT_PAGE_BUCKET)]" && \
-		aws s3 sync --acl public-read \
+		aws s3 sync \
 			--exclude '*' \
+			--metadata-directive REPLACE --cache-control max-age=0 \
 			--include 'aws-config.js' \
 			--include 'lex-web-ui-loader-config.json' \
 			"$(CONFIG_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" && \
-		aws s3 sync --acl public-read \
-			--exclude '*' \
-			--include 'parent.html' \
-			--include 'iframe-snippet.html' \
-			"$(WEBSITE_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" && \
-		aws s3 sync --acl public-read \
+		aws s3 sync \
 			--exclude '*' \
 			--include 'lex-web-ui-loader.*' \
+			--include 'parent.html' \
+			--include 'iframe-snippet.html' \
 			"$(DIST_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" ) || \
 		echo "[INFO] no parent bucket to deploy"
 	@echo "[INFO] all done deploying"
@@ -105,24 +126,35 @@ deploy-to-s3: create-iframe-snippet
 sync-website: create-iframe-snippet
 	@[ "$(WEBAPP_BUCKET)" ] || \
 		(echo "[ERROR] WEBAPP_BUCKET variable not set" ; exit 1)
-	@echo "[INFO] copying libary files"
-	aws s3 sync --acl public-read \
+	@echo "[INFO] copying web site files"
+	aws s3 sync \
 		--exclude Makefile \
 		--exclude lex-web-ui-mobile-hub.zip \
-		$(DIST_DIR) s3://$(WEBAPP_BUCKET)
-	@echo "[INFO] copying website files"
-	aws s3 sync --acl public-read \
-		$(WEBSITE_DIR) s3://$(WEBAPP_BUCKET)
+		--exclude custom-chatbot-style.css \
+		"$(DIST_DIR)" s3://$(WEBAPP_BUCKET)
+	@echo "[INFO] Restoring existing custom css file"
+	@[ -f "$(USER_CUSTOM_CSS_COPY)" ] && \
+	aws s3 cp \
+		--metadata-directive REPLACE --cache-control max-age=0 \
+		"$(USER_CUSTOM_CSS_COPY)" "s3://$(WEBAPP_BUCKET)/custom-chatbot-style.css"
+	@echo "[INFO] Saving a backup copy of previous loader config json"
+	aws s3 cp \
+		"$(CURRENT_CONFIG_FILE)" "s3://$(WEBAPP_BUCKET)/lex-web-ui-loader-config.$(shell date +%Y%m%d%H%M%S).json"
+#	@echo "[INFO] copying custom-chatbot-style.css and setting cache max-age=0"
+#	aws s3 cp \
+#		--metadata-directive REPLACE --cache-control max-age=0 \
+#		"$(DIST_DIR)/custom-chatbot-style.css" s3://$(WEBAPP_BUCKET)
 	@echo "[INFO] copying config files"
-	aws s3 sync --acl public-read \
+	aws s3 sync  \
 		--exclude '*' \
+		--metadata-directive REPLACE --cache-control max-age=0 \
 		--include 'lex-web-ui-loader-config.json' \
-		$(CONFIG_DIR) s3://$(WEBAPP_BUCKET)
+		"$(CONFIG_DIR)" s3://$(WEBAPP_BUCKET)
 	@[ "$(BUILD_TYPE)" = 'dist' ] && \
 		echo "[INFO] copying aws-config.js" ;\
-		aws s3 sync --acl public-read \
+		aws s3 sync  \
 			--exclude '*' \
 			--include 'aws-config.js' \
-			$(CONFIG_DIR) s3://$(WEBAPP_BUCKET)
+			"$(CONFIG_DIR)" s3://$(WEBAPP_BUCKET)
 	@echo "[INFO] all done deploying"
 .PHONY: sync-website

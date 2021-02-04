@@ -1,6 +1,6 @@
 # Sample Amazon Lex Web Interface
 
-> Sample Amazon Lex Web Interface
+> sample Amazon Lex Web Interface
 
 # Overview
 This is a sample [Amazon Lex](https://aws.amazon.com/lex/)
@@ -17,27 +17,101 @@ and ability to interrupt responses and replay recordings
 - Display of Lex response cards
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
+  
+#### Fixes in version 0.17.8
+- Fix for pipeline based deployments - issue 264 - template error
+- Fix to full page web client (index.html) using forceLogin to require a direct to login page
+- Fix to move to python 3.8 Lambda Runtime for yaml CloudFormation template embedded functions which remove use of boto3 vendored library
+- Add ability for Lex Web UI to automatically retry a request if the Lex bot times out after 30 seconds using a configurable number of attempts.
+  By default the timeout retry feature is disabled. When enabled, the default retry count is 1.
 
-#### New Features in version 0.14.11
-- Installation now supported in several regions using the following region bootstrap buckets urls. Use these when
-launching within CloudFormation->Create new stack
-    - us-east-1
-        - https://s3.amazonaws.com/aws-bigdata-blog/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
-    - eu-west-1
-        - https://s3.amazonaws.com/aws-bigdata-blog-replica-eu-west-1/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
-    - ap-southeast-2
-        - https://s3.amazonaws.com/aws-bigdata-blog-replica-ap-southeast-2/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
-- Added css guide and default customization css file to allow style modifications used by index.html
-- Bug fixes related to installing sample Order Flowers bot
+#### Fixes in version 0.17.7
+- Build script fix
+- Move min button icon to the left of text
 
-#### New Features in version 0.14.9
-- Use of NodeJS 10.x for Lambda functions.
-Note that this feature requires use of NodeJS 10.16.3 or higher and npm version 6.13.0 or higher
-to build the LexWebUi. 
-- Moved use of Polly for initial speech instruction to be used by Cognito Auth Role only
+#### Fixes in version 0.17.6
+- Additional fixes to support upgrades. Upgrades from 0.17.1 and above are supported. 
+  Older versions will need to perform a fresh install to migrate to this version.
 
-#### New Features in version 0.14.8
-- Inline message feedback buttons
+#### Fixes in version 0.17.5
+- Fix to allow use of CF template upgrade to disable WebAppConfHelp, WebAppConfPositiveFeedback, and WebAppConfNegativeFeedback
+- Fix to improve resizing of lex-web-ui button at bottom of page when text is used in addition to icon
+
+#### Features in version 0.17.4
+- Improved upgrade support. 
+  * The CloudFormation upgrade stack operation from the AWS Console should now be used to 
+    change configuration using the available parameters. After the upgrade is complete, the
+    lex-web-ui-loader-config.json file deployed to the web app S3 bucket will be updated 
+    with the values specified in the template. Prior versions of the config file are archived 
+    using a date timestamp in the S3 bucket should you need to refer to prior configuration values.
+  * Users can now upgrade to new versions of Lex-Web-Ui using the AWS CloudFormation console 
+    by replacing the template and specifying the S3 template location from the original regional
+    S3 bucket. As new releases of Lex-Web-Ui are published to the distribution repositories, you
+    can now upgrade to this version using the CloudFormation Upgrade/replace template process.
+  * After an upgrade, the CloudFront distribution cache will need to be invalidated for the changes to be seen 
+    immediately. 
+  * Regional upgrade distribution locations
+    - us-east-1:  https://aws-bigdata-blog.s3.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - us-west-2:  https://aws-bigdata-blog-replica-us-west-2.s3-ap-northeast-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - ap-northeast-1: https://aws-bigdata-blog-replica-ap-northeast-1.s3-ap-northeast-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - ap-southeast-1a: https://aws-bigdata-blog-replica-ap-southeast-1a.s3-ap-southeast-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - ap-southeast-2: https://aws-bigdata-blog-replica-ap-southeast-2.s3-ap-southeast-2.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - eu-central-1: https://aws-bigdata-blog-replica-eu-central-1.s3.eu-central-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - eu-west-1: https://aws-bigdata-blog-replica-eu-west-1.s3-eu-west-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - eu-west-2: https://aws-bigdata-blog-replica-eu-west-2.s3.eu-west-2.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+- Chat history can now be preserved and redisplayed when the user comes back to the original parent page
+  hosting the Lex-Web-Ui. This features is controlled using the SaveHistory template parameter. When
+  this feature is enabled, a new menu is visible in the user interface that allows the user to
+  clear chat history. The following are the methods you can enable this feature. Note that you can 
+  toggle this feature on and off using the upgrade process. 
+  * During a new deployment, specify true for the Save History parameter
+  * Using the new upgrade feature, specify true for Save History parameter in the CloudFormation 
+  console.
+- Lambda function upgrade to Python 3.7.   
+
+#### Fixes in version 0.17.3
+- Added loader config option (forceLogin) to templates which configures UI to require the user to authenticate through Cognito prior to using the bot.
+- Added loader config option (minButtonContent) which allows text to be added to the button which appears on the parent page when the iframe is minimized. 
+- Added XRay support to Lambda functions.
+- Added VPC actions to Lambda IAM Roles to support future deployment of Lambdas in VPC. 
+- Encrypted S3 buckets using AES-256 default KMS key
+- Prebuilt deployments now available for Singapore, Tokyo, London, and Frankfurt regions
+
+#### Fixes in version 0.17.2
+- Added option to hide message bubble on button click
+- Resolved current github dependabot security issues
+- Use default encryption for all S3 buckets using AES-256 encryption
+- Added instructions in readme for adding additional vue components 
+
+#### Fixes in version 0.17.1
+- Create uniquely named Cognito UserPool on stack creation
+- Removed display of Back button in title bar and instead provide a replay button using the text from prior 
+message directly in the message bubble. Back button can be re-enabled though configuration json if desired. 
+- Enhanced css attributes of the minimized chatbot button to help allow clicking on items in the parent
+window as well as selecting text next the button. 
+
+#### New Features in version 0.17.0
+- Improved screen reader / accessibility features 
+- Added CloudFormation stack outputs for CloudFront and S3 bucket
+- Use response card defined in session attribute "appContext" over that defined by Lex based response Card
+- lex web ui now supports greater than 5 buttons when response card is defined in session attributes "appcontext"
+- Updated dependent packages in package-lock.json identified by Dependabot security alerts 
+- Resolved additional CloudFront CORS issues
+- See [CHANGELOG](CHANGELOG.md) for additional details
+
+#### New Features in version 0.16.0
+- Lex-web-ui now ships with cloudfront as the default distribution method 
+  * better load times 
+  * non public access to S3 bucket
+  * better future integration to cloudfront features such as WAF and Lambda@Edge
+- Updated package.json dependencies
+
+#### New Features in version 0.15.0
+- Moved to Webpack 4 
+- Changed default parameter ShowResponseCardTitle to be false - was default of true
+- Added back default parameter BotAlias of '$LATEST'. The '$LATEST' 
+alias should only be used for manual testing. Amazon Lex limits
+the number of runtime requests that you can make to the $LATEST version of the bot.
 
 <img src="./img/feedbackButtons.png" width="480">
 
@@ -68,9 +142,18 @@ provided by this project. Once you have launched the CloudFormation stack,
 you will get a fully working demo site hosted in your account.
 
 
-Click this button to launch it:
+Click a button to launch it in the desired region
 
-<a target="_blank" href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=lex-web-ui&templateURL=https://s3.amazonaws.com/aws-bigdata-blog/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a>
+| Region   |  Launch | 
+|----------|:-------------:|
+| Northern Virginia | <a target="_blank" href="https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a>     |
+| Oregon | <a target="_blank" href="https://us-west-2.console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog-replica-us-west-2/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog-replica-us-west-2"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a> |
+| Ireland | <a target="_blank" href="https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog-replica-eu-west-1/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog-replica-eu-west-1"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a> |
+| Sydney | <a target="_blank" href="https://ap-southeast-2.console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog-replica-ap-southeast-2/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog-replica-ap-southeast-2"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a> |
+| Singapore | <a target="_blank" href="https://ap-southeast-1.console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog-replica-ap-southeast-1a/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog-replica-ap-southeast-1a"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a> |
+| London | <a target="_blank" href="https://eu-west-2.console.aws.amazon.com/cloudformation/home?region=eu-west-2#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog-replica-eu-west-2/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog-replica-eu-west-2"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a> |
+| Tokyo | <a target="_blank" href="https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog-replica-ap-northeast-1/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog-replica-ap-northeast-1"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a> |
+| Frankfurt | <a target="_blank" href="https://eu-central-1.console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog-replica-eu-central-1/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog-replica-eu-central-1"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a> |
 
 By default, the CloudFormation template
 creates a sample Lex bot and a [Amazon Cognito Identity
@@ -540,3 +623,4 @@ the files instead of rendering it, you will have to re-sync the files
 to the S3 bucket using the S3 console or aws cli. See the
 [Add Mobile Hub Hosting and Streaming to Your Mobile App](https://docs.aws.amazon.com/mobile-hub/latest/developerguide/add-aws-mobile-hosting-and-streaming.html#add-aws-mobile-hosting-and-streaming-app)
 section of the Mobile Hub documentation for details.
+

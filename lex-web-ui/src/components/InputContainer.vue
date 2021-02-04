@@ -16,6 +16,7 @@
         <v-text-field
           v-bind:label="textInputPlaceholder"
           v-show="shouldShowTextInput"
+          v-bind:disabled="isLexProcessing"
           v-model="textInput"
           v-on:keyup.enter.stop="postTextMessage"
           v-on:focus="onTextFieldFocus"
@@ -46,6 +47,7 @@
           v-if="shouldShowSendButton"
           v-on:click="postTextMessage"
           v-on="tooltipEventHandlers"
+          v-bind:disabled="isLexProcessing"
           ref="send"
           class="icon-color input-button"
           icon
@@ -110,6 +112,9 @@ export default {
   computed: {
     isBotSpeaking() {
       return this.$store.state.botAudio.isSpeaking;
+    },
+    isLexProcessing() {
+      return this.$store.state.lex.isProcessing;
     },
     isSpeechConversationGoing() {
       return this.$store.state.recState.isConversationGoing;
@@ -187,7 +192,12 @@ export default {
       }
     },
     setInputTextFieldFocus() {
-      this.$refs.textInput.$refs.input.focus();
+      // focus() needs to be wrapped in setTimeout for IE11
+      setTimeout(() => {
+        if (this.$refs && this.$refs.textInput && this.shouldShowTextInput) {
+          this.$refs.textInput.$refs.input.focus();
+        }
+      }, 10);
     },
     playInitialInstruction() {
       const isInitialState = ['', 'Fulfilled', 'Failed']
@@ -218,7 +228,9 @@ export default {
       return this.$store.dispatch('postTextMessage', message)
         .then(() => {
           this.textInput = '';
-          this.setInputTextFieldFocus();
+          if (this.shouldShowTextInput) {
+            this.setInputTextFieldFocus();
+          }
         });
     },
     startSpeechConversation() {

@@ -150,6 +150,8 @@ Mixing regions is not supported.
     @import 'node_modules/aws-lex-web-ui/dist/lex-web-ui.css';
   */
 ```
+#### Adding New Dependencies
+To add new dependencies you will need to add them to the lex-web-ui Vue plugin.  This can be done in 'lex-web-ui/lex-web-ui.js'. By adding them via the VueConstructor.  For example to add a depency such as [VueMask](https://www.npmjs.com/package/v-mask) From within the 'lex-web-ui' directory npm install v-mask.  Then ```import VueMask from 'v-mask'``` finally at the bottom of the file add ```VueConstructor.use(VueMask)```.  Now VueMask will be available throughout the entire UI.
 
 ## Credential Management
 This sample application uses [Amazon
@@ -195,7 +197,6 @@ value
     "enableLogin": true,
     ...
 }
-
 ```
 
 This enables the menu icon in the toolbar area with a single menu item that toggles 
@@ -226,6 +227,25 @@ The Lex Web UI initially will use the unauth role until a user logs in.
 After login processing fully completes, an event fires in the browser indicating tokens 
 are now available. At that time, the Lex Web UI will switch to using auth based role by 
 using new temporary credentials.
+
+
+#### Force Login
+Optionally, if set to True, the menu with a login action will not be displayed in the Lex Web Ui, and the Cognito login will be executed automatically. 
+
+- During deployment of the CloudFormation template. Set the ForceCognitoLogin 
+parameter to true.
+
+
+- Post deployment by editing the lex-web-ui-loader-config.json file. Set the ui configuration
+value 
+
+```
+"ui": {
+    ...
+    "forceLogin": true,
+    ...
+}
+```
 
 ### Adjusting existing Identity Pools to be used with the lex-web-ui
 
@@ -339,6 +359,19 @@ devices.
 NOTE: browsers may require the application to be served using HTTPS for
 the WebRTC API to work. Make sure to serve the application from an HTTPS
 enabled server or if hosting on S3 or CloudFront, use https in the URL.
+
+## Sound Effects
+You can enable sound effects when a message is sent or received. This
+feature also enables a sound button in the toolbar that can be used to
+mute the sound effects.
+```
+  "ui": {
+    "enableSFX": true,
+    // uri to sound files
+    "messageSentSFX": "sent.mp3",
+    "messageReceivedSFX": "received.mp3",
+  }
+```
 
 ## Markdown and HTML Support 
 The chatbot UI supports HTML and Markdown in bot responses. Markdown can be provided in

@@ -1,11 +1,13 @@
 {
   "cognito": {
-    "poolId": "us-east-1:06de3a58-1e89-4048-95bc-0d8cbd750d37"
+    "poolId": "us-east-1:0cd403d3-76c0-40d0-9d60-afb02bfcb8ff"
   },
   "lex": {
-    "botName": "QNA_dev_dev_master_two_Botba",
+    "botName": "OrderFlowers",
     "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
-    "initialSpeechInstruction": "Say 'Order Flowers' to get started."
+    "initialSpeechInstruction": "Say 'Order Flowers' to get started.",
+    "retryOnLexPostTextTimeout": false,
+    "retryCountPostTextTimeout": 1
   },
   "polly": {
     "voiceId": "Salli"
@@ -15,13 +17,17 @@
     "pageTitle": "Order Config Bot",
     "toolbarTitle": "Order Config",
     "enableLogin": true,
+    "forceLogin": true,
     "pushInitialTextOnRestart": false,
     "shouldDisplayResponseCardTitle": false,
     "showErrorIcon": true,
     "showDialogStateIcon": false,
     "positiveFeedbackIntent": "Thumbs up",
     "negativeFeedbackIntent": "Thumbs down",
-    "helpIntent": "help"
+    "helpIntent": "help",
+    "hideInputFieldsForButtonResponse": true,
+    "backButton": false,
+    "messageMenu": true
   },
   "recorder": {
     "preset": "speech_recognition"

@@ -22,7 +22,7 @@ export const dependenciesFullPage = {
   script: [
     {
       name: 'AWS',
-      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.332.0.js',
+      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.671.0.js',
       canUseMin: true,
     },
     {
@@ -78,7 +78,7 @@ export const dependenciesIframe = {
   script: [
     {
       name: 'AWS',
-      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.176.0.js',
+      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.671.0.js',
       canUseMin: true,
     },
     {

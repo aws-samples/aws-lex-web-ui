@@ -35,10 +35,18 @@ code repository
 
 ### Regions
 The lex-web-ui can be launched into regions other than us-east-1 where Lex, Polly, Cognito, Codebuild are supported. 
-Note that a pre-staged bootstrap S3 bucket is only available in us-east-1 at the moment. To work around this you can 
-build your own version and deploy to an S3 bucket you own in a region where you would like to run CloudFormation. 
-Here are the easiest steps to accomplish this.
+Note that a pre-staged bootstrap S3 bucket is available in us-east-1 (N. Virginia), eu-west-1 (Ireland), 
+and ap-southeast-2 (Sydney). See the
+[blog post](https://aws.amazon.com/blogs/machine-learning/deploy-a-web-ui-for-your-chatbot/) for these links in the Launch section. 
+You can also build your own version and deploy to an S3 bucket you own in a region 
+where you would like to run CloudFormation. Here are the easiest steps to accomplish this.
 
+One requirement to build lex-web-ui version 0.14.13 and higher is python3. The release.sh
+step below will fail until python3 becomes available. The build must now 
+package the python requests module separately and python3 is required to 
+install this module. Cloud9 environments based on Amazon Linux 
+come with python3 support. 
+ 
 * Launch the Cloud9 IDE
 * In your Cloud9 workspace, clone the repository using git
 * cd into the root folder, aws-lex-web-ui
@@ -47,25 +55,13 @@ Here are the easiest steps to accomplish this.
 * npm install
 * cd ../build
 * ./release.sh
-* aws s3 mb s3://[your-lex-bootstrap-bucket-name] --region eu-east-1
+* aws s3 mb s3://[your-lex-bootstrap-bucket-name] --region eu-west-1
 * export BUCKET=[your-lex-bootstrap-bucket-name]
 * ./upload-bootstrap.sh
  
 Your bootstrap bucket now contains the necessary files which the CloudFormation template will utilize. When you
 launch your bucket in the target region using the master.yaml, make sure to change the Bootstrap Bucket parameter to
 "[your-lex-bootstrap-bucket-name]" and change the Bootstrap Prefix to be just "artifacts".
-
-There is also an important consideration when deploying into a region other than us-east-1. The S3 bucket created by the 
-CloudFormation template for the Lex-web-ui will not be DNS resolvable at the global level for several hours. S3 will update DNS settings 
-such that the bucket is available via a global path soon. However, until then any attempt to access to the global path
-will experience a temporary redirect. The redirect will point the resolved name to the region specific path
-for the S3 Bucket. This impacts the IFrame / parent page use of the Lex Web Ui due to CORS. The Lex-Web-Ui scripts handling CORS 
-have been updated to allow temporary redirects from a region specific S3 path. This will not be a major concern.
-
-However, one aspect that we could not correct is the ability for the browser to prompt the user to allow the use of 
-the microphone during a temporary redirect. This problem will resolve itself as soon as the global name for the S3 bucket
-becomes available. This could take a couple of hours. Going forward the global path should always be used and hence this 
-not be an issue after a couple of hours have past. 
 
 ### Launch
 To launch a stack using the CodeBuild Mode (faster and easier), click this button:
@@ -177,7 +173,7 @@ bots that provide Markdown formatting in their esponses.
 in an iframe, the ChatBot Iframe will be minimized when the page is loaded. 
 - `ShowResponseCardTitle`: Lex and Alexa based bots may return ResponseCards. 
 ResponseCards always include a title. If this parameter is set to true, this title
-is rendered in the lex-web-ui. Optionallty this can be set to false, and the 
+is rendered in the lex-web-ui. Optionally this can be set to false, and the 
 title is not displayed. This is a global setting. 
 
 ### Output

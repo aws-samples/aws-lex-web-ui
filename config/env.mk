@@ -28,3 +28,5 @@ export UI_TOOLBAR_LOGO ?= $()
 
 export IFRAME_ORIGIN ?= $()
 export PARENT_ORIGIN ?= $()
+
+export VERSION := v$(shell node -p "const fs=require('fs');const path='./package.json';fs.existsSync(path)?require('./package.json').version : require('../package.json').version")

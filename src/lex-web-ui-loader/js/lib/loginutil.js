@@ -80,6 +80,14 @@ function logout(config) {
   auth.signOut();
 }
 
+const forceLogin = async (config) => {
+  const auth = await getAuth(config);
+  const token = localStorage.getItem('idtokenjwt');
+  if(!token){
+    auth.getSession();
+  }
+}
+
 function login(config) {
   /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
   const auth = getAuth(config);
@@ -123,4 +131,4 @@ function isTokenExpired(token) {
   return false;
 }
 
-export { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired };
+export { logout, login, forceLogin, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired };

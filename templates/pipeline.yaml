@@ -143,6 +143,19 @@ Conditions:
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
 
 Resources:
+    # Bucket where S3 access logs are stored
+    S3ServerAccessLogs:
+      Type: AWS::S3::Bucket
+      DeletionPolicy: Retain
+      Properties:
+        VersioningConfiguration:
+          Status: Enabled
+        AccessControl: "LogDeliveryWrite"
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
+
     # Artifact Bucket used by CodePipeline and CodBuild
     ArtifactStore:
         Type: AWS::S3::Bucket
@@ -150,6 +163,13 @@ Resources:
         Properties:
             VersioningConfiguration:
                 Status: Enabled
+            LoggingConfiguration:
+                DestinationBucketName: !Ref S3ServerAccessLogs
+                LogFilePrefix: "artifactstore/"
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                    SSEAlgorithm: AES256
 
     # Bucket where the web app is deployed
     WebAppBucket:
@@ -160,6 +180,101 @@ Resources:
                 IndexDocument: index.html
             VersioningConfiguration:
                 Status: Enabled
+            LoggingConfiguration:
+                DestinationBucketName: !Ref S3ServerAccessLogs
+                LogFilePrefix: "webappbucket/"
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                    SSEAlgorithm: AES256
+                
+    WebAppBucketOriginAccessIdentity:
+        Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+        Properties:
+          CloudFrontOriginAccessIdentityConfig:
+            Comment: !Sub "access-identity-${WebAppBucket}"
+
+    WebAppBucketBucketPolicy:
+        Type: "AWS::S3::BucketPolicy"
+        Properties:
+          Bucket:
+            Ref: "WebAppBucket"
+          PolicyDocument:
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "s3:GetObject"
+                Resource:
+                  - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+                Principal:
+                  CanonicalUser: !GetAtt WebAppBucketOriginAccessIdentity.S3CanonicalUserId
+
+  # Bucket for CloudFrontDistributionLogs
+    LexWebUiCloudFrontDistributionLogsBucket:
+        Type: AWS::S3::Bucket
+        DeletionPolicy: Retain
+        Properties:
+          VersioningConfiguration:
+            Status: Enabled
+          BucketEncryption:
+            ServerSideEncryptionConfiguration:
+              - ServerSideEncryptionByDefault:
+                  SSEAlgorithm: AES256
+
+    #cloudfront distribution            
+    LexWebUiDistribution:
+        Type: AWS::CloudFront::Distribution
+        DependsOn:
+        - WebAppBucket
+        - LexWebUiCloudFrontDistributionLogsBucket
+        Properties:
+          DistributionConfig:
+            Origins:
+            - DomainName: !Sub "${WebAppBucket}.s3.${AWS::Region}.amazonaws.com"
+              S3OriginConfig:
+                OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${WebAppBucketOriginAccessIdentity}"
+              Id: webuiorigin
+            Enabled: 'true'
+            Comment: cloudfront distribution for lex-web-ui
+            DefaultRootObject: index.html
+            Logging:
+              Bucket: !GetAtt LexWebUiCloudFrontDistributionLogsBucket.DomainName
+              IncludeCookies: true
+              Prefix: "lexwebui/"
+            CustomErrorResponses:
+              # Send errors to index file
+              # TODO move TTL to mapping or parameter
+              - ErrorCachingMinTTL: 300
+                ErrorCode: 403
+                ResponseCode: 200
+                ResponsePagePath: /index.html
+              - ErrorCachingMinTTL: 300
+                ErrorCode: 404
+                ResponseCode: 200
+                ResponsePagePath: /index.html
+            DefaultCacheBehavior:
+              AllowedMethods:
+                - GET
+                - HEAD
+                - OPTIONS
+              CachedMethods:
+                - GET
+                - HEAD
+                - OPTIONS
+              Compress: true
+              TargetOriginId: webuiorigin
+              ForwardedValues:
+                QueryString: true
+                Headers:
+                  - Origin
+                  - Access-Control-Request-Method
+                  - Access-Control-Request-Headers
+              ViewerProtocolPolicy: redirect-to-https
+            ViewerCertificate:
+              CloudFrontDefaultCertificate: true
+            HttpVersion: http2
+            IPV6Enabled: true
+
 
     # Bucket where the test parent page is hosted
     ParentPageBucket:
@@ -171,6 +286,13 @@ Resources:
                 IndexDocument: index.html
             VersioningConfiguration:
                 Status: Enabled
+            LoggingConfiguration:
+                DestinationBucketName: !Ref S3ServerAccessLogs
+                LogFilePrefix: "parentpagebucket/"
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                    SSEAlgorithm: AES256
 
     CodeBuild:
         Type: AWS::CodeBuild::Project
@@ -183,7 +305,7 @@ Resources:
                 Type: CODEPIPELINE
             Environment:
                 Type: LINUX_CONTAINER
-                Image: aws/codebuild/nodejs:10.14.1
+                Image: aws/codebuild/amazonlinux2-x86_64-standard:2.0
                 ComputeType: BUILD_GENERAL1_SMALL
                 EnvironmentVariables:
                     - Name: BUILD_TYPE
@@ -203,10 +325,10 @@ Resources:
                     - Name: PARENT_ORIGIN
                       Value: !If
                         - NeedsParentOrigin
-                        - !Sub "https://${WebAppBucket.DomainName}"
+                        - !Sub "https://${LexWebUiDistribution.DomainName}"
                         - !Ref ParentOrigin
                     - Name: IFRAME_ORIGIN
-                      Value: !Sub "https://${WebAppBucket.DomainName}"
+                      Value: !Sub "https://${LexWebUiDistribution.DomainName}"
                     - Name: NEGATIVE_INTENT
                       Value: !Ref WebAppConfNegativeFeedback
                     - Name: POSITIVE_INTENT
@@ -221,13 +343,11 @@ Resources:
                     phases:
                         install:
                             commands:
-                                - npm install -g n
-                                - n stable
-                                - npm update -g npm
                                 - make install-deps
                         pre_build:
                             commands:
                                 - aws configure set region "$AWS_DEFAULT_REGION"
+                                - cp src/config/default-lex-web-ui-loader-config.json src/config/lex-web-ui-loader-config.json
                                 - make config
                         build:
                             commands:
@@ -409,8 +529,10 @@ Resources:
                 S3Key: !Ref CustomResourceCodeObject
             Handler: s3-cleanup.handler
             Role: !GetAtt S3CleanupLambdaRole.Arn
-            Runtime: python2.7
+            Runtime: python3.7
             Timeout: 120
+            TracingConfig:
+                Mode: Active
 
     S3CleanupLambdaRole:
         Type: AWS::IAM::Role
@@ -459,6 +581,33 @@ Resources:
                                     - NeedsParentOrigin
                                     - !Sub "arn:aws:s3:::${ParentPageBucket}/*"
                                     - !Ref AWS::NoValue
+                - PolicyName: XRay
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - xray:PutTraceSegments
+                                - xray:PutTelemetryRecords
+                            Resource: "*"
+                - PolicyName: AllowVPCSupport
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - ec2:DescribeNetworkInterfaces
+                                - ec2:CreateNetworkInterface
+                                - ec2:DeleteNetworkInterface
+                            Resource: "*"
+                - PolicyName: LambdaUpgrades
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - lambda:UpdateFunctionCode
+                            Resource: "*"
 
 Outputs:
     PipelineName:
@@ -466,28 +615,28 @@ Outputs:
         Description: Name of CodePipeline pipeline
 
     WebAppUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/index.html"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}/index.html"
         Description: URL of the web application
 
     WebAppBase:
-        Value: !Sub "https://${WebAppBucket.DomainName}"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}"
         Description: Base url portion of the web application
 
     WebAppDomainName:
-        Value: !Sub "${WebAppBucket.DomainName}"
+        Value: !Sub "${LexWebUiDistribution.DomainName}"
         Description: DomainName of the web application
 
     ParentPageUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/parent.html"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}/parent.html"
         Description: URL of the sample parent page
         Condition: NeedsParentOrigin
 
     LoaderScriptUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/lex-web-ui-loader.min.js"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}/lex-web-ui-loader.min.js"
         Description: URL of the loader script
         Condition: NeedsParentOrigin
 
     SnippetUrl:
-        Value: !Sub "https://${WebAppBucket.DomainName}/iframe-snippet.html"
+        Value: !Sub "https://${LexWebUiDistribution.DomainName}/iframe-snippet.html"
         Description: URL of a page showing the snippet to load the chatbot UI as an iframe
         Condition: NeedsParentOrigin

@@ -4,9 +4,142 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.17.8] - 2021-02-02
+- Fix for pipeline based deployments - issue 264 - template error
+- Fix to full page web client (index.html) using forceLogin to require a direct to login page
+- Fix to move to python 3.8 Lambda Runtime for yaml CloudFormation template embedded functions which remove use of boto3 vendored library
+- Add ability for Lex Web UI to automatically retry a request if the Lex bot times out after 30 seconds using a configurable number of attempts. 
+By default the timeout retry feature is disabled. When enabled, the default retry count is 1. 
+
+## [0.17.7] - 2020-12-31
+- Build script fix
+- Move min button icon to the left of text
+
+## [0.17.6] - 2020-12-20
+- Additional fixes to support upgrades. Upgrades from 0.17.1 and above are supported. Older versions will need to perform a fresh install to migrate to this version.
+- Additions to CSS style documentation
+
+## [0.17.5] - 2020-12-12
+- Fix to allow use of CF template upgrade to disable WebAppConfHelp, WebAppConfPositiveFeedback, and WebAppConfNegativeFeedback
+- Fix to improve resizing of lex-web-ui button at bottom of page when text is used in addition to icon
+
+## [0.17.4] - 2020-12-06
+- Improved upgrade support
+- Chat history can now be preserved and redisplayed when the user comes back to the original parent page.
+- Lambda function upgrade to Python 3.7.
+
+## [0.17.3] - 2020-11-05
+- Added loader config option (forceLogin) to templates which configures UI to require the user to authenticate through Cognito prior to using the bot.
+- Added loader config option (minButtonContent) which allows text to be added to the button which appears on the parent page when the iframe is minimized. 
+- Added XRay support to Lambda functions.
+- Added VPC actions to Lambda IAM Roles to support future deployment of Lambdas in VPC. 
+- Encrypted S3 buckets using AES-256 default KMS key
+- Prebuilt deployments now available for Singapore, Tokyo, London, and Frankfurt regions
+
+## [0.17.2] - 2020-08-21
+- Added option to hide message bubble on button click
+- Resolved current github dependabot security issues
+- Use default encryption for all S3 buckets using AES-256 encryption
+- Added instructions in readme for adding additional vue components 
+
+## [0.17.1] - 2020-08-01
+- Create uniquely named Cognito UserPool on stack creation
+- Removed display of Back button in title bar and instead provide a replay button using the text from prior 
+message directly in the message bubble. Back button can be re-enabled though configuration json if desired. 
+- Enhanced css attributes of the minimized chatbot button to help allow clicking on items in the parent
+window as well as selecting text next the button. 
+
+## [0.17.0] - 2020-07-12
+- Improved accessibility - big thanks to @pdkn for this significant contribution
+  * Improve screen reader experience
+    - Add screen reader specific text to questions & answer (hidden visually)
+      so messages are prepended with ( `bot says: `/ `I say: `)  helping to
+      give context to visually impaired
+    - Hide message date from screen readers
+    - Hide loading message from screen readers
+    - Hide avatar image from screen readers
+    - Make the chatbot titlebar title a \<h1> heading – (Pages must contain
+      a level-one heading)
+    - Change \<footer> tag to a \<div> as it's content doesn't conform to
+      normal content of a footer so adding role="contentinfo" isn't applicable
+  * Improve aria
+    - Add aria-label and aria-hidden
+    - Add alt attribute to images (logo)
+    - Add aria-live 'polite' to chat messages list
+  * Improve tabbing
+    - Fix element tabindex greater than zero
+    - Make feedback buttons tabbable
+    - Remove focusability from loading message
+    - Remove focusability from avatar image
+  * Add sound effects
+    - Dispatch event when a message is sent or received (so client app can
+      respond and play audio effect)
+    - Play a SFX when sending/receiving messages
+    - Add a SFX on/off button in toolbar
+    - Allow setting of SFX .mp3 files in config
+      * ui.messageSentSFX and ui.messageReceived
+    - Add config ui.enableSFX to enable sound effects
+* Style changes
+  - ResponseCard buttons css, remove !important so it can be overridden by
+    custom implementation
+  - ResponseCard buttons, change font-size from 12px to 1em so it defaults to
+    a percent size of parent
+  - Adjusted panel dimensions
+  - Removed toolbar dense setting in fullscreen
+* Other
+  - **\[BREAKING CHANGE\]** Changed minimized view to look like a round button
+    with a chat icon (rather than toolbar). The button has a tooltip with a
+    message that can be changed wit the config option:
+    `ui.minButtonToolTipContent`.
+    This changes the UI style and sizes so you may need to adapt your existing
+    custom styles to it.
+  - Add new config option `ui.shouldDisableClickedResponseCardButtons` to
+    control whether response card buttons should be disabled after being clicked
+  - Message list window auto scrolls to top of response message rather than
+    bottom (handy if responses are long else user may have to scroll back up
+    to the start of message)
+  - Allow tooltips and icons to be easily customised/themed via css
+- Fix CloudFront CORS issue. Added CloudFront configuration `CacheMethods` for
+  GET, HEAD and OPTIONS; Also forward headers: Origin,
+  Access-Control-Request-Method and Access-Control-Request-Headers
+
+## [0.16.0] - 2020-06-06
+- Lex-web-ui now ships with cloudfront as the default distribution method
+  * better load times
+  * non public access to S3 bucket
+  * better future integration to cloudfront features such as WAF and Lambda@Edge
+- Updated package.json dependencies
+
+## [0.15.0] - 2020-05-15
+- Moved to Webpack 4
+- Changed default parameter ShowResponseCardTitle to be false - was default of true
+- Added back default parameter BotAlias of '$LATEST'. The '$LATEST'
+alias should only be used for manual testing. Amazon Lex limits
+the number of runtime requests that you can make to the $LATEST version of the bot.
+
+## [0.14.15] - 2020-05-06
+- Fixed text input focus issues on IE11 after pressing enter to send request.
+- Added new Iframe API entry points to deleteSession and startNewSession for fine grain control of Lex sessions
+
+## [0.14.14] - 2020-04-23
+- Disabled text input fields during Lex processing
+- Fixed IE11 message bubble width issue via css adjustment
+- Switched default load option to use minimized libraries
+- Removed default of '$LATEST' from template and added message for Bot Alias to indicate that a real alias should be specified
+
+## [0.14.13] - 2020-03-30
+- Added configuration setting that allows the input area of the UI to be hidden when Response Card
+buttons are present. This feature is disabled by default.
+- Removed use of botocore.vendored.requests module
+
+## [0.14.12] - 2020-03-25
+- Defect fixes for CORS processing
+- Updates for multi-region support
+- Easy URLs to launch in us-east-1 (N. Virginia), eu-west-1 (Ireland), ap-southeast-2 (Sydney)
+
 ## [0.14.11] - 2020-03-22
 
-### Added 
+### Added
 - Installation support for eu-west-1 and ap-southeast-2
 - CSS Style information and default customization css file
 - Fixed defects with respect to the default Order Flowers Bot installation

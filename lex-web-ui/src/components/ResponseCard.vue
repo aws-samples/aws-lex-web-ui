@@ -20,6 +20,7 @@
         v-show="button.text && button.value"
         v-bind:key="button.id"
         v-on:click.once.native="onButtonClick(button.value)"
+        v-bind:disabled="shouldDisableClickedResponseCardButtons"
         round
         default
         v-bind:color="button.text.toLowerCase() === 'more' ? '' : 'accent'"
@@ -67,12 +68,20 @@ export default {
     shouldDisplayResponseCardTitle() {
       return this.$store.state.config.ui.shouldDisplayResponseCardTitle;
     },
+    shouldDisableClickedResponseCardButtons() {
+      return (
+        this.$store.state.config.ui.shouldDisableClickedResponseCardButtons &&
+        this.hasButtonBeenClicked
+      );
+    },
   },
   methods: {
     onButtonClick(value) {
       this.hasButtonBeenClicked = true;
+
+      const messageType = this.$store.state.config.ui.hideButtonMessageBubble ? 'button' : 'human';
       const message = {
-        type: 'human',
+        type: messageType,
         text: value,
       };
 
@@ -102,8 +111,8 @@ export default {
   display: inline-block;
 }
 
-.btn {
-  margin: 10px;
+.card__actions .btn {
+  margin: 4px 4px;
   font-size: 1em;
   min-width: 44px;
 }

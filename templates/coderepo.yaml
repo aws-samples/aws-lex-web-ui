@@ -132,8 +132,10 @@ Resources:
                 S3Key: !Ref CustomResourceCodeObject
             Handler: codebuild-start.handler
             Role: !GetAtt CodeBuildStarterLambdaRole.Arn
-            Runtime: python2.7
+            Runtime: python3.7
             Timeout: 120
+            TracingConfig:
+                Mode: Active
 
     CodeBuildRole:
         Type: AWS::IAM::Role
@@ -220,6 +222,25 @@ Resources:
                             Action:
                                 - codebuild:StartBuild
                             Resource: !GetAtt CodeBuild.Arn
+                - PolicyName: XRay
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - xray:PutTraceSegments
+                                - xray:PutTelemetryRecords
+                            Resource: "*"
+                - PolicyName: AllowVPCSupport
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - ec2:DescribeNetworkInterfaces
+                                - ec2:CreateNetworkInterface
+                                - ec2:DeleteNetworkInterface
+                            Resource: "*"
 
 Outputs:
     CodeCommitRepoUrl:

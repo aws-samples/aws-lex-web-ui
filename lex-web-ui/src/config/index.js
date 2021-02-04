@@ -103,6 +103,12 @@ const configDefault = {
 
     // only allow to interrupt playback longer than this value (in seconds)
     playbackInterruptMinDuration: 2,
+
+    // when set to true, allow lex-web-ui to retry the current request if an exception is detected.
+    retryOnLexPostTextTimeout: false,
+
+    // defines the retry count. default is 1. Only used if retryOnLexError is set to true.
+    retryCountPostTextTimeout: 1,
   },
 
   polly: {
@@ -123,6 +129,9 @@ const configDefault = {
     // to allow runing embedded in a single origin setup
     parentOrigin: null,
 
+    // enable Sound Effects
+    enableSFX: false,
+
     // mp3 audio file url for message send sound FX
     messageSentSFX: 'send.mp3',
 
@@ -131,6 +140,9 @@ const configDefault = {
 
     // chat window text placeholder
     textInputPlaceholder: 'Type here or click on the mic',
+
+    // text shown when you hover over the minimized bot button
+    minButtonContent: '',
 
     toolbarColor: 'red',
 
@@ -171,6 +183,9 @@ const configDefault = {
     // Show the diaglog state icon, check or alert, in the text bubble
     showDialogStateIcon: true,
 
+    // Hide the message bubble on a response card button press
+    hideButtonMessageBubble: false,
+
     // shows a thumbs up and thumbs down button which can be clicked
     positiveFeedbackIntent: '',
     negativeFeedbackIntent: '',
@@ -194,11 +209,20 @@ const configDefault = {
     // title can be optionally disabled by setting this value to false
     shouldDisplayResponseCardTitle: true,
 
+    // Controls whether response card buttons are disabled after being clicked
+    shouldDisableClickedResponseCardButtons: true,
+
     // Optionally display login menu
     enableLogin: false,
 
+    // Optionally force login automatically when load
+    forceLogin: false,
+
     // Optionally direct input focus to Bot text input as needed
     directFocusToBotInput: false,
+
+    // Optionally keep chat session automatically when load
+    saveHistory: false,
   },
 
   /* Configuration to enable voice and to pass options to the recorder

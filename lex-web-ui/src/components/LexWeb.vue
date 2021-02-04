@@ -1,7 +1,14 @@
 <template>
   <v-app id="lex-web"
+    v-bind:ui-minimized="isUiMinimized"
   >
+    <min-button
+      v-bind:toolbar-color="toolbarColor"
+      v-bind:is-ui-minimized="isUiMinimized"
+      v-on:toggleMinimizeUi="toggleMinimizeUi"
+    ></min-button>
     <toolbar-container
+      v-if="!isUiMinimized"
       v-bind:userName="userNameValue"
       v-bind:toolbar-title="toolbarTitle"
       v-bind:toolbar-color="toolbarColor"
@@ -12,16 +19,22 @@
       @requestLogout="handleRequestLogout"
     ></toolbar-container>
 
-    <v-content>
-      <v-container class="message-list-container" fluid pa-0>
-        <message-list v-show="!isUiMinimized"
+    <v-content
+      v-if="!isUiMinimized"
+    >
+      <v-container
+        class="message-list-container"
+        v-bind:class="`toolbar-height-${toolbarHeightClassSuffix}`"
+        fluid pa-0
+      >
+        <message-list v-if="!isUiMinimized"
         ></message-list>
       </v-container>
     </v-content>
 
     <input-container
       ref="InputContainer"
-      v-if="!isUiMinimized"
+      v-if="!isUiMinimized && !hasButtons"
       v-bind:text-input-placeholder="textInputPlaceholder"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
     ></input-container>
@@ -35,7 +48,7 @@
 
 <script>
 /*
-Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright 2017-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 Licensed under the Amazon Software License (the "License"). You may not use this file
 except in compliance with the License. A copy of the License is located at
@@ -49,6 +62,7 @@ License for the specific language governing permissions and limitations under th
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
 
+import MinButton from '@/components/MinButton';
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
@@ -63,9 +77,11 @@ export default {
   data() {
     return {
       userNameValue: '',
+      toolbarHeightClassSuffix: 'md',
     };
   },
   components: {
+    MinButton,
     ToolbarContainer,
     MessageList,
     InputContainer,
@@ -91,6 +107,9 @@ export default {
     },
     isUiMinimized() {
       return this.$store.state.isUiMinimized;
+    },
+    hasButtons() {
+      return this.$store.state.hasButtons;
     },
     lexState() {
       return this.$store.state.lex;
@@ -174,15 +193,20 @@ export default {
           this.$store.dispatch('initLexClient', this.$lexWebUi.lexRuntimeClient),
         ]);
       })
+      .then(() => (
+        (this.$store.state.isRunningEmbedded) ?
+          this.$store.dispatch(
+            'sendMessageToParentWindow',
+            { event: 'ready' },
+          ) :
+          Promise.resolve()
+      ))
       .then(() => {
-        console.info(`isRunningEmbedded : ${this.$store.state.isRunningEmbedded}`);
-        const evt = this.$store.dispatch(
-          'sendMessageToParentWindow',
-          { event: 'ready' },
-        );
-        return (this.$store.state.isRunningEmbedded) ?
-          evt :
-          Promise.resolve();
+        if (this.$store.state.config.ui.saveHistory === true) {
+          this.$store.subscribe((mutation, state) => {
+            sessionStorage.setItem('store', JSON.stringify(state));
+          });
+        }
       })
       .then(() => console.info(
         'successfully initialized lex web ui version: ',
@@ -192,6 +216,11 @@ export default {
         console.error('could not initialize application while mounting:', error);
       });
   },
+  beforeDestroy() {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.onResize, { passive: true });
+    }
+  },
   mounted() {
     if (!this.$store.state.isRunningEmbedded) {
       this.$store.dispatch(
@@ -200,8 +229,32 @@ export default {
       );
       this.setFocusIfEnabled();
     }
+    this.onResize();
+    window.addEventListener('resize', this.onResize, { passive: true });
   },
   methods: {
+    onResize() {
+      const { innerWidth } = window;
+      this.setToolbarHeigthClassSuffix(innerWidth);
+    },
+    setToolbarHeigthClassSuffix(innerWidth) {
+      // Vuetify toolbar changes height based on innerWidth
+
+      // when running embedded the toolbar is fixed to dense
+      if (this.$store.state.isRunningEmbedded) {
+        this.toolbarHeightClassSuffix = 'md';
+        return;
+      }
+
+      // in full screen the toolbar changes size
+      if (innerWidth < 640) {
+        this.toolbarHeightClassSuffix = 'sm';
+      } else if (innerWidth > 640 && innerWidth < 960) {
+        this.toolbarHeightClassSuffix = 'md';
+      } else {
+        this.toolbarHeightClassSuffix = 'lg';
+      }
+    },
     toggleMinimizeUi() {
       return this.$store.dispatch('toggleIsUiMinimized');
     },
@@ -251,21 +304,11 @@ export default {
     },
     // messages from parent
     messageHandler(evt) {
+      const messageType = this.$store.state.config.ui.hideButtonMessageBubble ? 'button' : 'human';
       // security check
       if (evt.origin !== this.$store.state.config.ui.parentOrigin) {
-        if (this.$store.state.config.ui.parentOrigin.includes('s3.amazonaws.com')) {
-          const p1 = evt.origin.split('.');
-          const p2 = this.$store.state.config.ui.parentOrigin.split('.');
-          const regionAdjust1 = `${p1[0]}.s3.${p1[2]}.${p1[3]}`;
-          const regionAdjust2 = `${p2[0]}.s3.${p2[2]}.${p2[3]}`;
-          if (regionAdjust1 !== regionAdjust2) {
-            console.warn('ignoring event - invalid origin:', evt.origin);
-            return;
-          }
-        } else {
-          console.warn('ignoring event - invalid origin:', evt.origin);
-          return;
-        }
+        console.warn('ignoring event - invalid origin:', evt.origin);
+        return;
       }
       if (!evt.ports || !Array.isArray(evt.ports) || !evt.ports.length) {
         console.warn('postMessage not sent over MessageChannel', evt);
@@ -299,11 +342,22 @@ export default {
             });
             return;
           }
-
           this.$store.dispatch(
             'postTextMessage',
-            { type: 'human', text: evt.data.message },
+            { type: messageType, text: evt.data.message },
           )
+            .then(() => evt.ports[0].postMessage({
+              event: 'resolve', type: evt.data.event,
+            }));
+          break;
+        case 'deleteSession':
+          this.$store.dispatch('deleteSession')
+            .then(() => evt.ports[0].postMessage({
+              event: 'resolve', type: evt.data.event,
+            }));
+          break;
+        case 'startNewSession':
+          this.$store.dispatch('startNewSession')
             .then(() => evt.ports[0].postMessage({
               event: 'resolve', type: evt.data.event,
             }));
@@ -428,11 +482,39 @@ export default {
 </script>
 
 <style>
+/*
+The Vuetify toolbar height is based on screen width breakpoints
+The toolbar can be 48px, 56px and 64px.
+It is fixed to 48px when using 'dense'
+
+The message list is placed between the toolbar at the top and input
+container on the bottom. Both the toolbar and the input-container
+dynamically change height based on width breakpoints.
+So we duplicate the height and substract it from the total height
+of the message list to make it fit between the toolbar and input container
+
+NOTE: not using var() for different heights due to IE11 compatibility
+*/
 .message-list-container {
-  /* vuetify toolbar and footer are 48px each when using 'dense' */
-  /* vuetify toolbar and footer are 64px each when not using 'dense' */
-  height: calc(100% - 128px);
   position: fixed;
+}
+.message-list-container.toolbar-height-sm {
+  top: 56px;
+  height: calc(100% - 2 * 56px);
+}
+/* yes, the height is smaller in mid sizes */
+.message-list-container.toolbar-height-md {
+  top: 48px;
+  height: calc(100% - 2 * 48px);
+}
+.message-list-container.toolbar-height-lg {
   top: 64px;
+  height: calc(100% - 2 * 64px);
+}
+
+#lex-web[ui-minimized] {
+  /* make background transparent when running minimized so only
+  the button is shown */
+  background: transparent;
 }
 </style>

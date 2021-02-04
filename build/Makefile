@@ -41,13 +41,22 @@ CUSTOM_RESOURCES_DIR := $(TEMPLATES_DIR)/custom-resources
 
 # zip cfn custom resource lambda files
 BOT_DEFINITION_FILE := $(CUSTOM_RESOURCES_DIR)/bot-definition.json
-CUSTOM_RESOURCES_ZIP := custom-resources.zip
+PY_MODULES := $(CUSTOM_RESOURCES_DIR)/py_modules
+CUSTOM_RESOURCES_ZIP := custom-resources-$(VERSION).zip
 CUSTOM_RESOURCES_FILES := $(wildcard $(CUSTOM_RESOURCES_DIR)/*.py)
 CUSTOM_RESOURCES_FILES += $(BOT_DEFINITION_FILE)
+CUSTOM_RESOURCES_FILES += $(PY_MODULES)
+$(PY_MODULES):
+	pushd $(CUSTOM_RESOURCES_DIR) ; \
+	[ -f requirements.txt ] && \
+    	python3 -m pip install --upgrade -r requirements.txt -t ./py_modules || true ; \
+    popd ;
 $(CUSTOM_RESOURCES_ZIP): $(CUSTOM_RESOURCES_FILES) | $(OUT)
 	@echo "[INFO] Creating custom resource Lambda zip file"
-	zip -u -j "$(OUT)/$(@)" $(?)
-
+	zip -u -j "$(OUT)/$(@)" $(?) ; \
+	pushd $(CUSTOM_RESOURCES_DIR)/py_modules ; \
+	zip -r -q "../../../build/$(OUT)/$(@)" . ; \
+	popd ;
 upload-custom-resources-zip: $(CUSTOM_RESOURCES_ZIP) | $(OUT)
 	@echo "[INFO] Uploading custom resources Lambda zip file"
 	aws s3 cp --acl public-read \
@@ -56,7 +65,7 @@ upload-custom-resources-zip: $(CUSTOM_RESOURCES_ZIP) | $(OUT)
 		| tee -a "$(OUT)/$(@)"
 
 # files in this repo are bundled in a zip file to boostrap the codecommit repo
-SRC_ZIP := src.zip
+SRC_ZIP := src-$(VERSION).zip
 SRC_FILES := $(shell git ls-files ..)
 $(SRC_ZIP): $(SRC_FILES) | $(OUT)
 	@echo "[INFO] creating git repo archive"
@@ -65,7 +74,7 @@ $(SRC_ZIP): $(SRC_FILES) | $(OUT)
 upload-src-zip: $(SRC_ZIP) | $(OUT)
 	@echo "[INFO] uploading git repo archive"
 	aws s3 cp --acl public-read \
-		"$(OUT)/$(SRC_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/src.zip" \
+		"$(OUT)/$(SRC_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/$(SRC_ZIP)" \
 		| tee -a "$(OUT)/$(@)"
 
 RESPONSE_CARD_IMAGE := ../lex-web-ui/static/img/flowers.jpeg

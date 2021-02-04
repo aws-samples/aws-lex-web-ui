@@ -27,6 +27,7 @@ License for the specific language governing permissions and limitations under th
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Vuetify from 'vuetify';
+// import VueMask from 'v-mask';
 
 import Page from '@/components/Page';
 import { Loader as LexWebUi } from '@/lex-web-ui';
@@ -59,6 +60,7 @@ function getFavIcon() {
 
 Vue.use(Vuex);
 Vue.use(Vuetify);
+// Vue.use(VueMask);
 
 const lexWebUi = new LexWebUi({
   ui: {

@@ -19,7 +19,7 @@
     v-else-if="message.text && message.type === 'bot'"
     class="message-text"
   >
-    <span class="sr-only">dog says: </span>{{ (shouldStripTags) ? stripTagsFromMessage(message.text) : message.text }}
+    <span class="sr-only">bot says: </span>{{ (shouldStripTags) ? stripTagsFromMessage(message.text) : message.text }}
   </div>
 </template>
 
@@ -142,7 +142,7 @@ export default {
       return doc.textContent || doc.innerText || '';
     },
     prependBotScreenReader(messageText) {
-      return `<span class="sr-only">dog says: </span>${messageText}`;
+      return `<span class="sr-only">bot says: </span>${messageText}`;
     },
   },
 };
@@ -155,5 +155,21 @@ export default {
   padding: 0.8em;
   white-space: normal;
   word-break: break-word;
+  width: 100%;
+}
+</style>
+
+<style>
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 </style>

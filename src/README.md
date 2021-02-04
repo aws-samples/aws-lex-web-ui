@@ -680,6 +680,8 @@ the chatbot UI
 2. `toggleMinimizeUi()`. Toggles the chatbot UI between being minimized
 and maximized
 3. `ping()`. Tests communication with the chatbot UI component
+4. `startNewSession()`. Builds a new Lex Session and sets the Bot to elicit an intent
+5. `deleteSession()`. Calls the Lex DeleteSession api to terminate a Lex session
 
 You can use it like this:
 ```javascript

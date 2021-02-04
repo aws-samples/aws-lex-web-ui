@@ -10,11 +10,11 @@ if [ -z "${IFRAME_SNIPPET_FILE}" ]; then
   exit 1
 fi
 
-if [ -z "${WEBAPP_BUCKET}" ]; then
-  echo "[WARN] WEBAPP_BUCKET environment variable not defined" >&2
+if [ -z "${CLOUDFRONT_DOMAIN}" ]; then
+  echo "[WARN] CLOUDFRONT_DOMAIN environment variable not defined" >&2
   WEBAPP_URL=''
 else
-  WEBAPP_URL="https://${WEBAPP_BUCKET}.s3.amazonaws.com"
+  WEBAPP_URL="https://${CLOUDFRONT_DOMAIN}"
 fi
 
 [ -z "${PARENT_ORIGIN}" ] && \
@@ -49,7 +49,8 @@ cat <<EOF > ${IFRAME_SNIPPET_FILE}
 &lt;script src="${WEBAPP_URL}/lex-web-ui-loader.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   var loaderOpts = {
-    baseUrl: '${WEBAPP_URL}/'
+    baseUrl: '${WEBAPP_URL}/',
+    shouldLoadMinDeps: true
   };
   var loader = new ChatBotUiLoader.IframeLoader(loaderOpts);
   loader.load()

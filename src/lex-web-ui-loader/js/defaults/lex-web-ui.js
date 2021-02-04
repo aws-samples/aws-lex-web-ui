@@ -19,6 +19,7 @@
  */
 
 export const configBase = {
+  region: '',
   lex: { botName: '' },
   cognito: { poolId: '' },
   ui: { parentOrigin: '' },

@@ -157,7 +157,6 @@ export class Loader {
       (mergedConfig.recorder && mergedConfig.recorder.enable !== false)
     ) ? new PollyConstructor(awsConfig) : null;
 
-    // TODO name space store
     this.store = new VuexConstructor.Store({ ...VuexStore });
 
     VueConstructor.use(Plugin, {

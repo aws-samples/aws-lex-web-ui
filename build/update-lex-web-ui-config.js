@@ -17,6 +17,8 @@ const config = require('../config');
   'BOT_ALIAS',
   'BOT_INITIAL_TEXT',
   'BOT_INITIAL_SPEECH',
+  'BOT_RETRY_ON_LEX_POST_TEXT_TIMEOUT',
+  'BOT_RETRY_COUNT_POST_TEXT_TIMEOUT',
   'IFRAME_ORIGIN',
   'PARENT_ORIGIN',
   'POOL_ID',
@@ -26,7 +28,8 @@ const config = require('../config');
   'UI_TOOLBAR_LOGO',
   'NEGATIVE_INTENT',
   'POSITIVE_INTENT',
-  'HELP_INTENT'
+  'HELP_INTENT',
+  'MIN_BUTTON_TOOLTIP_CONTENT',
 ].forEach(function (envVar) {
   console.log('[INFO] Env var - %s: [%s]', envVar, process.env[envVar]);
 });

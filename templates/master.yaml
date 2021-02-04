@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.14.11)
+    Master Lex Web UI CloudFormation template (v0.17.8)
     It deploys:
         - S3 buckets to host the web application
         - CodeBuild project to build the configuration and deploy to S3
@@ -13,9 +13,10 @@ Description: |
 Parameters:
     BotName:
         Description: >
-            Name of an existing Lex Bot to be used by the web ui.
-            This is an optional parameter. If left empty, a Bot based
-            on the OrderFlowers sample will be automatically created.
+            Name of an existing Lex Bot to be used by the web ui. NOTE: You must
+            also enter your published bot alias in the BotAlias field below.
+            (If BotName is left empty, a Bot based on the OrderFlowers sample will be
+            automatically created.)
         Type: String
         Default: ''
         MaxLength: 50
@@ -25,9 +26,10 @@ Parameters:
 
     BotAlias:
         Description: >
-            Alias to use of an existing Lex Bot. By default this is '$LATEST'.
-            Use this default if the lex-web-ui should always use the most
-            recent version of the bot.
+            WARNING: For production deployments, use your bot's published alias here.
+            The $LATEST alias should only be used for manual testing. Amazon Lex limits
+            the number of runtime requests that you can make to the $LATEST version of
+            the bot.
         Type: String
         Default: '$LATEST'
         MinLength: 2
@@ -71,6 +73,27 @@ Parameters:
             If set to True, a menu with a login action will be displayed
             in the Lex Web Ui. This feature uses Cognito User Pools with
             hosted login pages. After login, the menu will switch to logout.
+
+    ForceCognitoLogin:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, the menu with a login action will not be displayed
+            in the Lex Web Ui, and the Cognito login will be executed automatically. This implicitly sets
+            EnableCognitoLogin to be true.
+
+    SaveHistory:
+        Type: String
+        Default: false
+        AllowedValues:
+            - true
+            - false
+        Description: >
+            This is an optional parameter, if set to True, the history of the chat is maintained over sessions. 
+            A item to clean the chat will appear at the menu.
 
     CodeBuildName:
         Type: String
@@ -178,13 +201,13 @@ Parameters:
 
     ShowResponseCardTitle:
         Type: String
-        Default: true
+        Default: false
         AllowedValues:
         - true
         - false
         Description: >
             If set to True, the ResponseCard title is displayed in the UI. When set to false,
-            a ResponseCard title is not displayed in the UI. Default is true. Note at the
+            a ResponseCard title is not displayed in the UI. Default is false. Note at the
             present time this is a global setting. Should the UI need to display some form
             of a title, use the optional sub-title property of a ResponseCard.
 
@@ -246,6 +269,24 @@ Parameters:
         Default: Order Flowers
         Description: Title displayed in the chatbot UI toolbar
 
+    retryOnLexPostTextTimeout:
+        Type: String
+        Default: false
+        AllowedValues:
+            - true
+            - false
+        Description: >
+            When set to true, operations against the Lex PostText API that result in a timeout
+            will be retried up the the defined retry count. This is useful to enable if 30 second
+            timeouts in Lex are frequently observed and subsequent operations will must likely succeed.
+
+    retryCountPostTextTimeout:
+        Type: Number
+        Default: 1
+        Description: >
+            Defines the number of times the lex-web-ui will retry the Lex PostText API operation when an exception
+            is detected.
+
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -264,9 +305,13 @@ Metadata:
                   - BotNamePrefix
                   - ShouldDeleteBot
                   - EnableCognitoLogin
+                  - ForceCognitoLogin
                   - EnableMarkdownSupport
                   - ReInitSessionAttributesOnRestart
                   - ShowResponseCardTitle
+                  - SaveHistory
+                  - retryOnLexPostTextTimeout
+                  - retryCountPostTextTimeout
             - Label:
                 default: Cognito Parameters
               Parameters:
@@ -288,6 +333,7 @@ Conditions:
     NeedsBot: !Equals [!Ref BotName, '']
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
+    ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
 
 Resources:
     Bot:
@@ -295,20 +341,21 @@ Resources:
         Condition: NeedsBot
         Properties:
             TimeoutInMinutes: 15
-            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/lexbot.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/lexbot.yaml"
             Parameters:
                 NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 CustomResourceCodeBucket: !Ref BootstrapBucket
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.17.8.zip"
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
         Condition: NeedsCognito
         Properties:
-            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/cognito.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/cognito.yaml"
             Parameters:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
+                ForceCognitoLogin: !Ref ForceCognitoLogin
                 LexBotName:
                     !If
                       - NeedsBot
@@ -321,12 +368,12 @@ Resources:
     CodeBuildDeploy:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/codebuild-deploy.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/codebuild-deploy.yaml"
             Parameters:
                 CodeBuildName: !Ref CodeBuildName
                 SourceBucket: !Ref BootstrapBucket
-                SourceObject: !Sub "${BootstrapPrefix}/src.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources.zip"
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.17.8.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.17.8.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
@@ -346,7 +393,13 @@ Resources:
                 WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
                 WebAppConfHelp: !Ref WebAppConfHelp
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
-                ShouldEnableCognitoLogin: !Ref EnableCognitoLogin
+                SaveHistory: !Ref SaveHistory
+                ShouldEnableCognitoLogin:
+                  !If
+                    - ShouldForceCognitoLogin
+                    - true
+                    - !Ref EnableCognitoLogin
+                ShouldForceCognitoLogin: !Ref ForceCognitoLogin
                 ReInitSessionAttributesOnRestart: !Ref ReInitSessionAttributesOnRestart
                 EnableMarkdownSupport: !Ref EnableMarkdownSupport
                 ShouldLoadIframeMinimized: !Ref ShouldLoadIframeMinimized
@@ -361,13 +414,15 @@ Resources:
                       - NeedsCognito
                       - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                       - "UserMustSupply"
-
+                retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
+                retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
+                Timestamp: 1612313423
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
         Condition: NeedsCognito
         Properties:
-            TemplateURL: !Sub "https://s3.amazonaws.com/${BootstrapBucket}/${BootstrapPrefix}/templates/cognitouserpoolconfig.yaml"
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/cognitouserpoolconfig.yaml"
             Parameters:
                 WebAppUrl: !If [NeedsParentOrigin, !GetAtt CodeBuildDeploy.Outputs.WebAppBase, !Ref WebAppParentOrigin]
                 WebAppPath: !Ref WebAppPath
@@ -393,6 +448,20 @@ Outputs:
             URL of the stand-alone sample web application.
             This page will be available after the pipeline/deployment completes.
         Value: !GetAtt CodeBuildDeploy.Outputs.WebAppUrl
+        
+    WebAppDomainName:
+        Description: >
+            DomainName of the web application
+        Value: !GetAtt CodeBuildDeploy.Outputs.WebAppDomainName
+        Export:
+          Name: !Join [":", [!Ref "AWS::StackName", WebAppDomainName]]
+
+    WebAppBucket:
+        Description: >
+            S3 bucket hosting lexwebui artifacts
+        Value: !GetAtt CodeBuildDeploy.Outputs.WebAppBucket
+        Export:
+          Name: !Join [":", [!Ref "AWS::StackName", WebAppBucket]]
 
     ParentPageUrl:
         Condition: NeedsParentOrigin
@@ -423,3 +492,9 @@ Outputs:
         Description: Include Cognito User Pool Public Key URL in stack outputs (needed for QnABot token auth)
         Value: !Sub https://cognito-idp.${AWS::Region}.amazonaws.com/${CognitoIdentityPool.Outputs.CognitoUserPoolId}/.well-known/jwks.json
 
+    CognitoUserPoolClientId:
+        Condition: NeedsCognito
+        Description: Cognito User Pool Client Id
+        Value: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+        Export:
+          Name: !Join [":", [!Ref "AWS::StackName", CognitoUserPoolClientId]]

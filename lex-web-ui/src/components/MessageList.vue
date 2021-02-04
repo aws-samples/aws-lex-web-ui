@@ -53,6 +53,11 @@ export default {
       this.scrollDown();
     },
   },
+  mounted() {
+    setTimeout(() => {
+      this.scrollDown();
+    }, 1000);
+  },
   methods: {
     scrollDown() {
       return this.$nextTick(() => {
@@ -67,6 +72,7 @@ export default {
 
 <style scoped>
 .message-list {
+  padding-top: 1rem;
   overflow-y: auto;
   overflow-x: hidden;
 }

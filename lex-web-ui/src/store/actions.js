@@ -78,7 +78,8 @@ export default {
     context.commit('mergeConfig', configObj);
   },
   initMessageList(context) {
-    if (context.state.config.lex.initialText.length > 0) {
+    context.commit('reloadMessages');
+    if (context.state.messages && context.state.messages.length === 0) {
       context.commit('pushMessage', {
         type: 'bot',
         text: context.state.config.lex.initialText,
@@ -185,23 +186,19 @@ export default {
     return Promise.resolve();
   },
   reInitBot(context) {
-    return Promise.resolve()
-      .then(() => (
-        (context.state.config.ui.pushInitialTextOnRestart) ?
-          context.dispatch('pushMessage', {
-            text: context.state.config.lex.initialText,
-            type: 'bot',
-          }) :
-          Promise.resolve()
-      ))
-      .then(() => (
-        (context.state.config.lex.reInitSessionAttributesOnRestart) ?
-          context.commit(
-            'setLexSessionAttributes',
-            context.state.config.lex.sessionAttributes,
-          ) :
-          Promise.resolve()
-      ));
+    if (context.state.config.lex.reInitSessionAttributesOnRestart) {
+      context.commit('setLexSessionAttributes', context.state.config.lex.sessionAttributes);
+    }
+    if (context.state.config.ui.pushInitialTextOnRestart) {
+      context.commit('pushMessage', {
+        type: 'bot',
+        text: context.state.config.lex.initialText,
+        alts: {
+          markdown: context.state.config.lex.initialText,
+        },
+      });
+    }
+    return Promise.resolve();
   },
 
   /***********************************************************************
@@ -451,7 +448,7 @@ export default {
     document.getElementById('sound').innerHTML = `<audio autoplay="autoplay"><source src="${fileUrl}" type="audio/mpeg" /><embed hidden="true" autostart="true" loop="false" src="${fileUrl}" /></audio>`;
   },
   postTextMessage(context, message) {
-    if (context.state.isSFXOn) {
+    if (context.state.isSFXOn && !context.state.lex.isPostTextRetry) {
       context.dispatch('playSound', context.state.config.ui.messageSentSFX);
       context.dispatch(
         'sendMessageToParentWindow',
@@ -490,11 +487,15 @@ export default {
           }
         } else {
           let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+          let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
           if (response.messageFormat === 'CustomPayload') {
             if (alts === undefined) {
               alts = {};
             }
             alts.markdown = response.message;
+          }
+          if (responseCardObject === undefined) {
+            responseCardObject = context.state.lex.responseCard;
           }
           context.dispatch(
             'pushMessage',
@@ -502,7 +503,7 @@ export default {
               text: response.message,
               type: 'bot',
               dialogState: context.state.lex.dialogState,
-              responseCard: context.state.lex.responseCard,
+              responseCard: responseCardObject, // prefering appcontext over lex.responsecard
               alts,
             },
           );
@@ -519,20 +520,66 @@ export default {
         if (context.state.lex.dialogState === 'Fulfilled') {
           context.dispatch('reInitBot');
         }
+        if (context.state.isPostTextRetry) {
+          context.commit('setPostTextRetry', false);
+        }
       })
       .catch((error) => {
-        const errorMessage = (context.state.config.ui.showErrorDetails) ?
-          ` ${error}` : '';
-        console.error('error in postTextMessage', error);
-        context.dispatch(
-          'pushErrorMessage',
-          'Sorry, I was unable to process your message. Try again later.' +
-          `${errorMessage}`,
-        );
+        if (((error.message.indexOf('permissible time') === -1))
+          || context.state.config.lex.retryOnLexPostTextTimeout === false
+          || (context.state.lex.isPostTextRetry &&
+            (context.state.lex.retryCountPostTextTimeout >=
+              context.state.config.lex.retryCountPostTextTimeout)
+          )
+        ) {
+          context.commit('setPostTextRetry', false);
+          const errorMessage = (context.state.config.ui.showErrorDetails) ?
+            ` ${error}` : '';
+          console.error('error in postTextMessage', error);
+          context.dispatch(
+            'pushErrorMessage',
+            'Sorry, I was unable to process your message. Try again later.' +
+            `${errorMessage}`,
+          );
+        } else {
+          context.commit('setPostTextRetry', true);
+          context.dispatch('postTextMessage', message);
+        }
+      });
+  },
+  deleteSession(context) {
+    context.commit('setIsLexProcessing', true);
+    return context.dispatch('refreshAuthTokens')
+      .then(() => context.dispatch('getCredentials'))
+      .then(() => lexClient.deleteSession())
+      .then((data) => {
+        context.commit('setIsLexProcessing', false);
+        return context.dispatch('updateLexState', data)
+          .then(() => Promise.resolve(data));
+      })
+      .catch((error) => {
+        console.error(error);
+        context.commit('setIsLexProcessing', false);
+      });
+  },
+  startNewSession(context) {
+    context.commit('setIsLexProcessing', true);
+    return context.dispatch('refreshAuthTokens')
+      .then(() => context.dispatch('getCredentials'))
+      .then(() => lexClient.startNewSession())
+      .then((data) => {
+        context.commit('setIsLexProcessing', false);
+        return context.dispatch('updateLexState', data)
+          .then(() => Promise.resolve(data));
+      })
+      .catch((error) => {
+        console.error(error);
+        context.commit('setIsLexProcessing', false);
       });
   },
   lexPostText(context, text) {
     context.commit('setIsLexProcessing', true);
+    context.commit('reapplyTokensToSessionAttributes');
     const session = context.state.lex.sessionAttributes;
     delete session.appContext;
     return context.dispatch('refreshAuthTokens')
@@ -550,6 +597,7 @@ export default {
   },
   lexPostContent(context, audioBlob, offset = 0) {
     context.commit('setIsLexProcessing', true);
+    context.commit('reapplyTokensToSessionAttributes');
     const session = context.state.lex.sessionAttributes;
     delete session.appContext;
     console.info('audio blob size:', audioBlob.size);
@@ -644,7 +692,9 @@ export default {
    **********************************************************************/
 
   pushMessage(context, message) {
-    context.commit('pushMessage', message);
+    if (context.state.lex.isPostTextRetry === false) {
+      context.commit('pushMessage', message);
+    }
   },
   pushErrorMessage(context, text, dialogState = 'Failed') {
     context.commit('pushMessage', {
@@ -773,6 +823,13 @@ export default {
       { event: 'toggleIsLoggedIn' },
     );
   },
+  toggleHasButtons(context) {
+    context.commit('toggleHasButtons');
+    return context.dispatch(
+      'sendMessageToParentWindow',
+      { event: 'toggleHasButtons' },
+    );
+  },
   toggleIsSFXOn(context) {
     context.commit('toggleIsSFXOn');
   },
@@ -825,6 +882,16 @@ export default {
         target,
         [messageChannel.port2],
       );
+    });
+  },
+  resetHistory(context) {
+    context.commit('clearMessages');
+    context.commit('pushMessage', {
+      type: 'bot',
+      text: context.state.config.lex.initialText,
+      alts: {
+        markdown: context.state.config.lex.initialText,
+      },
     });
   },
 };

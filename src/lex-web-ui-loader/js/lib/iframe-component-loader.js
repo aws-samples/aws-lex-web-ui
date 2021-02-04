@@ -14,9 +14,8 @@
 /* eslint no-console: ["error", { allow: ["warn", "error", "debug"] }] */
 /* global AWS */
 
-import 'babel-polyfill';
 import { ConfigLoader } from './config-loader';
-import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired } from './loginutil';
+import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin } from './loginutil';
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -180,11 +179,9 @@ export class IframeComponentLoader {
         console.error(new Error(`cognito auth credentials could not be created ${err}`));
       }
     } else { // noauth role
-      const identityIdValue = localStorage.getItem('aws.cognito.identity-id.us-east-1:06de3a58-1e89-4048-95bc-0d8cbd750d37');
-      console.error(identityIdValue);
       try {
         credentials = new AWS.CognitoIdentityCredentials(
-          { IdentityPoolId: cognitoPoolId, IdentityId: 'us-east-1:a5a1a580-ab4f-420e-8b4b-376dc3c20d61' },
+          { IdentityPoolId: cognitoPoolId },
           { region },
         );
       } catch (err) {
@@ -231,7 +228,9 @@ export class IframeComponentLoader {
   /* eslint-disable no-restricted-globals */
   initCognitoCredentials() {
     document.addEventListener('tokensavailable', this.updateCredentials.bind(this), false);
+
     return new Promise((resolve, reject) => {
+
       const curUrl = window.location.href;
       if (curUrl.indexOf('loggedin') >= 0) {
         if (completeLogin(this.generateConfigObj())) {
@@ -329,20 +328,8 @@ export class IframeComponentLoader {
 
     // SECURITY: origin check
     if (evt.origin !== iframeOrigin) {
-      if (iframeOrigin.includes('s3.amazonaws.com')) {
-        // allow a region specific path to be valid
-        const p1 = evt.origin.split('.');
-        const p2 = iframeOrigin.split('.');
-        const regionAdjust1 = `${p1[0]}.s3.${p1[2]}.${p1[3]}`;
-        const regionAdjust2 = `${p2[0]}.s3.${p2[2]}.${p2[3]}`;
-        if (regionAdjust1 !== regionAdjust2) {
-          console.warn('postMessage from invalid origin', evt.origin);
-          return;
-        }
-      } else {
-        console.warn('postMessage from invalid origin', evt.origin);
-        return;
-      }
+      console.warn('postMessage from invalid origin', evt.origin);
+      return;
     }
     if (!evt.ports || !Array.isArray(evt.ports) || !evt.ports.length) {
       console.warn('postMessage not sent over MessageChannel', evt);
@@ -478,11 +465,12 @@ export class IframeComponentLoader {
     return new Promise((resolve, reject) => {
       const timeoutInMs = 15000;
 
-      readyManager.checkIsChatBotReady = () => {
+      readyManager.checkIsChatBotReady =  () => {
         // isChatBotReady set by event received from iframe
         if (this.isChatBotReady) {
           clearTimeout(readyManager.timeoutId);
           clearInterval(readyManager.intervalId);
+
           if (this.config.ui.enableLogin && this.config.ui.enableLogin === true) {
             const auth = getAuth(this.generateConfigObj());
             const session = auth.getSignInUserSession();
@@ -495,7 +483,14 @@ export class IframeComponentLoader {
                 event: 'confirmLogin',
                 data: tokens,
               });
-            } else {
+            } else if (this.config.ui.enableLogin && this.config.ui.forceLogin){
+                forceLogin(this.generateConfigObj())
+                this.sendMessageToIframe({
+                  event: 'confirmLogin',
+                  data: tokens,
+                });
+            }
+            else {
               const refToken = localStorage.getItem('refreshtoken');
               if (refToken) {
                 refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
@@ -558,13 +553,14 @@ export class IframeComponentLoader {
       // requests credentials from the parent
       getCredentials(evt) {
         return this.getCredentials()
-          .then(creds => (
+          .then((creds) => {
+            const tcreds = JSON.parse(JSON.stringify(creds));
             evt.ports[0].postMessage({
               event: 'resolve',
               type: evt.data.event,
-              data: creds,
-            })
-          ))
+              data: tcreds,
+            });
+          })
           .catch((error) => {
             console.error('failed to get credentials', error);
             evt.ports[0].postMessage({
@@ -645,12 +641,6 @@ export class IframeComponentLoader {
           });
         }
       },
-      messageSent() {
-        this.sendMessageToIframe({ event: 'messageSent' });
-      },
-      messageReceived() {
-        this.sendMessageToIframe({ event: 'messageReceived' });
-      },
       // iframe sends Lex updates based on Lex API responses
       updateLexState(evt) {
         // evt.data will contain the Lex state
@@ -691,18 +681,9 @@ export class IframeComponentLoader {
           reject(new Error(`iframe failed to handle message - ${evt.data.error}`));
         }
       };
-      let target = iframeOrigin;
-      if (target !== this.iframeElement.contentWindow.location.origin) {
-        // adjust to a region specific path if needed
-        const p1 = iframeOrigin.split('.');
-        const p2 = this.iframeElement.contentWindow.location.origin.split('.');
-        if (p1[0] === p2[0]) {
-          target = this.iframeElement.contentWindow.location.origin;
-        }
-      }
       this.iframeElement.contentWindow.postMessage(
         message,
-        target,
+        iframeOrigin,
         [messageChannel.port2],
       );
     });
@@ -785,6 +766,12 @@ export class IframeComponentLoader {
       ),
       postText: message => (
         this.sendMessageToIframe({ event: 'postText', message })
+      ),
+      deleteSession: () => (
+        this.sendMessageToIframe({ event: 'deleteSession' })
+      ),
+      startNewSession: () => (
+        this.sendMessageToIframe({ event: 'startNewSession' })
       ),
     };
 

@@ -2,3 +2,5 @@ out/
 node_modules/
 .DS_Store
 .idea/
+py_modules/
+*/*/py_modules/
