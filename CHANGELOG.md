@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.17.8] - 2021-02-02
+- Fix for pipeline based deployments - issue 264 - template error
+- Fix to full page web client (index.html) using forceLogin to require a direct to login page
+- Fix to move to python 3.8 Lambda Runtime for yaml CloudFormation template embedded functions which remove use of boto3 vendored library
+- Add ability for Lex Web UI to automatically retry a request if the Lex bot times out after 30 seconds using a configurable number of attempts. 
+By default the timeout retry feature is disabled. When enabled, the default retry count is 1. 
+
 ## [0.17.7] - 2020-12-31
 - Build script fix
 - Move min button icon to the left of text

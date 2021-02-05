@@ -138,12 +138,6 @@ Parameters:
             When pressed the button will send the entered string to the bot as a help message.  If left empty
             the help button will be disabled.
 
-    Timestamp:
-      Type: Number
-      Description: >
-        This is a required parameter. It defines a timestamp allow the codebuild to execute as long as the
-        timestamp from master.yaml and master-pipeline.yaml varies.
-
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
@@ -311,7 +305,7 @@ Resources:
                 Type: CODEPIPELINE
             Environment:
                 Type: LINUX_CONTAINER
-                Image: aws/codebuild/nodejs:10.14.1
+                Image: aws/codebuild/amazonlinux2-x86_64-standard:2.0
                 ComputeType: BUILD_GENERAL1_SMALL
                 EnvironmentVariables:
                     - Name: BUILD_TYPE
@@ -349,13 +343,11 @@ Resources:
                     phases:
                         install:
                             commands:
-                                - npm install -g n
-                                - n stable
-                                - npm update -g npm
                                 - make install-deps
                         pre_build:
                             commands:
                                 - aws configure set region "$AWS_DEFAULT_REGION"
+                                - cp src/config/default-lex-web-ui-loader-config.json src/config/lex-web-ui-loader-config.json
                                 - make config
                         build:
                             commands:
@@ -615,8 +607,7 @@ Resources:
                           - Effect: Allow
                             Action:
                                 - lambda:UpdateFunctionCode
-                            Resource:
-                                - "arn::lambda:::function:testwebold2-CodeBuildDeploy-14UJA4-S3CleanupLambda-NBGV5CPVCU3I"
+                            Resource: "*"
 
 Outputs:
     PipelineName:
