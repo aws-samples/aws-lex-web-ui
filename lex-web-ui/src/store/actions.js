@@ -821,9 +821,6 @@ export default {
       context.commit('setChatMode', chatMode.LIVECHAT);
       context.commit('setIsLiveChatProcessing', true);
       context.dispatch('initLiveChatSession');
-
-      // window.location = 'https://heuristic-shannon-f811ab.netlify.app/widgetindex';
-      // window.location = 'https://heuristic-shannon-f811ab.netlify.app/custombuildindex';
     }
   },
   sendTypingEvent(context) {
