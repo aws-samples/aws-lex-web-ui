@@ -41,10 +41,10 @@ export default {
   },
   computed: {
     messages() {
-      return this.$store.state.messages;
+      return (this.$store.state.chatMode === 'bot') ? this.$store.state.messages : this.$store.state.liveChatMessages;
     },
     loading() {
-      return this.$store.state.lex.isProcessing;
+      return this.$store.state.lex.isProcessing || this.$store.state.liveChat.isProcessing;
     },
   },
   watch: {
@@ -78,6 +78,10 @@ export default {
 }
 
 .message-bot {
+  align-self: flex-start;
+}
+
+.message-agent {
   align-self: flex-start;
 }
 

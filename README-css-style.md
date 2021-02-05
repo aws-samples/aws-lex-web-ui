@@ -93,6 +93,7 @@ button.min-button {
 Modify lex-web-ui-loader-config.json
 ```
 ui.avatarImageUrl: "url"
+ui.agentAvatarImageUrl: "url"
 ```
 
 #### Message List background color

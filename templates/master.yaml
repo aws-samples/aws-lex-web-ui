@@ -95,6 +95,16 @@ Parameters:
             This is an optional parameter, if set to True, the history of the chat is maintained over sessions. 
             A item to clean the chat will appear at the menu.
 
+    ShouldEnableLiveChat:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          This is an optional parameter, if set to True, the AWS Connect live Chat functionality will be available.
+          A item to start a live chat will appear at the menu.
+
     CodeBuildName:
         Type: String
         Description: >
@@ -310,6 +320,7 @@ Metadata:
                   - ReInitSessionAttributesOnRestart
                   - ShowResponseCardTitle
                   - SaveHistory
+                  - EnableLiveChat
                   - retryOnLexPostTextTimeout
                   - retryCountPostTextTimeout
             - Label:
@@ -394,6 +405,7 @@ Resources:
                 WebAppConfHelp: !Ref WebAppConfHelp
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
                 SaveHistory: !Ref SaveHistory
+                ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
                 ShouldEnableCognitoLogin:
                   !If
                     - ShouldForceCognitoLogin

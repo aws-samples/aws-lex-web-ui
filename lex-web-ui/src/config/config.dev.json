@@ -2,6 +2,11 @@
   "cognito": {
     "poolId": "us-east-1:0cd403d3-76c0-40d0-9d60-afb02bfcb8ff"
   },
+  "connect": {
+    "contactFlowId" : "",
+    "instanceId" : "",
+    "apiGatewayEndpoint" : ""
+  },
   "lex": {
     "botName": "OrderFlowers",
     "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
@@ -17,6 +22,7 @@
     "pageTitle": "Order Config Bot",
     "toolbarTitle": "Order Config",
     "enableLogin": true,
+    "enableSFX": false,
     "forceLogin": true,
     "pushInitialTextOnRestart": false,
     "shouldDisplayResponseCardTitle": false,
@@ -27,7 +33,8 @@
     "helpIntent": "help",
     "hideInputFieldsForButtonResponse": true,
     "backButton": false,
-    "messageMenu": true
+    "messageMenu": true,
+    "enableLiveChat": false
   },
   "recorder": {
     "preset": "speech_recognition"

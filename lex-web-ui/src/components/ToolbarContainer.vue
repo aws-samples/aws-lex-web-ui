@@ -17,30 +17,6 @@
       aria-hidden="true"
     />
 
-    <v-menu v-if="showToolbarMenu" offset-y>
-      <v-btn slot="activator" dark icon v-show="!isUiMinimized">
-        <v-icon>
-          {{ "menu" }}
-        </v-icon>
-      </v-btn>
-
-      <v-list>
-        <v-list-tile v-if="isEnableLogin">
-          <v-list-tile-title v-if="isLoggedIn" v-on:click="requestLogout">{{
-            items[1].title
-          }}</v-list-tile-title>
-          <v-list-tile-title v-if="!isLoggedIn" v-on:click="requestLogin">{{
-            items[0].title
-          }}</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-if="isSaveHistory">
-          <v-list-tile-title v-on:click="requestResetHistory">{{
-            items[2].title
-          }}</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-menu>
-
     <div class="nav-buttons">
       <v-btn
         small
@@ -95,12 +71,12 @@
       <span id="help-tooltip">help</span>
     </v-tooltip>
     <v-tooltip
-      v-model="shouldShowSFXTooltip"
+      v-model="shouldShowMenuTooltip"
       content-class="tooltip-custom"
-      activator=".sfx-toggle"
+      activator=".menu"
       left
     >
-      <span id="sfx-tooltip">sound effects on/off</span>
+      <span id="menu-tooltip">menu</span>
     </v-tooltip>
     <v-btn
       v-if="shouldRenderHelpButton && !isUiMinimized"
@@ -110,21 +86,82 @@
       icon
       class="help-toggle"
     >
-      <v-icon> help_outline </v-icon>
-    </v-btn>
-
-    <v-btn
-      v-if="shouldRenderSfxButton && isUiMinimized"
-      v-on:click="toggleSFXMute"
-      v-on="tooltipSFXEventHandlers"
-      class="sfx-toggle"
-      icon
-      aria-label="sound effects on off toggle"
-    >
       <v-icon>
-        {{ isSFXOn ? "volume_up" : "volume_off" }}
+        help_outline
       </v-icon>
     </v-btn>
+
+    <v-menu v-if="showToolbarMenu" offset-y>
+      <v-btn 
+      slot="activator" 
+      v-show="!isUiMinimized"
+      v-on="tooltipMenuEventHandlers"
+      class="menu"
+      fab
+      small
+      aria-label="menu options">
+        <v-icon>
+          menu
+        </v-icon>
+      </v-btn>
+
+      <v-list>
+        <v-list-tile v-if="isEnableLogin">
+          <v-list-tile-title v-if="isLoggedIn" v-on:click="requestLogout" aria-label="logout">
+            <v-icon>
+              {{ items[1].icon }}
+            </v-icon>
+            {{ items[1].title }}
+          </v-list-tile-title>
+          <v-list-tile-title v-if="!isLoggedIn" v-on:click="requestLogin" aria-label="login">
+            <v-icon>
+              {{ items[0].icon }}
+            </v-icon>
+            {{ items[0].title }}
+            </v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile v-if="isSaveHistory">
+          <v-list-tile-title v-on:click="requestResetHistory" aria-label="clear chat history">
+            <v-icon>
+              {{ items[2].icon }}
+            </v-icon>
+            {{ items[2].title }}
+          </v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile v-if="shouldRenderSfxButton && isSFXOn">
+          <v-list-tile-title v-on:click="toggleSFXMute" aria-label="mute sound effects">
+            <v-icon>
+              {{ items[3].icon }}
+            </v-icon>
+            {{ items[3].title }}
+          </v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile v-if="shouldRenderSfxButton && !isSFXOn">
+          <v-list-tile-title v-on:click="toggleSFXMute" aria-label="unmute sound effects">
+            <v-icon>
+              {{ items[4].icon }}
+            </v-icon>
+            {{ items[4].title }}
+          </v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile v-if="canLiveChat">
+          <v-list-tile-title v-on:click="requestLiveChat" aria-label="request live chat">
+            <v-icon>
+              {{ items[5].icon }}
+            </v-icon>
+            {{ items[5].title }}
+          </v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile v-if="isLiveChat">
+          <v-list-tile-title v-on:click="endLiveChat" aria-label="end live chat">
+            <v-icon>
+              {{ items[6].icon }}
+            </v-icon>
+            {{ items[6].title }}
+          </v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
 
     <v-btn
       v-if="$store.state.isRunningEmbedded"
@@ -154,14 +191,24 @@ or in the "license" file accompanying this file. This file is distributed on an 
 BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
+import { chatMode, liveChatStatus } from '@/store/state';
+
 export default {
   name: 'toolbar-container',
   data() {
     return {
-      items: [{ title: 'Login' }, { title: 'Logout' }, { title: 'Clear Chat' }],
+      items: [
+        { title: 'Login', icon: 'login' },
+        { title: 'Logout', icon: 'logout' },
+        { title: 'Clear Chat', icon: 'delete' },
+        { title: 'Mute', icon: 'volume_up' },
+        { title: 'Unmute', icon: 'volume_off' },
+        { title: 'Start Live Chat', icon: 'people_alt' },
+        { title: 'End Live Chat', icon: 'call_end' },
+      ],
       shouldShowTooltip: false,
       shouldShowHelpTooltip: false,
-      shouldShowSFXTooltip: false,
+      shouldShowMenuTooltip: false,
       prevNav: false,
       prevNavEventHandlers: {
         mouseenter: this.mouseOverPrev,
@@ -177,12 +224,12 @@ export default {
         touchend: this.onHelpButtonHoverLeave,
         touchcancel: this.onHelpButtonHoverLeave,
       },
-      tooltipSFXEventHandlers: {
-        mouseenter: this.onSFXButtonHoverEnter,
-        mouseleave: this.onSFXButtonHoverLeave,
-        touchstart: this.onSFXButtonHoverEnter,
-        touchend: this.onSFXButtonHoverLeave,
-        touchcancel: this.onSFXButtonHoverLeave,
+      tooltipMenuEventHandlers: {
+        mouseenter: this.onMenuButtonHoverEnter,
+        mouseleave: this.onMenuButtonHoverLeave,
+        touchstart: this.onMenuButtonHoverEnter,
+        touchend: this.onMenuButtonHoverLeave,
+        touchcancel: this.onMenuButtonHoverLeave,
       },
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
@@ -225,6 +272,17 @@ export default {
     isSaveHistory() {
       return this.$store.state.config.ui.saveHistory;
     },
+    canLiveChat() {
+      return (this.$store.state.config.ui.enableLiveChat &&
+      this.$store.state.chatMode === chatMode.BOT &&
+      (this.$store.state.liveChat.status === liveChatStatus.DISCONNECTED ||
+      this.$store.state.liveChat.status === liveChatStatus.ENDED)
+      );
+    },
+    isLiveChat() {
+      return (this.$store.state.config.ui.enableLiveChat &&
+      this.$store.state.chatMode === chatMode.LIVECHAT);
+    },
     isLexProcessing() {
       return (
         this.$store.state.isBackProcessing || this.$store.state.lex.isProcessing
@@ -247,7 +305,12 @@ export default {
       return this.$store.state.isSFXOn;
     },
     showToolbarMenu() {
-      return this.$store.state.config.ui.enableLogin || this.$store.state.config.ui.saveHistory;
+      return (
+        this.$store.state.config.ui.enableLogin ||
+        this.$store.state.config.ui.saveHistory ||
+        this.$store.state.config.ui.shouldRenderSfxButton ||
+        this.$store.state.config.ui.enableLiveChat
+      );
     },
   },
   methods: {
@@ -266,11 +329,11 @@ export default {
     onHelpButtonHoverLeave() {
       this.shouldShowHelpTooltip = false;
     },
-    onSFXButtonHoverEnter() {
-      this.shouldShowSFXTooltip = true;
+    onMenuButtonHoverEnter() {
+      this.shouldShowMenuTooltip = true;
     },
-    onSFXButtonHoverLeave() {
-      this.shouldShowSFXTooltip = false;
+    onMenuButtonHoverLeave() {
+      this.shouldShowMenuTooltip = false;
     },
     onNavHoverEnter() {
       this.shouldShowNavToolTip = true;
@@ -322,6 +385,12 @@ export default {
     requestResetHistory() {
       this.$store.dispatch('resetHistory');
     },
+    requestLiveChat() {
+      this.$emit('requestLiveChat');
+    },
+    endLiveChat() {
+      this.$emit('endLiveChat');
+    },
     toggleIsLoggedIn() {
       this.onInputButtonHoverLeave();
       this.$emit('toggleIsLoggedIn');
@@ -342,5 +411,15 @@ export default {
 .nav-button-prev {
   padding: 0;
   margin: 0;
+}
+
+.list .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.menu__content {
+  border-radius: 4px;
 }
 </style>

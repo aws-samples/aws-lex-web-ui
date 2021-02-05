@@ -16,9 +16,26 @@ License for the specific language governing permissions and limitations under th
  */
 import { config } from '@/config';
 
+export const chatMode = {
+  BOT: 'bot',
+  LIVECHAT: 'livechat',
+};
+
+export const liveChatStatus = {
+  REQUESTED: 'requested',
+  REQUEST_USERNAME: 'request_username',
+  INITIALIZING: 'initializing',
+  CONNECTING: 'connecting',
+  ESTABLISHED: 'established',
+  DISCONNECTED: 'disconnected',
+  ENDED: 'ended',
+};
+
+
 export default {
   version: (process.env.PACKAGE_VERSION) ?
     process.env.PACKAGE_VERSION : '0.0.0',
+  chatMode: chatMode.BOT,
   lex: {
     acceptFormat: 'audio/ogg',
     dialogState: '',
@@ -38,7 +55,14 @@ export default {
     slotToElicit: '',
     slots: {},
   },
+  liveChat: {
+    username: '',
+    isProcessing: false,
+    status: liveChatStatus.DISCONNECTED,
+    message: '',
+  },
   messages: [],
+  liveChatMessages: [],
   utteranceStack: [],
   isBackProcessing: false,
   polly: {
@@ -75,10 +99,10 @@ export default {
   isForceLogin: false, // true when a login/logout menu should be displayed
   isLoggedIn: false, // when running with login/logout enabled
   isSaveHistory: false, // when running with saveHistory enabled
+  isEnableLiveChat: false, // when running with enableLiveChat enabled
   hasButtons: false, // does the response card have buttons?
   tokens: {},
   config,
-
   awsCreds: {
     provider: 'cognito', // cognito|parentWindow
   },

@@ -125,6 +125,11 @@ module.exports = (env) => {
           from: path.join(basePath, 'lex-web-ui/dist/bundle'),
           to: distDir,
         },
+        // copy amazon-connect-chat library
+        {
+          from: path.join(basePath, 'src/website/amazon-connect-chat.js'),
+          to: distDir,
+        },
       ]),
     ].filter(Boolean),
   };

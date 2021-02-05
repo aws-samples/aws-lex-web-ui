@@ -482,6 +482,11 @@
 
 
 
+
+
+
+
+
 /*
 The Vuetify toolbar height is based on screen width breakpoints
 The toolbar can be 48px, 56px and 64px.
@@ -532,37 +537,49 @@ NOTE: not using var() for different heights due to IE11 compatibility
   padding: 0;
   margin: 0;
 }
+.list .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+.menu__content {
+  border-radius: 4px;
+}
 
-.message-list[data-v-c328d2b2] {
+.message-list[data-v-a3ae9e06] {
   padding-top: 1rem;
   overflow-y: auto;
   overflow-x: hidden;
 }
-.message-bot[data-v-c328d2b2] {
+.message-bot[data-v-a3ae9e06] {
   -ms-flex-item-align: start;
       align-self: flex-start;
 }
-.message-human[data-v-c328d2b2] {
+.message-agent[data-v-a3ae9e06] {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+.message-human[data-v-a3ae9e06] {
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
-.message-feedback[data-v-c328d2b2] {
+.message-feedback[data-v-a3ae9e06] {
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
 
-.smicon[data-v-6edb4fa5] {
+.smicon[data-v-66a9b65b] {
   font-size: 14px;
 }
-.message[data-v-6edb4fa5], .message-bubble-column[data-v-6edb4fa5] {
+.message[data-v-66a9b65b], .message-bubble-column[data-v-66a9b65b] {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
 }
-.message[data-v-6edb4fa5], .message-bubble-row[data-v-6edb4fa5] {
+.message[data-v-66a9b65b], .message-bubble-row[data-v-66a9b65b] {
   max-width: 80vw;
 }
-.bot-avatar[data-v-6edb4fa5] {
+.avatar[data-v-66a9b65b] {
   -ms-flex-item-align: center;
       align-self: center;
   border-radius: 50%;
@@ -572,7 +589,7 @@ NOTE: not using var() for different heights due to IE11 compatibility
       align-self: flex-start;
   margin-right: 4px;
 }
-.message-bubble[data-v-6edb4fa5] {
+.message-bubble[data-v-66a9b65b] {
   border-radius: 24px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -585,84 +602,87 @@ NOTE: not using var() for different heights due to IE11 compatibility
   -ms-flex-item-align: center;
       align-self: center;
 }
-.focusable[data-v-6edb4fa5] {
+.focusable[data-v-66a9b65b] {
   -webkit-box-shadow: 0 0.25px 0.75px rgba(0,0,0,0.12), 0 0.25px 0.5px rgba(0,0,0,0.24);
           box-shadow: 0 0.25px 0.75px rgba(0,0,0,0.12), 0 0.25px 0.5px rgba(0,0,0,0.24);
   -webkit-transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   cursor: default;
 }
-.focusable[data-v-6edb4fa5]:focus {
+.focusable[data-v-66a9b65b]:focus {
   -webkit-box-shadow: 0 1.25px 3.75px rgba(0,0,0,0.25), 0 1.25px 2.5px rgba(0,0,0,0.22);
           box-shadow: 0 1.25px 3.75px rgba(0,0,0,0.25), 0 1.25px 2.5px rgba(0,0,0,0.22);
   outline: none;
 }
-.message-bot .message-bubble[data-v-6edb4fa5] {
+.message-bot .message-bubble[data-v-66a9b65b] {
   background-color: #FFEBEE; /* red-50 from material palette */
 }
-.message-human .message-bubble[data-v-6edb4fa5] {
+.message-agent .message-bubble[data-v-66a9b65b] {
+  background-color: #FFEBEE; /* red-50 from material palette */
+}
+.message-human .message-bubble[data-v-66a9b65b] {
   background-color: #E8EAF6; /* indigo-50 from material palette */
 }
-.message-feedback .message-bubble[data-v-6edb4fa5] {
+.message-feedback .message-bubble[data-v-66a9b65b] {
   background-color: #E8EAF6;
 }
-.dialog-state[data-v-6edb4fa5] {
+.dialog-state[data-v-66a9b65b] {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
-.icon.dialog-state-ok[data-v-6edb4fa5] {
+.icon.dialog-state-ok[data-v-66a9b65b] {
   color: green;
 }
-.icon.dialog-state-fail[data-v-6edb4fa5] {
+.icon.dialog-state-fail[data-v-66a9b65b] {
   color: red;
 }
-.play-icon[data-v-6edb4fa5] {
+.play-icon[data-v-66a9b65b] {
   font-size: 2em;
 }
-.feedback-state[data-v-6edb4fa5] {
+.feedback-state[data-v-66a9b65b] {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   -ms-flex-item-align: center;
       align-self: center;
 }
-.icon.feedback-icons-positive[data-v-6edb4fa5]{
+.icon.feedback-icons-positive[data-v-66a9b65b]{
   color: grey;
   /* color: #E8EAF6; */
   /* color: green; */
   padding: .125em;
 }
-.positiveClick[data-v-6edb4fa5]{
+.positiveClick[data-v-66a9b65b]{
   color: green;
   padding: .125em;
 }
-.negativeClick[data-v-6edb4fa5]{
+.negativeClick[data-v-66a9b65b]{
   color: red;
   padding: .125em;
 }
-.icon.feedback-icons-positive[data-v-6edb4fa5]:hover{
+.icon.feedback-icons-positive[data-v-66a9b65b]:hover{
   color:green;
 }
-.icon.feedback-icons-negative[data-v-6edb4fa5]{
+.icon.feedback-icons-negative[data-v-66a9b65b]{
   /* color: #E8EAF6; */
   color: grey;
   padding: .125em;
 }
-.icon.feedback-icons-negative[data-v-6edb4fa5]:hover{
+.icon.feedback-icons-negative[data-v-66a9b65b]:hover{
   color: red;
 }
-.response-card[data-v-6edb4fa5] {
+.response-card[data-v-66a9b65b] {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   width: 85vw;
 }
-.no-point[data-v-6edb4fa5] {
+.no-point[data-v-66a9b65b] {
   pointer-events: none;
 }
 
-.message-text[data-v-6bf13b39] {
+.message-text[data-v-c420455e] {
   -webkit-hyphens: auto;
       -ms-hyphens: auto;
           hyphens: auto;

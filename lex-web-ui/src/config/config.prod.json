@@ -2,6 +2,11 @@
   "cognito": {
     "poolId": ""
   },
+  "connect": {
+    "contactFlowId" : "",
+    "instanceId" : "",
+    "apiGatewayEndpoint" : ""
+  },
   "lex": {
     "botName": "WebUiOrderFlowers",
     "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
@@ -13,7 +18,8 @@
   "ui": {
     "parentOrigin": "",
     "pageTitle": "Order Flowers Bot",
-    "toolbarTitle": "Order Flowers"
+    "toolbarTitle": "Order Flowers",
+    "enableLiveChat": false
   },
   "recorder": {
     "preset": "speech_recognition"

@@ -17,6 +17,9 @@
       v-on:toggleMinimizeUi="toggleMinimizeUi"
       @requestLogin="handleRequestLogin"
       @requestLogout="handleRequestLogout"
+      @requestLiveChat="handleRequestLiveChat"
+      @endLiveChat="handleEndLiveChat"
+      transition="fade-transition"
     ></toolbar-container>
 
     <v-content
@@ -37,6 +40,7 @@
       v-if="!isUiMinimized && !hasButtons"
       v-bind:text-input-placeholder="textInputPlaceholder"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
+      @endLiveChatClicked="handleEndLiveChat"
     ></input-container>
     <div
       v-if="isSFXOn"
@@ -69,8 +73,6 @@ import InputContainer from '@/components/InputContainer';
 import LexRuntime from 'aws-sdk/clients/lexruntime';
 import { Config as AWSConfig, CognitoIdentityCredentials }
   from 'aws-sdk/global';
-
-const jwt = require('jsonwebtoken');
 
 export default {
   name: 'lex-web',
@@ -187,20 +189,30 @@ export default {
           this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
         }
 
-        Promise.all([
+        const promises = [
           this.$store.dispatch('initMessageList'),
           this.$store.dispatch('initPollyClient', this.$lexWebUi.pollyClient),
           this.$store.dispatch('initLexClient', this.$lexWebUi.lexRuntimeClient),
-        ]);
+        ];
+
+        console.info('CONFIG : ', this.$store.state.config);
+        if (this.$store.state && this.$store.state.config &&
+            this.$store.state.config.ui.enableLiveChat) {
+          promises.push(this.$store.dispatch('initLiveChat'));
+        }
+
+        Promise.all(promises);
       })
-      .then(() => (
-        (this.$store.state.isRunningEmbedded) ?
-          this.$store.dispatch(
-            'sendMessageToParentWindow',
-            { event: 'ready' },
-          ) :
-          Promise.resolve()
-      ))
+      .then(() => {
+        console.info(`isRunningEmbedded : ${this.$store.state.isRunningEmbedded}`);
+        const evt = this.$store.dispatch(
+          'sendMessageToParentWindow',
+          { event: 'ready' },
+        );
+        return (this.$store.state.isRunningEmbedded) ?
+          evt :
+          Promise.resolve();
+      })
       .then(() => {
         if (this.$store.state.config.ui.saveHistory === true) {
           this.$store.subscribe((mutation, state) => {
@@ -301,6 +313,14 @@ export default {
           { event: 'requestLogout' },
         );
       }
+    },
+    handleRequestLiveChat() {
+      console.info('handleRequestLiveChat');
+      this.$store.dispatch('requestLiveChat');
+    },
+    handleEndLiveChat() {
+      console.info('LexWeb: handleEndLiveChat');
+      this.$store.dispatch('requestLiveChatEnd');
     },
     // messages from parent
     messageHandler(evt) {
@@ -407,22 +427,7 @@ export default {
       }
     },
     userName() {
-      let v = '';
-      if (this.$store.state.tokens && this.$store.state.tokens.idtokenjwt) {
-        const decoded = jwt.decode(this.$store.state.tokens.idtokenjwt, { complete: true });
-        if (decoded) {
-          if (decoded.payload) {
-            if (decoded.payload.email) {
-              v = decoded.payload.email;
-            }
-            if (decoded.payload.preferred_username) {
-              v = decoded.payload.preferred_username;
-            }
-          }
-        }
-        return `[${v}]`;
-      }
-      return v;
+      return this.$store.getters.username();
     },
     logRunningMode() {
       if (!this.$store.state.isRunningEmbedded) {
