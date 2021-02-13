@@ -67,6 +67,8 @@ import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
 import LexRuntime from 'aws-sdk/clients/lexruntime';
+import LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2';
+
 import { Config as AWSConfig, CognitoIdentityCredentials }
   from 'aws-sdk/global';
 
@@ -174,6 +176,10 @@ export default {
             window.AWS.LexRuntime :
             LexRuntime;
 
+          const LexRuntimeConstructorV2 = (window.AWS && window.AWS.LexRuntimeV2) ?
+            window.AWS.LexRuntimeV2 :
+            LexRuntimeV2;
+
           const credentials = new CognitoConstructor(
             { IdentityPoolId: this.$store.state.config.cognito.poolId },
             { region: this.$store.state.config.region },
@@ -185,12 +191,17 @@ export default {
           });
 
           this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
+          this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
+          /* eslint-disable no-console */
+          console.log(`${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
         }
 
         Promise.all([
           this.$store.dispatch('initMessageList'),
           this.$store.dispatch('initPollyClient', this.$lexWebUi.pollyClient),
-          this.$store.dispatch('initLexClient', this.$lexWebUi.lexRuntimeClient),
+          this.$store.dispatch('initLexClient', {
+            v1client: this.$lexWebUi.lexRuntimeClient, v2client: this.$lexWebUi.lexRuntimeV2Client,
+          }),
         ]);
       })
       .then(() => (

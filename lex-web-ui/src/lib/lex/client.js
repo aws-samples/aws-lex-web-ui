@@ -14,13 +14,23 @@
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
 export default class {
+  botV2Id;
+  botV2AliasId;
+  botV2LocaleId;
+  isV2Bot;
   constructor({
     botName,
     botAlias = '$LATEST',
     userId,
     lexRuntimeClient,
+    botV2Id,
+    botV2AliasId,
+    botV2LocaleId,
+    lexRuntimeV2Client,
   }) {
-    if (!botName || !lexRuntimeClient) {
+    console.warn('client constructor called');
+    if (!botName || !lexRuntimeClient || !botV2Id || !botV2AliasId ||
+      !botV2LocaleId || !lexRuntimeV2Client) {
       throw new Error('invalid lex client constructor arguments');
     }
 
@@ -30,11 +40,16 @@ export default class {
       'lex-web-ui-' +
       `${Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)}`;
 
-    this.lexRuntimeClient = lexRuntimeClient;
+    this.botV2Id = botV2Id;
+    this.botV2AliasId = botV2AliasId;
+    this.botV2LocaleId = botV2LocaleId;
+    this.isV2Bot = (this.botV2Id.length > 0);
+    this.lexRuntimeClient = this.isV2Bot ? lexRuntimeV2Client : lexRuntimeClient;
     this.credentials = this.lexRuntimeClient.config.credentials;
   }
 
   initCredentials(credentials) {
+    console.warn('init credentials called');
     this.credentials = credentials;
     this.lexRuntimeClient.config.credentials = this.credentials;
     this.userId = (credentials.identityId) ?
@@ -43,38 +58,80 @@ export default class {
   }
 
   deleteSession() {
-    const deleteSessionReq = this.lexRuntimeClient.deleteSession({
-      botAlias: this.botAlias,
-      botName: this.botName,
-      userId: this.userId,
-    });
+    console.warn('delete session called');
+    let deleteSessionReq;
+    if (this.isV2Bot) {
+      deleteSessionReq = this.lexRuntimeClient.deleteSession({
+        botAliasId: this.botV2AliasId,
+        botId: this.botV2Id,
+        localeId: this.botV2LocaleId,
+        sessionId: this.userId,
+      });
+    } else {
+      deleteSessionReq = this.lexRuntimeClient.deleteSession({
+        botAlias: this.botAlias,
+        botName: this.botName,
+        userId: this.userId,
+      });
+    }
     return this.credentials.getPromise()
       .then(creds => creds && this.initCredentials(creds))
       .then(() => deleteSessionReq.promise());
   }
 
   startNewSession() {
-    const putSessionReq = this.lexRuntimeClient.putSession({
-      botAlias: this.botAlias,
-      botName: this.botName,
-      userId: this.userId,
-      dialogAction: {
-        type: 'ElicitIntent',
-      },
-    });
+    console.warn('start new session called');
+    let putSessionReq;
+    if (this.isV2Bot) {
+      putSessionReq = this.lexRuntimeClient.putSession({
+        botAliasId: this.botV2AliasId,
+        botId: this.botV2Id,
+        localeId: this.botV2LocaleId,
+        sessionId: this.userId,
+        sessionState: {
+          dialogAction: {
+            type: 'ElicitIntent',
+          },
+        },
+      });
+    } else {
+      putSessionReq = this.lexRuntimeClient.putSession({
+        botAlias: this.botAlias,
+        botName: this.botName,
+        userId: this.userId,
+        dialogAction: {
+          type: 'ElicitIntent',
+        },
+      });
+    }
     return this.credentials.getPromise()
       .then(creds => creds && this.initCredentials(creds))
       .then(() => putSessionReq.promise());
   }
 
   postText(inputText, sessionAttributes = {}) {
-    const postTextReq = this.lexRuntimeClient.postText({
-      botAlias: this.botAlias,
-      botName: this.botName,
-      userId: this.userId,
-      inputText,
-      sessionAttributes,
-    });
+    console.warn('start new session called');
+    let postTextReq;
+    if (this.isV2Bot) {
+      postTextReq = this.lexRuntimeClient.recognizeText({
+        botAliasId: this.botV2AliasId,
+        botId: this.botV2Id,
+        localeId: this.botV2LocaleId,
+        sessionId: this.userId,
+        text: inputText,
+        sessionState: {
+          sessionAttributes,
+        },
+      });
+    } else {
+      postTextReq = this.lexRuntimeClient.postText({
+        botAlias: this.botAlias,
+        botName: this.botName,
+        userId: this.userId,
+        inputText,
+        sessionAttributes,
+      });
+    }
     return this.credentials.getPromise()
       .then(creds => creds && this.initCredentials(creds))
       .then(() => postTextReq.promise());

@@ -1,162 +1,187 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: >
-    This template configures a user pool domain and hosted login
+  This template configures a user pool domain and hosted login
 
 Parameters:
-    CognitoIdentityPoolName:
-        Type: String
-        Description: Cognito identity pool name.
-        Default: identity pool
-        MinLength: 1
-        MaxLength: 128
-        AllowedPattern: '^[\w ]+$'
-        ConstraintDescription: Alphanumeric and spaces.
+  CognitoIdentityPoolName:
+    Type: String
+    Description: Cognito identity pool name.
+    Default: identity pool
+    MinLength: 1
+    MaxLength: 128
+    AllowedPattern: '^[\w ]+$'
+    ConstraintDescription: Alphanumeric and spaces.
 
-    LexBotName:
-        Type: String
-        Description: Lex bot name used to build IAM policy
-        Default: OrderFlowers
+  LexBotName:
+    Type: String
+    Description: Lex bot name used to build IAM policy
+    Default: OrderFlowers
 
-    ForceCognitoLogin:
-        Type: String
-        Default: false
-        Description: >
-            If set to True, the menu with a login action will not be displayed
-            in the Lex Web Ui, and the Cognito login will be executed automatically. 
+  ForceCognitoLogin:
+    Type: String
+    Default: false
+    Description: >
+      If set to True, the menu with a login action will not be displayed
+      in the Lex Web Ui, and the Cognito login will be executed automatically.
 
 Conditions:
-    NeedsForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, 'true']
+  NeedsForceCognitoLogin: !Equals [ !Ref ForceCognitoLogin, 'true' ]
 
 Resources:
-    CognitoIdentityPool:
-        Type: AWS::Cognito::IdentityPool
-        Properties:
-            IdentityPoolName: !Ref CognitoIdentityPoolName
-            AllowUnauthenticatedIdentities: true
-            CognitoIdentityProviders:
-                - ClientId: !Ref CognitoUserPoolClient
-                  ProviderName: !GetAtt CognitoUserPool.ProviderName
+  CognitoIdentityPool:
+    Type: AWS::Cognito::IdentityPool
+    Properties:
+      IdentityPoolName: !Ref CognitoIdentityPoolName
+      AllowUnauthenticatedIdentities: true
+      CognitoIdentityProviders:
+        - ClientId: !Ref CognitoUserPoolClient
+          ProviderName: !GetAtt CognitoUserPool.ProviderName
 
-    CognitoIdentityPoolSetRole:
-        Type: AWS::Cognito::IdentityPoolRoleAttachment
-        Properties:
-            IdentityPoolId: !Ref CognitoIdentityPool
-            Roles:
-                authenticated: !GetAtt CognitoAuthRole.Arn
-                unauthenticated: !GetAtt CognitoUnauthRole.Arn
+  CognitoIdentityPoolSetRole:
+    Type: AWS::Cognito::IdentityPoolRoleAttachment
+    Properties:
+      IdentityPoolId: !Ref CognitoIdentityPool
+      Roles:
+        authenticated: !GetAtt CognitoAuthRole.Arn
+        unauthenticated: !GetAtt CognitoUnauthRole.Arn
 
-    CognitoUserPool:
-        Type: AWS::Cognito::UserPool
-        Properties:
-            AutoVerifiedAttributes:
-              - "email"
-            MfaConfiguration: "OFF"
-            AliasAttributes:
-              - "email"
-            Schema:
-                - AttributeDataType: String
-                  Name: "given_name"
-                  Required: true
-                  Mutable: true
-                - AttributeDataType: String
-                  Name: "family_name"
-                  Required: true
-                  Mutable: true
-                - AttributeDataType: String
-                  Name: "email"
-                  Required: true
-                  Mutable: true
-                - AttributeDataType: String
-                  Name: "preferred_username"
-                  Required: true
-                  Mutable: true
-            UserPoolName: !Join [ '-', [ 'UserPool', !Select [0, !Split ["-CognitoIdentityPool", !Ref "AWS::StackName"]]]]
+  CognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      AutoVerifiedAttributes:
+        - "email"
+      MfaConfiguration: "OFF"
+      AliasAttributes:
+        - "email"
+      Schema:
+        - AttributeDataType: String
+          Name: "given_name"
+          Required: true
+          Mutable: true
+        - AttributeDataType: String
+          Name: "family_name"
+          Required: true
+          Mutable: true
+        - AttributeDataType: String
+          Name: "email"
+          Required: true
+          Mutable: true
+        - AttributeDataType: String
+          Name: "preferred_username"
+          Required: true
+          Mutable: true
+      UserPoolName: !Join [ '-', [ 'UserPool', !Select [ 0, !Split [ "-CognitoIdentityPool", !Ref "AWS::StackName" ] ] ] ]
 
-    CognitoUserPoolClient:
-        Type: AWS::Cognito::UserPoolClient
-        Properties:
-            GenerateSecret: false
-            UserPoolId: !Ref CognitoUserPool
+  CognitoUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      GenerateSecret: false
+      UserPoolId: !Ref CognitoUserPool
 
-    CognitoUnauthRole:
-        Type: AWS::IAM::Role
-        Properties:
-            Path: /
-            AssumeRolePolicyDocument:
-                Version: 2012-10-17
-                Statement:
-                    - Principal:
-                          Federated: cognito-identity.amazonaws.com
-                      Effect: Allow
-                      Action:
-                          - sts:AssumeRoleWithWebIdentity
-                      Condition:
-                          StringEquals:
-                              cognito-identity.amazonaws.com:aud: !Ref CognitoIdentityPool
-                          ForAnyValue:StringLike:
-                              cognito-identity.amazonaws.com:amr: unauthenticated
-            Policies:
-                - PolicyName: LexPost
-                  PolicyDocument:
-                      Version: 2012-10-17
-                      Statement:
-                          - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
-                            Action:
-                                - lex:PostText
-                                - lex:PostContent
-                                - lex:DeleteSession
-                                - lex:PutSession
-                            Resource:
-                                - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
-                   
-    CognitoAuthRole:
-        Type: AWS::IAM::Role
-        Properties:
-            Path: /
-            AssumeRolePolicyDocument:
-                Version: 2012-10-17
-                Statement:
-                    - Principal:
-                          Federated: cognito-identity.amazonaws.com
-                      Effect: Allow
-                      Action:
-                          - sts:AssumeRoleWithWebIdentity
-                      Condition:
-                          StringEquals:
-                              cognito-identity.amazonaws.com:aud: !Ref CognitoIdentityPool
-                          ForAnyValue:StringLike:
-                              cognito-identity.amazonaws.com:amr: authenticated
-            Policies:
-                - PolicyName: PollySynth
-                  PolicyDocument:
-                      Version: 2012-10-17
-                      Statement:
-                          - Effect: Allow
-                            Action:
-                                - polly:SynthesizeSpeech
-                            Resource: '*'
-                - PolicyName: LexPost
-                  PolicyDocument:
-                      Version: 2012-10-17
-                      Statement:
-                          - Effect: Allow
-                            Action:
-                                - lex:PostText
-                                - lex:PostContent
-                                - lex:DeleteSession
-                                - lex:PutSession
-                            Resource:
-                                - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
+  CognitoUnauthRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Principal:
+              Federated: cognito-identity.amazonaws.com
+            Effect: Allow
+            Action:
+              - sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                cognito-identity.amazonaws.com:aud: !Ref CognitoIdentityPool
+              ForAnyValue:StringLike:
+                cognito-identity.amazonaws.com:amr: unauthenticated
+      Policies:
+        - PolicyName: LexPost
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: !If [ NeedsForceCognitoLogin, Deny, Allow ]
+                Action:
+                  - lex:PostText
+                  - lex:PostContent
+                  - lex:DeleteSession
+                  - lex:PutSession
+                Resource:
+                  - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
+        - PolicyName: LexV2
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: !If [ NeedsForceCognitoLogin, Deny, Allow ]
+                Action:
+                  - lex:RecognizeText
+                  - lex:RecognizeUtterance
+                  - lex:DeleteSession
+                  - lex:PutSession
+                Resource:
+                  - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:/*"
+                  - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot-alias:/*"
 
+  CognitoAuthRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Principal:
+              Federated: cognito-identity.amazonaws.com
+            Effect: Allow
+            Action:
+              - sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                cognito-identity.amazonaws.com:aud: !Ref CognitoIdentityPool
+              ForAnyValue:StringLike:
+                cognito-identity.amazonaws.com:amr: authenticated
+      Policies:
+        - PolicyName: PollySynth
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - polly:SynthesizeSpeech
+                Resource: '*'
+        - PolicyName: LexPost
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - lex:PostText
+                  - lex:PostContent
+                  - lex:DeleteSession
+                  - lex:PutSession
+                Resource:
+                  - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
+        - PolicyName: LexV2
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - lex:RecognizeText
+                  - lex:RecognizeUtterance
+                  - lex:DeleteSession
+                  - lex:PutSession
+                Resource:
+                  - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:/*"
+                  - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot-alias:/*"
 Outputs:
-    CognitoIdentityPoolId:
-        Description: Cognito identity pool id.
-        Value: !Ref CognitoIdentityPool
+  CognitoIdentityPoolId:
+    Description: Cognito identity pool id.
+    Value: !Ref CognitoIdentityPool
 
-    CognitoUserPoolId:
-        Description: Cognito user pool id.
-        Value: !Ref CognitoUserPool
+  CognitoUserPoolId:
+    Description: Cognito user pool id.
+    Value: !Ref CognitoUserPool
 
-    CognitoUserPoolClientId:
-        Description: Cognito user pool client id.
-        Value: !Ref CognitoUserPoolClient
+  CognitoUserPoolClientId:
+    Description: Cognito user pool client id.
+    Value: !Ref CognitoUserPoolClient

@@ -86,11 +86,17 @@ export default {
       });
     }
   },
-  initLexClient(context, lexRuntimeClient) {
+  initLexClient(context, payload) {
+    /* eslint-disable no-console */
+    console.log(`the payload is: ${JSON.stringify(payload, null, 2)}`);
     lexClient = new LexClient({
       botName: context.state.config.lex.botName,
       botAlias: context.state.config.lex.botAlias,
-      lexRuntimeClient,
+      lexRuntimeClient: payload.v1client,
+      botV2Id: context.state.config.lex.v2BotId,
+      botV2AliasId: context.state.config.lex.v2BotAliasId,
+      botV2LocaleId: context.state.config.lex.v2BotLocaleId,
+      lexRuntimeV2Client: payload.v2client,
     });
 
     context.commit(

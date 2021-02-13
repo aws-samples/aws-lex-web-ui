@@ -125,6 +125,38 @@ Parameters:
         Description: >
             Cognito App User Pool Id
 
+    LexV2BotId:
+      Description: >
+        Name of an existing Lex V2 Bot to be used by the web ui. NOTE: You must
+        also enter your bot alias ID in the LexV2BotAliasId field below.
+        (If LexV2Botid is left empty, a Lex V1 Bot based on the OrderFlowers sample will be
+        automatically created.)
+      Type: String
+      Default: ''
+      MaxLength: 50
+      AllowedPattern: '(^$|^[a-zA-Z0-9]+((_[a-zA-Z0-9]+)*|([a-zA-Z0-9]+_)*|_))'
+      ConstraintDescription: >
+        Must conform with the permitted Lex V2 Bot name pattern.
+
+    LexV2BotAliasId:
+      Description: >
+        Use your Lex V2 bot's alias id here.
+      Type: String
+      Default: ''
+      MinLength: 0
+      MaxLength: 50
+      AllowedPattern: '(^$|^[$a-zA-Z0-9]+((_[$a-zA-Z0-9]+)*|([$a-zA-Z0-9]+_)*|_))'
+      ConstraintDescription: >
+        Must conform with the permitted Lex V2 Alias name pattern.
+
+    LexV2BotLocaleId:
+      Description: >
+        Use your bot's locale id here. By default this is en_US
+      Type: String
+      Default: 'en_US'
+      MinLength: 2
+      MaxLength: 50
+
     BotName:
         Description: >
             Name of an existing Lex Bot to be used by the web ui. NOTE: You must
@@ -394,6 +426,12 @@ Resources:
                       Value: !Ref WebAppBucket
                     - Name: AWS_DEFAULT_REGION
                       Value: !Sub "${AWS::Region}"
+                    - Name: V2_BOT_ID
+                      Value: !Ref LexV2BotId
+                    - Name: V2_BOT_ALIAS_ID
+                      Value: !Ref LexV2BotAliasId
+                    - Name: V2_BOT_LOCALE_ID
+                      Value: !Ref LexV2BotLocaleId
                     - Name: BOT_NAME
                       Value: !Ref BotName
                     - Name: BOT_ALIAS
@@ -470,6 +508,9 @@ Resources:
             CognitoAppUserPoolClientId: !Ref CognitoAppUserPoolClientId
             CognitoUserPoolId: !Ref CognitoUserPoolId
             WebAppBucket: !Ref WebAppBucket
+            LexV2BotId: !Ref LexV2BotId
+            LexV2BotAliasId: !Ref LexV2BotAliasId
+            LexV2BotLocaleId: !Ref LexV2BotLocaleId
             BotName: !Ref BotName
             BotAlias: !Ref BotAlias
             WebAppConfBotInitialText: !Ref WebAppConfBotInitialText

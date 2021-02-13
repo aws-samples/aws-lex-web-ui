@@ -12,6 +12,9 @@ module.exports = {
     region: process.env.AWS_DEFAULT_REGION,
   },
   lex: {
+    v2BotId: process.env.V2_BOT_ID,
+    v2BotAliasId: process.env.V2_BOT_ALIAS_ID,
+    v2BotLocaleId: process.env.V2_BOT_LOCALE_ID,
     botName: process.env.BOT_NAME,
     botAlias: process.env.BOT_ALIAS,
     initialText: process.env.BOT_INITIAL_TEXT,

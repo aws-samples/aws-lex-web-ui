@@ -1,9 +1,13 @@
 {
   "cognito": {
-    "poolId": "us-east-1:0cd403d3-76c0-40d0-9d60-afb02bfcb8ff"
+    "poolId": "us-east-1:b1e19043-d194-422a-adb4-2c3d1a90dd1f"
   },
   "lex": {
-    "botName": "OrderFlowers",
+    "v2BotId": "XEFGXXWCHS",
+    "v2BotAliasId": "PRZOQOS9YU",
+    "v2BotLocaleId": "en_US",
+    "botName": "XEFGXXWCHS",
+    "botAlias": "$LATEST",
     "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
     "initialSpeechInstruction": "Say 'Order Flowers' to get started.",
     "retryOnLexPostTextTimeout": false,

@@ -13,6 +13,9 @@ const config = require('../config');
 // dump relevant env vars
 [
   'AWS_DEFAULT_REGION',
+  'V2_BOT_ID',
+  'V2_BOT_ALIAS_ID',
+  'V2_BOT_LOCALE_ID',
   'BOT_NAME',
   'BOT_ALIAS',
   'BOT_INITIAL_TEXT',

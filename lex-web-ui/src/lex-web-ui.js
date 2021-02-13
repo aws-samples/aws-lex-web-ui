@@ -23,6 +23,7 @@ import Vuex from 'vuex';
 import { Config as AWSConfig, CognitoIdentityCredentials }
   from 'aws-sdk/global';
 import LexRuntime from 'aws-sdk/clients/lexruntime';
+import LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2';
 import Polly from 'aws-sdk/clients/polly';
 
 import LexWeb from '@/components/LexWeb';
@@ -78,6 +79,7 @@ export const Plugin = {
     componentName = 'lex-web-ui',
     awsConfig,
     lexRuntimeClient,
+    lexRuntimeV2Client,
     pollyClient,
     component = AsyncComponent,
     config = defaultConfig,
@@ -90,6 +92,7 @@ export const Plugin = {
       config,
       awsConfig,
       lexRuntimeClient,
+      lexRuntimeV2Client,
       pollyClient,
     };
     // add custom property to Vue
@@ -136,6 +139,10 @@ export class Loader {
       window.AWS.LexRuntime :
       LexRuntime;
 
+    const LexRuntimeConstructorV2 = (window.AWS && window.AWS.LexRuntimeV2) ?
+      window.AWS.LexRuntimeV2 :
+      LexRuntimeV2;
+
     if (!AWSConfigConstructor || !CognitoConstructor || !PollyConstructor
         || !LexRuntimeConstructor) {
       throw new Error('unable to find AWS SDK');
@@ -152,6 +159,9 @@ export class Loader {
     });
 
     const lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
+    const lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
+    /* eslint-disable no-console */
+    console.log(`v2 client is: ${JSON.stringify(lexRuntimeV2Client, null, 2)}`);
     const pollyClient = (
       typeof mergedConfig.recorder === 'undefined' ||
       (mergedConfig.recorder && mergedConfig.recorder.enable !== false)
@@ -163,6 +173,7 @@ export class Loader {
       config: mergedConfig,
       awsConfig,
       lexRuntimeClient,
+      lexRuntimeV2Client,
       pollyClient,
     });
   }

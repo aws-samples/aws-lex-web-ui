@@ -59,6 +59,11 @@ const configDefault = {
   },
 
   lex: {
+    // Get Set for Lex V2
+    v2BotId: '',
+    v2BotAliasId: '',
+    v2BotLocaleId: '',
+
     // Lex bot name
     botName: 'WebUiOrderFlowers',
 
