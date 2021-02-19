@@ -14,7 +14,7 @@ module.exports = {
   connect: {
     contactFlowId : process.env.CONNECT_CONTACT_FLOW_ID, // TODO add to env
     instanceId : process.env.CONNECT_INSTANCE_ID,
-    apiGatewayEndpoint : process.env.CONNECT_API_GATEWATE_ENDPOINT,
+    apiGatewayEndpoint : process.env.CONNECT_API_GATEWAY_ENDPOINT,
   },
   lex: {
     botName: process.env.BOT_NAME,
