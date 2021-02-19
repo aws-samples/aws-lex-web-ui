@@ -415,7 +415,7 @@ Resources:
                       Value: !Ref ConnectContactFlowId
                     - Name: CONNECT_INSTANCE_ID
                       Value: !Ref ConnectInstanceId
-                    - Name: CONNECT_API_GATEWATE_ENDPOINT
+                    - Name: CONNECT_API_GATEWAY_ENDPOINT
                       Value: !Ref ConnectApiGatewayEndpoint
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
