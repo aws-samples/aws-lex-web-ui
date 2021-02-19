@@ -296,6 +296,21 @@ Parameters:
         Description: >
             Defines the number of times the lex-web-ui will retry the Lex PostText API operation when an exception
             is detected.
+            
+    ConnectContactFlowId:
+        Type: String
+        Description: >
+            Connect Contract Flow Id
+            
+    ConnectInstanceId:
+        Type: String
+        Description: >
+            Connect Instance Id
+
+    ConnectApiGatewayEndpoint:
+        Type: String
+        Description: >
+            Connect API Gateway Endpoint
 
 Metadata:
     AWS::CloudFormation::Interface:
@@ -428,7 +443,10 @@ Resources:
                       - "UserMustSupply"
                 retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
                 retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
-                Timestamp: 1612313423
+                ConnectContactFlowId: !Ref ConnectContactFlowId
+                ConnectInstanceId: !Ref ConnectInstanceId
+                ConnectApiGatewayEndpoint: !Ref ConnectApiGatewayEndpoint
+
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
