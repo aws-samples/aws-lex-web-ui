@@ -11,6 +11,11 @@ module.exports = {
     aws_cognito_region: process.env.AWS_DEFAULT_REGION,
     region: process.env.AWS_DEFAULT_REGION,
   },
+  connect: {
+    contactFlowId : process.env.CONNECT_CONTACT_FLOW_ID, // TODO add to env
+    instanceId : process.env.CONNECT_INSTANCE_ID,
+    apiGatewayEndpoint : process.env.CONNECT_API_GATEWATE_ENDPOINT,
+  },
   lex: {
     botName: process.env.BOT_NAME,
     botAlias: process.env.BOT_ALIAS,
