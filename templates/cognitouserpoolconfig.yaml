@@ -3,10 +3,16 @@ Description: >
     This template updates a cognito user pool client with a domain and app configuration
 
 Parameters:
+
+    CloudFrontUrl:
+        Type: String
+        Description: Url of the base CF distro web app used by callbacks within the user pool
+        Default: ''
+        
     WebAppUrl:
         Type: String
-        Description: Url of the target web app used by callbacks within the user pool
-        Default: webdomain
+        Description: Url of the target web app (hosting page) )used by callbacks within the user pool
+        Default: ''
 
     WebAppPath:
         Type: String
@@ -204,6 +210,12 @@ Resources:
         Type: Custom::CognitoUserPoolUpdates
         Properties:
             ServiceToken: !GetAtt CognitoUserPoolUpdatesFunction.Arn
+            CloudFrontUrl: !Ref CloudFrontUrl
+            WebAppUrl: !Ref WebAppUrl
+            WebAppPath: !Ref WebAppPath
+            CodeBuildProjectName: !Ref CodeBuildProjectName
+            CognitoUserPool: !Ref CognitoUserPool
+            CognitoUserPoolClient: !Ref CognitoUserPoolClient
 
     CognitoUserPoolUpdatesFunction:
         Type: AWS::Lambda::Function
@@ -223,7 +235,7 @@ Resources:
                     import time
                     def handler(event, context):
                         print(json.dumps(event))
-                        if (event["RequestType"] == "Create"):
+                        if (event["RequestType"] == "Create" or event["RequestType"] == "Update"):
                             try:
                                 updatePool("${CleanStackName.CleanStackNameValue}")
                             except Exception as e:
@@ -242,22 +254,36 @@ Resources:
                     def updatePool(stackName):
                         normalized = stackName.lower()
                         print("Updating Pool domain %s" % normalized)
+                        callbackURLs=[
+                            '${CloudFrontUrl}/index.html?loggedin=yes',
+                            '${CloudFrontUrl}/parent.html?loggedin=yes'
+                        ]
+                        logoutURLs=[
+                            '${CloudFrontUrl}/index.html?loggedout=yes',
+                            '${CloudFrontUrl}/parent.html?loggedout=yes'
+                        ]
+                        # Add CallBack and Logout URLs for specified WebApp, if specified
+                        # Allow multiple paths under same webAppUrl - comma separated
+                        # If either WebAppUrl or WebAppPath are upper or mixed case, add a 
+                        # lowercase variant to help avoid redirect failures due to case mismatch
+                        webAppUrl='${WebAppUrl}'
+                        webAppPaths = [x.strip() for x in '${WebAppPath}'.split(',')]
+                        if webAppUrl:
+                            for webAppPath in webAppPaths:
+                                fullUrl=f'{webAppUrl}{webAppPath}'
+                                callbackURLs.insert(0,'%s?loggedin=yes' % fullUrl)
+                                logoutURLs.insert(0,'%s?loggedout=yes' % fullUrl)
+                                if (fullUrl != fullUrl.lower()):
+                                    callbackURLs.insert(0,'%s?loggedin=yes' % fullUrl.lower())
+                                    logoutURLs.insert(0,'%s?loggedout=yes' % fullUrl.lower())                                
                         client = boto3.client('cognito-idp')
                         response = client.update_user_pool_client(
                             UserPoolId='${CognitoUserPool}',
                             ClientId='${CognitoUserPoolClient}',
                             ClientName=normalized,
                             RefreshTokenValidity=365,
-                            CallbackURLs=[
-                                '${WebAppUrl}${WebAppPath}?loggedin=yes',
-                                '${WebAppUrl}/index.html?loggedin=yes',
-                                '${WebAppUrl}/parent.html?loggedin=yes',
-                            ],
-                            LogoutURLs=[
-                                '${WebAppUrl}${WebAppPath}?loggedout=yes',
-                                '${WebAppUrl}/index.html?loggedout=yes',
-                                '${WebAppUrl}/parent.html?loggedout=yes',
-                            ],
+                            CallbackURLs=callbackURLs,
+                            LogoutURLs=logoutURLs,
                             SupportedIdentityProviders=[
                                     'COGNITO',
                             ],
