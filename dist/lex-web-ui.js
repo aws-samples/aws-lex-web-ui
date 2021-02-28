@@ -14279,7 +14279,7 @@ License for the specific language governing permissions and limitations under th
       var isInitialState = ['', 'Fulfilled', 'Failed'].some(function (initialState) {
         return _this2.$store.state.lex.dialogState === initialState;
       });
-      console.warn('initialize size is: ' + this.initialSpeechInstruction.length);
+
       return this.$store.state.isLoggedIn && isInitialState && this.initialSpeechInstruction.length > 0 ? this.$store.dispatch('pollySynthesizeSpeech', this.initialSpeechInstruction) : __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a.resolve();
     },
     postTextMessage: function postTextMessage() {
@@ -22958,7 +22958,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_InputContainer_vue__ = __webpack_require__(120);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_de92ed6c_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_564e64ae_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__ = __webpack_require__(237);
 function injectStyle (ssrContext) {
   __webpack_require__(233)
 }
@@ -22978,7 +22978,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_InputContainer_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_de92ed6c_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_564e64ae_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_InputContainer_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -38066,7 +38066,6 @@ var recorder = void 0;
       return context.dispatch('getCredentials');
     }).then(function (creds) {
       pollyClient.config.credentials = creds;
-      console.warn('new polly request ' + text);
       var synthReq = pollyClient.synthesizeSpeech({
         Text: text,
         VoiceId: context.state.polly.voiceId,
@@ -40475,7 +40474,8 @@ var _class = function () {
 
     __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default()(this, _class);
 
-    if (!botName || !lexRuntimeClient || !botV2Id || !botV2AliasId || !botV2LocaleId || !lexRuntimeV2Client) {
+    if (!botName || !lexRuntimeClient || !lexRuntimeV2Client || typeof botV2Id === 'undefined' || typeof botV2AliasId === 'undefined' || typeof botV2LocaleId === 'undefined') {
+      console.warn('botName: ' + botName + ' botV2Id: ' + botV2Id + ' botV2AliasId ' + botV2AliasId + ' ' + ('botV2LocaleId ' + botV2LocaleId + ' lexRuntimeClient ' + lexRuntimeClient + ' ') + ('lexRuntimeV2Client ' + lexRuntimeV2Client));
       throw new Error('invalid lex client constructor arguments');
     }
 

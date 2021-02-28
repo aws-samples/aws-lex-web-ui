@@ -725,12 +725,13 @@ export class IframeComponentLoader {
     return Promise.resolve()
       .then(() => {
         // check for last state and resume with this configuration
-        if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'true') {
+        if (this.config.iframe.shouldLoadIframeMinimized) {
+          this.api.toggleMinimizeUi();
+          localStorage.setItem('lastUiIsMinimized', 'true');
+        } else if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'true') {
           this.api.toggleMinimizeUi();
         } else if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'false') {
           this.api.ping();
-        } else if (this.config.iframe.shouldLoadIframeMinimized) {
-          this.api.toggleMinimizeUi();
         }
       })
       // display UI

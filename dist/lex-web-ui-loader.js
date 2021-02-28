@@ -49518,12 +49518,14 @@ var IframeComponentLoader = /*#__PURE__*/function () {
 
       return Promise.resolve().then(function () {
         // check for last state and resume with this configuration
-        if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'true') {
+        if (_this10.config.iframe.shouldLoadIframeMinimized) {
+          _this10.api.toggleMinimizeUi();
+
+          localStorage.setItem('lastUiIsMinimized', 'true');
+        } else if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'true') {
           _this10.api.toggleMinimizeUi();
         } else if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'false') {
           _this10.api.ping();
-        } else if (_this10.config.iframe.shouldLoadIframeMinimized) {
-          _this10.api.toggleMinimizeUi();
         }
       }) // display UI
       .then(function () {

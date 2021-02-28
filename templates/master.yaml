@@ -332,7 +332,7 @@ Metadata:
                   - BootstrapBucket
                   - BootstrapPrefix
             - Label:
-                  default: Lex V1 Bot Configuration Parameters
+                default: Lex V1 Bot Configuration Parameters
               Parameters:
                   - BotName
                   - BotAlias
@@ -343,12 +343,13 @@ Metadata:
                   - LexV2BotAliasId
                   - LexV2BotLocaleId
             - Label:
-                  default: Optional Sample Bot
+                default: Optional Sample Bot
               Parameters:
                   - BotNamePrefix
                   - ShouldDeleteBot
             - Label:
                 default: Bot Behavior Parameters
+              Parameters:
                   - EnableCognitoLogin
                   - ForceCognitoLogin
                   - EnableMarkdownSupport
@@ -470,7 +471,7 @@ Resources:
                       - "UserMustSupply"
                 retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
                 retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
-                Timestamp: 1614468364
+                Timestamp: 1614526902
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack

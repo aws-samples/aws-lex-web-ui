@@ -44,8 +44,14 @@ export default class {
     botV2LocaleId,
     lexRuntimeV2Client,
   }) {
-    if (!botName || !lexRuntimeClient || !botV2Id || !botV2AliasId ||
-      !botV2LocaleId || !lexRuntimeV2Client) {
+    if (!botName || !lexRuntimeClient || !lexRuntimeV2Client ||
+      typeof botV2Id === 'undefined' ||
+      typeof botV2AliasId === 'undefined' ||
+      typeof botV2LocaleId === 'undefined'
+    ) {
+      console.warn(`botName: ${botName} botV2Id: ${botV2Id} botV2AliasId ${botV2AliasId} ` +
+        `botV2LocaleId ${botV2LocaleId} lexRuntimeClient ${lexRuntimeClient} ` +
+        `lexRuntimeV2Client ${lexRuntimeV2Client}`);
       throw new Error('invalid lex client constructor arguments');
     }
 
