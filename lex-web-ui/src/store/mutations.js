@@ -358,9 +358,7 @@ export default {
    * @param tokens
    */
   reapplyTokensToSessionAttributes(state) {
-    console.error('reapplyTokensToSessionAttributes');
     if (state) {
-      console.error('setting attributes if they exist');
       if (state.tokens.idtokenjwt) {
         console.error('found idtokenjwt');
         state.lex.sessionAttributes.idtokenjwt = state.tokens.idtokenjwt;

@@ -59,7 +59,7 @@ const configDefault = {
   },
 
   lex: {
-    // Get Set for Lex V2
+    // Lex V2 fields
     v2BotId: '',
     v2BotAliasId: '',
     v2BotLocaleId: '',

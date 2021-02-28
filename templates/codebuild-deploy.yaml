@@ -127,10 +127,8 @@ Parameters:
 
     LexV2BotId:
       Description: >
-        Name of an existing Lex V2 Bot to be used by the web ui. NOTE: You must
-        also enter your bot alias ID in the LexV2BotAliasId field below.
-        (If LexV2Botid is left empty, a Lex V1 Bot based on the OrderFlowers sample will be
-        automatically created.)
+        Bot ID (not bot name) of an existing Lex V2 Bot to be used by the web ui. NOTE: You must
+        also enter your Bot alias ID in the LexV2BotAliasId field below.
       Type: String
       Default: ''
       MaxLength: 50
@@ -140,7 +138,7 @@ Parameters:
 
     LexV2BotAliasId:
       Description: >
-        Use your Lex V2 bot's alias id here.
+        Use your Lex V2 bot's alias id (not alias name) here.
       Type: String
       Default: ''
       MinLength: 0
@@ -151,7 +149,10 @@ Parameters:
 
     LexV2BotLocaleId:
       Description: >
-        Use your bot's locale id here. By default this is en_US
+        Use your bot's locale id here. By default this is en_US. Lex V2 supported values are
+        en_AU, en_GB, es_419, es_ES, es_US, fr_CA, fr_FR, it_IT.
+        See "https://docs.aws.amazon.com/lexv2/latest/dg/lex2.0.pdf"
+        for details on supported languages and locales.
       Type: String
       Default: 'en_US'
       MinLength: 2
@@ -164,11 +165,9 @@ Parameters:
             (If BotName is left empty, a Bot based on the OrderFlowers sample will be
             automatically created.)
         Type: String
-        MinLength: 2
+        Default: ''
+        MinLength: 0
         MaxLength: 50
-        AllowedPattern: '^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)'
-        ConstraintDescription: >
-            Must conform with the permitted Lex Bot name pattern.
 
     BotAlias:
         Description: >

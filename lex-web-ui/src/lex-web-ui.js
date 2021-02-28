@@ -144,7 +144,7 @@ export class Loader {
       LexRuntimeV2;
 
     if (!AWSConfigConstructor || !CognitoConstructor || !PollyConstructor
-        || !LexRuntimeConstructor) {
+        || !LexRuntimeConstructor || !LexRuntimeConstructorV2) {
       throw new Error('unable to find AWS SDK');
     }
 
@@ -161,7 +161,6 @@ export class Loader {
     const lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
     const lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
     /* eslint-disable no-console */
-    console.log(`v2 client is: ${JSON.stringify(lexRuntimeV2Client, null, 2)}`);
     const pollyClient = (
       typeof mergedConfig.recorder === 'undefined' ||
       (mergedConfig.recorder && mergedConfig.recorder.enable !== false)

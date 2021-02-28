@@ -22,8 +22,8 @@ export const dependenciesFullPage = {
   script: [
     {
       name: 'AWS',
-      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.671.0.js',
-      canUseMin: true,
+      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.848.0.js',
+      canUseMin: false,
     },
     {
       // mobile hub generated aws config
@@ -78,7 +78,7 @@ export const dependenciesIframe = {
   script: [
     {
       name: 'AWS',
-      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.671.0.js',
+      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.848.0.js',
       canUseMin: true,
     },
     {

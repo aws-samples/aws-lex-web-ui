@@ -11,7 +11,10 @@
     "initialSpeechInstruction": "Say 'Order Flowers' to get started.",
     "region": "us-east-1",
     "retryOnLexPostTextTimeout": false,
-    "retryCountPostTextTimeout": 1
+    "retryCountPostTextTimeout": 1,
+    "v2BotId": "",
+    "v2BotAliasId": "",
+    "v2BotLocaleId": ""
   },
   "ui": {
     "parentOrigin": "http://localhost:8000",

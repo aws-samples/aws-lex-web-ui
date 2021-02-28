@@ -12,6 +12,22 @@
  */
 
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+const zlib = require('zlib');
+
+function b64CompressedToObject(src) {
+  return JSON.parse(zlib.unzipSync(Buffer.from(src, 'base64'))
+    .toString('utf-8'));
+}
+
+function b64CompressedToString(src) {
+  return zlib.unzipSync(Buffer.from(src, 'base64'))
+    .toString('utf-8').replaceAll('"', '');
+}
+
+function compressAndB64Encode(src) {
+  return zlib.gzipSync(Buffer.from(JSON.stringify(src)))
+    .toString('base64');
+}
 
 export default class {
   botV2Id;
@@ -28,7 +44,6 @@ export default class {
     botV2LocaleId,
     lexRuntimeV2Client,
   }) {
-    console.warn('client constructor called');
     if (!botName || !lexRuntimeClient || !botV2Id || !botV2AliasId ||
       !botV2LocaleId || !lexRuntimeV2Client) {
       throw new Error('invalid lex client constructor arguments');
@@ -49,7 +64,6 @@ export default class {
   }
 
   initCredentials(credentials) {
-    console.warn('init credentials called');
     this.credentials = credentials;
     this.lexRuntimeClient.config.credentials = this.credentials;
     this.userId = (credentials.identityId) ?
@@ -58,7 +72,6 @@ export default class {
   }
 
   deleteSession() {
-    console.warn('delete session called');
     let deleteSessionReq;
     if (this.isV2Bot) {
       deleteSessionReq = this.lexRuntimeClient.deleteSession({
@@ -80,7 +93,6 @@ export default class {
   }
 
   startNewSession() {
-    console.warn('start new session called');
     let putSessionReq;
     if (this.isV2Bot) {
       putSessionReq = this.lexRuntimeClient.putSession({
@@ -110,7 +122,6 @@ export default class {
   }
 
   postText(inputText, sessionAttributes = {}) {
-    console.warn('start new session called');
     let postTextReq;
     if (this.isV2Bot) {
       postTextReq = this.lexRuntimeClient.recognizeText({
@@ -134,9 +145,37 @@ export default class {
     }
     return this.credentials.getPromise()
       .then(creds => creds && this.initCredentials(creds))
-      .then(() => postTextReq.promise());
+      .then(async () => {
+        const res = await postTextReq.promise();
+        if (res.sessionState) { // this is v2 response
+          res.sessionAttributes = res.sessionState.sessionAttributes;
+          res.dialogState = res.sessionState.intent.state;
+          const finalMessages = [];
+          if (res.messages && res.messages.length > 0) {
+            res.messages.forEach((mes) => {
+              if (mes.contentType === 'ImageResponseCard') {
+                res.responseCard = {};
+                res.responseCard.version = '1';
+                res.responseCard.contentType = 'application/vnd.amazonaws.card.generic';
+                res.responseCard.genericAttachments = [];
+                res.responseCard.genericAttachments.push(mes.imageResponseCard);
+              } else {
+                /* eslint-disable no-lonely-if */
+                if (mes.contentType) { // push v1 style messages for use in the UI
+                  const v1Format = { type: mes.contentType, value: mes.content };
+                  finalMessages.push(v1Format);
+                }
+              }
+            });
+          }
+          if (finalMessages.length > 0) {
+            const msg = `{"messages": ${JSON.stringify(finalMessages)} }`;
+            res.message = msg;
+          }
+        }
+        return res;
+      });
   }
-
   postContent(
     blob,
     sessionAttributes = {},
@@ -155,19 +194,64 @@ export default class {
     } else {
       console.warn('unknown media type in lex client');
     }
-
-    const postContentReq = this.lexRuntimeClient.postContent({
-      accept: acceptFormat,
-      botAlias: this.botAlias,
-      botName: this.botName,
-      userId: this.userId,
-      contentType,
-      inputStream: blob,
-      sessionAttributes,
-    });
-
+    let postContentReq;
+    if (this.isV2Bot) {
+      const sessionState = { sessionAttributes };
+      postContentReq = this.lexRuntimeClient.recognizeUtterance({
+        botAliasId: this.botV2AliasId,
+        botId: this.botV2Id,
+        localeId: this.botV2LocaleId,
+        sessionId: this.userId,
+        responseContentType: acceptFormat,
+        requestContentType: contentType,
+        inputStream: blob,
+        sessionState: compressAndB64Encode(sessionState),
+      });
+    } else {
+      postContentReq = this.lexRuntimeClient.postContent({
+        accept: acceptFormat,
+        botAlias: this.botAlias,
+        botName: this.botName,
+        userId: this.userId,
+        contentType,
+        inputStream: blob,
+        sessionAttributes,
+      });
+    }
     return this.credentials.getPromise()
       .then(creds => creds && this.initCredentials(creds))
-      .then(() => postContentReq.promise());
+      .then(async () => {
+        const res = await postContentReq.promise();
+        if (res.sessionState) {
+          const oState = b64CompressedToObject(res.sessionState);
+          res.sessionAttributes = oState.sessionAttributes ? oState.sessionAttributes : {};
+          res.dialogState = oState.intent.state;
+          res.inputTranscript = b64CompressedToString(res.inputTranscript);
+          const finalMessages = [];
+          if (res.messages && res.messages.length > 0) {
+            res.messages = b64CompressedToObject(res.messages);
+            res.messages.forEach((mes) => {
+              if (mes.contentType === 'ImageResponseCard') {
+                res.responseCard = {};
+                res.responseCard.version = '1';
+                res.responseCard.contentType = 'application/vnd.amazonaws.card.generic';
+                res.responseCard.genericAttachments = [];
+                res.responseCard.genericAttachments.push(mes.imageResponseCard);
+              } else {
+                /* eslint-disable no-lonely-if */
+                if (mes.contentType) { // push v1 style messages for use in the UI
+                  const v1Format = { type: mes.contentType, value: mes.content };
+                  finalMessages.push(v1Format);
+                }
+              }
+            });
+          }
+          if (finalMessages.length > 0) {
+            const msg = `{"messages": ${JSON.stringify(finalMessages)} }`;
+            res.message = msg;
+          }
+        }
+        return res;
+      });
   }
 }

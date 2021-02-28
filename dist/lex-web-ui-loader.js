@@ -46861,8 +46861,8 @@ __webpack_require__.r(__webpack_exports__);
 var dependenciesFullPage = {
   script: [{
     name: 'AWS',
-    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.671.0.js',
-    canUseMin: true
+    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.848.0.js',
+    canUseMin: false
   }, {
     // mobile hub generated aws config
     name: 'aws_bots_config',
@@ -46904,7 +46904,7 @@ var dependenciesFullPage = {
 var dependenciesIframe = {
   script: [{
     name: 'AWS',
-    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.671.0.js',
+    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.848.0.js',
     canUseMin: true
   }, {
     // mobile hub generated aws config

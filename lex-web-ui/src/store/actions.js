@@ -467,29 +467,34 @@ export default {
       .then(() => context.dispatch('lexPostText', message.text))
       .then((response) => {
         // check for an array of messages
-        if (response.message && response.message.includes('{"messages":')) {
-          const tmsg = JSON.parse(response.message);
-          if (tmsg && Array.isArray(tmsg.messages)) {
-            tmsg.messages.forEach((mes, index) => {
-              let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
-              if (mes.type === 'CustomPayload') {
-                if (alts === undefined) {
-                  alts = {};
+        if (response.sessionState || (response.message && response.message.includes('{"messages":'))) {
+          if (response.message && response.message.includes('{"messages":')) {
+            const tmsg = JSON.parse(response.message);
+            if (tmsg && Array.isArray(tmsg.messages)) {
+              tmsg.messages.forEach((mes, index) => {
+                let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+                if (mes.type === 'CustomPayload' || mes.contentType === 'CustomPayload') {
+                  if (alts === undefined) {
+                    alts = {};
+                  }
+                  alts.markdown = mes.value ? mes.value : mes.content;
                 }
-                alts.markdown = mes.value;
-              }
-              context.dispatch(
-                'pushMessage',
-                {
-                  text: mes.value,
-                  type: 'bot',
-                  dialogState: context.state.lex.dialogState,
-                  responseCard: tmsg.messages.length - 1 === index // attach response card only
-                    ? context.state.lex.responseCard : undefined, // for last response message
-                  alts,
-                },
-              );
-            });
+                if ((mes.value && mes.value.length > 0) ||
+                  (mes.content && mes.content.length > 0)) {
+                  context.dispatch(
+                    'pushMessage',
+                    {
+                      text: mes.value ? mes.value : mes.content,
+                      type: 'bot',
+                      dialogState: context.state.lex.dialogState,
+                      responseCard: tmsg.messages.length - 1 === index // attach response card only
+                        ? context.state.lex.responseCard : undefined, // for last response message
+                      alts,
+                    },
+                  );
+                }
+              });
+            }
           }
         } else {
           let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;

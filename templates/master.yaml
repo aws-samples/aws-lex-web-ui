@@ -13,10 +13,8 @@ Description: |
 Parameters:
     LexV2BotId:
         Description: >
-            Name of an existing Lex V2 Bot to be used by the web ui. NOTE: You must
-            also enter your bot alias ID in the LexV2BotAliasId field below.
-            (If LexV2Botid is left empty, a Lex V1 Bot based on the OrderFlowers sample will be
-            automatically created.)
+            Bot ID (not bot name) of an existing Lex V2 Bot to be used by the web ui. NOTE: You must
+            also enter your Bot alias ID in the LexV2BotAliasId field below.
         Type: String
         Default: ''
         MaxLength: 50
@@ -26,7 +24,7 @@ Parameters:
 
     LexV2BotAliasId:
         Description: >
-            Use your Lex V2 bot's alias id here.
+            Use your Lex V2 bot's alias id (not alias name) here.
         Type: String
         Default: ''
         MinLength: 0
@@ -37,7 +35,10 @@ Parameters:
 
     LexV2BotLocaleId:
         Description: >
-            Use your bot's locale id here. By default this is en_US
+            Use your bot's locale id here. By default this is en_US. Other Lex V2 supported values are
+            en_AU, en_GB, es_419, es_ES, es_US, fr_CA, fr_FR, it_IT.
+            See "https://docs.aws.amazon.com/lexv2/latest/dg/lex2.0.pdf"
+            for details on supported languages and locales.
         Type: String
         Default: 'en_US'
         MinLength: 2
@@ -47,10 +48,9 @@ Parameters:
         Description: >
             Name of an existing Lex Bot to be used by the web ui. NOTE: You must
             also enter your published bot alias in the BotAlias field below.
-            (If BotName is left empty, a Bot based on the OrderFlowers sample will be
-            automatically created.)
         Type: String
         Default: ''
+        MinLength: 0
         MaxLength: 50
         AllowedPattern: '(^$|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_))'
         ConstraintDescription: >
@@ -73,7 +73,9 @@ Parameters:
     BotNamePrefix:
         Type: String
         Description: >
-            Prefix to add to Lex resource names when using the sample bot.
+            If Lex Version 2 BotId is left empty AND the Lex Version 1 BotName is left empty,
+            a Lex V1 Bot based on the OrderFlowers sample will be automatically created.
+            Specify a prefix to add to Lex resource names when using the sample bot.
             Ignored if you provide your own bot. Must conform to the
             permitted Lex Bot name syntax (alpha characters).
         Default: WebUi
@@ -90,7 +92,7 @@ Parameters:
           - true
           - false
         Description: >
-            If set to True, the Lex bot and associated resources will
+            If set to True, the Optional Sample Lex bot and associated resources will
             be deleted when the stack is deleted. Otherwise, the bot
             will be preserved. Only applies if the bot is created by
             this stack.
@@ -330,18 +332,23 @@ Metadata:
                   - BootstrapBucket
                   - BootstrapPrefix
             - Label:
+                  default: Lex V1 Bot Configuration Parameters
+              Parameters:
+                  - BotName
+                  - BotAlias
+            - Label:
                 default: Lex V2 Bot Configuration Parameters
               Parameters:
                   - LexV2BotId
                   - LexV2BotAliasId
                   - LexV2BotLocaleId
             - Label:
-                default: Lex Bot Configuration Parameters
+                  default: Optional Sample Bot
               Parameters:
-                  - BotName
-                  - BotAlias
                   - BotNamePrefix
                   - ShouldDeleteBot
+            - Label:
+                default: Bot Behavior Parameters
                   - EnableCognitoLogin
                   - ForceCognitoLogin
                   - EnableMarkdownSupport
@@ -400,6 +407,8 @@ Resources:
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotName
                       - !Ref BotName
+                LexV2BotId: !Ref LexV2BotId
+                LexV2BotAliasId: !Ref LexV2BotAliasId
 
     ##########################################################################
     # Simplified deployment using CodeBuild to build config and push to S3
@@ -461,7 +470,7 @@ Resources:
                       - "UserMustSupply"
                 retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
                 retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
-                Timestamp: 1612884366
+                Timestamp: 1614468364
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
