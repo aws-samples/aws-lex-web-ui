@@ -147,9 +147,8 @@ Parameters:
         Type: String
         Description: >
             Browser origin (e.g. http://mysite.example.com:8080)
-            of an existing site that is allowed to send/receive data
-            and events from the web ui in an iframe setup. This is an
-            optional parameter. If left empty, the sample parent page
+            of an existing site where you want to place the chat bot UI.
+            This is an optional parameter. If left empty, the sample parent page
             will be hosted in the same S3 bucket as the iframe
         Default: ''
         AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
@@ -159,11 +158,9 @@ Parameters:
         Type: String
         Default: '/parent.html'
         Description: >
-            Path to the page hosting the sample WebApp. This parameter defaults
-            to parent.html which is used by the sample app created when hosting the
-            bot in a separate iframe. This path should be updated to reflect the
-            path to the default (home) page used by the WebAppParentOrigin.
-            This may be /index.html rather than the default.
+            Path to the page (or pages) under WebAppParentOrigin used to host
+            the chatbot UI. Multiple paths can be specified as a comma separated
+            list.
 
     CognitoIdentityPoolId:
         Type: String
@@ -279,7 +276,7 @@ Parameters:
         Default: ''
         Description: >
             Text to use to send as first utterance to bot
-    
+
     WebAppConfNegativeFeedback:
         Type: String
         Default: Thumbs down
@@ -487,7 +484,8 @@ Resources:
         Properties:
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/cognitouserpoolconfig.yaml"
             Parameters:
-                WebAppUrl: !If [NeedsParentOrigin, !GetAtt CodeBuildDeploy.Outputs.WebAppBase, !Ref WebAppParentOrigin]
+                CloudFrontUrl: !GetAtt CodeBuildDeploy.Outputs.WebAppBase
+                WebAppUrl: !Ref WebAppParentOrigin
                 WebAppPath: !Ref WebAppPath
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
