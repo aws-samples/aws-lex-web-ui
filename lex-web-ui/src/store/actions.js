@@ -85,6 +85,13 @@ export default {
         text: context.state.config.lex.initialText,
       });
     }
+    if (context.state.config.lex.initialUtterance) {
+      const message = {
+        type: context.state.config.ui.hideButtonMessageBubble ? 'button' : 'human',
+        text: context.state.config.lex.initialUtterance,
+      };
+      context.dispatch('postTextMessage', message);
+    }
   },
   initLexClient(context, payload) {
     /* eslint-disable no-console */

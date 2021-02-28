@@ -19,6 +19,7 @@ module.exports = {
     botAlias: process.env.BOT_ALIAS,
     initialText: process.env.BOT_INITIAL_TEXT,
     initialSpeechInstruction: process.env.BOT_INITIAL_SPEECH,
+    initialUtterance: process.env.BOT_INITIAL_UTTERANCE,
     reInitSessionAttributesOnRestart: (process.env.REINIT_SESSION_ATTRIBUTES_ON_RESTART === undefined) ? undefined : (process.env.REINIT_SESSION_ATTRIBUTES_ON_RESTART === 'true') ? true : false,
     region: process.env.AWS_DEFAULT_REGION,
     retryOnLexPostTextTimeout: process.env.BOT_RETRY_ON_LEX_POST_TEXT_TIMEOUT,

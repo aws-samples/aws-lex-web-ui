@@ -77,6 +77,9 @@ const configDefault = {
     // instructions spoken when mic is clicked
     initialSpeechInstruction: 'Say "Order Flowers" to get started',
 
+    // initial Utterance to send to bot if defined
+    initialUtterance: '',
+
     // Lex initial sessionAttributes
     sessionAttributes: {},
 

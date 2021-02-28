@@ -11764,6 +11764,9 @@ var configDefault = {
     // instructions spoken when mic is clicked
     initialSpeechInstruction: 'Say "Order Flowers" to get started',
 
+    // initial Utterance to send to bot if defined
+    initialUtterance: '',
+
     // Lex initial sessionAttributes
     sessionAttributes: {},
 
@@ -37110,7 +37113,7 @@ module.exports = {}
 /* 365 */
 /***/ (function(module, exports) {
 
-module.exports = {"cognito":{"poolId":"us-east-1:f887e484-5c4c-41e8-8397-60d1deaec893"},"lex":{"v2BotId":"XEFGXXWCHS","v2BotAliasId":"PRZOQOS9YU","v2BotLocaleId":"en_US","botName":"XEFGXXWCHS","botAlias":"$LATEST","initialText":"Say book hotel or book car","initialSpeechInstruction":"","retryOnLexPostTextTimeout":false,"retryCountPostTextTimeout":1},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Config Bot","toolbarTitle":"Order Config","enableLogin":false,"forceLogin":false,"pushInitialTextOnRestart":false,"shouldDisplayResponseCardTitle":false,"showErrorIcon":true,"showDialogStateIcon":false,"positiveFeedbackIntent":"Thumbs up","negativeFeedbackIntent":"Thumbs down","helpIntent":"help","hideInputFieldsForButtonResponse":false,"backButton":false,"messageMenu":true},"recorder":{"preset":"speech_recognition"},"iframe":{"shouldLoadIframeMinimized":false}}
+module.exports = {"cognito":{"poolId":"us-east-1:f887e484-5c4c-41e8-8397-60d1deaec893"},"lex":{"v2BotId":"XEFGXXWCHS","v2BotAliasId":"PRZOQOS9YU","v2BotLocaleId":"en_US","botName":"XEFGXXWCHS","botAlias":"$LATEST","initialText":"Say book hotel or book car","initialSpeechInstruction":"","initialUtterance":"","retryOnLexPostTextTimeout":false,"retryCountPostTextTimeout":1},"polly":{"voiceId":"Salli"},"ui":{"parentOrigin":"http://localhost:8080","pageTitle":"Order Config Bot","toolbarTitle":"Order Config","enableLogin":false,"forceLogin":false,"pushInitialTextOnRestart":false,"shouldDisplayResponseCardTitle":false,"showErrorIcon":true,"showDialogStateIcon":false,"positiveFeedbackIntent":"Thumbs up","negativeFeedbackIntent":"Thumbs down","helpIntent":"help","hideInputFieldsForButtonResponse":false,"backButton":false,"messageMenu":true},"recorder":{"preset":"speech_recognition"},"iframe":{"shouldLoadIframeMinimized":false}}
 
 /***/ }),
 /* 366 */
@@ -37769,6 +37772,13 @@ var recorder = void 0;
         type: 'bot',
         text: context.state.config.lex.initialText
       });
+    }
+    if (context.state.config.lex.initialUtterance) {
+      var message = {
+        type: context.state.config.ui.hideButtonMessageBubble ? 'button' : 'human',
+        text: context.state.config.lex.initialUtterance
+      };
+      context.dispatch('postTextMessage', message);
     }
   },
   initLexClient: function initLexClient(context, payload) {

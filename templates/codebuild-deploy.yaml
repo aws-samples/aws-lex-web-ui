@@ -208,6 +208,12 @@ Parameters:
             Message spoken by bot when the microphone is first pressed
             in a conversation
 
+    WebAppConfBotInitialUtterance:
+      Type: String
+      Default: ''
+      Description: >
+        Text to use to send as first utterance to bot
+
     WebAppConfNegativeFeedback:
         Type: String
         Default: Thumbs down
@@ -439,6 +445,8 @@ Resources:
                       Value: !Ref WebAppConfBotInitialText
                     - Name: BOT_INITIAL_SPEECH
                       Value: !Ref WebAppConfBotInitialSpeech
+                    - Name: BOT_INITIAL_UTTERANCE
+                      Value: !Ref WebAppConfBotInitialUtterance
                     - Name: NEGATIVE_INTENT
                       Value: !Ref WebAppConfNegativeFeedback
                     - Name: POSITIVE_INTENT
@@ -514,6 +522,7 @@ Resources:
             BotAlias: !Ref BotAlias
             WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
             WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
+            WebAppConfBotInitialUtterance: !Ref WebAppConfBotInitialUtterance
             WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
             WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
             WebAppConfHelp: !Ref WebAppConfHelp

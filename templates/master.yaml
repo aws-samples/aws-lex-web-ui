@@ -273,6 +273,12 @@ Parameters:
         Description: >
             Message spoken by bot when the microphone is first pressed in
             a conversation
+
+    WebAppConfBotInitialUtterance:
+        Type: String
+        Default: ''
+        Description: >
+            Text to use to send as first utterance to bot
     
     WebAppConfNegativeFeedback:
         Type: String
@@ -370,6 +376,7 @@ Metadata:
                   - WebAppPath
                   - WebAppConfBotInitialText
                   - WebAppConfBotInitialSpeech
+                  - WebAppConfBotInitialUtterance
                   - WebAppConfNegativeFeedback
                   - WebAppConfPositiveFeedback
                   - WebAppConfHelp
@@ -444,6 +451,7 @@ Resources:
                 ParentOrigin: !Ref WebAppParentOrigin
                 WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
                 WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
+                WebAppConfBotInitialUtterance: !Ref WebAppConfBotInitialUtterance
                 WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
                 WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
                 WebAppConfHelp: !Ref WebAppConfHelp
@@ -471,7 +479,7 @@ Resources:
                       - "UserMustSupply"
                 retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
                 retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
-                Timestamp: 1614526902
+                Timestamp: 1614533485
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack

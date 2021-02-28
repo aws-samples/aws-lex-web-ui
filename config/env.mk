@@ -23,6 +23,7 @@ export POOL_ID ?= $()
 
 export BOT_INITIAL_TEXT ?= $()
 export BOT_INITIAL_SPEECH ?= $()
+export BOT_INITIAL_UTTERANCE ?= $()
 export UI_TOOLBAR_TITLE ?= $()
 export UI_TOOLBAR_LOGO ?= $()
 
