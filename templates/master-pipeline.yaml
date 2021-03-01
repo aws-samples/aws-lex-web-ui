@@ -326,6 +326,10 @@ Resources:
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotName
                       - !Ref BotName
+                BotAlias: !Ref BotAlias
+                LexV2BotId: !Ref LexV2BotId
+                LexV2BotAliasId: !Ref LexV2BotAliasId
+                LexV2BotLocaleId: !Ref LexV2BotLocaleId
                 CodeBuildName: !Sub "${CodeCommitRepoName}-init"
                 CodeCommitRepoName: !Ref CodeCommitRepoName
                 CognitoIdentityPoolId:
