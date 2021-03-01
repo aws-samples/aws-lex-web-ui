@@ -28,6 +28,7 @@ module.exports = function mergeConfig(baseConfig, srcConfig) {
         if (key==='helpIntent' ||
             key==='positiveFeedbackIntent' ||
             key=== 'negativeFeedbackIntent' ||
+            key=== 'initialUtterance' ||
             !isEmpty(srcConfig[key]) ) {
             value = (typeof (baseConfig[key]) === 'object') ?
                 // recursively merge sub-objects in both directions
