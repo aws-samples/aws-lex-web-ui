@@ -49,7 +49,7 @@ export default class {
       typeof botV2AliasId === 'undefined' ||
       typeof botV2LocaleId === 'undefined'
     ) {
-      console.warn(`botName: ${botName} botV2Id: ${botV2Id} botV2AliasId ${botV2AliasId} ` +
+      console.error(`botName: ${botName} botV2Id: ${botV2Id} botV2AliasId ${botV2AliasId} ` +
         `botV2LocaleId ${botV2LocaleId} lexRuntimeClient ${lexRuntimeClient} ` +
         `lexRuntimeV2Client ${lexRuntimeV2Client}`);
       throw new Error('invalid lex client constructor arguments');

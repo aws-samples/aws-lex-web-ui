@@ -40492,7 +40492,7 @@ var _class = function () {
     __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default()(this, _class);
 
     if (!botName || !lexRuntimeClient || !lexRuntimeV2Client || typeof botV2Id === 'undefined' || typeof botV2AliasId === 'undefined' || typeof botV2LocaleId === 'undefined') {
-      console.warn('botName: ' + botName + ' botV2Id: ' + botV2Id + ' botV2AliasId ' + botV2AliasId + ' ' + ('botV2LocaleId ' + botV2LocaleId + ' lexRuntimeClient ' + lexRuntimeClient + ' ') + ('lexRuntimeV2Client ' + lexRuntimeV2Client));
+      console.error('botName: ' + botName + ' botV2Id: ' + botV2Id + ' botV2AliasId ' + botV2AliasId + ' ' + ('botV2LocaleId ' + botV2LocaleId + ' lexRuntimeClient ' + lexRuntimeClient + ' ') + ('lexRuntimeV2Client ' + lexRuntimeV2Client));
       throw new Error('invalid lex client constructor arguments');
     }
 
