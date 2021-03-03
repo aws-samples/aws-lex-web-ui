@@ -49657,17 +49657,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAuth", function() { return getAuth; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "refreshLogin", function() { return refreshLogin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTokenExpired", function() { return isTokenExpired; });
-/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "../../../node_modules/core-js/modules/es.object.to-string.js");
-/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.promise */ "../../../node_modules/core-js/modules/es.promise.js");
-/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.regexp.exec */ "../../../node_modules/core-js/modules/es.regexp.exec.js");
-/* harmony import */ var core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.string.split */ "../../../node_modules/core-js/modules/es.string.split.js");
-/* harmony import */ var core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! regenerator-runtime/runtime */ "../../../node_modules/regenerator-runtime/runtime.js");
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var amazon_cognito_auth_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! amazon-cognito-auth-js */ "../../../node_modules/amazon-cognito-auth-js/es/index.js");
+/* harmony import */ var core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.number.constructor */ "../../../node_modules/core-js/modules/es.number.constructor.js");
+/* harmony import */ var core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_number_parse_int__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.number.parse-int */ "../../../node_modules/core-js/modules/es.number.parse-int.js");
+/* harmony import */ var core_js_modules_es_number_parse_int__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_parse_int__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "../../../node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.promise */ "../../../node_modules/core-js/modules/es.promise.js");
+/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.regexp.exec */ "../../../node_modules/core-js/modules/es.regexp.exec.js");
+/* harmony import */ var core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.regexp.to-string */ "../../../node_modules/core-js/modules/es.regexp.to-string.js");
+/* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.string.split */ "../../../node_modules/core-js/modules/es.string.split.js");
+/* harmony import */ var core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! regenerator-runtime/runtime */ "../../../node_modules/regenerator-runtime/runtime.js");
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var amazon_cognito_auth_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! amazon-cognito-auth-js */ "../../../node_modules/amazon-cognito-auth-js/es/index.js");
+
+
+
 
 
 
@@ -49696,6 +49705,27 @@ License for the specific language governing permissions and limitations under th
 
 var jwt = __webpack_require__(/*! jsonwebtoken */ "../../../node_modules/jsonwebtoken/index.js");
 
+var loopKey = "login_util_loop_count";
+var maxLoopCount = 5;
+
+function getLoopCount() {
+  var loopCount = localStorage.getItem(loopKey);
+
+  if (loopCount === undefined || loopCount === null) {
+    console.warn("setting loopcount to string 0");
+    loopCount = "0";
+  }
+
+  loopCount = Number.parseInt(loopCount);
+  return loopCount;
+}
+
+function incrementLoopCount() {
+  var loopCount = getLoopCount();
+  localStorage.setItem(loopKey, (loopCount + 1).toString());
+  console.warn("loopCount is now ".concat(loopCount + 1));
+}
+
 function getAuth(config) {
   var rd1 = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?loggedin=yes';
   var rd2 = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?loggedout=yes';
@@ -49712,7 +49742,7 @@ function getAuth(config) {
     authData.IdentityProvider = config.appUserPoolIdentityProvider;
   }
 
-  var auth = new amazon_cognito_auth_js__WEBPACK_IMPORTED_MODULE_5__["CognitoAuth"](authData);
+  var auth = new amazon_cognito_auth_js__WEBPACK_IMPORTED_MODULE_8__["CognitoAuth"](authData);
   auth.useCodeGrantFlow();
   auth.userhandler = {
     onSuccess: function onSuccess(session) {
@@ -49724,9 +49754,11 @@ function getAuth(config) {
         detail: 'initialLogin'
       });
       document.dispatchEvent(myEvent);
+      localStorage.setItem(loopKey, "0");
     },
     onFailure: function onFailure(err) {
       console.debug('Sign in failure: ' + JSON.stringify(err, null, 2));
+      incrementLoopCount();
     }
   };
   return auth;
@@ -49761,6 +49793,7 @@ function logout(config) {
   /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
   var auth = getAuth(config);
   auth.signOut();
+  localStorage.setItem(loopKey, "0");
 }
 
 var forceLogin = /*#__PURE__*/function () {
@@ -49770,10 +49803,15 @@ var forceLogin = /*#__PURE__*/function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            if (!(getLoopCount() < maxLoopCount)) {
+              _context.next = 8;
+              break;
+            }
+
+            _context.next = 3;
             return getAuth(config);
 
-          case 2:
+          case 3:
             auth = _context.sent;
             token = localStorage.getItem('idtokenjwt');
 
@@ -49781,7 +49819,14 @@ var forceLogin = /*#__PURE__*/function () {
               auth.getSession();
             }
 
-          case 5:
+            _context.next = 10;
+            break;
+
+          case 8:
+            alert("max login tries exceeded");
+            localStorage.setItem(loopKey, "0");
+
+          case 10:
           case "end":
             return _context.stop();
         }
@@ -49796,35 +49841,45 @@ var forceLogin = /*#__PURE__*/function () {
 
 function login(config) {
   /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
-  var auth = getAuth(config);
-  var session = auth.getSignInUserSession();
+  if (getLoopCount() < maxLoopCount) {
+    var auth = getAuth(config);
+    var session = auth.getSignInUserSession();
 
-  if (!session.isValid()) {
-    auth.getSession();
+    if (!session.isValid()) {
+      auth.getSession();
+    }
+  } else {
+    alert("max login tries exceeded");
+    localStorage.setItem(loopKey, "0");
   }
 }
 
 function refreshLogin(config, token, callback) {
   /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
-  var auth = getAuth(config);
-  auth.userhandler = {
-    onSuccess: function onSuccess(session) {
-      console.debug('Sign in success');
-      localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
-      localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
-      localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
-      var myEvent = new CustomEvent('tokensavailable', {
-        detail: 'refreshLogin'
-      });
-      document.dispatchEvent(myEvent);
-      callback(session);
-    },
-    onFailure: function onFailure(err) {
-      console.debug('Sign in failure: ' + JSON.stringify(err, null, 2));
-      callback(err);
-    }
-  };
-  auth.refreshSession(token);
+  if (getLoopCount() < maxLoopCount) {
+    var auth = getAuth(config);
+    auth.userhandler = {
+      onSuccess: function onSuccess(session) {
+        console.debug('Sign in success');
+        localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
+        localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
+        localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
+        var myEvent = new CustomEvent('tokensavailable', {
+          detail: 'refreshLogin'
+        });
+        document.dispatchEvent(myEvent);
+        callback(session);
+      },
+      onFailure: function onFailure(err) {
+        console.debug('Sign in failure: ' + JSON.stringify(err, null, 2));
+        callback(err);
+      }
+    };
+    auth.refreshSession(token);
+  } else {
+    alert("max login tries exceeded");
+    localStorage.setItem(loopKey, "0");
+  }
 } // return true if a valid token and has expired. return false in all other cases
 
 

@@ -17,6 +17,26 @@ and ability to interrupt responses and replay recordings
 - Display of Lex response cards
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
+
+#### Fixes/changes in version 0.17.9
+- Added support to Lex Web UI for Lex Version 2 Bots - new template parameters for V2 Bot Id, 
+  Bot Alias Id, and Locale Id. If a V1 Bot name is provided, the template will configure resources to use
+  the V1 bot. Only if  V1 Bot name is left empty and V2 Bot parameters are specified, will the template configure
+  resources to use the V2 Bot. V1 Bot parameters take precedence over V2 Bot parameters. 
+- Added the ability to configure Lex Web Ui to send an initial utterance to the bot to get an intent started. A
+  new template parameter named WebAppConfBotInitialUtterance is available. If left empty, no initial utterance is
+  sent to the Bot which is the default behavior.
+- Changed behavior of button date message to use "n min ago" to assist with accessibility in this time range. 
+- Changed behavior of ShouldLoadIframeMinimized. In prior releases, the last known state of the iframe took priority
+  over this setting. In this release, if ShouldLoadIframeMinimized is set to true, when the parent page is
+  loaded or refreshed, the Bot will always appear minimized. If this parameter is set to false, the last known state 
+  of the Bot is used to either show the iframe or minimize the iframe. 
+- Added mechanism in loginutils.js to prevent both the parent page or the full pages from looping if login fails 
+  through cognito. Up to 5 attempts will be performed before failing with an alert message presented to the user. 
+- Support mixed case web ParentOrigin URLs and WebAppPath in Cognito user pool to prevent login failures due to case mismatch.
+- Allow multiple values for WebAppPath to allow UI with login to be enabled on multiple pages on the same site (origin).
+- Update the Cognito Callback and Signout URLs in the Cognito UserPool when ParentPageOrigin and AppPath parameters
+  are updated in CloudFormation template update. 
   
 #### Fixes in version 0.17.8
 - Fix for pipeline based deployments - issue 264 - template error

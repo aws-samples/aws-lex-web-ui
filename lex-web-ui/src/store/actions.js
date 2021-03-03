@@ -77,6 +77,15 @@ export default {
   initConfig(context, configObj) {
     context.commit('mergeConfig', configObj);
   },
+  sendInitialUtterance(context) {
+    if (context.state.config.lex.initialUtterance) {
+      const message = {
+        type: context.state.config.ui.hideButtonMessageBubble ? 'button' : 'human',
+        text: context.state.config.lex.initialUtterance,
+      };
+      context.dispatch('postTextMessage', message);
+    }
+  },
   initMessageList(context) {
     context.commit('reloadMessages');
     if (context.state.messages && context.state.messages.length === 0) {
@@ -84,13 +93,6 @@ export default {
         type: 'bot',
         text: context.state.config.lex.initialText,
       });
-    }
-    if (context.state.config.lex.initialUtterance) {
-      const message = {
-        type: context.state.config.ui.hideButtonMessageBubble ? 'button' : 'human',
-        text: context.state.config.lex.initialUtterance,
-      };
-      context.dispatch('postTextMessage', message);
     }
   },
   initLexClient(context, payload) {

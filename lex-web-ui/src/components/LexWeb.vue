@@ -219,10 +219,15 @@ export default {
           });
         }
       })
-      .then(() => console.info(
-        'successfully initialized lex web ui version: ',
-        this.$store.state.version,
-      ))
+      .then(() => {
+        console.info(
+          'successfully initialized lex web ui version: ',
+          this.$store.state.version,
+        );
+        // after slight delay, send in initial utterance if it is defined.
+        // waiting for credentials to settle down a bit.
+        setTimeout(() => this.$store.dispatch('sendInitialUtterance'), 500);
+      })
       .catch((error) => {
         console.error('could not initialize application while mounting:', error);
       });

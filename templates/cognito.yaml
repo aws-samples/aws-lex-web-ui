@@ -56,7 +56,7 @@ Resources:
     Properties:
       IdentityPoolId: !Ref CognitoIdentityPool
       Roles:
-        authenticated: !GetAtt CognitoAuthRole.Arn
+        authenticated: !If [ IsLexV1, !GetAtt CognitoAuthRoleV1.Arn, !GetAtt CognitoAuthRoleV2.Arn ]
         unauthenticated: !If [ IsLexV1, !GetAtt CognitoUnauthRoleV1.Arn, !GetAtt CognitoUnauthRoleV2.Arn ]
 
   CognitoUserPool:
@@ -156,7 +156,8 @@ Resources:
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot-alias/${LexV2BotId}/${LexV2BotAliasId}"
 
-  CognitoAuthRole:
+  CognitoAuthRoleV1:
+    Condition: IsLexV1
     Type: AWS::IAM::Role
     Properties:
       Path: /
@@ -194,6 +195,34 @@ Resources:
                   - lex:PutSession
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
+
+  CognitoAuthRoleV2:
+    Condition: IsLexV2
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Principal:
+              Federated: cognito-identity.amazonaws.com
+            Effect: Allow
+            Action:
+              - sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                cognito-identity.amazonaws.com:aud: !Ref CognitoIdentityPool
+              ForAnyValue:StringLike:
+                cognito-identity.amazonaws.com:amr: authenticated
+      Policies:
+        - PolicyName: PollySynth
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - polly:SynthesizeSpeech
+                Resource: '*'
         - PolicyName: LexV2
           PolicyDocument:
             Version: 2012-10-17
@@ -206,6 +235,7 @@ Resources:
                   - lex:PutSession
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot-alias/${LexV2BotId}/${LexV2BotAliasId}"
+
 Outputs:
   CognitoIdentityPoolId:
     Description: Cognito identity pool id.

@@ -280,7 +280,7 @@ export default {
       if (dateDiff < 60) {
         return 'Now';
       } else if (dateDiff < secsInHr) {
-        return `${Math.floor(dateDiff / 60)} min`;
+        return `${Math.floor(dateDiff / 60)} min ago`;
       } else if (dateDiff < secsInDay) {
         return this.message.date.toLocaleTimeString();
       }
