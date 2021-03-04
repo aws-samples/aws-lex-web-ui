@@ -48229,9 +48229,9 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
 
                 if (existingSession.isValid()) {
                   tokens = {};
-                  tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
-                  tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-                  tokens.refreshtoken = localStorage.getItem('refreshtoken');
+                  tokens.idtokenjwt = localStorage.getItem("".concat(this.config.cognito.appUserPoolClientId, "idtokenjwt"));
+                  tokens.accesstokenjwt = localStorage.getItem("".concat(this.config.cognito.appUserPoolClientId, "accesstokenjwt"));
+                  tokens.refreshtoken = localStorage.getItem("".concat(this.config.cognito.appUserPoolClientId, "refreshtoken"));
                   FullPageComponentLoader.sendMessageToComponent({
                     event: 'confirmLogin',
                     data: tokens
@@ -48261,11 +48261,11 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
   }, {
     key: "propagateTokensUpdateCredentials",
     value: function propagateTokensUpdateCredentials() {
-      var idtoken = localStorage.getItem('idtokenjwt');
+      var idtoken = localStorage.getItem("".concat(this.config.cognito.appUserPoolClientId, "idtokenjwt"));
       var tokens = {};
       tokens.idtokenjwt = idtoken;
-      tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-      tokens.refreshtoken = localStorage.getItem('refreshtoken');
+      tokens.accesstokenjwt = localStorage.getItem("".concat(this.config.cognito.appUserPoolClientId, "accesstokenjwt"));
+      tokens.refreshtoken = localStorage.getItem("".concat(this.config.cognito.appUserPoolClientId, "refreshtoken"));
       FullPageComponentLoader.sendMessageToComponent({
         event: 'confirmLogin',
         data: tokens
@@ -48324,7 +48324,7 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                refToken = localStorage.getItem('refreshtoken');
+                refToken = localStorage.getItem("".concat(this.config.cognito.appUserPoolClientId, "refreshtoken"));
 
                 if (refToken) {
                   Object(_loginutil__WEBPACK_IMPORTED_MODULE_11__["refreshLogin"])(this.generateConfigObj(), refToken, function (refSession) {
@@ -48358,15 +48358,15 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
       var _this2 = this;
 
       return new Promise(function (resolve, reject) {
-        var idToken = localStorage.getItem('idtokenjwt');
+        var idToken = localStorage.getItem("".concat(_this2.config.cognito.appUserPoolClientId, "idtokenjwt"));
 
         if (Object(_loginutil__WEBPACK_IMPORTED_MODULE_11__["isTokenExpired"])(idToken)) {
-          var refToken = localStorage.getItem('refreshtoken');
+          var refToken = localStorage.getItem("".concat(_this2.config.cognito.appUserPoolClientId, "refreshtoken"));
 
           if (refToken && !Object(_loginutil__WEBPACK_IMPORTED_MODULE_11__["isTokenExpired"])(refToken)) {
             Object(_loginutil__WEBPACK_IMPORTED_MODULE_11__["refreshLogin"])(_this2.generateConfigObj(), refToken, function (refSession) {
               if (refSession.isValid()) {
-                idToken = localStorage.getItem('idtokenjwt');
+                idToken = localStorage.getItem("".concat(_this2.config.cognito.appUserPoolClientId, "idtokenjwt"));
                 resolve(idToken);
               } else {
                 reject(new Error('failed to refresh tokens'));
@@ -48429,7 +48429,7 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
         }
 
         var credentials;
-        var token = localStorage.getItem('idtokenjwt');
+        var token = localStorage.getItem("".concat(_this3.config.cognito.appUserPoolClientId, "idtokenjwt"));
 
         if (token) {
           // auth role since logged in
@@ -48916,7 +48916,7 @@ var IframeComponentLoader = /*#__PURE__*/function () {
       var region = this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
       var poolName = "cognito-idp.".concat(region, ".amazonaws.com/").concat(this.config.cognito.appUserPoolName);
       var credentials;
-      var idtoken = localStorage.getItem('idtokenjwt');
+      var idtoken = localStorage.getItem("".concat(this.config.cognito.appUserPoolClientId, "idtokenjwt"));
 
       if (idtoken) {
         // auth role since logged in
@@ -48956,15 +48956,15 @@ var IframeComponentLoader = /*#__PURE__*/function () {
       var _this3 = this;
 
       return new Promise(function (resolve, reject) {
-        var idToken = localStorage.getItem('idtokenjwt');
+        var idToken = localStorage.getItem("".concat(_this3.config.cognito.appUserPoolClientId, "idtokenjwt"));
 
         if (Object(_loginutil__WEBPACK_IMPORTED_MODULE_10__["isTokenExpired"])(idToken)) {
-          var refToken = localStorage.getItem('refreshtoken');
+          var refToken = localStorage.getItem("".concat(_this3.config.cognito.appUserPoolClientId, "refreshtoken"));
 
           if (refToken && !Object(_loginutil__WEBPACK_IMPORTED_MODULE_10__["isTokenExpired"])(refToken)) {
             Object(_loginutil__WEBPACK_IMPORTED_MODULE_10__["refreshLogin"])(_this3.generateConfigObj(), refToken, function (refSession) {
               if (refSession.isValid()) {
-                idToken = localStorage.getItem('idtokenjwt');
+                idToken = localStorage.getItem("".concat(_this3.config.cognito.appUserPoolClientId, "idtokenjwt"));
                 resolve(idToken);
               } else {
                 reject(new Error('failed to refresh tokens'));
@@ -49022,7 +49022,7 @@ var IframeComponentLoader = /*#__PURE__*/function () {
         }
 
         var credentials;
-        var token = localStorage.getItem('idtokenjwt');
+        var token = localStorage.getItem("".concat(_this4.config.cognito.appUserPoolClientId, "idtokenjwt"));
 
         if (token) {
           // auth role since logged in
@@ -49242,9 +49242,9 @@ var IframeComponentLoader = /*#__PURE__*/function () {
 
               if (session.isValid()) {
                 var _tokens = {};
-                _tokens.idtokenjwt = localStorage.getItem('idtokenjwt');
-                _tokens.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-                _tokens.refreshtoken = localStorage.getItem('refreshtoken');
+                _tokens.idtokenjwt = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "idtokenjwt"));
+                _tokens.accesstokenjwt = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "accesstokenjwt"));
+                _tokens.refreshtoken = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "refreshtoken"));
 
                 _this7.sendMessageToIframe({
                   event: 'confirmLogin',
@@ -49258,15 +49258,15 @@ var IframeComponentLoader = /*#__PURE__*/function () {
                   data: tokens
                 });
               } else {
-                var refToken = localStorage.getItem('refreshtoken');
+                var refToken = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "refreshtoken"));
 
                 if (refToken) {
                   Object(_loginutil__WEBPACK_IMPORTED_MODULE_10__["refreshLogin"])(_this7.generateConfigObj(), refToken, function (refSession) {
                     if (refSession.isValid()) {
                       var _tokens2 = {};
-                      _tokens2.idtokenjwt = localStorage.getItem('idtokenjwt');
-                      _tokens2.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-                      _tokens2.refreshtoken = localStorage.getItem('refreshtoken');
+                      _tokens2.idtokenjwt = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "idtokenjwt"));
+                      _tokens2.accesstokenjwt = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "accesstokenjwt"));
+                      _tokens2.refreshtoken = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "refreshtoken"));
 
                       _this7.sendMessageToIframe({
                         event: 'confirmLogin',
@@ -49389,15 +49389,17 @@ var IframeComponentLoader = /*#__PURE__*/function () {
         },
         // sent to refresh auth tokens as requested by iframe
         refreshAuthTokens: function refreshAuthTokens(evt) {
-          var refToken = localStorage.getItem('refreshtoken');
+          var _this9 = this;
+
+          var refToken = localStorage.getItem("".concat(this.config.cognito.appUserPoolClientId, "refreshtoken"));
 
           if (refToken) {
             Object(_loginutil__WEBPACK_IMPORTED_MODULE_10__["refreshLogin"])(this.generateConfigObj(), refToken, function (refSession) {
               if (refSession.isValid()) {
                 var _tokens3 = {};
-                _tokens3.idtokenjwt = localStorage.getItem('idtokenjwt');
-                _tokens3.accesstokenjwt = localStorage.getItem('accesstokenjwt');
-                _tokens3.refreshtoken = localStorage.getItem('refreshtoken');
+                _tokens3.idtokenjwt = localStorage.getItem("".concat(_this9.config.cognito.appUserPoolClientId, "idtokenjwt"));
+                _tokens3.accesstokenjwt = localStorage.getItem("".concat(_this9.config.cognito.appUserPoolClientId, "accesstokenjwt"));
+                _tokens3.refreshtoken = localStorage.getItem("".concat(_this9.config.cognito.appUserPoolClientId, "refreshtoken"));
                 evt.ports[0].postMessage({
                   event: 'resolve',
                   type: evt.data.event,
@@ -49443,7 +49445,7 @@ var IframeComponentLoader = /*#__PURE__*/function () {
   }, {
     key: "sendMessageToIframe",
     value: function sendMessageToIframe(message) {
-      var _this9 = this;
+      var _this10 = this;
 
       if (!this.iframeElement || !('contentWindow' in this.iframeElement) || !('postMessage' in this.iframeElement.contentWindow)) {
         return Promise.reject(new Error('invalid iframe element'));
@@ -49469,7 +49471,7 @@ var IframeComponentLoader = /*#__PURE__*/function () {
           }
         };
 
-        _this9.iframeElement.contentWindow.postMessage(message, iframeOrigin, [messageChannel.port2]);
+        _this10.iframeElement.contentWindow.postMessage(message, iframeOrigin, [messageChannel.port2]);
       });
     }
     /**
@@ -49497,9 +49499,9 @@ var IframeComponentLoader = /*#__PURE__*/function () {
         this.containerElement.classList.toggle("".concat(this.containerClass, "--minimize"));
 
         if (this.containerElement.classList.contains("".concat(this.containerClass, "--minimize"))) {
-          localStorage.setItem('lastUiIsMinimized', 'true');
+          localStorage.setItem("".concat(this.config.cognito.appUserPoolClientId, "lastUiIsMinimized"), 'true');
         } else {
-          localStorage.setItem('lastUiIsMinimized', 'false');
+          localStorage.setItem("".concat(this.config.cognito.appUserPoolClientId, "lastUiIsMinimized"), 'false');
         }
 
         return Promise.resolve();
@@ -49514,22 +49516,22 @@ var IframeComponentLoader = /*#__PURE__*/function () {
   }, {
     key: "showIframe",
     value: function showIframe() {
-      var _this10 = this;
+      var _this11 = this;
 
       return Promise.resolve().then(function () {
         // check for last state and resume with this configuration
-        if (_this10.config.iframe.shouldLoadIframeMinimized) {
-          _this10.api.toggleMinimizeUi();
+        if (_this11.config.iframe.shouldLoadIframeMinimized) {
+          _this11.api.toggleMinimizeUi();
 
-          localStorage.setItem('lastUiIsMinimized', 'true');
-        } else if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'true') {
-          _this10.api.toggleMinimizeUi();
-        } else if (localStorage.getItem('lastUiIsMinimized') && localStorage.getItem('lastUiIsMinimized') === 'false') {
-          _this10.api.ping();
+          localStorage.setItem("".concat(_this11.config.cognito.appUserPoolClientId, "lastUiIsMinimized"), 'true');
+        } else if (localStorage.getItem("".concat(_this11.config.cognito.appUserPoolClientId, "lastUiIsMinimized")) && localStorage.getItem("".concat(_this11.config.cognito.appUserPoolClientId, "lastUiIsMinimized")) === 'true') {
+          _this11.api.toggleMinimizeUi();
+        } else if (localStorage.getItem("".concat(_this11.config.cognito.appUserPoolClientId, "lastUiIsMinimized")) && localStorage.getItem("".concat(_this11.config.cognito.appUserPoolClientId, "lastUiIsMinimized")) === 'false') {
+          _this11.api.ping();
         }
       }) // display UI
       .then(function () {
-        return _this10.toggleShowUiClass();
+        return _this11.toggleShowUiClass();
       });
     }
     /**
@@ -49554,47 +49556,47 @@ var IframeComponentLoader = /*#__PURE__*/function () {
   }, {
     key: "initParentToIframeApi",
     value: function initParentToIframeApi() {
-      var _this11 = this;
+      var _this12 = this;
 
       this.api = {
         ping: function ping() {
-          return _this11.sendMessageToIframe({
+          return _this12.sendMessageToIframe({
             event: 'ping'
           });
         },
         sendParentReady: function sendParentReady() {
-          return _this11.sendMessageToIframe({
+          return _this12.sendMessageToIframe({
             event: 'parentReady'
           });
         },
         toggleMinimizeUi: function toggleMinimizeUi() {
-          return _this11.sendMessageToIframe({
+          return _this12.sendMessageToIframe({
             event: 'toggleMinimizeUi'
           });
         },
         postText: function postText(message) {
-          return _this11.sendMessageToIframe({
+          return _this12.sendMessageToIframe({
             event: 'postText',
             message: message
           });
         },
         deleteSession: function deleteSession() {
-          return _this11.sendMessageToIframe({
+          return _this12.sendMessageToIframe({
             event: 'deleteSession'
           });
         },
         startNewSession: function startNewSession() {
-          return _this11.sendMessageToIframe({
+          return _this12.sendMessageToIframe({
             event: 'startNewSession'
           });
         }
       };
       return Promise.resolve().then(function () {
         // Add listener for parent to iframe event based API
-        document.addEventListener('lexWebUiMessage', _this11.onMessageToIframe.bind(_this11), false);
+        document.addEventListener('lexWebUiMessage', _this12.onMessageToIframe.bind(_this12), false);
       }) // signal to iframe that the parent is ready
       .then(function () {
-        return _this11.api.sendParentReady();
+        return _this12.api.sendParentReady();
       }) // signal to parent that the API is ready
       .then(function () {
         document.dispatchEvent(new CustomEvent('lexWebUiReady'));
@@ -49657,23 +49659,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAuth", function() { return getAuth; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "refreshLogin", function() { return refreshLogin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTokenExpired", function() { return isTokenExpired; });
-/* harmony import */ var core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.number.constructor */ "../../../node_modules/core-js/modules/es.number.constructor.js");
-/* harmony import */ var core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_number_parse_int__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.number.parse-int */ "../../../node_modules/core-js/modules/es.number.parse-int.js");
-/* harmony import */ var core_js_modules_es_number_parse_int__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_parse_int__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "../../../node_modules/core-js/modules/es.object.to-string.js");
-/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.promise */ "../../../node_modules/core-js/modules/es.promise.js");
-/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.concat */ "../../../node_modules/core-js/modules/es.array.concat.js");
+/* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.number.constructor */ "../../../node_modules/core-js/modules/es.number.constructor.js");
+/* harmony import */ var core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_number_parse_int__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.number.parse-int */ "../../../node_modules/core-js/modules/es.number.parse-int.js");
+/* harmony import */ var core_js_modules_es_number_parse_int__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_parse_int__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "../../../node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.regexp.exec */ "../../../node_modules/core-js/modules/es.regexp.exec.js");
 /* harmony import */ var core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.regexp.to-string */ "../../../node_modules/core-js/modules/es.regexp.to-string.js");
 /* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.string.split */ "../../../node_modules/core-js/modules/es.string.split.js");
 /* harmony import */ var core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! regenerator-runtime/runtime */ "../../../node_modules/regenerator-runtime/runtime.js");
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var amazon_cognito_auth_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! amazon-cognito-auth-js */ "../../../node_modules/amazon-cognito-auth-js/es/index.js");
+/* harmony import */ var amazon_cognito_auth_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! amazon-cognito-auth-js */ "../../../node_modules/amazon-cognito-auth-js/es/index.js");
 
 
 
@@ -49681,11 +49681,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 /*
 Copyright 2017-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -49708,8 +49703,8 @@ var jwt = __webpack_require__(/*! jsonwebtoken */ "../../../node_modules/jsonweb
 var loopKey = "login_util_loop_count";
 var maxLoopCount = 5;
 
-function getLoopCount() {
-  var loopCount = localStorage.getItem(loopKey);
+function getLoopCount(config) {
+  var loopCount = localStorage.getItem("".concat(config.appUserPoolClientId).concat(loopKey));
 
   if (loopCount === undefined || loopCount === null) {
     console.warn("setting loopcount to string 0");
@@ -49720,9 +49715,9 @@ function getLoopCount() {
   return loopCount;
 }
 
-function incrementLoopCount() {
-  var loopCount = getLoopCount();
-  localStorage.setItem(loopKey, (loopCount + 1).toString());
+function incrementLoopCount(config) {
+  var loopCount = getLoopCount(config);
+  localStorage.setItem("".concat(config.appUserPoolClientId).concat(loopKey), (loopCount + 1).toString());
   console.warn("loopCount is now ".concat(loopCount + 1));
 }
 
@@ -49742,23 +49737,23 @@ function getAuth(config) {
     authData.IdentityProvider = config.appUserPoolIdentityProvider;
   }
 
-  var auth = new amazon_cognito_auth_js__WEBPACK_IMPORTED_MODULE_8__["CognitoAuth"](authData);
+  var auth = new amazon_cognito_auth_js__WEBPACK_IMPORTED_MODULE_7__["CognitoAuth"](authData);
   auth.useCodeGrantFlow();
   auth.userhandler = {
     onSuccess: function onSuccess(session) {
       console.debug('Sign in success');
-      localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
-      localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
-      localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
+      localStorage.setItem("".concat(config.appUserPoolClientId, "idtokenjwt"), session.getIdToken().getJwtToken());
+      localStorage.setItem("".concat(config.appUserPoolClientId, "accesstokenjwt"), session.getAccessToken().getJwtToken());
+      localStorage.setItem("".concat(config.appUserPoolClientId, "refreshtoken"), session.getRefreshToken().getToken());
       var myEvent = new CustomEvent('tokensavailable', {
         detail: 'initialLogin'
       });
       document.dispatchEvent(myEvent);
-      localStorage.setItem(loopKey, "0");
+      localStorage.setItem("".concat(config.appUserPoolClientId).concat(loopKey), "0");
     },
     onFailure: function onFailure(err) {
       console.debug('Sign in failure: ' + JSON.stringify(err, null, 2));
-      incrementLoopCount();
+      incrementLoopCount(config);
     }
   };
   return auth;
@@ -49780,10 +49775,10 @@ function completeLogin(config) {
   }
 }
 
-function completeLogout() {
-  localStorage.removeItem('idtokenjwt');
-  localStorage.removeItem('accesstokenjwt');
-  localStorage.removeItem('refreshtoken');
+function completeLogout(config) {
+  localStorage.removeItem("".concat(config.appUserPoolClientId, "idtokenjwt"));
+  localStorage.removeItem("".concat(config.appUserPoolClientId, "accesstokenjwt"));
+  localStorage.removeItem("".concat(config.appUserPoolClientId, "refreshtoken"));
   localStorage.removeItem('cognitoid');
   console.debug('logout complete');
   return true;
@@ -49793,55 +49788,16 @@ function logout(config) {
   /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
   var auth = getAuth(config);
   auth.signOut();
-  localStorage.setItem(loopKey, "0");
+  localStorage.setItem("".concat(config.appUserPoolClientId).concat(loopKey), "0");
 }
 
-var forceLogin = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(config) {
-    var auth, token;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (!(getLoopCount() < maxLoopCount)) {
-              _context.next = 8;
-              break;
-            }
-
-            _context.next = 3;
-            return getAuth(config);
-
-          case 3:
-            auth = _context.sent;
-            token = localStorage.getItem('idtokenjwt');
-
-            if (!token) {
-              auth.getSession();
-            }
-
-            _context.next = 10;
-            break;
-
-          case 8:
-            alert("max login tries exceeded");
-            localStorage.setItem(loopKey, "0");
-
-          case 10:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function forceLogin(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
+var forceLogin = function forceLogin(config) {
+  login(config);
+};
 
 function login(config) {
   /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
-  if (getLoopCount() < maxLoopCount) {
+  if (getLoopCount(config) < maxLoopCount) {
     var auth = getAuth(config);
     var session = auth.getSignInUserSession();
 
@@ -49850,20 +49806,20 @@ function login(config) {
     }
   } else {
     alert("max login tries exceeded");
-    localStorage.setItem(loopKey, "0");
+    localStorage.setItem("".concat(config.appUserPoolClientId).concat(loopKey), "0");
   }
 }
 
 function refreshLogin(config, token, callback) {
   /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
-  if (getLoopCount() < maxLoopCount) {
+  if (getLoopCount(config) < maxLoopCount) {
     var auth = getAuth(config);
     auth.userhandler = {
       onSuccess: function onSuccess(session) {
         console.debug('Sign in success');
-        localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
-        localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
-        localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
+        localStorage.setItem("".concat(config.appUserPoolClientId, "idtokenjwt"), session.getIdToken().getJwtToken());
+        localStorage.setItem("".concat(config.appUserPoolClientId, "accesstokenjwt"), session.getAccessToken().getJwtToken());
+        localStorage.setItem("".concat(config.appUserPoolClientId, "refreshtoken"), session.getRefreshToken().getToken());
         var myEvent = new CustomEvent('tokensavailable', {
           detail: 'refreshLogin'
         });
