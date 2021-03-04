@@ -446,6 +446,7 @@ Resources:
                 ConnectContactFlowId: !Ref ConnectContactFlowId
                 ConnectInstanceId: !Ref ConnectInstanceId
                 ConnectApiGatewayEndpoint: !Ref ConnectApiGatewayEndpoint
+                Timestamp: 1613773590
 
 
     CognitoIdentityPoolConfig:

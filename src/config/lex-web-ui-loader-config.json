@@ -1,18 +1,1 @@
-{
-    "cognito":{
-        "poolId": "eu-west-2:946b48c7-3ad0-4280-9cee-2e5b221122f5",
-        "appUserPoolName": "eu-west-2_P54KJnttD",
-        "aws_cognito_region":"eu-west-2",
-        "region":"eu-west-2"
-    },
-    "lex": {
-        "botName": "GuideDogs_prototype_dev_master_one_QFGgF",
-        "botAlias": "live"
-    },
-    "ui": {
-        "enableLiveChat": true
-    },
-    "recorder":{
-        "enable": false
-    }
-}
+{}

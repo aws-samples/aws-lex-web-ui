@@ -443,8 +443,6 @@ Resources:
                       Value: !Ref WebAppConfToolbarTitle
                     - Name: ENABLE_LOGIN
                       Value: !Ref ShouldEnableCognitoLogin
-                    - Name: ENABLE_SFX
-                      Value: !Ref ShouldEnableSFX
                     - Name: FORCE_LOGIN
                       Value: !Ref ShouldForceCognitoLogin
                     - Name: REINIT_SESSION_ATTRIBUTES_ON_RESTART

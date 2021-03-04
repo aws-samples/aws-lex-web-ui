@@ -54,7 +54,7 @@ export const initLiveChatHandlers = (context, session) => {
           context.commit('setIsLiveChatProcessing', false);
           context.dispatch('pushLiveChatMessage', {
             type: 'agent',
-            text: `${data.DisplayName} from Guide Dogs has joined`,
+            text: `${data.DisplayName} has joined`,
           });
         }
         break;

@@ -97,9 +97,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ({
 
 /***/ "../../../node_modules/amazon-cognito-auth-js/es/CognitoAccessToken.js":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAccessToken.js ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/amazon-cognito-auth-js/es/CognitoAccessToken.js ***!
+  \********************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -210,9 +210,9 @@ var CognitoAccessToken = function () {
 /***/ }),
 
 /***/ "../../../node_modules/amazon-cognito-auth-js/es/CognitoAuth.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuth.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/amazon-cognito-auth-js/es/CognitoAuth.js ***!
+  \*************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1085,9 +1085,9 @@ var CognitoAuth = function () {
 /***/ }),
 
 /***/ "../../../node_modules/amazon-cognito-auth-js/es/CognitoAuthSession.js":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoAuthSession.js ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/amazon-cognito-auth-js/es/CognitoAuthSession.js ***!
+  \********************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1299,9 +1299,9 @@ var CognitoAuthSession = function () {
 /***/ }),
 
 /***/ "../../../node_modules/amazon-cognito-auth-js/es/CognitoIdToken.js":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoIdToken.js ***!
-  \************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/amazon-cognito-auth-js/es/CognitoIdToken.js ***!
+  \****************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1398,9 +1398,9 @@ var CognitoIdToken = function () {
 /***/ }),
 
 /***/ "../../../node_modules/amazon-cognito-auth-js/es/CognitoRefreshToken.js":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoRefreshToken.js ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/amazon-cognito-auth-js/es/CognitoRefreshToken.js ***!
+  \*********************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1466,9 +1466,9 @@ var CognitoRefreshToken = function () {
 /***/ }),
 
 /***/ "../../../node_modules/amazon-cognito-auth-js/es/CognitoTokenScopes.js":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CognitoTokenScopes.js ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/amazon-cognito-auth-js/es/CognitoTokenScopes.js ***!
+  \********************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1534,9 +1534,9 @@ var CognitoTokenScopes = function () {
 /***/ }),
 
 /***/ "../../../node_modules/amazon-cognito-auth-js/es/CookieStorage.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/CookieStorage.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/amazon-cognito-auth-js/es/CookieStorage.js ***!
+  \***************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1649,9 +1649,9 @@ var CookieStorage = function () {
 /***/ }),
 
 /***/ "../../../node_modules/amazon-cognito-auth-js/es/DateHelper.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/DateHelper.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/amazon-cognito-auth-js/es/DateHelper.js ***!
+  \************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1726,9 +1726,9 @@ var DateHelper = function () {
 /***/ }),
 
 /***/ "../../../node_modules/amazon-cognito-auth-js/es/DecodingHelper.js":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/DecodingHelper.js ***!
-  \************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/amazon-cognito-auth-js/es/DecodingHelper.js ***!
+  \****************************************************************************************************************************/
 /*! exports provided: decode */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1743,9 +1743,9 @@ var decode = function (str) {
 /***/ }),
 
 /***/ "../../../node_modules/amazon-cognito-auth-js/es/StorageHelper.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/StorageHelper.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/amazon-cognito-auth-js/es/StorageHelper.js ***!
+  \***************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1865,9 +1865,9 @@ var StorageHelper = function () {
 /***/ }),
 
 /***/ "../../../node_modules/amazon-cognito-auth-js/es/UriHelper.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/UriHelper.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/amazon-cognito-auth-js/es/UriHelper.js ***!
+  \***********************************************************************************************************************/
 /*! exports provided: launchUri */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1883,9 +1883,9 @@ var launchUri = function (url) {
 /***/ }),
 
 /***/ "../../../node_modules/amazon-cognito-auth-js/es/index.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/amazon-cognito-auth-js/es/index.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/amazon-cognito-auth-js/es/index.js ***!
+  \*******************************************************************************************************************/
 /*! exports provided: CognitoAccessToken, CognitoIdToken, CognitoRefreshToken, CognitoTokenScopes, CognitoAuth, CognitoAuthSession, DateHelper, StorageHelper, CookieStorage */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1948,9 +1948,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1.js":
-/*!************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1.js ***!
-  \************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1968,9 +1968,9 @@ asn1.encoders = __webpack_require__(/*! ./asn1/encoders */ "../../../node_module
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/api.js":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/api.js ***!
-  \****************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/api.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2040,9 +2040,9 @@ Entity.prototype.encode = function encode(data, enc, /* internal */ reporter) {
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/base/buffer.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/base/buffer.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/base/buffer.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2167,9 +2167,9 @@ EncoderBuffer.prototype.join = function join(out, offset) {
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/base/index.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/base/index.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/base/index.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2184,9 +2184,9 @@ base.Node = __webpack_require__(/*! ./node */ "../../../node_modules/asn1.js/lib
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/base/node.js":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/base/node.js ***!
-  \**********************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/base/node.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2829,9 +2829,9 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/base/reporter.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/base/reporter.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/base/reporter.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2961,9 +2961,9 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/constants/der.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/constants/der.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/constants/der.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3014,9 +3014,9 @@ exports.tagByName = constants._reverse(exports.tag);
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/constants/index.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/constants/index.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/constants/index.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3044,9 +3044,9 @@ constants.der = __webpack_require__(/*! ./der */ "../../../node_modules/asn1.js/
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/decoders/der.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/decoders/der.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/decoders/der.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3379,9 +3379,9 @@ function derDecodeLen(buf, primitive, fail) {
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/decoders/index.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/decoders/index.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/decoders/index.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3394,9 +3394,9 @@ decoders.pem = __webpack_require__(/*! ./pem */ "../../../node_modules/asn1.js/l
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/decoders/pem.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/decoders/pem.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/decoders/pem.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3454,9 +3454,9 @@ PEMDecoder.prototype.decode = function decode(data, options) {
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/encoders/der.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/encoders/der.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/encoders/der.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3760,9 +3760,9 @@ function encodeTag(tag, primitive, cls, reporter) {
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/encoders/index.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/encoders/index.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/encoders/index.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3775,9 +3775,9 @@ encoders.pem = __webpack_require__(/*! ./pem */ "../../../node_modules/asn1.js/l
 /***/ }),
 
 /***/ "../../../node_modules/asn1.js/lib/asn1/encoders/pem.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/asn1.js/lib/asn1/encoders/pem.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/asn1.js/lib/asn1/encoders/pem.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3807,9 +3807,9 @@ PEMEncoder.prototype.encode = function encode(data, options) {
 /***/ }),
 
 /***/ "../../../node_modules/base64-js/index.js":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/base64-js/index.js ***!
-  \***********************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/base64-js/index.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3971,9 +3971,9 @@ function fromByteArray (uint8) {
 /***/ }),
 
 /***/ "../../../node_modules/bn.js/lib/bn.js":
-/*!********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/bn.js/lib/bn.js ***!
-  \********************************************************************************************************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/bn.js/lib/bn.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7410,9 +7410,9 @@ function fromByteArray (uint8) {
 /***/ }),
 
 /***/ "../../../node_modules/brorand/index.js":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/brorand/index.js ***!
-  \*********************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/brorand/index.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7486,9 +7486,9 @@ if (typeof self === 'object') {
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/aes.js":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/aes.js ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/aes.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7725,9 +7725,9 @@ module.exports.AES = AES
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/authCipher.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/authCipher.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/authCipher.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7853,9 +7853,9 @@ module.exports = StreamCipher
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/browser.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/browser.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/browser.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7877,9 +7877,9 @@ exports.listCiphers = exports.getCiphers = getCiphers
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/decrypter.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/decrypter.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/decrypter.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8012,9 +8012,9 @@ exports.createDecipheriv = createDecipheriv
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/encrypter.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/encrypter.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/encrypter.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8137,9 +8137,9 @@ exports.createCipher = createCipher
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/ghash.js":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/ghash.js ***!
-  \****************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/ghash.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8237,9 +8237,9 @@ module.exports = GHASH
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/incr32.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/incr32.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/incr32.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8263,9 +8263,9 @@ module.exports = incr32
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/modes/cbc.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/modes/cbc.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/modes/cbc.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8291,9 +8291,9 @@ exports.decrypt = function (self, block) {
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/modes/cfb.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/modes/cfb.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/modes/cfb.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8335,9 +8335,9 @@ exports.encrypt = function (self, data, decrypt) {
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/modes/cfb1.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/modes/cfb1.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/modes/cfb1.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8388,9 +8388,9 @@ exports.encrypt = function (self, chunk, decrypt) {
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/modes/cfb8.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/modes/cfb8.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/modes/cfb8.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8424,9 +8424,9 @@ exports.encrypt = function (self, chunk, decrypt) {
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/modes/ctr.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/modes/ctr.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/modes/ctr.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8465,9 +8465,9 @@ exports.encrypt = function (self, chunk) {
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/modes/ecb.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/modes/ecb.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/modes/ecb.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8483,9 +8483,9 @@ exports.decrypt = function (self, block) {
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/modes/index.js":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/modes/index.js ***!
-  \**********************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/modes/index.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8512,9 +8512,9 @@ module.exports = modes
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/modes/list.json":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/modes/list.json ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/modes/list.json ***!
+  \***************************************************************************************************************/
 /*! exports provided: aes-128-ecb, aes-192-ecb, aes-256-ecb, aes-128-cbc, aes-192-cbc, aes-256-cbc, aes128, aes192, aes256, aes-128-cfb, aes-192-cfb, aes-256-cfb, aes-128-cfb8, aes-192-cfb8, aes-256-cfb8, aes-128-cfb1, aes-192-cfb1, aes-256-cfb1, aes-128-ofb, aes-192-ofb, aes-256-ofb, aes-128-ctr, aes-192-ctr, aes-256-ctr, aes-128-gcm, aes-192-gcm, aes-256-gcm, default */
 /***/ (function(module) {
 
@@ -8523,9 +8523,9 @@ module.exports = JSON.parse("{\"aes-128-ecb\":{\"cipher\":\"AES\",\"key\":128,\"
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/modes/ofb.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/modes/ofb.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/modes/ofb.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8551,9 +8551,9 @@ exports.encrypt = function (self, chunk) {
 /***/ }),
 
 /***/ "../../../node_modules/browserify-aes/streamCipher.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-aes/streamCipher.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-aes/streamCipher.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8589,9 +8589,9 @@ module.exports = StreamCipher
 /***/ }),
 
 /***/ "../../../node_modules/browserify-cipher/browser.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-cipher/browser.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-cipher/browser.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8667,9 +8667,9 @@ exports.listCiphers = exports.getCiphers = getCiphers
 /***/ }),
 
 /***/ "../../../node_modules/browserify-des/index.js":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-des/index.js ***!
-  \****************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-des/index.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8728,9 +8728,9 @@ DES.prototype._final = function () {
 /***/ }),
 
 /***/ "../../../node_modules/browserify-des/modes.js":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-des/modes.js ***!
-  \****************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-des/modes.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8763,9 +8763,9 @@ exports['des-ede'] = {
 /***/ }),
 
 /***/ "../../../node_modules/browserify-rsa/index.js":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-rsa/index.js ***!
-  \****************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-rsa/index.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8815,9 +8815,9 @@ function getr(priv) {
 /***/ }),
 
 /***/ "../../../node_modules/browserify-sign/algos.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-sign/algos.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-sign/algos.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8827,9 +8827,9 @@ module.exports = __webpack_require__(/*! ./browser/algorithms.json */ "../../../
 /***/ }),
 
 /***/ "../../../node_modules/browserify-sign/browser/algorithms.json":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-sign/browser/algorithms.json ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-sign/browser/algorithms.json ***!
+  \************************************************************************************************************************/
 /*! exports provided: sha224WithRSAEncryption, RSA-SHA224, sha256WithRSAEncryption, RSA-SHA256, sha384WithRSAEncryption, RSA-SHA384, sha512WithRSAEncryption, RSA-SHA512, RSA-SHA1, ecdsa-with-SHA1, sha256, sha224, sha384, sha512, DSA-SHA, DSA-SHA1, DSA, DSA-WITH-SHA224, DSA-SHA224, DSA-WITH-SHA256, DSA-SHA256, DSA-WITH-SHA384, DSA-SHA384, DSA-WITH-SHA512, DSA-SHA512, DSA-RIPEMD160, ripemd160WithRSA, RSA-RIPEMD160, md5WithRSAEncryption, RSA-MD5, default */
 /***/ (function(module) {
 
@@ -8838,9 +8838,9 @@ module.exports = JSON.parse("{\"sha224WithRSAEncryption\":{\"sign\":\"rsa\",\"ha
 /***/ }),
 
 /***/ "../../../node_modules/browserify-sign/browser/curves.json":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-sign/browser/curves.json ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-sign/browser/curves.json ***!
+  \********************************************************************************************************************/
 /*! exports provided: 1.3.132.0.10, 1.3.132.0.33, 1.2.840.10045.3.1.1, 1.2.840.10045.3.1.7, 1.3.132.0.34, 1.3.132.0.35, default */
 /***/ (function(module) {
 
@@ -8849,9 +8849,9 @@ module.exports = JSON.parse("{\"1.3.132.0.10\":\"secp256k1\",\"1.3.132.0.33\":\"
 /***/ }),
 
 /***/ "../../../node_modules/browserify-sign/browser/index.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-sign/browser/index.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-sign/browser/index.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8952,9 +8952,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/browserify-sign/browser/sign.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-sign/browser/sign.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-sign/browser/sign.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9109,9 +9109,9 @@ module.exports.makeKey = makeKey
 /***/ }),
 
 /***/ "../../../node_modules/browserify-sign/browser/verify.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/browserify-sign/browser/verify.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/browserify-sign/browser/verify.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9204,9 +9204,9 @@ module.exports = verify
 /***/ }),
 
 /***/ "../../../node_modules/buffer-equal-constant-time/index.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/buffer-equal-constant-time/index.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/buffer-equal-constant-time/index.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9257,9 +9257,9 @@ bufferEq.restore = function() {
 /***/ }),
 
 /***/ "../../../node_modules/buffer-xor/index.js":
-/*!************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/buffer-xor/index.js ***!
-  \************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/buffer-xor/index.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9279,9 +9279,9 @@ bufferEq.restore = function() {
 /***/ }),
 
 /***/ "../../../node_modules/buffer/index.js":
-/*!********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/buffer/index.js ***!
-  \********************************************************************************************************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/buffer/index.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11081,9 +11081,9 @@ function isnan (val) {
 /***/ }),
 
 /***/ "../../../node_modules/cipher-base/index.js":
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/cipher-base/index.js ***!
-  \*************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/cipher-base/index.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11191,9 +11191,9 @@ module.exports = CipherBase
 /***/ }),
 
 /***/ "../../../node_modules/core-js/es/index.js":
-/*!************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/es/index.js ***!
-  \************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/es/index.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11412,9 +11412,9 @@ module.exports = path;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/a-function.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/a-function.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/a-function.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -11428,9 +11428,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/a-possible-prototype.js":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/a-possible-prototype.js ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/a-possible-prototype.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11446,9 +11446,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/add-to-unscopables.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/add-to-unscopables.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/add-to-unscopables.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11477,9 +11477,9 @@ module.exports = function (key) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/advance-string-index.js":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/advance-string-index.js ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/advance-string-index.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11497,9 +11497,9 @@ module.exports = function (S, index, unicode) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/an-instance.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/an-instance.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/an-instance.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -11513,9 +11513,9 @@ module.exports = function (it, Constructor, name) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/an-object.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/an-object.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/an-object.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11531,9 +11531,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-buffer-native.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-buffer-native.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-buffer-native.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -11543,9 +11543,9 @@ module.exports = typeof ArrayBuffer !== 'undefined' && typeof DataView !== 'unde
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-buffer-view-core.js":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-buffer-view-core.js ***!
-  \************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-buffer-view-core.js ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11711,9 +11711,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-buffer.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-buffer.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-buffer.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11949,9 +11949,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-copy-within.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-copy-within.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-copy-within.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11990,9 +11990,9 @@ module.exports = [].copyWithin || function copyWithin(target /* = 0 */, start /*
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-fill.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-fill.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-fill.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12019,9 +12019,9 @@ module.exports = function fill(value /* , start = 0, end = @length */) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-for-each.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-for-each.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-for-each.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12044,9 +12044,9 @@ module.exports = (!STRICT_METHOD || !USES_TO_LENGTH) ? function forEach(callback
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-from.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-from.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-from.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12097,9 +12097,9 @@ module.exports = function from(arrayLike /* , mapfn = undefined, thisArg = undef
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-includes.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-includes.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-includes.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12140,9 +12140,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-iteration.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-iteration.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-iteration.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12216,9 +12216,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-last-index-of.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-last-index-of.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-last-index-of.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12256,9 +12256,9 @@ module.exports = FORCED ? function lastIndexOf(searchElement /* , fromIndex = @[
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-method-has-species-support.js":
-/*!**********************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-method-has-species-support.js ***!
-  \**********************************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-method-has-species-support.js ***!
+  \**************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12286,9 +12286,9 @@ module.exports = function (METHOD_NAME) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-method-is-strict.js":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-method-is-strict.js ***!
-  \************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-method-is-strict.js ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12308,9 +12308,9 @@ module.exports = function (METHOD_NAME, argument) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-method-uses-to-length.js":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-method-uses-to-length.js ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-method-uses-to-length.js ***!
+  \*********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12346,9 +12346,9 @@ module.exports = function (METHOD_NAME, options) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-reduce.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-reduce.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-reduce.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12397,9 +12397,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/array-species-create.js":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/array-species-create.js ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/array-species-create.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12428,9 +12428,9 @@ module.exports = function (originalArray, length) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/call-with-safe-iteration-closing.js":
-/*!**********************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/call-with-safe-iteration-closing.js ***!
-  \**********************************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/call-with-safe-iteration-closing.js ***!
+  \**************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12452,9 +12452,9 @@ module.exports = function (iterator, fn, value, ENTRIES) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/check-correctness-of-iteration.js":
-/*!********************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/check-correctness-of-iteration.js ***!
-  \********************************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/check-correctness-of-iteration.js ***!
+  \************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12501,9 +12501,9 @@ module.exports = function (exec, SKIP_CLOSING) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/classof-raw.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/classof-raw.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/classof-raw.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -12517,9 +12517,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/classof.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/classof.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/classof.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12554,9 +12554,9 @@ module.exports = TO_STRING_TAG_SUPPORT ? classofRaw : function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/collection-strong.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/collection-strong.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/collection-strong.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12752,9 +12752,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/collection-weak.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/collection-weak.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/collection-weak.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12885,9 +12885,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/collection.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/collection.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/collection.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12996,9 +12996,9 @@ module.exports = function (CONSTRUCTOR_NAME, wrapper, common) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/copy-constructor-properties.js":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/copy-constructor-properties.js ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/copy-constructor-properties.js ***!
+  \*********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13021,9 +13021,9 @@ module.exports = function (target, source) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/correct-is-regexp-logic.js":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/correct-is-regexp-logic.js ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/correct-is-regexp-logic.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13047,9 +13047,9 @@ module.exports = function (METHOD_NAME) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/correct-prototype-getter.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/correct-prototype-getter.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/correct-prototype-getter.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13065,9 +13065,9 @@ module.exports = !fails(function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/create-html.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/create-html.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/create-html.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13088,9 +13088,9 @@ module.exports = function (string, tag, attribute, value) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/create-iterator-constructor.js":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/create-iterator-constructor.js ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/create-iterator-constructor.js ***!
+  \*********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13116,9 +13116,9 @@ module.exports = function (IteratorConstructor, NAME, next) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/create-non-enumerable-property.js":
-/*!********************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/create-non-enumerable-property.js ***!
-  \********************************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/create-non-enumerable-property.js ***!
+  \************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13137,9 +13137,9 @@ module.exports = DESCRIPTORS ? function (object, key, value) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/create-property-descriptor.js":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/create-property-descriptor.js ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/create-property-descriptor.js ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -13156,9 +13156,9 @@ module.exports = function (bitmap, value) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/create-property.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/create-property.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/create-property.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13178,9 +13178,9 @@ module.exports = function (object, key, value) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/date-to-iso-string.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/date-to-iso-string.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/date-to-iso-string.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13221,9 +13221,9 @@ module.exports = (fails(function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/date-to-primitive.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/date-to-primitive.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/date-to-primitive.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13242,9 +13242,9 @@ module.exports = function (hint) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/define-iterator.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/define-iterator.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/define-iterator.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13344,9 +13344,9 @@ module.exports = function (Iterable, NAME, IteratorConstructor, next, DEFAULT, I
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/define-well-known-symbol.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/define-well-known-symbol.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/define-well-known-symbol.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13366,9 +13366,9 @@ module.exports = function (NAME) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/descriptors.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/descriptors.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/descriptors.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13383,9 +13383,9 @@ module.exports = !fails(function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/document-create-element.js":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/document-create-element.js ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/document-create-element.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13404,9 +13404,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/dom-iterables.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/dom-iterables.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/dom-iterables.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -13450,9 +13450,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/engine-is-ios.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/engine-is-ios.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/engine-is-ios.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13464,9 +13464,9 @@ module.exports = /(iphone|ipod|ipad).*applewebkit/i.test(userAgent);
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/engine-user-agent.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/engine-user-agent.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/engine-user-agent.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13478,9 +13478,9 @@ module.exports = getBuiltIn('navigator', 'userAgent') || '';
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/engine-v8-version.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/engine-v8-version.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/engine-v8-version.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13509,9 +13509,9 @@ module.exports = version && +version;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/enum-bug-keys.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/enum-bug-keys.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/enum-bug-keys.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -13530,9 +13530,9 @@ module.exports = [
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/export.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/export.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/export.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13595,9 +13595,9 @@ module.exports = function (options, source) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/fails.js":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/fails.js ***!
-  \*******************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/fails.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -13613,9 +13613,9 @@ module.exports = function (exec) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/fix-regexp-well-known-symbol-logic.js":
-/*!************************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/fix-regexp-well-known-symbol-logic.js ***!
-  \************************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/fix-regexp-well-known-symbol-logic.js ***!
+  \****************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13750,9 +13750,9 @@ module.exports = function (KEY, length, exec, sham) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/flatten-into-array.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/flatten-into-array.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/flatten-into-array.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13794,9 +13794,9 @@ module.exports = flattenIntoArray;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/freezing.js":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/freezing.js ***!
-  \**********************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/freezing.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13810,9 +13810,9 @@ module.exports = !fails(function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/function-bind-context.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/function-bind-context.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/function-bind-context.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13845,9 +13845,9 @@ module.exports = function (fn, that, length) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/function-bind.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/function-bind.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/function-bind.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13884,9 +13884,9 @@ module.exports = Function.bind || function bind(that /* , ...args */) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/get-built-in.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/get-built-in.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/get-built-in.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13906,9 +13906,9 @@ module.exports = function (namespace, method) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/get-iterator-method.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/get-iterator-method.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/get-iterator-method.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13928,9 +13928,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/get-iterator.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/get-iterator.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/get-iterator.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13948,9 +13948,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/global.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/global.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/global.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13973,9 +13973,9 @@ module.exports =
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/has.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/has.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/has.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -13989,9 +13989,9 @@ module.exports = function (it, key) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/hidden-keys.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/hidden-keys.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/hidden-keys.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -14001,9 +14001,9 @@ module.exports = {};
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/host-report-errors.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/host-report-errors.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/host-report-errors.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14020,9 +14020,9 @@ module.exports = function (a, b) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/html.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/html.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/html.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14034,9 +14034,9 @@ module.exports = getBuiltIn('document', 'documentElement');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/ie8-dom-define.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/ie8-dom-define.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/ie8-dom-define.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14055,9 +14055,9 @@ module.exports = !DESCRIPTORS && !fails(function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/ieee754.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/ieee754.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/ieee754.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -14154,9 +14154,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/indexed-object.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/indexed-object.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/indexed-object.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14178,9 +14178,9 @@ module.exports = fails(function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/inherit-if-required.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/inherit-if-required.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/inherit-if-required.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14206,9 +14206,9 @@ module.exports = function ($this, dummy, Wrapper) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/inspect-source.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/inspect-source.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/inspect-source.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14229,9 +14229,9 @@ module.exports = store.inspectSource;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/internal-metadata.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/internal-metadata.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/internal-metadata.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14301,9 +14301,9 @@ hiddenKeys[METADATA] = true;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/internal-state.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/internal-state.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/internal-state.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14373,9 +14373,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/is-array-iterator-method.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/is-array-iterator-method.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/is-array-iterator-method.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14394,9 +14394,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/is-array.js":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/is-array.js ***!
-  \**********************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/is-array.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14412,9 +14412,9 @@ module.exports = Array.isArray || function isArray(arg) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/is-forced.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/is-forced.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/is-forced.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14444,9 +14444,9 @@ module.exports = isForced;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/is-integer.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/is-integer.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/is-integer.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14464,9 +14464,9 @@ module.exports = function isInteger(it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/is-object.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/is-object.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/is-object.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -14478,9 +14478,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/is-pure.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/is-pure.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/is-pure.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -14490,9 +14490,9 @@ module.exports = false;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/is-regexp.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/is-regexp.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/is-regexp.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14513,9 +14513,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/iterate.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/iterate.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/iterate.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14567,9 +14567,9 @@ iterate.stop = function (result) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/iterators-core.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/iterators-core.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/iterators-core.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14616,9 +14616,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/iterators.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/iterators.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/iterators.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -14628,9 +14628,9 @@ module.exports = {};
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/math-expm1.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/math-expm1.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/math-expm1.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -14652,9 +14652,9 @@ module.exports = (!nativeExpm1
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/math-fround.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/math-fround.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/math-fround.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14689,9 +14689,9 @@ module.exports = Math.fround || function fround(x) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/math-log1p.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/math-log1p.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/math-log1p.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -14707,9 +14707,9 @@ module.exports = Math.log1p || function log1p(x) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/math-sign.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/math-sign.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/math-sign.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -14724,9 +14724,9 @@ module.exports = Math.sign || function sign(x) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/microtask.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/microtask.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/microtask.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14813,9 +14813,9 @@ module.exports = queueMicrotask || function (fn) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/native-promise-constructor.js":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/native-promise-constructor.js ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/native-promise-constructor.js ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14827,9 +14827,9 @@ module.exports = global.Promise;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/native-symbol.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/native-symbol.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/native-symbol.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14845,9 +14845,9 @@ module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/native-url.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/native-url.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/native-url.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14889,9 +14889,9 @@ module.exports = !fails(function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/native-weak-map.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/native-weak-map.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/native-weak-map.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14906,9 +14906,9 @@ module.exports = typeof WeakMap === 'function' && /native code/.test(inspectSour
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/new-promise-capability.js":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/new-promise-capability.js ***!
-  \************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/new-promise-capability.js ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14936,9 +14936,9 @@ module.exports.f = function (C) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/not-a-regexp.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/not-a-regexp.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/not-a-regexp.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14954,9 +14954,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/number-is-finite.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/number-is-finite.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/number-is-finite.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14974,9 +14974,9 @@ module.exports = Number.isFinite || function isFinite(it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/number-parse-float.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/number-parse-float.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/number-parse-float.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14999,9 +14999,9 @@ module.exports = FORCED ? function parseFloat(string) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/number-parse-int.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/number-parse-int.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/number-parse-int.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15024,9 +15024,9 @@ module.exports = FORCED ? function parseInt(string, radix) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-assign.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-assign.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-assign.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15088,9 +15088,9 @@ module.exports = !nativeAssign || fails(function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-create.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-create.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-create.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15177,9 +15177,9 @@ module.exports = Object.create || function create(O, Properties) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-define-properties.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-define-properties.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-define-properties.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15204,9 +15204,9 @@ module.exports = DESCRIPTORS ? Object.defineProperties : function defineProperti
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-define-property.js":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-define-property.js ***!
-  \************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-define-property.js ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15235,9 +15235,9 @@ exports.f = DESCRIPTORS ? nativeDefineProperty : function defineProperty(O, P, A
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-get-own-property-descriptor.js":
-/*!************************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-get-own-property-descriptor.js ***!
-  \************************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-get-own-property-descriptor.js ***!
+  \****************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15266,9 +15266,9 @@ exports.f = DESCRIPTORS ? nativeGetOwnPropertyDescriptor : function getOwnProper
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-get-own-property-names-external.js":
-/*!****************************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-get-own-property-names-external.js ***!
-  \****************************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-get-own-property-names-external.js ***!
+  \********************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15299,9 +15299,9 @@ module.exports.f = function getOwnPropertyNames(it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-get-own-property-names.js":
-/*!*******************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-get-own-property-names.js ***!
-  \*******************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-get-own-property-names.js ***!
+  \***********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15320,9 +15320,9 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-get-own-property-symbols.js":
-/*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-get-own-property-symbols.js ***!
-  \*********************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-get-own-property-symbols.js ***!
+  \*************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -15332,9 +15332,9 @@ exports.f = Object.getOwnPropertySymbols;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-get-prototype-of.js":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-get-prototype-of.js ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-get-prototype-of.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15360,9 +15360,9 @@ module.exports = CORRECT_PROTOTYPE_GETTER ? Object.getPrototypeOf : function (O)
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-keys-internal.js":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-keys-internal.js ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-keys-internal.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15388,9 +15388,9 @@ module.exports = function (object, names) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-keys.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-keys.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-keys.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15407,9 +15407,9 @@ module.exports = Object.keys || function keys(O) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-property-is-enumerable.js":
-/*!*******************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-property-is-enumerable.js ***!
-  \*******************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-property-is-enumerable.js ***!
+  \***********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15432,9 +15432,9 @@ exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-prototype-accessors-forced.js":
-/*!***********************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-prototype-accessors-forced.js ***!
-  \***********************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-prototype-accessors-forced.js ***!
+  \***************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15457,9 +15457,9 @@ module.exports = IS_PURE || !fails(function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-set-prototype-of.js":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-set-prototype-of.js ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-set-prototype-of.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15492,9 +15492,9 @@ module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-to-array.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-to-array.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-to-array.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15535,9 +15535,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/object-to-string.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/object-to-string.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/object-to-string.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15556,9 +15556,9 @@ module.exports = TO_STRING_TAG_SUPPORT ? {}.toString : function toString() {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/own-keys.js":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/own-keys.js ***!
-  \**********************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/own-keys.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15578,9 +15578,9 @@ module.exports = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/path.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/path.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/path.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15592,9 +15592,9 @@ module.exports = global;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/perform.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/perform.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/perform.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -15610,9 +15610,9 @@ module.exports = function (exec) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/promise-resolve.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/promise-resolve.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/promise-resolve.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15633,9 +15633,9 @@ module.exports = function (C, x) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/redefine-all.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/redefine-all.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/redefine-all.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15650,9 +15650,9 @@ module.exports = function (target, src, options) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/redefine.js":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/redefine.js ***!
-  \**********************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/redefine.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15695,9 +15695,9 @@ var TEMPLATE = String(String).split('String');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/regexp-exec-abstract.js":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/regexp-exec-abstract.js ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/regexp-exec-abstract.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15728,9 +15728,9 @@ module.exports = function (R, S) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/regexp-exec.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/regexp-exec.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/regexp-exec.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15827,9 +15827,9 @@ module.exports = patchedExec;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/regexp-flags.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/regexp-flags.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/regexp-flags.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15855,9 +15855,9 @@ module.exports = function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/regexp-sticky-helpers.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/regexp-sticky-helpers.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/regexp-sticky-helpers.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15890,9 +15890,9 @@ exports.BROKEN_CARET = fails(function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/require-object-coercible.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/require-object-coercible.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/require-object-coercible.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -15907,9 +15907,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/same-value.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/same-value.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/same-value.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -15924,9 +15924,9 @@ module.exports = Object.is || function is(x, y) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/set-global.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/set-global.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/set-global.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15945,9 +15945,9 @@ module.exports = function (key, value) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/set-species.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/set-species.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/set-species.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15976,9 +15976,9 @@ module.exports = function (CONSTRUCTOR_NAME) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/set-to-string-tag.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/set-to-string-tag.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/set-to-string-tag.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15998,9 +15998,9 @@ module.exports = function (it, TAG, STATIC) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/shared-key.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/shared-key.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/shared-key.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16017,9 +16017,9 @@ module.exports = function (key) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/shared-store.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/shared-store.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/shared-store.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16035,9 +16035,9 @@ module.exports = store;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/shared.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/shared.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/shared.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16056,9 +16056,9 @@ var store = __webpack_require__(/*! ../internals/shared-store */ "../../../node_
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/species-constructor.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/species-constructor.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/species-constructor.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16080,9 +16080,9 @@ module.exports = function (O, defaultConstructor) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/string-html-forced.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/string-html-forced.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/string-html-forced.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16101,9 +16101,9 @@ module.exports = function (METHOD_NAME) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/string-multibyte.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/string-multibyte.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/string-multibyte.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16139,9 +16139,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/string-pad-webkit-bug.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/string-pad-webkit-bug.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/string-pad-webkit-bug.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16155,9 +16155,9 @@ module.exports = /Version\/10\.\d+(\.\d+)?( Mobile\/\w+)? Safari\//.test(userAge
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/string-pad.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/string-pad.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/string-pad.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16197,9 +16197,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/string-punycode-to-ascii.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/string-punycode-to-ascii.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/string-punycode-to-ascii.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16377,9 +16377,9 @@ module.exports = function (input) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/string-repeat.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/string-repeat.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/string-repeat.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16403,9 +16403,9 @@ module.exports = ''.repeat || function repeat(count) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/string-trim-forced.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/string-trim-forced.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/string-trim-forced.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16426,9 +16426,9 @@ module.exports = function (METHOD_NAME) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/string-trim.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/string-trim.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/string-trim.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16465,9 +16465,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/task.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/task.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/task.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16583,9 +16583,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/this-number-value.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/this-number-value.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/this-number-value.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16604,9 +16604,9 @@ module.exports = function (value) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/to-absolute-index.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/to-absolute-index.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/to-absolute-index.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16627,9 +16627,9 @@ module.exports = function (index, length) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/to-index.js":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/to-index.js ***!
-  \**********************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/to-index.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16650,9 +16650,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/to-indexed-object.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/to-indexed-object.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/to-indexed-object.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16668,9 +16668,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/to-integer.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/to-integer.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/to-integer.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -16687,9 +16687,9 @@ module.exports = function (argument) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/to-length.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/to-length.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/to-length.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16707,9 +16707,9 @@ module.exports = function (argument) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/to-object.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/to-object.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/to-object.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16725,9 +16725,9 @@ module.exports = function (argument) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/to-offset.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/to-offset.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/to-offset.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16743,9 +16743,9 @@ module.exports = function (it, BYTES) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/to-positive-integer.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/to-positive-integer.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/to-positive-integer.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16761,9 +16761,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/to-primitive.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/to-primitive.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/to-primitive.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16786,9 +16786,9 @@ module.exports = function (input, PREFERRED_STRING) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/to-string-tag-support.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/to-string-tag-support.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/to-string-tag-support.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16805,9 +16805,9 @@ module.exports = String(test) === '[object z]';
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/typed-array-constructor.js":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/typed-array-constructor.js ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/typed-array-constructor.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17047,9 +17047,9 @@ if (DESCRIPTORS) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/typed-array-constructors-require-wrappers.js":
-/*!*******************************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/typed-array-constructors-require-wrappers.js ***!
-  \*******************************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/typed-array-constructors-require-wrappers.js ***!
+  \***********************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17080,9 +17080,9 @@ module.exports = !NATIVE_ARRAY_BUFFER_VIEWS || !fails(function () {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/typed-array-from.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/typed-array-from.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/typed-array-from.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17123,9 +17123,9 @@ module.exports = function from(source /* , mapfn, thisArg */) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/uid.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/uid.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/uid.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -17140,9 +17140,9 @@ module.exports = function (key) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/use-symbol-as-uid.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/use-symbol-as-uid.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/use-symbol-as-uid.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17158,9 +17158,9 @@ module.exports = NATIVE_SYMBOL
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/well-known-symbol-wrapped.js":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/well-known-symbol-wrapped.js ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/well-known-symbol-wrapped.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17172,9 +17172,9 @@ exports.f = wellKnownSymbol;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/well-known-symbol.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/well-known-symbol.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/well-known-symbol.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17200,9 +17200,9 @@ module.exports = function (name) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/internals/whitespaces.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/internals/whitespaces.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/internals/whitespaces.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -17214,9 +17214,9 @@ module.exports = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array-buffer.constructor.js":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array-buffer.constructor.js ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array-buffer.constructor.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17243,9 +17243,9 @@ setSpecies(ARRAY_BUFFER);
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array-buffer.is-view.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array-buffer.is-view.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array-buffer.is-view.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17264,9 +17264,9 @@ $({ target: 'ArrayBuffer', stat: true, forced: !NATIVE_ARRAY_BUFFER_VIEWS }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array-buffer.slice.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array-buffer.slice.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array-buffer.slice.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17312,9 +17312,9 @@ $({ target: 'ArrayBuffer', proto: true, unsafe: true, forced: INCORRECT_SLICE },
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.concat.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.concat.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.concat.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17384,9 +17384,9 @@ $({ target: 'Array', proto: true, forced: FORCED }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.copy-within.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.copy-within.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.copy-within.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17407,9 +17407,9 @@ addToUnscopables('copyWithin');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.every.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.every.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.every.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17435,9 +17435,9 @@ $({ target: 'Array', proto: true, forced: !STRICT_METHOD || !USES_TO_LENGTH }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.fill.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.fill.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.fill.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17458,9 +17458,9 @@ addToUnscopables('fill');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.filter.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.filter.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.filter.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17488,9 +17488,9 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGT
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.find-index.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.find-index.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.find-index.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17524,9 +17524,9 @@ addToUnscopables(FIND_INDEX);
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.find.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.find.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.find.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17560,9 +17560,9 @@ addToUnscopables(FIND);
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.flat-map.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.flat-map.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.flat-map.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17593,9 +17593,9 @@ $({ target: 'Array', proto: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.flat.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.flat.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.flat.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17625,9 +17625,9 @@ $({ target: 'Array', proto: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.for-each.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.for-each.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.for-each.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17646,9 +17646,9 @@ $({ target: 'Array', proto: true, forced: [].forEach != forEach }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.from.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.from.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.from.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17670,9 +17670,9 @@ $({ target: 'Array', stat: true, forced: INCORRECT_ITERATION }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.includes.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.includes.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.includes.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17700,9 +17700,9 @@ addToUnscopables('includes');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.index-of.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.index-of.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.index-of.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17734,9 +17734,9 @@ $({ target: 'Array', proto: true, forced: NEGATIVE_ZERO || !STRICT_METHOD || !US
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.is-array.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.is-array.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.is-array.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17753,9 +17753,9 @@ $({ target: 'Array', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.iterator.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.iterator.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.iterator.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17818,9 +17818,9 @@ addToUnscopables('entries');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.join.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.join.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.join.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17848,9 +17848,9 @@ $({ target: 'Array', proto: true, forced: ES3_STRINGS || !STRICT_METHOD }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.last-index-of.js":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.last-index-of.js ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.last-index-of.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17867,9 +17867,9 @@ $({ target: 'Array', proto: true, forced: lastIndexOf !== [].lastIndexOf }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.map.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.map.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.map.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17897,9 +17897,9 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGT
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.of.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.of.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.of.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17932,9 +17932,9 @@ $({ target: 'Array', stat: true, forced: ISNT_GENERIC }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.reduce-right.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.reduce-right.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.reduce-right.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17961,9 +17961,9 @@ $({ target: 'Array', proto: true, forced: !STRICT_METHOD || !USES_TO_LENGTH }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.reduce.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.reduce.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.reduce.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17989,9 +17989,9 @@ $({ target: 'Array', proto: true, forced: !STRICT_METHOD || !USES_TO_LENGTH }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.reverse.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.reverse.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.reverse.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18019,9 +18019,9 @@ $({ target: 'Array', proto: true, forced: String(test) === String(test.reverse()
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.slice.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.slice.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.slice.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18080,9 +18080,9 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGT
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.some.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.some.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.some.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18108,9 +18108,9 @@ $({ target: 'Array', proto: true, forced: !STRICT_METHOD || !USES_TO_LENGTH }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.sort.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.sort.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.sort.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18152,9 +18152,9 @@ $({ target: 'Array', proto: true, forced: FORCED }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.species.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.species.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.species.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18168,9 +18168,9 @@ setSpecies('Array');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.splice.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.splice.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.splice.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18250,9 +18250,9 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGT
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.unscopables.flat-map.js":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.unscopables.flat-map.js ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.unscopables.flat-map.js ***!
+  \*********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18266,9 +18266,9 @@ addToUnscopables('flatMap');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.array.unscopables.flat.js":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.array.unscopables.flat.js ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.array.unscopables.flat.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18282,9 +18282,9 @@ addToUnscopables('flat');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.data-view.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.data-view.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.data-view.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18302,9 +18302,9 @@ $({ global: true, forced: !NATIVE_ARRAY_BUFFER }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.date.now.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.date.now.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.date.now.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18322,9 +18322,9 @@ $({ target: 'Date', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.date.to-iso-string.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.date.to-iso-string.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.date.to-iso-string.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18342,9 +18342,9 @@ $({ target: 'Date', proto: true, forced: Date.prototype.toISOString !== toISOStr
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.date.to-json.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.date.to-json.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.date.to-json.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18375,9 +18375,9 @@ $({ target: 'Date', proto: true, forced: FORCED }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.date.to-primitive.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.date.to-primitive.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.date.to-primitive.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18398,9 +18398,9 @@ if (!(TO_PRIMITIVE in DatePrototype)) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.date.to-string.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.date.to-string.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.date.to-string.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18426,9 +18426,9 @@ if (new Date(NaN) + '' != INVALID_DATE) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.function.bind.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.function.bind.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.function.bind.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18445,9 +18445,9 @@ $({ target: 'Function', proto: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.function.has-instance.js":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.function.has-instance.js ***!
-  \************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.function.has-instance.js ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18477,9 +18477,9 @@ if (!(HAS_INSTANCE in FunctionPrototype)) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.function.name.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.function.name.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.function.name.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18510,9 +18510,9 @@ if (DESCRIPTORS && !(NAME in FunctionPrototype)) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.global-this.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.global-this.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.global-this.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18529,9 +18529,9 @@ $({ global: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.json.stringify.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.json.stringify.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.json.stringify.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18572,9 +18572,9 @@ if ($stringify) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.json.to-string-tag.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.json.to-string-tag.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.json.to-string-tag.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18589,9 +18589,9 @@ setToStringTag(global.JSON, 'JSON', true);
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.map.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.map.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.map.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18610,9 +18610,9 @@ module.exports = collection('Map', function (init) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.acosh.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.acosh.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.acosh.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18644,9 +18644,9 @@ $({ target: 'Math', stat: true, forced: FORCED }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.asinh.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.asinh.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.asinh.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18671,9 +18671,9 @@ $({ target: 'Math', stat: true, forced: !(nativeAsinh && 1 / nativeAsinh(0) > 0)
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.atanh.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.atanh.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.atanh.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18695,9 +18695,9 @@ $({ target: 'Math', stat: true, forced: !(nativeAtanh && 1 / nativeAtanh(-0) < 0
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.cbrt.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.cbrt.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.cbrt.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18719,9 +18719,9 @@ $({ target: 'Math', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.clz32.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.clz32.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.clz32.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18743,9 +18743,9 @@ $({ target: 'Math', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.cosh.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.cosh.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.cosh.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18769,9 +18769,9 @@ $({ target: 'Math', stat: true, forced: !nativeCosh || nativeCosh(710) === Infin
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.expm1.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.expm1.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.expm1.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18786,9 +18786,9 @@ $({ target: 'Math', stat: true, forced: expm1 != Math.expm1 }, { expm1: expm1 })
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.fround.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.fround.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.fround.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18803,9 +18803,9 @@ $({ target: 'Math', stat: true }, { fround: fround });
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.hypot.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.hypot.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.hypot.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18847,9 +18847,9 @@ $({ target: 'Math', stat: true, forced: BUGGY }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.imul.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.imul.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.imul.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18880,9 +18880,9 @@ $({ target: 'Math', stat: true, forced: FORCED }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.log10.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.log10.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.log10.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18903,9 +18903,9 @@ $({ target: 'Math', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.log1p.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.log1p.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.log1p.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18920,9 +18920,9 @@ $({ target: 'Math', stat: true }, { log1p: log1p });
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.log2.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.log2.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.log2.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18943,9 +18943,9 @@ $({ target: 'Math', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.sign.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.sign.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.sign.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18962,9 +18962,9 @@ $({ target: 'Math', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.sinh.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.sinh.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.sinh.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18993,9 +18993,9 @@ $({ target: 'Math', stat: true, forced: FORCED }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.tanh.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.tanh.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.tanh.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19018,9 +19018,9 @@ $({ target: 'Math', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.to-string-tag.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.to-string-tag.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.to-string-tag.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19034,9 +19034,9 @@ setToStringTag(Math, 'Math', true);
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.math.trunc.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.math.trunc.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.math.trunc.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19057,9 +19057,9 @@ $({ target: 'Math', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.number.constructor.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.number.constructor.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.number.constructor.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19147,9 +19147,9 @@ if (isForced(NUMBER, !NativeNumber(' 0o1') || !NativeNumber('0b1') || NativeNumb
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.number.epsilon.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.number.epsilon.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.number.epsilon.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19165,9 +19165,9 @@ $({ target: 'Number', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.number.is-finite.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.number.is-finite.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.number.is-finite.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19182,9 +19182,9 @@ $({ target: 'Number', stat: true }, { isFinite: numberIsFinite });
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.number.is-integer.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.number.is-integer.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.number.is-integer.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19201,9 +19201,9 @@ $({ target: 'Number', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.number.is-nan.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.number.is-nan.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.number.is-nan.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19222,9 +19222,9 @@ $({ target: 'Number', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.number.is-safe-integer.js":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.number.is-safe-integer.js ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.number.is-safe-integer.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19245,9 +19245,9 @@ $({ target: 'Number', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.number.max-safe-integer.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.number.max-safe-integer.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.number.max-safe-integer.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19263,9 +19263,9 @@ $({ target: 'Number', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.number.min-safe-integer.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.number.min-safe-integer.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.number.min-safe-integer.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19281,9 +19281,9 @@ $({ target: 'Number', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.number.parse-float.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.number.parse-float.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.number.parse-float.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19300,9 +19300,9 @@ $({ target: 'Number', stat: true, forced: Number.parseFloat != parseFloat }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.number.parse-int.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.number.parse-int.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.number.parse-int.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19319,9 +19319,9 @@ $({ target: 'Number', stat: true, forced: Number.parseInt != parseInt }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.number.to-fixed.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.number.to-fixed.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.number.to-fixed.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19457,9 +19457,9 @@ $({ target: 'Number', proto: true, forced: FORCED }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.number.to-precision.js":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.number.to-precision.js ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.number.to-precision.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19493,9 +19493,9 @@ $({ target: 'Number', proto: true, forced: FORCED }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.assign.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.assign.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.assign.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19512,9 +19512,9 @@ $({ target: 'Object', stat: true, forced: Object.assign !== assign }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.create.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.create.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.create.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19532,9 +19532,9 @@ $({ target: 'Object', stat: true, sham: !DESCRIPTORS }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.define-getter.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.define-getter.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.define-getter.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19561,9 +19561,9 @@ if (DESCRIPTORS) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.define-properties.js":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.define-properties.js ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.define-properties.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19581,9 +19581,9 @@ $({ target: 'Object', stat: true, forced: !DESCRIPTORS, sham: !DESCRIPTORS }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.define-property.js":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.define-property.js ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.define-property.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19601,9 +19601,9 @@ $({ target: 'Object', stat: true, forced: !DESCRIPTORS, sham: !DESCRIPTORS }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.define-setter.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.define-setter.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.define-setter.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19630,9 +19630,9 @@ if (DESCRIPTORS) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.entries.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.entries.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.entries.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19651,9 +19651,9 @@ $({ target: 'Object', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.freeze.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.freeze.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.freeze.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19678,9 +19678,9 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES, sham: !FREEZING }
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.from-entries.js":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.from-entries.js ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.from-entries.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19704,9 +19704,9 @@ $({ target: 'Object', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.get-own-property-descriptor.js":
-/*!*************************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.get-own-property-descriptor.js ***!
-  \*************************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.get-own-property-descriptor.js ***!
+  \*****************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19731,9 +19731,9 @@ $({ target: 'Object', stat: true, forced: FORCED, sham: !DESCRIPTORS }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.get-own-property-descriptors.js":
-/*!**************************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.get-own-property-descriptors.js ***!
-  \**************************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.get-own-property-descriptors.js ***!
+  \******************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19766,9 +19766,9 @@ $({ target: 'Object', stat: true, sham: !DESCRIPTORS }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.get-own-property-names.js":
-/*!********************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.get-own-property-names.js ***!
-  \********************************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.get-own-property-names.js ***!
+  \************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19788,9 +19788,9 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.get-prototype-of.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.get-prototype-of.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.get-prototype-of.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19815,9 +19815,9 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES, sham: !CORRECT_PR
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.is-extensible.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.is-extensible.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.is-extensible.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19840,9 +19840,9 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.is-frozen.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.is-frozen.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.is-frozen.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19865,9 +19865,9 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.is-sealed.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.is-sealed.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.is-sealed.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19890,9 +19890,9 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.is.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.is.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.is.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19909,9 +19909,9 @@ $({ target: 'Object', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.keys.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.keys.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.keys.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19934,9 +19934,9 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.lookup-getter.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.lookup-getter.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.lookup-getter.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19969,9 +19969,9 @@ if (DESCRIPTORS) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.lookup-setter.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.lookup-setter.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.lookup-setter.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20004,9 +20004,9 @@ if (DESCRIPTORS) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.prevent-extensions.js":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.prevent-extensions.js ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.prevent-extensions.js ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20031,9 +20031,9 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES, sham: !FREEZING }
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.seal.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.seal.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.seal.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20058,9 +20058,9 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES, sham: !FREEZING }
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.set-prototype-of.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.set-prototype-of.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.set-prototype-of.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20077,9 +20077,9 @@ $({ target: 'Object', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.to-string.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.to-string.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.to-string.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20097,9 +20097,9 @@ if (!TO_STRING_TAG_SUPPORT) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.object.values.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.object.values.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.object.values.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20118,9 +20118,9 @@ $({ target: 'Object', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.parse-float.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.parse-float.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.parse-float.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20137,9 +20137,9 @@ $({ global: true, forced: parseFloat != parseFloatImplementation }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.parse-int.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.parse-int.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.parse-int.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20156,9 +20156,9 @@ $({ global: true, forced: parseInt != parseIntImplementation }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.promise.all-settled.js":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.promise.all-settled.js ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.promise.all-settled.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20211,9 +20211,9 @@ $({ target: 'Promise', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.promise.finally.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.promise.finally.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.promise.finally.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20259,9 +20259,9 @@ if (!IS_PURE && typeof NativePromise == 'function' && !NativePromise.prototype['
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.promise.js":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.promise.js ***!
-  \**********************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.promise.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20650,9 +20650,9 @@ $({ target: PROMISE, stat: true, forced: INCORRECT_ITERATION }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.apply.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.apply.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.apply.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20686,9 +20686,9 @@ $({ target: 'Reflect', stat: true, forced: OPTIONAL_ARGUMENTS_LIST }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.construct.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.construct.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.construct.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20748,9 +20748,9 @@ $({ target: 'Reflect', stat: true, forced: FORCED, sham: FORCED }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.define-property.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.define-property.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.define-property.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20787,9 +20787,9 @@ $({ target: 'Reflect', stat: true, forced: ERROR_INSTEAD_OF_FALSE, sham: !DESCRI
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.delete-property.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.delete-property.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.delete-property.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20810,9 +20810,9 @@ $({ target: 'Reflect', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.get-own-property-descriptor.js":
-/*!**************************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.get-own-property-descriptor.js ***!
-  \**************************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.get-own-property-descriptor.js ***!
+  \******************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20833,9 +20833,9 @@ $({ target: 'Reflect', stat: true, sham: !DESCRIPTORS }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.get-prototype-of.js":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.get-prototype-of.js ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.get-prototype-of.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20856,9 +20856,9 @@ $({ target: 'Reflect', stat: true, sham: !CORRECT_PROTOTYPE_GETTER }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.get.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.get.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.get.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20891,9 +20891,9 @@ $({ target: 'Reflect', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.has.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.has.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.has.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20911,9 +20911,9 @@ $({ target: 'Reflect', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.is-extensible.js":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.is-extensible.js ***!
-  \************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.is-extensible.js ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20935,9 +20935,9 @@ $({ target: 'Reflect', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.own-keys.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.own-keys.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.own-keys.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20954,9 +20954,9 @@ $({ target: 'Reflect', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.prevent-extensions.js":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.prevent-extensions.js ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.prevent-extensions.js ***!
+  \*********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20984,9 +20984,9 @@ $({ target: 'Reflect', stat: true, sham: !FREEZING }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.set-prototype-of.js":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.set-prototype-of.js ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.set-prototype-of.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21014,9 +21014,9 @@ if (objectSetPrototypeOf) $({ target: 'Reflect', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.reflect.set.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.reflect.set.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.reflect.set.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21070,9 +21070,9 @@ $({ target: 'Reflect', stat: true, forced: MS_EDGE_BUG }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.regexp.constructor.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.regexp.constructor.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.regexp.constructor.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21165,9 +21165,9 @@ setSpecies('RegExp');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.regexp.exec.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.regexp.exec.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.regexp.exec.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21184,9 +21184,9 @@ $({ target: 'RegExp', proto: true, forced: /./.exec !== exec }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.regexp.flags.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.regexp.flags.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.regexp.flags.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21208,9 +21208,9 @@ if (DESCRIPTORS && (/./g.flags != 'g' || UNSUPPORTED_Y)) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.regexp.sticky.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.regexp.sticky.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.regexp.sticky.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21240,9 +21240,9 @@ if (DESCRIPTORS && UNSUPPORTED_Y) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.regexp.test.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.regexp.test.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.regexp.test.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21282,9 +21282,9 @@ $({ target: 'RegExp', proto: true, forced: !DELEGATES_TO_EXEC }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.regexp.to-string.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.regexp.to-string.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.regexp.to-string.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21319,9 +21319,9 @@ if (NOT_GENERIC || INCORRECT_NAME) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.set.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.set.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.set.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21340,9 +21340,9 @@ module.exports = collection('Set', function (init) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.anchor.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.anchor.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.anchor.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21364,9 +21364,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('anchor') }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.big.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.big.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.big.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21388,9 +21388,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('big') }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.blink.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.blink.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.blink.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21412,9 +21412,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('blink') }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.bold.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.bold.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.bold.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21436,9 +21436,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('bold') }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.code-point-at.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.code-point-at.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.code-point-at.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21459,9 +21459,9 @@ $({ target: 'String', proto: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.ends-with.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.ends-with.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.ends-with.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21505,9 +21505,9 @@ $({ target: 'String', proto: true, forced: !MDN_POLYFILL_BUG && !CORRECT_IS_REGE
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.fixed.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.fixed.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.fixed.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21529,9 +21529,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('fixed') }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.fontcolor.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.fontcolor.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.fontcolor.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21553,9 +21553,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('fontcolor') }
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.fontsize.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.fontsize.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.fontsize.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21577,9 +21577,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('fontsize') },
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.from-code-point.js":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.from-code-point.js ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.from-code-point.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21615,9 +21615,9 @@ $({ target: 'String', stat: true, forced: INCORRECT_LENGTH }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.includes.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.includes.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.includes.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21641,9 +21641,9 @@ $({ target: 'String', proto: true, forced: !correctIsRegExpLogic('includes') }, 
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.italics.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.italics.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.italics.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21665,9 +21665,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('italics') }, 
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.iterator.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.iterator.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.iterator.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21706,9 +21706,9 @@ defineIterator(String, 'String', function (iterated) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.link.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.link.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.link.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21730,9 +21730,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('link') }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.match-all.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.match-all.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.match-all.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21851,9 +21851,9 @@ IS_PURE || MATCH_ALL in RegExpPrototype || createNonEnumerableProperty(RegExpPro
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.match.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.match.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.match.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21907,9 +21907,9 @@ fixRegExpWellKnownSymbolLogic('match', 1, function (MATCH, nativeMatch, maybeCal
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.pad-end.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.pad-end.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.pad-end.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21931,9 +21931,9 @@ $({ target: 'String', proto: true, forced: WEBKIT_BUG }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.pad-start.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.pad-start.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.pad-start.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21955,9 +21955,9 @@ $({ target: 'String', proto: true, forced: WEBKIT_BUG }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.raw.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.raw.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.raw.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21985,9 +21985,9 @@ $({ target: 'String', stat: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.repeat.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.repeat.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.repeat.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22004,9 +22004,9 @@ $({ target: 'String', proto: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.replace.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.replace.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.replace.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22151,9 +22151,9 @@ fixRegExpWellKnownSymbolLogic('replace', 2, function (REPLACE, nativeReplace, ma
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.search.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.search.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.search.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22197,9 +22197,9 @@ fixRegExpWellKnownSymbolLogic('search', 1, function (SEARCH, nativeSearch, maybe
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.small.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.small.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.small.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22221,9 +22221,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('small') }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.split.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.split.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.split.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22367,9 +22367,9 @@ fixRegExpWellKnownSymbolLogic('split', 2, function (SPLIT, nativeSplit, maybeCal
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.starts-with.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.starts-with.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.starts-with.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22411,9 +22411,9 @@ $({ target: 'String', proto: true, forced: !MDN_POLYFILL_BUG && !CORRECT_IS_REGE
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.strike.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.strike.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.strike.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22435,9 +22435,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('strike') }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.sub.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.sub.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.sub.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22459,9 +22459,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('sub') }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.sup.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.sup.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.sup.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22483,9 +22483,9 @@ $({ target: 'String', proto: true, forced: forcedStringHTMLMethod('sup') }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.trim-end.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.trim-end.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.trim-end.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22512,9 +22512,9 @@ $({ target: 'String', proto: true, forced: FORCED }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.trim-start.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.trim-start.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.trim-start.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22541,9 +22541,9 @@ $({ target: 'String', proto: true, forced: FORCED }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.string.trim.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.string.trim.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.string.trim.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22565,9 +22565,9 @@ $({ target: 'String', proto: true, forced: forcedStringTrimMethod('trim') }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.async-iterator.js":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.async-iterator.js ***!
-  \************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.async-iterator.js ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22581,9 +22581,9 @@ defineWellKnownSymbol('asyncIterator');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.description.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.description.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.description.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22643,9 +22643,9 @@ if (DESCRIPTORS && typeof NativeSymbol == 'function' && (!('description' in Nati
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.has-instance.js":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.has-instance.js ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.has-instance.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22659,9 +22659,9 @@ defineWellKnownSymbol('hasInstance');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.is-concat-spreadable.js":
-/*!******************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.is-concat-spreadable.js ***!
-  \******************************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.is-concat-spreadable.js ***!
+  \**********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22675,9 +22675,9 @@ defineWellKnownSymbol('isConcatSpreadable');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.iterator.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.iterator.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.iterator.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22691,9 +22691,9 @@ defineWellKnownSymbol('iterator');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23014,9 +23014,9 @@ hiddenKeys[HIDDEN] = true;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.match-all.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.match-all.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.match-all.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23029,9 +23029,9 @@ defineWellKnownSymbol('matchAll');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.match.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.match.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.match.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23045,9 +23045,9 @@ defineWellKnownSymbol('match');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.replace.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.replace.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.replace.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23061,9 +23061,9 @@ defineWellKnownSymbol('replace');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.search.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.search.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.search.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23077,9 +23077,9 @@ defineWellKnownSymbol('search');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.species.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.species.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.species.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23093,9 +23093,9 @@ defineWellKnownSymbol('species');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.split.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.split.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.split.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23109,9 +23109,9 @@ defineWellKnownSymbol('split');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.to-primitive.js":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.to-primitive.js ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.to-primitive.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23125,9 +23125,9 @@ defineWellKnownSymbol('toPrimitive');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.to-string-tag.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.to-string-tag.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.to-string-tag.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23141,9 +23141,9 @@ defineWellKnownSymbol('toStringTag');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.symbol.unscopables.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.symbol.unscopables.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.symbol.unscopables.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23157,9 +23157,9 @@ defineWellKnownSymbol('unscopables');
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.copy-within.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.copy-within.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.copy-within.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23181,9 +23181,9 @@ exportTypedArrayMethod('copyWithin', function copyWithin(target, start /* , end 
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.every.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.every.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.every.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23205,9 +23205,9 @@ exportTypedArrayMethod('every', function every(callbackfn /* , thisArg */) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.fill.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.fill.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.fill.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23230,9 +23230,9 @@ exportTypedArrayMethod('fill', function fill(value /* , start, end */) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.filter.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.filter.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.filter.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23262,9 +23262,9 @@ exportTypedArrayMethod('filter', function filter(callbackfn /* , thisArg */) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.find-index.js":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.find-index.js ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.find-index.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23286,9 +23286,9 @@ exportTypedArrayMethod('findIndex', function findIndex(predicate /* , thisArg */
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.find.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.find.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.find.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23310,9 +23310,9 @@ exportTypedArrayMethod('find', function find(predicate /* , thisArg */) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.float32-array.js":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.float32-array.js ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.float32-array.js ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23330,9 +23330,9 @@ createTypedArrayConstructor('Float32', function (init) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.float64-array.js":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.float64-array.js ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.float64-array.js ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23350,9 +23350,9 @@ createTypedArrayConstructor('Float64', function (init) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.for-each.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.for-each.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.for-each.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23374,9 +23374,9 @@ exportTypedArrayMethod('forEach', function forEach(callbackfn /* , thisArg */) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.from.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.from.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.from.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23394,9 +23394,9 @@ exportTypedArrayStaticMethod('from', typedArrayFrom, TYPED_ARRAYS_CONSTRUCTORS_R
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.includes.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.includes.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.includes.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23418,9 +23418,9 @@ exportTypedArrayMethod('includes', function includes(searchElement /* , fromInde
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.index-of.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.index-of.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.index-of.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23442,9 +23442,9 @@ exportTypedArrayMethod('indexOf', function indexOf(searchElement /* , fromIndex 
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.int16-array.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.int16-array.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.int16-array.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23462,9 +23462,9 @@ createTypedArrayConstructor('Int16', function (init) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.int32-array.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.int32-array.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.int32-array.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23482,9 +23482,9 @@ createTypedArrayConstructor('Int32', function (init) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.int8-array.js":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.int8-array.js ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.int8-array.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23502,9 +23502,9 @@ createTypedArrayConstructor('Int8', function (init) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.iterator.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.iterator.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.iterator.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23552,9 +23552,9 @@ exportTypedArrayMethod(ITERATOR, typedArrayValues, !CORRECT_ITER_NAME);
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.join.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.join.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.join.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23577,9 +23577,9 @@ exportTypedArrayMethod('join', function join(separator) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.last-index-of.js":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.last-index-of.js ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.last-index-of.js ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23602,9 +23602,9 @@ exportTypedArrayMethod('lastIndexOf', function lastIndexOf(searchElement /* , fr
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.map.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.map.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.map.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23630,9 +23630,9 @@ exportTypedArrayMethod('map', function map(mapfn /* , thisArg */) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.of.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.of.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.of.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23658,9 +23658,9 @@ exportTypedArrayStaticMethod('of', function of(/* ...items */) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.reduce-right.js":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.reduce-right.js ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.reduce-right.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23682,9 +23682,9 @@ exportTypedArrayMethod('reduceRight', function reduceRight(callbackfn /* , initi
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.reduce.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.reduce.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.reduce.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23706,9 +23706,9 @@ exportTypedArrayMethod('reduce', function reduce(callbackfn /* , initialValue */
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.reverse.js":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.reverse.js ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.reverse.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23739,9 +23739,9 @@ exportTypedArrayMethod('reverse', function reverse() {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.set.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.set.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.set.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23778,9 +23778,9 @@ exportTypedArrayMethod('set', function set(arrayLike /* , offset */) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.slice.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.slice.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.slice.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23816,9 +23816,9 @@ exportTypedArrayMethod('slice', function slice(start, end) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.some.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.some.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.some.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23840,9 +23840,9 @@ exportTypedArrayMethod('some', function some(callbackfn /* , thisArg */) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.sort.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.sort.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.sort.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23864,9 +23864,9 @@ exportTypedArrayMethod('sort', function sort(comparefn) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.subarray.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.subarray.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.subarray.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23897,9 +23897,9 @@ exportTypedArrayMethod('subarray', function subarray(begin, end) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.to-locale-string.js":
-/*!*******************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.to-locale-string.js ***!
-  \*******************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.to-locale-string.js ***!
+  \***********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23936,9 +23936,9 @@ exportTypedArrayMethod('toLocaleString', function toLocaleString() {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.to-string.js":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.to-string.js ***!
-  \************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.to-string.js ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23969,9 +23969,9 @@ exportTypedArrayMethod('toString', arrayToString, IS_NOT_ARRAY_METHOD);
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.uint16-array.js":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.uint16-array.js ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.uint16-array.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23989,9 +23989,9 @@ createTypedArrayConstructor('Uint16', function (init) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.uint32-array.js":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.uint32-array.js ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.uint32-array.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24009,9 +24009,9 @@ createTypedArrayConstructor('Uint32', function (init) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.uint8-array.js":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.uint8-array.js ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.uint8-array.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24029,9 +24029,9 @@ createTypedArrayConstructor('Uint8', function (init) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.typed-array.uint8-clamped-array.js":
-/*!**********************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.typed-array.uint8-clamped-array.js ***!
-  \**********************************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.typed-array.uint8-clamped-array.js ***!
+  \**************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24049,9 +24049,9 @@ createTypedArrayConstructor('Uint8', function (init) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.weak-map.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.weak-map.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.weak-map.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24128,9 +24128,9 @@ if (NATIVE_WEAK_MAP && IS_IE11) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/es.weak-set.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/es.weak-set.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/es.weak-set.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24149,9 +24149,9 @@ collection('WeakSet', function (init) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/web.dom-collections.for-each.js":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/web.dom-collections.for-each.js ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/web.dom-collections.for-each.js ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24175,9 +24175,9 @@ for (var COLLECTION_NAME in DOMIterables) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/web.dom-collections.iterator.js":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/web.dom-collections.iterator.js ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/web.dom-collections.iterator.js ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24219,9 +24219,9 @@ for (var COLLECTION_NAME in DOMIterables) {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/web.immediate.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/web.immediate.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/web.immediate.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24245,9 +24245,9 @@ $({ global: true, bind: true, enumerable: true, forced: FORCED }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/web.queue-microtask.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/web.queue-microtask.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/web.queue-microtask.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24272,9 +24272,9 @@ $({ global: true, enumerable: true, noTargetGet: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/web.timers.js":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/web.timers.js ***!
-  \**********************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/web.timers.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24311,9 +24311,9 @@ $({ global: true, bind: true, forced: MSIE }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/web.url-search-params.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/web.url-search-params.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/web.url-search-params.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24670,9 +24670,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/web.url.js":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/web.url.js ***!
-  \*******************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/web.url.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25689,9 +25689,9 @@ $({ global: true, forced: !USE_NATIVE_URL, sham: !DESCRIPTORS }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/modules/web.url.to-json.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/modules/web.url.to-json.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/modules/web.url.to-json.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25711,9 +25711,9 @@ $({ target: 'URL', proto: true, enumerable: true }, {
 /***/ }),
 
 /***/ "../../../node_modules/core-js/stable/index.js":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/stable/index.js ***!
-  \****************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/stable/index.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25727,9 +25727,9 @@ module.exports = path;
 /***/ }),
 
 /***/ "../../../node_modules/core-js/web/index.js":
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-js/web/index.js ***!
-  \*************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-js/web/index.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25749,9 +25749,9 @@ module.exports = path;
 /***/ }),
 
 /***/ "../../../node_modules/core-util-is/lib/util.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/core-util-is/lib/util.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/core-util-is/lib/util.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25868,9 +25868,9 @@ function objectToString(o) {
 /***/ }),
 
 /***/ "../../../node_modules/create-ecdh/browser.js":
-/*!***************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/create-ecdh/browser.js ***!
-  \***************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/create-ecdh/browser.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26004,9 +26004,9 @@ function formatReturnValue (bn, enc, len) {
 /***/ }),
 
 /***/ "../../../node_modules/create-hash/browser.js":
-/*!***************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/create-hash/browser.js ***!
-  \***************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/create-hash/browser.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26046,9 +26046,9 @@ module.exports = function createHash (alg) {
 /***/ }),
 
 /***/ "../../../node_modules/create-hash/md5.js":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/create-hash/md5.js ***!
-  \***********************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/create-hash/md5.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26062,9 +26062,9 @@ module.exports = function (buffer) {
 /***/ }),
 
 /***/ "../../../node_modules/create-hmac/browser.js":
-/*!***************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/create-hmac/browser.js ***!
-  \***************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/create-hmac/browser.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26136,9 +26136,9 @@ module.exports = function createHmac (alg, key) {
 /***/ }),
 
 /***/ "../../../node_modules/create-hmac/legacy.js":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/create-hmac/legacy.js ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/create-hmac/legacy.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26194,9 +26194,9 @@ module.exports = Hmac
 /***/ }),
 
 /***/ "../../../node_modules/crypto-browserify/index.js":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/crypto-browserify/index.js ***!
-  \*******************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/crypto-browserify/index.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26303,9 +26303,9 @@ exports.constants = {
 /***/ }),
 
 /***/ "../../../node_modules/des.js/lib/des.js":
-/*!**********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/des.js/lib/des.js ***!
-  \**********************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/des.js/lib/des.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26322,9 +26322,9 @@ exports.EDE = __webpack_require__(/*! ./des/ede */ "../../../node_modules/des.js
 /***/ }),
 
 /***/ "../../../node_modules/des.js/lib/des/cbc.js":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/des.js/lib/des/cbc.js ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/des.js/lib/des/cbc.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26399,9 +26399,9 @@ proto._update = function _update(inp, inOff, out, outOff) {
 /***/ }),
 
 /***/ "../../../node_modules/des.js/lib/des/cipher.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/des.js/lib/des/cipher.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/des.js/lib/des/cipher.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26552,9 +26552,9 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
 /***/ }),
 
 /***/ "../../../node_modules/des.js/lib/des/des.js":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/des.js/lib/des/des.js ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/des.js/lib/des/des.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26706,9 +26706,9 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
 /***/ }),
 
 /***/ "../../../node_modules/des.js/lib/des/ede.js":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/des.js/lib/des/ede.js ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/des.js/lib/des/ede.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26772,9 +26772,9 @@ EDE.prototype._unpad = DES.prototype._unpad;
 /***/ }),
 
 /***/ "../../../node_modules/des.js/lib/des/utils.js":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/des.js/lib/des/utils.js ***!
-  \****************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/des.js/lib/des/utils.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27040,9 +27040,9 @@ exports.padSplit = function padSplit(num, size, group) {
 /***/ }),
 
 /***/ "../../../node_modules/diffie-hellman/browser.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/diffie-hellman/browser.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/diffie-hellman/browser.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27094,9 +27094,9 @@ exports.createDiffieHellman = exports.DiffieHellman = createDiffieHellman
 /***/ }),
 
 /***/ "../../../node_modules/diffie-hellman/lib/dh.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/diffie-hellman/lib/dh.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/diffie-hellman/lib/dh.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27270,9 +27270,9 @@ function formatReturnValue(bn, enc) {
 /***/ }),
 
 /***/ "../../../node_modules/diffie-hellman/lib/generatePrime.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/diffie-hellman/lib/generatePrime.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/diffie-hellman/lib/generatePrime.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27386,9 +27386,9 @@ function findPrime(bits, gen) {
 /***/ }),
 
 /***/ "../../../node_modules/diffie-hellman/lib/primes.json":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/diffie-hellman/lib/primes.json ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/diffie-hellman/lib/primes.json ***!
+  \***************************************************************************************************************/
 /*! exports provided: modp1, modp2, modp5, modp14, modp15, modp16, modp17, modp18, default */
 /***/ (function(module) {
 
@@ -27397,9 +27397,9 @@ module.exports = JSON.parse("{\"modp1\":{\"gen\":\"02\",\"prime\":\"ffffffffffff
 /***/ }),
 
 /***/ "../../../node_modules/ecdsa-sig-formatter/src/ecdsa-sig-formatter.js":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/ecdsa-sig-formatter/src/ecdsa-sig-formatter.js ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/ecdsa-sig-formatter/src/ecdsa-sig-formatter.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27596,9 +27596,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/ecdsa-sig-formatter/src/param-bytes-for-alg.js":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/ecdsa-sig-formatter/src/param-bytes-for-alg.js ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/ecdsa-sig-formatter/src/param-bytes-for-alg.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27631,9 +27631,9 @@ module.exports = getParamBytesForAlg;
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27656,9 +27656,9 @@ elliptic.eddsa = __webpack_require__(/*! ./elliptic/eddsa */ "../../../node_modu
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/curve/base.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/curve/base.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/curve/base.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28044,9 +28044,9 @@ BasePoint.prototype.dblp = function dblp(k) {
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/curve/edwards.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/curve/edwards.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/curve/edwards.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28488,9 +28488,9 @@ Point.prototype.mixedAdd = Point.prototype.add;
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/curve/index.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/curve/index.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/curve/index.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28508,9 +28508,9 @@ curve.edwards = __webpack_require__(/*! ./edwards */ "../../../node_modules/elli
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/curve/mont.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/curve/mont.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/curve/mont.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28698,9 +28698,9 @@ Point.prototype.getX = function getX() {
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/curve/short.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/curve/short.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/curve/short.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29647,9 +29647,9 @@ JPoint.prototype.isInfinity = function isInfinity() {
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/curves.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/curves.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/curves.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29865,9 +29865,9 @@ defineCurve('secp256k1', {
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/ec/index.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/ec/index.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/ec/index.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30118,9 +30118,9 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/ec/key.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/ec/key.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/ec/key.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30248,9 +30248,9 @@ KeyPair.prototype.inspect = function inspect() {
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/ec/signature.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/ec/signature.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/ec/signature.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30426,9 +30426,9 @@ Signature.prototype.toDER = function toDER(enc) {
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/eddsa/index.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/eddsa/index.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/eddsa/index.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30556,9 +30556,9 @@ EDDSA.prototype.isPoint = function isPoint(val) {
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/eddsa/key.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/eddsa/key.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/eddsa/key.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30663,9 +30663,9 @@ module.exports = KeyPair;
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/eddsa/signature.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/eddsa/signature.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/eddsa/signature.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30740,9 +30740,9 @@ module.exports = Signature;
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/precomputed/secp256k1.js":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/precomputed/secp256k1.js ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/precomputed/secp256k1.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -31531,9 +31531,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/lib/elliptic/utils.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/lib/elliptic/utils.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/lib/elliptic/utils.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31662,20 +31662,20 @@ utils.intFromLE = intFromLE;
 /***/ }),
 
 /***/ "../../../node_modules/elliptic/package.json":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/elliptic/package.json ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/elliptic/package.json ***!
+  \******************************************************************************************************/
 /*! exports provided: _args, _development, _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _spec, _where, author, bugs, dependencies, description, devDependencies, files, homepage, keywords, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"_args\":[[\"elliptic@6.5.3\",\"/Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui\"]],\"_development\":true,\"_from\":\"elliptic@6.5.3\",\"_id\":\"elliptic@6.5.3\",\"_inBundle\":false,\"_integrity\":\"sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"elliptic@6.5.3\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"6.5.3\",\"saveSpec\":null,\"fetchSpec\":\"6.5.3\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz\",\"_spec\":\"6.5.3\",\"_where\":\"/Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"dependencies\":{\"bn.js\":\"^4.4.0\",\"brorand\":\"^1.0.1\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.0\",\"inherits\":\"^2.0.1\",\"minimalistic-assert\":\"^1.0.0\",\"minimalistic-crypto-utils\":\"^1.0.0\"},\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^1.4.3\",\"coveralls\":\"^3.0.8\",\"grunt\":\"^1.0.4\",\"grunt-browserify\":\"^5.0.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-connect\":\"^1.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^1.0.1\",\"grunt-mocha-istanbul\":\"^3.0.1\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.2\",\"jscs\":\"^3.0.7\",\"jshint\":\"^2.10.3\",\"mocha\":\"^6.2.2\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"jscs\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"jshint\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"lint\":\"npm run jscs && npm run jshint\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.3\"}");
+module.exports = JSON.parse("{\"_args\":[[\"elliptic@6.5.3\",\"/home/ec2-user/environment/aws-lex-web-ui-live-chat-connect\"]],\"_development\":true,\"_from\":\"elliptic@6.5.3\",\"_id\":\"elliptic@6.5.3\",\"_inBundle\":false,\"_integrity\":\"sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"elliptic@6.5.3\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"6.5.3\",\"saveSpec\":null,\"fetchSpec\":\"6.5.3\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz\",\"_spec\":\"6.5.3\",\"_where\":\"/home/ec2-user/environment/aws-lex-web-ui-live-chat-connect\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"dependencies\":{\"bn.js\":\"^4.4.0\",\"brorand\":\"^1.0.1\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.0\",\"inherits\":\"^2.0.1\",\"minimalistic-assert\":\"^1.0.0\",\"minimalistic-crypto-utils\":\"^1.0.0\"},\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^1.4.3\",\"coveralls\":\"^3.0.8\",\"grunt\":\"^1.0.4\",\"grunt-browserify\":\"^5.0.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-connect\":\"^1.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^1.0.1\",\"grunt-mocha-istanbul\":\"^3.0.1\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.2\",\"jscs\":\"^3.0.7\",\"jshint\":\"^2.10.3\",\"mocha\":\"^6.2.2\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"jscs\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"jshint\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"lint\":\"npm run jscs && npm run jshint\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.3\"}");
 
 /***/ }),
 
 /***/ "../../../node_modules/events/events.js":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/events/events.js ***!
-  \*********************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/events/events.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32131,9 +32131,9 @@ function unwrapListeners(arr) {
 /***/ }),
 
 /***/ "../../../node_modules/evp_bytestokey/index.js":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/evp_bytestokey/index.js ***!
-  \****************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/evp_bytestokey/index.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32187,9 +32187,9 @@ module.exports = EVP_BytesToKey
 /***/ }),
 
 /***/ "../../../node_modules/hash-base/index.js":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash-base/index.js ***!
-  \***********************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash-base/index.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32294,9 +32294,9 @@ module.exports = HashBase
 /***/ }),
 
 /***/ "../../../node_modules/hash.js/lib/hash.js":
-/*!************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash.js/lib/hash.js ***!
-  \************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash.js/lib/hash.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32320,9 +32320,9 @@ hash.ripemd160 = hash.ripemd.ripemd160;
 /***/ }),
 
 /***/ "../../../node_modules/hash.js/lib/hash/common.js":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash.js/lib/hash/common.js ***!
-  \*******************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash.js/lib/hash/common.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32424,9 +32424,9 @@ BlockHash.prototype._pad = function pad() {
 /***/ }),
 
 /***/ "../../../node_modules/hash.js/lib/hash/hmac.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash.js/lib/hash/hmac.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash.js/lib/hash/hmac.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32483,9 +32483,9 @@ Hmac.prototype.digest = function digest(enc) {
 /***/ }),
 
 /***/ "../../../node_modules/hash.js/lib/hash/ripemd.js":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash.js/lib/hash/ripemd.js ***!
-  \*******************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash.js/lib/hash/ripemd.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32641,9 +32641,9 @@ var sh = [
 /***/ }),
 
 /***/ "../../../node_modules/hash.js/lib/hash/sha.js":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash.js/lib/hash/sha.js ***!
-  \****************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash.js/lib/hash/sha.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32660,9 +32660,9 @@ exports.sha512 = __webpack_require__(/*! ./sha/512 */ "../../../node_modules/has
 /***/ }),
 
 /***/ "../../../node_modules/hash.js/lib/hash/sha/1.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash.js/lib/hash/sha/1.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash.js/lib/hash/sha/1.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32746,9 +32746,9 @@ SHA1.prototype._digest = function digest(enc) {
 /***/ }),
 
 /***/ "../../../node_modules/hash.js/lib/hash/sha/224.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash.js/lib/hash/sha/224.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash.js/lib/hash/sha/224.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32788,9 +32788,9 @@ SHA224.prototype._digest = function digest(enc) {
 /***/ }),
 
 /***/ "../../../node_modules/hash.js/lib/hash/sha/256.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash.js/lib/hash/sha/256.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash.js/lib/hash/sha/256.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32905,9 +32905,9 @@ SHA256.prototype._digest = function digest(enc) {
 /***/ }),
 
 /***/ "../../../node_modules/hash.js/lib/hash/sha/384.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash.js/lib/hash/sha/384.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash.js/lib/hash/sha/384.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32952,9 +32952,9 @@ SHA384.prototype._digest = function digest(enc) {
 /***/ }),
 
 /***/ "../../../node_modules/hash.js/lib/hash/sha/512.js":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash.js/lib/hash/sha/512.js ***!
-  \********************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash.js/lib/hash/sha/512.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33294,9 +33294,9 @@ function g1_512_lo(xh, xl) {
 /***/ }),
 
 /***/ "../../../node_modules/hash.js/lib/hash/sha/common.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash.js/lib/hash/sha/common.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash.js/lib/hash/sha/common.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33355,9 +33355,9 @@ exports.g1_256 = g1_256;
 /***/ }),
 
 /***/ "../../../node_modules/hash.js/lib/hash/utils.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hash.js/lib/hash/utils.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hash.js/lib/hash/utils.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33645,9 +33645,9 @@ exports.shr64_lo = shr64_lo;
 /***/ }),
 
 /***/ "../../../node_modules/hmac-drbg/lib/hmac-drbg.js":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/hmac-drbg/lib/hmac-drbg.js ***!
-  \*******************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/hmac-drbg/lib/hmac-drbg.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33770,9 +33770,9 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
 /***/ }),
 
 /***/ "../../../node_modules/ieee754/index.js":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/ieee754/index.js ***!
-  \*********************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/ieee754/index.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -33865,9 +33865,9 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 /***/ }),
 
 /***/ "../../../node_modules/inherits/inherits_browser.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/inherits/inherits_browser.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/inherits/inherits_browser.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -33903,9 +33903,9 @@ if (typeof Object.create === 'function') {
 /***/ }),
 
 /***/ "../../../node_modules/isarray/index.js":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/isarray/index.js ***!
-  \*********************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/isarray/index.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -33919,9 +33919,9 @@ module.exports = Array.isArray || function (arr) {
 /***/ }),
 
 /***/ "../../../node_modules/js-cookie/src/js.cookie.js":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/js-cookie/src/js.cookie.js ***!
-  \*******************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/js-cookie/src/js.cookie.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34097,9 +34097,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /***/ }),
 
 /***/ "../../../node_modules/jsonwebtoken/decode.js":
-/*!***************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jsonwebtoken/decode.js ***!
-  \***************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jsonwebtoken/decode.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34138,9 +34138,9 @@ module.exports = function (jwt, options) {
 /***/ }),
 
 /***/ "../../../node_modules/jsonwebtoken/index.js":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jsonwebtoken/index.js ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jsonwebtoken/index.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34157,9 +34157,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/jsonwebtoken/lib/JsonWebTokenError.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jsonwebtoken/lib/JsonWebTokenError.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jsonwebtoken/lib/JsonWebTokenError.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -34182,9 +34182,9 @@ module.exports = JsonWebTokenError;
 /***/ }),
 
 /***/ "../../../node_modules/jsonwebtoken/lib/NotBeforeError.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jsonwebtoken/lib/NotBeforeError.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jsonwebtoken/lib/NotBeforeError.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34205,9 +34205,9 @@ module.exports = NotBeforeError;
 /***/ }),
 
 /***/ "../../../node_modules/jsonwebtoken/lib/TokenExpiredError.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jsonwebtoken/lib/TokenExpiredError.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jsonwebtoken/lib/TokenExpiredError.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34228,9 +34228,9 @@ module.exports = TokenExpiredError;
 /***/ }),
 
 /***/ "../../../node_modules/jsonwebtoken/lib/psSupported.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jsonwebtoken/lib/psSupported.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jsonwebtoken/lib/psSupported.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34243,9 +34243,9 @@ module.exports = semver.satisfies(process.version, '^6.12.0 || >=8.0.0');
 /***/ }),
 
 /***/ "../../../node_modules/jsonwebtoken/lib/timespan.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jsonwebtoken/lib/timespan.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jsonwebtoken/lib/timespan.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34271,9 +34271,9 @@ module.exports = function (time, iat) {
 /***/ }),
 
 /***/ "../../../node_modules/jsonwebtoken/sign.js":
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jsonwebtoken/sign.js ***!
-  \*************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jsonwebtoken/sign.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34489,9 +34489,9 @@ module.exports = function (payload, secretOrPrivateKey, options, callback) {
 /***/ }),
 
 /***/ "../../../node_modules/jsonwebtoken/verify.js":
-/*!***************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jsonwebtoken/verify.js ***!
-  \***************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jsonwebtoken/verify.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34725,9 +34725,9 @@ module.exports = function (jwtString, secretOrPublicKey, options, callback) {
 /***/ }),
 
 /***/ "../../../node_modules/jwa/index.js":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jwa/index.js ***!
-  \*****************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jwa/index.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34988,9 +34988,9 @@ module.exports = function jwa(algorithm) {
 /***/ }),
 
 /***/ "../../../node_modules/jws/index.js":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jws/index.js ***!
-  \*****************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jws/index.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35021,9 +35021,9 @@ exports.createVerify = function createVerify(opts) {
 /***/ }),
 
 /***/ "../../../node_modules/jws/lib/data-stream.js":
-/*!***************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jws/lib/data-stream.js ***!
-  \***************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jws/lib/data-stream.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35088,9 +35088,9 @@ module.exports = DataStream;
 /***/ }),
 
 /***/ "../../../node_modules/jws/lib/sign-stream.js":
-/*!***************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jws/lib/sign-stream.js ***!
-  \***************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jws/lib/sign-stream.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35177,9 +35177,9 @@ module.exports = SignStream;
 /***/ }),
 
 /***/ "../../../node_modules/jws/lib/tostring.js":
-/*!************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jws/lib/tostring.js ***!
-  \************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jws/lib/tostring.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35198,9 +35198,9 @@ module.exports = function toString(obj) {
 /***/ }),
 
 /***/ "../../../node_modules/jws/lib/verify-stream.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/jws/lib/verify-stream.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/jws/lib/verify-stream.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35329,9 +35329,9 @@ module.exports = VerifyStream;
 /***/ }),
 
 /***/ "../../../node_modules/lodash.includes/index.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/lodash.includes/index.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/lodash.includes/index.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -36085,9 +36085,9 @@ module.exports = includes;
 /***/ }),
 
 /***/ "../../../node_modules/lodash.isboolean/index.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/lodash.isboolean/index.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/lodash.isboolean/index.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -36166,9 +36166,9 @@ module.exports = isBoolean;
 /***/ }),
 
 /***/ "../../../node_modules/lodash.isinteger/index.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/lodash.isinteger/index.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/lodash.isinteger/index.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -36442,9 +36442,9 @@ module.exports = isInteger;
 /***/ }),
 
 /***/ "../../../node_modules/lodash.isnumber/index.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/lodash.isnumber/index.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/lodash.isnumber/index.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -36532,9 +36532,9 @@ module.exports = isNumber;
 /***/ }),
 
 /***/ "../../../node_modules/lodash.isplainobject/index.js":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/lodash.isplainobject/index.js ***!
-  \**********************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/lodash.isplainobject/index.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -36682,9 +36682,9 @@ module.exports = isPlainObject;
 /***/ }),
 
 /***/ "../../../node_modules/lodash.isstring/index.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/lodash.isstring/index.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/lodash.isstring/index.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -36788,9 +36788,9 @@ module.exports = isString;
 /***/ }),
 
 /***/ "../../../node_modules/lodash.once/index.js":
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/lodash.once/index.js ***!
-  \*************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/lodash.once/index.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -37093,9 +37093,9 @@ module.exports = once;
 /***/ }),
 
 /***/ "../../../node_modules/md5.js/index.js":
-/*!********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/md5.js/index.js ***!
-  \********************************************************************************************************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/md5.js/index.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37251,9 +37251,9 @@ module.exports = MD5
 /***/ }),
 
 /***/ "../../../node_modules/miller-rabin/lib/mr.js":
-/*!***************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/miller-rabin/lib/mr.js ***!
-  \***************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/miller-rabin/lib/mr.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37377,9 +37377,9 @@ MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
 /***/ }),
 
 /***/ "../../../node_modules/minimalistic-assert/index.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/minimalistic-assert/index.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/minimalistic-assert/index.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -37399,9 +37399,9 @@ assert.equal = function assertEqual(l, r, msg) {
 /***/ }),
 
 /***/ "../../../node_modules/minimalistic-crypto-utils/lib/utils.js":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/minimalistic-crypto-utils/lib/utils.js ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/minimalistic-crypto-utils/lib/utils.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37469,9 +37469,9 @@ utils.encode = function encode(arr, enc) {
 /***/ }),
 
 /***/ "../../../node_modules/ms/index.js":
-/*!****************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/ms/index.js ***!
-  \****************************************************************************************************************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/ms/index.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -37642,9 +37642,9 @@ function plural(ms, msAbs, n, name) {
 /***/ }),
 
 /***/ "../../../node_modules/parse-asn1/aesid.json":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/parse-asn1/aesid.json ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/parse-asn1/aesid.json ***!
+  \******************************************************************************************************/
 /*! exports provided: 2.16.840.1.101.3.4.1.1, 2.16.840.1.101.3.4.1.2, 2.16.840.1.101.3.4.1.3, 2.16.840.1.101.3.4.1.4, 2.16.840.1.101.3.4.1.21, 2.16.840.1.101.3.4.1.22, 2.16.840.1.101.3.4.1.23, 2.16.840.1.101.3.4.1.24, 2.16.840.1.101.3.4.1.41, 2.16.840.1.101.3.4.1.42, 2.16.840.1.101.3.4.1.43, 2.16.840.1.101.3.4.1.44, default */
 /***/ (function(module) {
 
@@ -37653,9 +37653,9 @@ module.exports = JSON.parse("{\"2.16.840.1.101.3.4.1.1\":\"aes-128-ecb\",\"2.16.
 /***/ }),
 
 /***/ "../../../node_modules/parse-asn1/asn1.js":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/parse-asn1/asn1.js ***!
-  \***********************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/parse-asn1/asn1.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37787,9 +37787,9 @@ exports.signature = asn1.define('signature', function () {
 /***/ }),
 
 /***/ "../../../node_modules/parse-asn1/certificate.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/parse-asn1/certificate.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/parse-asn1/certificate.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37888,9 +37888,9 @@ module.exports = X509Certificate
 /***/ }),
 
 /***/ "../../../node_modules/parse-asn1/fixProc.js":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/parse-asn1/fixProc.js ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/parse-asn1/fixProc.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37930,9 +37930,9 @@ module.exports = function (okey, password) {
 /***/ }),
 
 /***/ "../../../node_modules/parse-asn1/index.js":
-/*!************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/parse-asn1/index.js ***!
-  \************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/parse-asn1/index.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38048,9 +38048,9 @@ function decrypt (data, password) {
 /***/ }),
 
 /***/ "../../../node_modules/pbkdf2/browser.js":
-/*!**********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/pbkdf2/browser.js ***!
-  \**********************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/pbkdf2/browser.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38061,9 +38061,9 @@ exports.pbkdf2Sync = __webpack_require__(/*! ./lib/sync */ "../../../node_module
 /***/ }),
 
 /***/ "../../../node_modules/pbkdf2/lib/async.js":
-/*!************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/pbkdf2/lib/async.js ***!
-  \************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/pbkdf2/lib/async.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38173,9 +38173,9 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
 /***/ }),
 
 /***/ "../../../node_modules/pbkdf2/lib/default-encoding.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/pbkdf2/lib/default-encoding.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/pbkdf2/lib/default-encoding.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38195,9 +38195,9 @@ module.exports = defaultEncoding
 /***/ }),
 
 /***/ "../../../node_modules/pbkdf2/lib/precondition.js":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/pbkdf2/lib/precondition.js ***!
-  \*******************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/pbkdf2/lib/precondition.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38235,9 +38235,9 @@ module.exports = function (password, salt, iterations, keylen) {
 /***/ }),
 
 /***/ "../../../node_modules/pbkdf2/lib/sync-browser.js":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/pbkdf2/lib/sync-browser.js ***!
-  \*******************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/pbkdf2/lib/sync-browser.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38350,9 +38350,9 @@ module.exports = pbkdf2
 /***/ }),
 
 /***/ "../../../node_modules/process-nextick-args/index.js":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/process-nextick-args/index.js ***!
-  \**********************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/process-nextick-args/index.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38408,9 +38408,9 @@ function nextTick(fn, arg1, arg2, arg3) {
 /***/ }),
 
 /***/ "../../../node_modules/process/browser.js":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/process/browser.js ***!
-  \***********************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/process/browser.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -38603,9 +38603,9 @@ process.umask = function() { return 0; };
 /***/ }),
 
 /***/ "../../../node_modules/public-encrypt/browser.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/public-encrypt/browser.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/public-encrypt/browser.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38624,9 +38624,9 @@ exports.publicDecrypt = function publicDecrypt (key, buf) {
 /***/ }),
 
 /***/ "../../../node_modules/public-encrypt/mgf.js":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/public-encrypt/mgf.js ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/public-encrypt/mgf.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38654,9 +38654,9 @@ function i2ops (c) {
 /***/ }),
 
 /***/ "../../../node_modules/public-encrypt/privateDecrypt.js":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/public-encrypt/privateDecrypt.js ***!
-  \*************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/public-encrypt/privateDecrypt.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38770,9 +38770,9 @@ function compare (a, b) {
 /***/ }),
 
 /***/ "../../../node_modules/public-encrypt/publicEncrypt.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/public-encrypt/publicEncrypt.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/public-encrypt/publicEncrypt.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38869,9 +38869,9 @@ function nonZero (len) {
 /***/ }),
 
 /***/ "../../../node_modules/public-encrypt/withPublic.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/public-encrypt/withPublic.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/public-encrypt/withPublic.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38892,9 +38892,9 @@ module.exports = withPublic
 /***/ }),
 
 /***/ "../../../node_modules/public-encrypt/xor.js":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/public-encrypt/xor.js ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/public-encrypt/xor.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -38911,9 +38911,9 @@ module.exports = function xor (a, b) {
 /***/ }),
 
 /***/ "../../../node_modules/randombytes/browser.js":
-/*!***************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/randombytes/browser.js ***!
-  \***************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/randombytes/browser.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38974,9 +38974,9 @@ function randomBytes (size, cb) {
 /***/ }),
 
 /***/ "../../../node_modules/randomfill/browser.js":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/randomfill/browser.js ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/randomfill/browser.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39095,9 +39095,9 @@ function randomFillSync (buf, offset, size) {
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/duplex-browser.js":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/duplex-browser.js ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/duplex-browser.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39107,9 +39107,9 @@ module.exports = __webpack_require__(/*! ./lib/_stream_duplex.js */ "../../../no
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/lib/_stream_duplex.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/lib/_stream_duplex.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/lib/_stream_duplex.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39249,9 +39249,9 @@ Duplex.prototype._destroy = function (err, cb) {
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/lib/_stream_passthrough.js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/lib/_stream_passthrough.js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/lib/_stream_passthrough.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39307,9 +39307,9 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/lib/_stream_readable.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/lib/_stream_readable.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/lib/_stream_readable.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40338,9 +40338,9 @@ function indexOf(xs, x) {
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/lib/_stream_transform.js":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/lib/_stream_transform.js ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/lib/_stream_transform.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40563,9 +40563,9 @@ function done(stream, er, data) {
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/lib/_stream_writable.js":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/lib/_stream_writable.js ***!
-  \********************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/lib/_stream_writable.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41262,9 +41262,9 @@ Writable.prototype._destroy = function (err, cb) {
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/lib/internal/streams/BufferList.js":
-/*!*******************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/lib/internal/streams/BufferList.js ***!
-  \*******************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/lib/internal/streams/BufferList.js ***!
+  \***********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41352,9 +41352,9 @@ if (util && util.inspect && util.inspect.custom) {
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/lib/internal/streams/destroy.js":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/lib/internal/streams/destroy.js ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/lib/internal/streams/destroy.js ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41437,9 +41437,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/lib/internal/streams/stream-browser.js":
-/*!***********************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/lib/internal/streams/stream-browser.js ***!
-  \***********************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/lib/internal/streams/stream-browser.js ***!
+  \***************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41449,9 +41449,9 @@ module.exports = __webpack_require__(/*! events */ "../../../node_modules/events
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/node_modules/safe-buffer/index.js":
-/*!******************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/node_modules/safe-buffer/index.js ***!
-  \******************************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/node_modules/safe-buffer/index.js ***!
+  \**********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41522,9 +41522,9 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/passthrough.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/passthrough.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/passthrough.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41534,9 +41534,9 @@ module.exports = __webpack_require__(/*! ./readable */ "../../../node_modules/re
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/readable-browser.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/readable-browser.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/readable-browser.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41552,9 +41552,9 @@ exports.PassThrough = __webpack_require__(/*! ./lib/_stream_passthrough.js */ ".
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/transform.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/transform.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/transform.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41564,9 +41564,9 @@ module.exports = __webpack_require__(/*! ./readable */ "../../../node_modules/re
 /***/ }),
 
 /***/ "../../../node_modules/readable-stream/writable-browser.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/readable-stream/writable-browser.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/readable-stream/writable-browser.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41576,9 +41576,9 @@ module.exports = __webpack_require__(/*! ./lib/_stream_writable.js */ "../../../
 /***/ }),
 
 /***/ "../../../node_modules/regenerator-runtime/runtime.js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/regenerator-runtime/runtime.js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/regenerator-runtime/runtime.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42316,9 +42316,9 @@ try {
 /***/ }),
 
 /***/ "../../../node_modules/ripemd160/index.js":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/ripemd160/index.js ***!
-  \***********************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/ripemd160/index.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42491,9 +42491,9 @@ module.exports = RIPEMD160
 /***/ }),
 
 /***/ "../../../node_modules/safe-buffer/index.js":
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/safe-buffer/index.js ***!
-  \*************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/safe-buffer/index.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42566,9 +42566,9 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 /***/ }),
 
 /***/ "../../../node_modules/semver/semver.js":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/semver/semver.js ***!
-  \*********************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/semver/semver.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44061,9 +44061,9 @@ function coerce (version) {
 /***/ }),
 
 /***/ "../../../node_modules/setimmediate/setImmediate.js":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/setimmediate/setImmediate.js ***!
-  \*********************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/setimmediate/setImmediate.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44259,9 +44259,9 @@ function coerce (version) {
 /***/ }),
 
 /***/ "../../../node_modules/sha.js/hash.js":
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/sha.js/hash.js ***!
-  \*******************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/sha.js/hash.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44351,9 +44351,9 @@ module.exports = Hash
 /***/ }),
 
 /***/ "../../../node_modules/sha.js/index.js":
-/*!********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/sha.js/index.js ***!
-  \********************************************************************************************************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/sha.js/index.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44377,9 +44377,9 @@ exports.sha512 = __webpack_require__(/*! ./sha512 */ "../../../node_modules/sha.
 /***/ }),
 
 /***/ "../../../node_modules/sha.js/sha.js":
-/*!******************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/sha.js/sha.js ***!
-  \******************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/sha.js/sha.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44482,9 +44482,9 @@ module.exports = Sha
 /***/ }),
 
 /***/ "../../../node_modules/sha.js/sha1.js":
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/sha.js/sha1.js ***!
-  \*******************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/sha.js/sha1.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44592,9 +44592,9 @@ module.exports = Sha1
 /***/ }),
 
 /***/ "../../../node_modules/sha.js/sha224.js":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/sha.js/sha224.js ***!
-  \*********************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/sha.js/sha224.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44656,9 +44656,9 @@ module.exports = Sha224
 /***/ }),
 
 /***/ "../../../node_modules/sha.js/sha256.js":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/sha.js/sha256.js ***!
-  \*********************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/sha.js/sha256.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44802,9 +44802,9 @@ module.exports = Sha256
 /***/ }),
 
 /***/ "../../../node_modules/sha.js/sha384.js":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/sha.js/sha384.js ***!
-  \*********************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/sha.js/sha384.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44870,9 +44870,9 @@ module.exports = Sha384
 /***/ }),
 
 /***/ "../../../node_modules/sha.js/sha512.js":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/sha.js/sha512.js ***!
-  \*********************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/sha.js/sha512.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -45141,9 +45141,9 @@ module.exports = Sha512
 /***/ }),
 
 /***/ "../../../node_modules/stream-browserify/index.js":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/stream-browserify/index.js ***!
-  \*******************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/stream-browserify/index.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -45279,9 +45279,9 @@ Stream.prototype.pipe = function(dest, options) {
 /***/ }),
 
 /***/ "../../../node_modules/string_decoder/lib/string_decoder.js":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/string_decoder/lib/string_decoder.js ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/string_decoder/lib/string_decoder.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -45586,9 +45586,9 @@ function simpleEnd(buf) {
 /***/ }),
 
 /***/ "../../../node_modules/string_decoder/node_modules/safe-buffer/index.js":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/string_decoder/node_modules/safe-buffer/index.js ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/string_decoder/node_modules/safe-buffer/index.js ***!
+  \*********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -45659,9 +45659,9 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 /***/ }),
 
 /***/ "../../../node_modules/timers-browserify/main.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/timers-browserify/main.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/timers-browserify/main.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -45734,9 +45734,9 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /***/ }),
 
 /***/ "../../../node_modules/util-deprecate/browser.js":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/util-deprecate/browser.js ***!
-  \******************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/util-deprecate/browser.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -45813,9 +45813,9 @@ function config (name) {
 /***/ }),
 
 /***/ "../../../node_modules/util/node_modules/inherits/inherits_browser.js":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/util/node_modules/inherits/inherits_browser.js ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/util/node_modules/inherits/inherits_browser.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -45847,9 +45847,9 @@ if (typeof Object.create === 'function') {
 /***/ }),
 
 /***/ "../../../node_modules/util/support/isBufferBrowser.js":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/util/support/isBufferBrowser.js ***!
-  \************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/util/support/isBufferBrowser.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -45863,9 +45863,9 @@ module.exports = function isBuffer(arg) {
 /***/ }),
 
 /***/ "../../../node_modules/util/util.js":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/util/util.js ***!
-  \*****************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/util/util.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -46578,9 +46578,9 @@ exports.callbackify = callbackify;
 /***/ }),
 
 /***/ "../../../node_modules/vm-browserify/index.js":
-/*!***************************************************************************************************************************************************************************************************!*\
-  !*** /Users/paddy.keane/workspace/current-projects/guide-dogs-uk/2000798_Guide_Dogs_voice_skill_and_chatbot/06_technology/09_development/pdkn/aws-lex-web-ui/node_modules/vm-browserify/index.js ***!
-  \***************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/ec2-user/environment/aws-lex-web-ui-live-chat-connect/node_modules/vm-browserify/index.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
