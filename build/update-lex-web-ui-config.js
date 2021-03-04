@@ -25,6 +25,8 @@ const config = require('../config');
   'BOT_RETRY_COUNT_POST_TEXT_TIMEOUT',
   'IFRAME_ORIGIN',
   'PARENT_ORIGIN',
+  'ENABLE_LOGIN',
+  'FORCE_LOGIN',
   'POOL_ID',
   'APP_USER_POOL_CLIENT_ID',
   'APP_DOMAIN_NAME',
