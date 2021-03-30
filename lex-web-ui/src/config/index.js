@@ -125,8 +125,7 @@ const configDefault = {
   },
 
   ui: {
-    // TODO may want to move pageTitle out to LexApp or Page component
-    // title of HTML page added dynamically to index.html
+    // this dynamicall changes the pageTitle injected at build time
     pageTitle: 'Order Flowers Bot',
 
     // when running as an embedded iframe, this will be used as the
