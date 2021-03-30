@@ -1,5 +1,5 @@
 /*
- Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -24,12 +24,6 @@ export const dependenciesFullPage = {
       name: 'AWS',
       url: 'https://sdk.amazonaws.com/js/aws-sdk-2.875.0.js',
       canUseMin: false,
-    },
-    {
-      // mobile hub generated aws config
-      name: 'aws_bots_config',
-      url: './aws-config.js',
-      optional: true,
     },
     {
       name: 'Vue',
@@ -80,12 +74,6 @@ export const dependenciesIframe = {
       name: 'AWS',
       url: 'https://sdk.amazonaws.com/js/aws-sdk-2.874.0.js',
       canUseMin: true,
-    },
-    {
-      // mobile hub generated aws config
-      name: 'aws_bots_config',
-      url: './aws-config.js',
-      optional: true,
     },
   ],
   css: [

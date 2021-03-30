@@ -106,7 +106,6 @@ deploy-to-s3: create-iframe-snippet
 		aws s3 sync \
 			--exclude '*' \
 			--metadata-directive REPLACE --cache-control max-age=0 \
-			--include 'aws-config.js' \
 			--include 'lex-web-ui-loader-config.json' \
 			"$(CONFIG_DIR)" "s3://$(PARENT_PAGE_BUCKET)/" && \
 		aws s3 sync \
@@ -121,15 +120,12 @@ deploy-to-s3: create-iframe-snippet
 
 # Run by CodeBuild deployment mode when which uses the prebuilt libraries
 # Can also be used to easily copy local changes to a bucket
-# (e.g. mobile hub created bucket)
-# It avoids overwriting the aws-config.js file when using outside of a build
 sync-website: create-iframe-snippet
 	@[ "$(WEBAPP_BUCKET)" ] || \
 		(echo "[ERROR] WEBAPP_BUCKET variable not set" ; exit 1)
 	@echo "[INFO] copying web site files"
 	aws s3 sync \
 		--exclude Makefile \
-		--exclude lex-web-ui-mobile-hub.zip \
 		--exclude custom-chatbot-style.css \
 		"$(DIST_DIR)" s3://$(WEBAPP_BUCKET)
 	@echo "[INFO] Restoring existing custom css file"
@@ -150,11 +146,5 @@ sync-website: create-iframe-snippet
 		--metadata-directive REPLACE --cache-control max-age=0 \
 		--include 'lex-web-ui-loader-config.json' \
 		"$(CONFIG_DIR)" s3://$(WEBAPP_BUCKET)
-	@[ "$(BUILD_TYPE)" = 'dist' ] && \
-		echo "[INFO] copying aws-config.js" ;\
-		aws s3 sync  \
-			--exclude '*' \
-			--include 'aws-config.js' \
-			"$(CONFIG_DIR)" s3://$(WEBAPP_BUCKET)
 	@echo "[INFO] all done deploying"
 .PHONY: sync-website
