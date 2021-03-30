@@ -1,5 +1,5 @@
 /*
- Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -44,7 +44,8 @@ if (!envShortName) {
 }
 
 // eslint-disable-next-line import/no-dynamic-require
-const configEnvFile = require(`./config.${envShortName}.json`);
+const configEnvFile = (process.env.BUILD_TARGET === 'lib') ?
+  {} : require(`./config.${envShortName}.json`);
 
 // default config used to provide a base structure for
 // environment and dynamic configs
