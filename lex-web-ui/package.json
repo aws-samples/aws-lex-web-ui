@@ -13,8 +13,8 @@
     "build": "vue-cli-service build",
     "build:dev": "vue-cli-service build --mode development",
     "build-dist": "npm run build:lib-dev && npm run build:lib-prod",
-    "build:lib-dev": "BUILD_TARGET=lib vue-cli-service build --no-clean --mode development src/lex-web-ui.js",
-    "build:lib-prod": "BUILD_TARGET=lib vue-cli-service build --no-clean ---mode production src/lex-web-ui.js",
+    "build:lib-dev": "BUILD_TARGET=lib vue-cli-service build --skip-plugins @vue/cli-plugin-eslint ---no-clean --mode development src/lex-web-ui.js",
+    "build:lib-prod": "BUILD_TARGET=lib vue-cli-service build --skip-plugins @vue/cli-plugin-eslint --no-clean ---mode production src/lex-web-ui.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
