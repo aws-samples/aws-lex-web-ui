@@ -277,6 +277,19 @@ Resources:
                                     callbackURLs.insert(0,'%s?loggedin=yes' % fullUrl.lower())
                                     logoutURLs.insert(0,'%s?loggedout=yes' % fullUrl.lower())                                
                         client = boto3.client('cognito-idp')
+                        currentClientConfig = client.describe_user_pool_client(
+                                            UserPoolId='${CognitoUserPool}',
+                                            ClientId='${CognitoUserPoolClient}'
+                                        )
+                        print(json.dumps(currentClientConfig))
+                        supportedIDProviders = currentClientConfig.get('UserPoolClient').get('SupportedIdentityProviders')
+                        updatedSupportedIDProviders = list()
+                        updatedSupportedIDProviders.append('COGNITO')
+                        for Item in supportedIDProviders:
+                            if Item != 'COGNITO':
+                                updatedSupportedIDProviders.append(Item)
+                        supportedIDProviders = updatedSupportedIDProviders
+                        print(supportedIDProviders)
                         response = client.update_user_pool_client(
                             UserPoolId='${CognitoUserPool}',
                             ClientId='${CognitoUserPoolClient}',
@@ -284,9 +297,7 @@ Resources:
                             RefreshTokenValidity=365,
                             CallbackURLs=callbackURLs,
                             LogoutURLs=logoutURLs,
-                            SupportedIdentityProviders=[
-                                    'COGNITO',
-                            ],
+                            SupportedIdentityProviders=supportedIDProviders,
                             AllowedOAuthFlows=[
                                 'code',
                             ],
