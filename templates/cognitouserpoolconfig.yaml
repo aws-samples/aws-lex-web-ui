@@ -31,6 +31,11 @@ Parameters:
         Type: String
         Description: Cognito UserPool Client Id
 
+    Timestamp:
+        Type: Number
+        Description: >
+            This is a required parameter.
+
 Resources:
 
     CognitoUserPoolDomain:
@@ -216,6 +221,7 @@ Resources:
             CodeBuildProjectName: !Ref CodeBuildProjectName
             CognitoUserPool: !Ref CognitoUserPool
             CognitoUserPoolClient: !Ref CognitoUserPoolClient
+            Timestamp: !Ref Timestamp
 
     CognitoUserPoolUpdatesFunction:
         Type: AWS::Lambda::Function
@@ -224,6 +230,9 @@ Resources:
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
             Runtime: python3.8
             Timeout: 300
+            Environment:
+                Variables:
+                    TIMESTAMP: !Ref Timestamp
             TracingConfig:
                 Mode: Active
             Code:
@@ -281,14 +290,11 @@ Resources:
                                             UserPoolId='${CognitoUserPool}',
                                             ClientId='${CognitoUserPoolClient}'
                                         )
-                        print(json.dumps(currentClientConfig))
                         supportedIDProviders = currentClientConfig.get('UserPoolClient').get('SupportedIdentityProviders')
-                        updatedSupportedIDProviders = list()
-                        updatedSupportedIDProviders.append('COGNITO')
-                        for Item in supportedIDProviders:
-                            if Item != 'COGNITO':
-                                updatedSupportedIDProviders.append(Item)
-                        supportedIDProviders = updatedSupportedIDProviders
+                        if not supportedIDProviders:
+                            supportedIDProviders = list()
+                        if len(supportedIDProviders) == 0:
+                            supportedIDProviders.append('COGNITO')
                         print(supportedIDProviders)
                         response = client.update_user_pool_client(
                             UserPoolId='${CognitoUserPool}',

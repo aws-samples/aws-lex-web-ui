@@ -23,7 +23,7 @@ export const dependenciesFullPage = {
     {
       name: 'AWS',
       url: 'https://sdk.amazonaws.com/js/aws-sdk-2.875.0.js',
-      canUseMin: false,
+      canUseMin: true,
     },
     {
       name: 'Vue',
@@ -72,7 +72,7 @@ export const dependenciesIframe = {
   script: [
     {
       name: 'AWS',
-      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.874.0.js',
+      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.875.0.js',
       canUseMin: true,
     },
   ],

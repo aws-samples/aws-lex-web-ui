@@ -10,7 +10,7 @@
     "serve": "vue-cli-service serve",
     "dev": "vue-cli-service serve",
     "start": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --skip-plugins @vue/cli-plugin-eslint",
     "build:dev": "vue-cli-service build --mode development",
     "build-dist": "npm run build:lib-dev && npm run build:lib-prod",
     "build:lib-dev": "BUILD_TARGET=lib vue-cli-service build --skip-plugins @vue/cli-plugin-eslint ---no-clean --mode development src/lex-web-ui.js",
@@ -18,7 +18,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "aws-sdk": "^2.874.0",
+    "aws-sdk": "^2.875.0",
     "core-js": "^3.6.5",
     "jsonwebtoken": "^8.5.1",
     "marked": "^2.0.1",
