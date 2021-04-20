@@ -85460,6 +85460,18 @@ var recorder;
                 }
 
                 alts.markdown = mes.value ? mes.value : mes.content;
+              } // Note that Lex V1 only supported a single responseCard. V2 supports multiple response cards.
+              // This code still supports the V1 mechanism. The code below will check for
+              // the existence of a single V1 responseCard added to sessionAttributes.appContext by bots
+              // such as QnABot. This single responseCard will be appended to the last message displayed
+              // in the array of messages presented.
+
+
+              var responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
+
+              if (responseCardObject === undefined) {
+                // prefer appContext over lex.responseCard
+                responseCardObject = context.state.lex.responseCard;
               }
 
               if (mes.value && mes.value.length > 0 || mes.content && mes.content.length > 0) {
@@ -85468,7 +85480,7 @@ var recorder;
                   type: 'bot',
                   dialogState: context.state.lex.dialogState,
                   responseCard: tmsg.messages.length - 1 === index // attach response card only
-                  ? context.state.lex.responseCard : undefined,
+                  ? responseCardObject : undefined,
                   // for last response message
                   alts: alts
                 });
