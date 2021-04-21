@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.18.0] - 2021-04-21
+- Move from webpack V3 to webpack V4 in the lex-web-ui component.
+- Move to npm version 7.10.0.
+- Update component package versions.
+- Resolve dependabot alerts.
+- Fix to resolve update problem where Cognito Supported Identity Providers is reset to just Cognito. An update
+  will now preserve the existing Supported Identity Providers.
+- Set AWS sdk to version 2.875.0.
+- Improve Lex V2 support to handle responseCard defined as a session attribute in sessionAttributes.appContext.responseCard.
+- Removed support for AWS mobilehub based distribution.
 ## [0.17.9] - 2021-03-03
 - Support Lex Version 2 Bots
 - Parameter to support initial utterance to send to the bot

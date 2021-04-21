@@ -18,6 +18,17 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### Fixes/changes in version 0.18.0
+- Move from webpack V3 to webpack V4 in the lex-web-ui component.
+- Move to npm version 7.10.0.  
+- Update component package versions.
+- Resolve dependabot alerts.
+- Fix to resolve update problem where Cognito Supported Identity Providers is reset to just Cognito. An update 
+  will now preserve the existing Supported Identity Providers.
+- Set AWS sdk to version 2.875.0.
+- Improve Lex V2 support to handle responseCard defined as a session attribute in sessionAttributes.appContext.responseCard.
+- Removed support for AWS Mobile Hub based distribution.
+
 #### Fixes/changes in version 0.17.9
 - New support for Lex Version 2 Bots - added template parameters for V2 Bot Id, Bot Alias Id,
   and Locale Id. When a V1 Bot name is provided, the template will configure resources to use
