@@ -1,5 +1,5 @@
 /*
- Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -12,16 +12,17 @@
  */
 
 import Vue from 'vue';
-import Router from 'vue-router';
+import VueRouter from 'vue-router';
+import LexWeb from '@/components/LexWeb';
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
-export default new Router({
+export default new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'LexWebUi',
-      component: { template: '<lex-web-ui></lex-web-ui>' },
+      name: 'LexWeb',
+      component: LexWeb,
     },
   ],
 });

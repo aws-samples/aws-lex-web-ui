@@ -1,4 +1,4 @@
-all: copy-bundle build-loader lex-web-ui-mobile-hub.zip
+all: copy-bundle build-loader
 .PHONY: all
 
 # build the application bundle
@@ -21,7 +21,7 @@ $(LIBRARY_FILES): $(LIBRARY_SRC_FILES)
 
 copy-bundle: $(LIBRARY_SRC_FILES) $(LIBRARY_FILES)
 
-# copy webiste bot loader files from source to dist dir
+# copy website bot loader files from source to dist dir
 SRC_DIR := ../src
 LOADER_SRC_DIR := $(SRC_DIR)/lex-web-ui-loader
 LOADER_SRC_JS_FILES := \
@@ -49,17 +49,6 @@ $(LOADER_TARGET_DEV_FILES): $(LOADER_SRC_FILES)
 build-loader-dev: $(LOADER_TARGET_DEV_FILES)
 
 build-loader: build-loader-dev build-loader-prod
-
-# create mobile hub zip file
-SRC_CONFIG_DIR := $(SRC_DIR)/config
-SRC_WEBSITE_DIR := $(SRC_DIR)/website
-MH_ZIP_FILES := $(LOADER_TARGET_DEV_FILES)
-MH_ZIP_FILES += $(wildcard $(SRC_WEBSITE_DIR)/*.html)
-MH_ZIP_FILES += $(SRC_CONFIG_DIR)/lex-web-ui-loader-config.json
-MH_ZIP_FILES += $(SRC_CONFIG_DIR)/mobile-hub-project.yml
-lex-web-ui-mobile-hub.zip: $(MH_ZIP_FILES) $(LIBRARY_FILES)
-	@echo "[INFO] Building Mobile Hub project [$(@)] with files: [$(^)]"
-	@zip -u -j lex-web-ui-mobile-hub.zip $(^)
 
 clean:
 	-rm -f ./*.{css,js,json,html,map,yml,zip}

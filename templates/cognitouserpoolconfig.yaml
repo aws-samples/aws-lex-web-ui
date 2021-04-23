@@ -31,6 +31,11 @@ Parameters:
         Type: String
         Description: Cognito UserPool Client Id
 
+    Timestamp:
+        Type: Number
+        Description: >
+            This is a required parameter.
+
 Resources:
 
     CognitoUserPoolDomain:
@@ -216,6 +221,7 @@ Resources:
             CodeBuildProjectName: !Ref CodeBuildProjectName
             CognitoUserPool: !Ref CognitoUserPool
             CognitoUserPoolClient: !Ref CognitoUserPoolClient
+            Timestamp: !Ref Timestamp
 
     CognitoUserPoolUpdatesFunction:
         Type: AWS::Lambda::Function
@@ -224,6 +230,9 @@ Resources:
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
             Runtime: python3.8
             Timeout: 300
+            Environment:
+                Variables:
+                    TIMESTAMP: !Ref Timestamp
             TracingConfig:
                 Mode: Active
             Code:
@@ -277,6 +286,16 @@ Resources:
                                     callbackURLs.insert(0,'%s?loggedin=yes' % fullUrl.lower())
                                     logoutURLs.insert(0,'%s?loggedout=yes' % fullUrl.lower())                                
                         client = boto3.client('cognito-idp')
+                        currentClientConfig = client.describe_user_pool_client(
+                                            UserPoolId='${CognitoUserPool}',
+                                            ClientId='${CognitoUserPoolClient}'
+                                        )
+                        supportedIDProviders = currentClientConfig.get('UserPoolClient').get('SupportedIdentityProviders')
+                        if not supportedIDProviders:
+                            supportedIDProviders = list()
+                        if len(supportedIDProviders) == 0:
+                            supportedIDProviders.append('COGNITO')
+                        print(supportedIDProviders)
                         response = client.update_user_pool_client(
                             UserPoolId='${CognitoUserPool}',
                             ClientId='${CognitoUserPoolClient}',
@@ -284,9 +303,7 @@ Resources:
                             RefreshTokenValidity=365,
                             CallbackURLs=callbackURLs,
                             LogoutURLs=logoutURLs,
-                            SupportedIdentityProviders=[
-                                    'COGNITO',
-                            ],
+                            SupportedIdentityProviders=supportedIDProviders,
                             AllowedOAuthFlows=[
                                 'code',
                             ],

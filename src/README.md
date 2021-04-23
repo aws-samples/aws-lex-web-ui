@@ -27,13 +27,12 @@ Pool needs to have the right permissions to access the Lex bot (See the
 [Credential Management](/lex-web-ui/README.md#credential-management)
 section of the chatbot UI component README).
 
-**NOTE:** If you deployed the sample website using CloudFormation or
-Mobile Hub as described in the [Deploying](/README.md#deploying) section
-of the main README, you can put the Cognito Identity Pool Id and Lex Bot
-name created by CloudFormation in the local config. If you already have
-a Lex bot and you just want to create a Cognito Identity Pool suitable
-for testing, you can use the [cognito.yaml](/templates/cognito.yaml)
-CloudFormation template.
+**NOTE:** If you deployed the sample website using CloudFormation as described
+in the [Deploying](/README.md#deploying) section of the main README, you can
+put the Cognito Identity Pool Id and Lex Bot name created by CloudFormation in
+the local config. If you already have a Lex bot and you just want to create a
+Cognito Identity Pool suitable for testing, you can use the
+[cognito.yaml](/templates/cognito.yaml) CloudFormation template.
 
 ## Minimum Configuration
 The samples pages can obtain its configuration from the file
@@ -221,9 +220,6 @@ var options = {
   // controls whether the config should be downloaded from `configUrl`
   shouldLoadConfigFromJsonFile: true,
 
-  // controls whether the config should be downloaded from Mobile Hub aws-config.js
-  shouldLoadConfigFromMobileHubFile: true,
-
   // Controls if it should load minimized production dependecies
   // defaults to true for production builds and false in development
   shouldLoadMinDeps: false,
@@ -262,8 +258,7 @@ sources in order of precedence (lower overrides higher):
 
 1. [Load Function Parameter](#load-function-parameter)
 2. [Event Based Config](#event-based-config)
-3. [Mobile Hub Config script](#mobile-hub-config-script)
-4. [JSON File Config](#json-file-config)
+3. [JSON File Config](#json-file-config)
 
 See the sections below for a description of each.
 
@@ -316,26 +311,6 @@ function onReceiveLexConfig() {
   document.dispatchEvent(event);
 }
 ```
-
-#### Mobile Hub Config Script
-The loader can obtain the Cognito Identity Pool
-id and Lex bot name from config variables set
-by the Mobile Hub `aws-config.js` script. See [Hosting and
-Streaming](https://docs.aws.amazon.com/aws-mobile/latest/developerguide/hosting-and-streaming.html)
-for a description of Mobile Hub project configuration files. When using
-Mobile Hub, the `aws-config.js` file is dynamically created and managed
-for you by the service.
-
-By default, the loader library automatically includes the
-`aws-config.js` script file if present in the same directory
-as the loader JavaScript file. This behavior can be disabled by
-setting the `shouldLoadConfigFromMobileHubFile` [loader constructor
-option](#loader-constructor-options) to `false`. The loader references
-the Mobile Hub `aws_bots_config` and `aws_cognito_identity_pool_id`
-variables made global by `aws-config.js`. The values of these variables
-are merged with the chatbot UI component config. See a sample of the
-Mobile Hub config script: [aws-config-.js](config/aws-config.js).
-
 
 #### JSON File Config
 The configuration object can be sourced from a JSON file. By default,
@@ -409,7 +384,7 @@ Here is an HTML snippet showing how to render the chatbot UI as a full page:
     var lexWebUiLoader = new ChatBotUiLoader.FullPageLoader();
 
     // An instance of FullPageLoader, by default, loads the chatbot UI
-    // config from ./chatbot-ui-loader-config.json and/or ./aws-config.js
+    // config from ./chatbot-ui-loader-config.json
     // These config files point to the Lex bot, Cognito Pool and other
     // chatbot UI configurable features.
     // If those config files are present whith the appropriate configuration,
@@ -428,7 +403,6 @@ and configuration to the chatbot UI component:
     // dependencies. It can be optionally passed as an argument to the
     // FullPageLoader constructor to override the defaults
     var loaderOptions = {
-      shouldLoadConfigFromMobileHubFile: false,
       configUrl: './chatbot-ui-loader-config-2.json'
     };
 
@@ -454,7 +428,7 @@ and configuration to the chatbot UI component:
     };
     // You can pass the config as a parameter.
     // The loader can also get its config dynamically
-    // from a JSON file or from the Mobile Hub config script
+    // from a JSON file
     lexWebUiLoader.load(chatbotUiConfig)
       // returns a promise that is resolved once the chatbot UI is loaded
       .then(function () {
@@ -466,28 +440,28 @@ and configuration to the chatbot UI component:
    </script>
 ```
 ## Full Page API - Preview
-Several requests were made to enable an API when using the Full Page mode 
-to directly utilize the VUE component. There are two approaches to satisfying 
-this need. The first would be to access the component using the Vue Global 
-registration of the component. The methods and properties available for 
-the component then become available to the client including the LexClient. 
+Several requests were made to enable an API when using the Full Page mode
+to directly utilize the VUE component. There are two approaches to satisfying
+this need. The first would be to access the component using the Vue Global
+registration of the component. The methods and properties available for
+the component then become available to the client including the LexClient.
 The VueComponent would be directly accessed to post a text message to Lex.
-If not using VUE this approach becomes more difficult.  
+If not using VUE this approach becomes more difficult.
 
-The second approach as an alternative is to use a new API available in 
-preview mode. This API is available from the FullPageComponentLoader 
-(fullpage-component-loader.js). 
+The second approach as an alternative is to use a new API available in
+preview mode. This API is available from the FullPageComponentLoader
+(fullpage-component-loader.js).
 
 The API supports two operations
 
 * ping()
 * postText(message)
 
-Differing from the Iframe API, both operations complete asynchronously returning 
-immediately. Ping will be responded to by the VUE component with a "pong" message. 
+Differing from the Iframe API, both operations complete asynchronously returning
+immediately. Ping will be responded to by the VUE component with a "pong" message.
 
-postText(message) will invoke the Lex API and call postText against Lex. No return or 
-confirmation is supplied. 
+postText(message) will invoke the Lex API and call postText against Lex. No return or
+confirmation is supplied.
 
 ```aidl
   var Loader = ChatBotUiLoader.FullPageLoader;
@@ -502,20 +476,20 @@ confirmation is supplied.
       }
   };
   loader.load(chatbotUiConfig);
-  
-  ...
-  ...
-  ...
-    
-  **loader.compLoader.ping();**
-  
-  **loader.compLoader.postText("Hello");**
-  
-```
-The use of loader.compLoader.ping() or loader.compLoader.postText("message") are 
-examples of invoking the API. 
 
-Please provide feedback on the use of this API. 
+  ...
+  ...
+  ...
+
+  **loader.compLoader.ping();**
+
+  **loader.compLoader.postText("Hello");**
+
+```
+The use of loader.compLoader.ping() or loader.compLoader.postText("message") are
+examples of invoking the API.
+
+Please provide feedback on the use of this API.
 
 # Iframe Embedding
 The loader library can add the chatbot UI component to an existing page

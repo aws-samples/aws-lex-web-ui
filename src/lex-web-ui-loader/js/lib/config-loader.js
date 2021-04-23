@@ -1,5 +1,5 @@
 /*
- Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -23,8 +23,7 @@ import { options as defaultOptions } from '../defaults/loader';
  * (lower overrides higher):
  *   1. parameter passed to load()
  *   2. Event (loadlexconfig)
- *   3. Mobile HUB
- *   4. JSON file
+ *   3. JSON file
  *   TODO implement passing config in url param
  */
 
@@ -54,20 +53,14 @@ export class ConfigLoader {
         }
         return Promise.resolve({});
       })
-      // mobile hub
-      .then(mergedConfigFromJson => (
-        (this.options.shouldLoadConfigFromMobileHubFile) ?
-          ConfigLoader.mergeMobileHubConfig(mergedConfigFromJson) :
-          Promise.resolve(mergedConfigFromJson)
-      ))
       // event
-      .then(mergedConfigFromMobileHub => (
+      .then(mergedConfigFromJson => (
         (this.options.shouldLoadConfigFromEvent) ?
           ConfigLoader.loadConfigFromEvent(
-            mergedConfigFromMobileHub,
+            mergedConfigFromJson,
             this.options.configEventTimeoutInMs,
           ) :
-          Promise.resolve(mergedConfigFromMobileHub)
+          Promise.resolve(mergedConfigFromJson)
       ))
       // filter config when running embedded
       .then(mergedConfigFromEvent => (
@@ -105,51 +98,6 @@ export class ConfigLoader {
         return resolve(xhr.response);
       };
       xhr.send();
-    });
-  }
-
-  /**
-   * Merges config with Mobile Hub variables
-   *
-   * Grabs the Cognito Pool Id and Bot name from the
-   * aws_cognito_identity_pool_id and aws_bots_config global variables.
-   * These variables are normally set by the 'aws-config.js' script.
-   *
-   * Returns a promise that resolves to the merge between the
-   * Mobile Hub variables and the config parameter
-   */
-  static mergeMobileHubConfig(config) {
-    // these values come from the AWS Mobile Hub generated aws-config.js
-    // eslint-disable-next-line camelcase
-    if (!aws_cognito_identity_pool_id || !aws_bots_config) {
-      return Promise.resolve(config);
-    }
-
-    return new Promise((resolve, reject) => {
-      let botName = '';
-      let botRegion = '';
-
-      try {
-        const botsConfig = JSON.parse(aws_bots_config);
-        botName = botsConfig[0].name;
-        botRegion = botsConfig[0].region;
-      } catch (err) {
-        return reject(new Error('failed to parse mobile hub aws_bots_config'));
-      }
-
-      const mobileHubConfig = {
-        cognito: {
-          poolId: aws_cognito_identity_pool_id,
-          // eslint-disable-next-line camelcase
-          region: aws_cognito_region || 'us-east-1',
-        },
-        lex: { botName },
-        region: botRegion || 'us-east-1',
-      };
-
-      const mergedConfig = ConfigLoader.mergeConfig(config, mobileHubConfig);
-
-      return resolve(mergedConfig);
     });
   }
 

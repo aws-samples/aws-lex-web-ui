@@ -18,29 +18,40 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### Fixes/changes in version 0.18.0
+- Move from webpack V3 to webpack V4 in the lex-web-ui component.
+- Move to npm version 7.10.0.  
+- Update component package versions.
+- Resolve dependabot alerts.
+- Fix to resolve update problem where Cognito Supported Identity Providers is reset to just Cognito. An update 
+  will now preserve the existing Supported Identity Providers.
+- Set AWS sdk to version 2.875.0.
+- Improve Lex V2 support to handle responseCard defined as a session attribute in sessionAttributes.appContext.responseCard.
+- Removed support for AWS Mobile Hub based distribution.
+
 #### Fixes/changes in version 0.17.9
 - New support for Lex Version 2 Bots - added template parameters for V2 Bot Id, Bot Alias Id,
   and Locale Id. When a V1 Bot name is provided, the template will configure resources to use
-  the V1 bot. When the V1 Bot name is left empty and the V2 Bot parameters are specified, the template 
+  the V1 bot. When the V1 Bot name is left empty and the V2 Bot parameters are specified, the template
   will configure resources to use the V2 Bot. V1 Bot parameters take precedence over V2 Bot parameters if both
   are supplied.
 - The Lex Web Ui can now be configured to send an initial utterance to the bot to get an intent started. A
   new template parameter named WebAppConfBotInitialUtterance is available. If left empty, no initial utterance is
   sent to the Bot which is the default behavior.
-- Changed format of the date message displayed on a message to use "n min ago" to assist with accessibility when 
-  displaying this value. 
+- Changed format of the date message displayed on a message to use "n min ago" to assist with accessibility when
+  displaying this value.
 - Changed behavior of ShouldLoadIframeMinimized setting. In prior releases, the last known state of the iframe took priority
   over this setting. In this release, when ShouldLoadIframeMinimized is set to true and the parent page is
-  loaded or refreshed, the Bot iframe will always appear minimized. If this parameter is set to false, the last known state 
-  of the Bot is used to either show the iframe or minimize the iframe. 
+  loaded or refreshed, the Bot iframe will always appear minimized. If this parameter is set to false, the last known state
+  of the Bot is used to either show the iframe or minimize the iframe.
 - Changed loginutils.js to prevent the parent page or the full page from looping if login fails through cognito.
-  With this change, up to 5 attempts will be performed before failing with an alert message presented to the user. 
+  With this change, up to 5 attempts will be performed before failing with an alert message presented to the user.
 - Support mixed case web ParentOrigin URLs and WebAppPath in Cognito user pool to prevent login failures due to case mismatch.
-- Support multiple values for WebAppPath. This allows the LexWebUI with login enabled to be deployed on multiple pages 
+- Support multiple values for WebAppPath. This allows the LexWebUI with login enabled to be deployed on multiple pages
   on the same site (origin).
 - Update the Cognito Callback and Signout URLs in the Cognito UserPool when ParentPageOrigin and WebAppPath parameters
-  are updated in CloudFormation. 
-  
+  are updated in CloudFormation.
+
 #### Fixes in version 0.17.8
 - Fix for pipeline based deployments - issue 264 - template error
 - Fix to full page web client (index.html) using forceLogin to require a redirect to login page
@@ -53,7 +64,7 @@ UI using JavaScript
 - Move min button icon to the left of text
 
 #### Fixes in version 0.17.6
-- Additional fixes to support upgrades. Upgrades from 0.17.1 and above are supported. 
+- Additional fixes to support upgrades. Upgrades from 0.17.1 and above are supported.
   Older versions will need to perform a fresh install to migrate to this version.
 
 #### Fixes in version 0.17.5
@@ -61,21 +72,21 @@ UI using JavaScript
 - Fix to improve resizing of lex-web-ui button at bottom of page when text is used in addition to icon
 
 #### Features in version 0.17.4
-- Improved upgrade support. 
-  * The CloudFormation upgrade stack operation from the AWS Console should now be used to 
+- Improved upgrade support.
+  * The CloudFormation upgrade stack operation from the AWS Console should now be used to
     change configuration using the available parameters. After the upgrade is complete, the
-    lex-web-ui-loader-config.json file deployed to the web app S3 bucket will be updated 
-    with the values specified in the template. Prior versions of the config file are archived 
+    lex-web-ui-loader-config.json file deployed to the web app S3 bucket will be updated
+    with the values specified in the template. Prior versions of the config file are archived
     using a date timestamp in the S3 bucket should you need to refer to prior configuration values.
-  * Users can now upgrade to new versions of Lex-Web-Ui using the AWS CloudFormation console 
+  * Users can now upgrade to new versions of Lex-Web-Ui using the AWS CloudFormation console
     by replacing the template and specifying the S3 template location from the original regional
     S3 bucket. As new releases of Lex-Web-Ui are published to the distribution repositories, you
     can now upgrade to this version using the CloudFormation Upgrade/replace template process.
-  * After an upgrade, the CloudFront distribution cache will need to be invalidated for the changes to be seen 
-    immediately. 
+  * After an upgrade, the CloudFront distribution cache will need to be invalidated for the changes to be seen
+    immediately.
   * Regional upgrade distribution locations
     - us-east-1:  https://aws-bigdata-blog.s3.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
-    - us-west-2:  https://aws-bigdata-blog-replica-us-west-2.s3-ap-northeast-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - us-west-2:  https://aws-bigdata-blog-replica-us-west-2.s3-us-west-2.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
     - ap-northeast-1: https://aws-bigdata-blog-replica-ap-northeast-1.s3-ap-northeast-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
     - ap-southeast-1a: https://aws-bigdata-blog-replica-ap-southeast-1a.s3-ap-southeast-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
     - ap-southeast-2: https://aws-bigdata-blog-replica-ap-southeast-2.s3-ap-southeast-2.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
@@ -85,18 +96,18 @@ UI using JavaScript
 - Chat history can now be preserved and redisplayed when the user comes back to the original parent page
   hosting the Lex-Web-Ui. This features is controlled using the SaveHistory template parameter. When
   this feature is enabled, a new menu is visible in the user interface that allows the user to
-  clear chat history. The following are the methods you can enable this feature. Note that you can 
-  toggle this feature on and off using the upgrade process. 
+  clear chat history. The following are the methods you can enable this feature. Note that you can
+  toggle this feature on and off using the upgrade process.
   * During a new deployment, specify true for the Save History parameter
-  * Using the new upgrade feature, specify true for Save History parameter in the CloudFormation 
+  * Using the new upgrade feature, specify true for Save History parameter in the CloudFormation
   console.
-- Lambda function upgrade to Python 3.7.   
+- Lambda function upgrade to Python 3.7.
 
 #### Fixes in version 0.17.3
 - Added loader config option (forceLogin) to templates which configures UI to require the user to authenticate through Cognito prior to using the bot.
-- Added loader config option (minButtonContent) which allows text to be added to the button which appears on the parent page when the iframe is minimized. 
+- Added loader config option (minButtonContent) which allows text to be added to the button which appears on the parent page when the iframe is minimized.
 - Added XRay support to Lambda functions.
-- Added VPC actions to Lambda IAM Roles to support future deployment of Lambdas in VPC. 
+- Added VPC actions to Lambda IAM Roles to support future deployment of Lambdas in VPC.
 - Encrypted S3 buckets using AES-256 default KMS key
 - Prebuilt deployments now available for Singapore, Tokyo, London, and Frankfurt regions
 
@@ -104,35 +115,35 @@ UI using JavaScript
 - Added option to hide message bubble on button click
 - Resolved current github dependabot security issues
 - Use default encryption for all S3 buckets using AES-256 encryption
-- Added instructions in readme for adding additional vue components 
+- Added instructions in readme for adding additional vue components
 
 #### Fixes in version 0.17.1
 - Create uniquely named Cognito UserPool on stack creation
-- Removed display of Back button in title bar and instead provide a replay button using the text from prior 
-message directly in the message bubble. Back button can be re-enabled though configuration json if desired. 
+- Removed display of Back button in title bar and instead provide a replay button using the text from prior
+message directly in the message bubble. Back button can be re-enabled though configuration json if desired.
 - Enhanced css attributes of the minimized chatbot button to help allow clicking on items in the parent
-window as well as selecting text next the button. 
+window as well as selecting text next the button.
 
 #### New Features in version 0.17.0
-- Improved screen reader / accessibility features 
+- Improved screen reader / accessibility features
 - Added CloudFormation stack outputs for CloudFront and S3 bucket
 - Use response card defined in session attribute "appContext" over that defined by Lex based response Card
 - lex web ui now supports greater than 5 buttons when response card is defined in session attributes "appcontext"
-- Updated dependent packages in package-lock.json identified by Dependabot security alerts 
+- Updated dependent packages in package-lock.json identified by Dependabot security alerts
 - Resolved additional CloudFront CORS issues
 - See [CHANGELOG](CHANGELOG.md) for additional details
 
 #### New Features in version 0.16.0
-- Lex-web-ui now ships with cloudfront as the default distribution method 
-  * better load times 
+- Lex-web-ui now ships with cloudfront as the default distribution method
+  * better load times
   * non public access to S3 bucket
   * better future integration to cloudfront features such as WAF and Lambda@Edge
 - Updated package.json dependencies
 
 #### New Features in version 0.15.0
-- Moved to Webpack 4 
+- Moved to Webpack 4
 - Changed default parameter ShowResponseCardTitle to be false - was default of true
-- Added back default parameter BotAlias of '$LATEST'. The '$LATEST' 
+- Added back default parameter BotAlias of '$LATEST'. The '$LATEST'
 alias should only be used for manual testing. Amazon Lex limits
 the number of runtime requests that you can make to the $LATEST version of the bot.
 
@@ -167,7 +178,7 @@ you will get a fully working demo site hosted in your account.
 
 Click a button to launch it in the desired region
 
-| Region   |  Launch | 
+| Region   |  Launch |
 |----------|:-------------:|
 | Northern Virginia | <a target="_blank" href="https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a>     |
 | Oregon | <a target="_blank" href="https://us-west-2.console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog-replica-us-west-2/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog-replica-us-west-2"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a> |
@@ -200,8 +211,7 @@ of the various methods:
 | # | Method | Description | Use Case |
 | --- | --- | --- | --- |
 | 1 | [CloudFormation Deployment](#cloudformation-deployment) using the CloudFormation [templates](templates) provided by this project | Fully automated deployment of a hosted web application to an S3 bucket with an optional CI/CD pipeline. By default, it also creates a Cognito Identity Pool and a sample Lex bot | Use when you want to have a infrastructure as code approach that automatically builds and configures the chatbot UI resources |
-| 2 | [Mobile Hub Deployment](#mobile-hub-deployment) using the import file: [lex-web-ui-mobile-hub.zip](dist/lex-web-ui-mobile-hub.zip) | Deploys a pre-built version of the chatbot UI to S3 and CloudFront. It creates the Cognito Identity Pool and a sample Lex bot. You can use the Mobile Hub Console to manage it or make changes (e.g. linking to another bot) | Use when you want an easy deployment using the AWS Console or for quick manual testing |
-| 3 | Use the pre-built [libraries](#libraries) from the [dist](dist) directory of this repo | We provide a pre-built version of the chatbot UI component and a loader library that you can use on your web site as a [stand alone page](#stand-alone-page) or as an embeddable [iframe](#iframe) | Use when you have an existing site and want to add the chatbot UI to it by simply copying or referencing the library files |
+| 2 | Use the pre-built [libraries](#libraries) from the [dist](dist) directory of this repo | We provide a pre-built version of the chatbot UI component and a loader library that you can use on your web site as a [stand alone page](#stand-alone-page) or as an embeddable [iframe](#iframe) | Use when you have an existing site and want to add the chatbot UI to it by simply copying or referencing the library files |
 | 4 | Use npm to install and use the chatbot UI as a Vue component | Enables developers to consume this project as an [npm](https://www.npmjs.com/) package that provides a [Vue](https://vuejs.org/) component. See the [Npm Install and Vue Component Use](#npm-install-and-vue-component-use) section for details | Use when developing front-end based web applications built using JavaScript and bundled with tools such as [webpack](https://webpack.github.io) |
 
 See the [Usage](#usage) and [Deployment](#deployment) sections below for details.
@@ -250,9 +260,9 @@ to create credentials used to authenticate the Lex API calls from the
 browser. The configuration object is also used to customize its behavior
 and UI elements of the chatbot UI component.
 
-The CloudFormation and Mobile Hub deployment methods, from this project,
-help with building a base configuration file. When deploying with those
-methods, the base configuration is automatically pointed to the the
+The CloudFormation deployment method, from this project,
+help with building a base configuration file. When deploying with it,
+the base configuration is automatically pointed to the the
 resources created in the deployment (i.e. Lex and Cognito).
 
 You can override the configuration at run time by passing
@@ -289,7 +299,7 @@ entry point to this library is the `lex-web-ui-loader.js` script. This
 script facilitates the process of loading run-time dependencies and
 configuration.
 
-If you deploy using the CloudFormation or Mobile Hub methods, you will
+If you deploy using the CloudFormation method, you will
 get an S3 bucket with the loader library script and related files in a
 way that is ready to be used. Alternatively, you can copy the files from
 the `dist` directory of this repository to your web server and include the
@@ -317,11 +327,11 @@ In its most simple setup, you can use the loader library like this:
 
 #### Stand-Alone API through the Loader Library
 
-Similar to the iFrame loading technique described later, the 
+Similar to the iFrame loading technique described later, the
 FullPageComponentLoader now provides an API allowing a subset of
 events to be sent to the Lex Web UI Component. These events are
-ping and postText. See the [full page](src/README.md#full-page) for 
-description of this API. 
+ping and postText. See the [full page](src/README.md#full-page) for
+description of this API.
 
 #### Stand-Alone details
 
@@ -545,7 +555,7 @@ in a stand-alone page and the [parent.html](src/website/parent.html)
 which page loads the chatbot UI in an iframe.
 
 These pages are the same ones that are deployed by the CloudFormation
-and Mobile Hub deployment methods in this project. They use the
+deployment method in this project. It uses the
 `lex-web-ui-loader.js` loader library to display and configure the chatbot
 UI. You can run a development version of this sample site on your machine.
 
@@ -556,11 +566,10 @@ machine or a test server.
 
 The chatbot UI requires proper configuration values in the files located
 under the [src/config](src/config) directory. Modify the values in the
-`lex-web-ui-loader-config.json` and/or `aws-config.js` files under the
-`src/config` directory. If you deployed the demo site using Mobile
-Hub or CloudFormation methods provided by this project, you can copy
-the automatically generated config files from the S3 buckets to your
-development host.
+`lex-web-ui-loader-config.json` file under the `src/config` directory.
+If you deployed the demo site using the CloudFormation templates provided
+by this project, you can copy the automatically generated config files
+from the S3 buckets to your development host.
 
 As a minimum,you would need to pass an existing Cognito Pool Id
 and Lex Bot name. For example, set the appropriate values in the
@@ -602,18 +611,14 @@ For a more advanced local host development and test environment, see the
 documentation of the chatbot UI component.
 
 # Deploying
-This project provides deployment options using [AWS
-CloudFormation](https://aws.amazon.com/cloudformation/) or [AWS Mobile
-Hub](https://aws.amazon.com/mobile/).  Both deployment options can be
-used to launch a fully configured working demo site and related resources
-(e.g. Lex bot and Cognito Identity Pool).
+This project provides [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
+templates that can be used to launch a fully configured working demo site and
+related resources (e.g. Lex bot and Cognito Identity Pool).
 
 The CloudFormation deployment is the preferred method as it allows to
 automatically build, configure and deploy the application (including an
 optional CI/CD pipeline) and it provides a higher degree of flexibility
-when integrating with an existing environment. The Mobile Hub deployment
-allows to quickly create a demo site with minimal pre-deployment
-configuration requirements but may need manual post-deployment steps.
+when integrating with an existing environment.
 
 ## CloudFormation Deployment
 The CloudFormation stack creates a web app in an S3 bucket which you
@@ -622,28 +627,4 @@ JavaScript and CSS files which can be loaded by your existing web
 pages. The CloudFormation deployment is documented in the
 [README](templates/README.md) file under the [templates](templates)
 directory.
-
-## Mobile Hub Deployment
-The Mobile Hub deployment is done by importing
-the [lex-web-ui-mobile-hub.zip](dist/lex-web-ui-mobile-hub.zip) file
-using the Mobile Hub console. When this file is imported by Mobile Hub,
-it creates a project that hosts the chatbot UI web app in
-[S3](https://aws.amazon.com/s3/) and
-[CloudFront](https://aws.amazon.com/cloudfront/).
-It also automatically deploys and configures a sample Lex bot based on the
-[Order Flowers bot](http://docs.aws.amazon.com/lex/latest/dg/gs-bp-create-bot.html) (you can later change it to import a different bot into the project)
-and an [Amazon Cognito Identity Pool](http://docs.aws.amazon.com/cognito/latest/developerguide/identity-pools.html).
-
-To launch with Mobile Hub:
-1. Sign in to the [AWS Mobile Hub console](https://console.aws.amazon.com/mobilehub/)
-2. Click this button: <a target="_blank" href="https://console.aws.amazon.com/mobilehub/home?#/?config=https://github.com/awslabs/aws-lex-web-ui/blob/master/dist/lex-web-ui-mobile-hub.zip"><span><img height="24px" src="https://s3.amazonaws.com/deploytomh/button-deploy-aws-mh.png"/></span></a>
-3. Once the project is imported, you should be able to browse to the
-sample web app by choosing **Hosting and Streaming** in the Mobile
-Hub project and clicking the links under **Launch my web app**
-
-**NOTE:** If the Mobile Hub deployed site causes the browser to download
-the files instead of rendering it, you will have to re-sync the files
-to the S3 bucket using the S3 console or aws cli. See the
-[Add Mobile Hub Hosting and Streaming to Your Mobile App](https://docs.aws.amazon.com/mobile-hub/latest/developerguide/add-aws-mobile-hosting-and-streaming.html#add-aws-mobile-hosting-and-streaming-app)
-section of the Mobile Hub documentation for details.
 
