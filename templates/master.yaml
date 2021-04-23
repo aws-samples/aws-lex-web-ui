@@ -476,7 +476,7 @@ Resources:
                       - "UserMustSupply"
                 retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
                 retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
-                Timestamp: 1614915747
+                Timestamp: 1614900627
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
