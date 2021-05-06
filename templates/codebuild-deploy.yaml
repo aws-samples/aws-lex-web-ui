@@ -416,7 +416,7 @@ Resources:
                 Type: NO_ARTIFACTS
             Environment:
                 Type: LINUX_CONTAINER
-                Image: aws/codebuild/nodejs:10.14.1
+                Image: aws/codebuild/amazonlinux2-x86_64-standard:2.0
                 ComputeType: BUILD_GENERAL1_SMALL
                 EnvironmentVariables:
                     - Name: BUILD_TYPE
