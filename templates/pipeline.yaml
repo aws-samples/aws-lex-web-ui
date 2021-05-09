@@ -410,6 +410,7 @@ Resources:
                         post_build:
                             commands:
                                 - make sync-website
+                                - aws cloudfront create-invalidation --distribution-id "${LexWebUiDistribution}" --paths '/*'
 
     CodeBuildRole:
         Type: AWS::IAM::Role
@@ -425,6 +426,14 @@ Resources:
                       Action:
                           - sts:AssumeRole
             Policies:
+                - PolicyName: CloudFrontInvalidateDistribution
+                  PolicyDocument:
+                    Version: 2012-10-17
+                    Statement:
+                      - Effect: Allow
+                        Action:
+                          - cloudfront:CreateInvalidation
+                        Resource: "*"
                 - PolicyName: CloudWatchLogsCodeBuild
                   PolicyDocument:
                       Version: 2012-10-17

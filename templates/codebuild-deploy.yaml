@@ -503,6 +503,7 @@ Resources:
                         post_build:
                             commands:
                                 - make sync-website
+                                - aws cloudfront create-invalidation --distribution-id "${LexWebUiDistribution}" --paths '/*'
 
     # custom resource to start code build project
     # parameters apart from ProjectName are not used but are required to trigger codebuild on any param changes
@@ -567,6 +568,14 @@ Resources:
                       Action:
                           - sts:AssumeRole
             Policies:
+                - PolicyName: CloudFrontInvalidateDistribution
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                        - Effect: Allow
+                          Action:
+                            - cloudfront:CreateInvalidation
+                          Resource: "*"
                 - PolicyName: S3GetObject
                   PolicyDocument:
                       Version: 2012-10-17

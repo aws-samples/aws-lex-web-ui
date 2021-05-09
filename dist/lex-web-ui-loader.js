@@ -74673,7 +74673,7 @@ __webpack_require__.r(__webpack_exports__);
 var dependenciesFullPage = {
   script: [{
     name: 'AWS',
-    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.875.0.js',
+    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.903.0.js',
     canUseMin: true
   }, {
     name: 'Vue',
@@ -74711,7 +74711,7 @@ var dependenciesFullPage = {
 var dependenciesIframe = {
   script: [{
     name: 'AWS',
-    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.875.0.js',
+    url: 'https://sdk.amazonaws.com/js/aws-sdk-2.903.0.js',
     canUseMin: true
   }],
   css: [{
