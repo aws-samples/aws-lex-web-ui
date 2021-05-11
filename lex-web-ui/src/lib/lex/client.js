@@ -154,8 +154,11 @@ export default class {
       .then(async () => {
         const res = await postTextReq.promise();
         if (res.sessionState) { // this is v2 response
+          res.intentName = res.sessionState.intent.name;
+          res.slots = res.sessionState.intent.slots;
           res.sessionAttributes = res.sessionState.sessionAttributes;
           res.dialogState = res.sessionState.intent.state;
+          res.slotToElicit = res.sessionState.dialogAction.slotToElicit;
           const finalMessages = [];
           if (res.messages && res.messages.length > 0) {
             res.messages.forEach((mes) => {
@@ -230,9 +233,16 @@ export default class {
         const res = await postContentReq.promise();
         if (res.sessionState) {
           const oState = b64CompressedToObject(res.sessionState);
+          res.intentName = oState.intent.name;
+          res.slots = oState.intent.slots;
           res.sessionAttributes = oState.sessionAttributes ? oState.sessionAttributes : {};
           res.dialogState = oState.intent.state;
-          res.inputTranscript = b64CompressedToString(res.inputTranscript);
+          res.slotToElicit = oState.dialogAction.slotToElicit;
+          res.inputTranscript = res.inputTranscript
+            && b64CompressedToString(res.inputTranscript);
+          res.interpretations = res.interpretations
+            && b64CompressedToObject(res.interpretations);
+          res.sessionState = oState;
           const finalMessages = [];
           if (res.messages && res.messages.length > 0) {
             res.messages = b64CompressedToObject(res.messages);
