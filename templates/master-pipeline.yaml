@@ -366,8 +366,16 @@ Resources:
                 CustomResourceCodeBucket: !Ref BootstrapBucket
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.0.zip"
                 CleanupBuckets: !Ref CleanupBuckets
-                CognitoAppUserPoolClientId: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                CognitoUserPoolId: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+                CognitoAppUserPoolClientId: 
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+                      - ''
+                CognitoUserPoolId: 
+                    !If
+                      - NeedsCognito
+                      - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+                      - ''
                 WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
                 WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
                 WebAppConfHelp: !Ref WebAppConfHelp
