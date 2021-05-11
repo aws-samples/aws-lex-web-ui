@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Update aws sdk to current revision  
 - Change codebuild-deploy.yaml to use amazon linux image vs nodejs10 image.
 - Change codebuild-deploy.yaml and pipeline.yaml buildspec and codebuild role to invalidate cloudfront distribution after syncing s3 bucket
+- Fix Lex v2 client state mapping
+- Enhance postMessage to better filter messages between iframe and parent
+- Make CognitoAppUserPoolClientId and CognitoUserPoolId optional in master-pipeline.yaml
 ## [0.18.0] - 2021-04-21
 - Move from webpack V3 to webpack V4 in the lex-web-ui component.
 - Move to npm version 7.10.0.
