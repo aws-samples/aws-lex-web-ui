@@ -326,6 +326,13 @@ export class IframeComponentLoader {
         this.config.iframe.iframeOrigin :
         window.location.origin;
 
+    // ignore events not produced by the lex web ui
+    if('data' in evt
+      && 'source' in evt.data
+      && evt.data.source !== 'lex-web-ui'
+    ) {
+      return;
+    }
     // SECURITY: origin check
     if (evt.origin !== iframeOrigin) {
       console.warn('postMessage from invalid origin', evt.origin);

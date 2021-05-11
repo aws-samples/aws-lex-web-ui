@@ -907,7 +907,7 @@ export default {
         }
       }
       window.parent.postMessage(
-        message,
+        { source: 'lex-web-ui', ...message },
         target,
         [messageChannel.port2],
       );
