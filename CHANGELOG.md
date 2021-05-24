@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Update aws sdk to current revision  
 - Change codebuild-deploy.yaml to use amazon linux image vs nodejs10 image.
 - Change codebuild-deploy.yaml and pipeline.yaml buildspec and codebuild role to invalidate cloudfront distribution after syncing s3 bucket
-- Fix Lex v2 client state mapping
+- Fix Lex v2 client state mapping - specific for audio
 - Enhance postMessage to better filter messages between iframe and parent
 - Make CognitoAppUserPoolClientId and CognitoUserPoolId optional in master-pipeline.yaml
 ## [0.18.0] - 2021-04-21
