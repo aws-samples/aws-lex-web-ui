@@ -35,9 +35,9 @@ Parameters:
 
     LexV2BotLocaleId:
         Description: >
-            Specify your bot's locale id here. By default this is en_US. Other Lex V2 supported values are
-            en_AU, en_GB, es_419, es_ES, es_US, fr_CA, fr_FR, it_IT. A comma separated list of
-            values can be supplied with the first value in the list being the default value. The
+            Specify your bot's supported locale ids. By default this list contains only en_US. Other Lex V2
+            supported values are de_DE, en_AU, en_GB, es_419, es_ES, es_US, fr_CA, fr_FR, it_IT, ja_JP. A comma
+            separated list of values can be supplied with the first value in the list being the default value. The
             remaining items can be selected in the Lex Web Ui menu.
             See "https://docs.aws.amazon.com/lexv2/latest/dg/lex2.0.pdf"
             for details on supported languages and locales.

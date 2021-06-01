@@ -1,43 +1,57 @@
 {
+  "region": "us-east-1",
   "cognito": {
-    "poolId": "us-east-1:b1e19043-d194-422a-adb4-2c3d1a90dd1f"
+    "poolId": "us-east-1:6c4e2dc5-8bc4-49dc-a4c9-1cec167ce3e6",
+    "appUserPoolClientId": "9m3skarjt5b5mpsvthfa8d5e8",
+    "appUserPoolName": "us-east-1_ELiCPWyks",
+    "appDomainName": "lexktestkvdkidentitypoolconfigkqtrdhvlydmth867271886751.auth.us-east-1.amazoncognito.com",
+    "aws_cognito_region": "us-east-1",
+    "region": "us-east-1"
   },
   "lex": {
     "v2BotId": "XEFGXXWCHS",
     "v2BotAliasId": "PRZOQOS9YU",
-    "v2BotLocaleId": "en_US",
+    "v2BotLocaleId": "en_US,de_DE",
     "botName": "XEFGXXWCHS",
     "botAlias": "$LATEST",
-    "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
-    "initialSpeechInstruction": "Say 'Order Flowers' to get started.",
+    "initialText": "Book a trip?",
+    "initialSpeechInstruction": "Say 'Book Trip' to get started.",
     "initialUtterance": "",
-    "retryOnLexPostTextTimeout": false,
-    "retryCountPostTextTimeout": 1
+    "reInitSessionAttributesOnRestart": false,
+    "region": "us-east-1",
+    "retryOnLexPostTextTimeout": "false",
+    "retryCountPostTextTimeout": "1"
+  },
+  "ui": {
+    "parentOrigin": "",
+    "toolbarTitle": "Book Trip V3",
+    "toolbarLogo": "",
+    "positiveFeedbackIntent": "Thumbs up",
+    "negativeFeedbackIntent": "Thumbs down",
+    "helpIntent": "Help",
+    "enableLogin": false,
+    "forceLogin": false,
+    "AllowSuperDangerousHTMLInMessage": true,
+    "shouldDisplayResponseCardTitle": false,
+    "saveHistory": false,
+    "minButtonContent": "",
+    "hideInputFieldsForButtonResponse": false,
+    "pushInitialTextOnRestart": false,
+    "directFocusToBotInput": false,
+    "showDialogStateIcon": false,
+    "backButton": false,
+    "messageMenu": true,
+    "hideButtonMessageBubble": false
   },
   "polly": {
     "voiceId": "Salli"
-  },
-  "ui": {
-    "parentOrigin": "http://localhost:8080",
-    "pageTitle": "Order Config Bot",
-    "toolbarTitle": "Order Config",
-    "enableLogin": true,
-    "forceLogin": true,
-    "pushInitialTextOnRestart": false,
-    "shouldDisplayResponseCardTitle": false,
-    "showErrorIcon": true,
-    "showDialogStateIcon": false,
-    "positiveFeedbackIntent": "Thumbs up",
-    "negativeFeedbackIntent": "Thumbs down",
-    "helpIntent": "help",
-    "hideInputFieldsForButtonResponse": true,
-    "backButton": false,
-    "messageMenu": true
   },
   "recorder": {
     "preset": "speech_recognition"
   },
   "iframe": {
-    "shouldLoadIframeMinimized": false
+    "iframeOrigin": "https://dcs1nipvml7ap.cloudfront.net",
+    "shouldLoadIframeMinimized": false,
+    "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true"
   }
 }

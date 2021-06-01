@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable max-len -->
   <v-toolbar
     v-bind:color="toolbarColor"
     app
@@ -10,6 +11,7 @@
     v-bind:class="{ minimized: isUiMinimized }"
     aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
   >
+  <!-- eslint-enable max-len -->
     <img
       v-if="toolbarLogo"
       v-bind:src="toolbarLogo"
@@ -23,7 +25,6 @@
           {{ "menu" }}
         </v-icon>
       </v-btn>
-
       <v-list>
         <v-list-tile v-if="isEnableLogin">
           <v-list-tile-title v-if="isLoggedIn" v-on:click="requestLogout">{{
@@ -38,6 +39,16 @@
             items[2].title
           }}</v-list-tile-title>
         </v-list-tile>
+        <v-container v-if="isLocaleSelectable">
+        <v-list-tile  v-for="(locale) in locales"
+          v-bind:key=locale
+        >
+          <v-list-tile-title
+            v-on:click="setLocale(locale)">
+            {{locale}}
+          </v-list-tile-title>
+        </v-list-tile>
+        </v-container>
       </v-list>
     </v-menu>
 
@@ -102,6 +113,7 @@
     >
       <span id="sfx-tooltip">sound effects on/off</span>
     </v-tooltip>
+    <span v-if="isLocaleSelectable" class="localeInfo">{{currentLocale}}</span>
     <v-btn
       v-if="shouldRenderHelpButton && !isUiMinimized"
       v-on:click="sendHelp"
@@ -225,6 +237,16 @@ export default {
     isSaveHistory() {
       return this.$store.state.config.ui.saveHistory;
     },
+    isLocaleSelectable() {
+      return this.$store.state.config.lex.v2BotLocaleId.split(',').length > 1;
+    },
+    currentLocale() {
+      const priorLocale = localStorage.getItem('selectedLocale');
+      if (priorLocale) {
+        this.setLocale(priorLocale);
+      }
+      return this.$store.state.config.lex.v2BotLocaleId.split(',')[0];
+    },
     isLexProcessing() {
       return (
         this.$store.state.isBackProcessing || this.$store.state.lex.isProcessing
@@ -235,9 +257,9 @@ export default {
     },
     shouldRenderSfxButton() {
       return (
-        this.$store.state.config.ui.enableSFX &&
-        this.$store.state.config.ui.messageSentSFX &&
-        this.$store.state.config.ui.messageReceivedSFX
+        this.$store.state.config.ui.enableSFX
+        && this.$store.state.config.ui.messageSentSFX
+        && this.$store.state.config.ui.messageReceivedSFX
       );
     },
     shouldRenderBackButton() {
@@ -247,10 +269,27 @@ export default {
       return this.$store.state.isSFXOn;
     },
     showToolbarMenu() {
-      return this.$store.state.config.ui.enableLogin || this.$store.state.config.ui.saveHistory;
+      return this.$store.state.config.lex.v2BotLocaleId.split(',').length > 1
+        || this.$store.state.config.ui.enableLogin || this.$store.state.config.ui.saveHistory;
+    },
+    locales() {
+      const a = this.$store.state.config.lex.v2BotLocaleId.split(',');
+      return a;
     },
   },
   methods: {
+    setLocale(l) {
+      const a = this.$store.state.config.lex.v2BotLocaleId.split(',');
+      const revised = [];
+      revised.push(l);
+      a.forEach((element) => {
+        if (element !== l) {
+          revised.push(element);
+        }
+      });
+      this.$store.commit('updateLocaleIds', revised.toString());
+      localStorage.setItem('selectedLocale', l);
+    },
     mouseOverPrev() {
       this.prevNav = !this.prevNav;
     },
@@ -342,5 +381,11 @@ export default {
 .nav-button-prev {
   padding: 0;
   margin: 0;
+}
+
+.localeInfo {
+  text-align: right;
+  margin-right: 0;
+  width: 5em !important;
 }
 </style>

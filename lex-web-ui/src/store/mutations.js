@@ -446,4 +446,7 @@ export default {
     }
     state.lex.isPostTextRetry = bool;
   },
+  updateLocaleIds(state, data) {
+    state.config.lex.v2BotLocaleId = data;
+  },
 };

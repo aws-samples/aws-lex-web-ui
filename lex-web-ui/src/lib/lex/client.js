@@ -127,13 +127,13 @@ export default class {
       .then(() => putSessionReq.promise());
   }
 
-  postText(inputText, sessionAttributes = {}) {
+  postText(inputText, localeId, sessionAttributes = {}) {
     let postTextReq;
     if (this.isV2Bot) {
       postTextReq = this.lexRuntimeClient.recognizeText({
         botAliasId: this.botV2AliasId,
         botId: this.botV2Id,
-        localeId: this.botV2LocaleId,
+        localeId: localeId ? localeId : 'en_US',
         sessionId: this.userId,
         text: inputText,
         sessionState: {
@@ -187,6 +187,7 @@ export default class {
   }
   postContent(
     blob,
+    localeId,
     sessionAttributes = {},
     acceptFormat = 'audio/ogg',
     offset = 0,
@@ -209,7 +210,7 @@ export default class {
       postContentReq = this.lexRuntimeClient.recognizeUtterance({
         botAliasId: this.botV2AliasId,
         botId: this.botV2Id,
-        localeId: this.botV2LocaleId,
+        localeId: localeId ? localeId : 'en_US',
         sessionId: this.userId,
         responseContentType: acceptFormat,
         requestContentType: contentType,

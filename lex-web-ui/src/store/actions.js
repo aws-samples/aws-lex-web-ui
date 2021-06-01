@@ -96,8 +96,6 @@ export default {
     }
   },
   initLexClient(context, payload) {
-    /* eslint-disable no-console */
-    console.log(`the payload is: ${JSON.stringify(payload, null, 2)}`);
     lexClient = new LexClient({
       botName: context.state.config.lex.botName,
       botAlias: context.state.config.lex.botAlias,
@@ -611,9 +609,12 @@ export default {
     context.commit('reapplyTokensToSessionAttributes');
     const session = context.state.lex.sessionAttributes;
     delete session.appContext;
+    const localeId = context.state.config.lex.v2BotLocaleId
+      ? context.state.config.lex.v2BotLocaleId.split(',')[0]
+      : undefined;
     return context.dispatch('refreshAuthTokens')
       .then(() => context.dispatch('getCredentials'))
-      .then(() => lexClient.postText(text, session))
+      .then(() => lexClient.postText(text, localeId, session))
       .then((data) => {
         context.commit('setIsLexProcessing', false);
         return context.dispatch('updateLexState', data)
@@ -635,9 +636,13 @@ export default {
     return context.dispatch('refreshAuthTokens')
       .then(() => context.dispatch('getCredentials'))
       .then(() => {
+        const localeId = context.state.config.lex.v2BotLocaleId
+          ? context.state.config.lex.v2BotLocaleId.split(',')[0]
+          : undefined;
         timeStart = performance.now();
         return lexClient.postContent(
           audioBlob,
+          localeId,
           session,
           context.state.lex.acceptFormat,
           offset,
@@ -922,5 +927,8 @@ export default {
         markdown: context.state.config.lex.initialText,
       },
     });
+  },
+  changeLocaleIds(context, data) {
+    context.commit('updateLocaleIds', data);
   },
 };
