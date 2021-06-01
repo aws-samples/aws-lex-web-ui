@@ -1,21 +1,21 @@
 {
   "region": "us-east-1",
   "cognito": {
-    "poolId": "us-east-1:6c4e2dc5-8bc4-49dc-a4c9-1cec167ce3e6",
-    "appUserPoolClientId": "9m3skarjt5b5mpsvthfa8d5e8",
-    "appUserPoolName": "us-east-1_ELiCPWyks",
-    "appDomainName": "lexktestkvdkidentitypoolconfigkqtrdhvlydmth867271886751.auth.us-east-1.amazoncognito.com",
+    "poolId": "",
+    "appUserPoolClientId": "",
+    "appUserPoolName": "",
+    "appDomainName": "",
     "aws_cognito_region": "us-east-1",
     "region": "us-east-1"
   },
   "lex": {
-    "v2BotId": "XEFGXXWCHS",
-    "v2BotAliasId": "PRZOQOS9YU",
-    "v2BotLocaleId": "en_US,de_DE",
-    "botName": "XEFGXXWCHS",
+    "v2BotId": "",
+    "v2BotAliasId": "",
+    "v2BotLocaleId": "",
+    "botName": "",
     "botAlias": "$LATEST",
-    "initialText": "Book a trip?",
-    "initialSpeechInstruction": "Say 'Book Trip' to get started.",
+    "initialText": "Type 'Buy Flowers' to get started.",
+    "initialSpeechInstruction": "Say 'Buy Flowers' to get started.",
     "initialUtterance": "",
     "reInitSessionAttributesOnRestart": false,
     "region": "us-east-1",
@@ -24,7 +24,7 @@
   },
   "ui": {
     "parentOrigin": "",
-    "toolbarTitle": "Book Trip V3",
+    "toolbarTitle": "Order Flowers",
     "toolbarLogo": "",
     "positiveFeedbackIntent": "Thumbs up",
     "negativeFeedbackIntent": "Thumbs down",
@@ -50,7 +50,7 @@
     "preset": "speech_recognition"
   },
   "iframe": {
-    "iframeOrigin": "https://dcs1nipvml7ap.cloudfront.net",
+    "iframeOrigin": "",
     "shouldLoadIframeMinimized": false,
     "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true"
   }
