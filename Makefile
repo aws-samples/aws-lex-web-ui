@@ -136,10 +136,10 @@ sync-website: create-iframe-snippet
 	@echo "[INFO] Saving a backup copy of previous loader config json"
 	aws s3 cp \
 		"$(CURRENT_CONFIG_FILE)" "s3://$(WEBAPP_BUCKET)/lex-web-ui-loader-config.$(shell date +%Y%m%d%H%M%S).json"
-#	@echo "[INFO] copying custom-chatbot-style.css and setting cache max-age=0"
-#	aws s3 cp \
-#		--metadata-directive REPLACE --cache-control max-age=0 \
-#		"$(DIST_DIR)/custom-chatbot-style.css" s3://$(WEBAPP_BUCKET)
+	@echo "[INFO] copying custom-chatbot-style.css and setting cache max-age=0"
+	aws s3 cp \
+		--metadata-directive REPLACE --cache-control max-age=0 \
+		"$(DIST_DIR)/custom-chatbot-style.css" s3://$(WEBAPP_BUCKET)
 	@echo "[INFO] copying config files"
 	aws s3 sync  \
 		--exclude '*' \
