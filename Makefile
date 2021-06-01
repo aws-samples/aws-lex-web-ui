@@ -136,6 +136,9 @@ sync-website: create-iframe-snippet
 	@echo "[INFO] Saving a backup copy of previous loader config json"
 	aws s3 cp \
 		"$(CURRENT_CONFIG_FILE)" "s3://$(WEBAPP_BUCKET)/lex-web-ui-loader-config.$(shell date +%Y%m%d%H%M%S).json"
+#   For CodePipeline based distribution / builds where the custom style is managed in
+#   Source control, uncomment the next four lines such that the css file is updated
+#   on each CodePipeline/CodeBuild invocation.
 #	@echo "[INFO] copying custom-chatbot-style.css and setting cache max-age=0"
 #	aws s3 cp \
 #		--metadata-directive REPLACE --cache-control max-age=0 \

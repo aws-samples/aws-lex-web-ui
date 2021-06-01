@@ -6,10 +6,33 @@ is important. This guide will walk you through adjusting the UI to meet your nee
 This guide does not cover the case if you are building lex-web-ui for use as a component
 in other Vue apps or modifing Vue source components for your own implementation.
 
-*Note: After uploading the revised css file to your S3 bucket, be sure to invalidate the CloudFront 
-distribution such that the new css file will be served up immediately. You may also need to clear
-your browser cache to see the change immediately.*
+There are two mechanisms to modify and deploy the custom-chatbot-style.css file using the style
+modifications outlined in this README.
 
+* Prebuilt lex-web-ui distribution 
+  
+  If you have installed the lex-web-ui using the prebuilt distributions from the links published on
+  the lex-web-ui blog post or from the links available in the top level README.md, follow these steps.
+    * Download the custom-chatbot-style.css file from your WebApp S3 bucket
+    * Modify the CSS accordingly and save the file locally on your desktop
+    * Upload the custom-chatbot-style.css back to your WebApp S3 bucket
+    * Use the CloudFront console to invalidate the CloudFront distribution such that it will be served up immediately
+
+* CodePipeline/CodeBuild distribution  
+  If you have used the master-pipeline.yaml to create a CodCommit/CodePipeline/CodeBuild distribution mechanism, 
+  follow these steps.
+    * git clone the repo from CodeCommit 
+    * Modify the CSS accordingly in your local repo
+    * Modify the root level Makefile and uncomment the lines noted below
+    ```
+    #	@echo "[INFO] copying custom-chatbot-style.css and setting cache max-age=0"
+    #	aws s3 cp \
+    #		--metadata-directive REPLACE --cache-control max-age=0 \
+    #		"$(DIST_DIR)/custom-chatbot-style.css" s3://$(WEBAPP_BUCKET)
+    ```
+    * Commit and push the changes to both files
+    * The resulting CodeBuild execution will publish the modified custom-chatbot-style.css to your WebApp S3 bucket.
+    
 ## Summary of available css modifications
 
 ![Common use of CSS for LexWebUi](./img/LexWebUiStyle.png)
