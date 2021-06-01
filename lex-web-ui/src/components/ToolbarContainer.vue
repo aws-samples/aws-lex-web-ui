@@ -42,6 +42,7 @@
         <v-container v-if="isLocaleSelectable">
         <v-list-tile  v-for="(locale) in locales"
           v-bind:key=locale
+          :disabled="restrictLocaleChanges"
         >
           <v-list-tile-title
             v-on:click="setLocale(locale)">
@@ -239,6 +240,15 @@ export default {
     },
     isLocaleSelectable() {
       return this.$store.state.config.lex.v2BotLocaleId.split(',').length > 1;
+    },
+    restrictLocaleChanges() {
+      return this.$store.state.lex.isProcessing
+        || ( this.$store.state.lex.sessionState
+          && this.$store.state.lex.sessionState.dialogAction
+          && this.$store.state.lex.sessionState.dialogAction.type === 'ElicitSlot')
+        || ( this.$store.state.lex.sessionState
+          && this.$store.state.lex.sessionState.intent
+          && this.$store.state.lex.sessionState.intent.state === 'InProgress')
     },
     currentLocale() {
       const priorLocale = localStorage.getItem('selectedLocale');
