@@ -18,6 +18,21 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### Notable changes in version 0.18.1
+The Lex Web Ui now supports configuration of multiple Lex V2 Bot Locale IDs
+using a comma separated list in the parameter LexV2BotLocaleId. The default Locale ID 
+is en_US. Other supported values are de_DE, en_AU, en_GB, es_419, es_ES, es_US, fr_CA, 
+fr_FR, it_IT, and ja_JP. See "https://docs.aws.amazon.com/lexv2/latest/dg/lex2.0.pdf" 
+for the current list of supported Locale IDs. 
+
+When multiple Locale IDs are specified in LexV2BotLocaleId, the Lex Web UI toolbar menu 
+will allow the user to select the locale to use. The user selected locale ID is 
+preserved across page refreshes. The locale selection menu items will be disabled if 
+the user is the middle of completing an intent as the locale ID can't be changed at this 
+time. The selected locale ID will be displayed in the toolbar. 
+
+For a complete list of fixes/changes in this version see CHANGELOG.md.
+
 #### Fixes/changes in version 0.18.0
 - Move from webpack V3 to webpack V4 in the lex-web-ui component.
 - Move to npm version 7.10.0.  
