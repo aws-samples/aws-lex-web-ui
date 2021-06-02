@@ -31,6 +31,8 @@ preserved across page refreshes. The locale selection menu items will be disable
 the user is the middle of completing an intent as the locale ID can't be changed at this 
 time. The selected locale ID will be displayed in the toolbar. 
 
+Lex Web Ui is now available in the Canada (Central) region - ca-central-1
+
 For a complete list of fixes/changes in this version see CHANGELOG.md.
 
 #### Fixes/changes in version 0.18.0
@@ -108,6 +110,7 @@ For a complete list of fixes/changes in this version see CHANGELOG.md.
     - eu-central-1: https://aws-bigdata-blog-replica-eu-central-1.s3.eu-central-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
     - eu-west-1: https://aws-bigdata-blog-replica-eu-west-1.s3-eu-west-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
     - eu-west-2: https://aws-bigdata-blog-replica-eu-west-2.s3.eu-west-2.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
+    - ca-central-1: https://aws-bigdata-blog-replica-ca-central-1.s3.ca-central-1.amazonaws.com/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml
 - Chat history can now be preserved and redisplayed when the user comes back to the original parent page
   hosting the Lex-Web-Ui. This features is controlled using the SaveHistory template parameter. When
   this feature is enabled, a new menu is visible in the user interface that allows the user to
@@ -203,6 +206,7 @@ Click a button to launch it in the desired region
 | London | <a target="_blank" href="https://eu-west-2.console.aws.amazon.com/cloudformation/home?region=eu-west-2#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog-replica-eu-west-2/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog-replica-eu-west-2"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a> |
 | Tokyo | <a target="_blank" href="https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog-replica-ap-northeast-1/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog-replica-ap-northeast-1"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a> |
 | Frankfurt | <a target="_blank" href="https://eu-central-1.console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog-replica-eu-central-1/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog-replica-eu-central-1"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a> |
+| Canada (Central) | <a target="_blank" href="https://ca-central-1.console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/create/review?templateURL=https://s3.amazonaws.com/aws-bigdata-blog-replica-ca-central-1/artifacts/aws-lex-web-ui/artifacts/templates/master.yaml&stackName=lex-web-ui&param_BootstrapBucket=aws-bigdata-blog-replica-ca-central-1"><span><img height="24px" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"/></span></a> |
 
 By default, the CloudFormation template
 creates a sample Lex bot and a [Amazon Cognito Identity

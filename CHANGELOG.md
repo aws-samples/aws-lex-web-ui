@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.18.1] - 2021-06-01
 - Change package.json revision to 0.18.1
+- Provide distribution location in Canada (Central) region - ca-central-1   
 - Update aws sdk to current revision  
 - Change codebuild-deploy.yaml to use amazon linux image vs nodejs10 image.
 - Change codebuild-deploy.yaml and pipeline.yaml buildspec and codebuild role to invalidate cloudfront distribution after syncing s3 bucket
