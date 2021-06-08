@@ -212,8 +212,10 @@ export default {
         }
         return Promise.all(promises);
       })
-      .then(() => (
+      .then(() => {
         document.title = this.$store.state.config.ui.pageTitle;
+      })
+      .then(() => (
         (this.$store.state.isRunningEmbedded) ?
           this.$store.dispatch(
             'sendMessageToParentWindow',

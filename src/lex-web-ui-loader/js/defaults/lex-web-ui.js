@@ -24,6 +24,7 @@ export const configBase = {
   cognito: { poolId: '' },
   ui: { parentOrigin: '' },
   polly: {},
+  connect: {},
   recorder: {},
   iframe: {
     iframeOrigin: '',
