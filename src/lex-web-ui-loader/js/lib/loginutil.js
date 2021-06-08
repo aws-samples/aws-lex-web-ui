@@ -16,6 +16,24 @@ License for the specific language governing permissions and limitations under th
 import { CognitoAuth } from 'amazon-cognito-auth-js';
 
 const jwt = require('jsonwebtoken');
+const loopKey = `login_util_loop_count`;
+const maxLoopCount = 5;
+
+function getLoopCount(config) {
+  let loopCount = localStorage.getItem(`${config.appUserPoolClientId}${loopKey}`);
+  if (loopCount === undefined || loopCount === null) {
+    console.warn(`setting loopcount to string 0`);
+    loopCount = "0";
+  }
+  loopCount = Number.parseInt(loopCount);
+  return loopCount;
+}
+
+function incrementLoopCount(config) {
+  let loopCount = getLoopCount(config)
+  localStorage.setItem(`${config.appUserPoolClientId}${loopKey}`, (loopCount + 1).toString());
+  console.warn(`loopCount is now ${loopCount + 1}`);
+}
 
 function getAuth(config) {
   const rd1 = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?loggedin=yes';
@@ -37,14 +55,16 @@ function getAuth(config) {
   auth.userhandler = {
     onSuccess(session) {
       console.debug('Sign in success');
-      localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
-      localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
-      localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
+      localStorage.setItem(`${config.appUserPoolClientId}idtokenjwt`, session.getIdToken().getJwtToken());
+      localStorage.setItem(`${config.appUserPoolClientId}accesstokenjwt`, session.getAccessToken().getJwtToken());
+      localStorage.setItem(`${config.appUserPoolClientId}refreshtoken`, session.getRefreshToken().getToken());
       const myEvent = new CustomEvent('tokensavailable', { detail: 'initialLogin' });
       document.dispatchEvent(myEvent);
+      localStorage.setItem(`${config.appUserPoolClientId}${loopKey}`, "0");
     },
     onFailure(err) {
       console.debug('Sign in failure: ' + JSON.stringify(err, null, 2));
+      incrementLoopCount(config);
     },
   };
   return auth;
@@ -65,10 +85,10 @@ function completeLogin(config) {
   }
 }
 
-function completeLogout() {
-  localStorage.removeItem('idtokenjwt');
-  localStorage.removeItem('accesstokenjwt');
-  localStorage.removeItem('refreshtoken');
+function completeLogout(config) {
+  localStorage.removeItem(`${config.appUserPoolClientId}idtokenjwt`);
+  localStorage.removeItem(`${config.appUserPoolClientId}accesstokenjwt`);
+  localStorage.removeItem(`${config.appUserPoolClientId}refreshtoken`);
   localStorage.removeItem('cognitoid');
   console.debug('logout complete');
   return true;
@@ -78,44 +98,51 @@ function logout(config) {
 /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
   const auth = getAuth(config);
   auth.signOut();
+  localStorage.setItem(`${config.appUserPoolClientId}${loopKey}`, "0");
 }
 
-const forceLogin = async (config) => {
-  const auth = await getAuth(config);
-  const token = localStorage.getItem('idtokenjwt');
-  if(!token){
-    auth.getSession();
-  }
+const forceLogin = (config) => {
+  login(config);
 }
 
 function login(config) {
   /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
-  const auth = getAuth(config);
-  const session = auth.getSignInUserSession();
-  if (!session.isValid()) {
-    auth.getSession();
+  if (getLoopCount(config) < maxLoopCount) {
+    const auth = getAuth(config);
+    const session = auth.getSignInUserSession();
+    if (!session.isValid()) {
+      auth.getSession();
+    }
+  } else {
+    alert("max login tries exceeded");
+    localStorage.setItem(`${config.appUserPoolClientId}${loopKey}`, "0");
   }
 }
 
 function refreshLogin(config, token, callback) {
   /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
-  const auth = getAuth(config);
-  auth.userhandler = {
-    onSuccess(session) {
-      console.debug('Sign in success');
-      localStorage.setItem('idtokenjwt', session.getIdToken().getJwtToken());
-      localStorage.setItem('accesstokenjwt', session.getAccessToken().getJwtToken());
-      localStorage.setItem('refreshtoken', session.getRefreshToken().getToken());
-      const myEvent = new CustomEvent('tokensavailable', { detail: 'refreshLogin' });
-      document.dispatchEvent(myEvent);
-      callback(session);
-    },
-    onFailure(err) {
-      console.debug('Sign in failure: ' + JSON.stringify(err, null, 2));
-      callback(err);
-    },
-  };
-  auth.refreshSession(token);
+  if (getLoopCount(config) < maxLoopCount) {
+    const auth = getAuth(config);
+    auth.userhandler = {
+      onSuccess(session) {
+        console.debug('Sign in success');
+        localStorage.setItem(`${config.appUserPoolClientId}idtokenjwt`, session.getIdToken().getJwtToken());
+        localStorage.setItem(`${config.appUserPoolClientId}accesstokenjwt`, session.getAccessToken().getJwtToken());
+        localStorage.setItem(`${config.appUserPoolClientId}refreshtoken`, session.getRefreshToken().getToken());
+        const myEvent = new CustomEvent('tokensavailable', {detail: 'refreshLogin'});
+        document.dispatchEvent(myEvent);
+        callback(session);
+      },
+      onFailure(err) {
+        console.debug('Sign in failure: ' + JSON.stringify(err, null, 2));
+        callback(err);
+      },
+    };
+    auth.refreshSession(token);
+  } else {
+    alert("max login tries exceeded");
+    localStorage.setItem(loopKey, "0");
+  }
 }
 
 // return true if a valid token and has expired. return false in all other cases

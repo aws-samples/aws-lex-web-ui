@@ -71,6 +71,39 @@ Parameters:
         Description: >
             Cognito App User Pool Id
 
+    LexV2BotId:
+      Description: >
+        Bot ID (not bot name) of an existing Lex V2 Bot to be used by the web ui. NOTE: You must
+        also enter your Bot alias ID in the LexV2BotAliasId field below.
+      Type: String
+      Default: ''
+      MaxLength: 50
+      AllowedPattern: '(^$|^[a-zA-Z0-9]+((_[a-zA-Z0-9]+)*|([a-zA-Z0-9]+_)*|_))'
+      ConstraintDescription: >
+        Must conform with the permitted Lex V2 Bot name pattern.
+
+    LexV2BotAliasId:
+      Description: >
+        Use your Lex V2 bot's alias id (not alias name) here.
+      Type: String
+      Default: ''
+      MinLength: 0
+      MaxLength: 50
+      AllowedPattern: '(^$|^[$a-zA-Z0-9]+((_[$a-zA-Z0-9]+)*|([$a-zA-Z0-9]+_)*|_))'
+      ConstraintDescription: >
+        Must conform with the permitted Lex V2 Alias name pattern.
+
+    LexV2BotLocaleId:
+      Description: >
+        Use your bot's locale id here. By default this is en_US. Lex V2 supported values are
+        en_AU, en_GB, es_419, es_ES, es_US, fr_CA, fr_FR, it_IT.
+        See "https://docs.aws.amazon.com/lexv2/latest/dg/lex2.0.pdf"
+        for details on supported languages and locales.
+      Type: String
+      Default: 'en_US'
+      MinLength: 2
+      MaxLength: 50
+
     BotName:
         Type: String
         Description: >
@@ -80,6 +113,20 @@ Parameters:
         AllowedPattern: '^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)'
         ConstraintDescription: >
             Must conform with the permitted Lex Bot name pattern.
+
+    BotAlias:
+      Description: >
+        WARNING: For production deployments, use your bot's published alias here.
+        The $LATEST alias should only be used for manual testing. Amazon Lex limits
+        the number of runtime requests that you can make to the $LATEST version of
+        the bot.
+      Type: String
+      Default: '$LATEST'
+      MinLength: 2
+      MaxLength: 50
+      AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
+      ConstraintDescription: >
+        Must conform with the permitted Lex Alias name pattern.
 
     ParentOrigin:
         Type: String
@@ -320,8 +367,16 @@ Resources:
                       Value: !Ref WebAppBucket
                     - Name: AWS_DEFAULT_REGION
                       Value: !Sub "${AWS::Region}"
+                    - Name: V2_BOT_ID
+                      Value: !Ref LexV2BotId
+                    - Name: V2_BOT_ALIAS_ID
+                      Value: !Ref LexV2BotAliasId
+                    - Name: V2_BOT_LOCALE_ID
+                      Value: !Ref LexV2BotLocaleId
                     - Name: BOT_NAME
                       Value: !Ref BotName
+                    - Name: BOT_ALIAS
+                      Value: !Ref BotAlias
                     - Name: PARENT_ORIGIN
                       Value: !If
                         - NeedsParentOrigin

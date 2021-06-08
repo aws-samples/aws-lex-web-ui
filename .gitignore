@@ -4,3 +4,4 @@ node_modules/
 .idea/
 py_modules/
 */*/py_modules/
+dist/

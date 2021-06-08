@@ -71,6 +71,8 @@ import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
 import LexRuntime from 'aws-sdk/clients/lexruntime';
+import LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2';
+
 import { Config as AWSConfig, CognitoIdentityCredentials }
   from 'aws-sdk/global';
 
@@ -176,6 +178,10 @@ export default {
             window.AWS.LexRuntime :
             LexRuntime;
 
+          const LexRuntimeConstructorV2 = (window.AWS && window.AWS.LexRuntimeV2) ?
+            window.AWS.LexRuntimeV2 :
+            LexRuntimeV2;
+
           const credentials = new CognitoConstructor(
             { IdentityPoolId: this.$store.state.config.cognito.poolId },
             { region: this.$store.state.config.region },
@@ -187,32 +193,34 @@ export default {
           });
 
           this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
+          this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
+          /* eslint-disable no-console */
+          console.log(`${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
         }
 
         const promises = [
           this.$store.dispatch('initMessageList'),
           this.$store.dispatch('initPollyClient', this.$lexWebUi.pollyClient),
-          this.$store.dispatch('initLexClient', this.$lexWebUi.lexRuntimeClient),
+          this.$store.dispatch('initLexClient', {
+            v1client: this.$lexWebUi.lexRuntimeClient, v2client: this.$lexWebUi.lexRuntimeV2Client,
+          }),
         ];
-
         console.info('CONFIG : ', this.$store.state.config);
         if (this.$store.state && this.$store.state.config &&
             this.$store.state.config.ui.enableLiveChat) {
           promises.push(this.$store.dispatch('initLiveChat'));
         }
-
-        Promise.all(promises);
+        return Promise.all(promises);
       })
-      .then(() => {
-        console.info(`isRunningEmbedded : ${this.$store.state.isRunningEmbedded}`);
-        const evt = this.$store.dispatch(
-          'sendMessageToParentWindow',
-          { event: 'ready' },
-        );
-        return (this.$store.state.isRunningEmbedded) ?
-          evt :
-          Promise.resolve();
-      })
+      .then(() => (
+        document.title = this.$store.state.config.ui.pageTitle;
+        (this.$store.state.isRunningEmbedded) ?
+          this.$store.dispatch(
+            'sendMessageToParentWindow',
+            { event: 'ready' },
+          ) :
+          Promise.resolve()
+      ))
       .then(() => {
         if (this.$store.state.config.ui.saveHistory === true) {
           this.$store.subscribe((mutation, state) => {
@@ -220,10 +228,15 @@ export default {
           });
         }
       })
-      .then(() => console.info(
-        'successfully initialized lex web ui version: ',
-        this.$store.state.version,
-      ))
+      .then(() => {
+        console.info(
+          'successfully initialized lex web ui version: ',
+          this.$store.state.version,
+        );
+        // after slight delay, send in initial utterance if it is defined.
+        // waiting for credentials to settle down a bit.
+        setTimeout(() => this.$store.dispatch('sendInitialUtterance'), 500);
+      })
       .catch((error) => {
         console.error('could not initialize application while mounting:', error);
       });

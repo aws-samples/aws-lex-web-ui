@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.18.0] - 2021-04-21
+- Move from webpack V3 to webpack V4 in the lex-web-ui component.
+- Move to npm version 7.10.0.
+- Update component package versions.
+- Resolve dependabot alerts.
+- Fix to resolve update problem where Cognito Supported Identity Providers is reset to just Cognito. An update
+  will now preserve the existing Supported Identity Providers.
+- Set AWS sdk to version 2.875.0.
+- Improve Lex V2 support to handle responseCard defined as a session attribute in sessionAttributes.appContext.responseCard.
+- Removed support for AWS mobilehub based distribution.
+## [0.17.9] - 2021-03-03
+- Support Lex Version 2 Bots
+- Parameter to support initial utterance to send to the bot
+- Changed behavior of button date message to use "n min ago"
+- Changed behavior of ShouldLoadIframeMinimized to take precedence over last known state
+- Added mechanism in loginutils.js to prevent looping
+- Support mixed case web ParentOrigin URLs and WebAppPath in Cognito user pool
+- Allow multiple values for WebAppPath to allow UI with login to be enabled on multiple pages on the same site (origin)
+- Update the Cognito Callback and Signout URLs when updated via CloudFormation template update
+
 ## [0.17.8] - 2021-02-02
 - Fix for pipeline based deployments - issue 264 - template error
 - Fix to full page web client (index.html) using forceLogin to require a direct to login page

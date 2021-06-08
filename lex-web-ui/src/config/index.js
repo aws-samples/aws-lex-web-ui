@@ -1,5 +1,5 @@
 /*
- Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -44,7 +44,8 @@ if (!envShortName) {
 }
 
 // eslint-disable-next-line import/no-dynamic-require
-const configEnvFile = require(`./config.${envShortName}.json`);
+const configEnvFile = (process.env.BUILD_TARGET === 'lib') ?
+  {} : require(`./config.${envShortName}.json`);
 
 // default config used to provide a base structure for
 // environment and dynamic configs
@@ -63,6 +64,11 @@ const configDefault = {
     apiGatewayEndpoint: '',
   },
   lex: {
+    // Lex V2 fields
+    v2BotId: '',
+    v2BotAliasId: '',
+    v2BotLocaleId: '',
+
     // Lex bot name
     botName: 'WebUiOrderFlowers',
 
@@ -75,6 +81,9 @@ const configDefault = {
 
     // instructions spoken when mic is clicked
     initialSpeechInstruction: 'Say "Order Flowers" to get started',
+
+    // initial Utterance to send to bot if defined
+    initialUtterance: '',
 
     // Lex initial sessionAttributes
     sessionAttributes: {},
@@ -120,8 +129,7 @@ const configDefault = {
   },
 
   ui: {
-    // TODO may want to move pageTitle out to LexApp or Page component
-    // title of HTML page added dynamically to index.html
+    // this dynamicall changes the pageTitle injected at build time
     pageTitle: 'Order Flowers Bot',
 
     // when running as an embedded iframe, this will be used as the

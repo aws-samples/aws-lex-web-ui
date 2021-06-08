@@ -1,5 +1,5 @@
 /*
- Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2017-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
  Licensed under the Amazon Software License (the "License"). You may not use this file
  except in compliance with the License. A copy of the License is located at
@@ -22,11 +22,9 @@ import LexApp from '@/LexApp';
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#lex-app',
   router,
-  template: '<lex-app></lex-app>',
-  components: { LexApp },
-});
+  render: (h) => h(LexApp),
+}).$mount('#lex-app');
 
 Vue.config.errorHandler = (err, vm, info) => {
   // eslint-disable-next-line no-console

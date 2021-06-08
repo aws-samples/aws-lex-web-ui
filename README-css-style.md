@@ -6,6 +6,10 @@ is important. This guide will walk you through adjusting the UI to meet your nee
 This guide does not cover the case if you are building lex-web-ui for use as a component
 in other Vue apps or modifing Vue source components for your own implementation.
 
+*Note: After uploading the revised css file to your S3 bucket, be sure to invalidate the CloudFront 
+distribution such that the new css file will be served up immediately. You may also need to clear
+your browser cache to see the change immediately.*
+
 ## Summary of available css modifications
 
 ![Common use of CSS for LexWebUi](./img/LexWebUiStyle.png)

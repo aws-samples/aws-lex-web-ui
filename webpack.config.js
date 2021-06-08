@@ -99,7 +99,7 @@ module.exports = (env) => {
       isProd && new webpack.BannerPlugin({
         banner: `/*!
 * lex-web-ui v${VERSION}
-* (c) 2017-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* (c) 2017-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 * Released under the Amazon Software License.
 */  `,
         raw: true,
@@ -122,8 +122,14 @@ module.exports = (env) => {
         },
         // copy lex-web-ui library
         {
-          from: path.join(basePath, 'lex-web-ui/dist/bundle'),
+          from: path.join(basePath, 'lex-web-ui/dist/bundle/lex-web-ui.*'),
           to: distDir,
+          flatten: true,
+        },
+        {
+          from: path.join(basePath, 'lex-web-ui/dist/bundle/wav-worker.*'),
+          to: distDir,
+          flatten: true,
         },
         // copy amazon-connect-chat library
         {
