@@ -131,6 +131,11 @@ module.exports = (env) => {
           to: distDir,
           flatten: true,
         },
+        // copy amazon-connect-chat library
+        {
+          from: path.join(basePath, 'src/website/amazon-connect-chat.js'),
+          to: distDir,
+        },
       ]),
     ].filter(Boolean),
   };

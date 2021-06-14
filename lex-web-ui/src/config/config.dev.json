@@ -2,6 +2,11 @@
   "cognito": {
     "poolId": "us-east-1:b1e19043-d194-422a-adb4-2c3d1a90dd1f"
   },
+  "connect": {
+    "contactFlowId" : "",
+    "instanceId" : "",
+    "apiGatewayEndpoint" : ""
+  },
   "lex": {
     "v2BotId": "XEFGXXWCHS",
     "v2BotAliasId": "PRZOQOS9YU",
@@ -22,6 +27,7 @@
     "pageTitle": "Order Config Bot",
     "toolbarTitle": "Order Config",
     "enableLogin": true,
+    "enableSFX": false,
     "forceLogin": true,
     "pushInitialTextOnRestart": false,
     "shouldDisplayResponseCardTitle": false,
@@ -32,7 +38,13 @@
     "helpIntent": "help",
     "hideInputFieldsForButtonResponse": true,
     "backButton": false,
-    "messageMenu": true
+    "messageMenu": true,
+    "enableLiveChat": true
+  },
+  "connect": {
+    "contactFlowId": "ea85f564-57f6-497f-860b-a8661dfa40de",
+    "instanceId": "c9b5b91b-448a-4ba3-955c-579f7c71e043",
+    "apiGatewayEndpoint": "https://p4sbzeu6w4.execute-api.us-east-1.amazonaws.com/Prod"
   },
   "recorder": {
     "preset": "speech_recognition"

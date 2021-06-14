@@ -17,6 +17,9 @@
       v-on:toggleMinimizeUi="toggleMinimizeUi"
       @requestLogin="handleRequestLogin"
       @requestLogout="handleRequestLogout"
+      @requestLiveChat="handleRequestLiveChat"
+      @endLiveChat="handleEndLiveChat"
+      transition="fade-transition"
     ></toolbar-container>
 
     <v-content
@@ -37,6 +40,7 @@
       v-if="!isUiMinimized && !hasButtons"
       v-bind:text-input-placeholder="textInputPlaceholder"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
+      @endLiveChatClicked="handleEndLiveChat"
     ></input-container>
     <div
       v-if="isSFXOn"
@@ -71,8 +75,6 @@ import LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2';
 
 import { Config as AWSConfig, CognitoIdentityCredentials }
   from 'aws-sdk/global';
-
-const jwt = require('jsonwebtoken');
 
 export default {
   name: 'lex-web',
@@ -196,13 +198,19 @@ export default {
           console.log(`${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
         }
 
-        Promise.all([
+        const promises = [
           this.$store.dispatch('initMessageList'),
           this.$store.dispatch('initPollyClient', this.$lexWebUi.pollyClient),
           this.$store.dispatch('initLexClient', {
             v1client: this.$lexWebUi.lexRuntimeClient, v2client: this.$lexWebUi.lexRuntimeV2Client,
           }),
-        ]);
+        ];
+        console.info('CONFIG : ', this.$store.state.config);
+        if (this.$store.state && this.$store.state.config &&
+            this.$store.state.config.ui.enableLiveChat) {
+          promises.push(this.$store.dispatch('initLiveChat'));
+        }
+        return Promise.all(promises);
       })
       .then(() => {
         document.title = this.$store.state.config.ui.pageTitle;
@@ -321,6 +329,14 @@ export default {
         );
       }
     },
+    handleRequestLiveChat() {
+      console.info('handleRequestLiveChat');
+      this.$store.dispatch('requestLiveChat');
+    },
+    handleEndLiveChat() {
+      console.info('LexWeb: handleEndLiveChat');
+      this.$store.dispatch('requestLiveChatEnd');
+    },
     // messages from parent
     messageHandler(evt) {
       const messageType = this.$store.state.config.ui.hideButtonMessageBubble ? 'button' : 'human';
@@ -426,22 +442,7 @@ export default {
       }
     },
     userName() {
-      let v = '';
-      if (this.$store.state.tokens && this.$store.state.tokens.idtokenjwt) {
-        const decoded = jwt.decode(this.$store.state.tokens.idtokenjwt, { complete: true });
-        if (decoded) {
-          if (decoded.payload) {
-            if (decoded.payload.email) {
-              v = decoded.payload.email;
-            }
-            if (decoded.payload.preferred_username) {
-              v = decoded.payload.preferred_username;
-            }
-          }
-        }
-        return `[${v}]`;
-      }
-      return v;
+      return this.$store.getters.username();
     },
     logRunningMode() {
       if (!this.$store.state.isRunningEmbedded) {

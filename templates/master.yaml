@@ -129,6 +129,16 @@ Parameters:
             This is an optional parameter, if set to True, the history of the chat is maintained over sessions. 
             A item to clean the chat will appear at the menu.
 
+    ShouldEnableLiveChat:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          This is an optional parameter, if set to True, the AWS Connect live Chat functionality will be available.
+          A item to start a live chat will appear at the menu.
+
     CodeBuildName:
         Type: String
         Description: >
@@ -323,6 +333,21 @@ Parameters:
         Description: >
             Defines the number of times the lex-web-ui will retry the Lex PostText API operation when an exception
             is detected.
+            
+    ConnectContactFlowId:
+        Type: String
+        Description: >
+            Connect Contract Flow Id
+            
+    ConnectInstanceId:
+        Type: String
+        Description: >
+            Connect Instance Id
+
+    ConnectApiGatewayEndpoint:
+        Type: String
+        Description: >
+            Connect API Gateway Endpoint
 
 Metadata:
     AWS::CloudFormation::Interface:
@@ -359,6 +384,7 @@ Metadata:
                   - ReInitSessionAttributesOnRestart
                   - ShowResponseCardTitle
                   - SaveHistory
+                  - EnableLiveChat
                   - retryOnLexPostTextTimeout
                   - retryCountPostTextTimeout
             - Label:
@@ -454,6 +480,7 @@ Resources:
                 WebAppConfHelp: !Ref WebAppConfHelp
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
                 SaveHistory: !Ref SaveHistory
+                ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
                 ShouldEnableCognitoLogin:
                   !If
                     - ShouldForceCognitoLogin
@@ -476,7 +503,10 @@ Resources:
                       - "UserMustSupply"
                 retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
                 retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
-                Timestamp: 1621913796
+                ConnectContactFlowId: !Ref ConnectContactFlowId
+                ConnectInstanceId: !Ref ConnectInstanceId
+                ConnectApiGatewayEndpoint: !Ref ConnectApiGatewayEndpoint
+                Timestamp: 1623173724
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -490,7 +520,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1621913796
+                Timestamp: 1623173724
 
 Outputs:
     BotName:

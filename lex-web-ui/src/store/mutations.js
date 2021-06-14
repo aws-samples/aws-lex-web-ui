@@ -20,6 +20,7 @@ License for the specific language governing permissions and limitations under th
 /* eslint spaced-comment: ["error", "always", { "exceptions": ["*"] }] */
 
 import { mergeConfig } from '@/config';
+import { chatMode, liveChatStatus } from '@/store/state';
 
 export default {
   /**
@@ -343,6 +344,47 @@ export default {
   setIsSaveHistory(state, bool) {
     state.isSaveHistory = bool;
   },
+
+  /**
+   * use to set the chat mode ( either bot or livechat )
+   */
+  setChatMode(state, mode) {
+    if (typeof mode !== 'string' || !Object.values(chatMode).find(element => element === mode.toLowerCase())) {
+      console.error('chatMode is not vaild', mode.toLowerCase());
+      return;
+    }
+    state.chatMode = mode.toLowerCase();
+  },
+
+  /**
+   * use to set the live chat status
+   */
+  setLiveChatStatus(state, status) {
+    if (typeof status !== 'string' || !Object.values(liveChatStatus).find(element => element === status.toLowerCase())) {
+      console.error('liveChatStatus is not vaild', status.toLowerCase());
+      return;
+    }
+    state.liveChat.status = status.toLowerCase();
+  },
+  /**
+  * set to true while live chat session is being created or agent is typing
+  */
+  setIsLiveChatProcessing(state, bool) {
+    if (typeof bool !== 'boolean') {
+      console.error('setIsLiveChatProcessing status not boolean', bool);
+      return;
+    }
+    state.liveChat.isProcessing = bool;
+  },
+
+  setLiveChatUserName(state, name) {
+    if (typeof name !== 'string') {
+      console.error('setLiveChatUserName is not vaild', name);
+      return;
+    }
+    state.liveChat.username = name;
+  },
+
   reset(state) {
     const s = {
       messages: [],
@@ -397,6 +439,16 @@ export default {
   pushMessage(state, message) {
     state.messages.push({
       id: state.messages.length,
+      date: new Date(),
+      ...message,
+    });
+  },
+  /**
+   * Push new liveChat message into liveChatMessages array
+   */
+  pushLiveChatMessage(state, message) {
+    state.liveChatMessages.push({
+      id: state.liveChatMessages.length,
       date: new Date(),
       ...message,
     });

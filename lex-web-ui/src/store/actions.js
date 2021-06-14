@@ -20,6 +20,8 @@ License for the specific language governing permissions and limitations under th
 
 import LexAudioRecorder from '@/lib/lex/recorder';
 import initRecorderHandlers from '@/store/recorder-handlers';
+import { chatMode, liveChatStatus } from '@/store/state';
+import { createLiveChatSession, connectLiveChatSession, initLiveChatHandlers, sendChatMessage, sendTypingEvent, requestLiveChatEnd } from '@/store/live-chat-handlers';
 import silentOgg from '@/assets/silent.ogg';
 import silentMp3 from '@/assets/silent.mp3';
 
@@ -34,6 +36,7 @@ let pollyClient;
 let lexClient;
 let audio;
 let recorder;
+let liveChatSession;
 
 export default {
 
@@ -465,14 +468,32 @@ export default {
   postTextMessage(context, message) {
     if (context.state.isSFXOn && !context.state.lex.isPostTextRetry) {
       context.dispatch('playSound', context.state.config.ui.messageSentSFX);
-      context.dispatch(
-        'sendMessageToParentWindow',
-        { event: 'messageSent' },
-      );
     }
+
     return context.dispatch('interruptSpeechConversation')
-      .then(() => context.dispatch('pushMessage', message))
-      .then(() => context.commit('pushUtterance', message.text))
+      .then(() => {
+        if (context.state.chatMode === chatMode.BOT) {
+          return context.dispatch('pushMessage', message);
+        }
+        return Promise.resolve();
+      })
+      .then(() => {
+        const liveChatTerms = ['call agent', 'start live chat', 'live chat', 'can I speak to someone'];
+        if (liveChatTerms.find(el => el === message.text.toLowerCase())) {
+          return context.dispatch('requestLiveChat');
+        } else if (context.state.liveChat.status === liveChatStatus.REQUEST_USERNAME) {
+          context.commit('setLiveChatUserName', message.text);
+          return context.dispatch('requestLiveChat');
+        } else if (context.state.chatMode === chatMode.LIVECHAT
+        ) {
+          if (context.state.liveChat.status === liveChatStatus.ESTABLISHED) {
+            return context.dispatch('sendChatMessage', message.text);
+          }
+          // TODO Store or notify user to wait till connection establisted
+        }
+
+        return Promise.resolve(context.commit('pushUtterance', message.text))
+      })
       .then(() => context.dispatch('lexPostText', message.text))
       .then((response) => {
         // check for an array of messages
@@ -725,6 +746,9 @@ export default {
       context.commit('pushMessage', message);
     }
   },
+  pushLiveChatMessage(context, message) {
+    context.commit('pushLiveChatMessage', message);
+  },
   pushErrorMessage(context, text, dialogState = 'Failed') {
     context.commit('pushMessage', {
       type: 'bot',
@@ -733,6 +757,137 @@ export default {
     });
   },
 
+  /***********************************************************************
+   *
+   * Live Chat Actions
+   *
+   **********************************************************************/
+  initLiveChat() {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = './amazon-connect-chat.js';
+    // script.src = 'https://unpkg.com/amazon-connect-chatjs@1.1.3/dist/amazon-connect-chat.js';
+    script.onload = () => Promise.resolve();
+    document.body.appendChild(script);
+    return script.onload;
+  },
+
+  initLiveChatSession(context) {
+    console.info('initLiveChat');
+    console.info('config connect', context.state.config.connect);
+    if (!context.state.config.ui.enableLiveChat) {
+      console.error('error in initLiveChatSession() enableLiveChat is not true in config');
+      return Promise.reject(new Error('error in initLiveChatSession() enableLiveChat is not true in config'));
+    }
+    if (!context.state.config.connect.apiGatewayEndpoint) {
+      console.error('error in initLiveChatSession() apiGatewayEndpoint is not set in config');
+      return Promise.reject(new Error('error in initLiveChatSession() apiGatewayEndpoint is not set in config'));
+    }
+    if (!context.state.config.connect.contactFlowId) {
+      console.error('error in initLiveChatSession() contactFlowId is not set in config');
+      return Promise.reject(new Error('error in initLiveChatSession() contactFlowId is not set in config'));
+    }
+    if (!context.state.config.connect.instanceId) {
+      console.error('error in initLiveChatSession() instanceId is not set in config');
+      return Promise.reject(new Error('error in initLiveChatSession() instanceId is not set in config'));
+    }
+
+    context.commit('setLiveChatStatus', liveChatStatus.INITIALIZING);
+
+    window.connect.ChatSession.setGlobalConfig({
+      region: context.state.config.region,
+    });
+    const initiateChatRequest = {
+      ParticipantDetails: {
+        DisplayName: context.getters.liveChatUserName(),
+      },
+      ContactFlowId: context.state.config.connect.contactFlowId,
+      InstanceId: context.state.config.connect.instanceId,
+    };
+
+    return fetch(
+      context.state.config.connect.apiGatewayEndpoint,
+      {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(initiateChatRequest),
+      },
+    )
+      .then(response => response.json())
+      .then(json => json.data)
+      .then((result) => {
+        console.info('Live Chat Config Success:', result);
+        context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
+        liveChatSession = createLiveChatSession(result);
+        console.info('Live Chat Session Created:', liveChatSession);
+        initLiveChatHandlers(context, liveChatSession);
+        console.info('Live Chat Handlers initialised:');
+        return connectLiveChatSession(liveChatSession);
+      })
+      .then((response) => {
+        console.info('live Chat session connection response', response);
+        console.info('Live Chat Session CONNECTED:', liveChatSession);
+        context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
+        // context.commit('setLiveChatbotSession', liveChatSession);
+        return Promise.resolve();
+      });
+  },
+
+  requestLiveChat(context) {
+    console.info('requestLiveChat');
+    if (!context.getters.liveChatUserName()) {
+      context.commit('setLiveChatStatus', liveChatStatus.REQUEST_USERNAME);
+      context.commit(
+        'pushMessage',
+        {
+          text: 'Before starting a live chat, please tell me your name?',
+          type: 'bot',
+        },
+      );
+    } else {
+      context.commit('setLiveChatStatus', liveChatStatus.REQUESTED);
+      context.commit('setChatMode', chatMode.LIVECHAT);
+      context.commit('setIsLiveChatProcessing', true);
+      context.dispatch('initLiveChatSession');
+    }
+  },
+  sendTypingEvent(context) {
+    console.info('actions: sendTypingEvent');
+    if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession) {
+      sendTypingEvent(liveChatSession);
+    }
+  },
+  sendChatMessage(context, message) {
+    console.info('actions: sendChatMessage');
+    if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession) {
+      sendChatMessage(liveChatSession, message);
+    }
+  },
+  requestLiveChatEnd(context) {
+    console.info('actions: endLiveChat');
+    if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession) {
+      requestLiveChatEnd(liveChatSession);
+      context.commit('setLiveChatStatus', liveChatStatus.ENDED);
+    }
+  },
+  agentIsTyping(context) {
+    console.info('actions: agentIsTyping');
+    context.commit('setIsLiveChatProcessing', true);
+  },
+  liveChatSessionReconnectRequest(context) {
+    console.info('actions: liveChatSessionReconnectRequest');
+    context.commit('setLiveChatStatus', liveChatStatus.DISCONNECTED);
+    // TODO try re-establish connection
+  },
+  liveChatSessionEnded(context) {
+    console.info('actions: liveChatSessionEnded');
+    liveChatSession = null;
+    context.commit('setChatMode', chatMode.BOT);
+  },
   /***********************************************************************
    *
    * Credentials Actions

@@ -490,6 +490,11 @@ page](#stand-alone-page) section.
           // Your Cognito Pool Id - this is required to provide AWS credentials
           poolId: '<your cognito pool id>'
         },
+        connect: {
+          contactFlowId : '<your contact flow id>',
+          instanceId : '<your instance id>',
+          apiGatewayEndpoint : '<your api gateway endpoint>',
+        },
         lex: {
           // Lex Bot Name in your account
           botName: '<your lex bot name>'

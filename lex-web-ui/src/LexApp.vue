@@ -41,4 +41,8 @@ export default {
 </script>
 
 <style>
+/*@import '../node_modules/roboto-fontface/css/roboto/roboto-fontface.css';*/
+@import '../node_modules/material-design-icons/iconfont/material-icons.css';
+/*@import '../node_modules/vuetify/dist/vuetify.min.css';*/
+
 </style>

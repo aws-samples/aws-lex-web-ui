@@ -5,6 +5,11 @@
     "aws_cognito_region": "us-east-1",
     "region": "us-east-1"
   },
+  "connect": {
+    "contactFlowId" : "",
+    "instanceId" : "",
+    "apiGatewayEndpoint" : ""
+  },
   "lex": {
     "botName": "OrderFlowers",
     "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
@@ -25,6 +30,7 @@
     "negativeFeedbackIntent": "Thumbs down",
     "helpIntent": "Help",
     "enableLogin": false,
+    "enableSFX": false,
     "forceLogin": false,
     "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,
@@ -36,7 +42,8 @@
     "backButton": false,
     "messageMenu": true,
     "hideButtonMessageBubble": false,
-    "saveHistory": false
+    "saveHistory": false,
+    "enableLiveChat": false
   },
   "polly": {
     "voiceId": "Salli"
