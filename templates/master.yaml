@@ -347,7 +347,7 @@ Parameters:
     ConnectApiGatewayEndpoint:
         Type: String
         Description: >
-            Connect API Gateway Endpoint
+            Connect API Gateway Endpoint. Include full url. i.e. https://YOUR_API_GATEWAY_ENDPOINT.execute-api.us-east-1.amazonaws.com/Prod
 
 Metadata:
     AWS::CloudFormation::Interface:
@@ -506,7 +506,7 @@ Resources:
                 ConnectContactFlowId: !Ref ConnectContactFlowId
                 ConnectInstanceId: !Ref ConnectInstanceId
                 ConnectApiGatewayEndpoint: !Ref ConnectApiGatewayEndpoint
-                Timestamp: 1623173724
+                Timestamp: 1623866344
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -520,7 +520,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1623173724
+                Timestamp: 1623866344
 
 Outputs:
     BotName:
