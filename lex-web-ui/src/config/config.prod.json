@@ -2,11 +2,6 @@
   "cognito": {
     "poolId": ""
   },
-  "connect": {
-    "contactFlowId" : "",
-    "instanceId" : "",
-    "apiGatewayEndpoint" : ""
-  },
   "lex": {
     "botName": "WebUiOrderFlowers",
     "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
@@ -22,9 +17,9 @@
     "enableLiveChat": true
   },
   "connect": {
-    "contactFlowId": "ea85f564-57f6-497f-860b-a8661dfa40de",
-    "instanceId": "c9b5b91b-448a-4ba3-955c-579f7c71e043",
-    "apiGatewayEndpoint": "https://p4sbzeu6w4.execute-api.us-east-1.amazonaws.com/Prod"
+    "contactFlowId" : "",
+    "instanceId" : "",
+    "apiGatewayEndpoint" : ""
   },
   "recorder": {
     "preset": "speech_recognition"
