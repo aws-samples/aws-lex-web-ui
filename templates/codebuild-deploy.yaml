@@ -125,6 +125,21 @@ Parameters:
         Description: >
             Cognito App User Pool Id
 
+    ConnectContactFlowId:
+        Type: String
+        Description: >
+            Connect Contract Flow Id
+
+    ConnectInstanceId:
+        Type: String
+        Description: >
+            Connect Instance Id
+
+    ConnectApiGatewayEndpoint:
+        Type: String
+        Description: >
+            Connect API Gateway Endpoint
+
     LexV2BotId:
       Description: >
         Bot ID (not bot name) of an existing Lex V2 Bot to be used by the web ui. NOTE: You must
@@ -252,6 +267,16 @@ Parameters:
         Description: >
           This is an optional parameter, if set to True, the history of the chat is maintained over sessions.
           A item to clean the chat will appear at the menu.
+
+    ShouldEnableLiveChat:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          This is an optional parameter, if set to True, the AWS Connect live Chat functionality will be available.
+          A item to start a live chat will appear at the menu.
 
     retryOnLexPostTextTimeout:
         Type: String
@@ -423,6 +448,12 @@ Resources:
                       Value: dist
                     - Name: POOL_ID
                       Value: !Ref CognitoIdentityPoolId
+                    - Name: CONNECT_CONTACT_FLOW_ID
+                      Value: !Ref ConnectContactFlowId
+                    - Name: CONNECT_INSTANCE_ID
+                      Value: !Ref ConnectInstanceId
+                    - Name: CONNECT_API_GATEWAY_ENDPOINT
+                      Value: !Ref ConnectApiGatewayEndpoint
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME
@@ -480,6 +511,8 @@ Resources:
                       Value: !Sub "${LexWebUiDistribution.DomainName}"
                     - Name: SAVE_HISTORY
                       Value: !Ref SaveHistory
+                    - Name: ENABLE_LIVE_CHAT
+                      Value: !Ref ShouldEnableLiveChat
                     - Name: BOT_RETRY_ON_LEX_POST_TEXT_TIMEOUT
                       Value: !Ref retryOnLexPostTextTimeout
                     - Name: BOT_RETRY_COUNT_POST_TEXT_TIMEOUT
@@ -515,6 +548,9 @@ Resources:
             CognitoIdentityPoolId: !Ref CognitoIdentityPoolId
             CognitoAppUserPoolClientId: !Ref CognitoAppUserPoolClientId
             CognitoUserPoolId: !Ref CognitoUserPoolId
+            ConnectContactFlowId: !Ref ConnectContactFlowId
+            ConnectInstanceId: !Ref ConnectInstanceId
+            ConnectApiGatewayEndpoint: !Ref ConnectApiGatewayEndpoint
             WebAppBucket: !Ref WebAppBucket
             LexV2BotId: !Ref LexV2BotId
             LexV2BotAliasId: !Ref LexV2BotAliasId

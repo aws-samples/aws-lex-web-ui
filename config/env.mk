@@ -21,6 +21,11 @@ export BOT_NAME ?= OrderFlowers
 # set to empty if not present in environment
 export POOL_ID ?= $()
 
+# amazon-connect config variables
+export CONNECT_CONTACT_FLOW_ID ?= $()
+export CONNECT_INSTANCE_ID ?= $()
+export CONNECT_API_GATEWAY_ENDPOINT ?= $()
+
 export BOT_INITIAL_TEXT ?= $()
 export BOT_INITIAL_SPEECH ?= $()
 export BOT_INITIAL_UTTERANCE ?= $()

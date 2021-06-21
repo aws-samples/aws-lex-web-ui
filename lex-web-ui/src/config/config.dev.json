@@ -41,7 +41,13 @@
     "showDialogStateIcon": false,
     "backButton": false,
     "messageMenu": true,
-    "hideButtonMessageBubble": false
+    "hideButtonMessageBubble": false,
+    "enableLiveChat": false
+  },
+  "connect": {
+    "contactFlowId" : "",
+    "instanceId" : "",
+    "apiGatewayEndpoint" : ""
   },
   "polly": {
     "voiceId": "Salli"

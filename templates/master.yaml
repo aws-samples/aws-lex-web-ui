@@ -128,8 +128,18 @@ Parameters:
             - true
             - false
         Description: >
-            This is an optional parameter, if set to True, the history of the chat is maintained over sessions. 
+            This is an optional parameter, if set to True, the history of the chat is maintained over sessions.
             A item to clean the chat will appear at the menu.
+
+    ShouldEnableLiveChat:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          This is an optional parameter, if set to True, the AWS Connect live Chat functionality will be available.
+          A item to start a live chat will appear at the menu.
 
     CodeBuildName:
         Type: String
@@ -283,7 +293,7 @@ Parameters:
         Type: String
         Default: Thumbs down
         Description: >
-            This optional parameter defines the message to be sent by the user upon pressing 
+            This optional parameter defines the message to be sent by the user upon pressing
             a feedback button signaling a negative feedback.
             If left empty feedback buttons will be disabled on the UI.
 
@@ -291,10 +301,10 @@ Parameters:
         Type: String
         Default: Thumbs up
         Description: >
-            This optional parameter defines the message to be sent by the user upon pressing 
+            This optional parameter defines the message to be sent by the user upon pressing
             a feedback button signaling a positive feedback.
             If left empty feedback buttons will be disabled on the UI.
-    
+
     WebAppConfHelp:
         Type: String
         Default: Help
@@ -302,7 +312,7 @@ Parameters:
             This is an optional parameter, when defined with a value, a help button will display on the chat bot toolbar.
             When pressed the button will send the entered string to the bot as a help message.  If left empty
             the help button will be disabled.
-        
+
     WebAppConfToolbarTitle:
         Type: String
         Default: Order Flowers
@@ -325,6 +335,21 @@ Parameters:
         Description: >
             Defines the number of times the lex-web-ui will retry the Lex PostText API operation when an exception
             is detected.
+
+    ConnectContactFlowId:
+        Type: String
+        Description: >
+            Connect Contract Flow Id
+
+    ConnectInstanceId:
+        Type: String
+        Description: >
+            Connect Instance Id
+
+    ConnectApiGatewayEndpoint:
+        Type: String
+        Description: >
+            Connect API Gateway Endpoint. Include full url. i.e. https://YOUR_API_GATEWAY_ENDPOINT.execute-api.us-east-1.amazonaws.com/Prod
 
 Metadata:
     AWS::CloudFormation::Interface:
@@ -361,6 +386,7 @@ Metadata:
                   - ReInitSessionAttributesOnRestart
                   - ShowResponseCardTitle
                   - SaveHistory
+                  - EnableLiveChat
                   - retryOnLexPostTextTimeout
                   - retryCountPostTextTimeout
             - Label:
@@ -456,6 +482,7 @@ Resources:
                 WebAppConfHelp: !Ref WebAppConfHelp
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
                 SaveHistory: !Ref SaveHistory
+                ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
                 ShouldEnableCognitoLogin:
                   !If
                     - ShouldForceCognitoLogin
@@ -478,7 +505,10 @@ Resources:
                       - "UserMustSupply"
                 retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
                 retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
-                Timestamp: 1622567518
+                ConnectContactFlowId: !Ref ConnectContactFlowId
+                ConnectInstanceId: !Ref ConnectInstanceId
+                ConnectApiGatewayEndpoint: !Ref ConnectApiGatewayEndpoint
+                Timestamp: 1623866344
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -492,7 +522,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1622567518
+                Timestamp: 1623866344
 
 Outputs:
     BotName:
@@ -512,7 +542,7 @@ Outputs:
             URL of the stand-alone sample web application.
             This page will be available after the pipeline/deployment completes.
         Value: !GetAtt CodeBuildDeploy.Outputs.WebAppUrl
-        
+
     WebAppDomainName:
         Description: >
             DomainName of the web application
@@ -550,7 +580,7 @@ Outputs:
         Condition: NeedsCognito
         Description: Cognito Identity Pool Id
         Value: !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
-    
+
     CognitoUserPoolPubKey:
         Condition: NeedsCognito
         Description: Include Cognito User Pool Public Key URL in stack outputs (needed for QnABot token auth)
