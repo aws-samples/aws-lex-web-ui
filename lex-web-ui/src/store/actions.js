@@ -28,7 +28,6 @@ import silentMp3 from '@/assets/silent.mp3';
 import LexClient from '@/lib/lex/client';
 
 const jwt = require('jsonwebtoken');
-import "amazon-connect-chatjs";
 
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
@@ -769,6 +768,7 @@ export default {
    *
    **********************************************************************/
   initLiveChat() {
+    require('amazon-connect-chatjs');
     if (window.connect) {
       window.connect.ChatSession.setGlobalConfig({
         region: context.state.config.region,
