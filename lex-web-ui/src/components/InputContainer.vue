@@ -276,6 +276,7 @@ export default {
         });
     },
     onEndLiveChatClick() {
+      this.shouldShowEndLiveChatTooltip = false;
       this.$emit('endLiveChatClicked');
     },
     startSpeechConversation() {
