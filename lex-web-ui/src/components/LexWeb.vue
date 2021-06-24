@@ -184,11 +184,11 @@ export default {
           const LexRuntimeConstructor = (window.AWS && window.AWS.LexRuntime) ?
             window.AWS.LexRuntime :
             LexRuntime;
-            
+
           const LexRuntimeConstructorV2 = (window.AWS && window.AWS.LexRuntimeV2) ?
             window.AWS.LexRuntimeV2 :
             LexRuntimeV2;
-            
+
           const credentials = new CognitoConstructor(
             { IdentityPoolId: poolId },
             { region: region },
