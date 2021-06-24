@@ -91,11 +91,13 @@ export default {
   },
   initMessageList(context) {
     context.commit('reloadMessages');
-    if (context.state.messages && context.state.messages.length === 0) {
-      context.commit('pushMessage', {
-        type: 'bot',
-        text: context.state.config.lex.initialText,
-      });
+    if (context.state.messages &&
+      context.state.messages.length === 0 &&
+      context.state.config.lex.initialText.length > 0) {
+        context.commit('pushMessage', {
+          type: 'bot',
+          text: context.state.config.lex.initialText,
+        });
     }
   },
   initLexClient(context, payload) {

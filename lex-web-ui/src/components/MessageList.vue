@@ -52,6 +52,9 @@ export default {
     messages() {
       this.scrollDown();
     },
+    loading() {
+      this.scrollDown();
+    },
   },
   mounted() {
     setTimeout(() => {
@@ -61,9 +64,15 @@ export default {
   methods: {
     scrollDown() {
       return this.$nextTick(() => {
-        const lastMessageOffset = (this.$el.lastElementChild) ?
-          this.$el.lastElementChild.getBoundingClientRect().height : 0;
-        this.$el.scrollTop = this.$el.scrollHeight - lastMessageOffset;
+        if (this.$el.lastElementChild) {
+          const lastMessageHeight = this.$el.lastElementChild.getBoundingClientRect().height;
+          const isLastMessageLoading = this.$el.lastElementChild.classList.contains('messsge-loading');
+          if (isLastMessageLoading) {
+            this.$el.scrollTop = this.$el.scrollHeight;
+          } else {
+            this.$el.scrollTop = this.$el.scrollHeight - lastMessageHeight;
+          }
+        }
       });
     },
   },
