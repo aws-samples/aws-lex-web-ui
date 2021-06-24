@@ -898,6 +898,7 @@ export default {
   liveChatSessionEnded(context) {
     console.info('actions: liveChatSessionEnded');
     liveChatSession = null;
+    context.commit('setLiveChatStatus', liveChatStatus.ENDED);
     context.commit('setChatMode', chatMode.BOT);
   },
   /***********************************************************************
