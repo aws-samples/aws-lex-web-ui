@@ -67,7 +67,7 @@
           <v-icon medium>send</v-icon>
         </v-btn>
         <v-btn
-          v-else
+          v-if="!shouldShowSendButton && !isModeLiveChat"
           v-on:click="onMicClick"
           v-on="tooltipEventHandlers"
           v-bind:disabled="isMicButtonDisabled"
