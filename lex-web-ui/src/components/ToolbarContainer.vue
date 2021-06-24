@@ -148,7 +148,7 @@
       v-model="shouldShowMenuTooltip"
       content-class="tooltip-custom"
       activator=".menu"
-      left
+      right
     >
       <span id="menu-tooltip">menu</span>
     </v-tooltip>
