@@ -163,51 +163,51 @@ export default {
         // using credentials built from the identified poolId.
         //
         // The Cognito Identity Pool should be a resource in the identified region.
-        if (this.$store.state && this.$store.state.config) {
-          const region = this.$store.state.config.region ? this.$store.state.config.region : this.$store.state.config.cognito.region;
-          if (!region) {
-            return Promise.reject(new Error('no region found in config or config.cognito'))
-          }
-          
-          const poolId = this.$store.state.config.cognito.poolId;
-          if (!poolId) {
-            return Promise.reject(new Error('no cognito.poolId found in config'))
-          }
 
-          const AWSConfigConstructor = (window.AWS && window.AWS.Config) ?
-            window.AWS.Config :
-            AWSConfig;
-
-          const CognitoConstructor =
-            (window.AWS && window.AWS.CognitoIdentityCredentials) ?
-              window.AWS.CognitoIdentityCredentials :
-              CognitoIdentityCredentials;
-
-          const LexRuntimeConstructor = (window.AWS && window.AWS.LexRuntime) ?
-            window.AWS.LexRuntime :
-            LexRuntime;
-
-          const LexRuntimeConstructorV2 = (window.AWS && window.AWS.LexRuntimeV2) ?
-            window.AWS.LexRuntimeV2 :
-            LexRuntimeV2;
-
-          const credentials = new CognitoConstructor(
-            { IdentityPoolId: poolId },
-            { region: region },
-          );
-
-          const awsConfig = new AWSConfigConstructor({
-            region: region,
-            credentials,
-          });
-
-          this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
-          this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
-          /* eslint-disable no-console */
-          console.log(`lexRuntimeV2Client : ${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
-        } else {
+        // Check for required config values (region & poolId)
+        if (!this.$store.state || !this.$store.state.config) {
           return Promise.reject(new Error('no config found'))
         }
+        const region = this.$store.state.config.region ? this.$store.state.config.region : this.$store.state.config.cognito.region;
+        if (!region) {
+          return Promise.reject(new Error('no region found in config or config.cognito'))
+        }
+        const poolId = this.$store.state.config.cognito.poolId;
+        if (!poolId) {
+          return Promise.reject(new Error('no cognito.poolId found in config'))
+        }
+
+        const AWSConfigConstructor = (window.AWS && window.AWS.Config) ?
+          window.AWS.Config :
+          AWSConfig;
+
+        const CognitoConstructor =
+          (window.AWS && window.AWS.CognitoIdentityCredentials) ?
+            window.AWS.CognitoIdentityCredentials :
+            CognitoIdentityCredentials;
+
+        const LexRuntimeConstructor = (window.AWS && window.AWS.LexRuntime) ?
+          window.AWS.LexRuntime :
+          LexRuntime;
+
+        const LexRuntimeConstructorV2 = (window.AWS && window.AWS.LexRuntimeV2) ?
+          window.AWS.LexRuntimeV2 :
+          LexRuntimeV2;
+
+        const credentials = new CognitoConstructor(
+          { IdentityPoolId: poolId },
+          { region: region },
+        );
+
+        const awsConfig = new AWSConfigConstructor({
+          region: region,
+          credentials,
+        });
+
+        this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
+        this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
+        /* eslint-disable no-console */
+        console.log(`lexRuntimeV2Client : ${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
 
         const promises = [
           this.$store.dispatch('initMessageList'),
