@@ -494,15 +494,15 @@ export default {
         return Promise.resolve(context.commit('pushUtterance', message.text))
       })
       .then(() => {
-        if (context.state.chatMode === chatMode.BOT && 
+        if (context.state.chatMode === chatMode.BOT &&
           context.state.liveChat.status != liveChatStatus.REQUEST_USERNAME) {
           return context.dispatch('lexPostText', message.text);
         }
         return Promise.resolve();
       })
       .then((response) => {
-        if (context.state.chatMode === chatMode.BOT && 
-          context.state.liveChat.status != liveChatStatus.REQUEST_USERNAME) {  
+        if (context.state.chatMode === chatMode.BOT &&
+          context.state.liveChat.status != liveChatStatus.REQUEST_USERNAME) {
           // check for an array of messages
           if (response.sessionState || (response.message && response.message.includes('{"messages":'))) {
             if (response.message && response.message.includes('{"messages":')) {
@@ -778,7 +778,7 @@ export default {
    * Live Chat Actions
    *
    **********************************************************************/
-  initLiveChat() {
+  initLiveChat(context) {
     require('amazon-connect-chatjs');
     if (window.connect) {
       window.connect.ChatSession.setGlobalConfig({
