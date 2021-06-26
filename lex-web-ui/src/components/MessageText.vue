@@ -6,20 +6,20 @@
     <span class="sr-only">I say: </span>{{ message.text }}
   </div>
   <div
-    v-else-if="altHtmlMessage && AllowSuperDangerousHTMLInMessage"
-    v-html="altHtmlMessage"
-    class="message-text"
+    v-else-if="botMessageAsAltHtml && AllowSuperDangerousHTMLInMessage"
+    v-html="botMessageAsAltHtml"
+    class="message-text bot-message-alt-html"
   ></div>
   <div
     v-else-if="message.text && shouldRenderAsHtml"
     v-html="botMessageAsHtml"
-    class="message-text"
+    class="message-text bot-message-html"
   ></div>
   <div
     v-else-if="message.text && message.type === 'bot'"
-    class="message-text"
+    class="message-text bot-message-plain"
   >
-    <span class="sr-only">bot says: </span>{{ (shouldStripTags) ? stripTagsFromMessage(message.text) : message.text }}
+  <span class="sr-only">bot says: </span>{{ (shouldStripTags) ? stripTagsFromMessage(message.text) : message.text }}
   </div>
 </template>
 
@@ -57,7 +57,7 @@ export default {
     AllowSuperDangerousHTMLInMessage() {
       return this.$store.state.config.ui.AllowSuperDangerousHTMLInMessage;
     },
-    altHtmlMessage() {
+    botMessageAsAltHtml() {
       let out = false;
       if (this.message.alts) {
         if (this.message.alts.html) {
@@ -153,9 +153,12 @@ export default {
   hyphens: auto;
   overflow-wrap: break-word;
   padding: 0.8em;
-  white-space: normal;
   word-break: break-word;
-  width: 100%;
+  white-space: pre-line;
+}
+
+.message-text.bot-message-alt-html  {
+  white-space: normal;
 }
 </style>
 
