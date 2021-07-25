@@ -31,6 +31,12 @@ Parameters:
             S3 object zip file containing Lambda custom resource functions
         Default: artifacts/aws-lex-web-ui/artifacts/custom-resources.zip
 
+    InitiateChatLambdaCodeObject:
+        Type: String
+        Description: >
+            S3 object zip file containing Lambda initiate chat functions
+        Default: artifacts/aws-lex-web-ui/artifacts/initiate-chat-lambda.zip
+
     CleanupBuckets:
         Type: String
         Default: true
@@ -431,6 +437,56 @@ Resources:
               CloudFrontDefaultCertificate: true
             HttpVersion: http2
             IPV6Enabled: true
+
+    #### Lambda #####
+    InitiateChatLambda:
+      Type: "AWS::Lambda::Function"
+      Properties:
+        Description:  AWS Lambda Function to initiate the chat with the end user
+        Handler: "index.handler"
+        Role: !GetAtt InitiateChatLambdaExecutionRole.Arn
+        Runtime: "nodejs14.x"
+        MemorySize: 128
+        Timeout: 30
+        Environment:
+          Variables:
+            INSTANCE_ID: !Ref ConnectInstanceId
+            CONTACT_FLOW_ID: !Ref ConnectContactFlowId
+        Code:
+          S3Bucket: !Ref SourceBucket
+          S3Key: !Ref InitiateChatLambdaCodeObject
+
+    InitiateChatLambdaExecutionRole:
+      Type: "AWS::IAM::Role"
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Principal:
+                Service:
+                  - "lambda.amazonaws.com"
+              Action:
+                - "sts:AssumeRole"
+        Path: "/"
+        Policies:
+          - PolicyName: initiate-chat-execution-policy
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                - Effect: "Allow"
+                  Action:
+                    - 'logs:CreateLogGroup'
+                    - 'logs:CreateLogStream'
+                    - 'logs:PutLogEvents'
+                  Resource:
+                    - !Sub "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
+                - Effect: "Allow"
+                  Action:
+                    - "connect:StartChatContact"
+                  Resource:
+                    - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}"
+                    - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}/*"
 
     CodeBuild:
         Type: AWS::CodeBuild::Project
