@@ -346,10 +346,10 @@ Parameters:
         Description: >
             Connect Instance Id
 
-    ConnectApiGatewayEndpoint:
-        Type: String
-        Description: >
-            Connect API Gateway Endpoint. Include full url. i.e. https://YOUR_API_GATEWAY_ENDPOINT.execute-api.us-east-1.amazonaws.com/Prod
+    #ConnectApiGatewayEndpoint:
+    #    Type: String
+    #    Description: >
+    #        Connect API Gateway Endpoint. Include full url. i.e. https://YOUR_API_GATEWAY_ENDPOINT.execute-api.us-east-1.amazonaws.com/Prod
 
 Metadata:
     AWS::CloudFormation::Interface:
@@ -508,8 +508,8 @@ Resources:
                 retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
                 ConnectContactFlowId: !Ref ConnectContactFlowId
                 ConnectInstanceId: !Ref ConnectInstanceId
-                ConnectApiGatewayEndpoint: !Ref ConnectApiGatewayEndpoint
                 Timestamp: 1623866344
+                #ConnectApiGatewayEndpoint: !Ref ConnectApiGatewayEndpoint
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack

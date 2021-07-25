@@ -141,10 +141,10 @@ Parameters:
         Description: >
             Connect Instance Id
 
-    ConnectApiGatewayEndpoint:
-        Type: String
-        Description: >
-            Connect API Gateway Endpoint
+    #ConnectApiGatewayEndpoint:
+    #    Type: String
+    #    Description: >
+    #        Connect API Gateway Endpoint
 
     LexV2BotId:
       Description: >
@@ -488,6 +488,87 @@ Resources:
                     - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}"
                     - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}/*"
 
+    #### API Gateway ##### https://blog.jayway.com/2016/08/17/introduction-to-cloudformation-for-api-gateway/
+    # CORS: https://bitbucket.org/snippets/spenser_filler/LenB4p
+
+    ApiGatewayRestAPI: #DONE
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: "initiateChatConnection"
+        Description: "API to initiate chat with Amazon Connect"
+
+    LambdaApiGatewayInvokePermission: #DONE
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: "lambda:InvokeFunction"
+        FunctionName: !GetAtt InitiateChatLambda.Arn
+        Principal: "apigateway.amazonaws.com"
+        SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGatewayRestAPI}/*"
+
+    ApiGatewayDeployment:
+      Type: AWS::ApiGateway::Deployment
+      DependsOn:
+        - ApiGatewayRootMethod
+      Properties:
+        RestApiId: !Ref ApiGatewayRestAPI
+        StageName: "Prod"
+
+    ApiGatewayRootMethod: #DONE
+      Type: AWS::ApiGateway::Method
+      DependsOn: LambdaApiGatewayInvokePermission
+      Properties:
+        AuthorizationType: "NONE"
+        HttpMethod: "POST"
+        Integration:
+          IntegrationHttpMethod: "POST"
+          Type: "AWS_PROXY"
+          Uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${InitiateChatLambda.Arn}/invocations"
+          PassthroughBehavior: WHEN_NO_MATCH
+        ResourceId:  !GetAtt ApiGatewayRestAPI.RootResourceId
+        RestApiId: !Ref ApiGatewayRestAPI
+        MethodResponses:
+          - StatusCode: "200"
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: true
+            ResponseModels:
+              application/json: Empty
+          - StatusCode: "500"
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: true
+            ResponseModels:
+              application/json: Empty
+
+    ApiGatewayOptionsMethod: #DONE
+      Type: AWS::ApiGateway::Method
+      Properties:
+        ResourceId: !GetAtt ApiGatewayRestAPI.RootResourceId
+        RestApiId: !Ref ApiGatewayRestAPI
+        AuthorizationType: NONE
+        HttpMethod: OPTIONS
+        Integration:
+          Type: MOCK
+          IntegrationResponses:
+            - ResponseParameters:
+                method.response.header.Access-Control-Allow-Headers: >-
+                  'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+                method.response.header.Access-Control-Allow-Methods: '''POST,OPTIONS'''
+                method.response.header.Access-Control-Allow-Origin: !Sub '''${LexWebUiDistribution.DomainName}'''
+              ResponseTemplates:
+                application/json: ''
+              StatusCode: '200'
+          PassthroughBehavior: NEVER
+          RequestTemplates:
+            application/json: '{"statusCode": 200}'
+        MethodResponses:
+          - ResponseModels:
+              application/json: Empty
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: true
+              method.response.header.Access-Control-Allow-Methods: true
+              method.response.header.Access-Control-Allow-Origin: true
+            StatusCode: '200'
+
+
     CodeBuild:
         Type: AWS::CodeBuild::Project
         Properties:
@@ -509,7 +590,7 @@ Resources:
                     - Name: CONNECT_INSTANCE_ID
                       Value: !Ref ConnectInstanceId
                     - Name: CONNECT_API_GATEWAY_ENDPOINT
-                      Value: !Ref ConnectApiGatewayEndpoint
+                      Value: !Sub "https://${ApiGatewayRestAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod" #!Ref ConnectApiGatewayEndpoint
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME
@@ -606,7 +687,7 @@ Resources:
             CognitoUserPoolId: !Ref CognitoUserPoolId
             ConnectContactFlowId: !Ref ConnectContactFlowId
             ConnectInstanceId: !Ref ConnectInstanceId
-            ConnectApiGatewayEndpoint: !Ref ConnectApiGatewayEndpoint
+            #ConnectApiGatewayEndpoint: !Ref ConnectApiGatewayEndpoint
             WebAppBucket: !Ref WebAppBucket
             LexV2BotId: !Ref LexV2BotId
             LexV2BotAliasId: !Ref LexV2BotAliasId
