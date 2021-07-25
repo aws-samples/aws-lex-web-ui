@@ -73,7 +73,7 @@ INITIATE_CHAT_LAMBDA_DIR := $(SOURCE_DIR)/initiate-chat-lambda
 INITIATE_CHAT_LAMBDA_ZIP := initiate-chat-lambda-$(VERSION).zip
 INITIATE_CHAT_LAMBDA_RESOURCES_FILES := $(wildcard $(INITIATE_CHAT_LAMBDA_DIR)/*.js)
 
-zip-initiate-chat-lambda:$(INITIATE_CHAT_LAMBDA_DIR)
+$(INITIATE_CHAT_LAMBDA_ZIP):$(INITIATE_CHAT_LAMBDA_DIR)
 	@echo "[INFO] Creating initiate chat Lambda zip file"
 	zip -r -j "$(OUT)/$(INITIATE_CHAT_LAMBDA_ZIP)" $(INITIATE_CHAT_LAMBDA_DIR) ; 
 
