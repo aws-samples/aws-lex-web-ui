@@ -311,6 +311,7 @@ Parameters:
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
+    EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
 
 Resources:
     # Bucket where S3 access logs are stored
@@ -493,12 +494,14 @@ Resources:
 
     ApiGatewayRestAPI: #DONE
       Type: AWS::ApiGateway::RestApi
+      Condition: EnableLiveChat
       Properties:
         Name: "initiateChatConnection"
         Description: "API to initiate chat with Amazon Connect"
 
     LambdaApiGatewayInvokePermission: #DONE
       Type: AWS::Lambda::Permission
+      Condition: EnableLiveChat
       Properties:
         Action: "lambda:InvokeFunction"
         FunctionName: !GetAtt InitiateChatLambda.Arn
@@ -507,6 +510,7 @@ Resources:
 
     ApiGatewayDeployment:
       Type: AWS::ApiGateway::Deployment
+      Condition: EnableLiveChat
       DependsOn:
         - ApiGatewayRootMethod
       Properties:
@@ -515,6 +519,7 @@ Resources:
 
     ApiGatewayRootMethod: #DONE
       Type: AWS::ApiGateway::Method
+      Condition: EnableLiveChat
       DependsOn: LambdaApiGatewayInvokePermission
       Properties:
         AuthorizationType: "NONE"
@@ -540,6 +545,7 @@ Resources:
 
     ApiGatewayOptionsMethod: #DONE
       Type: AWS::ApiGateway::Method
+      Condition: EnableLiveChat
       Properties:
         ResourceId: !GetAtt ApiGatewayRestAPI.RootResourceId
         RestApiId: !Ref ApiGatewayRestAPI
@@ -590,7 +596,7 @@ Resources:
                     - Name: CONNECT_INSTANCE_ID
                       Value: !Ref ConnectInstanceId
                     - Name: CONNECT_API_GATEWAY_ENDPOINT
-                      Value: !Sub "https://${ApiGatewayRestAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod" #!Ref ConnectApiGatewayEndpoint
+                      Value: !If [EnableLiveChat, !Sub "https://${ApiGatewayRestAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod", ""]
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME

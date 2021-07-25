@@ -346,11 +346,6 @@ Parameters:
         Description: >
             Connect Instance Id
 
-    #ConnectApiGatewayEndpoint:
-    #    Type: String
-    #    Description: >
-    #        Connect API Gateway Endpoint. Include full url. i.e. https://YOUR_API_GATEWAY_ENDPOINT.execute-api.us-east-1.amazonaws.com/Prod
-
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -386,7 +381,6 @@ Metadata:
                   - ReInitSessionAttributesOnRestart
                   - ShowResponseCardTitle
                   - SaveHistory
-                  - EnableLiveChat
                   - retryOnLexPostTextTimeout
                   - retryCountPostTextTimeout
             - Label:
@@ -407,6 +401,12 @@ Metadata:
                   - WebAppConfHelp
                   - WebAppConfToolbarTitle
                   - ShouldLoadIframeMinimized
+            - Label:
+                default: Connect Live Chat Parameters
+              Parameters: 
+                  - ShouldEnableLiveChat
+                  - ConnectContactFlowId
+                  - ConnectInstanceId
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
@@ -509,7 +509,6 @@ Resources:
                 ConnectContactFlowId: !Ref ConnectContactFlowId
                 ConnectInstanceId: !Ref ConnectInstanceId
                 Timestamp: 1623866344
-                #ConnectApiGatewayEndpoint: !Ref ConnectApiGatewayEndpoint
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
