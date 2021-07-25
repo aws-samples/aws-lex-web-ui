@@ -391,7 +391,7 @@ Resources:
               S3OriginConfig:
                 OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${WebAppBucketOriginAccessIdentity}"
               Id: webuiorigin
-            Enabled: 'true'
+            Enabled: True
             Comment: cloudfront distribution for lex-web-ui
             DefaultRootObject: index.html
             Logging:
