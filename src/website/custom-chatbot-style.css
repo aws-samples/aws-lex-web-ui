@@ -14,6 +14,64 @@
 .message-list-container {
   background-color: #dcdbdc !important
 }
+*/
+
+/* Rule to fix text-cutoff */
+.toolbar-title-header {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+@media only screen and (max-width: 80px) {
+
+    button.min-button {
+        background-image: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?> <svg width="30px" height="54px" viewBox="0 0 30 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <title>Nav/ Chatbot/ Minimized</title> <defs> <path d="M8,0 L24,0 L24,0 L24,48 L8,48 C3.581722,48 5.41083001e-16,44.418278 0,40 L0,8 C-5.41083001e-16,3.581722 3.581722,8.11624501e-16 8,0 Z" id="path-1"></path> <filter x="-20.8%" y="-8.3%" width="141.7%" height="120.8%" filterUnits="objectBoundingBox" id="filter-2"> <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset> <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur> <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix> </filter> <path d="M8.84383372,0.717810582 C8.46026031,0.321374744 7.82668315,0.311496507 7.43385608,0.690768306 L7.10575957,1.00754321 C6.71062383,1.38904401 6.70871062,2.02645977 7.08559494,2.41487368 L10.547839,5.98303409 C10.9318381,6.37878044 10.7884618,6.69959625 10.245378,6.69959625 L0.997752864,6.69959625 C0.446709173,6.69959625 0,7.15186665 0,7.69603326 L0,8.29962834 C0,8.8499453 0.45466912,9.29606535 0.997752864,9.29606535 L10.245378,9.29606535 C10.7964217,9.29606535 10.9247233,9.61604912 10.537488,10.0052013 L7.09594587,13.4637798 C6.70623009,13.8554248 6.7129325,14.4964495 7.09562419,14.8802137 L7.44399146,15.2295574 C7.83352958,15.6201872 8.46580111,15.6194746 8.85763688,15.2265342 L15.2671665,8.79893563 C15.6583632,8.40663613 15.6590023,7.7615132 15.2809696,7.37080396 L8.84383372,0.717810582 Z" id="path-3"></path> </defs> <g id="Security-Settings-+-Chatbot" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Group" transform="translate(3.000000, 2.000000)"> <g id="Rectangle"> <use fill="black" fill-opacity="1" filter="url(%23filter-2)" xlink:href="%23path-1"></use> <use fill="%23F7C846" fill-rule="evenodd" xlink:href="%23path-1"></use> </g> <g transform="translate(4.000000, 16.000000)" id="Icons/-Arrow"> <g transform="translate(8.000000, 8.000000) scale(-1, 1) translate(-8.000000, -8.000000) "> <mask id="mask-4" fill="white"> <use xlink:href="%23path-3"></use> </mask> <use id="Mask" fill="%23000000" xlink:href="%23path-3"></use> <g id="Group" mask="url(%23mask-4)"> <g transform="translate(-14.909091, -23.636364)" id="Colors/-Red"> <rect id="Rectangle-Copy-5" fill="%23283455" x="0" y="0" width="50.1818182" height="50.1818182"></rect> </g> </g> </g> </g> </g> </g> </svg>') !important;
+        background-position: 70px 45px !important;
+        background-size: 30px 50px !important;
+        height: 93px !important;
+        width: 93px !important;
+        float: right !important;
+        right: 0;
+    }
+}
+
+@media only screen and (max-width: 110px) {
+    .message-list-wrapper {
+        display: none !important;
+    }
+}
+
+button.min-button {
+    background-size: 60px 60px;
+    /* Modify this to change the size of the minimized Hope icon */
+    height: 73px;
+    width: 61px;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background-repeat: no-repeat;
+    /* make the background image appear only once */
+    background-position: 0px 0px;
+    /* equivalent to 'top left' */
+    border: none;
+    /* assuming we don't want any borders */
+    cursor: pointer;
+    /* make the cursor like hovering over an <a> element */
+    padding-left: 16px;
+    /* make text start to the right of the image */
+    vertical-align: middle;
+    /* align the text vertically centered */
+    z-index: 1;
+}
+
+button.min-button i {
+    display: none;
+}
+
+.message-button {
+    display: none;
+}
 
 .message-bot .message-bubble {
     background-color: #eeedeb !important;
@@ -21,6 +79,15 @@
 
 .message-human .message-bubble {
     background-color: #afcffa !important;
+}
+
+@media only screen and (max-width: 925px) {
+    .btn--round {
+        border-radius: 28px;
+        display: block;
+        width: 70%;
+        left: 24%;
+    }
 }
 
 .message-bubble p {
@@ -32,7 +99,7 @@
 }
 
 .message-bubble .message-text {
-    padding-left:  0;
+    padding-left: 0;
     padding-right: 0;
     line-height: 1.6;
     font-size: 1rem;
@@ -44,8 +111,8 @@
 }
 
 .message-text {
-  color: #000000;
-  width: 100%;
+    color: #000000;
+    width: 100%;
 }
 
 .headline {
@@ -74,18 +141,39 @@
 }
 
 .card__actions .btn {
-  margin: 4px 4px !important;
-  font-size: 1em !important;
-  min-width: 44px !important;
-  background-color: #afcffa !important;
+    margin: 4px 4px !important;
+    font-size: 1em !important;
+    min-width: 44px !important;
+    background-color: #afcffa !important;
 }
 
-*/
-
-button.min-button {
+*/ button.min-button {
     border-radius: 60px;
 }
 
-.message-button {
-    display: none;
+@media only screen and (max-width: 188px) {
+    .btn--round {
+        border-radius: 28px;
+        display: block;
+        width: 110%;
+        left: -5%;
+    }
+
+    .card__actions.button-row {
+        position: relative;
+        left: -2%;
+        width: 100%;
+        padding: 2vw;
+    }
+}
+
+/* Dark mode response bubbles */
+.btn--disabled>.btn__content {
+    color: #4F5671;
+    width: 100%;
+    border: 1px solid #4F6571;
+}
+
+.btn>.btn__content {
+    width: 100%;
 }

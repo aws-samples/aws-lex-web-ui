@@ -130,7 +130,7 @@
       v-on:click.stop="toggleMinimize"
       v-show="!isUiMinimized"
     >
-      <h1>{{ toolbarTitle }}</h1>
+      <h1 class="toolbar-title-header">{{ toolbarTitle }}</h1>
     </v-toolbar-title>
 
     <v-toolbar-title class="hidden-xs-and-down" v-show="!isUiMinimized">

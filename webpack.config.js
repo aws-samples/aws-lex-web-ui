@@ -110,9 +110,15 @@ module.exports = (env) => {
         filename: (isProd) ? '[name].min.css' : '[name].css',
       }),
       new CopyPlugin([
-        // copy parent page
+        // copy images
         {
-          from: path.join(basePath, 'src/website/parent.html'),
+          from: path.join(basePath, 'src/website/*.svg'),
+          to: distDir,
+          flatten: true,
+        },
+        // copy config
+        {
+          from: path.join(basePath, 'src/config/lex-web-ui-loader-config.json'),
           to: distDir,
         },
         // copy custom css

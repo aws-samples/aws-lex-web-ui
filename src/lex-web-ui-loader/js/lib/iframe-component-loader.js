@@ -15,7 +15,9 @@
 /* global AWS */
 
 import { ConfigLoader } from './config-loader';
-import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin } from './loginutil';
+import {
+  logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin,
+} from './loginutil';
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -52,6 +54,7 @@ export class IframeComponentLoader {
   load(configParam) {
     this.config = ConfigLoader.mergeConfig(this.config, configParam);
 
+    // already existing from open-source implementation of lex-web-ui.
     // add iframe config if missing
     if (!(('iframe' in this.config))) {
       this.config.iframe = {};
@@ -59,16 +62,14 @@ export class IframeComponentLoader {
     const iframeConfig = this.config.iframe;
     // assign the iframeOrigin if not found in config
     if (!(('iframeOrigin' in iframeConfig) && iframeConfig.iframeOrigin)) {
-      this.config.iframe.iframeOrigin =
-        this.config.parentOrigin || window.location.origin;
+      this.config.iframe.iframeOrigin = this.config.parentOrigin || window.location.origin;
     }
     if (iframeConfig.shouldLoadIframeMinimized === undefined) {
       this.config.iframe.shouldLoadIframeMinimized = true;
     }
     // assign parentOrigin if not found in config
     if (!(this.config.parentOrigin)) {
-      this.config.parentOrigin =
-       this.config.iframe.iframeOrigin || window.location.origin;
+      this.config.parentOrigin = this.config.iframe.iframeOrigin || window.location.origin;
     }
     // validate config
     if (!IframeComponentLoader.validateConfig(this.config)) {
@@ -82,7 +83,27 @@ export class IframeComponentLoader {
     ])
       .then(() => this.initIframe())
       .then(() => this.initParentToIframeApi())
-      .then(() => this.showIframe());
+      .then(() => this.showIframe())
+      .then(() => this.initCustomSetup());
+  }
+
+  // custom events for Rhode Island.
+  initCustomSetup() {
+    // store user pool id for the parent page to use.
+    if (this.config.cognito.appUserPoolClientId) {
+      localStorage.setItem('appUserPoolClientId', `${this.config.cognito.appUserPoolClientId}`);
+    }
+
+    // if user clicks out of iframe, minimize the chatbot.
+    document.body.onclick = () => {
+      if (localStorage?.appUserPoolClientId && (localStorage[`${localStorage?.appUserPoolClientId}lastUiIsMinimized`] === 'false')) {
+        // document.dispatchEvent(new CustomEvent('lexWebUiMessage', { detail: { message: {event: "toggleMinimizeUi"}}}));
+        this.sendMessageToIframe({ event: 'toggleMinimizeUi' });
+      }
+    };
+
+    // on load, ask UIO+ for new Cognito tokens for custom session attributes.
+    window.setTimeout(() => document.dispatchEvent(new Event('requestSessionAttrs')), 2000);
   }
 
   /**
@@ -160,10 +181,8 @@ export class IframeComponentLoader {
    * request in the Vue component.
    */
   updateCredentials() {
-    const { poolId: cognitoPoolId } =
-      this.config.cognito;
-    const region =
-      this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
+    const { poolId: cognitoPoolId } = this.config.cognito;
+    const region = this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
     const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
     let credentials;
     const idtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
@@ -230,7 +249,6 @@ export class IframeComponentLoader {
     document.addEventListener('tokensavailable', this.updateCredentials.bind(this), false);
 
     return new Promise((resolve, reject) => {
-
       const curUrl = window.location.href;
       if (curUrl.indexOf('loggedin') >= 0) {
         if (completeLogin(this.generateConfigObj())) {
@@ -244,15 +262,14 @@ export class IframeComponentLoader {
         }
       }
       const { poolId: cognitoPoolId } = this.config.cognito;
-      const region =
-          this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
+      const region = this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
       const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
       if (!cognitoPoolId) {
         return reject(new Error('missing cognito poolId config'));
       }
 
-      if (!('AWS' in window) ||
-        !('CognitoIdentityCredentials' in window.AWS)
+      if (!('AWS' in window)
+        || !('CognitoIdentityCredentials' in window.AWS)
       ) {
         return reject(new Error('unable to find AWS SDK global object'));
       }
@@ -318,16 +335,15 @@ export class IframeComponentLoader {
    * Message handler - receives postMessage events from iframe
    */
   onMessageFromIframe(evt) {
-    const iframeOrigin =
-      (
-        'iframe' in this.config &&
-        typeof this.config.iframe.iframeOrigin === 'string'
-      ) ?
-        this.config.iframe.iframeOrigin :
-        window.location.origin;
+    const iframeOrigin = (
+      'iframe' in this.config
+      && typeof this.config.iframe.iframeOrigin === 'string'
+    )
+      ? this.config.iframe.iframeOrigin
+      : window.location.origin;
 
     // ignore events not produced by the lex web ui
-    if('data' in evt
+    if ('data' in evt
       && 'source' in evt.data
       && evt.data.source !== 'lex-web-ui'
     ) {
@@ -472,7 +488,7 @@ export class IframeComponentLoader {
     return new Promise((resolve, reject) => {
       const timeoutInMs = 15000;
 
-      readyManager.checkIsChatBotReady =  () => {
+      readyManager.checkIsChatBotReady = () => {
         // isChatBotReady set by event received from iframe
         if (this.isChatBotReady) {
           clearTimeout(readyManager.timeoutId);
@@ -490,14 +506,13 @@ export class IframeComponentLoader {
                 event: 'confirmLogin',
                 data: tokens,
               });
-            } else if (this.config.ui.enableLogin && this.config.ui.forceLogin){
-                forceLogin(this.generateConfigObj())
-                this.sendMessageToIframe({
-                  event: 'confirmLogin',
-                  data: tokens,
-                });
-            }
-            else {
+            } else if (this.config.ui.enableLogin && this.config.ui.forceLogin) {
+              forceLogin(this.generateConfigObj());
+              this.sendMessageToIframe({
+                event: 'confirmLogin',
+                data: tokens,
+              });
+            } else {
               const refToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
               if (refToken) {
                 refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
@@ -524,11 +539,9 @@ export class IframeComponentLoader {
         return reject(new Error('chatbot loading time out'));
       };
 
-      readyManager.timeoutId =
-        setTimeout(readyManager.onConfigEventTimeout, timeoutInMs);
+      readyManager.timeoutId = setTimeout(readyManager.onConfigEventTimeout, timeoutInMs);
 
-      readyManager.intervalId =
-        setInterval(readyManager.checkIsChatBotReady, 500);
+      readyManager.intervalId = setInterval(readyManager.checkIsChatBotReady, 500);
     });
   }
 
@@ -587,6 +600,51 @@ export class IframeComponentLoader {
         });
       },
 
+      hideTeaseBubble(evt) {
+        this.hideTeaseBubbleStateClass()
+          .then(() => (
+            evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event })
+          ))
+          .catch((error) => {
+            console.error('failed to partial minimize', error);
+            evt.ports[0].postMessage({
+              event: 'reject',
+              type: evt.data.event,
+              error: 'failed to partial minimize',
+            });
+          });
+      },
+
+      showTeaseBubble(evt) {
+        this.showTeaseBubbleClass()
+          .then(() => (
+            evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event })
+          ))
+          .catch((error) => {
+            console.error('failed to add partial minimize', error);
+            evt.ports[0].postMessage({
+              event: 'reject',
+              type: evt.data.event,
+              error: 'failed to add partial minimize',
+            });
+          });
+      },
+
+      toggleTheme(evt) {
+        this.toggleTheme()
+          .then(() => (
+            evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event })
+          ))
+          .catch((error) => {
+            console.error('failed to toggle theme', error);
+            evt.ports[0].postMessage({
+              event: 'reject',
+              type: evt.data.event,
+              error: 'failed to toggle theme',
+            });
+          });
+      },
+
       // sent when minimize button is pressed within the iframe component
       toggleMinimizeUi(evt) {
         this.toggleMinimizeUiClass()
@@ -599,6 +657,38 @@ export class IframeComponentLoader {
               event: 'reject',
               type: evt.data.event,
               error: 'failed to toggleMinimizeUi',
+            });
+          });
+      },
+
+      // sent when explicit minimize action occurs
+      minimizeUi(evt) {
+        this.minimizeUiClass()
+          .then(() => (
+            evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event })
+          ))
+          .catch((error) => {
+            console.error('failed to minimizeUi', error);
+            evt.ports[0].postMessage({
+              event: 'reject',
+              type: evt.data.event,
+              error: 'failed to minimizeUi',
+            });
+          });
+      },
+
+      // sent when explicit maximize action occurs
+      maximizeUi(evt) {
+        this.maximizeUiClass()
+          .then(() => (
+            evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event })
+          ))
+          .catch((error) => {
+            console.error('failed to maximizeUi', error);
+            evt.ports[0].postMessage({
+              event: 'reject',
+              type: evt.data.event,
+              error: 'failed to maximizeUi',
             });
           });
       },
@@ -665,9 +755,9 @@ export class IframeComponentLoader {
    * Send a message to the iframe using postMessage
    */
   sendMessageToIframe(message) {
-    if (!this.iframeElement ||
-      !('contentWindow' in this.iframeElement) ||
-      !('postMessage' in this.iframeElement.contentWindow)
+    if (!this.iframeElement
+      || !('contentWindow' in this.iframeElement)
+      || !('postMessage' in this.iframeElement.contentWindow)
     ) {
       return Promise.reject(new Error('invalid iframe element'));
     }
@@ -709,7 +799,37 @@ export class IframeComponentLoader {
   }
 
   /**
-   * Toggle between miminizing and expanding the chatbot ui
+   * Remove partially minimized class
+   */
+  hideTeaseBubbleStateClass() {
+    try {
+      this.containerElement.classList.remove(`${this.containerClass}--partially-minimized`);
+      return Promise.resolve();
+    } catch (err) {
+      return Promise.reject(new Error(`failed to remove partially minimize UI ${err}`));
+    }
+  }
+
+  showTeaseBubbleClass() {
+    try {
+      this.containerElement.classList.add(`${this.containerClass}--partially-minimized`);
+      return Promise.resolve();
+    } catch (err) {
+      return Promise.reject(new Error(`failed to add partially minimize UI ${err}`));
+    }
+  }
+
+  toggleTheme() {
+    try {
+      this.containerElement.classList.toggle('dark-theme');
+      return Promise.resolve();
+    } catch (err) {
+      return Promise.reject(new Error(`failed to toggle theme ${err}`));
+    }
+  }
+
+  /**
+   * Toggle between minimizing and expanding the chatbot ui
    */
   toggleMinimizeUiClass() {
     try {
@@ -726,6 +846,26 @@ export class IframeComponentLoader {
   }
 
   /**
+   * Minimize chatbot ui
+   */
+  minimizeUiClass() {
+    if (!this.containerElement.classList.contains(`${this.containerClass}--minimize`)) {
+      return this.toggleMinimizeUiClass();
+    }
+    return Promise.resolve();
+  }
+
+  /**
+   * Maximize chatbot ui
+   */
+  maximizeUiClass() {
+    if (this.containerElement.classList.contains(`${this.containerClass}--minimize`)) {
+      return this.toggleMinimizeUiClass();
+    }
+    return Promise.resolve();
+  }
+
+  /**
    * Shows the iframe
    */
   showIframe() {
@@ -734,9 +874,11 @@ export class IframeComponentLoader {
         // check for last state and resume with this configuration
         if (this.config.iframe.shouldLoadIframeMinimized) {
           this.api.toggleMinimizeUi();
+          this.api.showTeaseBubble();
           localStorage.setItem(`${this.config.cognito.appUserPoolClientId}lastUiIsMinimized`, 'true');
         } else if (localStorage.getItem(`${this.config.cognito.appUserPoolClientId}lastUiIsMinimized`) && localStorage.getItem(`${this.config.cognito.appUserPoolClientId}lastUiIsMinimized`) === 'true') {
           this.api.toggleMinimizeUi();
+          this.api.showTeaseBubble();
         } else if (localStorage.getItem(`${this.config.cognito.appUserPoolClientId}lastUiIsMinimized`) && localStorage.getItem(`${this.config.cognito.appUserPoolClientId}lastUiIsMinimized`) === 'false') {
           this.api.ping();
         }
@@ -751,14 +893,11 @@ export class IframeComponentLoader {
    * to the iframe using postMessage
    */
   onMessageToIframe(evt) {
-    if (!evt || !('detail' in evt) || !evt.detail ||
-      !('message' in evt.detail)
-    ) {
+    if (!evt || !('detail' in evt) || !evt.detail || !('message' in evt.detail)) {
       return Promise.reject(new Error('malformed message to iframe event'));
     }
     return this.sendMessageToIframe(evt.detail.message);
   }
-
 
   /**
    * Inits the parent to iframe API
@@ -771,11 +910,20 @@ export class IframeComponentLoader {
       sendParentReady: () => (
         this.sendMessageToIframe({ event: 'parentReady' })
       ),
+      showTeaseBubble: () => (
+        this.sendMessageToIframe({ event: 'showTeaseBubble' })
+      ),
+      toggleTheme: () => (
+        this.sendMessageToIframe({ event: 'toggleTheme' })
+      ),
+      hideTeaseBubble: () => (
+        this.sendMessageToIframe({ event: 'hideTeaseBubble' })
+      ),
       toggleMinimizeUi: () => (
         this.sendMessageToIframe({ event: 'toggleMinimizeUi' })
       ),
-      postText: (message, messageType) => (
-        this.sendMessageToIframe({event: 'postText', message: message, messageType: messageType})
+      postText: (message) => (
+        this.sendMessageToIframe({ event: 'postText', message })
       ),
       deleteSession: () => (
         this.sendMessageToIframe({ event: 'deleteSession' })
@@ -784,7 +932,7 @@ export class IframeComponentLoader {
         this.sendMessageToIframe({ event: 'startNewSession' })
       ),
       setSessionAttribute: (key, value) => (
-          this.sendMessageToIframe({ event: 'setSessionAttribute', key: key, value: value })
+        this.sendMessageToIframe({ event: 'setSessionAttribute', key: key, value: value })
       ),
     };
 
