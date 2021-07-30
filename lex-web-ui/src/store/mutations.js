@@ -336,7 +336,12 @@ export default {
   toggleIsUiMinimized(state) {
     state.isUiMinimized = !state.isUiMinimized;
   },
-
+  minimizeUi(state) {
+    state.isUiMinimized = true;
+  },
+  maximizeUi(state) {
+    state.isUiMinimized = false;
+  },
   toggleIsSFXOn(state) {
     state.isSFXOn = !state.isSFXOn;
   },
@@ -458,6 +463,18 @@ export default {
       state.tokens = undefined;
     }
   },
+
+  /**
+   * Update custom tokens/session attributes
+   * @param state
+   * @param tokens
+   * Do not use custom attributes with these named keys: idtokenjwt, accesstokenjwt, refreshtoken
+   */
+  setSessionAttrs(state, sessionAttrs) {
+    if (sessionAttrs && (!sessionAttrs.hasOwnProperty("idtokenjwt") && !sessionAttrs.hasOwnProperty("accesstokenjwt") && !sessionAttrs.hasOwnProperty("refreshtoken"))) {
+      state.lex.sessionAttributes = { ...state.lex.sessionAttributes, ...sessionAttrs }
+    }
+  },
   /**
    * Push new message into messages array
    */
@@ -526,4 +543,10 @@ export default {
   updateLocaleIds(state, data) {
     state.config.lex.v2BotLocaleId = data;
   },
+  setUserWantsTeaseBubble(state, bool) {
+    state.userWantsTeaseBubble = bool;
+  },
+  resetUserTeaseBubblePreference(state) {
+    state.userWantsTeaseBubble = true;
+  }
 };

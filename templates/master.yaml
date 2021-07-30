@@ -21,9 +21,9 @@ Parameters:
             also enter your Bot alias ID in the LexV2BotAliasId field below. DO NOT MODIFY this value if
             configuring a V1 Bot.
         Type: String
-        Default: ''
+        Default: ""
         MaxLength: 50
-        AllowedPattern: '(^$|^[a-zA-Z0-9]+((_[a-zA-Z0-9]+)*|([a-zA-Z0-9]+_)*|_))'
+        AllowedPattern: "(^$|^[a-zA-Z0-9]+((_[a-zA-Z0-9]+)*|([a-zA-Z0-9]+_)*|_))"
         ConstraintDescription: >
             Must conform with the permitted Lex V2 Bot name pattern.
 
@@ -32,10 +32,10 @@ Parameters:
             Use your Lex V2 Bot's alias id (not alias name) here. DO NOT MODIFY this value if
             configuring a V1 Bot.
         Type: String
-        Default: ''
+        Default: ""
         MinLength: 0
         MaxLength: 50
-        AllowedPattern: '(^$|^[$a-zA-Z0-9]+((_[$a-zA-Z0-9]+)*|([$a-zA-Z0-9]+_)*|_))'
+        AllowedPattern: "(^$|^[$a-zA-Z0-9]+((_[$a-zA-Z0-9]+)*|([$a-zA-Z0-9]+_)*|_))"
         ConstraintDescription: >
             Must conform with the permitted Lex V2 Alias name pattern.
 
@@ -49,7 +49,7 @@ Parameters:
             for details on supported languages and locales. DO NOT MODIFY this value if
             configuring a V1 Bot.
         Type: String
-        Default: 'en_US'
+        Default: "en_US"
         MinLength: 2
         MaxLength: 50
 
@@ -59,10 +59,10 @@ Parameters:
             also enter your published bot alias in the BotAlias field below. DO NOT MODIFY this value if
             configuring a V2 Bot.
         Type: String
-        Default: ''
+        Default: ""
         MinLength: 0
         MaxLength: 50
-        AllowedPattern: '(^$|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_))'
+        AllowedPattern: "(^$|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_))"
         ConstraintDescription: >
             Must conform with the permitted Lex Bot name pattern.
 
@@ -73,10 +73,10 @@ Parameters:
             the number of runtime requests that you can make to the $LATEST version of
             the bot. DO NOT MODIFY this value if configuring a V2 Bot.
         Type: String
-        Default: '$LATEST'
+        Default: "$LATEST"
         MinLength: 2
         MaxLength: 50
-        AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
+        AllowedPattern: "(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))"
         ConstraintDescription: >
             Must conform with the permitted Lex Alias name pattern.
 
@@ -99,8 +99,8 @@ Parameters:
         Type: String
         Default: true
         AllowedValues:
-          - true
-          - false
+            - true
+            - false
         Description: >
             If set to True, the Optional Sample Lex bot and associated resources will
             be deleted when the stack is deleted. Otherwise, the bot
@@ -111,8 +111,8 @@ Parameters:
         Type: String
         Default: false
         AllowedValues:
-          - true
-          - false
+            - true
+            - false
         Description: >
             If set to True, a menu with a login action will be displayed
             in the Lex Web Ui. This feature uses Cognito User Pools with
@@ -122,8 +122,8 @@ Parameters:
         Type: String
         Default: false
         AllowedValues:
-          - true
-          - false
+            - true
+            - false
         Description: >
             If set to True, the menu with a login action will not be displayed
             in the Lex Web Ui, and the Cognito login will be executed automatically. This implicitly sets
@@ -143,11 +143,11 @@ Parameters:
         Type: String
         Default: false
         AllowedValues:
-          - true
-          - false
+            - true
+            - false
         Description: >
-          This is an optional parameter, if set to True, the AWS Connect live Chat functionality will be available.
-          A item to start a live chat will appear at the menu.
+            This is an optional parameter, if set to True, the AWS Connect live Chat functionality will be available.
+            A item to start a live chat will appear at the menu.
 
     CodeBuildName:
         Type: String
@@ -170,13 +170,13 @@ Parameters:
             of an existing site where you want to place the chat bot UI.
             This is an optional parameter. If left empty, the sample parent page
             will be hosted in the same S3 bucket as the iframe
-        Default: ''
+        Default: ""
         AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
         ConstraintDescription: Empty or valid browser origin
 
     WebAppPath:
         Type: String
-        Default: '/parent.html'
+        Default: "/parent.html"
         Description: >
             Path to the page (or pages) under WebAppParentOrigin used to host
             the chatbot UI. Multiple paths can be specified as a comma separated
@@ -189,7 +189,7 @@ Parameters:
             parameter. If left empty, a Cognito Identity Pool will be
             automatically created. The pool ID is used by the web ui
             to get AWS credentials for making calls to Lex and Polly.
-        Default: ''
+        Default: ""
         AllowedPattern: '(^$|^[\w-]+:[0-9a-f-]+$)'
         ConstraintDescription: Empty or a valid Cognito Identity Pool ID
 
@@ -209,8 +209,8 @@ Parameters:
         Type: String
         Default: true
         AllowedValues:
-          - true
-          - false
+            - true
+            - false
         Description: >
             If set to True, buckets created for the Pipeline and to store the
             web application will be deleted on CloudFormation stack delete.
@@ -220,8 +220,8 @@ Parameters:
         Type: String
         Default: true
         AllowedValues:
-        - true
-        - false
+            - true
+            - false
         Description: >
             If set to True, enable optional Markdown formatting.
             Warning: Improper use of the Markdown/html feature can open you up to a cross-site
@@ -232,8 +232,8 @@ Parameters:
         Type: String
         Default: false
         AllowedValues:
-        - true
-        - false
+            - true
+            - false
         Description: >
             If set to True, session attributes sent on each request to Lex are reset. Use a value
             of false, if session attributes need to be supported on subsequent Lex requests. The
@@ -243,8 +243,8 @@ Parameters:
         Type: String
         Default: false
         AllowedValues:
-        - true
-        - false
+            - true
+            - false
         Description: >
             If set to True and running embedded as an Iframe on a web page, minimize the
             LexWebUi when first launched. If set to False, the Iframe will be maximized
@@ -254,8 +254,8 @@ Parameters:
         Type: String
         Default: false
         AllowedValues:
-        - true
-        - false
+            - true
+            - false
         Description: >
             If set to True, the ResponseCard title is displayed in the UI. When set to false,
             a ResponseCard title is not displayed in the UI. Default is false. Note at the
@@ -293,7 +293,7 @@ Parameters:
 
     WebAppConfBotInitialUtterance:
         Type: String
-        Default: ''
+        Default: ""
         Description: >
             Text to use to send as first utterance to bot
 
@@ -348,13 +348,13 @@ Parameters:
         Type: String
         Description: >
             Connect Contract Flow Id
-        Default: ''
+        Default: ""
 
     ConnectInstanceId:
         Type: String
         Description: >
             Connect Instance Id
-        Default: ''
+        Default: ""
 
     ConnectPromptForNameMessage:
         Type: String
@@ -372,8 +372,8 @@ Parameters:
         Type: String
         Default: true
         AllowedValues:
-        - true
-        - false
+            - true
+            - false
         Description: >
             Attach chat transcript as file. This only works if you enable attachments in Amazon Connect.
 
@@ -388,7 +388,7 @@ Parameters:
         Description: >
             Message to play when an agent leaves the chat. {Agent} will be replaced with the Agent's name.
         Default: "{Agent} has left."
-    
+
     ConnectChatEndedMessage:
         Type: String
         Description: >
@@ -411,30 +411,30 @@ Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
             - Label:
-                default: Deployment Parameters
+                  default: Deployment Parameters
               Parameters:
                   - CodeBuildName
                   - CleanupBuckets
                   - BootstrapBucket
                   - BootstrapPrefix
             - Label:
-                default: Lex V1 Bot Configuration Parameters
+                  default: Lex V1 Bot Configuration Parameters
               Parameters:
                   - BotName
                   - BotAlias
             - Label:
-                default: Lex V2 Bot Configuration Parameters
+                  default: Lex V2 Bot Configuration Parameters
               Parameters:
                   - LexV2BotId
                   - LexV2BotAliasId
                   - LexV2BotLocaleId
             - Label:
-                default: Optional Sample Bot
+                  default: Optional Sample Bot
               Parameters:
                   - BotNamePrefix
                   - ShouldDeleteBot
             - Label:
-                default: Bot Behavior Parameters
+                  default: Bot Behavior Parameters
               Parameters:
                   - EnableCognitoLogin
                   - ForceCognitoLogin
@@ -445,12 +445,12 @@ Metadata:
                   - retryOnLexPostTextTimeout
                   - retryCountPostTextTimeout
             - Label:
-                default: Cognito Parameters
+                  default: Cognito Parameters
               Parameters:
                   - CognitoIdentityPoolId
                   - CognitoIdentityPoolName
             - Label:
-                default: Web Application Parameters
+                  default: Web Application Parameters
               Parameters:
                   - WebAppParentOrigin
                   - WebAppPath
@@ -463,7 +463,7 @@ Metadata:
                   - WebAppConfToolbarTitle
                   - ShouldLoadIframeMinimized
             - Label:
-                default: Connect Live Chat Parameters
+                  default: Connect Live Chat Parameters
               Parameters:
                   - ShouldEnableLiveChat
                   - ConnectLiveChatTerms
@@ -477,10 +477,10 @@ Metadata:
                   - ConnectChatEndedMessage
                   - ConnectAttachChatTranscript
 Conditions:
-    IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
-    NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
-    NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
-    NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
+    IsLexV2: !Not [!Equals [!Ref LexV2BotId, ""]]
+    NeedsBot: !And [!Equals [!Ref BotName, ""], !Equals [!Ref LexV2BotId, ""]]
+    NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, ""]
+    NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, ""]
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
     EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
 
@@ -505,11 +505,10 @@ Resources:
             Parameters:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
                 ForceCognitoLogin: !Ref ForceCognitoLogin
-                LexBotName:
-                    !If
-                      - NeedsBot
-                      - !GetAtt Bot.Outputs.BotName
-                      - !Ref BotName
+                LexBotName: !If
+                    - NeedsBot
+                    - !GetAtt Bot.Outputs.BotName
+                    - !Ref BotName
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
@@ -529,23 +528,21 @@ Resources:
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.4.zip"
                 InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.19.4.zip"
                 CleanupBuckets: !Ref CleanupBuckets
-                BotName:
-                    !If
-                      - IsLexV2
-                      - !Ref LexV2BotId
-                      - !If
-                          - NeedsBot
-                          - !GetAtt Bot.Outputs.BotName
-                          - !Ref BotName
+                BotName: !If
+                    - IsLexV2
+                    - !Ref LexV2BotId
+                    - !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotName
+                      - !Ref BotName
                 BotAlias: !Ref BotAlias
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
                 LexV2BotLocaleId: !Ref LexV2BotLocaleId
-                CognitoIdentityPoolId:
-                    !If
-                      - NeedsCognito
-                      - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
-                      - !Ref CognitoIdentityPoolId
+                CognitoIdentityPoolId: !If
+                    - NeedsCognito
+                    - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
+                    - !Ref CognitoIdentityPoolId
                 ParentOrigin: !Ref WebAppParentOrigin
                 WebAppConfBotInitialText: !Ref WebAppConfBotInitialText
                 WebAppConfBotInitialSpeech: !Ref WebAppConfBotInitialSpeech
@@ -556,8 +553,7 @@ Resources:
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
                 SaveHistory: !Ref SaveHistory
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
-                ShouldEnableCognitoLogin:
-                  !If
+                ShouldEnableCognitoLogin: !If
                     - ShouldForceCognitoLogin
                     - true
                     - !Ref EnableCognitoLogin
@@ -566,16 +562,14 @@ Resources:
                 EnableMarkdownSupport: !Ref EnableMarkdownSupport
                 ShouldLoadIframeMinimized: !Ref ShouldLoadIframeMinimized
                 ShowResponseCardTitle: !Ref ShowResponseCardTitle
-                CognitoAppUserPoolClientId:
-                    !If
-                      - NeedsCognito
-                      - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                      - "UserMustSupply"
-                CognitoUserPoolId:
-                    !If
-                      - NeedsCognito
-                      - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
-                      - "UserMustSupply"
+                CognitoAppUserPoolClientId: !If
+                    - NeedsCognito
+                    - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+                    - "UserMustSupply"
+                CognitoUserPoolId: !If
+                    - NeedsCognito
+                    - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+                    - "UserMustSupply"
                 retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
                 retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
                 ConnectContactFlowId: !Ref ConnectContactFlowId
@@ -588,7 +582,7 @@ Resources:
                 ConnectChatEndedMessage: !Ref ConnectChatEndedMessage
                 ConnectAttachChatTranscript: !Ref ConnectAttachChatTranscript
                 ConnectLiveChatTerms: !Ref ConnectLiveChatTerms
-                Timestamp: 1646508613
+                Timestamp: 1628098448
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -602,7 +596,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1646508613
+                Timestamp: 1628098448
 
 Outputs:
     BotName:
@@ -628,14 +622,14 @@ Outputs:
             DomainName of the web application
         Value: !GetAtt CodeBuildDeploy.Outputs.WebAppDomainName
         Export:
-          Name: !Join [":", [!Ref "AWS::StackName", WebAppDomainName]]
+            Name: !Join [":", [!Ref "AWS::StackName", WebAppDomainName]]
 
     WebAppBucket:
         Description: >
             S3 bucket hosting lexwebui artifacts
         Value: !GetAtt CodeBuildDeploy.Outputs.WebAppBucket
         Export:
-          Name: !Join [":", [!Ref "AWS::StackName", WebAppBucket]]
+            Name: !Join [":", [!Ref "AWS::StackName", WebAppBucket]]
 
     ParentPageUrl:
         Condition: NeedsParentOrigin
@@ -671,4 +665,4 @@ Outputs:
         Description: Cognito User Pool Client Id
         Value: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
         Export:
-          Name: !Join [":", [!Ref "AWS::StackName", CognitoUserPoolClientId]]
+            Name: !Join [":", [!Ref "AWS::StackName", CognitoUserPoolClientId]]

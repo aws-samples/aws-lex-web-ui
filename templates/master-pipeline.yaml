@@ -25,9 +25,9 @@ Parameters:
             also enter your Bot alias ID in the LexV2BotAliasId field below. DO NOT MODIFY this value if
             configuring a V1 Bot.
         Type: String
-        Default: ''
+        Default: ""
         MaxLength: 50
-        AllowedPattern: '(^$|^[a-zA-Z0-9]+((_[a-zA-Z0-9]+)*|([a-zA-Z0-9]+_)*|_))'
+        AllowedPattern: "(^$|^[a-zA-Z0-9]+((_[a-zA-Z0-9]+)*|([a-zA-Z0-9]+_)*|_))"
         ConstraintDescription: >
             Must conform with the permitted Lex V2 Bot name pattern.
 
@@ -36,10 +36,10 @@ Parameters:
             Use your Lex V2 Bot's alias id (not alias name) here. DO NOT MODIFY this value if
             configuring a V1 Bot.
         Type: String
-        Default: ''
+        Default: ""
         MinLength: 0
         MaxLength: 50
-        AllowedPattern: '(^$|^[$a-zA-Z0-9]+((_[$a-zA-Z0-9]+)*|([$a-zA-Z0-9]+_)*|_))'
+        AllowedPattern: "(^$|^[$a-zA-Z0-9]+((_[$a-zA-Z0-9]+)*|([$a-zA-Z0-9]+_)*|_))"
         ConstraintDescription: >
             Must conform with the permitted Lex V2 Alias name pattern.
 
@@ -53,7 +53,7 @@ Parameters:
             for details on supported languages and locales. DO NOT MODIFY this value if
             configuring a V1 Bot.
         Type: String
-        Default: 'en_US'
+        Default: "en_US"
         MinLength: 2
         MaxLength: 50
 
@@ -63,10 +63,10 @@ Parameters:
             also enter your published bot alias in the BotAlias field below. DO NOT MODIFY this value if
             configuring a V2 Bot.
         Type: String
-        Default: ''
+        Default: ""
         MinLength: 0
         MaxLength: 50
-        AllowedPattern: '(^$|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_))'
+        AllowedPattern: "(^$|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_))"
         ConstraintDescription: >
             Must conform with the permitted Lex Bot name pattern.
 
@@ -77,10 +77,10 @@ Parameters:
             the number of runtime requests that you can make to the $LATEST version of
             the bot. DO NOT MODIFY this value if configuring a V2 Bot.
         Type: String
-        Default: '$LATEST'
+        Default: "$LATEST"
         MinLength: 2
         MaxLength: 50
-        AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
+        AllowedPattern: "(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))"
         ConstraintDescription: >
             Must conform with the permitted Lex Alias name pattern.
 
@@ -103,8 +103,8 @@ Parameters:
         Type: String
         Default: true
         AllowedValues:
-          - true
-          - false
+            - true
+            - false
         Description: >
             If set to True, the Optional Sample Lex bot and associated resources will
             be deleted when the stack is deleted. Otherwise, the bot
@@ -161,7 +161,7 @@ Parameters:
         Description: >
             Message to play when an agent leaves the chat. {Agent} will be replaced with the Agent's name.
         Default: "{Agent} has left."
-    
+
     ConnectChatEndedMessage:
         Type: String
         Description: >
@@ -172,8 +172,8 @@ Parameters:
         Type: String
         Default: true
         AllowedValues:
-        - true
-        - false
+            - true
+            - false
         Description: >
             Attach chat transcript as file. This only works if you enable
 
@@ -230,13 +230,13 @@ Parameters:
             of an existing site where you want to place the chat bot UI.
             This is an optional parameter. If left empty, the sample parent page
             will be hosted in the same S3 bucket as the iframe
-        Default: ''
+        Default: ""
         AllowedPattern: '(^$|^https?://[\w\.-]+(:\d+)?$)'
         ConstraintDescription: Empty or valid browser origin
 
     WebAppPath:
         Type: String
-        Default: '/parent.html'
+        Default: "/parent.html"
         Description: >
             Path to the page (or pages) under WebAppParentOrigin used to host
             the chatbot UI. Multiple paths can be specified as a comma separated
@@ -249,7 +249,7 @@ Parameters:
             parameter. If left empty, a Cognito Identity Pool will be
             automatically created. The pool ID is used by the web ui
             to get AWS credentials for making calls to Lex and Polly.
-        Default: ''
+        Default: ""
         AllowedPattern: '(^$|^[\w-]+:[0-9a-f-]+$)'
         ConstraintDescription: Empty or a valid Cognito Identity Pool ID
 
@@ -269,8 +269,8 @@ Parameters:
         Type: String
         Default: true
         AllowedValues:
-          - true
-          - false
+            - true
+            - false
         Description: >
             If set to True, buckets created for the Pipeline and to store the
             web application will be deleted on CloudFormation stack delete.
@@ -318,7 +318,7 @@ Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
             - Label:
-                default: Deployment Parameters
+                  default: Deployment Parameters
               Parameters:
                   - CodeBuildName
                   - CodePipelineName
@@ -343,12 +343,12 @@ Metadata:
                   - BotNamePrefix
                   - ShouldDeleteBot
             - Label:
-                default: Cognito Parameters
+                  default: Cognito Parameters
               Parameters:
                   - CognitoIdentityPoolId
                   - CognitoIdentityPoolName
             - Label:
-                default: Web Application Parameters
+                  default: Web Application Parameters
               Parameters:
                   - WebAppParentOrigin
                   - WebAppPath
@@ -356,7 +356,7 @@ Metadata:
                   - WebAppConfPositiveFeedback
                   - WebAppConfHelp
             - Label:
-                default: Connect Live Chat Parameters
+                  default: Connect Live Chat Parameters
               Parameters:
                   - ShouldEnableLiveChat
                   - ConnectLiveChatTerms
@@ -370,10 +370,10 @@ Metadata:
                   - ConnectChatEndedMessage
                   - ConnectAttachChatTranscript
 Conditions:
-    IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
-    NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
-    NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
-    NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
+    IsLexV2: !Not [!Equals [!Ref LexV2BotId, ""]]
+    NeedsBot: !And [!Equals [!Ref BotName, ""], !Equals [!Ref LexV2BotId, ""]]
+    NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, ""]
+    NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, ""]
     EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
 
 Resources:
@@ -396,11 +396,10 @@ Resources:
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/cognito.yaml"
             Parameters:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
-                LexBotName:
-                    !If
-                      - NeedsBot
-                      - !GetAtt Bot.Outputs.BotName
-                      - !Ref BotName
+                LexBotName: !If
+                    - NeedsBot
+                    - !GetAtt Bot.Outputs.BotName
+                    - !Ref BotName
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
@@ -414,22 +413,20 @@ Resources:
             TimeoutInMinutes: 15
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/coderepo.yaml"
             Parameters:
-                BotName:
-                    !If
-                      - NeedsBot
-                      - !GetAtt Bot.Outputs.BotName
-                      - !Ref BotName
+                BotName: !If
+                    - NeedsBot
+                    - !GetAtt Bot.Outputs.BotName
+                    - !Ref BotName
                 BotAlias: !Ref BotAlias
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
                 LexV2BotLocaleId: !Ref LexV2BotLocaleId
                 CodeBuildName: !Sub "${CodeCommitRepoName}-init"
                 CodeCommitRepoName: !Ref CodeCommitRepoName
-                CognitoIdentityPoolId:
-                    !If
-                      - NeedsCognito
-                      - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
-                      - !Ref CognitoIdentityPoolId
+                CognitoIdentityPoolId: !If
+                    - NeedsCognito
+                    - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
+                    - !Ref CognitoIdentityPoolId
                 SourceBucket: !Ref BootstrapBucket
                 SourceObject: !Sub "${BootstrapPrefix}/src-v0.19.4.zip"
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.4.zip"
@@ -439,14 +436,13 @@ Resources:
         Properties:
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/pipeline.yaml"
             Parameters:
-                BotName:
-                  !If
+                BotName: !If
                     - IsLexV2
                     - !Ref LexV2BotId
                     - !If
-                        - NeedsBot
-                        - !GetAtt Bot.Outputs.BotName
-                        - !Ref BotName
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotName
+                      - !Ref BotName
                 BotAlias: !Ref BotAlias
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
@@ -454,26 +450,23 @@ Resources:
                 CodePipelineName: !Ref CodePipelineName
                 CodeCommitRepoName: !GetAtt CodeCommitRepo.Outputs.CodeCommitRepoName
                 CodeBuildName: !Ref CodeBuildName
-                CognitoIdentityPoolId:
-                    !If
-                      - NeedsCognito
-                      - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
-                      - !Ref CognitoIdentityPoolId
+                CognitoIdentityPoolId: !If
+                    - NeedsCognito
+                    - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
+                    - !Ref CognitoIdentityPoolId
                 ParentOrigin: !Ref WebAppParentOrigin
                 CustomResourceCodeBucket: !Ref BootstrapBucket
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.4.zip"
                 InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.19.4.zip"
                 CleanupBuckets: !Ref CleanupBuckets
-                CognitoAppUserPoolClientId:
-                    !If
-                      - NeedsCognito
-                      - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                      - ''
-                CognitoUserPoolId:
-                    !If
-                      - NeedsCognito
-                      - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
-                      - ''
+                CognitoAppUserPoolClientId: !If
+                    - NeedsCognito
+                    - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+                    - ""
+                CognitoUserPoolId: !If
+                    - NeedsCognito
+                    - !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
+                    - ""
                 WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
                 WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
                 WebAppConfHelp: !Ref WebAppConfHelp
@@ -502,7 +495,6 @@ Resources:
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
                 Timestamp: 1646508613
-
 Outputs:
     BotName:
         Condition: NeedsBot

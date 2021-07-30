@@ -168,7 +168,7 @@ const configDefault = {
     toolbarColor: 'red',
 
     // chat window title
-    toolbarTitle: 'Order Flowers',
+    toolbarTitle: 'Order Flowers Bot',
 
     // logo used in toolbar - also used as favicon not specificied
     toolbarLogo: '',

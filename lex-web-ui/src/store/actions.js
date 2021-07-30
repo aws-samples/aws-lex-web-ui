@@ -28,7 +28,8 @@ import silentMp3 from '@/assets/silent.mp3';
 import LexClient from '@/lib/lex/client';
 
 const jwt = require('jsonwebtoken');
-const AWS = require('aws-sdk');
+const marked = require('marked');
+const renderer = new marked.Renderer();
 
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
@@ -71,7 +72,7 @@ export default {
     )
       .then((configResponse) => {
         if (configResponse.event === 'resolve' &&
-            configResponse.type === 'initIframeConfig') {
+          configResponse.type === 'initIframeConfig') {
           return Promise.resolve(configResponse.data);
         }
         return Promise.reject(new Error('invalid config event from parent'));
@@ -94,10 +95,10 @@ export default {
     if (context.state.messages &&
       context.state.messages.length === 0 &&
       context.state.config.lex.initialText.length > 0) {
-        context.commit('pushMessage', {
-          type: 'bot',
-          text: context.state.config.lex.initialText,
-        });
+      context.commit('pushMessage', {
+        type: 'bot',
+        text: context.state.config.lex.initialText,
+      });
     }
   },
   initLexClient(context, payload) {
@@ -143,7 +144,7 @@ export default {
       .then(() => context.commit('setIsMicMuted', recorder.isMicMuted))
       .catch((error) => {
         if (['PermissionDeniedError', 'NotAllowedError'].indexOf(error.name)
-            >= 0) {
+          >= 0) {
           console.warn('get user media permission denied');
           context.dispatch(
             'pushErrorMessage',
@@ -157,7 +158,7 @@ export default {
   },
   initBotAudio(context, audioElement) {
     if (!context.state.recState.isRecorderEnabled ||
-        !context.state.config.recorder.enable
+      !context.state.config.recorder.enable
     ) {
       return Promise.resolve();
     }
@@ -311,9 +312,9 @@ export default {
     const intervalTimeInMs = 200;
 
     if (!enablePlaybackInterrupt &&
-        !isSpeaking &&
-        context.state.lex.isInterrupting &&
-        audio.duration < playbackInterruptMinDuration
+      !isSpeaking &&
+      context.state.lex.isInterrupting &&
+      audio.duration < playbackInterruptMinDuration
     ) {
       return;
     }
@@ -324,12 +325,12 @@ export default {
       const { canInterrupt } = context.state.botAudio;
 
       if (!canInterrupt &&
-          // allow to be interrupt free in the beginning
-          end > playbackInterruptMinDuration &&
-          // don't interrupt towards the end
-          (duration - end) > 0.5 &&
-          // only interrupt if the volume seems to be low noise
-          recorder.volume.max < playbackInterruptNoiseThreshold
+        // allow to be interrupt free in the beginning
+        end > playbackInterruptMinDuration &&
+        // don't interrupt towards the end
+        (duration - end) > 0.5 &&
+        // only interrupt if the volume seems to be low noise
+        recorder.volume.max < playbackInterruptNoiseThreshold
       ) {
         context.commit('setCanInterruptBotPlayback', true);
       } else if (canInterrupt && (duration - end) < 0.5) {
@@ -337,8 +338,8 @@ export default {
       }
 
       if (canInterrupt &&
-          recorder.volume.max > playbackInterruptVolumeThreshold &&
-          recorder.volume.slow > playbackInterruptLevelThreshold
+        recorder.volume.max > playbackInterruptVolumeThreshold &&
+        recorder.volume.slow > playbackInterruptLevelThreshold
       ) {
         clearInterval(intervalId);
         context.commit('setIsBotPlaybackInterrupting', true);
@@ -428,7 +429,7 @@ export default {
   },
   interruptSpeechConversation(context) {
     if (!context.state.recState.isConversationGoing &&
-        !context.state.botAudio.isSpeaking
+      !context.state.botAudio.isSpeaking
     ) {
       return Promise.resolve();
     }
@@ -482,8 +483,8 @@ export default {
       })
       .then(() => {
         const liveChatTerms = context.state.config.connect.liveChatTerms ? context.state.config.connect.liveChatTerms.split(',').map(str => str.trim()) : [];
-        if (context.state.config.ui.enableLiveChat && 
-          liveChatTerms.find(el => el === message.text.toLowerCase()) && 
+        if (context.state.config.ui.enableLiveChat &&
+          liveChatTerms.find(el => el === message.text.toLowerCase()) &&
           context.state.chatMode === chatMode.BOT) {
           return context.dispatch('requestLiveChat');
         } else if (context.state.liveChat.status === liveChatStatus.REQUEST_USERNAME) {
@@ -504,53 +505,55 @@ export default {
         return Promise.resolve();
       })
       .then((response) => {
-        if (context.state.chatMode === chatMode.BOT &&
-          context.state.liveChat.status != liveChatStatus.REQUEST_USERNAME) {
-          // check for an array of messages
-          if (response.sessionState || (response.message && response.message.includes('{"messages":'))) {
-            if (response.message && response.message.includes('{"messages":')) {
-              const tmsg = JSON.parse(response.message);
-              if (tmsg && Array.isArray(tmsg.messages)) {
-                tmsg.messages.forEach((mes, index) => {
-                  let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
-                  if (mes.type === 'CustomPayload' || mes.contentType === 'CustomPayload') {
-                    if (alts === undefined) {
-                      alts = {};
-                    }
-                    alts.markdown = mes.value ? mes.value : mes.content;
+        // check for an array of messages
+        if (response.sessionState || (response.message && response.message.includes('{"messages":'))) {
+          if (response.message && response.message.includes('{"messages":')) {
+            const tmsg = JSON.parse(response.message);
+            if (tmsg && Array.isArray(tmsg.messages)) {
+              tmsg.messages.forEach((mes, index) => {
+                let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+                if (alts.tease) {
+                  context.dispatch("parseTeaseBubbleText", alts.tease);
+                }
+                if (mes.type === 'CustomPayload' || mes.contentType === 'CustomPayload') {
+                  if (alts === undefined) {
+                    alts = {};
                   }
-                  // Note that Lex V1 only supported a single responseCard. V2 supports multiple response cards.
-                  // This code still supports the V1 mechanism. The code below will check for
-                  // the existence of a single V1 responseCard added to sessionAttributes.appContext by bots
-                  // such as QnABot. This single responseCard will be appended to the last message displayed
-                  // in the array of messages presented.
-                  let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
-                  if (responseCardObject === undefined) { // prefer appContext over lex.responseCard
-                    responseCardObject = context.state.lex.responseCard;
-                  }
-                  context.dispatch(
-                    'pushMessage',
-                    {
-                      text: mes.value ? mes.value : mes.content ? mes.content : "",
-                      type: 'bot',
-                      dialogState: context.state.lex.dialogState,
-                      responseCard: tmsg.messages.length - 1 === index // attach response card only
-                        ? responseCardObject : undefined, // for last response message
-                      alts,
-                      responseCardsLexV2: response.responseCardLexV2
-                    },
-                  );
-                });
-              }
+                  alts.markdown = mes.value ? mes.value : mes.content;
+                }
+                // Note that Lex V1 only supported a single responseCard. V2 supports multiple response cards.
+                // This code still supports the V1 mechanism. The code below will check for
+                // the existence of a single V1 responseCard added to sessionAttributes.appContext by bots
+                // such as QnABot. This single responseCard will be appended to the last message displayed
+                // in the array of messages presented.
+                let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
+                if (responseCardObject === undefined) { // prefer appContext over lex.responseCard
+                  responseCardObject = context.state.lex.responseCard;
+                }
+                context.dispatch(
+                  'pushMessage',
+                  {
+                    text: mes.value ? mes.value : mes.content ? mes.content : "",
+                    type: 'bot',
+                    dialogState: context.state.lex.dialogState,
+                    responseCard: tmsg.messages.length - 1 === index // attach response card only
+                      ? responseCardObject : undefined, // for last response message
+                    alts,
+                    responseCardsLexV2: response.responseCardLexV2
+                  },
+                );
+              });
             }
-          } else {
-            let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
-            let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
-            if (response.messageFormat === 'CustomPayload') {
-              if (alts === undefined) {
-                alts = {};
-              }
-              alts.markdown = response.message;
+          }
+        } else {
+          let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+          if (alts.tease) {
+            context.dispatch("parseTeaseBubbleText", alts.tease);
+          }
+          let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
+          if (response.messageFormat === 'CustomPayload') {
+            if (alts === undefined) {
+              alts = {};
             }
             if (responseCardObject === undefined) {
               responseCardObject = context.state.lex.responseCard;
@@ -844,44 +847,44 @@ export default {
     return fetch(
       context.state.config.connect.apiGatewayEndpoint,
       reqInit)
-    .then(response => response.json())
-    .then(json => json.data)
-    .then((result) => {
-      console.info('Live Chat Config Success:', result);
-      context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
-      function waitMessage(context, type, message) {
-        context.commit('pushLiveChatMessage', {
-          type,
-          text: message,
-        });
-      };
-      if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
-        const intervalID = setInterval(waitMessage,
-          1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
-          context,
-          'bot',
-          context.state.config.connect.waitingForAgentMessage);
-        console.info(`interval now set: ${intervalID}`);
-        context.commit('setLiveChatIntervalId', intervalID);
-      }
-      liveChatSession = createLiveChatSession(result);
-      console.info('Live Chat Session Created:', liveChatSession);
-      initLiveChatHandlers(context, liveChatSession);
-      console.info('Live Chat Handlers initialised:');
-      return connectLiveChatSession(liveChatSession);
-    })
-    .then((response) => {
-      console.info('live Chat session connection response', response);
-      console.info('Live Chat Session CONNECTED:', liveChatSession);
-      context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
-      // context.commit('setLiveChatbotSession', liveChatSession);
-      return Promise.resolve();
-    })
-    .catch((error) => {
-      console.error("Error esablishing live chat");
-      context.commit('setLiveChatStatus', liveChatStatus.ENDED);
-      return Promise.resolve();
-    });
+      .then(response => response.json())
+      .then(json => json.data)
+      .then((result) => {
+        console.info('Live Chat Config Success:', result);
+        context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
+        function waitMessage(context, type, message) {
+          context.commit('pushLiveChatMessage', {
+            type,
+            text: message,
+          });
+        };
+        if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
+          const intervalID = setInterval(waitMessage,
+            1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
+            context,
+            'bot',
+            context.state.config.connect.waitingForAgentMessage);
+          console.info(`interval now set: ${intervalID}`);
+          context.commit('setLiveChatIntervalId', intervalID);
+        }
+        liveChatSession = createLiveChatSession(result);
+        console.info('Live Chat Session Created:', liveChatSession);
+        initLiveChatHandlers(context, liveChatSession);
+        console.info('Live Chat Handlers initialised:');
+        return connectLiveChatSession(liveChatSession);
+      })
+      .then((response) => {
+        console.info('live Chat session connection response', response);
+        console.info('Live Chat Session CONNECTED:', liveChatSession);
+        context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
+        // context.commit('setLiveChatbotSession', liveChatSession);
+        return Promise.resolve();
+      })
+      .catch((error) => {
+        console.error("Error esablishing live chat");
+        context.commit('setLiveChatStatus', liveChatStatus.ENDED);
+        return Promise.resolve();
+      });
   },
 
   requestLiveChat(context) {
@@ -958,7 +961,7 @@ export default {
     return context.dispatch('sendMessageToParentWindow', { event: 'getCredentials' })
       .then((credsResponse) => {
         if (credsResponse.event === 'resolve' &&
-            credsResponse.type === 'getCredentials') {
+          credsResponse.type === 'getCredentials') {
           return Promise.resolve(credsResponse.data);
         }
         const error = new Error('invalid credential event from parent');
@@ -1046,11 +1049,48 @@ export default {
    *
    **********************************************************************/
 
+  hideTeaseBubble(context) {
+    return context.dispatch(
+      'sendMessageToParentWindow',
+      { event: 'hideTeaseBubble' },
+    );
+  },
+  showTeaseBubble(context) {
+    if (context.state.userWantsTeaseBubble && context.state.isUiMinimized) {
+      let messageListWrapper = document.getElementsByClassName("message-list-wrapper")[0];
+      messageListWrapper.classList.remove("tease-bubble-display-none");
+      return context.dispatch(
+        'sendMessageToParentWindow',
+        { event: 'showTeaseBubble' },
+      );
+    }
+  },
+  toggleTheme(context) {
+    context.commit('toggleTheme');
+    return context.dispatch(
+      'sendMessageToParentWindow',
+      { event: 'toggleTheme' },
+    );
+  },
   toggleIsUiMinimized(context) {
     context.commit('toggleIsUiMinimized');
     return context.dispatch(
       'sendMessageToParentWindow',
       { event: 'toggleMinimizeUi' },
+    );
+  },
+  minimizeUi(context) {
+    context.commit('minimizeUi');
+    return context.dispatch(
+      'sendMessageToParentWindow',
+      { event: 'minimizeUi' },
+    );
+  },
+  maximizeUi(context) {
+    context.commit('maximizeUi');
+    return context.dispatch(
+      'sendMessageToParentWindow',
+      { event: 'maximizeUi' },
     );
   },
   toggleIsLoggedIn(context) {
@@ -1134,4 +1174,16 @@ export default {
   changeLocaleIds(context, data) {
     context.commit('updateLocaleIds', data);
   },
+  setSessionAttrs(context, attrs) {
+    context.commit('setSessionAttrs', attrs);
+  },
+  // show tease bubble if alts.tease exists in postText message response
+  parseTeaseBubbleText(context, tease) {
+    let teaseText = marked(tease, { renderer });
+    teaseText = teaseText.trim();
+    const teaseBubble = document.getElementById('tease-bubble');
+    teaseBubble.innerHTML = teaseText;
+    context.commit('resetUserTeaseBubblePreference');
+    context.dispatch('showTeaseBubble');
+  }
 };

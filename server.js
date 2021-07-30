@@ -13,7 +13,6 @@ const configDir = path.join(__dirname, 'src/config');
 const app = express();
 
 app.use(publicPath, express.static(configDir));
-app.use(publicPath, express.static(distDir));
 
 app.listen(port, function () {
   console.log(`App listening on: http://localhost:${port}`);

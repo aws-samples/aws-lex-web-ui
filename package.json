@@ -27,7 +27,8 @@
     "build-dev": "webpack --mode development --hide-modules",
     "build": "npm run build-dev && npm run build-prod",
     "dev": "webpack-dev-server --mode development  --hot",
-    "lint": "eslint --format node_modules/eslint-formatter-friendly src/lex-web-ui-loader"
+    "lint": "eslint --format node_modules/eslint-formatter-friendly src/lex-web-ui-loader",
+    "start": "node server.js"
   },
   "dependencies": {
     "amazon-cognito-auth-js": "^1.2.4",

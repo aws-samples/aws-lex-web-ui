@@ -1,16 +1,21 @@
 .lex-web-ui-iframe {
   bottom: 1.5rem;
-  display: none; /* hidden by default changed once iframe is loaded */
+  display: none;
+  /* hidden by default changed once iframe is loaded */
   margin-bottom: 0px;
   margin-left: 2px;
   margin-right: 3vw;
   margin-top: 2px;
   max-width: 66vw;
-  height: 80vh; /* dynamically changed on iframe maximize/minimize */
-  min-width: calc(50vw - 3vw); /* half viewport width minus margin right */
+  height: 80vh;
+  /* dynamically changed on iframe maximize/minimize */
+  min-width: calc(50vw - 3vw);
+  /* half viewport width minus margin right */
   position: fixed;
   right: 0;
-  z-index: 2147483637; /* max z-index (2147483647) - 10 */
+  z-index: 99;
+  /* max z-index (2147483647) - 10 */
+  color-scheme: initial;
 }
 
 .lex-web-ui-iframe iframe {
@@ -23,9 +28,35 @@
 }
 
 .lex-web-ui-iframe--minimize {
-  max-width: 190px !important;
-  max-height: 85px !important;
-  border-radius: 85px !important;
+  max-width: 110px !important;
+  max-height: 182px !important;
+  min-width: 110px;
+}
+
+.lex-web-ui-iframe iframe {
+  overflow-y: hidden;
+  overflow-x: visible;
+  width: 100%;
+  height: 100%;
+}
+
+.lex-web-ui-iframe.lex-web-ui-iframe--show.dismissIcon-minimizingIframePopupMessage.lex-web-ui-iframe--minimize {
+  min-width: 80px !important;
+}
+
+.lex-web-ui-iframe--partially-minimized {
+  max-width: 110px;
+  max-height: 182px !important;
+  min-width: 428px;
+}
+
+.lex-web-ui-iframe.lex-web-ui-iframe--partially-minimized iframe {
+  box-shadow: none;
+  border-radius: none;
+}
+
+.tease-bubble-display-none {
+  display: none;
 }
 
 /* disable box shadow when minimized */
@@ -36,21 +67,20 @@
 
 /* hide on very small resolutions */
 @media only screen and (max-width: 240px),
-only screen and (max-height: 256px)
-{
+only screen and (max-height: 256px) {
   .lex-web-ui-iframe {
-    display: none!important;
+    display: none !important;
   }
 
   .lex-web-ui-iframe--minimize {
-    max-width: 300px !important;
-    max-height: 85px !important;
+    max-width: 80px !important;
+    max-height: 182px !important;
+    min-width: 80px !important;
   }
 }
+
 /* take most space on small resolutions (smart phones) */
-@media only screen
-and (min-width: 241px)
-and (max-width: 480px) {
+@media only screen and (min-width: 241px) and (max-width: 500px) {
   .lex-web-ui-iframe {
     min-width: 96vw;
     height: 84vh;
@@ -63,27 +93,25 @@ and (max-width: 480px) {
     max-height: 85px !important;
     border-radius: 85px !important;
   }
+}
 
+.message-list-wrapper {
+  display: none !important;
+  z-index: -1 !important;
 }
 
 /* adjust down on medium resolutions */
-@media only screen
-and (min-width: 481px)
-and (max-width: 960px) {
-  .lex-web-ui-iframe {
-    min-width: 90vw;
-  }
+@media only screen and (min-width: 501px) and (max-width: 960px) {
 
   .lex-web-ui-iframe.lex-web-ui-iframe--show.lex-web-ui-iframe--minimize {
-    max-width: 300px !important;
-    max-height: 85px !important;
-    border-radius: 85px !important;
-    min-width: 85px !important;
+    max-width: 110px !important;
+    max-height: 182px !important;
+    min-width: 110px;
   }
-}
 
-.lex-web-ui-iframe iframe {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
+  .lex-web-ui-iframe.lex-web-ui-iframe--show.lex-web-ui-iframe--minimize.lex-web-ui-partially--minimize {
+    max-width: 100px !important;
+    max-height: 182px !important;
+    min-width: 428px !important;
+  }
 }
