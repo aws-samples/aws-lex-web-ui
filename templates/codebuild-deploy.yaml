@@ -484,17 +484,16 @@ Resources:
                     - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}"
                     - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}/*"
 
-    #### API Gateway ##### https://blog.jayway.com/2016/08/17/introduction-to-cloudformation-for-api-gateway/
-    # CORS: https://bitbucket.org/snippets/spenser_filler/LenB4p
+    #### API Gateway ##### 
 
-    ApiGatewayRestAPI: #DONE
+    ApiGatewayRestAPI:
       Type: AWS::ApiGateway::RestApi
       Condition: EnableLiveChat
       Properties:
         Name: "initiateChatConnection"
         Description: "API to initiate chat with Amazon Connect"
 
-    LambdaApiGatewayInvokePermission: #DONE
+    LambdaApiGatewayInvokePermission:
       Type: AWS::Lambda::Permission
       Condition: EnableLiveChat
       Properties:
@@ -512,7 +511,7 @@ Resources:
         RestApiId: !Ref ApiGatewayRestAPI
         StageName: "Prod"
 
-    ApiGatewayRootMethod: #DONE
+    ApiGatewayRootMethod:
       Type: AWS::ApiGateway::Method
       Condition: EnableLiveChat
       DependsOn: LambdaApiGatewayInvokePermission
@@ -538,7 +537,7 @@ Resources:
             ResponseModels:
               application/json: Empty
 
-    ApiGatewayOptionsMethod: #DONE
+    ApiGatewayOptionsMethod:
       Type: AWS::ApiGateway::Method
       Condition: EnableLiveChat
       Properties:
