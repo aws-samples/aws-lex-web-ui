@@ -141,11 +141,6 @@ Parameters:
         Description: >
             Connect Instance Id
 
-    #ConnectApiGatewayEndpoint:
-    #    Type: String
-    #    Description: >
-    #        Connect API Gateway Endpoint
-
     LexV2BotId:
       Description: >
         Bot ID (not bot name) of an existing Lex V2 Bot to be used by the web ui. NOTE: You must
@@ -693,7 +688,6 @@ Resources:
             CognitoUserPoolId: !Ref CognitoUserPoolId
             ConnectContactFlowId: !Ref ConnectContactFlowId
             ConnectInstanceId: !Ref ConnectInstanceId
-            #ConnectApiGatewayEndpoint: !Ref ConnectApiGatewayEndpoint
             WebAppBucket: !Ref WebAppBucket
             LexV2BotId: !Ref LexV2BotId
             LexV2BotAliasId: !Ref LexV2BotAliasId

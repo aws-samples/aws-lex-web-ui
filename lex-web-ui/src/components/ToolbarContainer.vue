@@ -25,6 +25,7 @@
       v-show="!isUiMinimized"
       v-on="tooltipMenuEventHandlers"
       class="menu"
+      icon
       fab
       small
       aria-label="menu options">
