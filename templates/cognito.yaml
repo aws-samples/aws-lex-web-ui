@@ -123,7 +123,16 @@ Resources:
                   - lex:PutSession
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
-
+        - PolicyName: APIPost
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
+                Action:
+                  - execute-api:Invoke
+                Resource:
+                  - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/livechat"
+                
   CognitoUnauthRoleV2:
     Condition: IsLexV2
     Type: AWS::IAM::Role
@@ -155,7 +164,16 @@ Resources:
                   - lex:PutSession
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot-alias/${LexV2BotId}/${LexV2BotAliasId}"
-
+        - PolicyName: APIPostV2
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
+                Action:
+                  - execute-api:Invoke
+                Resource:
+                  - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/livechat"
+                
   CognitoAuthRoleV1:
     Condition: IsLexV1
     Type: AWS::IAM::Role
@@ -195,7 +213,16 @@ Resources:
                   - lex:PutSession
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
-
+        - PolicyName: APIPost
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - execute-api:Invoke
+                Resource:
+                  - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/livechat"
+                
   CognitoAuthRoleV2:
     Condition: IsLexV2
     Type: AWS::IAM::Role
@@ -235,7 +262,16 @@ Resources:
                   - lex:PutSession
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot-alias/${LexV2BotId}/${LexV2BotAliasId}"
-
+        - PolicyName: APIPostV2
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - execute-api:Invoke
+                Resource:
+                  - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/livechat"
+                
 Outputs:
   CognitoIdentityPoolId:
     Description: Cognito identity pool id.
