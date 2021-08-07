@@ -15,6 +15,11 @@ Parameters:
             Should start with Alphanumeric. May contain alphanumeric, underscore
             and dash.
 
+    ParentStackName:
+        Type: String
+        Description: Parent Stack Name
+        Default: lex-web-ui-stack
+        
     SourceBucket:
         Description: S3 bucket where the source is located
         Type: String
@@ -490,8 +495,18 @@ Resources:
       Type: AWS::ApiGateway::RestApi
       Condition: EnableLiveChat
       Properties:
-        Name: "initiateChatConnection"
+        Name: !Join ["-", [!Ref ParentStackName, "API"]]
         Description: "API to initiate chat with Amazon Connect"
+        
+    ApiGatewayLiveChatResource: 
+      Type: AWS::ApiGateway::Resource
+      Condition: EnableLiveChat
+      Properties:
+        ParentId: !GetAtt 
+          - ApiGatewayRestAPI
+          - RootResourceId # Required
+        PathPart: "livechat"
+        RestApiId: !Ref ApiGatewayRestAPI # Required
 
     LambdaApiGatewayInvokePermission:
       Type: AWS::Lambda::Permission
@@ -506,24 +521,24 @@ Resources:
       Type: AWS::ApiGateway::Deployment
       Condition: EnableLiveChat
       DependsOn:
-        - ApiGatewayRootMethod
+        - ApiGatewayLiveChatMethod
       Properties:
         RestApiId: !Ref ApiGatewayRestAPI
         StageName: "Prod"
 
-    ApiGatewayRootMethod:
+    ApiGatewayLiveChatMethod:
       Type: AWS::ApiGateway::Method
       Condition: EnableLiveChat
       DependsOn: LambdaApiGatewayInvokePermission
       Properties:
-        AuthorizationType: "NONE"
+        AuthorizationType: "AWS_IAM"
         HttpMethod: "POST"
         Integration:
           IntegrationHttpMethod: "POST"
           Type: "AWS_PROXY"
           Uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${InitiateChatLambda.Arn}/invocations"
           PassthroughBehavior: WHEN_NO_MATCH
-        ResourceId:  !GetAtt ApiGatewayRestAPI.RootResourceId
+        ResourceId: !Ref ApiGatewayLiveChatResource
         RestApiId: !Ref ApiGatewayRestAPI
         MethodResponses:
           - StatusCode: "200"
@@ -537,11 +552,11 @@ Resources:
             ResponseModels:
               application/json: Empty
 
-    ApiGatewayOptionsMethod:
+    ApiGatewayLiveChatOptionsMethod:
       Type: AWS::ApiGateway::Method
       Condition: EnableLiveChat
       Properties:
-        ResourceId: !GetAtt ApiGatewayRestAPI.RootResourceId
+        ResourceId: !Ref ApiGatewayLiveChatResource
         RestApiId: !Ref ApiGatewayRestAPI
         AuthorizationType: NONE
         HttpMethod: OPTIONS
@@ -590,7 +605,7 @@ Resources:
                     - Name: CONNECT_INSTANCE_ID
                       Value: !Ref ConnectInstanceId
                     - Name: CONNECT_API_GATEWAY_ENDPOINT
-                      Value: !If [EnableLiveChat, !Sub "https://${ApiGatewayRestAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod", ""]
+                      Value: !If [EnableLiveChat, !Sub "https://${ApiGatewayRestAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/livechat", ""]
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME

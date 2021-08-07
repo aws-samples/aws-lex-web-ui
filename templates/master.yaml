@@ -452,6 +452,7 @@ Resources:
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/codebuild-deploy.yaml"
             Parameters:
                 CodeBuildName: !Ref CodeBuildName
+                ParentStackName: !Ref "AWS::StackName"
                 SourceBucket: !Ref BootstrapBucket
                 SourceObject: !Sub "${BootstrapPrefix}/src-v0.18.1.zip"
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.1.zip"
