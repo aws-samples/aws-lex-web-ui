@@ -519,6 +519,11 @@ Resources:
                       - "UserMustSupply"
                 retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
                 retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
+                RestApiId: 
+                    !If
+                      - EnableLiveChat
+                      - !GetAtt RestApi.Outputs.RestApiId
+                      - ""
                 ConnectContactFlowId: !Ref ConnectContactFlowId
                 ConnectInstanceId: !Ref ConnectInstanceId
                 Timestamp: 1623866344
