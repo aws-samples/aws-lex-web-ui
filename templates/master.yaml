@@ -413,6 +413,7 @@ Conditions:
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
+    EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
 
 Resources:
     Bot:
@@ -426,6 +427,18 @@ Resources:
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 CustomResourceCodeBucket: !Ref BootstrapBucket
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.1.zip"
+
+    RestApi:
+        Type: AWS::CloudFormation::Stack
+        Condition: EnableLiveChat
+        Properties:
+            TimeoutInMinutes: 15
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/restapi.yaml"
+            Parameters:
+                SourceBucket: !Ref BootstrapBucket
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.18.1.zip" 
+                ConnectContactFlowId: !Ref ConnectContactFlowId
+                ConnectInstanceId: !Ref ConnectInstanceId
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
@@ -456,7 +469,6 @@ Resources:
                 SourceBucket: !Ref BootstrapBucket
                 SourceObject: !Sub "${BootstrapPrefix}/src-v0.18.1.zip"
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.1.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.18.1.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
