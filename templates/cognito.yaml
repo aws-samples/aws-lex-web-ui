@@ -36,10 +36,21 @@ Parameters:
       If set to True, the menu with a login action will not be displayed
       in the Lex Web Ui, and the Cognito login will be executed automatically.
 
+  ShouldEnableLiveChat:
+    Type: String
+    Default: false
+    Description: Whether or not add policy to invoke live chat API
+
+  RestApiId:
+    Type: String
+    Default: ''
+    Description: Live chat API Id
+
 Conditions:
   NeedsForceCognitoLogin: !Equals [ !Ref ForceCognitoLogin, 'true' ]
   IsLexV1: !Not [ !Equals [!Ref LexBotName, ''] ]
   IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
+  EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
 
 Resources:
   CognitoIdentityPool:
@@ -123,15 +134,18 @@ Resources:
                   - lex:PutSession
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
-        - PolicyName: APIPost
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
-                Action:
-                  - execute-api:Invoke
-                Resource:
-                  - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/livechat"
+        - !If 
+          - EnableLiveChat
+          - PolicyName: APIPost
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
+                  Action:
+                    - execute-api:Invoke
+                  Resource:
+                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestApiId}/Prod/POST/livechat"
+          - !Ref AWS::NoValue
                 
   CognitoUnauthRoleV2:
     Condition: IsLexV2
@@ -164,16 +178,19 @@ Resources:
                   - lex:PutSession
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot-alias/${LexV2BotId}/${LexV2BotAliasId}"
-        - PolicyName: APIPostV2
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
-                Action:
-                  - execute-api:Invoke
-                Resource:
-                  - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/livechat"
-                
+        - !If 
+          - EnableLiveChat
+          - PolicyName: APIPost
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
+                  Action:
+                    - execute-api:Invoke
+                  Resource:
+                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestApiId}/Prod/POST/livechat"
+          - !Ref AWS::NoValue
+
   CognitoAuthRoleV1:
     Condition: IsLexV1
     Type: AWS::IAM::Role
@@ -213,16 +230,19 @@ Resources:
                   - lex:PutSession
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
-        - PolicyName: APIPost
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - execute-api:Invoke
-                Resource:
-                  - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/livechat"
-                
+        - !If 
+          - EnableLiveChat
+          - PolicyName: APIPost
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - execute-api:Invoke
+                  Resource:
+                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestApiId}/Prod/POST/livechat"
+          - !Ref AWS::NoValue
+
   CognitoAuthRoleV2:
     Condition: IsLexV2
     Type: AWS::IAM::Role
@@ -262,16 +282,19 @@ Resources:
                   - lex:PutSession
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot-alias/${LexV2BotId}/${LexV2BotAliasId}"
-        - PolicyName: APIPostV2
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - execute-api:Invoke
-                Resource:
-                  - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/POST/livechat"
-                
+        - !If 
+          - EnableLiveChat
+          - PolicyName: APIPostV2
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - execute-api:Invoke
+                  Resource:
+                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestApiId}/Prod/POST/livechat"
+          - !Ref AWS::NoValue
+
 Outputs:
   CognitoIdentityPoolId:
     Description: Cognito identity pool id.
