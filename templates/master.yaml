@@ -435,6 +435,7 @@ Resources:
             TimeoutInMinutes: 15
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/restapi.yaml"
             Parameters:
+                ParentStackName: !Ref "AWS::StackName"
                 SourceBucket: !Ref BootstrapBucket
                 InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.18.1.zip" 
                 ConnectContactFlowId: !Ref ConnectContactFlowId
@@ -455,6 +456,12 @@ Resources:
                       - !Ref BotName
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
+                ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
+                RestApiId: 
+                    !If
+                      - EnableLiveChat
+                      - !GetAtt RestApi.Outputs.RestApiId
+                      - ""
 
     ##########################################################################
     # Simplified deployment using CodeBuild to build config and push to S3
@@ -464,8 +471,7 @@ Resources:
         Properties:
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/codebuild-deploy.yaml"
             Parameters:
-                CodeBuildName: !Ref CodeBuildName
-                ParentStackName: !Ref "AWS::StackName"
+                CodeBuildName: !Ref CodeBuildName 
                 SourceBucket: !Ref BootstrapBucket
                 SourceObject: !Sub "${BootstrapPrefix}/src-v0.18.1.zip"
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.1.zip"
