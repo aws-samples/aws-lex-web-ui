@@ -826,11 +826,11 @@ export default {
     const req = new AWS.HttpRequest(endpoint, context.state.config.region);
     req.method = 'POST';
     req.path = uri.pathname;
-    req.headers['host'] = uri.hostname; 
-    req.headers['Content-Type'] = 'application/json';  
+    req.headers['Content-Type'] = 'application/json'; 
     req.body = JSON.stringify(initiateChatRequest);
+    req.headers.Host = endpoint.host;  
     req.headers['Content-Length'] = Buffer.byteLength(req.body);
-
+    
     const signer = new AWS.Signers.V4(req, 'es');
     signer.addAuthorization(awsCredentials, new Date());
     
