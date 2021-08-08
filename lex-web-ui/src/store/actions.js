@@ -28,6 +28,7 @@ import silentMp3 from '@/assets/silent.mp3';
 import LexClient from '@/lib/lex/client';
 
 const jwt = require('jsonwebtoken');
+const AWS = require('aws-sdk');
 
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
@@ -818,37 +819,54 @@ export default {
       },
       ContactFlowId: context.state.config.connect.contactFlowId,
       InstanceId: context.state.config.connect.instanceId,
-    };
+    }; 
 
+    const uri = new URL(context.state.config.connect.apiGatewayEndpoint);
+    const endpoint = new AWS.Endpoint(uri.hostname);
+    const req = new AWS.HttpRequest(endpoint, context.state.config.region);
+    req.method = 'POST';
+    req.path = uri.pathname;
+    req.headers['host'] = uri.hostname; 
+    req.headers['Content-Type'] = 'application/json';  
+    req.body = JSON.stringify(initiateChatRequest);
+    req.headers['Content-Length'] = Buffer.byteLength(req.body);
+
+    const signer = new AWS.Signers.V4(req, 'es');
+    signer.addAuthorization(awsCredentials, new Date());
+    
+    const reqInit = {
+      method: 'POST',
+      mode: 'cors',
+      headers: req.headers,
+      body: req.body,
+    };
+    
     return fetch(
       context.state.config.connect.apiGatewayEndpoint,
-      {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(initiateChatRequest),
-      },
-    )
-      .then(response => response.json())
-      .then(json => json.data)
-      .then((result) => {
-        console.info('Live Chat Config Success:', result);
-        context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
-        liveChatSession = createLiveChatSession(result);
-        console.info('Live Chat Session Created:', liveChatSession);
-        initLiveChatHandlers(context, liveChatSession);
-        console.info('Live Chat Handlers initialised:');
-        return connectLiveChatSession(liveChatSession);
-      })
-      .then((response) => {
-        console.info('live Chat session connection response', response);
-        console.info('Live Chat Session CONNECTED:', liveChatSession);
-        context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
-        // context.commit('setLiveChatbotSession', liveChatSession);
-        return Promise.resolve();
-      });
+      reqInit)
+    .then(response => response.json())
+    .then(json => json.data)
+    .then((result) => {
+      console.info('Live Chat Config Success:', result);
+      context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
+      liveChatSession = createLiveChatSession(result);
+      console.info('Live Chat Session Created:', liveChatSession);
+      initLiveChatHandlers(context, liveChatSession);
+      console.info('Live Chat Handlers initialised:');
+      return connectLiveChatSession(liveChatSession);
+    })
+    .then((response) => {
+      console.info('live Chat session connection response', response);
+      console.info('Live Chat Session CONNECTED:', liveChatSession);
+      context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
+      // context.commit('setLiveChatbotSession', liveChatSession);
+      return Promise.resolve();
+    })
+    .catch((error) => {
+      console.error("Error esablishing live chat");
+      context.commit('setLiveChatStatus', liveChatStatus.ENDED);
+      return Promise.resolve();
+    });
   },
 
   requestLiveChat(context) {
