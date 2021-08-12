@@ -479,7 +479,7 @@ export default {
         return Promise.resolve();
       })
       .then(() => {
-        const liveChatTerms = ['call agent', 'start live chat', 'live chat', 'can I speak to someone'];
+        const liveChatTerms = ['live chat'];
         if (liveChatTerms.find(el => el === message.text.toLowerCase())) {
           return context.dispatch('requestLiveChat');
         } else if (context.state.liveChat.status === liveChatStatus.REQUEST_USERNAME) {
@@ -819,28 +819,28 @@ export default {
       },
       ContactFlowId: context.state.config.connect.contactFlowId,
       InstanceId: context.state.config.connect.instanceId,
-    }; 
+    };
 
     const uri = new URL(context.state.config.connect.apiGatewayEndpoint);
     const endpoint = new AWS.Endpoint(uri.hostname);
     const req = new AWS.HttpRequest(endpoint, context.state.config.region);
     req.method = 'POST';
     req.path = uri.pathname;
-    req.headers['Content-Type'] = 'application/json'; 
+    req.headers['Content-Type'] = 'application/json';
     req.body = JSON.stringify(initiateChatRequest);
-    req.headers.Host = endpoint.host;  
+    req.headers.Host = endpoint.host;
     req.headers['Content-Length'] = Buffer.byteLength(req.body);
-    
-    const signer = new AWS.Signers.V4(req, 'es');
+
+    const signer = new AWS.Signers.V4(req, 'execute-api');
     signer.addAuthorization(awsCredentials, new Date());
-    
+
     const reqInit = {
       method: 'POST',
       mode: 'cors',
       headers: req.headers,
       body: req.body,
     };
-    
+
     return fetch(
       context.state.config.connect.apiGatewayEndpoint,
       reqInit)
