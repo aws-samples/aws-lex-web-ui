@@ -62,7 +62,6 @@ export default {
     message: '',
   },
   messages: [],
-  liveChatMessages: [],
   utteranceStack: [],
   isBackProcessing: false,
   polly: {

@@ -34,5 +34,5 @@ aws s3 cp --acl public-read out/initiate-chat-lambda-$version.zip \
 
 aws s3 sync --acl public-read --exclude "*" --include "*.yaml" \
   ../templates "s3://${BOOTSTRAP_BUCKET_PATH}/templates/"
- 
+
 echo "[INFO] master template: https://s3.amazonaws.com/${BOOTSTRAP_BUCKET_PATH}/templates/master.yaml"

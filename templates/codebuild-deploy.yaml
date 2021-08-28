@@ -20,6 +20,11 @@ Parameters:
         Type: String
         Default: aws-bigdata-blog
 
+    SourcePrefix:
+        Description: Prefix key to reference yaml templates
+        Type: String
+        Default: artifacts
+
     SourceObject:
         Description: S3 object zip file containing the project source
         Type: String
@@ -30,6 +35,12 @@ Parameters:
         Description: >
             S3 object zip file containing Lambda custom resource functions
         Default: artifacts/aws-lex-web-ui/artifacts/custom-resources.zip
+
+    InitiateChatLambdaCodeObject:
+      Type: String
+      Description: >
+        S3 object zip file containing Lambda custom resource functions
+      Default: artifacts/aws-lex-web-ui/artifacts/initiate-chat-lambda.zip
 
     CleanupBuckets:
         Type: String
@@ -135,10 +146,20 @@ Parameters:
         Description: >
             Connect Instance Id
 
-    RestApiId:
-        Type: String
-        Description: >
-            Rest API ID
+    ConnectPromptForNameMessage:
+      Type: String
+      Description: >
+        Message to display prompting the user for a name
+
+    ConnectWaitForAgentMessage:
+      Type: String
+      Description: >
+        Message to display every message interval while waiting for an agent to connect
+
+    ConnectWaitForAgentMessageIntervalInSeconds:
+      Type: Number
+      Description: >
+        Interval in seconds between successive ConnectWaitForAgentMessage
 
     LexV2BotId:
       Description: >
@@ -433,6 +454,24 @@ Resources:
             HttpVersion: http2
             IPV6Enabled: true
 
+    RestApi:
+        Type: AWS::CloudFormation::Stack
+        Condition: EnableLiveChat
+        Properties:
+          TimeoutInMinutes: 15
+          TemplateURL: !Sub "https://${SourceBucket}.s3.${AWS::Region}.amazonaws.com/${SourcePrefix}/templates/restapi.yaml"
+          Parameters:
+              ParentStackName: !Ref "AWS::StackName"
+              SourceBucket: !Ref SourceBucket
+              InitiateChatLambdaCodeObject: !Ref InitiateChatLambdaCodeObject
+              ConnectContactFlowId: !Ref ConnectContactFlowId
+              ConnectInstanceId: !Ref ConnectInstanceId
+              ParentOrigin:
+                  !If
+                    - NeedsParentOrigin
+                    - !Sub "https://${LexWebUiDistribution.DomainName}"
+                    - !Ref ParentOrigin
+
     CodeBuild:
         Type: AWS::CodeBuild::Project
         Properties:
@@ -454,7 +493,13 @@ Resources:
                     - Name: CONNECT_INSTANCE_ID
                       Value: !Ref ConnectInstanceId
                     - Name: CONNECT_API_GATEWAY_ENDPOINT
-                      Value: !If [EnableLiveChat, !Sub "https://${RestApiId}.execute-api.${AWS::Region}.amazonaws.com/Prod/livechat", ""]
+                      Value: !If [EnableLiveChat, !Sub "https://${RestApi.Outputs.RestApiId}.execute-api.${AWS::Region}.amazonaws.com/Prod/livechat", ""]
+                    - Name: CONNECT_PROMPT_FOR_NAME_MESSAGE
+                      Value: !Ref ConnectPromptForNameMessage
+                    - Name: CONNECT_WAIT_FOR_AGENT_MESSAGE
+                      Value: !Ref ConnectWaitForAgentMessage
+                    - Name: CONNECT_WAIT_FOR_AGENT_MESSAGE_INTERVAL_IN_SECONDS
+                      Value: !Ref ConnectWaitForAgentMessageIntervalInSeconds
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME
@@ -551,6 +596,9 @@ Resources:
             CognitoUserPoolId: !Ref CognitoUserPoolId
             ConnectContactFlowId: !Ref ConnectContactFlowId
             ConnectInstanceId: !Ref ConnectInstanceId
+            ConnectPromptForNameMessage: !Ref ConnectPromptForNameMessage
+            ConnectWaitForAgentMessage: !Ref ConnectWaitForAgentMessage
+            ConnectWaitForAgentMessageIntervalInSeconds: !Ref ConnectWaitForAgentMessageIntervalInSeconds
             WebAppBucket: !Ref WebAppBucket
             LexV2BotId: !Ref LexV2BotId
             LexV2BotAliasId: !Ref LexV2BotAliasId
@@ -565,6 +613,7 @@ Resources:
             WebAppConfHelp: !Ref WebAppConfHelp
             WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
             ShouldEnableCognitoLogin: !Ref ShouldEnableCognitoLogin
+            ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
             ShouldForceCognitoLogin: !Ref ShouldForceCognitoLogin
             ReInitSessionAttributesOnRestart: !Ref ReInitSessionAttributesOnRestart
             EnableMarkdownSupport: !Ref EnableMarkdownSupport
@@ -821,3 +870,8 @@ Outputs:
     WebAppBucket:
         Value: !Sub "${WebAppBucket}"
         Description: S3 bucket hosting lexwebui artifacts
+
+    RestApiId:
+        Value: !Sub "${RestApi.Outputs.RestApiId}"
+        Description: Rest API ID if required by other elements
+        Condition: EnableLiveChat

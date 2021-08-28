@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.18.1)
+    Master Lex Web UI CloudFormation template (v0.18.2)
     It deploys:
         - S3 buckets to host the web application
         - CodeBuild project to build the configuration and deploy to S3
@@ -346,6 +346,24 @@ Parameters:
         Description: >
             Connect Instance Id
 
+    ConnectPromptForNameMessage:
+        Type: String
+        Description: >
+            Message to display prompting the user for a name
+        Default: Before starting a live chat, please tell me your name?
+
+    ConnectWaitForAgentMessage:
+        Type: String
+        Description: >
+            Message to display every message interval while waiting for an agent to connect
+        Default: Thanks for waiting. An agent will be with you when available.
+
+    ConnectWaitForAgentMessageIntervalInSeconds:
+        Type: Number
+        Description: >
+            Interval in seconds between successive ConnectWaitForAgentMessage. 0 to disable interval.
+        Default: 60
+
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -405,8 +423,11 @@ Metadata:
                 default: Connect Live Chat Parameters
               Parameters: 
                   - ShouldEnableLiveChat
-                  - ConnectContactFlowId
                   - ConnectInstanceId
+                  - ConnectContactFlowId
+                  - ConnectPromptForNameMessage
+                  - ConnectWaitForAgentMessage
+                  - ConnectWaitForAgentMessageIntervalInSeconds
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
@@ -426,20 +447,7 @@ Resources:
                 NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 CustomResourceCodeBucket: !Ref BootstrapBucket
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.1.zip"
-
-    RestApi:
-        Type: AWS::CloudFormation::Stack
-        Condition: EnableLiveChat
-        Properties:
-            TimeoutInMinutes: 15
-            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/restapi.yaml"
-            Parameters:
-                ParentStackName: !Ref "AWS::StackName"
-                SourceBucket: !Ref BootstrapBucket
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.18.1.zip" 
-                ConnectContactFlowId: !Ref ConnectContactFlowId
-                ConnectInstanceId: !Ref ConnectInstanceId
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.2.zip"
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
@@ -457,11 +465,6 @@ Resources:
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
-                RestApiId: 
-                    !If
-                      - EnableLiveChat
-                      - !GetAtt RestApi.Outputs.RestApiId
-                      - ""
 
     ##########################################################################
     # Simplified deployment using CodeBuild to build config and push to S3
@@ -473,8 +476,10 @@ Resources:
             Parameters:
                 CodeBuildName: !Ref CodeBuildName 
                 SourceBucket: !Ref BootstrapBucket
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.18.1.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.1.zip"
+                SourcePrefix: !Ref BootstrapPrefix
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.18.2.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.2.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.18.2.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
@@ -525,14 +530,12 @@ Resources:
                       - "UserMustSupply"
                 retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
                 retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
-                RestApiId: 
-                    !If
-                      - EnableLiveChat
-                      - !GetAtt RestApi.Outputs.RestApiId
-                      - ""
                 ConnectContactFlowId: !Ref ConnectContactFlowId
                 ConnectInstanceId: !Ref ConnectInstanceId
-                Timestamp: 1623866344
+                ConnectPromptForNameMessage: !Ref ConnectPromptForNameMessage
+                ConnectWaitForAgentMessage: !Ref ConnectWaitForAgentMessage
+                ConnectWaitForAgentMessageIntervalInSeconds: !Ref ConnectWaitForAgentMessageIntervalInSeconds
+                Timestamp: 1630166204
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -546,7 +549,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1623866344
+                Timestamp: 1630166204
 
 Outputs:
     BotName:

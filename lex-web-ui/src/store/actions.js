@@ -29,6 +29,7 @@ import LexClient from '@/lib/lex/client';
 
 const jwt = require('jsonwebtoken');
 const AWS = require('aws-sdk');
+const liveChatTerms = ['live chat'];
 
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
@@ -40,7 +41,6 @@ let recorder;
 let liveChatSession;
 
 export default {
-
   /***********************************************************************
    *
    * Initialization Actions
@@ -479,8 +479,7 @@ export default {
         return Promise.resolve();
       })
       .then(() => {
-        const liveChatTerms = ['live chat'];
-        if (liveChatTerms.find(el => el === message.text.toLowerCase())) {
+        if (context.state.config.ui.enableLiveChat && liveChatTerms.find(el => el === message.text.toLowerCase())) {
           return context.dispatch('requestLiveChat');
         } else if (context.state.liveChat.status === liveChatStatus.REQUEST_USERNAME) {
           context.commit('setLiveChatUserName', message.text);
@@ -489,9 +488,7 @@ export default {
           if (context.state.liveChat.status === liveChatStatus.ESTABLISHED) {
             return context.dispatch('sendChatMessage', message.text);
           }
-          // TODO Store or notify user to wait till connection establisted
         }
-
         return Promise.resolve(context.commit('pushUtterance', message.text))
       })
       .then(() => {
@@ -849,6 +846,21 @@ export default {
     .then((result) => {
       console.info('Live Chat Config Success:', result);
       context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
+      function waitMessage(context, type, message) {
+        context.commit('pushLiveChatMessage', {
+          type,
+          text: message,
+        });
+      };
+      if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
+        const intervalID = setInterval(waitMessage,
+          1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
+          context,
+          'bot',
+          context.state.config.connect.waitingForAgentMessage);
+        console.info(`interval now set: ${intervalID}`);
+        context.commit('setLiveChatIntervalId', intervalID);
+      }
       liveChatSession = createLiveChatSession(result);
       console.info('Live Chat Session Created:', liveChatSession);
       initLiveChatHandlers(context, liveChatSession);
@@ -876,7 +888,7 @@ export default {
       context.commit(
         'pushMessage',
         {
-          text: 'Before starting a live chat, please tell me your name?',
+          text: context.state.config.connect.promptForNameMessage,
           type: 'bot',
         },
       );
@@ -901,6 +913,7 @@ export default {
   },
   requestLiveChatEnd(context) {
     console.info('actions: endLiveChat');
+    context.commit('clearLiveChatIntervalId');
     if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession) {
       requestLiveChatEnd(liveChatSession);
       context.commit('setLiveChatStatus', liveChatStatus.ENDED);
@@ -920,6 +933,10 @@ export default {
     liveChatSession = null;
     context.commit('setLiveChatStatus', liveChatStatus.ENDED);
     context.commit('setChatMode', chatMode.BOT);
+    context.commit('clearLiveChatIntervalId');
+  },
+  liveChatAgentJoined(context) {
+    context.commit('clearLiveChatIntervalId');
   },
   /***********************************************************************
    *

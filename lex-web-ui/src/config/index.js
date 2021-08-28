@@ -59,9 +59,19 @@ const configDefault = {
     poolId: '',
   },
   connect: {
+    // The Connect contact flow id - user configured via CF template
     contactFlowId: '',
+    // The Connect instance id - user configured via CF template
     instanceId: '',
+    // The API Gateway Endpoint - provisioned by CF template
     apiGatewayEndpoint: '',
+    // Message to prompt the user for a name prior to establishing a session
+    promptForNameMessage: 'Before starting a live chat, please tell me your name?',
+    // The default message to message to display while waiting for a live agent
+    waitingForAgentMessage: "Thanks for waiting. An agent will be with you when available.",
+    // The default interval with which to display the waitingForAgentMessage. When set to 0
+    // the timer is disabled.
+    waitingForAgentMessageIntervalSeconds: 60,
   },
   lex: {
     // Lex V2 fields

@@ -356,6 +356,15 @@ export default {
     state.chatMode = mode.toLowerCase();
   },
 
+  setLiveChatIntervalId(state, intervalId) {
+    state.liveChat.intervalId = intervalId;
+  },
+  clearLiveChatIntervalId(state) {
+    if (state.liveChat.intervalId) {
+      clearInterval(state.liveChat.intervalId);
+      state.liveChat.intervalId = undefined;
+    }
+  },
   /**
    * use to set the live chat status
    */
@@ -444,11 +453,11 @@ export default {
     });
   },
   /**
-   * Push new liveChat message into liveChatMessages array
+   * Push new liveChat message into messages array
    */
   pushLiveChatMessage(state, message) {
-    state.liveChatMessages.push({
-      id: state.liveChatMessages.length,
+    state.messages.push({
+      id: state.messages.length,
       date: new Date(),
       ...message,
     });

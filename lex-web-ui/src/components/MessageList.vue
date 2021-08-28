@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     messages() {
-      return (this.$store.state.chatMode === 'bot') ? this.$store.state.messages : this.$store.state.liveChatMessages;
+      return this.$store.state.messages;
     },
     loading() {
       return this.$store.state.lex.isProcessing || this.$store.state.liveChat.isProcessing;

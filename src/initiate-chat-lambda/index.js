@@ -1,10 +1,12 @@
-var AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
 AWS.config.update({ region: process.env.REGION });
-var connect = new AWS.Connect();
+const connect = new AWS.Connect();
+const parentOrigin = process.env.PARENT_ORIGIN;
 
 exports.handler = (event, context, callback) => {
     console.log("Received event: " + JSON.stringify(event));
-    var body = JSON.parse(event["body"]);
+    const body = JSON.parse(event["body"]);
+    console.log(`parent origin in environment: ${parentOrigin}`);
 
     startChatContact(body).then((startChatResult) => {
         callback(null, buildSuccessfulResponse(startChatResult));
@@ -15,20 +17,20 @@ exports.handler = (event, context, callback) => {
 };
 
 function startChatContact(body) {
-    var contactFlowId = "";
+    let contactFlowId = "";
     if (body.hasOwnProperty('ContactFlowId')) {
         contactFlowId = body["ContactFlowId"];
     }
     console.log("CF ID: " + contactFlowId);
 
-    var instanceId = "";
+    let instanceId = "";
     if (body.hasOwnProperty('InstanceId')) {
         instanceId = body["InstanceId"];
     }
     console.log("Instance ID: " + instanceId);
 
-    var initialMsgContent = "";
-    var initialMsgContentType = "";
+    let initialMsgContent = "";
+    let initialMsgContentType = "";
     if (body.hasOwnProperty("InitialMessage")) {
         if (body["InitialMessage"].hasOwnProperty("Content")) {
             initialMsgContent = body["InitialMessage"]["Content"];
@@ -39,7 +41,7 @@ function startChatContact(body) {
         }
     }
     
-    var topic = "";
+    let topic = "";
     if (body.hasOwnProperty("Attributes")) {
         if (body["Attributes"].hasOwnProperty("topic")) {
             topic = body["Attributes"]["topic"];
@@ -48,7 +50,7 @@ function startChatContact(body) {
     }
 
     return new Promise(function(resolve, reject) {
-        var startChat = {
+        const startChat = {
             "InstanceId": instanceId == "" ? process.env.INSTANCE_ID : instanceId,
             "ContactFlowId": contactFlowId == "" ? process.env.CONTACT_FLOW_ID : contactFlowId,
             "Attributes": {
@@ -87,7 +89,7 @@ function buildSuccessfulResponse(result) {
     const response = {
         statusCode: 200,
         headers: {
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": parentOrigin,
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': true,
             'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'
@@ -104,7 +106,7 @@ function buildResponseFailed(err) {
     const response = {
         statusCode: 500,
         headers: {
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": parentOrigin,
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': true,
             'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'

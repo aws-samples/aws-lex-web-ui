@@ -12,9 +12,12 @@ module.exports = {
     region: process.env.AWS_DEFAULT_REGION,
   },
   connect: {
-    contactFlowId : process.env.CONNECT_CONTACT_FLOW_ID, // TODO add to env
+    contactFlowId : process.env.CONNECT_CONTACT_FLOW_ID,
     instanceId : process.env.CONNECT_INSTANCE_ID,
     apiGatewayEndpoint : process.env.CONNECT_API_GATEWAY_ENDPOINT,
+    promptForNameMessage: process.env.CONNECT_PROMPT_FOR_NAME_MESSAGE,
+    waitingForAgentMessage: process.env.CONNECT_WAIT_FOR_AGENT_MESSAGE,
+    waitingForAgentMessageIntervalSeconds: process.env.CONNECT_WAIT_FOR_AGENT_MESSAGE_INTERVAL_IN_SECONDS,
   },
   lex: {
     v2BotId: process.env.V2_BOT_ID,

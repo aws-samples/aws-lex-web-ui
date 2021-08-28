@@ -1,4 +1,6 @@
-AWSTemplateFormatVersion: 2010-09-09
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
 Description: >
   This template deploys the api with api gateway to initiate a live connect 
 
@@ -29,6 +31,11 @@ Parameters:
         Description: >
             Connect Instance Id
 
+    ParentOrigin:
+        Type: String
+        Description: >
+            Parent Origin for CORS allow-origin
+
 Resources:
 
     #### Lambda #####
@@ -45,6 +52,7 @@ Resources:
           Variables:
             INSTANCE_ID: !Ref ConnectInstanceId
             CONTACT_FLOW_ID: !Ref ConnectContactFlowId
+            PARENT_ORIGIN: !Ref ParentOrigin
         Code:
           S3Bucket: !Ref SourceBucket
           S3Key: !Ref InitiateChatLambdaCodeObject

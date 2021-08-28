@@ -8,7 +8,10 @@
   "connect": {
     "contactFlowId" : "",
     "instanceId" : "",
-    "apiGatewayEndpoint" : ""
+    "apiGatewayEndpoint" : "",
+    "promptForNameMessage": "Before starting a live chat, please tell me your name?",
+    "waitingForAgentMessage": "Thanks for waiting. An agent will be with you when available.",
+    "waitingForAgentMessageIntervalSeconds": 60
   },
   "lex": {
     "botName": "OrderFlowers",
