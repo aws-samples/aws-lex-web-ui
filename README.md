@@ -18,6 +18,10 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### Changes in version 0.18.2
+Add feature for connect live chat. Allow client to optionally interact with an agent via Connect.
+See [Connect Live Chat Agent Readme](README-connect-live-chat.md) for additional details.
+
 #### Notable changes in version 0.18.1
 The Lex Web Ui now supports configuration of multiple Lex V2 Bot Locale IDs
 using a comma separated list in the parameter LexV2BotLocaleId. The default Locale ID 

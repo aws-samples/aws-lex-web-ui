@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.18.2] - 2021-08-28
+- Add feature for connect live chat. Allow client to optional interact with an agent via Connect.
+
 ## [0.18.1] - 2021-06-01
 - Change package.json revision to 0.18.1
 - Provide distribution location in Canada (Central) region - ca-central-1   
