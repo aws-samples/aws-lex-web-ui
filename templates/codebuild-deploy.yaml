@@ -466,11 +466,7 @@ Resources:
               InitiateChatLambdaCodeObject: !Ref InitiateChatLambdaCodeObject
               ConnectContactFlowId: !Ref ConnectContactFlowId
               ConnectInstanceId: !Ref ConnectInstanceId
-              ParentOrigin:
-                  !If
-                    - NeedsParentOrigin
-                    - !Sub "https://${LexWebUiDistribution.DomainName}"
-                    - !Ref ParentOrigin
+              ParentOrigin: !Sub "https://${LexWebUiDistribution.DomainName}"
 
     CodeBuild:
         Type: AWS::CodeBuild::Project

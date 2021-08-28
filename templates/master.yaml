@@ -535,7 +535,7 @@ Resources:
                 ConnectPromptForNameMessage: !Ref ConnectPromptForNameMessage
                 ConnectWaitForAgentMessage: !Ref ConnectWaitForAgentMessage
                 ConnectWaitForAgentMessageIntervalInSeconds: !Ref ConnectWaitForAgentMessageIntervalInSeconds
-                Timestamp: 1630166204
+                Timestamp: 1630174117
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -549,7 +549,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1630166204
+                Timestamp: 1630174117
 
 Outputs:
     BotName:
