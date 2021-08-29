@@ -89,6 +89,16 @@
             {{ items[6].title }}
           </v-list-tile-title>
         </v-list-tile>
+        <v-list-tile  v-if="isLocaleSelectable"
+                      v-for="(locale) in locales"
+                      v-bind:key=locale
+                      :disabled="restrictLocaleChanges"
+        >
+          <v-list-tile-title
+            v-on:click="setLocale(locale)">
+            {{locale}}
+          </v-list-tile-title>
+        </v-list-tile>
       </v-list>
     </v-menu>
 
