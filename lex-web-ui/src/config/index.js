@@ -58,7 +58,21 @@ const configDefault = {
     // e.g. poolId: 'us-east-1:deadbeef-cac0-babe-abcd-abcdef01234',
     poolId: '',
   },
-
+  connect: {
+    // The Connect contact flow id - user configured via CF template
+    contactFlowId: '',
+    // The Connect instance id - user configured via CF template
+    instanceId: '',
+    // The API Gateway Endpoint - provisioned by CF template
+    apiGatewayEndpoint: '',
+    // Message to prompt the user for a name prior to establishing a session
+    promptForNameMessage: 'Before starting a live chat, please tell me your name?',
+    // The default message to message to display while waiting for a live agent
+    waitingForAgentMessage: "Thanks for waiting. An agent will be with you when available.",
+    // The default interval with which to display the waitingForAgentMessage. When set to 0
+    // the timer is disabled.
+    waitingForAgentMessageIntervalSeconds: 60,
+  },
   lex: {
     // Lex V2 fields
     v2BotId: '',
@@ -137,9 +151,6 @@ const configDefault = {
     // to allow runing embedded in a single origin setup
     parentOrigin: null,
 
-    // enable Sound Effects
-    enableSFX: false,
-
     // mp3 audio file url for message send sound FX
     messageSentSFX: 'send.mp3',
 
@@ -188,6 +199,9 @@ const configDefault = {
     // bot avatar image URL
     avatarImageUrl: '',
 
+    // agent avatar image URL ( if live Chat is enabled)
+    agentAvatarImageUrl: '',
+
     // Show the diaglog state icon, check or alert, in the text bubble
     showDialogStateIcon: true,
 
@@ -223,6 +237,9 @@ const configDefault = {
     // Optionally display login menu
     enableLogin: false,
 
+    // enable Sound Effects
+    enableSFX: false,
+
     // Optionally force login automatically when load
     forceLogin: false,
 
@@ -231,6 +248,9 @@ const configDefault = {
 
     // Optionally keep chat session automatically when load
     saveHistory: false,
+
+    // Optionally enable live chat via AWS Connect
+    enableLiveChat: false,
   },
 
   /* Configuration to enable voice and to pass options to the recorder

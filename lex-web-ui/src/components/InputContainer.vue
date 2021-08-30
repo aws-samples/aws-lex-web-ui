@@ -21,6 +21,7 @@
           v-on:keyup.enter.stop="postTextMessage"
           v-on:focus="onTextFieldFocus"
           v-on:blur="onTextFieldBlur"
+          @input="onKeyUp"
           ref="textInput"
           id="text-input"
           name="text-input"
@@ -43,6 +44,16 @@
         >
           <span id="input-button-tooltip">{{inputButtonTooltip}}</span>
         </v-tooltip>
+        <v-tooltip
+          activator=".end-live-chat-button"
+          content-class="tooltip-custom"
+          v-model="shouldShowEndLiveChatTooltip"
+          ref="tooltipEndLiveChat"
+          left
+        >
+          <span id="input-button-tooltip">End Live Chat</span>
+        </v-tooltip>
+
         <v-btn
           v-if="shouldShowSendButton"
           v-on:click="postTextMessage"
@@ -56,7 +67,7 @@
           <v-icon medium>send</v-icon>
         </v-btn>
         <v-btn
-          v-else
+          v-if="!shouldShowSendButton && !isModeLiveChat"
           v-on:click="onMicClick"
           v-on="tooltipEventHandlers"
           v-bind:disabled="isMicButtonDisabled"
@@ -65,6 +76,16 @@
           icon
         >
           <v-icon medium>{{micButtonIcon}}</v-icon>
+        </v-btn>
+        <v-btn
+          v-if="isModeLiveChat"
+          v-on:click="onEndLiveChatClick"
+          v-on="tooltipEndLiveChatEventHandlers"
+          ref="endLiveChat"
+          class="end-live-chat-button"
+          aria-label="End Live Chat"
+        >
+          <v-icon medium>call_end</v-icon>
         </v-btn>
       </v-toolbar>
     </v-layout>
@@ -95,6 +116,7 @@ export default {
       textInput: '',
       isTextFieldFocused: false,
       shouldShowTooltip: false,
+      shouldShowEndLiveChatTooltip: false,
       // workaround: vuetify tooltips doesn't seem to support touch events
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
@@ -102,6 +124,13 @@ export default {
         touchstart: this.onInputButtonHoverEnter,
         touchend: this.onInputButtonHoverLeave,
         touchcancel: this.onInputButtonHoverLeave,
+      },
+      tooltipEndLiveChatEventHandlers: {
+        mouseenter: this.onEndLiveChatButtonHoverEnter,
+        mouseleave: this.onEndLiveChatButtonHoverLeave,
+        touchstart: this.onEndLiveChatButtonHoverEnter,
+        touchend: this.onEndLiveChatButtonHoverLeave,
+        touchcancel: this.onEndLiveChatButtonHoverLeave,
       },
     };
   },
@@ -133,6 +162,9 @@ export default {
     },
     isSendButtonDisabled() {
       return this.textInput.length < 1;
+    },
+    isModeLiveChat() {
+      return this.$store.state.chatMode === 'livechat';
     },
     micButtonIcon() {
       if (this.isMicMuted) {
@@ -172,6 +204,12 @@ export default {
     onInputButtonHoverLeave() {
       this.shouldShowTooltip = false;
     },
+    onEndLiveChatButtonHoverEnter() {
+      this.shouldShowEndLiveChatTooltip = true;
+    },
+    onEndLiveChatButtonHoverLeave() {
+      this.shouldShowEndLiveChatTooltip = false;
+    },
     onMicClick() {
       this.onInputButtonHoverLeave();
       if (this.isBotSpeaking || this.isSpeechConversationGoing) {
@@ -190,6 +228,9 @@ export default {
       if (!this.textInput.length && this.isTextFieldFocused) {
         this.isTextFieldFocused = false;
       }
+    },
+    onKeyUp() {
+      this.$store.dispatch('sendTypingEvent');
     },
     setInputTextFieldFocus() {
       // focus() needs to be wrapped in setTimeout for IE11
@@ -233,6 +274,10 @@ export default {
             this.setInputTextFieldFocus();
           }
         });
+    },
+    onEndLiveChatClick() {
+      this.shouldShowEndLiveChatTooltip = false;
+      this.$emit('endLiveChatClicked');
     },
     startSpeechConversation() {
       if (this.isMicMuted) {

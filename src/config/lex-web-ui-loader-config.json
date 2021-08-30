@@ -1,1 +1,10 @@
-{}
+{
+  "connect": {
+    "contactFlowId": "",
+    "instanceId": "",
+    "apiGatewayEndpoint": "",
+    "promptForNameMessage": "",
+    "waitingForAgentMessage": "",
+    "waitingForAgentMessageIntervalSeconds": ""
+  }
+}

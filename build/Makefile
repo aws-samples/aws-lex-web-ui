@@ -9,6 +9,9 @@ include $(CONFIG_ENV)
 TEMPLATES_DIR := ../templates
 TEMPLATES := $(wildcard $(TEMPLATES_DIR)/*.yaml)
 
+# lambda dir
+SOURCE_DIR := ../src
+
 # build output directory
 OUT := out
 # put output dir in VPATH to simplify finding dependencies
@@ -19,7 +22,7 @@ VPATH := $(OUT)
 # upload files to bootstrap bucket
 # NOTE: files uploaded with public read permissions
 upload: upload-templates upload-custom-resources-zip upload-src-zip \
-	upload-response-card-image
+	upload-response-card-image zip-initiate-chat-lambda upload-initiate-chat-lambda
 .PHONY: upload
 
 # create the output directory for tracking dependencies
@@ -63,6 +66,22 @@ upload-custom-resources-zip: $(CUSTOM_RESOURCES_ZIP) | $(OUT)
 		"$(OUT)/$(CUSTOM_RESOURCES_ZIP)" \
 		"s3://$(BOOTSTRAP_BUCKET_PATH)/$(CUSTOM_RESOURCES_ZIP)" \
 		| tee -a "$(OUT)/$(@)"
+
+# initiate chat lambda function
+
+INITIATE_CHAT_LAMBDA_DIR := $(SOURCE_DIR)/initiate-chat-lambda
+INITIATE_CHAT_LAMBDA_ZIP := initiate-chat-lambda-$(VERSION).zip
+INITIATE_CHAT_LAMBDA_RESOURCES_FILES := $(wildcard $(INITIATE_CHAT_LAMBDA_DIR)/*.js)
+
+$(INITIATE_CHAT_LAMBDA_ZIP): $(INITIATE_CHAT_LAMBDA_DIR)/index.js
+	@echo "[INFO] Creating initiate chat Lambda zip file"
+	zip -r -j "$(OUT)/$(INITIATE_CHAT_LAMBDA_ZIP)" $(INITIATE_CHAT_LAMBDA_DIR) ; 
+
+upload-initiate-chat-lambda:
+		@echo "[INFO] uploading initiate chat lambda"
+	aws s3 cp --acl public-read \
+			"$(OUT)/$(INITIATE_CHAT_LAMBDA_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/$(INITIATE_CHAT_LAMBDA_ZIP)" \
+			| tee -a "$(OUT)/$(@)"
 
 # files in this repo are bundled in a zip file to boostrap the codecommit repo
 SRC_ZIP := src-$(VERSION).zip

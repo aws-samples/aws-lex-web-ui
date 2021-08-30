@@ -20,12 +20,16 @@ License for the specific language governing permissions and limitations under th
 
 import LexAudioRecorder from '@/lib/lex/recorder';
 import initRecorderHandlers from '@/store/recorder-handlers';
+import { chatMode, liveChatStatus } from '@/store/state';
+import { createLiveChatSession, connectLiveChatSession, initLiveChatHandlers, sendChatMessage, sendTypingEvent, requestLiveChatEnd } from '@/store/live-chat-handlers';
 import silentOgg from '@/assets/silent.ogg';
 import silentMp3 from '@/assets/silent.mp3';
 
 import LexClient from '@/lib/lex/client';
 
 const jwt = require('jsonwebtoken');
+const AWS = require('aws-sdk');
+const liveChatTerms = ['live chat'];
 
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
@@ -34,9 +38,9 @@ let pollyClient;
 let lexClient;
 let audio;
 let recorder;
+let liveChatSession;
 
 export default {
-
   /***********************************************************************
    *
    * Initialization Actions
@@ -88,11 +92,13 @@ export default {
   },
   initMessageList(context) {
     context.commit('reloadMessages');
-    if (context.state.messages && context.state.messages.length === 0) {
-      context.commit('pushMessage', {
-        type: 'bot',
-        text: context.state.config.lex.initialText,
-      });
+    if (context.state.messages &&
+      context.state.messages.length === 0 &&
+      context.state.config.lex.initialText.length > 0) {
+        context.commit('pushMessage', {
+          type: 'bot',
+          text: context.state.config.lex.initialText,
+        });
     }
   },
   initLexClient(context, payload) {
@@ -463,78 +469,102 @@ export default {
   postTextMessage(context, message) {
     if (context.state.isSFXOn && !context.state.lex.isPostTextRetry) {
       context.dispatch('playSound', context.state.config.ui.messageSentSFX);
-      context.dispatch(
-        'sendMessageToParentWindow',
-        { event: 'messageSent' },
-      );
     }
+
     return context.dispatch('interruptSpeechConversation')
-      .then(() => context.dispatch('pushMessage', message))
-      .then(() => context.commit('pushUtterance', message.text))
-      .then(() => context.dispatch('lexPostText', message.text))
-      .then((response) => {
-        // check for an array of messages
-        if (response.sessionState || (response.message && response.message.includes('{"messages":'))) {
-          if (response.message && response.message.includes('{"messages":')) {
-            const tmsg = JSON.parse(response.message);
-            if (tmsg && Array.isArray(tmsg.messages)) {
-              tmsg.messages.forEach((mes, index) => {
-                let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
-                if (mes.type === 'CustomPayload' || mes.contentType === 'CustomPayload') {
-                  if (alts === undefined) {
-                    alts = {};
-                  }
-                  alts.markdown = mes.value ? mes.value : mes.content;
-                }
-                // Note that Lex V1 only supported a single responseCard. V2 supports multiple response cards.
-                // This code still supports the V1 mechanism. The code below will check for
-                // the existence of a single V1 responseCard added to sessionAttributes.appContext by bots
-                // such as QnABot. This single responseCard will be appended to the last message displayed
-                // in the array of messages presented.
-                let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
-                if (responseCardObject === undefined) { // prefer appContext over lex.responseCard
-                  responseCardObject = context.state.lex.responseCard;
-                }
-                if ((mes.value && mes.value.length > 0) ||
-                  (mes.content && mes.content.length > 0)) {
-                  context.dispatch(
-                    'pushMessage',
-                    {
-                      text: mes.value ? mes.value : mes.content,
-                      type: 'bot',
-                      dialogState: context.state.lex.dialogState,
-                      responseCard: tmsg.messages.length - 1 === index // attach response card only
-                        ? responseCardObject : undefined, // for last response message
-                      alts,
-                    },
-                  );
-                }
-              });
-            }
-          }
-        } else {
-          let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
-          let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
-          if (response.messageFormat === 'CustomPayload') {
-            if (alts === undefined) {
-              alts = {};
-            }
-            alts.markdown = response.message;
-          }
-          if (responseCardObject === undefined) {
-            responseCardObject = context.state.lex.responseCard;
-          }
-          context.dispatch(
-            'pushMessage',
-            {
-              text: response.message,
-              type: 'bot',
-              dialogState: context.state.lex.dialogState,
-              responseCard: responseCardObject, // prefering appcontext over lex.responsecard
-              alts,
-            },
-          );
+      .then(() => {
+        if (context.state.chatMode === chatMode.BOT) {
+          return context.dispatch('pushMessage', message);
         }
+        return Promise.resolve();
+      })
+      .then(() => {
+        if (context.state.config.ui.enableLiveChat && liveChatTerms.find(el => el === message.text.toLowerCase())) {
+          return context.dispatch('requestLiveChat');
+        } else if (context.state.liveChat.status === liveChatStatus.REQUEST_USERNAME) {
+          context.commit('setLiveChatUserName', message.text);
+          return context.dispatch('requestLiveChat');
+        } else if (context.state.chatMode === chatMode.LIVECHAT) {
+          if (context.state.liveChat.status === liveChatStatus.ESTABLISHED) {
+            return context.dispatch('sendChatMessage', message.text);
+          }
+        }
+        return Promise.resolve(context.commit('pushUtterance', message.text))
+      })
+      .then(() => {
+        if (context.state.chatMode === chatMode.BOT &&
+          context.state.liveChat.status != liveChatStatus.REQUEST_USERNAME) {
+          return context.dispatch('lexPostText', message.text);
+        }
+        return Promise.resolve();
+      })
+      .then((response) => {
+        if (context.state.chatMode === chatMode.BOT &&
+          context.state.liveChat.status != liveChatStatus.REQUEST_USERNAME) {
+          // check for an array of messages
+          if (response.sessionState || (response.message && response.message.includes('{"messages":'))) {
+            if (response.message && response.message.includes('{"messages":')) {
+              const tmsg = JSON.parse(response.message);
+              if (tmsg && Array.isArray(tmsg.messages)) {
+                tmsg.messages.forEach((mes, index) => {
+                  let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+                  if (mes.type === 'CustomPayload' || mes.contentType === 'CustomPayload') {
+                    if (alts === undefined) {
+                      alts = {};
+                    }
+                    alts.markdown = mes.value ? mes.value : mes.content;
+                  }
+                  // Note that Lex V1 only supported a single responseCard. V2 supports multiple response cards.
+                  // This code still supports the V1 mechanism. The code below will check for
+                  // the existence of a single V1 responseCard added to sessionAttributes.appContext by bots
+                  // such as QnABot. This single responseCard will be appended to the last message displayed
+                  // in the array of messages presented.
+                  let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
+                  if (responseCardObject === undefined) { // prefer appContext over lex.responseCard
+                    responseCardObject = context.state.lex.responseCard;
+                  }
+                  if ((mes.value && mes.value.length > 0) ||
+                    (mes.content && mes.content.length > 0)) {
+                    context.dispatch(
+                      'pushMessage',
+                      {
+                        text: mes.value ? mes.value : mes.content,
+                        type: 'bot',
+                        dialogState: context.state.lex.dialogState,
+                        responseCard: tmsg.messages.length - 1 === index // attach response card only
+                          ? responseCardObject : undefined, // for last response message
+                        alts,
+                      },
+                    );
+                  }
+                });
+              }
+            }
+          } else {
+            let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+            let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
+            if (response.messageFormat === 'CustomPayload') {
+              if (alts === undefined) {
+                alts = {};
+              }
+              alts.markdown = response.message;
+            }
+            if (responseCardObject === undefined) {
+              responseCardObject = context.state.lex.responseCard;
+            }
+            context.dispatch(
+              'pushMessage',
+              {
+                text: response.message,
+                type: 'bot',
+                dialogState: context.state.lex.dialogState,
+                responseCard: responseCardObject, // prefering appcontext over lex.responsecard
+                alts,
+              },
+            );
+          }
+        }
+        return Promise.resolve();
       })
       .then(() => {
         if (context.state.isSFXOn) {
@@ -730,6 +760,9 @@ export default {
       context.commit('pushMessage', message);
     }
   },
+  pushLiveChatMessage(context, message) {
+    context.commit('pushLiveChatMessage', message);
+  },
   pushErrorMessage(context, text, dialogState = 'Failed') {
     context.commit('pushMessage', {
       type: 'bot',
@@ -738,6 +771,173 @@ export default {
     });
   },
 
+  /***********************************************************************
+   *
+   * Live Chat Actions
+   *
+   **********************************************************************/
+  initLiveChat(context) {
+    require('amazon-connect-chatjs');
+    if (window.connect) {
+      window.connect.ChatSession.setGlobalConfig({
+        region: context.state.config.region,
+      });
+      return Promise.resolve();
+    } else {
+      return Promise.reject(new Error('failed to find Connect Chat JS global variable'));
+    }
+  },
+
+  initLiveChatSession(context) {
+    console.info('initLiveChat');
+    console.info('config connect', context.state.config.connect);
+    if (!context.state.config.ui.enableLiveChat) {
+      console.error('error in initLiveChatSession() enableLiveChat is not true in config');
+      return Promise.reject(new Error('error in initLiveChatSession() enableLiveChat is not true in config'));
+    }
+    if (!context.state.config.connect.apiGatewayEndpoint) {
+      console.error('error in initLiveChatSession() apiGatewayEndpoint is not set in config');
+      return Promise.reject(new Error('error in initLiveChatSession() apiGatewayEndpoint is not set in config'));
+    }
+    if (!context.state.config.connect.contactFlowId) {
+      console.error('error in initLiveChatSession() contactFlowId is not set in config');
+      return Promise.reject(new Error('error in initLiveChatSession() contactFlowId is not set in config'));
+    }
+    if (!context.state.config.connect.instanceId) {
+      console.error('error in initLiveChatSession() instanceId is not set in config');
+      return Promise.reject(new Error('error in initLiveChatSession() instanceId is not set in config'));
+    }
+
+    context.commit('setLiveChatStatus', liveChatStatus.INITIALIZING);
+
+    const initiateChatRequest = {
+      ParticipantDetails: {
+        DisplayName: context.getters.liveChatUserName(),
+      },
+      ContactFlowId: context.state.config.connect.contactFlowId,
+      InstanceId: context.state.config.connect.instanceId,
+    };
+
+    const uri = new URL(context.state.config.connect.apiGatewayEndpoint);
+    const endpoint = new AWS.Endpoint(uri.hostname);
+    const req = new AWS.HttpRequest(endpoint, context.state.config.region);
+    req.method = 'POST';
+    req.path = uri.pathname;
+    req.headers['Content-Type'] = 'application/json';
+    req.body = JSON.stringify(initiateChatRequest);
+    req.headers.Host = endpoint.host;
+    req.headers['Content-Length'] = Buffer.byteLength(req.body);
+
+    const signer = new AWS.Signers.V4(req, 'execute-api');
+    signer.addAuthorization(awsCredentials, new Date());
+
+    const reqInit = {
+      method: 'POST',
+      mode: 'cors',
+      headers: req.headers,
+      body: req.body,
+    };
+
+    return fetch(
+      context.state.config.connect.apiGatewayEndpoint,
+      reqInit)
+    .then(response => response.json())
+    .then(json => json.data)
+    .then((result) => {
+      console.info('Live Chat Config Success:', result);
+      context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
+      function waitMessage(context, type, message) {
+        context.commit('pushLiveChatMessage', {
+          type,
+          text: message,
+        });
+      };
+      if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
+        const intervalID = setInterval(waitMessage,
+          1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
+          context,
+          'bot',
+          context.state.config.connect.waitingForAgentMessage);
+        console.info(`interval now set: ${intervalID}`);
+        context.commit('setLiveChatIntervalId', intervalID);
+      }
+      liveChatSession = createLiveChatSession(result);
+      console.info('Live Chat Session Created:', liveChatSession);
+      initLiveChatHandlers(context, liveChatSession);
+      console.info('Live Chat Handlers initialised:');
+      return connectLiveChatSession(liveChatSession);
+    })
+    .then((response) => {
+      console.info('live Chat session connection response', response);
+      console.info('Live Chat Session CONNECTED:', liveChatSession);
+      context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
+      // context.commit('setLiveChatbotSession', liveChatSession);
+      return Promise.resolve();
+    })
+    .catch((error) => {
+      console.error("Error esablishing live chat");
+      context.commit('setLiveChatStatus', liveChatStatus.ENDED);
+      return Promise.resolve();
+    });
+  },
+
+  requestLiveChat(context) {
+    console.info('requestLiveChat');
+    if (!context.getters.liveChatUserName()) {
+      context.commit('setLiveChatStatus', liveChatStatus.REQUEST_USERNAME);
+      context.commit(
+        'pushMessage',
+        {
+          text: context.state.config.connect.promptForNameMessage,
+          type: 'bot',
+        },
+      );
+    } else {
+      context.commit('setLiveChatStatus', liveChatStatus.REQUESTED);
+      context.commit('setChatMode', chatMode.LIVECHAT);
+      context.commit('setIsLiveChatProcessing', true);
+      context.dispatch('initLiveChatSession');
+    }
+  },
+  sendTypingEvent(context) {
+    console.info('actions: sendTypingEvent');
+    if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession) {
+      sendTypingEvent(liveChatSession);
+    }
+  },
+  sendChatMessage(context, message) {
+    console.info('actions: sendChatMessage');
+    if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession) {
+      sendChatMessage(liveChatSession, message);
+    }
+  },
+  requestLiveChatEnd(context) {
+    console.info('actions: endLiveChat');
+    context.commit('clearLiveChatIntervalId');
+    if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession) {
+      requestLiveChatEnd(liveChatSession);
+      context.commit('setLiveChatStatus', liveChatStatus.ENDED);
+    }
+  },
+  agentIsTyping(context) {
+    console.info('actions: agentIsTyping');
+    context.commit('setIsLiveChatProcessing', true);
+  },
+  liveChatSessionReconnectRequest(context) {
+    console.info('actions: liveChatSessionReconnectRequest');
+    context.commit('setLiveChatStatus', liveChatStatus.DISCONNECTED);
+    // TODO try re-establish connection
+  },
+  liveChatSessionEnded(context) {
+    console.info('actions: liveChatSessionEnded');
+    liveChatSession = null;
+    context.commit('setLiveChatStatus', liveChatStatus.ENDED);
+    context.commit('setChatMode', chatMode.BOT);
+    context.commit('clearLiveChatIntervalId');
+  },
+  liveChatAgentJoined(context) {
+    context.commit('clearLiveChatIntervalId');
+  },
   /***********************************************************************
    *
    * Credentials Actions

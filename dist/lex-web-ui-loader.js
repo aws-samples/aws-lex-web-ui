@@ -74763,6 +74763,7 @@ var configBase = {
     parentOrigin: ''
   },
   polly: {},
+  connect: {},
   recorder: {},
   iframe: {
     iframeOrigin: '',

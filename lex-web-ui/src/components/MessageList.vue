@@ -44,12 +44,15 @@ export default {
       return this.$store.state.messages;
     },
     loading() {
-      return this.$store.state.lex.isProcessing;
+      return this.$store.state.lex.isProcessing || this.$store.state.liveChat.isProcessing;
     },
   },
   watch: {
     // autoscroll message list to the bottom when messages change
     messages() {
+      this.scrollDown();
+    },
+    loading() {
       this.scrollDown();
     },
   },
@@ -61,9 +64,15 @@ export default {
   methods: {
     scrollDown() {
       return this.$nextTick(() => {
-        const lastMessageOffset = (this.$el.lastElementChild) ?
-          this.$el.lastElementChild.getBoundingClientRect().height : 0;
-        this.$el.scrollTop = this.$el.scrollHeight - lastMessageOffset;
+        if (this.$el.lastElementChild) {
+          const lastMessageHeight = this.$el.lastElementChild.getBoundingClientRect().height;
+          const isLastMessageLoading = this.$el.lastElementChild.classList.contains('messsge-loading');
+          if (isLastMessageLoading) {
+            this.$el.scrollTop = this.$el.scrollHeight;
+          } else {
+            this.$el.scrollTop = this.$el.scrollHeight - lastMessageHeight;
+          }
+        }
       });
     },
   },
@@ -78,6 +87,10 @@ export default {
 }
 
 .message-bot {
+  align-self: flex-start;
+}
+
+.message-agent {
   align-self: flex-start;
 }
 

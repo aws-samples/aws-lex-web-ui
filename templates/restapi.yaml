@@ -1,0 +1,182 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: >
+  This template deploys the api with api gateway to initiate a live connect 
+
+Parameters:
+    ParentStackName:
+        Type: String
+        Description: Parent Stack Name
+        Default: lex-web-ui-stack
+
+    SourceBucket:
+        Description: S3 bucket where the source is located
+        Type: String
+        Default: aws-bigdata-blog
+
+    InitiateChatLambdaCodeObject:
+        Type: String
+        Description: >
+            S3 object zip file containing Lambda initiate chat functions
+        Default: artifacts/aws-lex-web-ui/artifacts/initiate-chat-lambda.zip
+    
+    ConnectContactFlowId:
+        Type: String
+        Description: >
+            Connect Contract Flow Id
+
+    ConnectInstanceId:
+        Type: String
+        Description: >
+            Connect Instance Id
+
+    ParentOrigin:
+        Type: String
+        Description: >
+            Parent Origin for CORS allow-origin
+
+Resources:
+
+    #### Lambda #####
+    InitiateChatLambda:
+      Type: "AWS::Lambda::Function"
+      Properties:
+        Description:  AWS Lambda Function to initiate the chat with the end user
+        Handler: "index.handler"
+        Role: !GetAtt InitiateChatLambdaExecutionRole.Arn
+        Runtime: "nodejs14.x"
+        MemorySize: 128
+        Timeout: 30
+        Environment:
+          Variables:
+            INSTANCE_ID: !Ref ConnectInstanceId
+            CONTACT_FLOW_ID: !Ref ConnectContactFlowId
+            PARENT_ORIGIN: !Ref ParentOrigin
+        Code:
+          S3Bucket: !Ref SourceBucket
+          S3Key: !Ref InitiateChatLambdaCodeObject
+
+    InitiateChatLambdaExecutionRole:
+      Type: "AWS::IAM::Role"
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Principal:
+                Service:
+                  - "lambda.amazonaws.com"
+              Action:
+                - "sts:AssumeRole"
+        Path: "/"
+        Policies:
+          - PolicyName: initiate-chat-execution-policy
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                - Effect: "Allow"
+                  Action:
+                    - 'logs:CreateLogGroup'
+                    - 'logs:CreateLogStream'
+                    - 'logs:PutLogEvents'
+                  Resource:
+                    - !Sub "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
+                - Effect: "Allow"
+                  Action:
+                    - "connect:StartChatContact"
+                  Resource:
+                    - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}"
+                    - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}/*"
+
+    #### API Gateway ##### 
+    ApiGatewayRestAPI:
+      Type: AWS::ApiGateway::RestApi 
+      Properties:
+        Name: !Join ["-", [!Ref ParentStackName, "API"]]
+        Description: "API to initiate chat with Amazon Connect"
+        
+    ApiGatewayLiveChatResource: 
+      Type: AWS::ApiGateway::Resource 
+      Properties:
+        ParentId: !GetAtt 
+          - ApiGatewayRestAPI
+          - RootResourceId # Required
+        PathPart: "livechat"
+        RestApiId: !Ref ApiGatewayRestAPI # Required
+
+    LambdaApiGatewayInvokePermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        Action: "lambda:InvokeFunction"
+        FunctionName: !GetAtt InitiateChatLambda.Arn
+        Principal: "apigateway.amazonaws.com"
+        SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGatewayRestAPI}/*"
+
+    ApiGatewayDeployment:
+      Type: AWS::ApiGateway::Deployment
+      DependsOn:
+        - ApiGatewayLiveChatMethod
+      Properties:
+        RestApiId: !Ref ApiGatewayRestAPI
+        StageName: "Prod"
+
+    ApiGatewayLiveChatMethod:
+      Type: AWS::ApiGateway::Method
+      DependsOn: LambdaApiGatewayInvokePermission
+      Properties:
+        AuthorizationType: "AWS_IAM"
+        HttpMethod: "POST"
+        Integration:
+          IntegrationHttpMethod: "POST"
+          Type: "AWS_PROXY"
+          Uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${InitiateChatLambda.Arn}/invocations"
+          PassthroughBehavior: WHEN_NO_MATCH
+        ResourceId: !Ref ApiGatewayLiveChatResource
+        RestApiId: !Ref ApiGatewayRestAPI
+        MethodResponses:
+          - StatusCode: "200"
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: true
+            ResponseModels:
+              application/json: Empty
+          - StatusCode: "500"
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: true
+            ResponseModels:
+              application/json: Empty
+
+    ApiGatewayLiveChatOptionsMethod:
+      Type: AWS::ApiGateway::Method
+      Properties:
+        ResourceId: !Ref ApiGatewayLiveChatResource
+        RestApiId: !Ref ApiGatewayRestAPI
+        AuthorizationType: NONE
+        HttpMethod: OPTIONS
+        Integration:
+          Type: MOCK
+          IntegrationResponses:
+            - ResponseParameters:
+                method.response.header.Access-Control-Allow-Headers: >-
+                  'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'
+                method.response.header.Access-Control-Allow-Methods: '''POST,OPTIONS'''
+                method.response.header.Access-Control-Allow-Origin: '''*'''
+              ResponseTemplates:
+                application/json: ''
+              StatusCode: '200'
+          PassthroughBehavior: WHEN_NO_MATCH
+          RequestTemplates:
+            application/json: '{"statusCode": 200}'
+        MethodResponses:
+          - ResponseModels:
+              application/json: Empty
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: false
+              method.response.header.Access-Control-Allow-Methods: false
+              method.response.header.Access-Control-Allow-Origin: false
+            StatusCode: '200'
+
+Outputs:
+  RestApiId:
+    Description: API Gateway Id
+    Value: !Ref ApiGatewayRestAPI

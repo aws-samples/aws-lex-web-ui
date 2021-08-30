@@ -17,6 +17,9 @@
       v-on:toggleMinimizeUi="toggleMinimizeUi"
       @requestLogin="handleRequestLogin"
       @requestLogout="handleRequestLogout"
+      @requestLiveChat="handleRequestLiveChat"
+      @endLiveChat="handleEndLiveChat"
+      transition="fade-transition"
     ></toolbar-container>
 
     <v-content
@@ -37,6 +40,7 @@
       v-if="!isUiMinimized && !hasButtons"
       v-bind:text-input-placeholder="textInputPlaceholder"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
+      @endLiveChatClicked="handleEndLiveChat"
     ></input-container>
     <div
       v-if="isSFXOn"
@@ -71,8 +75,6 @@ import LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2';
 
 import { Config as AWSConfig, CognitoIdentityCredentials }
   from 'aws-sdk/global';
-
-const jwt = require('jsonwebtoken');
 
 export default {
   name: 'lex-web',
@@ -161,48 +163,65 @@ export default {
         // using credentials built from the identified poolId.
         //
         // The Cognito Identity Pool should be a resource in the identified region.
-        if (this.$store.state && this.$store.state.config
-          && this.$store.state.config.region && this.$store.state.config.cognito.poolId) {
-          const AWSConfigConstructor = (window.AWS && window.AWS.Config) ?
-            window.AWS.Config :
-            AWSConfig;
 
-          const CognitoConstructor =
-            (window.AWS && window.AWS.CognitoIdentityCredentials) ?
-              window.AWS.CognitoIdentityCredentials :
-              CognitoIdentityCredentials;
-
-          const LexRuntimeConstructor = (window.AWS && window.AWS.LexRuntime) ?
-            window.AWS.LexRuntime :
-            LexRuntime;
-
-          const LexRuntimeConstructorV2 = (window.AWS && window.AWS.LexRuntimeV2) ?
-            window.AWS.LexRuntimeV2 :
-            LexRuntimeV2;
-
-          const credentials = new CognitoConstructor(
-            { IdentityPoolId: this.$store.state.config.cognito.poolId },
-            { region: this.$store.state.config.region },
-          );
-
-          const awsConfig = new AWSConfigConstructor({
-            region: this.$store.state.config.region,
-            credentials,
-          });
-
-          this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
-          this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
-          /* eslint-disable no-console */
-          console.log(`${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
+        // Check for required config values (region & poolId)
+        if (!this.$store.state || !this.$store.state.config) {
+          return Promise.reject(new Error('no config found'))
+        }
+        const region = this.$store.state.config.region ? this.$store.state.config.region : this.$store.state.config.cognito.region;
+        if (!region) {
+          return Promise.reject(new Error('no region found in config or config.cognito'))
+        }
+        const poolId = this.$store.state.config.cognito.poolId;
+        if (!poolId) {
+          return Promise.reject(new Error('no cognito.poolId found in config'))
         }
 
-        Promise.all([
+        const AWSConfigConstructor = (window.AWS && window.AWS.Config) ?
+          window.AWS.Config :
+          AWSConfig;
+
+        const CognitoConstructor =
+          (window.AWS && window.AWS.CognitoIdentityCredentials) ?
+            window.AWS.CognitoIdentityCredentials :
+            CognitoIdentityCredentials;
+
+        const LexRuntimeConstructor = (window.AWS && window.AWS.LexRuntime) ?
+          window.AWS.LexRuntime :
+          LexRuntime;
+
+        const LexRuntimeConstructorV2 = (window.AWS && window.AWS.LexRuntimeV2) ?
+          window.AWS.LexRuntimeV2 :
+          LexRuntimeV2;
+
+        const credentials = new CognitoConstructor(
+          { IdentityPoolId: poolId },
+          { region: region },
+        );
+
+        const awsConfig = new AWSConfigConstructor({
+          region: region,
+          credentials,
+        });
+
+        this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
+        this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
+        /* eslint-disable no-console */
+        console.log(`lexRuntimeV2Client : ${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
+
+        const promises = [
           this.$store.dispatch('initMessageList'),
           this.$store.dispatch('initPollyClient', this.$lexWebUi.pollyClient),
           this.$store.dispatch('initLexClient', {
             v1client: this.$lexWebUi.lexRuntimeClient, v2client: this.$lexWebUi.lexRuntimeV2Client,
           }),
-        ]);
+        ];
+        console.info('CONFIG : ', this.$store.state.config);
+        if (this.$store.state && this.$store.state.config &&
+            this.$store.state.config.ui.enableLiveChat) {
+          promises.push(this.$store.dispatch('initLiveChat'));
+        }
+        return Promise.all(promises);
       })
       .then(() => {
         document.title = this.$store.state.config.ui.pageTitle;
@@ -321,6 +340,14 @@ export default {
         );
       }
     },
+    handleRequestLiveChat() {
+      console.info('handleRequestLiveChat');
+      this.$store.dispatch('requestLiveChat');
+    },
+    handleEndLiveChat() {
+      console.info('LexWeb: handleEndLiveChat');
+      this.$store.dispatch('requestLiveChatEnd');
+    },
     // messages from parent
     messageHandler(evt) {
       const messageType = this.$store.state.config.ui.hideButtonMessageBubble ? 'button' : 'human';
@@ -426,22 +453,7 @@ export default {
       }
     },
     userName() {
-      let v = '';
-      if (this.$store.state.tokens && this.$store.state.tokens.idtokenjwt) {
-        const decoded = jwt.decode(this.$store.state.tokens.idtokenjwt, { complete: true });
-        if (decoded) {
-          if (decoded.payload) {
-            if (decoded.payload.email) {
-              v = decoded.payload.email;
-            }
-            if (decoded.payload.preferred_username) {
-              v = decoded.payload.preferred_username;
-            }
-          }
-        }
-        return `[${v}]`;
-      }
-      return v;
+      return this.$store.getters.username();
     },
     logRunningMode() {
       if (!this.$store.state.isRunningEmbedded) {

@@ -155,11 +155,22 @@ Parameters:
         Default: tom-bootstrap-bucket
         # Default: aws-bigdata-blog
 
+    CustomResourceCodePrefix:
+        Type: String
+        Description: Prefix that identifies root of custom resources
+        Default: artifacts
+
     CustomResourceCodeObject:
         Type: String
         Description: >
             S3 object zip file containing Lambda custom resource functions
         Default: artifacts/aws-lex-web-ui/artifacts/custom-resources.zip
+
+    InitiateChatLambdaCodeObject:
+      Type: String
+      Description: >
+        S3 object zip file containing Lambda custom resource functions
+      Default: artifacts/aws-lex-web-ui/artifacts/initiate-chat-lambda.zip
 
     WebAppConfNegativeFeedback:
         Type: String
@@ -185,9 +196,49 @@ Parameters:
             When pressed the button will send the entered string to the bot as a help message.  If left empty
             the help button will be disabled.
 
+    ShouldEnableLiveChat:
+      Type: String
+      Default: false
+      AllowedValues:
+        - true
+        - false
+      Description: >
+        This is an optional parameter, if set to True, the AWS Connect live Chat functionality will be available.
+        A item to start a live chat will appear at the menu.
+
+    ConnectContactFlowId:
+      Type: String
+      Description: >
+        Connect Contract Flow Id
+
+    ConnectInstanceId:
+      Type: String
+      Description: >
+        Connect Instance Id
+      Default: ""
+
+    ConnectPromptForNameMessage:
+      Type: String
+      Description: >
+        Message to display prompting the user for a name
+      Default: Before starting a live chat, please tell me your name?
+
+    ConnectWaitForAgentMessage:
+      Type: String
+      Description: >
+        Message to display every message interval while waiting for an agent to connect
+      Default: Thanks for waiting. An agent will be with you when available.
+
+    ConnectWaitForAgentMessageIntervalInSeconds:
+      Type: Number
+      Description: >
+        Interval in seconds between successive ConnectWaitForAgentMessage. 0 to disable interval.
+      Default: 60
+
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
+    EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
 
 Resources:
     # Bucket where S3 access logs are stored
@@ -341,6 +392,20 @@ Resources:
                 - ServerSideEncryptionByDefault:
                     SSEAlgorithm: AES256
 
+    RestApi:
+      Type: AWS::CloudFormation::Stack
+      Condition: EnableLiveChat
+      Properties:
+        TimeoutInMinutes: 15
+        TemplateURL: !Sub "https://${CustomResourceCodeBucket}.s3.${AWS::Region}.amazonaws.com/${CustomResourceCodePrefix}/templates/restapi.yaml"
+        Parameters:
+          ParentStackName: !Ref "AWS::StackName"
+          SourceBucket: !Ref CustomResourceCodeBucket
+          InitiateChatLambdaCodeObject: !Ref InitiateChatLambdaCodeObject
+          ConnectContactFlowId: !Ref ConnectContactFlowId
+          ConnectInstanceId: !Ref ConnectInstanceId
+          ParentOrigin: !Sub "https://${LexWebUiDistribution.DomainName}"
+
     CodeBuild:
         Type: AWS::CodeBuild::Project
         Properties:
@@ -359,6 +424,20 @@ Resources:
                       Value: full
                     - Name: POOL_ID
                       Value: !Ref CognitoIdentityPoolId
+                    - Name: ENABLE_LIVE_CHAT
+                      Value: !Ref ShouldEnableLiveChat
+                    - Name: CONNECT_CONTACT_FLOW_ID
+                      Value: !Ref ConnectContactFlowId
+                    - Name: CONNECT_INSTANCE_ID
+                      Value: !Ref ConnectInstanceId
+                    - Name: CONNECT_API_GATEWAY_ENDPOINT
+                      Value: !If [EnableLiveChat, !Sub "https://${RestApi.Outputs.RestApiId}.execute-api.${AWS::Region}.amazonaws.com/Prod/livechat", ""]
+                    - Name: CONNECT_PROMPT_FOR_NAME_MESSAGE
+                      Value: !Ref ConnectPromptForNameMessage
+                    - Name: CONNECT_WAIT_FOR_AGENT_MESSAGE
+                      Value: !Ref ConnectWaitForAgentMessage
+                    - Name: CONNECT_WAIT_FOR_AGENT_MESSAGE_INTERVAL_IN_SECONDS
+                      Value: !Ref ConnectWaitForAgentMessageIntervalInSeconds
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME
@@ -704,3 +783,8 @@ Outputs:
         Value: !Sub "https://${LexWebUiDistribution.DomainName}/iframe-snippet.html"
         Description: URL of a page showing the snippet to load the chatbot UI as an iframe
         Condition: NeedsParentOrigin
+
+    RestApiId:
+        Value: !Sub "${RestApi.Outputs.RestApiId}"
+        Description: Rest API ID if required by other elements
+        Condition: EnableLiveChat

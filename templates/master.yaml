@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.18.1)
+    Master Lex Web UI CloudFormation template (v0.18.2)
     It deploys:
         - S3 buckets to host the web application
         - CodeBuild project to build the configuration and deploy to S3
@@ -128,8 +128,18 @@ Parameters:
             - true
             - false
         Description: >
-            This is an optional parameter, if set to True, the history of the chat is maintained over sessions. 
+            This is an optional parameter, if set to True, the history of the chat is maintained over sessions.
             A item to clean the chat will appear at the menu.
+
+    ShouldEnableLiveChat:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          This is an optional parameter, if set to True, the AWS Connect live Chat functionality will be available.
+          A item to start a live chat will appear at the menu.
 
     CodeBuildName:
         Type: String
@@ -283,7 +293,7 @@ Parameters:
         Type: String
         Default: Thumbs down
         Description: >
-            This optional parameter defines the message to be sent by the user upon pressing 
+            This optional parameter defines the message to be sent by the user upon pressing
             a feedback button signaling a negative feedback.
             If left empty feedback buttons will be disabled on the UI.
 
@@ -291,10 +301,10 @@ Parameters:
         Type: String
         Default: Thumbs up
         Description: >
-            This optional parameter defines the message to be sent by the user upon pressing 
+            This optional parameter defines the message to be sent by the user upon pressing
             a feedback button signaling a positive feedback.
             If left empty feedback buttons will be disabled on the UI.
-    
+
     WebAppConfHelp:
         Type: String
         Default: Help
@@ -302,7 +312,7 @@ Parameters:
             This is an optional parameter, when defined with a value, a help button will display on the chat bot toolbar.
             When pressed the button will send the entered string to the bot as a help message.  If left empty
             the help button will be disabled.
-        
+
     WebAppConfToolbarTitle:
         Type: String
         Default: Order Flowers
@@ -325,6 +335,34 @@ Parameters:
         Description: >
             Defines the number of times the lex-web-ui will retry the Lex PostText API operation when an exception
             is detected.
+
+    ConnectContactFlowId:
+        Type: String
+        Description: >
+            Connect Contract Flow Id
+
+    ConnectInstanceId:
+        Type: String
+        Description: >
+            Connect Instance Id
+
+    ConnectPromptForNameMessage:
+        Type: String
+        Description: >
+            Message to display prompting the user for a name
+        Default: Before starting a live chat, please tell me your name?
+
+    ConnectWaitForAgentMessage:
+        Type: String
+        Description: >
+            Message to display every message interval while waiting for an agent to connect
+        Default: Thanks for waiting. An agent will be with you when available.
+
+    ConnectWaitForAgentMessageIntervalInSeconds:
+        Type: Number
+        Description: >
+            Interval in seconds between successive ConnectWaitForAgentMessage. 0 to disable interval.
+        Default: 60
 
 Metadata:
     AWS::CloudFormation::Interface:
@@ -381,12 +419,22 @@ Metadata:
                   - WebAppConfHelp
                   - WebAppConfToolbarTitle
                   - ShouldLoadIframeMinimized
+            - Label:
+                default: Connect Live Chat Parameters
+              Parameters:
+                  - ShouldEnableLiveChat
+                  - ConnectInstanceId
+                  - ConnectContactFlowId
+                  - ConnectPromptForNameMessage
+                  - ConnectWaitForAgentMessage
+                  - ConnectWaitForAgentMessageIntervalInSeconds
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
+    EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
 
 Resources:
     Bot:
@@ -399,7 +447,7 @@ Resources:
                 NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 CustomResourceCodeBucket: !Ref BootstrapBucket
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.1.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.2.zip"
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
@@ -416,6 +464,7 @@ Resources:
                       - !Ref BotName
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
+                ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
 
     ##########################################################################
     # Simplified deployment using CodeBuild to build config and push to S3
@@ -427,8 +476,10 @@ Resources:
             Parameters:
                 CodeBuildName: !Ref CodeBuildName
                 SourceBucket: !Ref BootstrapBucket
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.18.1.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.1.zip"
+                SourcePrefix: !Ref BootstrapPrefix
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.18.2.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.18.2.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.18.2.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
@@ -456,6 +507,7 @@ Resources:
                 WebAppConfHelp: !Ref WebAppConfHelp
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
                 SaveHistory: !Ref SaveHistory
+                ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
                 ShouldEnableCognitoLogin:
                   !If
                     - ShouldForceCognitoLogin
@@ -478,7 +530,12 @@ Resources:
                       - "UserMustSupply"
                 retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
                 retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
-                Timestamp: 1622649048
+                ConnectContactFlowId: !Ref ConnectContactFlowId
+                ConnectInstanceId: !Ref ConnectInstanceId
+                ConnectPromptForNameMessage: !Ref ConnectPromptForNameMessage
+                ConnectWaitForAgentMessage: !Ref ConnectWaitForAgentMessage
+                ConnectWaitForAgentMessageIntervalInSeconds: !Ref ConnectWaitForAgentMessageIntervalInSeconds
+                Timestamp: 1630255836
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -492,7 +549,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1622649048
+                Timestamp: 1630255836
 
 Outputs:
     BotName:
@@ -512,7 +569,7 @@ Outputs:
             URL of the stand-alone sample web application.
             This page will be available after the pipeline/deployment completes.
         Value: !GetAtt CodeBuildDeploy.Outputs.WebAppUrl
-        
+
     WebAppDomainName:
         Description: >
             DomainName of the web application
@@ -550,7 +607,7 @@ Outputs:
         Condition: NeedsCognito
         Description: Cognito Identity Pool Id
         Value: !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
-    
+
     CognitoUserPoolPubKey:
         Condition: NeedsCognito
         Description: Include Cognito User Pool Public Key URL in stack outputs (needed for QnABot token auth)

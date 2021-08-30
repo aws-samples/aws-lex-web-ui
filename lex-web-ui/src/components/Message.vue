@@ -12,9 +12,9 @@
             <v-layout row class="message-bubble-row">
               <div
                 v-if="shouldShowAvatarImage"
-                v-bind:style="botAvatarBackground"
+                v-bind:style="avatarBackground"
                 tabindex="-1"
-                class="bot-avatar"
+                class="avatar"
                 aria-hidden="true"
               >
               </div>
@@ -181,6 +181,9 @@ export default {
     botAvatarUrl() {
       return this.$store.state.config.ui.avatarImageUrl;
     },
+    agentAvatarUrl() {
+      return this.$store.state.config.ui.agentAvatarImageUrl;
+    },
     showDialogStateIcon() {
       return this.$store.state.config.ui.showDialogStateIcon;
     },
@@ -208,14 +211,17 @@ export default {
       );
     },
     shouldShowAvatarImage() {
-      return (
-        this.message.type === 'bot' &&
-        this.botAvatarUrl
-      );
+      if (this.message.type === 'bot') {
+        return this.botAvatarUrl;
+      } else if (this.message.type === 'agent') {
+        return this.agentAvatarUrl;
+      }
+      return false;
     },
-    botAvatarBackground() {
+    avatarBackground() {
+      const avatarURL = (this.message.type === 'bot') ? this.botAvatarUrl : this.agentAvatarUrl;
       return {
-        background: `url(${this.botAvatarUrl}) center center / contain no-repeat`,
+        background: `url(${avatarURL}) center center / contain no-repeat`,
       };
     },
     shouldShowMessageDate() {
@@ -315,7 +321,7 @@ export default {
   max-width: 80vw;
 }
 
-.bot-avatar {
+.avatar {
   align-self: center;
   border-radius: 50%;
   min-width: calc(2.5em + 1.5vmin);
@@ -348,6 +354,9 @@ export default {
   background-color: #FFEBEE; /* red-50 from material palette */
 }
 
+.message-agent .message-bubble {
+  background-color: #FFEBEE; /* red-50 from material palette */
+}
 .message-human .message-bubble {
   background-color: #E8EAF6; /* indigo-50 from material palette */
 }

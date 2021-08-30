@@ -26,9 +26,16 @@ const config = require('../config');
   'IFRAME_ORIGIN',
   'PARENT_ORIGIN',
   'ENABLE_LOGIN',
+  'ENABLE_LIVE_CHAT',
   'FORCE_LOGIN',
   'POOL_ID',
   'APP_USER_POOL_CLIENT_ID',
+  'CONNECT_CONTACT_FLOW_ID',
+  'CONNECT_INSTANCE_ID',
+  'CONNECT_API_GATEWAY_ENDPOINT',
+  'CONNECT_PROMPT_FOR_NAME_MESSAGE',
+  'CONNECT_WAIT_FOR_AGENT_MESSAGE',
+  'CONNECT_WAIT_FOR_AGENT_MESSAGE_INTERVAL_IN_SECONDS',
   'APP_DOMAIN_NAME',
   'UI_TOOLBAR_TITLE',
   'UI_TOOLBAR_LOGO',
@@ -39,7 +46,6 @@ const config = require('../config');
 ].forEach(function (envVar) {
   console.log('[INFO] Env var - %s: [%s]', envVar, process.env[envVar]);
 });
-
 Object.keys(config)
 .map(function (confKey) { return config[confKey]; })
 .forEach(function (item) {
