@@ -22,7 +22,7 @@ VPATH := $(OUT)
 # upload files to bootstrap bucket
 # NOTE: files uploaded with public read permissions
 upload: upload-templates upload-custom-resources-zip upload-src-zip \
-	upload-response-card-image zip-initiate-chat-lambda upload-initiate-chat-lambda
+	upload-response-card-image upload-initiate-chat-lambda
 .PHONY: upload
 
 # create the output directory for tracking dependencies
