@@ -54,12 +54,45 @@ export const initLiveChatHandlers = (context, session) => {
           context.commit('setIsLiveChatProcessing', false);
           context.dispatch('pushLiveChatMessage', {
             type: 'agent',
-            text: `${data.DisplayName} has joined`,
+            text: context.state.config.connect.agentJoinedMessage.replaceAll("{Agent}", data.DisplayName),
           });
+          
+          const text = context.getters.liveChatTextTranscript();
+          context.dispatch('sendChatMessage', text);
+
+          //var blob = new Blob([text], { type: "text/plain"});
+          //var file = new File([blob], 'chatTranscript.txt', { lastModified: new Date().getTime(), type: blob.type });
+          if(context.state.config.connect.attachChatTranscript) {
+            const htmlFile = context.getters.liveChatHtmlTranscriptFile();
+            session.controller.sendAttachment({
+              attachment: htmlFile
+            }).then(response => {
+              //alert(JSON.stringify(response));
+            });
+          }
         }
         break;
       case 'application/vnd.amazonaws.connect.event.participant.left':
+        switch (data.ParticipantRole) {
+          case 'SYSTEM':
+            break;
+          case 'AGENT':
+            context.dispatch('pushLiveChatMessage', {
+              type: 'agent',
+              text: context.state.config.connect.agentLeftMessage.replaceAll("{Agent}", data.DisplayName),
+            });
+            break;
+          case 'CUSTOMER':
+            break;
+          default:
+            break;
+        }
+        break;
       case 'application/vnd.amazonaws.connect.event.chat.ended':
+        context.dispatch('pushLiveChatMessage', {
+          type: 'agent',
+          text: context.state.config.connect.chatEndedMessage,
+        });
         context.dispatch('liveChatSessionEnded');
         break;
       case 'text/plain':
@@ -77,10 +110,12 @@ export const initLiveChatHandlers = (context, session) => {
             break;
         }
         context.commit('setIsLiveChatProcessing', false);
-        context.dispatch('pushLiveChatMessage', {
-          type,
-          text: data.Content,
-        });
+        if(!data.Content.startsWith('Bot Transcript')) {
+          context.dispatch('pushLiveChatMessage', {
+            type,
+            text: data.Content,
+          });
+        }
         break;
       default:
         break;

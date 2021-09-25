@@ -358,6 +358,33 @@ Parameters:
             Message to display every message interval while waiting for an agent to connect
         Default: Thanks for waiting. An agent will be with you when available.
 
+    ConnectAttachChatTranscript:
+        Type: String
+        Default: true
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            Attach chat transcript as file. This only works if you enable attachments in Amazon Connect.
+
+    ConnectAgentJoinedMessage:
+        Type: String
+        Description: >
+            Message to play when an agent joins the chat. {Agent} will be replaced with the Agent's name.
+        Default: "{Agent} has joined."
+
+    ConnectAgentLeftMessage:
+        Type: String
+        Description: >
+            Message to play when an agent leaves the chat. {Agent} will be replaced with the Agent's name.
+        Default: "{Agent} has left."
+    
+    ConnectChatEndedMessage:
+        Type: String
+        Description: >
+            Message to play when a chat session has ended.
+        Default: "Chat ended."
+
     ConnectWaitForAgentMessageIntervalInSeconds:
         Type: Number
         Description: >
@@ -428,6 +455,10 @@ Metadata:
                   - ConnectPromptForNameMessage
                   - ConnectWaitForAgentMessage
                   - ConnectWaitForAgentMessageIntervalInSeconds
+                  - ConnectAgentJoinedMessage
+                  - ConnectAgentLeftMessage
+                  - ConnectChatEndedMessage
+                  - ConnectAttachChatTranscript
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
@@ -535,7 +566,11 @@ Resources:
                 ConnectPromptForNameMessage: !Ref ConnectPromptForNameMessage
                 ConnectWaitForAgentMessage: !Ref ConnectWaitForAgentMessage
                 ConnectWaitForAgentMessageIntervalInSeconds: !Ref ConnectWaitForAgentMessageIntervalInSeconds
-                Timestamp: 1630290457
+                ConnectAgentJoinedMessage: !Ref ConnectAgentJoinedMessage
+                ConnectAgentLeftMessage: !Ref ConnectAgentLeftMessage
+                ConnectChatEndedMessage: !Ref ConnectChatEndedMessage
+                ConnectAttachChatTranscript: !Ref ConnectAttachChatTranscript
+                Timestamp: 1632547960
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -549,7 +584,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1630290457
+                Timestamp: 1632547960
 
 Outputs:
     BotName:

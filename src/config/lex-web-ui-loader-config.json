@@ -5,6 +5,10 @@
     "apiGatewayEndpoint": "",
     "promptForNameMessage": "",
     "waitingForAgentMessage": "",
-    "waitingForAgentMessageIntervalSeconds": ""
+    "waitingForAgentMessageIntervalSeconds": "",
+    "agentJoinedMessage": "",
+    "agentLeftMessage": "",
+    "chatEndedMessage": "",
+    "attachChatTranscript": ""
   }
 }

@@ -142,6 +142,33 @@ Parameters:
             Interval in seconds between successive ConnectWaitForAgentMessage. 0 to disable interval.
         Default: 60
 
+    ConnectAgentJoinedMessage:
+        Type: String
+        Description: >
+            Message to play when an agent joins the chat. {Agent} will be replaced with the Agent's name.
+        Default: "{Agent} has joined."
+
+    ConnectAgentLeftMessage:
+        Type: String
+        Description: >
+            Message to play when an agent leaves the chat. {Agent} will be replaced with the Agent's name.
+        Default: "{Agent} has left."
+    
+    ConnectChatEndedMessage:
+        Type: String
+        Description: >
+            Message to play when a chat session has ended.
+        Default: "Chat ended."
+
+    ConnectAttachChatTranscript:
+        Type: String
+        Default: true
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            Attach chat transcript as file. This only works if you enable
+
     CodeCommitRepoName:
         Type: String
         Description: >
@@ -323,6 +350,10 @@ Metadata:
                   - ConnectPromptForNameMessage
                   - ConnectWaitForAgentMessage
                   - ConnectWaitForAgentMessageIntervalInSeconds
+                  - ConnectAgentJoinedMessage
+                  - ConnectAgentLeftMessage
+                  - ConnectChatEndedMessage
+                  - ConnectAttachChatTranscript
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
@@ -437,6 +468,10 @@ Resources:
                 ConnectPromptForNameMessage: !Ref ConnectPromptForNameMessage
                 ConnectWaitForAgentMessage: !Ref ConnectWaitForAgentMessage
                 ConnectWaitForAgentMessageIntervalInSeconds: !Ref ConnectWaitForAgentMessageIntervalInSeconds
+                ConnectAgentJoinedMessage: !Ref ConnectAgentJoinedMessage
+                ConnectAgentLeftMessage: !Ref ConnectAgentLeftMessage
+                ConnectChatEndedMessage: !Ref ConnectChatEndedMessage
+                ConnectAttachChatTranscript: !Ref ConnectAttachChatTranscript
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack

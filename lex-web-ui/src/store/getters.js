@@ -62,4 +62,17 @@ export default {
     }
     return v;
   },
+  liveChatTextTranscript: state => () => {
+    let text = 'Bot Transcript: \n';
+    state.messages.forEach((message) => text = text + message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + message.text + '\n');
+    return text;
+  },
+  liveChatHtmlTranscriptFile: state => () => {
+    //TODO: Format this in HTML. 
+    const text = 'Bot Transcript: \n';
+    state.messages.forEach((message) => text = text + message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + message.text + '\n');
+    var blob = new Blob([text], { type: 'text/html'});
+    var file = new File([blob], 'chatTranscript.html', { lastModified: new Date().getTime(), type: blob.type });
+    return file;
+  },
 };
