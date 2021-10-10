@@ -32,7 +32,12 @@ export default {
     const value = sessionStorage.getItem('store');
     if (value !== null) {
       const sessionStore = JSON.parse(value);
-      state.messages = sessionStore.messages;
+      // convert date string into Date object in messages
+      state.messages = sessionStore.messages.map(message => {
+        return Object.assign({}, message, {
+          date: new Date(message.date)
+        });
+      });
     }
   },
 
