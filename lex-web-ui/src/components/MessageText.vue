@@ -70,7 +70,7 @@ export default {
       return out;
     },
     shouldRenderAsHtml() {
-      return (this.message.type === 'bot' && this.shouldConvertUrlToLinks);
+      return (['bot', 'agent'].includes(this.message.type) && this.shouldConvertUrlToLinks);
     },
     botMessageAsHtml() {
       // Security Note: Make sure that the content is escaped according
