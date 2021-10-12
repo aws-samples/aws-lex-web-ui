@@ -62,10 +62,19 @@ export default {
     }
     return v;
   },
-  liveChatTextTranscript: state => () => {
-    let text = 'Bot Transcript: \n';
-    state.messages.forEach((message) => text = text + message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + message.text + '\n');
-    return text;
+  liveChatTextTranscriptArray: state => () => {
+    const messageTextArray = [];
+    var text = 'Bot Transcript: \n';
+    state.messages.forEach((message) => {
+      var nextMessage = message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + message.text + '\n';
+      if((text + nextMessage).length > 1000) {
+        messageTextArray.push(text);
+        text = 'Bot Transcript: \n';
+      }
+      text = text + nextMessage;
+    });
+    messageTextArray.push(text);
+    return messageTextArray;
   },
   liveChatHtmlTranscriptFile: state => () => {
     //TODO: Format this in HTML. 
