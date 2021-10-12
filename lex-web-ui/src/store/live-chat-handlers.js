@@ -57,11 +57,12 @@ export const initLiveChatHandlers = (context, session) => {
             text: context.state.config.connect.agentJoinedMessage.replaceAll("{Agent}", data.DisplayName),
           });
           
-          const text = context.getters.liveChatTextTranscript();
-          context.dispatch('sendChatMessage', text);
-
-          //var blob = new Blob([text], { type: "text/plain"});
-          //var file = new File([blob], 'chatTranscript.txt', { lastModified: new Date().getTime(), type: blob.type });
+          const transcriptArray = context.getters.liveChatTextTranscriptArray();
+          transcriptArray.forEach((text) => {
+            context.dispatch('sendChatMessage', text);
+            alert(text);
+          });
+          
           if(context.state.config.connect.attachChatTranscript) {
             const htmlFile = context.getters.liveChatHtmlTranscriptFile();
             session.controller.sendAttachment({
