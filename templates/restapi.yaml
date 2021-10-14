@@ -89,7 +89,30 @@ Resources:
                     - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}"
                     - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}/*"
 
-    #### API Gateway ##### 
+    #### API Gateway #####
+
+    ## Role used for API custom access logging
+    ApiGatewayIamRole:
+      Type: AWS::IAM::Role
+      Properties:
+        Path: /
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - apigateway.amazonaws.com
+              Action: sts:AssumeRole
+        ManagedPolicyArns:
+          - "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+
+    ## Assign role to account config to allow cloudwatch logging
+    ApiGatewayAccountConfig:
+      Type: "AWS::ApiGateway::Account"
+      Properties:
+        CloudWatchRoleArn: !GetAtt "ApiGatewayIamRole.Arn"
+
     ApiGatewayRestAPI:
       Type: AWS::ApiGateway::RestApi 
       Properties:
@@ -113,6 +136,17 @@ Resources:
         Principal: "apigateway.amazonaws.com"
         SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGatewayRestAPI}/*"
 
+    ## Log group to use for custom logging for the stage
+    ApiGatewayAccessLogGroup:
+      Type: AWS::Logs::LogGroup
+      Properties:
+        RetentionInDays: 3653
+      Metadata:
+        cfn_nag:
+          rules_to_suppress:
+            - id: W84
+              reason: By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys).
+
     ApiGatewayDeployment:
       Type: AWS::ApiGateway::Deployment
       DependsOn:
@@ -120,6 +154,11 @@ Resources:
       Properties:
         RestApiId: !Ref ApiGatewayRestAPI
         StageName: "Prod"
+        StageDescription:
+          AccessLogSetting:
+            DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn
+            Format: >-
+              {"requestId": "$context.requestId", "caller": "$context.identity.caller", "requestTime": "$context.requestTime", "httpMethod": "$context.httpMethod", "resourcePath": "$context.resourcePath", "status": "$context.status", "responseLength": "$context.responseLength", "integrationLatency": "$context.integrationLatency"}"
 
     ApiGatewayLiveChatMethod:
       Type: AWS::ApiGateway::Method
