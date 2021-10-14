@@ -64,15 +64,27 @@ export default {
   },
   liveChatTextTranscriptArray: state => () => {
     const messageTextArray = [];
-    var text = 'Bot Transcript: \n';
-    state.messages.forEach((message) => {
+    var text = "";
+
+    for(var i = 0; i < state.messages.length; i++)
+    {
+      var message = state.messages[i];
       var nextMessage = message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + message.text + '\n';
-      if((text + nextMessage).length > 1000) {
+      
+      if((text + nextMessage).length > 400) {
         messageTextArray.push(text);
-        text = 'Bot Transcript: \n';
+        text = "";
       }
-      text = text + nextMessage;
-    });
+      if(nextMessage.length > 400) {
+        //this is over 1k chars by itself, so we must break it up.
+        var subMessageArray = nextMessage.split(/(.{400})/).filter(O=>O)
+        subMessageArray.forEach((subMsg) => {
+          messageTextArray.push(subMsg);
+        });
+        nextMessage = "";
+      } 
+      text = text + nextMessage; 
+    }
     messageTextArray.push(text);
     return messageTextArray;
   },
