@@ -143,8 +143,8 @@ export const initLiveChatHandlers = (context, session) => {
   */
 };
 
-export const sendChatMessage = (liveChatSession, message) => {
-  liveChatSession.controller.sendMessage({
+export const sendChatMessage = async (liveChatSession, message) => {
+  await liveChatSession.controller.sendMessage({
     message,
     contentType: 'text/plain',
   });
