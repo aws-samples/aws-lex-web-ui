@@ -56,10 +56,12 @@ export const initLiveChatHandlers = (context, session) => {
             type: 'agent',
             text: context.state.config.connect.agentJoinedMessage.replaceAll("{Agent}", data.DisplayName),
           });
-          
+
           const transcriptArray = context.getters.liveChatTextTranscriptArray();
-          transcriptArray.forEach((text) => {
-            context.dispatch('sendChatMessage', text);
+          transcriptArray.forEach((text, index) => {
+            var formattedText = "Bot Transcript: (" + (index + 1).toString() + "\\" + transcriptArray.length + ")\n" + text;
+            sendChatMessageWithDelay(session, formattedText, index * 100);
+            console.info((index + 1).toString() + "-" + formattedText);
           });
           
           if(context.state.config.connect.attachChatTranscript) {
@@ -67,7 +69,7 @@ export const initLiveChatHandlers = (context, session) => {
             session.controller.sendAttachment({
               attachment: htmlFile
             }).then(response => {
-              //alert(JSON.stringify(response));
+              console.info(JSON.stringify(response));
             });
           }
         }
@@ -148,6 +150,15 @@ export const sendChatMessage = async (liveChatSession, message) => {
     message,
     contentType: 'text/plain',
   });
+};
+
+export const sendChatMessageWithDelay = async (liveChatSession, message, delay) => {
+  setTimeout(async () => {
+    await liveChatSession.controller.sendMessage({
+      message,
+      contentType: 'text/plain',
+    });
+  }, delay); 
 };
 
 export const sendTypingEvent = (liveChatSession) => {
