@@ -60,7 +60,6 @@ export const initLiveChatHandlers = (context, session) => {
           const transcriptArray = context.getters.liveChatTextTranscriptArray();
           transcriptArray.forEach((text) => {
             context.dispatch('sendChatMessage', text);
-            alert(text);
           });
           
           if(context.state.config.connect.attachChatTranscript) {
