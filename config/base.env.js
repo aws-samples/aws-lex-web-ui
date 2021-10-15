@@ -18,6 +18,7 @@ module.exports = {
     promptForNameMessage: process.env.CONNECT_PROMPT_FOR_NAME_MESSAGE,
     waitingForAgentMessage: process.env.CONNECT_WAIT_FOR_AGENT_MESSAGE,
     waitingForAgentMessageIntervalSeconds: process.env.CONNECT_WAIT_FOR_AGENT_MESSAGE_INTERVAL_IN_SECONDS,
+    liveChatTerms: process.env.CONNECT_LIVE_CHAT_TERMS,
   },
   lex: {
     v2BotId: process.env.V2_BOT_ID,

@@ -364,6 +364,12 @@ Parameters:
             Interval in seconds between successive ConnectWaitForAgentMessage. 0 to disable interval.
         Default: 60
 
+    ConnectLiveChatTerms:
+        Type: String
+        Description: >
+            Command separated list of terms that can be used to start Live Chat mode
+        Default: "live chat"
+
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -423,6 +429,7 @@ Metadata:
                 default: Connect Live Chat Parameters
               Parameters:
                   - ShouldEnableLiveChat
+                  - ConnectLiveChatTerms
                   - ConnectInstanceId
                   - ConnectContactFlowId
                   - ConnectPromptForNameMessage
@@ -535,7 +542,8 @@ Resources:
                 ConnectPromptForNameMessage: !Ref ConnectPromptForNameMessage
                 ConnectWaitForAgentMessage: !Ref ConnectWaitForAgentMessage
                 ConnectWaitForAgentMessageIntervalInSeconds: !Ref ConnectWaitForAgentMessageIntervalInSeconds
-                Timestamp: 1630290457
+                ConnectLiveChatTerms: !Ref ConnectLiveChatTerms
+                Timestamp: 1634336168
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -549,7 +557,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1630290457
+                Timestamp: 1634336168
 
 Outputs:
     BotName:

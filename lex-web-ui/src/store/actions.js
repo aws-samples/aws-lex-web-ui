@@ -29,7 +29,6 @@ import LexClient from '@/lib/lex/client';
 
 const jwt = require('jsonwebtoken');
 const AWS = require('aws-sdk');
-const liveChatTerms = ['live chat'];
 
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
@@ -479,6 +478,7 @@ export default {
         return Promise.resolve();
       })
       .then(() => {
+        const liveChatTerms = context.state.config.connect.liveChatTerms ? context.state.config.connect.liveChatTerms.split(',').map(str => str.trim()) : [];
         if (context.state.config.ui.enableLiveChat && liveChatTerms.find(el => el === message.text.toLowerCase())) {
           return context.dispatch('requestLiveChat');
         } else if (context.state.liveChat.status === liveChatStatus.REQUEST_USERNAME) {

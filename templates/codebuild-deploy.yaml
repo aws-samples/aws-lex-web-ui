@@ -161,6 +161,11 @@ Parameters:
       Description: >
         Interval in seconds between successive ConnectWaitForAgentMessage
 
+    ConnectLiveChatTerms:
+      Type: String
+      Description: >
+        Command separated list of terms that can be used to start Live Chat mode
+
     LexV2BotId:
       Description: >
         Bot ID (not bot name) of an existing Lex V2 Bot to be used by the web ui. NOTE: You must
@@ -496,6 +501,8 @@ Resources:
                       Value: !Ref ConnectWaitForAgentMessage
                     - Name: CONNECT_WAIT_FOR_AGENT_MESSAGE_INTERVAL_IN_SECONDS
                       Value: !Ref ConnectWaitForAgentMessageIntervalInSeconds
+                    - Name: CONNECT_LIVE_CHAT_TERMS
+                      Value: !Ref ConnectLiveChatTerms
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME
@@ -595,6 +602,7 @@ Resources:
             ConnectPromptForNameMessage: !Ref ConnectPromptForNameMessage
             ConnectWaitForAgentMessage: !Ref ConnectWaitForAgentMessage
             ConnectWaitForAgentMessageIntervalInSeconds: !Ref ConnectWaitForAgentMessageIntervalInSeconds
+            ConnectLiveChatTerms: !Ref ConnectLiveChatTerms
             WebAppBucket: !Ref WebAppBucket
             LexV2BotId: !Ref LexV2BotId
             LexV2BotAliasId: !Ref LexV2BotAliasId
