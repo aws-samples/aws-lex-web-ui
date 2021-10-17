@@ -9,7 +9,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "dev": "vue-cli-service serve",
-    "start": "vue-cli-service serve",
+    "start": "vue-cli-service serve --skip-plugins @vue/cli-plugin-eslint",
     "build": "vue-cli-service build --skip-plugins @vue/cli-plugin-eslint",
     "build:dev": "vue-cli-service build --mode development",
     "build-dist": "npm run build:lib-dev && npm run build:lib-prod",

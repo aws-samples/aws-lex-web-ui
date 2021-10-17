@@ -22,6 +22,7 @@ module.exports = {
     agentLeftMessage: process.env.CONNECT_AGENT_LEFT_MESSAGE,
     chatEndedMessage: process.env.CONNECT_CHAT_ENDED_MESSAGE,
     attachChatTranscript: process.env.CONNECT_ATTACH_CHAT_TRANSCRIPT,
+    liveChatTerms: process.env.CONNECT_LIVE_CHAT_TERMS,
   },
   lex: {
     v2BotId: process.env.V2_BOT_ID,

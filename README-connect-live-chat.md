@@ -32,11 +32,12 @@ For a new stack, fill in the required values just as you would for any Lex Web U
 At the end of the parameter list, you will notice new parameters that control enabling the Connect Live Chat feature.
 
 1. Set ShouldEnableLiveChat to true
-2. Fill in ConnectInstanceId
-3. Fill in ConnectContactFlowId
-4. Change the ConnectPromptForNameMessage if desired
-5. Change the ConnectWaitForAgentMessage if desired
-6. Change the wait message interval, ConnectWaitForAgentMessageIntervalInSeconds, from 60 seconds to some other value if desired. 
+2. Add additional ConnectLiveChatTerms as a comma separated list if terms other than 'live chat' should be supported
+3. Fill in ConnectInstanceId
+4. Fill in ConnectContactFlowId
+5. Change the ConnectPromptForNameMessage if desired
+6. Change the ConnectWaitForAgentMessage if desired
+7. Change the wait message interval, ConnectWaitForAgentMessageIntervalInSeconds, from 60 seconds to some other value if desired. 
 
 THe last two properties adjust the message displayed while the user is waiting for an agent and frequency of this
 message. You can also control this type behavior from the contact flow. If using the contact flow to display wait

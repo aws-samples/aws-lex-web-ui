@@ -169,6 +169,12 @@ Parameters:
         Description: >
             Attach chat transcript as file. This only works if you enable
 
+    ConnectLiveChatTerms:
+        Type: String
+        Description: >
+            Command separated list of terms that can be used to start Live Chat mode
+        Default: "live chat"
+
     CodeCommitRepoName:
         Type: String
         Description: >
@@ -345,6 +351,7 @@ Metadata:
                 default: Connect Live Chat Parameters
               Parameters:
                   - ShouldEnableLiveChat
+                  - ConnectLiveChatTerms
                   - ConnectInstanceId
                   - ConnectContactFlowId
                   - ConnectPromptForNameMessage
@@ -472,6 +479,7 @@ Resources:
                 ConnectAgentLeftMessage: !Ref ConnectAgentLeftMessage
                 ConnectChatEndedMessage: !Ref ConnectChatEndedMessage
                 ConnectAttachChatTranscript: !Ref ConnectAttachChatTranscript
+                ConnectLiveChatTerms: !Ref ConnectLiveChatTerms
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -485,7 +493,7 @@ Resources:
                 CodeBuildProjectName: !Ref CodeBuildName
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1630290457
+                Timestamp: 1634336168
 
 Outputs:
     BotName:

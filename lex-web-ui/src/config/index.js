@@ -72,6 +72,8 @@ const configDefault = {
     // The default interval with which to display the waitingForAgentMessage. When set to 0
     // the timer is disabled.
     waitingForAgentMessageIntervalSeconds: 60,
+    // Terms to start live chat
+    liveChatTerms: 'live chat',
   },
   lex: {
     // Lex V2 fields
