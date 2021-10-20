@@ -530,6 +530,14 @@ Resources:
                       Value: !Ref ConnectWaitForAgentMessageIntervalInSeconds
                     - Name: CONNECT_LIVE_CHAT_TERMS
                       Value: !Ref ConnectLiveChatTerms
+                    - Name: CONNECT_AGENT_JOINED_MESSAGE
+                      Value: !Ref ConnectAgentJoinedMessage
+                    - Name: CONNECT_AGENT_LEFT_MESSAGE
+                      Value: !Ref ConnectAgentLeftMessage
+                    - Name: CONNECT_CHAT_ENDED_MESSAGE
+                      Value: !Ref ConnectChatEndedMessage
+                    - Name: CONNECT_ATTACH_CHAT_TRANSCRIPT
+                      Value: !Ref ConnectAttachChatTranscript
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME
