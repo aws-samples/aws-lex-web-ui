@@ -60,7 +60,7 @@ export const initLiveChatHandlers = (context, session) => {
           const transcriptArray = context.getters.liveChatTextTranscriptArray();
           transcriptArray.forEach((text, index) => {
             var formattedText = "Bot Transcript: (" + (index + 1).toString() + "\\" + transcriptArray.length + ")\n" + text;
-            sendChatMessageWithDelay(session, formattedText, index * 100);
+            sendChatMessageWithDelay(session, formattedText, index * 150);
             console.info((index + 1).toString() + "-" + formattedText);
           });
           
