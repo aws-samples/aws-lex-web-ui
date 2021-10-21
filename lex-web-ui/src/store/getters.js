@@ -73,14 +73,14 @@ export default {
       
       if((text + nextMessage).length > 400) {
         messageTextArray.push(text);
-        text = "";
-      }
-      if(nextMessage.length > 400) {
+
         //this is over 1k chars by itself, so we must break it up.
-        var subMessageArray = nextMessage.split(/(.{400})/).filter(O=>O)
+        var subMessageArray = nextMessage.match(/(.|[\r\n]){1,400}/g); 
         subMessageArray.forEach((subMsg) => {
           messageTextArray.push(subMsg);
         });
+
+        text = "";
         nextMessage = "";
       } 
       text = text + nextMessage; 
@@ -88,12 +88,11 @@ export default {
     messageTextArray.push(text);
     return messageTextArray;
   },
-  liveChatHtmlTranscriptFile: state => () => {
-    //TODO: Format this in HTML. 
-    const text = 'Bot Transcript: \n';
+  liveChatTranscriptFile: state => () => { 
+    var text = 'Bot Transcript: \n';
     state.messages.forEach((message) => text = text + message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + message.text + '\n');
-    var blob = new Blob([text], { type: 'text/html'});
-    var file = new File([blob], 'chatTranscript.html', { lastModified: new Date().getTime(), type: blob.type });
+    var blob = new Blob([text], { type: 'text/plain'});
+    var file = new File([blob], 'chatTranscript.txt', { lastModified: new Date().getTime(), type: blob.type });
     return file;
   },
 };

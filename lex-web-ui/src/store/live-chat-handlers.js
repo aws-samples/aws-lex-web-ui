@@ -65,11 +65,14 @@ export const initLiveChatHandlers = (context, session) => {
           });
           
           if(context.state.config.connect.attachChatTranscript) {
-            const htmlFile = context.getters.liveChatHtmlTranscriptFile();
+            console.info("Sending chat transcript.");
+            var textFile = context.getters.liveChatTranscriptFile();
             session.controller.sendAttachment({
-              attachment: htmlFile
+              attachment: textFile
             }).then(response => {
-              console.info(JSON.stringify(response));
+              console.info("Transcript sent.");
+            }, reason => {
+              console.info("Error sending transcript.");
             });
           }
         }
