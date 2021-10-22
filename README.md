@@ -18,6 +18,12 @@ and ability to interrupt responses and replay recordings
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
 
+#### Changes in version 0.19.0
+Two changes in version 0.19.0 are the ability to forward chat history as a transcript to an
+agent when Connect Live Chat is initiated. Details on use of the transcript can be found in
+[Connect Live Chat Agent Readme](README-connect-live-chat.md). This version also updates the 
+OPTIONS method in the API to configure CORS to only allow requests from the WebAppParentOrigin. 
+
 #### Changes in version 0.18.2
 Add feature for connect live chat. Allow client to optionally interact with an agent via Connect.
 See [Connect Live Chat Agent Readme](README-connect-live-chat.md) for additional details.

@@ -4,8 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.0] - 2021-10-22
+- Adjust the OPTIONS request on the new API allowing Connect live chat to set Access-Control-Allow-Origin to the ParentOrigin supplied in the template
+- Deliver full transcript of user interaction to agent when opening live chat to Connect
+- Parameterize all Connect Live messages in CF template
+- Update dependent component versions to address several dependabot alerts
+
 ## [0.18.2] - 2021-08-28
-- Add feature for connect live chat. Allow client to optional interact with an agent via Connect.
+- Add feature for connect live chat. Allow client to optionally interact with an agent via Connect.
 
 ## [0.18.1] - 2021-06-01
 - Change package.json revision to 0.18.1
