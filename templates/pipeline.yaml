@@ -470,6 +470,8 @@ Resources:
                       Value: !Ref ConnectWaitForAgentMessage
                     - Name: CONNECT_WAIT_FOR_AGENT_MESSAGE_INTERVAL_IN_SECONDS
                       Value: !Ref ConnectWaitForAgentMessageIntervalInSeconds
+                    - Name: CONNECT_LIVE_CHAT_TERMS
+                      Value: !Ref ConnectLiveChatTerms
                     - Name: CONNECT_AGENT_JOINED_MESSAGE
                       Value: !Ref ConnectAgentJoinedMessage
                     - Name: CONNECT_AGENT_LEFT_MESSAGE
