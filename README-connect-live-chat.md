@@ -20,6 +20,7 @@ disconnect flow that displays a message once the session is terminated.
 4. Expand **Show additional flow information** and take note of the Contact Flow ID (in blue below) and Instance ID (in red).
 You are going to need to pass these values during the creation of the CloudFormation stacks below
 ![connect flow details](./img/connect-flow-details.png)
+5. If desired, [Enable Attachments]([https://docs.aws.amazon.com/connect/latest/adminguide/enable-attachments.html]) to attach the bot transcript as a file for the agent to review. You will also have to set the ConnectAttachChatTranscript CloudFormation parameter to true. When configuring CORS for the S3 bucket, you should use the CloudFront distribution domain name (for example, d111111abcdef8.cloudfront.net) that is deployed with this Lex-Web-UI stack, unless you are providing a CNAME custom URL in front of it, in which case you should use the CNAME.
 
 ## Deploy or update the Lex Web UI Stack
 
@@ -38,6 +39,10 @@ At the end of the parameter list, you will notice new parameters that control en
 5. Change the ConnectPromptForNameMessage if desired
 6. Change the ConnectWaitForAgentMessage if desired
 7. Change the wait message interval, ConnectWaitForAgentMessageIntervalInSeconds, from 60 seconds to some other value if desired. 
+8. Change the ConnectAgentJoinedMessage if desired. {Agent} will be replaced by the agent's name.
+9. Change the ConnectAgentLeftMessage if desired. {Agent} will be replaced by the agent's name.
+10. Change the ConnectChatEndedMessage if desired
+11. Change ConnectAttachChatTranscript to true if you would like to also attach the chat transcript as a file. This will also require enabling chat attachments in the Amazon Connect instance, as noted above in the Configure a Connect Instance section of this document.
 
 THe last two properties adjust the message displayed while the user is waiting for an agent and frequency of this
 message. You can also control this type behavior from the contact flow. If using the contact flow to display wait
@@ -63,7 +68,11 @@ The new parameters configurable in lex-web-ui-loader-config.json are shown below
     "apiGatewayEndpoint" : "Your newly created Amazon API Gateway endpoint",
     "promptForNameMessage": "Before starting a live chat, please tell me your name?",
     "waitingForAgentMessage": "Thanks for waiting. An agent will be with you when available.",
-    "waitingForAgentMessageIntervalSeconds": 60
+    "waitingForAgentMessageIntervalSeconds": 60,
+    "agentJoinedMessage": "{Agent} has joined.",
+    "agentLeftMessage": "{Agent} has left.", 
+    "chatEndedMessage": "Chat ended.",
+    "attachChatTranscript": true
   },
 ```
 
