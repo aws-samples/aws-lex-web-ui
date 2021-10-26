@@ -20,7 +20,32 @@ disconnect flow that displays a message once the session is terminated.
 4. Expand **Show additional flow information** and take note of the Contact Flow ID (in blue below) and Instance ID (in red).
 You are going to need to pass these values during the creation of the CloudFormation stacks below
 ![connect flow details](./img/connect-flow-details.png)
-5. If desired, [Enable Attachments]([https://docs.aws.amazon.com/connect/latest/adminguide/enable-attachments.html]) to attach the bot transcript as a file for the agent to review. You will also have to set the ConnectAttachChatTranscript CloudFormation parameter to true. When configuring CORS for the S3 bucket, you should use the CloudFront distribution domain name (for example, d111111abcdef8.cloudfront.net) that is deployed with this Lex-Web-UI stack, unless you are providing a CNAME custom URL in front of it, in which case you should use the CNAME.
+5. If desired, [Enable Attachments]([https://docs.aws.amazon.com/connect/latest/adminguide/enable-attachments.html]) 
+to attach the bot transcript as a file for the agent to review. You will also have to set the ConnectAttachChatTranscript 
+CloudFormation parameter to true. When configuring CORS for the S3 bucket used for attachments, you should use the CloudFront distribution domain name (for example, 
+d111111abcdef8.cloudfront.net) that is deployed with this Lex-Web-UI stack, unless you are providing a CNAME 
+custom URL in front of it, in which case you should use the CNAME. In addition, the orgin of the "Connect Contact
+Control Panel" should also be included in the CORS definition. In sample below, 
+replace "https://yourconnectinstance-connect-qnabot.awsapps.com" with the origin of your "Connect Contact Control Panel"
+and replace "https://d111111abcdef8.cloudfront.net" with the origin of your "lex-web-ui" distribution as noted earlier.
+```
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "https://yourconnectinstance-connect-qnabot.awsapps.com",
+            "https://d111111abcdef8.cloudfront.net"
+        ],
+        "ExposeHeaders": []
+    }
+]
+```
 
 ## Deploy or update the Lex Web UI Stack
 
@@ -90,3 +115,22 @@ the user and agent should be able to interact with each other. Users can also in
 "live chat" for text input. 
 
 To disconnect from Live Chat, click the hangup button next to text input or use the menu to "Stop Live Chat". 
+
+## Connect Disconnect Flow logic
+
+The LexWebUi observes messages from Connect to present responses to the user. It monitors for a specific message
+to disconnect the user. This message is 'application/vnd.amazonaws.connect.event.chat.ended'. When this message is
+received, the LexWebUi will terminate the live agent chat and resume normal operation chatting with the configured
+Lex Bot. 
+
+Connect sends this message when the "Disconnect" block is executed in a contact flow.
+
+In Connect's "Sample disconnect flow", "Disconnect" is used after waiting for 15 minutes. While waiting, the LexWebUi
+will continue to send messages to Connect Live Chat rather then sending messages to the Lex Bot.
+
+If you desire to terminate Live Chat in LexWebUi as soon as the Agent terminates the chat in the CCP, configure the 
+flow performing the disconnect to terminate immediately as in the following modified "Sample disconnect flow".
+
+![sample disconnect flow](./img/sample_disconnect_flow.png)
+
+
