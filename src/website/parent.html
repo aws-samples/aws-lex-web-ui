@@ -178,7 +178,13 @@
         iframe: {
           // origin hosting the HTML file that will be embedded in the iframe
           iframeOrigin: 'https://iframe-host.example.org'
-        }
+        },
+        lex: {
+            sessionAttributes: {
+              userAgent: navigator.userAgent,
+              QNAClientFilter: ''
+            }
+          }
         */
       };
 

@@ -53,7 +53,17 @@ cat <<EOF > ${IFRAME_SNIPPET_FILE}
     shouldLoadMinDeps: true
   };
   var loader = new ChatBotUiLoader.IframeLoader(loaderOpts);
-  loader.load()
+  var chatbotUiconfig = {
+          /* Example of setting session attributes on parent page
+          lex: {
+            sessionAttributes: {
+              userAgent: navigator.userAgent,
+              QNAClientFilter: ''
+            }
+          }
+          */
+        };
+  loader.load(chatbotUiConfig)
     .catch(function (error) { console.error(error); });
 &lt;/script&gt;
   </pre>
