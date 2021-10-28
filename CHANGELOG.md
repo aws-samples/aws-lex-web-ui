@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Deliver full transcript of user interaction to agent when opening live chat to Connect
 - Parameterize all Connect Live messages in CF template
 - Update dependent component versions to address several dependabot alerts
+- Add commented example to set session attributes on startup to snippet, parent.html, and index.html.
 
 ## [0.18.2] - 2021-08-28
 - Add feature for connect live chat. Allow client to optionally interact with an agent via Connect.
