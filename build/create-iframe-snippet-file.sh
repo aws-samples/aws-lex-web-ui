@@ -53,7 +53,7 @@ cat <<EOF > ${IFRAME_SNIPPET_FILE}
     shouldLoadMinDeps: true
   };
   var loader = new ChatBotUiLoader.IframeLoader(loaderOpts);
-  var chatbotUiconfig = {
+  var chatbotUiConfig = {
           /* Example of setting session attributes on parent page
           lex: {
             sessionAttributes: {

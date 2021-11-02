@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.1] - 2021-11-02
+- Fix reference to chatbotUiConfig in build/create-iframe-snippet-file.sh to correct capitalization error
+
 ## [0.19.0] - 2021-10-22
 - Adjust the OPTIONS request on the new API allowing Connect live chat to set Access-Control-Allow-Origin to the ParentOrigin supplied in the template
 - Deliver full transcript of user interaction to agent when opening live chat to Connect

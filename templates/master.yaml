@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.19.0)
+    Master Lex Web UI CloudFormation template (v0.19.1)
     It deploys:
         - S3 buckets to host the web application
         - CodeBuild project to build the configuration and deploy to S3
@@ -485,7 +485,7 @@ Resources:
                 NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 CustomResourceCodeBucket: !Ref BootstrapBucket
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.0.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.1.zip"
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
@@ -515,9 +515,9 @@ Resources:
                 CodeBuildName: !Ref CodeBuildName
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.19.0.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.0.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.19.0.zip"
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.19.1.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.1.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.19.1.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
@@ -578,7 +578,7 @@ Resources:
                 ConnectChatEndedMessage: !Ref ConnectChatEndedMessage
                 ConnectAttachChatTranscript: !Ref ConnectAttachChatTranscript
                 ConnectLiveChatTerms: !Ref ConnectLiveChatTerms
-                Timestamp: 1634908350
+                Timestamp: 1635867853
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -592,7 +592,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1634908350
+                Timestamp: 1635867853
 
 Outputs:
     BotName:
