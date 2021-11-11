@@ -63,8 +63,11 @@ export const initLiveChatHandlers = (context, session) => {
             sendChatMessageWithDelay(session, formattedText, index * 150);
             console.info((index + 1).toString() + "-" + formattedText);
           });
-          
-          if(context.state.config.connect.attachChatTranscript) {
+
+          if(context.state.config.connect.attachChatTranscript &&
+            (context.state.config.connect.attachChatTranscript === 'true'
+              || context.state.config.connect.attachChatTranscript === true )
+          ) {
             console.info("Sending chat transcript.");
             var textFile = context.getters.liveChatTranscriptFile();
             session.controller.sendAttachment({
@@ -161,7 +164,7 @@ export const sendChatMessageWithDelay = async (liveChatSession, message, delay) 
       message,
       contentType: 'text/plain',
     });
-  }, delay); 
+  }, delay);
 };
 
 export const sendTypingEvent = (liveChatSession) => {
