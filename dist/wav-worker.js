@@ -1,9 +1,5 @@
 /*!
-<<<<<<< HEAD
-* lex-web-ui v0.19.1
-=======
 * lex-web-ui v0.19.2
->>>>>>> a4902419471b85118d45356911b97fca209093e4
 * (c) 2017-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 * Released under the Amazon Software License.
 */  
