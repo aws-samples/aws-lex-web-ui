@@ -24,10 +24,11 @@ You are going to need to pass these values during the creation of the CloudForma
 to attach the bot transcript as a file for the agent to review. You will also have to set the ConnectAttachChatTranscript 
 CloudFormation parameter to true. When configuring CORS for the S3 bucket used for attachments, you should use the CloudFront distribution domain name (for example, 
 d111111abcdef8.cloudfront.net) that is deployed with this Lex-Web-UI stack, unless you are providing a CNAME 
-custom URL in front of it, in which case you should use the CNAME. In addition, the orgin of the "Connect Contact
+custom URL in front of it, in which case you should use the CNAME. In addition, the origin of the "Connect Contact
 Control Panel" should also be included in the CORS definition. In sample below, 
-replace "https://yourconnectinstance-connect-qnabot.awsapps.com" with the origin of your "Connect Contact Control Panel"
-and replace "https://d111111abcdef8.cloudfront.net" with the origin of your "lex-web-ui" distribution as noted earlier.
+replace "https://connectinstance.my.connect.aws" with the origin of your "Connect Contact Control Panel". If using
+the default Contact Control Panel this will be the same as the origin of the "Connect Login" URL. 
+In the example replace "https://d111111abcdef8.cloudfront.net" with the origin of your "lex-web-ui" distribution as noted earlier.
 ```
 [
     {
@@ -39,7 +40,7 @@ and replace "https://d111111abcdef8.cloudfront.net" with the origin of your "lex
             "GET"
         ],
         "AllowedOrigins": [
-            "https://yourconnectinstance-connect-qnabot.awsapps.com",
+            "https://connectinstance.my.connect.aws",
             "https://d111111abcdef8.cloudfront.net"
         ],
         "ExposeHeaders": []

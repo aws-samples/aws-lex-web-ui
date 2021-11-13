@@ -637,6 +637,10 @@ Resources:
             ConnectPromptForNameMessage: !Ref ConnectPromptForNameMessage
             ConnectWaitForAgentMessage: !Ref ConnectWaitForAgentMessage
             ConnectWaitForAgentMessageIntervalInSeconds: !Ref ConnectWaitForAgentMessageIntervalInSeconds
+            ConnectAgentJoinedMessage: !Ref ConnectAgentJoinedMessage
+            ConnectAgentLeftMessage: !Ref ConnectAgentLeftMessage
+            ConnectChatEndedMessage: !Ref ConnectChatEndedMessage
+            ConnectAttachChatTranscript: !Ref ConnectAttachChatTranscript
             ConnectLiveChatTerms: !Ref ConnectLiveChatTerms
             WebAppBucket: !Ref WebAppBucket
             LexV2BotId: !Ref LexV2BotId
