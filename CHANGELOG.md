@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.2] - 2021-11-12
+- Update Connect Live Chat README to clarify CORS settings
+- Fix problem where CodeBuild was not executed when Connect associated template parameters were changed
+- Fix use of template parameter to disable Connect attach chat transfer 
+
 ## [0.19.1] - 2021-11-02
 - Fix reference to chatbotUiConfig in build/create-iframe-snippet-file.sh to correct capitalization error
 
