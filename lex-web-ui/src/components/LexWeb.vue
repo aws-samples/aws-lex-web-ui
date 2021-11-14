@@ -246,9 +246,13 @@ export default {
           'successfully initialized lex web ui version: ',
           this.$store.state.version,
         );
-        // after slight delay, send in initial utterance if it is defined.
-        // waiting for credentials to settle down a bit.
-        setTimeout(() => this.$store.dispatch('sendInitialUtterance'), 500);
+        // don't send intial utterance when history is preserved (i.e. messages except for initial text exist)
+        if (this.$store.state.config.ui.sendInitialUtteranceWhenSaveHistory == true || 
+            this.$store.state.messages.length <= 1) { 
+          // after slight delay, send in initial utterance if it is defined.
+          // waiting for credentials to settle down a bit.
+          setTimeout(() => this.$store.dispatch('sendInitialUtterance'), 500);
+        }
       })
       .catch((error) => {
         console.error('could not initialize application while mounting:', error);
