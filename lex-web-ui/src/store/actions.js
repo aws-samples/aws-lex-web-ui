@@ -523,20 +523,17 @@ export default {
                   if (responseCardObject === undefined) { // prefer appContext over lex.responseCard
                     responseCardObject = context.state.lex.responseCard;
                   }
-                  if ((mes.value && mes.value.length > 0) ||
-                    (mes.content && mes.content.length > 0)) {
-                    context.dispatch(
-                      'pushMessage',
-                      {
-                        text: mes.value ? mes.value : mes.content,
-                        type: 'bot',
-                        dialogState: context.state.lex.dialogState,
-                        responseCard: tmsg.messages.length - 1 === index // attach response card only
-                          ? responseCardObject : undefined, // for last response message
-                        alts,
-                      },
-                    );
-                  }
+                  context.dispatch(
+                    'pushMessage',
+                    {
+                      text: mes.value ? mes.value : mes.content ? mes.content : "",
+                      type: 'bot',
+                      dialogState: context.state.lex.dialogState,
+                      responseCard: tmsg.messages.length - 1 === index // attach response card only
+                        ? responseCardObject : undefined, // for last response message
+                      alts,
+                    },
+                  );
                 });
               }
             }

@@ -180,6 +180,12 @@ export default class {
           if (finalMessages.length > 0) {
             const msg = `{"messages": ${JSON.stringify(finalMessages)} }`;
             res.message = msg;
+          } else {
+            // handle the case where no message was returned in the V2 response. Most likely only a
+            // ImageResponseCard was returned. Append a placeholder with an empty string.
+            finalMessages.push({ type: "PlainText", value: "" });
+            const msg = `{"messages": ${JSON.stringify(finalMessages)} }`;
+            res.message = msg;
           }
         }
         return res;
