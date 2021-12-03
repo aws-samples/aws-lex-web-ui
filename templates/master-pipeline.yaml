@@ -4,9 +4,6 @@ Description: |
     The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
     Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
     version input parameters as defaulted.
-    The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
-    Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
-    version inputs as defaulted.
     A deployment of Lex Web Ui can not be switched between V2 and V1 by updating the stack with different parameters.
     It deploys:
         - S3 buckets to host the web application
