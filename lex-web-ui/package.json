@@ -18,7 +18,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "amazon-connect-chatjs": "^1.1.4",
+    "amazon-connect-chatjs": "^1.1.7",
     "aws-sdk": "^2.903.0",
     "core-js": "^3.6.5",
     "jsonwebtoken": "^8.5.1",

@@ -670,3 +670,19 @@ pages. The CloudFormation deployment is documented in the
 [README](templates/README.md) file under the [templates](templates)
 directory.
 
+## Building and Deploying your own the LexWebUi
+
+If you want to modify or change LexWebUi functionality follow this
+release process once you are satisfied and have tested your code modifications.
+
+```
+cd build
+./release.sh
+export BUCKET="yourbootstrapbucketname"
+./upload-bootstrap.sh
+```
+
+Note that "yourbootstrapbucket" (S3 bucket) must allow objects with public-read acl to be added. This approach
+is described in the following image.
+
+![BuildImage](./img/ExampleBuildForLexWebUi.png)
