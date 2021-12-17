@@ -670,7 +670,7 @@ pages. The CloudFormation deployment is documented in the
 [README](templates/README.md) file under the [templates](templates)
 directory.
 
-## Building and Deploying your own the LexWebUi
+## Building and Deploying your own LexWebUi
 
 If you want to modify or change LexWebUi functionality follow this
 release process once you are satisfied and have tested your code modifications.
@@ -683,6 +683,13 @@ export BUCKET="yourbootstrapbucketname"
 ```
 
 Note that "yourbootstrapbucket" (S3 bucket) must allow objects with public-read acl to be added. This approach
-is described in the following image.
+is described in the image below.
+
+Once you've uploaded your distribution to your own bootstrap bucket, you can launch an installation of LexWebUi 
+in the AWS region where this bucket is located by using the master.yaml from your bootstrap bucket. You can 
+also update an existing LexWebUi installation by performing a stack update replacing the current template with
+the template you just uploaded to your bootstrap bucket. Note that for either a fresh installation or an update,
+you need to change the BootstrapBucket parameter to be the name of your bootstrap bucket and the BootstrapPrefix
+parameter to be just "artifacts".
 
 ![BuildImage](./img/ExampleBuildForLexWebUi.png)
