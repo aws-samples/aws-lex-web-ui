@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.3] - 2021-12-17
+- Update use of amazon-connect-chatjs to version "^1.1.7" in lex-web-ui/package.json
+- Support response from LexV2 bots with response card only - no message text
+- Add Build/Deploy section to bottom of toplevel readme
+
 ## [0.19.2] - 2021-11-12
 - Update Connect Live Chat README to clarify CORS settings
 - Fix problem where CodeBuild was not executed when Connect associated template parameters were changed
