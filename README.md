@@ -673,10 +673,15 @@ directory.
 ## Building and Deploying your own LexWebUi
 
 If you want to modify or change LexWebUi functionality follow this
-release process once you are satisfied and have tested your code modifications.
+release process once you are satisfied and have tested your code modifications. 
+You'll need to create an S3 bucket to hold the bootstrap artifacts. Replace "yourbootstrapbucketname" with
+the name of your bucket to complete the upload. 
 
 ```
-cd build
+npm install
+cd lex-web-ui
+npm install
+cd ../build
 ./release.sh
 export BUCKET="yourbootstrapbucketname"
 ./upload-bootstrap.sh
