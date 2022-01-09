@@ -398,12 +398,65 @@ export default {
         this.$emit('toggleMinimizeUi');
       }
     },
+    isValidHelpContentForUse() {
+      const localeId = this.$store.state.config.lex.v2BotLocaleId ? this.$store.state.config.lex.v2BotLocaleId : 'en_US';
+      const helpContent = this.$store.state.config.ui.helpContent;
+      return ( helpContent && helpContent[localeId] &&
+        (
+          ( helpContent[localeId].text && helpContent[localeId].text.length > 0 ) ||
+          ( helpContent[localeId].markdown && helpContent[localeId].markdown.length > 0 )
+        )
+      )
+    },
+    messageForHelpContent() {
+      const localeId = this.$store.state.config.lex.v2BotLocaleId ? this.$store.state.config.lex.v2BotLocaleId : 'en_US';
+      const helpContent = this.$store.state.config.ui.helpContent;
+      let alts = {};
+      if (  helpContent[localeId].markdown && helpContent[localeId].markdown.length > 0 ) {
+        alts.markdown = helpContent[localeId].markdown;
+      }
+      let responseCardObject = undefined;
+      if (helpContent[localeId].responseCard) {
+        responseCardObject = {
+          "version": 1,
+          "contentType": "application/vnd.amazonaws.card.generic",
+          "genericAttachments": [
+            {
+              "title": helpContent[localeId].responseCard.title,
+              "subTitle": helpContent[localeId].responseCard.subTitle,
+              "imageUrl": helpContent[localeId].responseCard.imageUrl,
+              "attachmentLinkUrl": helpContent[localeId].responseCard.attachmentLinkUrl,
+              "buttons": helpContent[localeId].responseCard.buttons
+            }
+          ]
+        }
+        alts.markdown = helpContent[localeId].markdown;
+      }
+      return({
+        text: helpContent[localeId].text,
+          type: 'bot',
+        dialogState: '',
+        responseCard: responseCardObject,
+        alts
+      })
+    },
     sendHelp() {
-      const message = {
-        type: 'human',
-        text: this.$store.state.config.ui.helpIntent,
-      };
-      this.$store.dispatch('postTextMessage', message);
+      if (this.isValidHelpContentForUse()) {
+        let currentMessage = undefined;
+        if (this.$store.state.messages.length > 0) {
+          currentMessage = this.$store.state.messages[this.$store.state.messages.length-1];
+        }
+        this.$store.dispatch('pushMessage', this.messageForHelpContent());
+        if (currentMessage) {
+          this.$store.dispatch('pushMessage', currentMessage);
+        }
+      } else {
+        const message = {
+          type: 'human',
+          text: this.$store.state.config.ui.helpIntent,
+        };
+        this.$store.dispatch('postTextMessage', message);
+      }
       this.shouldShowHelpTooltip = false;
     },
     onPrev() {
