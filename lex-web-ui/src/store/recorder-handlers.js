@@ -123,13 +123,13 @@ const initRecorderHandlers = (context, recorder) => {
                   text: mes.value,
                   dialogState: context.state.lex.dialogState,
                   alts: JSON.parse(context.state.lex.sessionAttributes.appContext || '{}').altMessages,
-                  // Only provide response cards in voice response if intent is Failed or Fulfilled.
+                  responseCard: context.state.lex.responseCard,
+                  // Only provide V2 response cards in voice response if intent is Failed or Fulfilled.
                   // Response card button selection while waiting for voice interaction during intent fulfillment
                   // leads to errors in LexWebUi.
-                  responseCard: (context.state.lex.sessionState.intent.state === 'Failed' ||
-                    context.state.lex.sessionState.intent.state === 'Fulfilled') ? context.state.lex.responseCard : null,
-                  responseCardsLexV2: (context.state.lex.sessionState.intent.state === 'Failed' ||
-                    context.state.lex.sessionState.intent.state === 'Fulfilled') ? context.state.lex.responseCardLexV2 : null
+                  responseCardsLexV2: (context.state.lex.sessionState && context.state.lex.sessionState.intent &&
+                    (context.state.lex.sessionState.intent.state === 'Failed' ||
+                      context.state.lex.sessionState.intent.state === 'Fulfilled')) ? context.state.lex.responseCardLexV2 : null
                 },
               );
             });
@@ -140,14 +140,8 @@ const initRecorderHandlers = (context, recorder) => {
             audio: lexAudioUrl,
             text: context.state.lex.message,
             dialogState: context.state.lex.dialogState,
+            responseCard: context.state.lex.responseCard,
             alts: JSON.parse(context.state.lex.sessionAttributes.appContext || '{}').altMessages,
-            // Only provide response cards in voice response if intent is Failed or Fulfilled.
-            // Response card button selection while waiting for voice interaction during intent fulfillment
-            // leads to errors in LexWebUi.
-            responseCard: (context.state.lex.sessionState.intent.state === 'Failed' ||
-              context.state.lex.sessionState.intent.state === 'Fulfilled') ? context.state.lex.responseCard : null,
-            responseCardsLexV2: (context.state.lex.sessionState.intent.state === 'Failed' ||
-              context.state.lex.sessionState.intent.state === 'Fulfilled') ? context.state.lex.responseCardLexV2 : null
           });
         }
         return context.dispatch('playAudio', lexAudioUrl, {}, offset);
