@@ -124,6 +124,7 @@ const initRecorderHandlers = (context, recorder) => {
                   dialogState: context.state.lex.dialogState,
                   responseCard: context.state.lex.responseCard,
                   alts: JSON.parse(context.state.lex.sessionAttributes.appContext || '{}').altMessages,
+                  responseCardsLexV2: context.state.lex.responseCardLexV2
                 },
               );
             });
@@ -136,6 +137,7 @@ const initRecorderHandlers = (context, recorder) => {
             dialogState: context.state.lex.dialogState,
             responseCard: context.state.lex.responseCard,
             alts: JSON.parse(context.state.lex.sessionAttributes.appContext || '{}').altMessages,
+            responseCardsLexV2: context.state.lex.responseCardLexV2
           });
         }
         return context.dispatch('playAudio', lexAudioUrl, {}, offset);
