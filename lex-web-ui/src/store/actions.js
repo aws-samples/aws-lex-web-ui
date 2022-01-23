@@ -532,6 +532,7 @@ export default {
                       responseCard: tmsg.messages.length - 1 === index // attach response card only
                         ? responseCardObject : undefined, // for last response message
                       alts,
+                      responseCardsLexV2: response.responseCardLexV2
                     },
                   );
                 });

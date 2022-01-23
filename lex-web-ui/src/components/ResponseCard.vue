@@ -71,14 +71,15 @@ export default {
     shouldDisableClickedResponseCardButtons() {
       return (
         this.$store.state.config.ui.shouldDisableClickedResponseCardButtons &&
-        this.hasButtonBeenClicked
+        (this.hasButtonBeenClicked || this.getRCButtonsDisabled())
       );
     },
   },
+  inject: ['getRCButtonsDisabled','setRCButtonsDisabled'],
   methods: {
     onButtonClick(value) {
       this.hasButtonBeenClicked = true;
-
+      this.setRCButtonsDisabled();
       const messageType = this.$store.state.config.ui.hideButtonMessageBubble ? 'button' : 'human';
       const message = {
         type: messageType,

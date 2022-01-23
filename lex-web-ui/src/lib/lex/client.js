@@ -163,11 +163,13 @@ export default class {
           if (res.messages && res.messages.length > 0) {
             res.messages.forEach((mes) => {
               if (mes.contentType === 'ImageResponseCard') {
-                res.responseCard = {};
-                res.responseCard.version = '1';
-                res.responseCard.contentType = 'application/vnd.amazonaws.card.generic';
-                res.responseCard.genericAttachments = [];
-                res.responseCard.genericAttachments.push(mes.imageResponseCard);
+                res.responseCardLexV2 = res.responseCardLexV2 ? res.responseCardLexV2 : [];
+                const newCard = {};
+                newCard.version = '1';
+                newCard.contentType = 'application/vnd.amazonaws.card.generic';
+                newCard.genericAttachments = [];
+                newCard.genericAttachments.push(mes.imageResponseCard);
+                res.responseCardLexV2.push(newCard);
               } else {
                 /* eslint-disable no-lonely-if */
                 if (mes.contentType) { // push v1 style messages for use in the UI
