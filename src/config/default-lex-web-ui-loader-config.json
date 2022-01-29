@@ -32,6 +32,7 @@
     "positiveFeedbackIntent": "Thumbs up",
     "negativeFeedbackIntent": "Thumbs down",
     "helpIntent": "Help",
+    "helpContent": {},
     "enableLogin": false,
     "enableSFX": false,
     "forceLogin": false,

@@ -217,6 +217,29 @@ const configDefault = {
     // shows a help button on the toolbar when true
     helpIntent: '',
 
+    // allowsConfigurableHelpContent - adding default content disables sending the helpIntent message.
+    // content can be added per locale as needed. responseCard is optional.
+    //     helpContent: {
+    //       en_US: {
+    //         text: "",
+    //         markdown: "",
+    //         responseCard: {
+    //           "title":"",
+    //           "subTitle":"",
+    //           "imageUrl":"",
+    //           "attachmentLinkUrl":"",
+    //           "buttons":[
+    //             {
+    //               "text":"",
+    //               "value":""
+    //             }
+    //           ]
+    //         }
+    //       }
+    //     }
+    helpContent: {
+    },
+
     // for instances when you only want to show error icons and feedback
     showErrorIcon: true,
 

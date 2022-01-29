@@ -122,8 +122,14 @@ const initRecorderHandlers = (context, recorder) => {
                   audio: lexAudioUrl,
                   text: mes.value,
                   dialogState: context.state.lex.dialogState,
-                  responseCard: context.state.lex.responseCard,
                   alts: JSON.parse(context.state.lex.sessionAttributes.appContext || '{}').altMessages,
+                  responseCard: context.state.lex.responseCard,
+                  // Only provide V2 response cards in voice response if intent is Failed or Fulfilled.
+                  // Response card button selection while waiting for voice interaction during intent fulfillment
+                  // leads to errors in LexWebUi.
+                  responseCardsLexV2: (context.state.lex.sessionState && context.state.lex.sessionState.intent &&
+                    (context.state.lex.sessionState.intent.state === 'Failed' ||
+                      context.state.lex.sessionState.intent.state === 'Fulfilled')) ? context.state.lex.responseCardLexV2 : null
                 },
               );
             });

@@ -118,6 +118,22 @@
         >
         </response-card>
       </v-flex>
+      <v-flex
+        v-if="shouldDisplayResponseCardV2"
+      >
+        <v-flex v-for="(item, index) in message.responseCardsLexV2"
+          class="response-card"
+          d-flex
+          mt-2 mr-2 ml-3
+        >
+        <response-card
+          v-for="(card, index) in item.genericAttachments"
+          v-bind:response-card="card"
+          v-bind:key="index"
+        >
+        </response-card>
+        </v-flex>
+      </v-flex>
     </v-layout>
   </v-flex>
 </template>
@@ -152,6 +168,7 @@ export default {
       positiveClick: false,
       negativeClick: false,
       hasButtonBeenClicked: false,
+      disableCardButtons: false,
       positiveIntent: this.$store.state.config.ui.positiveFeedbackIntent,
       negativeIntent: this.$store.state.config.ui.negativeFeedbackIntent,
       hideInputFields: this.$store.state.config.ui.hideInputFieldsForButtonResponse,
@@ -210,6 +227,11 @@ export default {
         this.message.responseCard.genericAttachments instanceof Array
       );
     },
+    shouldDisplayResponseCardV2() {
+      return (
+        this.message.responseCardsLexV2 && this.message.responseCardsLexV2.length > 0
+      );
+    },
     shouldShowAvatarImage() {
       if (this.message.type === 'bot') {
         return this.botAvatarUrl;
@@ -228,7 +250,19 @@ export default {
       return this.$store.state.config.ui.showMessageDate;
     },
   },
+  provide: function () {
+    return {
+      getRCButtonsDisabled: this.getRCButtonsDisabled,
+      setRCButtonsDisabled: this.setRCButtonsDisabled
+    }
+  },
   methods: {
+    setRCButtonsDisabled: function() {
+      this.disableCardButtons = true;
+    },
+    getRCButtonsDisabled: function() {
+      return this.disableCardButtons;
+    },
     resendMessage(messageText) {
       const message = {
         type: 'human',
