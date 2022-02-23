@@ -390,7 +390,7 @@ export default {
           }
           this.$store.dispatch(
             'postTextMessage',
-            { type: messageType, text: evt.data.message },
+            { type: evt.data.messageType ? evt.data.messageType : messageType, text: evt.data.message },
           )
             .then(() => evt.ports[0].postMessage({
               event: 'resolve', type: evt.data.event,
@@ -404,6 +404,16 @@ export default {
           break;
         case 'startNewSession':
           this.$store.dispatch('startNewSession')
+            .then(() => evt.ports[0].postMessage({
+              event: 'resolve', type: evt.data.event,
+            }));
+          break;
+        case 'setSessionAttribute':
+          console.log(`From LexWeb: ${JSON.stringify(evt.data,null,2)}`);
+          this.$store.dispatch(
+            'setSessionAttribute',
+            { key: evt.data.key, value: evt.data.value },
+          )
             .then(() => evt.ports[0].postMessage({
               event: 'resolve', type: evt.data.event,
             }));

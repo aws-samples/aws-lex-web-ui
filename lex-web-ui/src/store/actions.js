@@ -465,6 +465,9 @@ export default {
   playSound(context, fileUrl) {
     document.getElementById('sound').innerHTML = `<audio autoplay="autoplay"><source src="${fileUrl}" type="audio/mpeg" /><embed hidden="true" autostart="true" loop="false" src="${fileUrl}" /></audio>`;
   },
+  setSessionAttribute(context, data) {
+    return Promise.resolve(context.commit("setLexSessionAttributeValue", data));
+  },
   postTextMessage(context, message) {
     if (context.state.isSFXOn && !context.state.lex.isPostTextRetry) {
       context.dispatch('playSound', context.state.config.ui.messageSentSFX);
