@@ -479,7 +479,9 @@ export default {
       })
       .then(() => {
         const liveChatTerms = context.state.config.connect.liveChatTerms ? context.state.config.connect.liveChatTerms.split(',').map(str => str.trim()) : [];
-        if (context.state.config.ui.enableLiveChat && liveChatTerms.find(el => el === message.text.toLowerCase())) {
+        if (context.state.config.ui.enableLiveChat && 
+          liveChatTerms.find(el => el === message.text.toLowerCase()) && 
+          context.state.chatMode !== chatMode.LIVECHAT) {
           return context.dispatch('requestLiveChat');
         } else if (context.state.liveChat.status === liveChatStatus.REQUEST_USERNAME) {
           context.commit('setLiveChatUserName', message.text);
