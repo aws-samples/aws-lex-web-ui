@@ -348,11 +348,13 @@ Parameters:
         Type: String
         Description: >
             Connect Contract Flow Id
+        Default: ''
 
     ConnectInstanceId:
         Type: String
         Description: >
             Connect Instance Id
+        Default: ''
 
     ConnectPromptForNameMessage:
         Type: String
