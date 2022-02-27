@@ -221,9 +221,10 @@ const configDefault = {
     // content can be added per locale as needed. responseCard is optional.
     //     helpContent: {
     //       en_US: {
-    //         text: "",
-    //         markdown: "",
-    //         responseCard: {
+    //         "text": "",
+    //         "markdown": "",
+    //         "repeatLastMessage": true,
+    //         "responseCard": {
     //           "title":"",
     //           "subTitle":"",
     //           "imageUrl":"",
