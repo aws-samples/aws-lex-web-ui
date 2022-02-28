@@ -319,5 +319,12 @@ export default {
 .input-container {
   /* make footer same height as dense toolbar */
   min-height: 48px;
+  position: fixed;
+  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
+  left: 0;
+  left: env(safe-area-inset-left);
+  right: 0;
+  right: env(safe-area-inset-right);
 }
 </style>
