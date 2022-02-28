@@ -37,12 +37,11 @@ BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
 const marked = require('marked');
-
-const renderer = new marked.Renderer();
-
+const renderer = {};
 renderer.link = function link(href, title, text) {
   return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
 };
+marked.use({renderer});
 
 export default {
   name: 'message-text',
@@ -63,7 +62,7 @@ export default {
         if (this.message.alts.html) {
           out = this.message.alts.html;
         } else if (this.message.alts.markdown) {
-          out = marked(this.message.alts.markdown, { renderer });
+          out = marked.parse(this.message.alts.markdown);
         }
       }
       if (out) out = this.prependBotScreenReader(out);
