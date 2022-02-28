@@ -119,7 +119,7 @@
         </response-card>
       </v-flex>
       <v-flex
-        v-if="shouldDisplayResponseCardV2"
+        v-if="shouldDisplayResponseCardV2 && !shouldDisplayResponseCard"
       >
         <v-flex v-for="(item, index) in message.responseCardsLexV2"
           class="response-card"

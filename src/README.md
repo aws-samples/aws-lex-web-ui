@@ -648,14 +648,25 @@ completed or rejected if there was an issue.
 
 This is a list of the available functions:
 
-1. `posText(testMessage)`. Sends an utterance to the bot using the
-chatbot UI this is equivalent to a user actually writing the message in
-the chatbot UI
+1. `postText(textMessage,messageType)`. Sends an utterance to the bot from the UI. Lex Web Ui
+supports input from two elements. Input from the user or input from a ResponseCard button. 
+messageType is an optional string parameter that specifies how postText should treat the input. 
+messageType can be set to the value 'human' or 'button'. Messages with the 'human' message type are always
+displayed in the list of messages in the UI. Messages with the 'button' message type are optionally displayed to the user
+depending on the configuration value of 'ui.hideButtonMessageBubble'. If 'ui.hideButtonMessageBubble' is set to true,
+messages with the messageType of 'button' are hidden. If 'ui.hideButtonMessageBubble' is set to false, messages with
+the messageType of 'button' are displayed in the message list. The default for 'ui.hideButtonMessageBubble' is false 
+where all postText messages and ResponseCard button clicks will be displayed as input from the user. The api has two 
+properties that can be used to specify messageType when calling postText. These 
+are api.MESSAGE_TYPE_HUMAN and api.MESSAGE_TYPE_BUTTON. 
 2. `toggleMinimizeUi()`. Toggles the chatbot UI between being minimized
 and maximized
 3. `ping()`. Tests communication with the chatbot UI component
 4. `startNewSession()`. Builds a new Lex Session and sets the Bot to elicit an intent
 5. `deleteSession()`. Calls the Lex DeleteSession api to terminate a Lex session
+6. `setSessionAttribute(key, value)`. Allows the parent page to set session attributes by specifying a 'key' and
+a 'value'. Both are strings. 'key' should be a top level key. 'value' must be a string and not an object. Should you
+want to store an entire object, stringify this object. 
 
 You can use it like this:
 ```javascript
@@ -675,7 +686,7 @@ lexWebUiLoader.load()
   })
   .then(function () {
     // send an utterance to the bot
-    return lexWebUiLoader.api.postText('Buy flowers')
+    return lexWebUiLoader.api.postText('Buy flowers', lexWebUiLoader.api.MESSAGE_TYPE_HUMAN)
   })
   .catch(function (error) {
     console.error('oops... ', error);

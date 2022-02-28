@@ -216,6 +216,17 @@ export default {
     }
     state.lex.sessionAttributes = sessionAttributes;
   },
+  setLexSessionAttributeValue(state, data) {
+    try {
+      const setPath = (object, path, value) => path
+        .split('.')
+        .reduce((o, p, i) => o[p] = path.split('.').length === ++i ? value : o[p] || {}, object);
+
+      setPath(state.lex.sessionAttributes, data.key, data.value);
+    } catch (e) {
+      console.error(`could not set session attribute: ${e} for ${JSON.stringify(data)}`);
+    }
+  },
   /**
   * set to true while calling lexPost{Text,Content}
   * to mark as processing

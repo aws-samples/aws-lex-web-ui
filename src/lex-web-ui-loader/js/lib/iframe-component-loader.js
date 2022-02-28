@@ -765,6 +765,8 @@ export class IframeComponentLoader {
    */
   initParentToIframeApi() {
     this.api = {
+      MESSAGE_TYPE_HUMAN: "human",
+      MESSAGE_TYPE_BUTTON: "button",
       ping: () => this.sendMessageToIframe({ event: 'ping' }),
       sendParentReady: () => (
         this.sendMessageToIframe({ event: 'parentReady' })
@@ -772,14 +774,17 @@ export class IframeComponentLoader {
       toggleMinimizeUi: () => (
         this.sendMessageToIframe({ event: 'toggleMinimizeUi' })
       ),
-      postText: message => (
-        this.sendMessageToIframe({ event: 'postText', message })
+      postText: (message, messageType) => (
+        this.sendMessageToIframe({event: 'postText', message: message, messageType: messageType})
       ),
       deleteSession: () => (
         this.sendMessageToIframe({ event: 'deleteSession' })
       ),
       startNewSession: () => (
         this.sendMessageToIframe({ event: 'startNewSession' })
+      ),
+      setSessionAttribute: (key, value) => (
+          this.sendMessageToIframe({ event: 'setSessionAttribute', key: key, value: value })
       ),
     };
 
