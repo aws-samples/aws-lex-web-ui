@@ -125,6 +125,7 @@
           class="response-card"
           d-flex
           mt-2 mr-2 ml-3
+          v-bind:key="index"
         >
         <response-card
           v-for="(card, index) in item.genericAttachments"
