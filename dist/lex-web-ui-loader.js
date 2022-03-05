@@ -77281,6 +77281,8 @@ var IframeComponentLoader = /*#__PURE__*/function () {
       var _this12 = this;
 
       this.api = {
+        MESSAGE_TYPE_HUMAN: "human",
+        MESSAGE_TYPE_BUTTON: "button",
         ping: function ping() {
           return _this12.sendMessageToIframe({
             event: 'ping'
@@ -77296,10 +77298,11 @@ var IframeComponentLoader = /*#__PURE__*/function () {
             event: 'toggleMinimizeUi'
           });
         },
-        postText: function postText(message) {
+        postText: function postText(message, messageType) {
           return _this12.sendMessageToIframe({
             event: 'postText',
-            message: message
+            message: message,
+            messageType: messageType
           });
         },
         deleteSession: function deleteSession() {
@@ -77310,6 +77313,13 @@ var IframeComponentLoader = /*#__PURE__*/function () {
         startNewSession: function startNewSession() {
           return _this12.sendMessageToIframe({
             event: 'startNewSession'
+          });
+        },
+        setSessionAttribute: function setSessionAttribute(key, value) {
+          return _this12.sendMessageToIframe({
+            event: 'setSessionAttribute',
+            key: key,
+            value: value
           });
         }
       };
