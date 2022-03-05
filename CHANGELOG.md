@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.4] - 2022-03-05
+- Add setSessionAttribute function to iframe api, add optional messageType parameter to postText function. 
+- Add the ability to manually configure a help message in lex-web-ui-loader-config.json per locale. This message is displayed in response to clicking the help button rather then sending to the lex bot. In addition, the last message from the bot can be re-displayed after the help message giving the user context on next action again
+- Prefer Lex V1 response cards over Lex V2 in the case where both are present. In a QnABot result, both a V1 and V2 response card will be present. V1 response cards might contain additional buttons not present in the V2 response card. When both are present, prefer the V1 response card.
+- Fix for when user sends live chat message while within live chat
+- Change Connect CloudFormation parameters to have default empty strings
+- Updated default CSS for input container to be visible on screen in iOS/Safari 15
+
 ## [0.19.3] - 2021-12-17
 - Update use of amazon-connect-chatjs to version "^1.1.7" in lex-web-ui/package.json
 - Support response from LexV2 bots with response card only - no message text
