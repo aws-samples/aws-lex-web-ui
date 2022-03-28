@@ -28,25 +28,6 @@
                   v-bind:message="message"
                   v-if="'text' in message && message.text !== null && message.text.length"
                 ></message-text>
-                <div
-                  v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback"
-                  class="feedback-state"
-                >
-                  <v-icon
-                    v-on:click="onButtonClick(positiveIntent)"
-                    v-bind:class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
-                    tabindex="0"
-                  >
-                    thumb_up
-                  </v-icon>
-                  <v-icon
-                    v-on:click="onButtonClick(negativeIntent)"
-                    v-bind:class="{'feedback-icons-negative': !negativeClick, 'negativeClick': negativeClick}"
-                    tabindex="0"
-                  >
-                    thumb_down
-                  </v-icon>
-                </div>
                 <v-icon
                   medium
                   v-if="message.type === 'bot' && botDialogState && showDialogStateIcon"
@@ -118,6 +99,37 @@
         >
         </response-card>
       </v-flex>
+      <div 
+          v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback && !shouldDisplayResponseCard"
+          class="feedback-state-container">
+        <div
+          v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback && !shouldDisplayResponseCard"
+          class="feedback-state-text"
+        >Is This Helpful?</div>
+
+        <div
+          v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback && !shouldDisplayResponseCard"
+          class="feedback-state"
+        >
+          <v-btn id="feedback-helpful-button" v-on:click="onButtonClick(positiveIntent)"
+              v-bind:class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
+              tabindex="0" class="secondary--text btn--round accent">
+            <v-icon>
+              thumb_up
+            </v-icon>
+            Helpful
+          </v-btn>
+
+          <v-btn id="feedback-unhelpful-button" v-on:click="onButtonClick(negativeIntent)"
+            v-bind:class="{'feedback-icons-negative': !negativeClick, 'negativeClick': negativeClick}"
+            tabindex="0" class="secondary--text btn--round accent">
+            <v-icon>
+              thumb_down
+            </v-icon>
+            Not Helpful
+          </v-btn>
+        </div>
+      </div>
     </v-layout>
   </v-flex>
 </template>
@@ -209,6 +221,10 @@ export default {
         'genericAttachments' in this.message.responseCard &&
         this.message.responseCard.genericAttachments instanceof Array
       );
+    },
+    shouldDisplayFeedback() {
+      // for now, always show feedback
+      return true;
     },
     shouldShowAvatarImage() {
       if (this.message.type === 'bot') {

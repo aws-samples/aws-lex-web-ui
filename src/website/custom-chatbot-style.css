@@ -1,91 +1,201 @@
-/* Example custom css file for lex-web-ui. Entire file is commented out as a default. Uncomment and
- adjust as needed.
-
-.toolbar.theme--dark {
-    background-color: #2b2b2b !important;
+/* Hides the toolbar header */
+.toolbar--absolute,
+.toolbar--fixed {
+  display: none;
 }
 
-.toolbar__title {
-  font-family:"Sans-serif" !important;
-  font-size: 1.875em !important;
-  color: #ffffff !important;
+.feedback-state-container {
+  padding-top: 20px;
+  padding-left: 6px;
+  padding-bottom: 10px;
 }
 
-.message-list-container {
-  background-color: #dcdbdc !important
+.feedback-icons-positive {
+  border: 1px solid #266D2F;
+  border-radius: 20px;
+  color: #266D2F !important;
+  text-transform: capitalize;
+  font-weight: bold;
+  box-shadow: none !important;
+  height: 28px !important;
 }
 
-.message-bot .message-bubble {
-    background-color: #eeedeb !important;
+.feedback-icons-negative {
+  border: 1px solid #AB0000;
+  border-radius: 20px;
+  color: #AB0000 !important;
+  text-transform: capitalize;
+  font-weight: bold;
+  box-shadow: none !important;
+  height: 28px !important;
 }
 
-.message-human .message-bubble {
-    background-color: #afcffa !important;
+
+.feedback-icons-positive i {
+  padding-right: 8px;
+  font-size: 18px;
 }
 
-.message-bubble p {
-    margin-bottom: 8px;
+.feedback-icons-negative i {
+  padding-right: 8px;
+  font-size: 18px;
 }
 
-.message-bubble p:last-child {
-    margin-bottom: 0px;
+
+.feedback-icons-negative
+
+
+.feedback-state-text {
+  padding-left: 8px;
 }
 
-.message-bubble .message-text {
-    padding-left:  0;
-    padding-right: 0;
-    line-height: 1.6;
-    font-size: 1rem;
+/* Hides the thumbs up down icons */
+/* .feedback-state {
+  display: none !important;
+} */
+
+/* Hides the "Resend" button */
+.menu__activator {
+  display: none;
+}
+
+/* Hides message date fly-out below messages */
+.message-date {
+  display: none;
+}
+
+.application {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.message-list-container.toolbar-height-sm {
+  height: calc(100% - 56px);
+}
+
+.message-list-container.toolbar-height-sm {
+  top: 0px;
+}
+
+.message-list-container.toolbar-height-md {
+  top: 0px;
+}
+
+.message-list-container.toolbar-height-lg {
+  top: 0px;
+}
+
+.message-layout {
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  box-shadow: 0 0.25px 0.75px rgb(0 0 0 / 12%), 0 0.25px 0.5px rgb(0 0 0 / 24%);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.message {
+  max-width: 87vw !important;
+}
+
+.message-human .message-layout {
+  background-color: #fff1d1;
+}
+
+.message-human {
+  margin-right: 10px;
+}
+
+.message-bot:before {
+  content: "";
+  background-image: url("./VA-chatavatar-40px-01.svg");  
+  height: 40px;
+  width: 40px;
+  margin-left: 20px;
+  margin-top: 10px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .message-bubble {
-    border-radius: 10px !important;
-    padding: 2px 18px !important;
+  background-color: #f3f3f3 !important;
+}
+
+.message-bubble p {
+  margin-bottom: 8px;
+}
+
+.message-bubble p:last-child {
+  margin-bottom: 0px;
+}
+
+.message-bubble .message-text {
+  padding: 4px 0px 4px 0px;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.message-bubble {
+  padding: 0px 15px !important;
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: initial !important;
+  border-radius: initial !important;
+  box-shadow: initial !important;
+  transition: initial !important;
 }
 
 .message-text {
-  color: #000000;
+  color: #444444;
   width: 100%;
 }
 
-.headline {
-    font-size: 1.2rem !important;
-    line-height: 1.4 !important;
+.response-card {
+  width: 93% !important;
 }
 
-.card__title {
-    padding: 10px 16px !important;
-}
-
-.card__text {
-    padding: 8px 16px 16px !important;
-    line-height: 1.4;
-}
-
-.card__title.card__title--primary {
-    background-color: #eeedeb !important;
-}
-
-
-.input-group--text-field input,
-.input-group--text-field textarea,
-.input-group--text-field label {
-    font-size: 14px !important;
+.card__actions {
+  padding: 0;
 }
 
 .card__actions .btn {
-  margin: 4px 4px !important;
-  font-size: 1em !important;
-  min-width: 44px !important;
-  background-color: #afcffa !important;
+  color: white !important;
+  background-color: #004693 !important;
+  text-transform: none !important;
+  border-radius: 20px;
+  font-weight: 100;
+  height: 28px;
+  margin: 0px 4px 4px 0px !important;
 }
 
-*/
-
-button.min-button {
-    border-radius: 60px;
+.card__actions .btn--disabled.btn[style][disabled], .card__actions .btn:hover {
+  color: white !important;
+  background-color: #002762 !important;
 }
 
-.message-button {
-    display: none;
+.d-flex {
+  display: -webkit-box;
+}
+
+.input-group--text-field input {
+  height: 45px;
+  line-height: 45px;
+  border: 1px solid #e0e0e0;
+  padding-left: 20px;
+  color: #444444;
+}
+
+.input-group--text-field textarea,
+.input-group--text-field label {
+  height: 45px;
+  padding-left: 20px;
+  line-height: 45px;
+  color: #767676;
+}
+
+button[aria-label="Send Message"] div i {
+  content: url("./send-active.svg");
+  width: 24px;
+}
+
+button[aria-label="Send Message"]:disabled div i {
+  content: url("./send-inactive.svg");
 }
