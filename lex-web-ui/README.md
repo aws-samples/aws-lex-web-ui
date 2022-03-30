@@ -611,7 +611,7 @@ lex: {
 
 ### Logos
 You can change the default logo and favorite icon images by placing
-your own images in `src/assets/logo.(png|jge?g|svg)` and
+your own images in `src/assets/logo.(png|jpe?g|svg)` and
 `src/assets/favicon.(png|jpe?g|svg|ico)`
 respectively. The favorite icon is set to the logo image if the
 `src/assets/favicon.*` file is not found.
