@@ -49,13 +49,20 @@ function startChatContact(body) {
                     
     }
 
+    let lexSessionAttributes = "";
+    if (body.hasOwnProperty("lexSessionAttributes")) {
+            lexSessionAttributes = body["lexSessionAttributes"];
+                    
+    }
+
     return new Promise(function(resolve, reject) {
         const startChat = {
             "InstanceId": instanceId == "" ? process.env.INSTANCE_ID : instanceId,
             "ContactFlowId": contactFlowId == "" ? process.env.CONTACT_FLOW_ID : contactFlowId,
             "Attributes": {
                 "customerName": body["ParticipantDetails"]["DisplayName"],
-                "topic" : topic
+                "topic" : topic,
+                "lexSessionAttributes": lexSessionAttributes
             },
             "ParticipantDetails": {
                 "DisplayName": body["ParticipantDetails"]["DisplayName"]

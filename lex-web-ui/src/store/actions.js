@@ -819,6 +819,7 @@ export default {
       },
       ContactFlowId: context.state.config.connect.contactFlowId,
       InstanceId: context.state.config.connect.instanceId,
+      lexSessionAttributes: context.state.lex.sessionAttributes,
     };
 
     const uri = new URL(context.state.config.connect.apiGatewayEndpoint);
