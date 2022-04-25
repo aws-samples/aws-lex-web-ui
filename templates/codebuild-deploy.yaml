@@ -364,6 +364,7 @@ Resources:
     # Bucket where S3 access logs are stored
     S3ServerAccessLogs:
         Type: AWS::S3::Bucket
+        UpdateReplacePolicy: Retain
         DeletionPolicy: Retain
         Properties:
           VersioningConfiguration:
@@ -377,6 +378,7 @@ Resources:
     # Bucket where the web app is deployed
     WebAppBucket:
         Type: AWS::S3::Bucket
+        UpdateReplacePolicy: Retain
         DeletionPolicy: Retain
         Properties:
             WebsiteConfiguration:
@@ -403,6 +405,7 @@ Resources:
     # Bucket for CloudFrontDistributionLogs
     LexWebUiCloudFrontDistributionLogsBucket:
       Type: AWS::S3::Bucket
+      UpdateReplacePolicy: Retain
       DeletionPolicy: Retain
       Properties:
         VersioningConfiguration:
@@ -437,7 +440,6 @@ Resources:
         Type: AWS::CloudFront::Distribution
         DependsOn:
         - WebAppBucket
-        - LexWebUiCloudFrontDistributionLogsBucket
         Properties:
           DistributionConfig:
             Origins:

@@ -374,7 +374,6 @@ Conditions:
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
-    EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
 
 Resources:
     Bot:
