@@ -512,9 +512,6 @@ export default {
             if (tmsg && Array.isArray(tmsg.messages)) {
               tmsg.messages.forEach((mes, index) => {
                 let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
-                if (alts.tease) {
-                  context.dispatch("parseTeaseBubbleText", alts.tease);
-                }
                 if (mes.type === 'CustomPayload' || mes.contentType === 'CustomPayload') {
                   if (alts === undefined) {
                     alts = {};
@@ -547,9 +544,6 @@ export default {
           }
         } else {
           let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
-          if (alts.tease) {
-            context.dispatch("parseTeaseBubbleText", alts.tease);
-          }
           let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
           if (response.messageFormat === 'CustomPayload') {
             if (alts === undefined) {
@@ -751,6 +745,11 @@ export default {
         'sendMessageToParentWindow',
         { event: 'updateLexState', state: context.state.lex },
       );
+    }
+
+    // check for tease bubble stuff after all this is done.
+    if (lexState?.sessionAttributes?.teaseBubble?.teaseText) {
+      context.dispatch('parseTeaseBubbleText', JSON.parse(lexState.sessionAttributes.teaseBubble).teaseText);
     }
     return Promise.resolve();
   },
@@ -1177,7 +1176,7 @@ export default {
   setSessionAttrs(context, attrs) {
     context.commit('setSessionAttrs', attrs);
   },
-  // show tease bubble if alts.tease exists in postText message response
+  // show tease bubble if tease exists in new state returned from lex Client
   parseTeaseBubbleText(context, tease) {
     let teaseText = marked(tease, { renderer });
     teaseText = teaseText.trim();

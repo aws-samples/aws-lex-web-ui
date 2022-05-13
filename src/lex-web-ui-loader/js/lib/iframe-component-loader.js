@@ -87,23 +87,25 @@ export class IframeComponentLoader {
       .then(() => this.initCustomSetup());
   }
 
-  // custom events for Rhode Island.
+  // custom events.
   initCustomSetup() {
     // store user pool id for the parent page to use.
     if (this.config.cognito.appUserPoolClientId) {
-      localStorage.setItem('appUserPoolClientId', `${this.config.cognito.appUserPoolClientId}`);
+      localStorage.setItem("appUserPoolClientId", `${this.config.cognito.appUserPoolClientId}`);
     }
 
-    // if user clicks out of iframe, minimize the chatbot.
-    document.body.onclick = () => {
-      if (localStorage?.appUserPoolClientId && (localStorage[`${localStorage?.appUserPoolClientId}lastUiIsMinimized`] === 'false')) {
-        // document.dispatchEvent(new CustomEvent('lexWebUiMessage', { detail: { message: {event: "toggleMinimizeUi"}}}));
-        this.sendMessageToIframe({ event: 'toggleMinimizeUi' });
+    // minimize the chatbot if user clicks out of it or not. Based on user pref from config.
+    // we can't access Vue state from here; instead, use localStorage to track chatbot minimize state
+    if (this.config.ui.autoMinimizeOnUnfocus) {
+      document.body.onclick = () => {
+        if (localStorage?.appUserPoolClientId && (localStorage[`${localStorage?.appUserPoolClientId}lastUiIsMinimized`] == "false")) {
+          this.sendMessageToIframe({ event: 'toggleMinimizeUi' })
+        }
       }
-    };
+    }
 
-    // on load, ask UIO+ for new Cognito tokens for custom session attributes.
-    window.setTimeout(() => document.dispatchEvent(new Event('requestSessionAttrs')), 2000);
+    // dispatch a signal that lets parent page know the chatbot is ready to accept information.
+    document.dispatchEvent(new Event('chatbotReady'));
   }
 
   /**
