@@ -505,49 +505,53 @@ export default {
         return Promise.resolve();
       })
       .then((response) => {
-        // check for an array of messages
-        if (response.sessionState || (response.message && response.message.includes('{"messages":'))) {
-          if (response.message && response.message.includes('{"messages":')) {
-            const tmsg = JSON.parse(response.message);
-            if (tmsg && Array.isArray(tmsg.messages)) {
-              tmsg.messages.forEach((mes, index) => {
-                let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
-                if (mes.type === 'CustomPayload' || mes.contentType === 'CustomPayload') {
-                  if (alts === undefined) {
-                    alts = {};
+        if (context.state.chatMode === chatMode.BOT &&
+          context.state.liveChat.status != liveChatStatus.REQUEST_USERNAME) {
+          // check for an array of messages
+          if (response.sessionState || (response.message && response.message.includes('{"messages":'))) {
+            if (response.message && response.message.includes('{"messages":')) {
+              const tmsg = JSON.parse(response.message);
+              if (tmsg && Array.isArray(tmsg.messages)) {
+                tmsg.messages.forEach((mes, index) => {
+                  let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+                  if (mes.type === 'CustomPayload' || mes.contentType === 'CustomPayload') {
+                    if (alts === undefined) {
+                      alts = {};
+                    }
+                    alts.markdown = mes.value ? mes.value : mes.content;
                   }
-                  alts.markdown = mes.value ? mes.value : mes.content;
-                }
-                // Note that Lex V1 only supported a single responseCard. V2 supports multiple response cards.
-                // This code still supports the V1 mechanism. The code below will check for
-                // the existence of a single V1 responseCard added to sessionAttributes.appContext by bots
-                // such as QnABot. This single responseCard will be appended to the last message displayed
-                // in the array of messages presented.
-                let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
-                if (responseCardObject === undefined) { // prefer appContext over lex.responseCard
-                  responseCardObject = context.state.lex.responseCard;
-                }
-                context.dispatch(
-                  'pushMessage',
-                  {
-                    text: mes.value ? mes.value : mes.content ? mes.content : "",
-                    type: 'bot',
-                    dialogState: context.state.lex.dialogState,
-                    responseCard: tmsg.messages.length - 1 === index // attach response card only
-                      ? responseCardObject : undefined, // for last response message
-                    alts,
-                    responseCardsLexV2: response.responseCardLexV2
-                  },
-                );
-              });
+                  // Note that Lex V1 only supported a single responseCard. V2 supports multiple response cards.
+                  // This code still supports the V1 mechanism. The code below will check for
+                  // the existence of a single V1 responseCard added to sessionAttributes.appContext by bots
+                  // such as QnABot. This single responseCard will be appended to the last message displayed
+                  // in the array of messages presented.
+                  let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
+                  if (responseCardObject === undefined) { // prefer appContext over lex.responseCard
+                    responseCardObject = context.state.lex.responseCard;
+                  }
+                  context.dispatch(
+                    'pushMessage',
+                    {
+                      text: mes.value ? mes.value : mes.content ? mes.content : "",
+                      type: 'bot',
+                      dialogState: context.state.lex.dialogState,
+                      responseCard: tmsg.messages.length - 1 === index // attach response card only
+                        ? responseCardObject : undefined, // for last response message
+                      alts,
+                      responseCardsLexV2: response.responseCardLexV2
+                    },
+                  );
+                });
+              }
             }
-          }
-        } else {
-          let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
-          let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
-          if (response.messageFormat === 'CustomPayload') {
-            if (alts === undefined) {
-              alts = {};
+          } else {
+            let alts = JSON.parse(response.sessionAttributes.appContext || '{}').altMessages;
+            let responseCardObject = JSON.parse(response.sessionAttributes.appContext || '{}').responseCard;
+            if (response.messageFormat === 'CustomPayload') {
+              if (alts === undefined) {
+                alts = {};
+              }
+              alts.markdown = response.message;
             }
             if (responseCardObject === undefined) {
               responseCardObject = context.state.lex.responseCard;
