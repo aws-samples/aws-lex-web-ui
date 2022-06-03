@@ -603,7 +603,7 @@ export class IframeComponentLoader {
       },
 
       hideTeaseBubble(evt) {
-        this.hideTeaseBubbleStateClass()
+        this.hideTeaseBubbleClass()
           .then(() => (
             evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event })
           ))
@@ -803,7 +803,7 @@ export class IframeComponentLoader {
   /**
    * Remove partially minimized class
    */
-  hideTeaseBubbleStateClass() {
+  hideTeaseBubbleClass() {
     try {
       this.containerElement.classList.remove(`${this.containerClass}--partially-minimized`);
       return Promise.resolve();
@@ -876,11 +876,11 @@ export class IframeComponentLoader {
         // check for last state and resume with this configuration
         if (this.config.iframe.shouldLoadIframeMinimized) {
           this.api.toggleMinimizeUi();
-          this.api.showTeaseBubble();
+          this.api.enableTeaseBubble();
           localStorage.setItem(`${this.config.cognito.appUserPoolClientId}lastUiIsMinimized`, 'true');
         } else if (localStorage.getItem(`${this.config.cognito.appUserPoolClientId}lastUiIsMinimized`) && localStorage.getItem(`${this.config.cognito.appUserPoolClientId}lastUiIsMinimized`) === 'true') {
           this.api.toggleMinimizeUi();
-          this.api.showTeaseBubble();
+          this.api.enableTeaseBubble();
         } else if (localStorage.getItem(`${this.config.cognito.appUserPoolClientId}lastUiIsMinimized`) && localStorage.getItem(`${this.config.cognito.appUserPoolClientId}lastUiIsMinimized`) === 'false') {
           this.api.ping();
         }
@@ -912,14 +912,14 @@ export class IframeComponentLoader {
       sendParentReady: () => (
         this.sendMessageToIframe({ event: 'parentReady' })
       ),
-      showTeaseBubble: () => (
-        this.sendMessageToIframe({ event: 'showTeaseBubble' })
+      enableTeaseBubble: () => (
+        this.sendMessageToIframe({ event: 'enableTeaseBubble' })
       ),
       toggleTheme: () => (
         this.sendMessageToIframe({ event: 'toggleTheme' })
       ),
-      hideTeaseBubble: () => (
-        this.sendMessageToIframe({ event: 'hideTeaseBubble' })
+      disableTeaseBubble: () => (
+        this.sendMessageToIframe({ event: 'disableTeaseBubble' })
       ),
       toggleMinimizeUi: () => (
         this.sendMessageToIframe({ event: 'toggleMinimizeUi' })

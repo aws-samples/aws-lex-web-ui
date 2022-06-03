@@ -94,7 +94,7 @@ export default {
   isSFXOn: (config.ui) ? (!!config.ui.enableSFX &&
     !!config.ui.messageSentSFX && !!config.ui.messageReceivedSFX) : false,
   isUiMinimized: false, // when running embedded, is the iframe minimized?
-  userWantsTeaseBubble: false, // tease bubble is not shown on page load
+  userWantsTeaseBubble: true, // tease bubble is shown on page load
   isEnableLogin: false, // true when a login/logout menu should be displayed
   isForceLogin: false, // true when a login/logout menu should be displayed
   isLoggedIn: false, // when running with login/logout enabled

@@ -7,7 +7,7 @@
       <div class="message-list-wrapper-inside" id="tease-bubble"></div>
       <div
         id="dismissIcon"
-        v-on:click.stop="hideTeaseBubble"
+        v-on:click.stop="disableTeaseBubble"
         onclick="this.parentNode.classList.add('tease-bubble-display-none'); return false;"
       >
         <svg
@@ -335,7 +335,7 @@ export default {
         this.toolbarHeightClassSuffix = "lg";
       }
     },
-    hideTeaseBubble() {
+    disableTeaseBubble() {
       this.$emit("hideTeaseBubble");
       this.$store.commit("setUserWantsTeaseBubble", false);
       return this.$store.dispatch("hideTeaseBubble");
@@ -489,7 +489,11 @@ export default {
             });
           });
           break;
-        case "showTeaseBubble":
+        // if programatically calling this method, will override user's tease bubble preferences
+        // to show/hide tease bubbles. All other implementations of show/hideTeaseBubble only affect the current display
+        // status of the tease bubble and not the user preference for enabling/disabling the feature.
+        case "enableTeaseBubble":
+          this.$store.commit("setUserWantsTeaseBubble", true);
           this.$store.dispatch("showTeaseBubble").then(() =>
             evt.ports[0].postMessage({
               event: "resolve",
@@ -497,7 +501,12 @@ export default {
             })
           );
           break;
-        case "hideTeaseBubble":
+        case "disableTeaseBubble":
+          let messageListWrapper = document.getElementsByClassName(
+            "message-list-wrapper"
+          )[0];
+          messageListWrapper.classList.add("tease-bubble-display-none");
+          this.$store.commit("setUserWantsTeaseBubble", false);
           this.$store.dispatch("hideTeaseBubble").then(() =>
             evt.ports[0].postMessage({
               event: "resolve",
