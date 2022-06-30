@@ -77,6 +77,7 @@ Parameters:
         also enter your Bot alias ID in the LexV2BotAliasId field below.
       Type: String
       Default: ''
+      MinLength: 0
       MaxLength: 50
       AllowedPattern: '(^$|^[a-zA-Z0-9]+((_[a-zA-Z0-9]+)*|([a-zA-Z0-9]+_)*|_))'
       ConstraintDescription: >
@@ -105,28 +106,31 @@ Parameters:
       MaxLength: 50
 
     BotName:
-        Type: String
         Description: >
-            Name of Lex bot to be used in the web app configuration.
-        MinLength: 2
+            Name of an existing Lex Bot to be used by the web ui. NOTE: You must
+            also enter your published bot alias in the BotAlias field below. DO NOT MODIFY this value if
+            configuring a V2 Bot.
+        Type: String
+        Default: ''
+        MinLength: 0
         MaxLength: 50
-        AllowedPattern: '^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)'
+        AllowedPattern: '(^$|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_))'
         ConstraintDescription: >
             Must conform with the permitted Lex Bot name pattern.
 
     BotAlias:
-      Description: >
-        WARNING: For production deployments, use your bot's published alias here.
-        The $LATEST alias should only be used for manual testing. Amazon Lex limits
-        the number of runtime requests that you can make to the $LATEST version of
-        the bot.
-      Type: String
-      Default: '$LATEST'
-      MinLength: 2
-      MaxLength: 50
-      AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
-      ConstraintDescription: >
-        Must conform with the permitted Lex Alias name pattern.
+        Description: >
+            WARNING: For production deployments, use your bot's published alias here.
+            The $LATEST alias should only be used for manual testing. Amazon Lex limits
+            the number of runtime requests that you can make to the $LATEST version of
+            the bot. DO NOT MODIFY this value if configuring a V2 Bot.
+        Type: String
+        Default: '$LATEST'
+        MinLength: 2
+        MaxLength: 50
+        AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
+        ConstraintDescription: >
+            Must conform with the permitted Lex Alias name pattern.
 
     ParentOrigin:
         Type: String
