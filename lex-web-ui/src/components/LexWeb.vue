@@ -463,7 +463,7 @@ export default {
       }
     },
     userName() {
-      return this.$store.getters.username();
+      return this.$store.getters.userName();
     },
     logRunningMode() {
       if (!this.$store.state.isRunningEmbedded) {
