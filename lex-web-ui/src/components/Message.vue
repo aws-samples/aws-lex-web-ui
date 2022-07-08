@@ -230,7 +230,10 @@ export default {
     },
     shouldDisplayResponseCardV2() {
       return (
-        this.message.responseCardsLexV2 && this.message.responseCardsLexV2.length > 0
+        'isLastMessageInGroup' in this.message
+        && this.message.isLastMessageInGroup === 'true'
+        && this.message.responseCardsLexV2
+        && this.message.responseCardsLexV2.length > 0
       );
     },
     shouldShowAvatarImage() {
