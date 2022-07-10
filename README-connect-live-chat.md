@@ -134,4 +134,8 @@ flow performing the disconnect to terminate immediately as in the following modi
 
 ![sample disconnect flow](./img/sample_disconnect_flow.png)
 
+## Session Attributes
 
+Connect live chat will send any Lex session attributes that are prefixed with `connect_` on the attribute key. Also, if there is a session attribute key `topic`, that will also be sent to Amazon Connect.
+
+Session attributes can be used to branch in a contact flow to a pre-defined queue, or pass other information that the contact flow may require.  Attributes are accessible in a contact flow by using the Check contact attributes block, with the attribute type value of `User Defined`.
