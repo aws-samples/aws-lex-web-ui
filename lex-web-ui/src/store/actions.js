@@ -481,7 +481,7 @@ export default {
         return Promise.resolve();
       })
       .then(() => {
-        const liveChatTerms = context.state.config.connect.liveChatTerms ? context.state.config.connect.liveChatTerms.split(',').map(str => str.trim()) : [];
+        const liveChatTerms = context.state.config.connect.liveChatTerms ? context.state.config.connect.liveChatTerms.toLowerCase().split(',').map(str => str.trim()) : [];
         if (context.state.config.ui.enableLiveChat &&
           liveChatTerms.find(el => el === message.text.toLowerCase()) &&
           context.state.chatMode === chatMode.BOT) {
