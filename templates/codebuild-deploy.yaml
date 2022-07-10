@@ -364,6 +364,7 @@ Resources:
     # Bucket where S3 access logs are stored
     S3ServerAccessLogs:
         Type: AWS::S3::Bucket
+        UpdateReplacePolicy: Retain
         DeletionPolicy: Retain
         Properties:
           VersioningConfiguration:
@@ -377,6 +378,7 @@ Resources:
     # Bucket where the web app is deployed
     WebAppBucket:
         Type: AWS::S3::Bucket
+        UpdateReplacePolicy: Retain
         DeletionPolicy: Retain
         Properties:
             WebsiteConfiguration:
@@ -403,6 +405,7 @@ Resources:
     # Bucket for CloudFrontDistributionLogs
     LexWebUiCloudFrontDistributionLogsBucket:
       Type: AWS::S3::Bucket
+      UpdateReplacePolicy: Retain
       DeletionPolicy: Retain
       Properties:
         VersioningConfiguration:
@@ -433,11 +436,48 @@ Resources:
                 Principal:
                   CanonicalUser: !GetAtt WebAppBucketOriginAccessIdentity.S3CanonicalUserId
 
+    LexWebUIResponseHeaderPolicy:
+      Type : "AWS::CloudFront::ResponseHeadersPolicy"
+      Properties: 
+        ResponseHeadersPolicyConfig:
+          Comment: "Response header policy for LexWebUI"
+          Name: "LexWebUIResponseHeaderPolicy"
+          CorsConfig:
+            AccessControlAllowOrigins:
+              Items:
+                - !If
+                  - NeedsParentOrigin
+                  - "*"
+                  - !Ref ParentOrigin
+            AccessControlAllowHeaders:
+              Items:
+                - "*"
+            AccessControlAllowMethods:
+              Items:
+                -  "GET"
+            AccessControlAllowCredentials: False
+            AccessControlMaxAgeSec: 600
+            OriginOverride: true
+          SecurityHeadersConfig:
+            XSSProtection:
+              Override: False
+              Protection: True
+              ModeBlock: True
+            ReferrerPolicy:
+              Override: False
+              ReferrerPolicy: "strict-origin-when-cross-origin"
+            ContentTypeOptions:
+                Override: false
+            StrictTransportSecurity:
+              Override: False
+              IncludeSubdomains: True
+              Preload: False
+              AccessControlMaxAgeSec: 47304000
+
     LexWebUiDistribution:
         Type: AWS::CloudFront::Distribution
         DependsOn:
         - WebAppBucket
-        - LexWebUiCloudFrontDistributionLogsBucket
         Properties:
           DistributionConfig:
             Origins:
@@ -477,6 +517,7 @@ Resources:
               CachePolicyId: "658327ea-f89d-4fab-a63d-7e88639e58f6"
               OriginRequestPolicyId: "88a5eaf4-2fd4-4709-b370-b4c650ea3fcf"
               ViewerProtocolPolicy: redirect-to-https
+              ResponseHeadersPolicyId: !GetAtt LexWebUIResponseHeaderPolicy.Id
             ViewerCertificate:
               CloudFrontDefaultCertificate: true
             HttpVersion: http2

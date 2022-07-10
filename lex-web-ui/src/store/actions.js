@@ -813,10 +813,18 @@ export default {
     }
 
     context.commit('setLiveChatStatus', liveChatStatus.INITIALIZING);
+    console.log(context.state.lex);
+    const attributesToSend = Object.keys(context.state.lex.sessionAttributes).filter(function(k) {
+        return k.startsWith('connect_') || k === "topic";
+    }).reduce(function(newData, k) {
+        newData[k] = context.state.lex.sessionAttributes[k];
+        return newData;
+    }, {}); 
 
     const initiateChatRequest = {
+      Attributes: attributesToSend,
       ParticipantDetails: {
-        DisplayName: context.getters.liveChatUserName(),
+        DisplayName: context.getters.liveChatUserName()
       },
       ContactFlowId: context.state.config.connect.contactFlowId,
       InstanceId: context.state.config.connect.instanceId,
