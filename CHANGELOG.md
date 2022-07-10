@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.5] - 2022-07-11
+- Updated README to be more clear
+- Updated Connect chat README
+- Add the ability to send Lex session attributes prefixed with `connect_` to Connect chat
+- Fix issue with master pipeline template not working properly for Lex V2 bots
+- Fix issue where Connect agent and chat user have same name
+- Bump dependencies
+
 ## [0.19.4] - 2022-03-05
 - Add setSessionAttribute function to iframe api, add optional messageType parameter to postText function. 
 - Add the ability to manually configure a help message in lex-web-ui-loader-config.json per locale. This message is displayed in response to clicking the help button rather then sending to the lex bot. In addition, the last message from the bot can be re-displayed after the help message giving the user context on next action again
