@@ -440,13 +440,13 @@ Resources:
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/pipeline.yaml"
             Parameters:
                 BotName:
-                  !If
-                    - IsLexV2
-                    - !Ref LexV2BotId
-                    - !If
-                        - NeedsBot
-                        - !GetAtt Bot.Outputs.BotName
-                        - !Ref BotName
+                  #!If
+                  #  - IsLexV2
+                  #  - !Ref LexV2BotId
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotName
+                      - !Ref BotName
                 BotAlias: !Ref BotAlias
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
@@ -461,6 +461,7 @@ Resources:
                       - !Ref CognitoIdentityPoolId
                 ParentOrigin: !Ref WebAppParentOrigin
                 CustomResourceCodeBucket: !Ref BootstrapBucket
+                CustomResourceCodePrefix: !Ref BootstrapPrefix
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.4.zip"
                 InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.19.4.zip"
                 CleanupBuckets: !Ref CleanupBuckets
