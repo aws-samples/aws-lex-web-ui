@@ -180,6 +180,10 @@ const configDefault = {
     // list after the bot dialog is done (i.e. fail or fulfilled)
     pushInitialTextOnRestart: true,
 
+    // send initial utterance only when history doesn't exist
+    // this option is effective when the saveHistory option is true
+    sendInitialUtteranceWhenSaveHistory: true,
+
     // controls if the Lex sessionAttributes should be re-initialized
     // to the config value (i.e. lex.sessionAttributes)
     // after the bot dialog is done (i.e. fail or fulfilled)

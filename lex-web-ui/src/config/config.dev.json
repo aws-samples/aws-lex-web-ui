@@ -37,6 +37,7 @@
     "minButtonContent": "",
     "hideInputFieldsForButtonResponse": false,
     "pushInitialTextOnRestart": false,
+    "sendInitialUtteranceWhenSaveHistory": true,
     "directFocusToBotInput": false,
     "showDialogStateIcon": false,
     "backButton": false,
