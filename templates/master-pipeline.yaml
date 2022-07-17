@@ -175,7 +175,7 @@ Parameters:
         - true
         - false
         Description: >
-            Attach chat transcript as file. This only works if you enable
+            Attach chat transcript as file. This only works if you enable attachments in Amazon Connect.
 
     ConnectLiveChatTerms:
         Type: String
