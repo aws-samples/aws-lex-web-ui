@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fix issue with master pipeline template not working properly for Lex V2 bots
 - Fix issue where Connect agent and chat user have same name
 - Bump dependencies
+- Custom CloudFront response policy that allows iFrame embedding
+- Changed attaching Amazon Connect chat transcripts to false by default
 
 ## [0.19.4] - 2022-03-05
 - Add setSessionAttribute function to iframe api, add optional messageType parameter to postText function. 

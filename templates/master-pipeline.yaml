@@ -170,7 +170,7 @@ Parameters:
 
     ConnectAttachChatTranscript:
         Type: String
-        Default: true
+        Default: false
         AllowedValues:
         - true
         - false
@@ -314,6 +314,7 @@ Parameters:
             This is an optional parameter, when defined with a value, a help button will display on the chat bot toolbar.
             When pressed the button will send the entered string to the bot as a help message.  If left empty
             the help button will be disabled.
+
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -438,6 +439,7 @@ Resources:
         Properties:
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/pipeline.yaml"
             Parameters:
+                ResourcePrefix: !Ref "AWS::StackName"
                 BotName:
                   #!If
                   #  - IsLexV2
@@ -501,7 +503,7 @@ Resources:
                 CodeBuildProjectName: !Ref CodeBuildName
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1649448888
+                Timestamp: 1658027408
 
 Outputs:
     BotName:

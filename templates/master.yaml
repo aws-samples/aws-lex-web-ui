@@ -370,7 +370,7 @@ Parameters:
 
     ConnectAttachChatTranscript:
         Type: String
-        Default: true
+        Default: false
         AllowedValues:
         - true
         - false
@@ -522,6 +522,7 @@ Resources:
         Properties:
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/codebuild-deploy.yaml"
             Parameters:
+                ResourcePrefix: !Ref "AWS::StackName"
                 CodeBuildName: !Ref CodeBuildName
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
@@ -588,7 +589,7 @@ Resources:
                 ConnectChatEndedMessage: !Ref ConnectChatEndedMessage
                 ConnectAttachChatTranscript: !Ref ConnectAttachChatTranscript
                 ConnectLiveChatTerms: !Ref ConnectLiveChatTerms
-                Timestamp: 1649448888
+                Timestamp: 1658027408
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -602,7 +603,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1649448888
+                Timestamp: 1658027408
 
 Outputs:
     BotName:
