@@ -172,14 +172,19 @@ export default class {
                 res.responseCardLexV2.push(newCard);
               } else {
                 /* eslint-disable no-lonely-if */
-                if (mes.contentType) { // push v1 style messages for use in the UI
-                  const v1Format = { type: mes.contentType, value: mes.content };
+                if (mes.contentType) {
+                  // push a v1 style messages for use in the UI along with a special property which indicates if
+                  // this is the last message in this response. "isLastMessageInGroup" is used to indicate when
+                  // an image response card can be displayed.
+                  const v1Format = { type: mes.contentType, value: mes.content, isLastMessageInGroup: "false" };
                   finalMessages.push(v1Format);
                 }
               }
             });
           }
           if (finalMessages.length > 0) {
+            // for the last message in the group, set the isLastMessageInGroup to "true"
+            finalMessages[finalMessages.length-1].isLastMessageInGroup = "true";
             const msg = `{"messages": ${JSON.stringify(finalMessages)} }`;
             res.message = msg;
           } else {

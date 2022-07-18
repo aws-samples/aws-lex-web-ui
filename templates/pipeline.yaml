@@ -77,6 +77,7 @@ Parameters:
         also enter your Bot alias ID in the LexV2BotAliasId field below.
       Type: String
       Default: ''
+      MinLength: 0
       MaxLength: 50
       AllowedPattern: '(^$|^[a-zA-Z0-9]+((_[a-zA-Z0-9]+)*|([a-zA-Z0-9]+_)*|_))'
       ConstraintDescription: >
@@ -105,28 +106,31 @@ Parameters:
       MaxLength: 50
 
     BotName:
-        Type: String
         Description: >
-            Name of Lex bot to be used in the web app configuration.
-        MinLength: 2
+            Name of an existing Lex Bot to be used by the web ui. NOTE: You must
+            also enter your published bot alias in the BotAlias field below. DO NOT MODIFY this value if
+            configuring a V2 Bot.
+        Type: String
+        Default: ''
+        MinLength: 0
         MaxLength: 50
-        AllowedPattern: '^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)'
+        AllowedPattern: '(^$|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_))'
         ConstraintDescription: >
             Must conform with the permitted Lex Bot name pattern.
 
     BotAlias:
-      Description: >
-        WARNING: For production deployments, use your bot's published alias here.
-        The $LATEST alias should only be used for manual testing. Amazon Lex limits
-        the number of runtime requests that you can make to the $LATEST version of
-        the bot.
-      Type: String
-      Default: '$LATEST'
-      MinLength: 2
-      MaxLength: 50
-      AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
-      ConstraintDescription: >
-        Must conform with the permitted Lex Alias name pattern.
+        Description: >
+            WARNING: For production deployments, use your bot's published alias here.
+            The $LATEST alias should only be used for manual testing. Amazon Lex limits
+            the number of runtime requests that you can make to the $LATEST version of
+            the bot. DO NOT MODIFY this value if configuring a V2 Bot.
+        Type: String
+        Default: '$LATEST'
+        MinLength: 2
+        MaxLength: 50
+        AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
+        ConstraintDescription: >
+            Must conform with the permitted Lex Alias name pattern.
 
     ParentOrigin:
         Type: String
@@ -267,6 +271,12 @@ Parameters:
       Description: >
         Command separated list of terms that can be used to start Live Chat mode
       Default: "live chat"
+
+    ResourcePrefix:
+      Type: String
+      Description: >
+          This will be a prefix for resources that must have unique names.
+
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
@@ -276,6 +286,7 @@ Resources:
     # Bucket where S3 access logs are stored
     S3ServerAccessLogs:
       Type: AWS::S3::Bucket
+      UpdateReplacePolicy: Retain
       DeletionPolicy: Retain
       Properties:
         VersioningConfiguration:
@@ -289,6 +300,7 @@ Resources:
     # Artifact Bucket used by CodePipeline and CodBuild
     ArtifactStore:
         Type: AWS::S3::Bucket
+        UpdateReplacePolicy: Retain
         DeletionPolicy: Retain
         Properties:
             VersioningConfiguration:
@@ -304,6 +316,7 @@ Resources:
     # Bucket where the web app is deployed
     WebAppBucket:
         Type: AWS::S3::Bucket
+        UpdateReplacePolicy: Retain
         DeletionPolicy: Retain
         Properties:
             WebsiteConfiguration:
@@ -342,6 +355,7 @@ Resources:
   # Bucket for CloudFrontDistributionLogs
     LexWebUiCloudFrontDistributionLogsBucket:
         Type: AWS::S3::Bucket
+        UpdateReplacePolicy: Retain
         DeletionPolicy: Retain
         Properties:
           VersioningConfiguration:
@@ -351,12 +365,49 @@ Resources:
               - ServerSideEncryptionByDefault:
                   SSEAlgorithm: AES256
 
+    LexWebUIResponseHeaderPolicy:
+      Type : "AWS::CloudFront::ResponseHeadersPolicy"
+      Properties: 
+        ResponseHeadersPolicyConfig:
+          Comment: "Response header policy for LexWebUI"
+          Name: !Join ["-", [!Ref ResourcePrefix, "LexWebUIResponseHeaderPolicy"]] 
+          CorsConfig:
+            AccessControlAllowOrigins:
+              Items:
+                - !If
+                  - NeedsParentOrigin
+                  - "*"
+                  - !Ref ParentOrigin
+            AccessControlAllowHeaders:
+              Items:
+                - "*"
+            AccessControlAllowMethods:
+              Items:
+                -  "GET"
+            AccessControlAllowCredentials: False
+            AccessControlMaxAgeSec: 600
+            OriginOverride: true
+          SecurityHeadersConfig:
+            XSSProtection:
+              Override: False
+              Protection: True
+              ModeBlock: True
+            ReferrerPolicy:
+              Override: False
+              ReferrerPolicy: "strict-origin-when-cross-origin"
+            ContentTypeOptions:
+                Override: false
+            StrictTransportSecurity:
+              Override: False
+              IncludeSubdomains: True
+              Preload: False
+              AccessControlMaxAgeSec: 47304000
+
     #cloudfront distribution            
     LexWebUiDistribution:
         Type: AWS::CloudFront::Distribution
         DependsOn:
         - WebAppBucket
-        - LexWebUiCloudFrontDistributionLogsBucket
         Properties:
           DistributionConfig:
             Origins:
@@ -396,16 +447,17 @@ Resources:
               CachePolicyId: "658327ea-f89d-4fab-a63d-7e88639e58f6"
               OriginRequestPolicyId: "88a5eaf4-2fd4-4709-b370-b4c650ea3fcf"
               ViewerProtocolPolicy: redirect-to-https
+              ResponseHeadersPolicyId: !GetAtt LexWebUIResponseHeaderPolicy.Id
             ViewerCertificate:
               CloudFrontDefaultCertificate: true
             HttpVersion: http2
             IPV6Enabled: true
 
-
     # Bucket where the test parent page is hosted
     ParentPageBucket:
         Type: AWS::S3::Bucket
         Condition: NeedsParentOrigin
+        UpdateReplacePolicy: Retain
         DeletionPolicy: Retain
         Properties:
             WebsiteConfiguration:

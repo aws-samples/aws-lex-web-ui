@@ -49,35 +49,44 @@ export const initLiveChatHandlers = (context, session) => {
     let type = '';
     switch (data.ContentType) {
       case 'application/vnd.amazonaws.connect.event.participant.joined':
-        if (data.DisplayName !== context.state.liveChat.username) {
-          context.dispatch('liveChatAgentJoined');
-          context.commit('setIsLiveChatProcessing', false);
-          context.dispatch('pushLiveChatMessage', {
-            type: 'agent',
-            text: context.state.config.connect.agentJoinedMessage.replaceAll("{Agent}", data.DisplayName),
-          });
-
-          const transcriptArray = context.getters.liveChatTextTranscriptArray();
-          transcriptArray.forEach((text, index) => {
-            var formattedText = "Bot Transcript: (" + (index + 1).toString() + "\\" + transcriptArray.length + ")\n" + text;
-            sendChatMessageWithDelay(session, formattedText, index * 150);
-            console.info((index + 1).toString() + "-" + formattedText);
-          });
-
-          if(context.state.config.connect.attachChatTranscript &&
-            (context.state.config.connect.attachChatTranscript === 'true'
-              || context.state.config.connect.attachChatTranscript === true )
-          ) {
-            console.info("Sending chat transcript.");
-            var textFile = context.getters.liveChatTranscriptFile();
-            session.controller.sendAttachment({
-              attachment: textFile
-            }).then(response => {
-              console.info("Transcript sent.");
-            }, reason => {
-              console.info("Error sending transcript.");
+        switch (data.ParticipantRole) {
+          case 'SYSTEM':
+            context.commit('setIsLiveChatProcessing', false);
+            break;
+          case 'AGENT':
+            context.dispatch('liveChatAgentJoined');
+            context.commit('setIsLiveChatProcessing', false);
+            context.dispatch('pushLiveChatMessage', {
+              type: 'agent',
+              text: context.state.config.connect.agentJoinedMessage.replaceAll("{Agent}", data.DisplayName),
             });
-          }
+  
+            const transcriptArray = context.getters.liveChatTextTranscriptArray();
+            transcriptArray.forEach((text, index) => {
+              var formattedText = "Bot Transcript: (" + (index + 1).toString() + "\\" + transcriptArray.length + ")\n" + text;
+              sendChatMessageWithDelay(session, formattedText, index * 150);
+              console.info((index + 1).toString() + "-" + formattedText);
+            });
+  
+            if(context.state.config.connect.attachChatTranscript &&
+              (context.state.config.connect.attachChatTranscript === 'true'
+                || context.state.config.connect.attachChatTranscript === true )
+            ) {
+              console.info("Sending chat transcript.");
+              var textFile = context.getters.liveChatTranscriptFile();
+              session.controller.sendAttachment({
+                attachment: textFile
+              }).then(response => {
+                console.info("Transcript sent.");
+              }, reason => {
+                console.info("Error sending transcript.");
+              });
+            }
+            break;
+          case 'CUSTOMER':
+            break;
+          default:
+            break;
         }
         break;
       case 'application/vnd.amazonaws.connect.event.participant.left':

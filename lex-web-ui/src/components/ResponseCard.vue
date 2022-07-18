@@ -8,6 +8,9 @@
     <v-card-text v-if="responseCard.subTitle">
       <span>{{responseCard.subTitle}}</span>
     </v-card-text>
+    <v-card-text v-if="responseCard.subtitle">
+      <span>{{responseCard.subtitle}}</span>
+    </v-card-text>
     <v-card-media
       v-if="responseCard.imageUrl"
       v-bind:src="responseCard.imageUrl"

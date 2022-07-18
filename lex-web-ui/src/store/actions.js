@@ -481,9 +481,9 @@ export default {
         return Promise.resolve();
       })
       .then(() => {
-        const liveChatTerms = context.state.config.connect.liveChatTerms ? context.state.config.connect.liveChatTerms.split(',').map(str => str.trim()) : [];
-        if (context.state.config.ui.enableLiveChat && 
-          liveChatTerms.find(el => el === message.text.toLowerCase()) && 
+        const liveChatTerms = context.state.config.connect.liveChatTerms ? context.state.config.connect.liveChatTerms.toLowerCase().split(',').map(str => str.trim()) : [];
+        if (context.state.config.ui.enableLiveChat &&
+          liveChatTerms.find(el => el === message.text.toLowerCase()) &&
           context.state.chatMode === chatMode.BOT) {
           return context.dispatch('requestLiveChat');
         } else if (context.state.liveChat.status === liveChatStatus.REQUEST_USERNAME) {
@@ -532,6 +532,7 @@ export default {
                     'pushMessage',
                     {
                       text: mes.value ? mes.value : mes.content ? mes.content : "",
+                      isLastMessageInGroup: mes.isLastMessageInGroup ? mes.isLastMessageInGroup : "true",
                       type: 'bot',
                       dialogState: context.state.lex.dialogState,
                       responseCard: tmsg.messages.length - 1 === index // attach response card only
@@ -812,10 +813,18 @@ export default {
     }
 
     context.commit('setLiveChatStatus', liveChatStatus.INITIALIZING);
+    console.log(context.state.lex);
+    const attributesToSend = Object.keys(context.state.lex.sessionAttributes).filter(function(k) {
+        return k.startsWith('connect_') || k === "topic";
+    }).reduce(function(newData, k) {
+        newData[k] = context.state.lex.sessionAttributes[k];
+        return newData;
+    }, {}); 
 
     const initiateChatRequest = {
+      Attributes: attributesToSend,
       ParticipantDetails: {
-        DisplayName: context.getters.liveChatUserName(),
+        DisplayName: context.getters.liveChatUserName()
       },
       ContactFlowId: context.state.config.connect.contactFlowId,
       InstanceId: context.state.config.connect.instanceId,

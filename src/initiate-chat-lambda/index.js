@@ -41,22 +41,16 @@ function startChatContact(body) {
         }
     }
     
-    let topic = "";
+    let attributes = "";
     if (body.hasOwnProperty("Attributes")) {
-        if (body["Attributes"].hasOwnProperty("topic")) {
-            topic = body["Attributes"]["topic"];
-        }
-                    
+        attributes = body["Attributes"];
     }
 
     return new Promise(function(resolve, reject) {
         const startChat = {
             "InstanceId": instanceId == "" ? process.env.INSTANCE_ID : instanceId,
             "ContactFlowId": contactFlowId == "" ? process.env.CONTACT_FLOW_ID : contactFlowId,
-            "Attributes": {
-                "customerName": body["ParticipantDetails"]["DisplayName"],
-                "topic" : topic
-            },
+            "Attributes": attributes,
             "ParticipantDetails": {
                 "DisplayName": body["ParticipantDetails"]["DisplayName"]
             }

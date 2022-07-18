@@ -170,12 +170,12 @@ Parameters:
 
     ConnectAttachChatTranscript:
         Type: String
-        Default: true
+        Default: false
         AllowedValues:
         - true
         - false
         Description: >
-            Attach chat transcript as file. This only works if you enable
+            Attach chat transcript as file. This only works if you enable attachments in Amazon Connect.
 
     ConnectLiveChatTerms:
         Type: String
@@ -314,6 +314,7 @@ Parameters:
             This is an optional parameter, when defined with a value, a help button will display on the chat bot toolbar.
             When pressed the button will send the entered string to the bot as a help message.  If left empty
             the help button will be disabled.
+
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -374,7 +375,6 @@ Conditions:
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
-    EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
 
 Resources:
     Bot:
@@ -439,14 +439,15 @@ Resources:
         Properties:
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/pipeline.yaml"
             Parameters:
+                ResourcePrefix: !Ref "AWS::StackName"
                 BotName:
-                  !If
-                    - IsLexV2
-                    - !Ref LexV2BotId
-                    - !If
-                        - NeedsBot
-                        - !GetAtt Bot.Outputs.BotName
-                        - !Ref BotName
+                  #!If
+                  #  - IsLexV2
+                  #  - !Ref LexV2BotId
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotName
+                      - !Ref BotName
                 BotAlias: !Ref BotAlias
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
@@ -461,6 +462,7 @@ Resources:
                       - !Ref CognitoIdentityPoolId
                 ParentOrigin: !Ref WebAppParentOrigin
                 CustomResourceCodeBucket: !Ref BootstrapBucket
+                CustomResourceCodePrefix: !Ref BootstrapPrefix
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.4.zip"
                 InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.19.4.zip"
                 CleanupBuckets: !Ref CleanupBuckets
@@ -501,7 +503,7 @@ Resources:
                 CodeBuildProjectName: !Ref CodeBuildName
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1646508613
+                Timestamp: 1658027408
 
 Outputs:
     BotName:
