@@ -588,7 +588,7 @@ Resources:
                 ConnectChatEndedMessage: !Ref ConnectChatEndedMessage
                 ConnectAttachChatTranscript: !Ref ConnectAttachChatTranscript
                 ConnectLiveChatTerms: !Ref ConnectLiveChatTerms
-                Timestamp: 1649448888
+                Timestamp: 1658248467
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -602,7 +602,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1649448888
+                Timestamp: 1658248467
 
 Outputs:
     BotName:

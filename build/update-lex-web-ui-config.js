@@ -9,6 +9,9 @@
  */
 const fs = require('fs');
 const config = require('../config');
+const {exec} = require("child_process");
+const path = require("path");
+let revisedConfig;
 
 // dump relevant env vars
 [
@@ -61,5 +64,23 @@ Object.keys(config)
     }
     console.log('[INFO] Updated file: ', item.file);
     console.log('[INFO] Config contents: ', JSON.stringify(item.conf));
+    revisedConfig = item.conf;
+    if (revisedConfig.lex && revisedConfig.lex.initialSpeechInstruction && revisedConfig.lex.initialSpeechInstruction.length > 0) {
+      const {exec} = require("child_process");
+      const path = require('path');
+      const configDir = path.parse(item.file).dir;
+      console.log('[INFO] Config dir is: ', configDir);
+      // always generate an en_US mp3 if initial speech is defined
+      let cmd = `aws polly synthesize-speech --text "${revisedConfig.lex.initialSpeechInstruction.replace(/['"]+/g, '')}" --language-code "en-US" --voice-id "${revisedConfig.polly.voiceId}"  --output-format mp3 --text-type text "${configDir}/initial_speech.mp3"`
+      exec(cmd, (error, stdout, stderr) => {
+        if (error) {
+          console.log(`error: ${error.message}`);
+        }
+        if (stderr) {
+          console.log(`stderr: ${stderr}`);
+        }
+        console.log(`stdout: ${stdout}`);
+      });
+    }
   });
 });
