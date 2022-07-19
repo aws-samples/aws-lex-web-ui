@@ -4,13 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.19.5] - 2022-07-11
+## [0.19.5] - 2022-07-17
 - Updated README to be more clear
 - Updated Connect chat README
 - Add the ability to send Lex session attributes prefixed with `connect_` to Connect chat
 - Fix issue with master pipeline template not working properly for Lex V2 bots
 - Fix issue where Connect agent and chat user have same name
 - Bump dependencies
+- Custom CloudFront response policy that allows iFrame embedding
+- Changed attaching Amazon Connect chat transcripts to false by default
 
 ## [0.19.4] - 2022-03-05
 - Add setSessionAttribute function to iframe api, add optional messageType parameter to postText function. 

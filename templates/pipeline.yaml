@@ -271,6 +271,12 @@ Parameters:
       Description: >
         Command separated list of terms that can be used to start Live Chat mode
       Default: "live chat"
+
+    ResourcePrefix:
+      Type: String
+      Description: >
+          This will be a prefix for resources that must have unique names.
+
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
@@ -364,7 +370,7 @@ Resources:
       Properties: 
         ResponseHeadersPolicyConfig:
           Comment: "Response header policy for LexWebUI"
-          Name: "LexWebUIResponseHeaderPolicy"
+          Name: !Join ["-", [!Ref ResourcePrefix, "LexWebUIResponseHeaderPolicy"]] 
           CorsConfig:
             AccessControlAllowOrigins:
               Items:

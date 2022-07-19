@@ -355,6 +355,11 @@ Parameters:
           This is a required parameter. It defines a timestamp allow the codebuild to execute as long as the
           timestamp from master.yaml and master-pipeline.yaml varies.
 
+    ResourcePrefix:
+        Type: String
+        Description: >
+          This will be a prefix for resources that must have unique names.
+
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
@@ -441,7 +446,7 @@ Resources:
       Properties: 
         ResponseHeadersPolicyConfig:
           Comment: "Response header policy for LexWebUI"
-          Name: "LexWebUIResponseHeaderPolicy"
+          Name: !Join ["-", [!Ref ResourcePrefix, "LexWebUIResponseHeaderPolicy"]] 
           CorsConfig:
             AccessControlAllowOrigins:
               Items:
