@@ -644,7 +644,14 @@ Resources:
                                     - NeedsParentOrigin
                                     - !Sub "arn:aws:s3:::${ParentPageBucket}/*"
                                     - !Ref AWS::NoValue
-
+                - PolicyName: PollySynthesizeSpeech
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - polly:SynthesizeSpeech
+                            Resource: "*"
     CodePipeline:
         Type: AWS::CodePipeline::Pipeline
         Properties:
