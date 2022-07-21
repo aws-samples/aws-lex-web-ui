@@ -428,7 +428,8 @@ export default {
       .then(audioUrl => context.dispatch('playAudio', audioUrl));
   },
   pollySynthesizeInitialSpeech(context) {
-    return fetch(`./initial_speech.mp3`)
+    const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : context.state.config.lex.v2BotLocaleId.split(',')[0];
+    return fetch(`./initial_speech_${localeId}.mp3`)
       .then(data => data.blob())
       .then(blob => context.dispatch('getAudioUrl', blob))
       .then(audioUrl => context.dispatch('playAudio', audioUrl));

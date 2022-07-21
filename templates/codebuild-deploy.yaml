@@ -782,6 +782,15 @@ Resources:
                             Action:
                                 - polly:SynthesizeSpeech
                             Resource: "*"
+                - PolicyName: TranslateText
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - translate:TranslateText
+                                - comprehend:DetectDominantLanguage
+                            Resource: "*"
                 - PolicyName: CloudWatchLogsCodeBuild
                   PolicyDocument:
                       Version: 2012-10-17

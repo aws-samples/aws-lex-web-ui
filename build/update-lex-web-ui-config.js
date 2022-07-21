@@ -13,6 +13,105 @@ const {exec} = require("child_process");
 const path = require("path");
 let revisedConfig;
 
+/**
+ * lexV2BotLocaleVoices maps lex v2 locale IDs to support voices to be used when creating initial speech mp3 files.
+ * The mapping identifies a voiceId, an engine, and a languageCode to use when executing aws polly CLI. Over time
+ * the set of supported localeId to Voices may be expanded. An empty string for a languageCode indicates that polly
+ * does not support a language code for this locale.
+ */
+const lexV2BotLocaleVoices = {
+  "de_AT": {
+    "voiceId": "Vicki",
+    "engine": "neural",
+    "languageCode": "de-AT"
+  },
+  "de_DE": {
+    "voiceId": "Vicki",
+    "engine": "neural",
+    "languageCode": "de-DE"
+  },
+  "en_AU": {
+    "voiceId": "Olivia",
+    "engine": "neural",
+    "languageCode": "en-AU"
+  },
+  "en_GB": {
+    "voiceId": "Amy",
+    "engine": "neural",
+    "languageCode": "en-GB"
+  },
+  "en_IN": {
+    "voiceId": "Aditi",
+    "engine": "standard",
+    "languageCode": "en-IN"
+  },
+  "en_US": {
+    "voiceId": "Joanna",
+    "engine": "neural",
+    "languageCode": "en-US"
+  },
+  "en_ZA": {
+    "voiceId": "Ayanda",
+    "engine": "neural",
+    "languageCode": "en-ZA"
+  },
+  "es_419": {
+    "voiceId": "Mia",
+    "engine": "standard",
+    "languageCode": ""
+  },
+  "es_ES": {
+    "voiceId": "Lucia",
+    "engine": "neural",
+    "languageCode": "es-ES"
+  },
+  "es_US": {
+    "voiceId": "Lupe",
+    "engine": "neural",
+    "languageCode": "es-US"
+  },
+  "fr_CA": {
+    "voiceId": "Gabrielle",
+    "engine": "neural",
+    "languageCode": "fr-CA"
+  },
+  "fr_FR": {
+    "voiceId": "Lea",
+    "engine": "neural",
+    "languageCode": "fr-FR"
+  },
+  "it_IT": {
+    "voiceId": "Bianca",
+    "engine": "neural",
+    "languageCode": "it-IT"
+  },
+  "ja_JP": {
+    "voiceId": "Takumi",
+    "engine": "neural",
+    "languageCode": "ja-JP"
+  },
+  "ko_KR": {
+    "voiceId": "Seoyeon",
+    "engine": "neural",
+    "languageCode": "ko-KR"
+  },
+  "pt_BR": {
+    "voiceId": "Camila",
+    "engine": "neural",
+    "languageCode": ""
+  },
+  "pt_PT": {
+    "voiceId": "Cristiano",
+    "engine": "standard",
+    "languageCode": "pt-PT"
+  },
+  "zh_CN": {
+    "voiceId": "Zhiyu",
+    "engine": "standard",
+    "languageCode": ""
+  }
+};
+
 // dump relevant env vars
 [
   'AWS_DEFAULT_REGION',
@@ -71,7 +170,7 @@ Object.keys(config)
       const configDir = path.parse(item.file).dir;
       console.log('[INFO] Config dir is: ', configDir);
       // always generate an en_US mp3 if initial speech is defined
-      let cmd = `aws polly synthesize-speech --text "${revisedConfig.lex.initialSpeechInstruction.replace(/['"]+/g, '')}" --language-code "en-US" --voice-id "${revisedConfig.polly.voiceId}"  --output-format mp3 --text-type text "${configDir}/initial_speech.mp3"`
+      const cmd = `aws polly synthesize-speech --text "${revisedConfig.lex.initialSpeechInstruction.replace(/['"]+/g, '')}" --language-code "en-US" --voice-id "${revisedConfig.polly.voiceId}"  --output-format mp3 --text-type text "${configDir}/initial_speech_en_US.mp3"`
       exec(cmd, (error, stdout, stderr) => {
         if (error) {
           console.log(`error: ${error.message}`);
@@ -80,6 +179,48 @@ Object.keys(config)
           console.log(`stderr: ${stderr}`);
         }
         console.log(`stdout: ${stdout}`);
+      });
+      // Iterate through the map of the configured v2BotLocaleIds and generate mp3 files with initial speech.
+      // This is only supported for LexV2 bots.
+      revisedConfig.lex.v2BotLocaleId.split(",").map((origLocaleId) => {
+        let targetPollyVoiceConfig = lexV2BotLocaleVoices[origLocaleId];
+        if (targetPollyVoiceConfig && origLocaleId !== 'en_US') {
+          // translate the english text defined in CF template to the target language.
+          const targetTranslateLang = origLocaleId.split("_")[0];
+          const translateCmd = `aws translate translate-text --text "${revisedConfig.lex.initialSpeechInstruction}" --source-language-code auto --target-language-code ${targetTranslateLang} --output json --query 'TranslatedText'`
+          exec(translateCmd, (error, stdout, stderr) => {
+            if (error) {
+              console.log(`error: ${error.message}`);
+            }
+            if (stderr) {
+              console.log(`stderr: ${stderr}`);
+            }
+            console.log(`stdout: ${stdout.trim()}`);
+            // if a language code for the target locale exists, specify this for the polly command
+            let lcDefinition = (targetPollyVoiceConfig.languageCode.length > 0) ? `--language-code ${targetPollyVoiceConfig.languageCode}` : '';
+            const pollyCmd = `aws polly synthesize-speech --text ${stdout.trim()} ${lcDefinition} --voice-id "${targetPollyVoiceConfig.voiceId}"  --engine "${targetPollyVoiceConfig.engine}" --output-format mp3 --text-type text "${configDir}/initial_speech_${origLocaleId}.mp3"`
+            exec(pollyCmd, (error, stdout, stderr) => {
+              if (error) {
+                console.log(`error: ${error.message}`);
+              }
+              if (stderr) {
+                console.log(`stderr: ${stderr}`);
+              }
+              console.log(`stdout: ${stdout}`);
+            });
+          });
+        } else { // the specified local can't be translated as it is not in the map. Generate an english version for this locale.
+          const defaultPollyCmd = `aws polly synthesize-speech --text "${revisedConfig.lex.initialSpeechInstruction.replace(/['"]+/g, '')}" --language-code "en-US" --voice-id "${revisedConfig.polly.voiceId}"  --output-format mp3 --text-type text "${configDir}/initial_speech_${origLocaleId}.mp3"`
+          exec(defaultPollyCmd, (error, stdout, stderr) => {
+            if (error) {
+              console.log(`error: ${error.message}`);
+            }
+            if (stderr) {
+              console.log(`stderr: ${stderr}`);
+            }
+            console.log(`stdout: ${stdout}`);
+          });
+        }
       });
     }
   });
