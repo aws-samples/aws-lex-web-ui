@@ -20,6 +20,7 @@
   "dependencies": {
     "amazon-connect-chatjs": "^1.1.7",
     "aws-sdk": "^2.903.0",
+    "chokidar": "^3.5.3",
     "core-js": "^3.6.5",
     "jsonwebtoken": "^8.5.1",
     "marked": "^4.0.12",
@@ -27,8 +28,9 @@
     "roboto-fontface": "^0.10.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vuetify": "^0.17.7",
-    "vuex": "^3.4.0"
+    "vuetify": "^1.5.0",
+    "vuex": "^3.4.0",
+    "vuetify-datetime-picker": "^2.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.12",
