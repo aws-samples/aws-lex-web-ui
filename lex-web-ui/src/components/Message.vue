@@ -26,10 +26,10 @@
               >
                 <message-text
                   v-bind:message="message"
-                  v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayAsJson"
+                  v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayInteractiveMessage"
                 ></message-text>
                 <div
-                  v-if="shouldDisplayAsJson && message.interactiveMessage.templateType == 'ListPicker'">
+                  v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'ListPicker'">
                   <v-img
                     :src="message.interactiveMessage.data.content.imageData"
                   ></v-img>
@@ -56,7 +56,7 @@
                   </v-list>
                 </div>
                 <div
-                  v-if="shouldDisplayAsJson && message.interactiveMessage.templateType == 'TimePicker'">
+                  v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'TimePicker'">
                   <v-card-title primary-title>
                     <div>
                       <div class="headline">{{message.interactiveMessage.data.content.title}}</div>
@@ -84,7 +84,7 @@
                   </v-list>
                 </div>
                 <div
-                  v-if="shouldDisplayAsJson && message.interactiveMessage.templateType == 'DateTimePicker'">
+                  v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'DateTimePicker'">
                   <v-toolbar-title>{{message.interactiveMessage.data.content.title}}</v-toolbar-title>
                   <v-datetime-picker 
                     v-model="datetime"
@@ -305,9 +305,16 @@ export default {
         && this.message.responseCardsLexV2.length > 0
       );
     },
-    shouldDisplayAsJson() {
-      try {
+    shouldDisplayInteractiveMessage() {
+      try {           
           this.message.interactiveMessage = JSON.parse(this.message.text);
+          
+          // Considering anything with the templateType property on a valid JSON object to be an interactive message
+          if (!this.message.interactiveMessage.hasOwnProperty("templateType"))
+          {
+            return false;
+          }
+
           if (this.message.interactiveMessage.templateType == 'TimePicker')
           {            
             var sortedslots = this.message.interactiveMessage.data.content.timeslots.sort((a, b) => a.date.localeCompare(b.date));
