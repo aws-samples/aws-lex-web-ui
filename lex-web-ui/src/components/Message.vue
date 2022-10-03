@@ -199,7 +199,7 @@
         >
         </response-card>
         </v-flex>
-      </v-flex>     
+      </v-flex>
     </v-layout>
   </v-flex>
 </template>
@@ -225,7 +225,7 @@ export default {
   props: ['message', 'feedback'],
   components: {
     MessageText,
-    ResponseCard
+    ResponseCard,
   },
   data() {
     return {

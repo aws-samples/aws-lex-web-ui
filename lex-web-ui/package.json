@@ -20,7 +20,6 @@
   "dependencies": {
     "amazon-connect-chatjs": "^1.1.7",
     "aws-sdk": "^2.903.0",
-    "chokidar": "^3.5.3",
     "core-js": "^3.6.5",
     "jsonwebtoken": "^8.5.1",
     "marked": "^4.0.12",
