@@ -154,11 +154,19 @@ export default class {
       .then(async () => {
         const res = await postTextReq.promise();
         if (res.sessionState) { // this is v2 response
-          res.intentName = res.sessionState.intent.name;
-          res.slots = res.sessionState.intent.slots;
           res.sessionAttributes = res.sessionState.sessionAttributes;
-          res.dialogState = res.sessionState.intent.state;
-          res.slotToElicit = res.sessionState.dialogAction.slotToElicit;
+          if (res.sessionState.intent) {
+            res.intentName = res.sessionState.intent.name;
+            res.slots = res.sessionState.intent.slots;
+            res.dialogState = res.sessionState.intent.state;
+            res.slotToElicit = res.sessionState.dialogAction.slotToElicit;
+          }
+          else { // Fallback for some responses that do not have an intent (ElicitIntent, etc)
+            res.intentName = res.interpretations[0].intent.name;
+            res.slots = res.interpretations[0].intent.slots;
+            res.dialogState = '';
+            res.slotToElicit = '';
+          }
           const finalMessages = [];
           if (res.messages && res.messages.length > 0) {
             res.messages.forEach((mes) => {
@@ -247,11 +255,19 @@ export default class {
         const res = await postContentReq.promise();
         if (res.sessionState) {
           const oState = b64CompressedToObject(res.sessionState);
-          res.intentName = oState.intent.name;
-          res.slots = oState.intent.slots;
           res.sessionAttributes = oState.sessionAttributes ? oState.sessionAttributes : {};
-          res.dialogState = oState.intent.state;
-          res.slotToElicit = oState.dialogAction.slotToElicit;
+          if (oState.intent) {
+            res.intentName = oState.intent.name;
+            res.slots = oState.intent.slots;
+            res.dialogState = oState.intent.state;
+            res.slotToElicit = oState.dialogAction.slotToElicit;
+          }
+          else {  // Fallback for some responses that do not have an intent (ElicitIntent, etc)
+            res.intentName = oState.interpretations[0].intent.name;
+            res.slots = oState.interpretations[0].intent.slots;
+            res.dialogState = '';
+            res.slotToElicit = '';
+          }          
           res.inputTranscript = res.inputTranscript
             && b64CompressedToString(res.inputTranscript);
           res.interpretations = res.interpretations
