@@ -164,7 +164,7 @@ using CloudFormation parameters. This includes the following parameters:
 - `WebAppConfBotInitialSpeech`: Message spoken by bot when the microphone
 is first pressed in a conversation
 - `WebAppConfToolbarTitle`: Title displayed in the chatbot UI toobar
-- `WebAppConfHelpIntent`: String message sent by help button,  If empty icon will not be displayed in chatbot UI toolbar 
+- `WebAppConfHelp`: String message sent by help button,  If empty icon will not be displayed in chatbot UI toolbar 
 - `WebAppConfNegativeFeedback`: String message sent by the user to signal a negative feedback response if empty icon will not be displayed
 - `WebAppConfPositiveFeedback`: String message sent by the user to signal a positive feedback response if empty icon will not be displayed
 - `EnableMarkdownSupport`: Enables support of Markdown formatting in the UI by 
