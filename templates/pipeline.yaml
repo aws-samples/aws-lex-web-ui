@@ -192,7 +192,7 @@ Parameters:
             a feedback button signaling a positive feedback.
             If left empty feedback buttons will be disabled on the UI.
 
-    WebAppConfHelpIntent:
+    WebAppConfHelp:
         Type: String
         Default: Help
         Description: >
@@ -558,7 +558,7 @@ Resources:
                     - Name: POSITIVE_INTENT
                       Value: !Ref WebAppConfPositiveFeedback
                     - Name: HELP_INTENT
-                      Value: !Ref WebAppConfHelpIntent
+                      Value: !Ref WebAppConfHelp
 
             Source:
                 Type: CODEPIPELINE

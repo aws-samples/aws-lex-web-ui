@@ -307,7 +307,7 @@ Parameters:
             a feedback button signaling a positive feedback.
             If left empty feedback buttons will be disabled on the UI.
 
-    WebAppConfHelpIntent:
+    WebAppConfHelp:
         Type: String
         Default: Help
         Description: >
@@ -355,7 +355,7 @@ Metadata:
                   - WebAppPath
                   - WebAppConfNegativeFeedback
                   - WebAppConfPositiveFeedback
-                  - WebAppConfHelpIntent
+                  - WebAppConfHelp
             - Label:
                 default: Connect Live Chat Parameters
               Parameters:
@@ -478,7 +478,7 @@ Resources:
                       - ''
                 WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
                 WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
-                WebAppConfHelpIntent: !Ref WebAppConfHelpIntent
+                WebAppConfHelp: !Ref WebAppConfHelp
                 HideButtonMessageBubble: !Ref HideButtonMessageBubble
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
                 ConnectContactFlowId: !Ref ConnectContactFlowId

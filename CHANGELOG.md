@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
     * MessageMenu
     * BackButton
     * MinimizedButtonContent
-- Updated parameter from WebAppConfHelp to WebAppConfHelpIntent in order to provide a bit more clarity around its purpose
 
 ## [0.19.5] - 2022-07-17
 - Updated README to be more clear
