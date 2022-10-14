@@ -774,6 +774,23 @@ Resources:
                             Resource:
                                 - !Sub "arn:aws:s3:::${WebAppBucket}"
                                 - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+                - PolicyName: PollySynthesizeSpeech
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - polly:SynthesizeSpeech
+                            Resource: "*"
+                - PolicyName: TranslateText
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - translate:TranslateText
+                                - comprehend:DetectDominantLanguage
+                            Resource: "*"
                 - PolicyName: CloudWatchLogsCodeBuild
                   PolicyDocument:
                       Version: 2012-10-17
