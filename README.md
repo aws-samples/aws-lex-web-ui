@@ -23,6 +23,7 @@ and ability to interrupt responses and replay recordings
 - Display of Lex response cards
 - Ability to programmatically configure and interact with the chatbot
 UI using JavaScript
+- [Connect interactive messaging](https://docs.aws.amazon.com/connect/latest/adminguide/interactive-messages.html) support
 
 # Getting Started
 The easiest way to test drive the chatbot UI is to deploy it using the
@@ -134,6 +135,36 @@ Loading](/src/README.md#chatbot-ui-configuration-loading) section
 of the loader library documentation and the [Configuration and
 Customization](/lex-web-ui/README.#configuration-and-customization)
 section of the chatbot UI component documentation.
+
+### Connect Interactive Messaging
+
+Lex Web UI supports both [ListPicker and TimePicker templateTypes](https://docs.aws.amazon.com/connect/latest/adminguide/interactive-messages.html) and can be sent using the same JSON structure as utilized by Connect. 
+
+ListPicker display in Web UI:
+
+<img src="./img/interactive-message-listpicker.png" width=400>
+
+TimePicker in Web UI:
+
+<img src="./img/interactive-message-datepicker.png" width=350>
+
+Additionally, Lex Web UI supports a DateTimePicker templateType which will give the end user an open-ended selector for a date/time variable to send back to Lex. DateTimePicker format expected:
+
+```
+{
+   "templateType":"TimePicker",                                 (mandatory)
+   "version":"1.0",                                             (mandatory)
+   "data":{                                                     (mandatory)
+      "content":{                                               (mandatory)
+         "title":"Schedule appointment",                       (mandatory)
+      }
+   }
+} 
+```
+
+DateTimePicker  in Web UI:
+
+<img src="./img/interactive-message-datetimepicker.png" width=400>
 
 ## Examples
 The examples below are organized around the following use cases:

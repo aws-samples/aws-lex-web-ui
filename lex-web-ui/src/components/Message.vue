@@ -26,8 +26,73 @@
               >
                 <message-text
                   v-bind:message="message"
-                  v-if="'text' in message && message.text !== null && message.text.length"
+                  v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayInteractiveMessage"
                 ></message-text>
+                <div
+                  v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'ListPicker'">
+                  <v-img
+                    :src="message.interactiveMessage.data.content.imageData"
+                  ></v-img>
+                  <v-card-title primary-title>
+                    <div>
+                      <div class="headline">{{message.interactiveMessage.data.content.title}}</div>
+                      <span>{{message.interactiveMessage.data.content.subtitle}}</span>
+                    </div>
+                  </v-card-title>
+                  <v-list two-line class="message-bubble interactive-row">
+                    <template v-for="(item, index) in message.interactiveMessage.data.content.elements">
+                        <v-list-tile
+                          v-on:click="resendMessage(item.title)" >
+                          <v-list-tile-avatar v-if="item.imageData">
+                            <img :src="item.imageData">
+                          </v-list-tile-avatar>
+                          <v-list-tile-content>
+                            <v-list-tile-title v-html="item.title"></v-list-tile-title>
+                            <v-list-tile-sub-title v-if="item.subtitle" v-html="item.subtitle"></v-list-tile-sub-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                        <v-divider></v-divider>
+                    </template>
+                  </v-list>
+                </div>
+                <div
+                  v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'TimePicker'">
+                  <v-card-title primary-title>
+                    <div>
+                      <div class="headline">{{message.interactiveMessage.data.content.title}}</div>
+                      <span>{{message.interactiveMessage.data.content.subtitle}}</span>
+                    </div>
+                  </v-card-title>
+                  <v-list two-line class="message-bubble interactive-row">
+                    <v-list-group v-for="(item, key) in this.message.interactiveMessage.timeslots">
+                      <template v-slot:activator>
+                        <v-list-tile>
+                          <v-list-tile-content>
+                            <v-list-tile-title>{{ key }}</v-list-tile-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                      </template>
+                      <v-list-tile
+                        v-for="subItem in item"
+                        @click="resendMessage(subItem.date)"
+                      >
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ subItem.localTime }}</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </v-list-group>
+                  </v-list>
+                </div>
+                <div
+                  v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'DateTimePicker'">
+                  <v-toolbar-title>{{message.interactiveMessage.data.content.title}}</v-toolbar-title>
+                  <v-datetime-picker 
+                    v-model="datetime"
+                    :text-field-props="textFieldProps"
+                  >
+                  </v-datetime-picker>
+                  <v-btn v-on:click="sendDateTime(datetime)" depressed>Confirm</v-btn>
+                </div>
                 <div
                   v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback"
                   class="feedback-state"
@@ -166,6 +231,10 @@ export default {
     return {
       isMessageFocused: false,
       messageHumanDate: 'Now',
+      datetime: new Date(),
+      textFieldProps: {
+        appendIcon: 'event'
+      },
       positiveClick: false,
       negativeClick: false,
       hasButtonBeenClicked: false,
@@ -236,6 +305,40 @@ export default {
         && this.message.responseCardsLexV2.length > 0
       );
     },
+    shouldDisplayInteractiveMessage() {
+      try {           
+          this.message.interactiveMessage = JSON.parse(this.message.text);
+          
+          // Considering anything with the templateType property on a valid JSON object to be an interactive message
+          if (!this.message.interactiveMessage.hasOwnProperty("templateType"))
+          {
+            return false;
+          }
+
+          if (this.message.interactiveMessage.templateType == 'TimePicker')
+          {            
+            var sortedslots = this.message.interactiveMessage.data.content.timeslots.sort((a, b) => a.date.localeCompare(b.date));
+            const dateFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+            const timeFormatOptions = { hour: "numeric", minute: "numeric", timeZoneName: "short" };
+            var locale = (this.$store.state.config.lex.v2BotLocaleId || 'en-US').replace('_','-');
+
+            var timeslots = sortedslots.reduce((slotMap, slot) => {
+              slot.localTime = new Date(slot.date).toLocaleTimeString(locale, timeFormatOptions);
+              const msToMidnightOfDate = new Date(slot.date).setHours(0, 0, 0, 0);
+              const dateKey = new Date(msToMidnightOfDate).toLocaleDateString(locale, dateFormatOptions);
+              if(!slotMap[dateKey]){
+                slotMap[dateKey] = [];
+              }
+              slotMap[dateKey].push(slot)
+              return slotMap;
+            }, {});
+            this.message.interactiveMessage.timeslots = timeslots;
+          }
+      } catch (e) {
+          return false;
+      }
+      return true;
+    },
     shouldShowAvatarImage() {
       if (this.message.type === 'bot') {
         return this.botAvatarUrl;
@@ -271,6 +374,13 @@ export default {
       const message = {
         type: 'human',
         text: messageText,
+      };
+      this.$store.dispatch('postTextMessage', message);
+    },
+    sendDateTime(dateTime) {
+      const message = {
+        type: 'human',
+        text: dateTime.toLocaleString(),
       };
       this.$store.dispatch('postTextMessage', message);
     },
@@ -375,6 +485,10 @@ export default {
   padding: 0 12px;
   width: fit-content;
   align-self: center;
+}
+
+.interactive-row {
+  display: block;
 }
 
 .focusable {
