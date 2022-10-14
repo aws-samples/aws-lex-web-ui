@@ -22,6 +22,7 @@ License for the specific language governing permissions and limitations under th
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Vuetify from 'vuetify';
+import DatetimePicker from 'vuetify-datetime-picker'
 
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import 'material-design-icons/iconfont/material-icons.css';
@@ -31,6 +32,7 @@ import { Loader as LexWebUi } from '@/lex-web-ui';
 
 Vue.use(Vuex);
 Vue.use(Vuetify);
+Vue.use(DatetimePicker);
 
 const lexWebUi = new LexWebUi();
 
