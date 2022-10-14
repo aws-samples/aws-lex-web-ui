@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.6] - TBD
+- Fix issue where some empty string variables would break the Code Deploy build
+- Added more CloudFormation parameters for commonly used UI properties. The new variables include:
+    * HideButtonMessageBubble
+    * MessageMenu
+    * BackButton
+    * MinimizedButtonContent
+
 ## [0.19.5] - 2022-07-17
 - Updated README to be more clear
 - Updated Connect chat README

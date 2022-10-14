@@ -326,6 +326,40 @@ Parameters:
         Default: Order Flowers
         Description: Title displayed in the chatbot UI toolbar
 
+    HideButtonMessageBubble:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+         If set to true, hide the message bubble on a response card button press
+    
+    MessageMenu:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          If set to true, each message will have an additional clickable menu on messages 
+          sent to the bot allowing you to repeat that message.
+
+    BackButton:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          If set to true, will show a back button to go back to a previous message.
+
+    MinimizedButtonContent:
+        Type: String
+        Default: ''
+        Description: >
+          This is an optional parameter, if populated will display provided text when chat window is minimized.
+
     retryOnLexPostTextTimeout:
         Type: String
         Default: false
@@ -460,6 +494,10 @@ Metadata:
                   - WebAppConfNegativeFeedback
                   - WebAppConfPositiveFeedback
                   - WebAppConfHelp
+                  - HideButtonMessageBubble
+                  - MessageMenu
+                  - BackButton
+                  - MinimizedButtonContent
                   - WebAppConfToolbarTitle
                   - ShouldLoadIframeMinimized
             - Label:
@@ -554,6 +592,10 @@ Resources:
                 WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
                 WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
                 WebAppConfHelp: !Ref WebAppConfHelp
+                HideButtonMessageBubble: !Ref HideButtonMessageBubble
+                MessageMenu: !Ref MessageMenu
+                BackButton: !Ref BackButton
+                MinimizedButtonContent: !Ref MinimizedButtonContent
                 WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
                 SaveHistory: !Ref SaveHistory
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
@@ -589,7 +631,7 @@ Resources:
                 ConnectChatEndedMessage: !Ref ConnectChatEndedMessage
                 ConnectAttachChatTranscript: !Ref ConnectAttachChatTranscript
                 ConnectLiveChatTerms: !Ref ConnectLiveChatTerms
-                Timestamp: 1658170487
+                Timestamp: 1661261198
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -603,7 +645,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1658170487
+                Timestamp: 1661261198
 
 Outputs:
     BotName:

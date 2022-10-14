@@ -29,6 +29,7 @@ module.exports = function mergeConfig(baseConfig, srcConfig) {
             key==='positiveFeedbackIntent' ||
             key=== 'negativeFeedbackIntent' ||
             key=== 'initialUtterance' ||
+            key=== 'minButtonContent' ||
             key=== 'initialText' ||
             !isEmpty(srcConfig[key]) ) {
             value = (typeof (baseConfig[key]) === 'object') ?
