@@ -49,7 +49,7 @@ module.exports = {
     minButtonContent: process.env.MIN_BUTTON_CONTENT,
     backButton: (process.env.BACK_BUTTON === undefined) ? undefined : (process.env.BACK_BUTTON === 'true') ? true : false,
     messageMenu: (process.env.MESSAGE_MENU === undefined) ? undefined : (process.env.MESSAGE_MENU === 'true') ? true : false,
-    hideButtonMessageBubble: (process.env.HIDE_BUTTON_MESSAGE_BUBBLE === undefined) ? undefined : (HIDE_BUTTON_MESSAGE_BUBBLE.env.MESSAGE_MENU === 'true') ? true : false,
+    hideButtonMessageBubble: (process.env.HIDE_BUTTON_MESSAGE_BUBBLE === undefined) ? undefined : (process.env.HIDE_BUTTON_MESSAGE_BUBBLE === 'true') ? true : false,
     enableLogin: (process.env.ENABLE_LOGIN === undefined) ? undefined : (process.env.ENABLE_LOGIN === 'true') ? true : false,
     enableLiveChat: (process.env.ENABLE_LIVE_CHAT === undefined) ? undefined : (process.env.ENABLE_LIVE_CHAT === 'true') ? true : false,
     forceLogin: (process.env.FORCE_LOGIN === undefined) ? undefined : (process.env.FORCE_LOGIN === 'true') ? true : false,
