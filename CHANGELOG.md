@@ -4,13 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.19.6] - TBD
-- Fix issue where some empty string variables would break the Code Deploy build
+## [0.19.6] - 2022-10-17
+- Fix issue where some empty string variables would break the Code Deploy build, for example, if InitialText was cleared out of the CloudFormation parameters.
 - Added more CloudFormation parameters for commonly used UI properties. The new variables include:
     * HideButtonMessageBubble
     * MessageMenu
     * BackButton
     * MinimizedButtonContent
+- Change initial speech mechanism to fetch and play mp3 files created during codebuild. Implement support for configured localeIds when creating the mp3 files. Create an mp3 for each configured localeId and use aws translate to generate text for the locale and use aws polly to create the mp3 files. When the user changes locale in the UI and clicks on the mic button, the initial speech for the selected locale will be played.
+- Add support for Connect interactive messaging into Lex Web UI: [https://docs.aws.amazon.com/connect/latest/adminguide/interactive-messages.html](https://docs.aws.amazon.com/connect/latest/adminguide/interactive-messages.html). Both ListPicker and TimePicker are supported templateTypes and can be sent using the exact same JSON structure as Connect. Additionally, added support for a DateTimePicker templateType which will give the end user an open-ended selector for a date/time variable to send back to Lex.
+- Fix handling the new ElicitIntent dialogAction type LexV2 response, which does not have some expected properties on the sessionState object
 
 ## [0.19.5] - 2022-07-17
 - Updated README to be more clear
