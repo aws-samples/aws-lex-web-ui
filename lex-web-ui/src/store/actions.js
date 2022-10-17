@@ -198,7 +198,7 @@ export default {
     // This audio should be explicitly played as a response to a click
     // in the UI
     audio.src = silentSound;
-    // autoplay will be set as a response to a clik
+    // autoplay will be set as a response to a click
     audio.autoplay = false;
 
     return Promise.resolve();
@@ -370,6 +370,7 @@ export default {
    **********************************************************************/
 
   startConversation(context) {
+    audio.pause();
     context.commit('setIsConversationGoing', true);
     return context.dispatch('startRecording');
   },
@@ -423,6 +424,13 @@ export default {
   },
   pollySynthesizeSpeech(context, text, format = 'text') {
     return context.dispatch('pollyGetBlob', text, format)
+      .then(blob => context.dispatch('getAudioUrl', blob))
+      .then(audioUrl => context.dispatch('playAudio', audioUrl));
+  },
+  pollySynthesizeInitialSpeech(context) {
+    const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : context.state.config.lex.v2BotLocaleId.split(',')[0];
+    return fetch(`./initial_speech_${localeId}.mp3`)
+      .then(data => data.blob())
       .then(blob => context.dispatch('getAudioUrl', blob))
       .then(audioUrl => context.dispatch('playAudio', audioUrl));
   },
@@ -819,7 +827,7 @@ export default {
     }).reduce(function(newData, k) {
         newData[k] = context.state.lex.sessionAttributes[k];
         return newData;
-    }, {}); 
+    }, {});
 
     const initiateChatRequest = {
       Attributes: attributesToSend,

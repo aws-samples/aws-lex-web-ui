@@ -330,6 +330,40 @@ Parameters:
         Description: >
           This is an optional parameter, if set to True, the AWS Connect live Chat functionality will be available.
           A item to start a live chat will appear at the menu.
+    
+    HideButtonMessageBubble:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          If set to true, hide the message bubble on a response card button press
+    
+    MessageMenu:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          If set to true, each message will have an additional clickable menu on 
+          messages sent to the bot allowing you to repeat that message.
+
+    BackButton:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          If set to true, will show a back button to go back to a previous message.
+
+    MinimizedButtonContent:
+        Type: String
+        Default: ''
+        Description: >
+          This is an optional parameter, if populated will display provided text when chat window is minimized.
 
     retryOnLexPostTextTimeout:
         Type: String
@@ -610,6 +644,14 @@ Resources:
                       Value: !Ref WebAppConfPositiveFeedback
                     - Name: HELP_INTENT
                       Value: !Ref WebAppConfHelp
+                    - Name: HIDE_BUTTON_MESSAGE_BUBBLE
+                      Value: !Ref HideButtonMessageBubble
+                    - Name: MESSAGE_MENU
+                      Value: !Ref MessageMenu
+                    - Name: BACK_BUTTON
+                      Value: !Ref BackButton
+                    - Name: MIN_BUTTON_CONTENT
+                      Value: !Ref MinimizedButtonContent
                     - Name: UI_TOOLBAR_TITLE
                       Value: !Ref WebAppConfToolbarTitle
                     - Name: ENABLE_LOGIN
@@ -696,6 +738,10 @@ Resources:
             WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
             WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
             WebAppConfHelp: !Ref WebAppConfHelp
+            HideButtonMessageBubble: !Ref HideButtonMessageBubble
+            MessageMenu: !Ref MessageMenu
+            BackButton: !Ref BackButton
+            MinimizedButtonContent: !Ref MinimizedButtonContent
             WebAppConfToolbarTitle: !Ref WebAppConfToolbarTitle
             ShouldEnableCognitoLogin: !Ref ShouldEnableCognitoLogin
             ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
@@ -774,6 +820,23 @@ Resources:
                             Resource:
                                 - !Sub "arn:aws:s3:::${WebAppBucket}"
                                 - !Sub "arn:aws:s3:::${WebAppBucket}/*"
+                - PolicyName: PollySynthesizeSpeech
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - polly:SynthesizeSpeech
+                            Resource: "*"
+                - PolicyName: TranslateText
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - translate:TranslateText
+                                - comprehend:DetectDominantLanguage
+                            Resource: "*"
                 - PolicyName: CloudWatchLogsCodeBuild
                   PolicyDocument:
                       Version: 2012-10-17

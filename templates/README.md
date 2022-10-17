@@ -175,6 +175,11 @@ in an iframe, the ChatBot Iframe will be minimized when the page is loaded.
 ResponseCards always include a title. If this parameter is set to true, this title
 is rendered in the lex-web-ui. Optionally this can be set to false, and the 
 title is not displayed. This is a global setting. 
+- `HideButtonMessageBubble`: This is an optional parameter, if set to true, 
+hide the message bubble on a response card button press.
+- `MessageMenu`: When set to true, each message will have an additional clickable menu on messages sent to the bot allowing you to repeat that message.
+- `BackButton`: This is an optional parameter, if set to true, will show a back button to go back to a previous message.
+- `MinimizedButtonContent`: Displays provided text when chat window is minimized.
 
 ### Output
 Once the CloudFormation stack is successfully launched, the status of
