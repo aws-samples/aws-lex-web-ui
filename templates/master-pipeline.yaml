@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Pipeline Lex Web UI CloudFormation template (v0.19.5)
+    Master Pipeline Lex Web UI CloudFormation template (v0.19.6)
     The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
     Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
     version input parameters as defaulted.
@@ -387,7 +387,7 @@ Resources:
                 NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 CustomResourceCodeBucket: !Ref BootstrapBucket
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.5.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.6.zip"
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
@@ -431,8 +431,8 @@ Resources:
                       - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
                       - !Ref CognitoIdentityPoolId
                 SourceBucket: !Ref BootstrapBucket
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.19.5.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.5.zip"
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.19.6.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.6.zip"
 
     Pipeline:
         Type: AWS::CloudFormation::Stack
@@ -463,8 +463,8 @@ Resources:
                 ParentOrigin: !Ref WebAppParentOrigin
                 CustomResourceCodeBucket: !Ref BootstrapBucket
                 CustomResourceCodePrefix: !Ref BootstrapPrefix
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.5.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.19.5.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.6.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.19.6.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 CognitoAppUserPoolClientId:
                     !If
@@ -504,7 +504,7 @@ Resources:
                 CodeBuildProjectName: !Ref CodeBuildName
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1661261198
+                Timestamp: 1665983509
 
 Outputs:
     BotName:
