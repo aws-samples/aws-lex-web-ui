@@ -110,7 +110,16 @@ Parameters:
             be deleted when the stack is deleted. Otherwise, the bot
             will be preserved. Only applies if the bot is created by
             this stack.
-
+            
+    HideButtonMessageBubble:
+        Type: String
+        Default: false
+        AllowedValues:
+            - true
+            - false
+        Description: >
+            If set to true, hide the message bubble on a response card button press
+            
     ShouldEnableLiveChat:
         Type: String
         Default: false
@@ -504,7 +513,7 @@ Resources:
                 CodeBuildProjectName: !Ref CodeBuildName
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1665983509
+                Timestamp: 1665945425
 
 Outputs:
     BotName:
