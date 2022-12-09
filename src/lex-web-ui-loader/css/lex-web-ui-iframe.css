@@ -26,6 +26,7 @@
   max-width: 190px !important;
   max-height: 85px !important;
   border-radius: 85px !important;
+  min-width: 190px !important;
 }
 
 /* disable box shadow when minimized */
