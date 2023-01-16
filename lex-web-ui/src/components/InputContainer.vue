@@ -246,11 +246,9 @@ export default {
           this.$store.state.lex.dialogState === initialState
         ));
 
-      return (this.$store.state.isLoggedIn && isInitialState &&
-        this.initialSpeechInstruction.length > 0) ?
+      return (isInitialState && this.initialSpeechInstruction.length > 0) ?
         this.$store.dispatch(
-          'pollySynthesizeSpeech',
-          this.initialSpeechInstruction,
+          'pollySynthesizeInitialSpeech'
         ) :
         Promise.resolve();
     },
@@ -285,6 +283,13 @@ export default {
       }
       return this.setAutoPlay()
         .then(() => this.playInitialInstruction())
+        .then(() => {
+            return new Promise(function(resolve, reject) {
+              setTimeout(() => {
+                resolve();
+              }, 100)
+            });
+          })
         .then(() => this.$store.dispatch('startConversation'))
         .catch((error) => {
           console.error('error in startSpeechConversation', error);
