@@ -335,6 +335,10 @@ const configDefault = {
     silentConsecutiveRecordingMax: 3,
   },
 
+  iframe: {
+    shouldLoadIframeMinimized: false,
+  },
+
   // URL query parameters are put in here at run time
   urlQueryParams: {},
 };

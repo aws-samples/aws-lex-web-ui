@@ -248,7 +248,10 @@ export default {
         );
         // after slight delay, send in initial utterance if it is defined.
         // waiting for credentials to settle down a bit.
-        setTimeout(() => this.$store.dispatch('sendInitialUtterance'), 500);
+        if (!this.$store.state.config.iframe.shouldLoadIframeMinimized) {
+          setTimeout(() => this.$store.dispatch('sendInitialUtterance'), 500);
+          this.$store.commit('setInitialUtteranceSent', true);
+        }
       })
       .catch((error) => {
         console.error('could not initialize application while mounting:', error);
@@ -373,11 +376,11 @@ export default {
         case 'parentReady':
           evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
           break;
-        case 'toggleMinimizeUi':
+        case 'toggleMinimizeUi':         
           this.$store.dispatch('toggleIsUiMinimized')
             .then(() => evt.ports[0].postMessage({
               event: 'resolve', type: evt.data.event,
-            }));
+            }));          
           break;
         case 'postText':
           if (!evt.data.message) {

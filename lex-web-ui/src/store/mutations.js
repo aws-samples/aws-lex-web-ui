@@ -337,6 +337,9 @@ export default {
     state.isUiMinimized = !state.isUiMinimized;
   },
 
+  setInitialUtteranceSent(state) {
+    state.initialUtteranceSent = true;
+  },
   toggleIsSFXOn(state) {
     state.isSFXOn = !state.isSFXOn;
   },
