@@ -324,6 +324,18 @@ Parameters:
             When pressed the button will send the entered string to the bot as a help message.  If left empty
             the help button will be disabled.
 
+Rules:
+  ValidateEitherV1orV2:
+    RuleCondition: !Not 
+        - !Equals
+            - !Ref BotName
+            - ''
+    Assertions:
+      - Assert: !Equals 
+            - !Ref LexV2BotId
+            - ''
+        AssertDescription: 'Template cannot contain both Lex V1 and Lex V2 information'
+        
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -513,7 +525,7 @@ Resources:
                 CodeBuildProjectName: !Ref CodeBuildName
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1665984339
+                Timestamp: 1666965985
 
 Outputs:
     BotName:
