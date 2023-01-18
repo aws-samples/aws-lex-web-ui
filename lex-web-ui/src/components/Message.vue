@@ -64,7 +64,10 @@
                     </div>
                   </v-card-title>
                   <v-list two-line class="message-bubble interactive-row">
-                    <v-list-group v-for="(item, key) in this.message.interactiveMessage.timeslots">
+                    <v-list-group 
+                      v-for="(item, key) in this.message.interactiveMessage.timeslots"
+                      v-bind:key="key"
+                      v-bind:data="item">
                       <template v-slot:activator>
                         <v-list-tile>
                           <v-list-tile-content>
@@ -74,6 +77,8 @@
                       </template>
                       <v-list-tile
                         v-for="subItem in item"
+                        v-bind:key="subItem.localTime"
+                        v-bind:data="subItem"
                         @click="resendMessage(subItem.date)"
                       >
                         <v-list-tile-content>
