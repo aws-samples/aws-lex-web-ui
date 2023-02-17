@@ -1064,6 +1064,11 @@ export default {
    **********************************************************************/
 
   toggleIsUiMinimized(context) {
+    if (!context.state.initialUtteranceSent && context.state.isUiMinimized) {
+      console.log("Minimization toggled");
+      setTimeout(() => context.dispatch('sendInitialUtterance'), 500);
+      context.commit('setInitialUtteranceSent', true);
+    }
     context.commit('toggleIsUiMinimized');
     return context.dispatch(
       'sendMessageToParentWindow',

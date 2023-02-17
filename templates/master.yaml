@@ -441,6 +441,18 @@ Parameters:
             Command separated list of terms that can be used to start Live Chat mode
         Default: "live chat"
 
+Rules:
+  ValidateEitherV1orV2:
+    RuleCondition: !Not 
+        - !Equals
+            - !Ref BotName
+            - ''
+    Assertions:
+      - Assert: !Equals 
+            - !Ref LexV2BotId
+            - ''
+        AssertDescription: 'Template cannot contain both Lex V1 and Lex V2 information'
+
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -631,7 +643,7 @@ Resources:
                 ConnectChatEndedMessage: !Ref ConnectChatEndedMessage
                 ConnectAttachChatTranscript: !Ref ConnectAttachChatTranscript
                 ConnectLiveChatTerms: !Ref ConnectLiveChatTerms
-                Timestamp: 1665983509
+                Timestamp: 1665984339
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -645,7 +657,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1665983509
+                Timestamp: 1665984339
 
 Outputs:
     BotName:
