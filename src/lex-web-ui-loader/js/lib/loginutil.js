@@ -110,9 +110,11 @@ function login(config) {
   if (getLoopCount(config) < maxLoopCount) {
     const auth = getAuth(config);
     const session = auth.getSignInUserSession();
-    if (!session.isValid()) {
-      auth.getSession();
-    }
+     setTimeout(function () {
+      if ( !session.isValid()) {
+        auth.getSession();
+      }
+    }, 500);
   } else {
     alert("max login tries exceeded");
     localStorage.setItem(`${config.appUserPoolClientId}${loopKey}`, "0");
