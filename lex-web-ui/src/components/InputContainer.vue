@@ -44,21 +44,11 @@
         >
           <span id="input-button-tooltip">{{inputButtonTooltip}}</span>
         </v-tooltip>
-        <v-tooltip
-          activator=".end-live-chat-button"
-          content-class="tooltip-custom"
-          v-model="shouldShowEndLiveChatTooltip"
-          ref="tooltipEndLiveChat"
-          left
-        >
-          <span id="input-button-tooltip">End Live Chat</span>
-        </v-tooltip>
-
         <v-btn
           v-if="shouldShowSendButton"
           v-on:click="postTextMessage"
           v-on="tooltipEventHandlers"
-          v-bind:disabled="isLexProcessing"
+          v-bind:disabled="isLexProcessing || isSendButtonDisabled"
           ref="send"
           class="icon-color input-button"
           icon
@@ -76,16 +66,6 @@
           icon
         >
           <v-icon medium>{{micButtonIcon}}</v-icon>
-        </v-btn>
-        <v-btn
-          v-if="isModeLiveChat"
-          v-on:click="onEndLiveChatClick"
-          v-on="tooltipEndLiveChatEventHandlers"
-          ref="endLiveChat"
-          class="end-live-chat-button"
-          aria-label="End Live Chat"
-        >
-          <v-icon medium>call_end</v-icon>
         </v-btn>
       </v-toolbar>
     </v-layout>
@@ -116,7 +96,6 @@ export default {
       textInput: '',
       isTextFieldFocused: false,
       shouldShowTooltip: false,
-      shouldShowEndLiveChatTooltip: false,
       // workaround: vuetify tooltips doesn't seem to support touch events
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
@@ -124,13 +103,6 @@ export default {
         touchstart: this.onInputButtonHoverEnter,
         touchend: this.onInputButtonHoverLeave,
         touchcancel: this.onInputButtonHoverLeave,
-      },
-      tooltipEndLiveChatEventHandlers: {
-        mouseenter: this.onEndLiveChatButtonHoverEnter,
-        mouseleave: this.onEndLiveChatButtonHoverLeave,
-        touchstart: this.onEndLiveChatButtonHoverEnter,
-        touchend: this.onEndLiveChatButtonHoverLeave,
-        touchcancel: this.onEndLiveChatButtonHoverLeave,
       },
     };
   },
@@ -190,7 +162,8 @@ export default {
     shouldShowSendButton() {
       return (
         (this.textInput.length && this.isTextFieldFocused) ||
-        (!this.isRecorderSupported || !this.isRecorderEnabled)
+        (!this.isRecorderSupported || !this.isRecorderEnabled) ||
+        (this.isModeLiveChat)
       );
     },
     shouldShowTextInput() {
@@ -203,12 +176,6 @@ export default {
     },
     onInputButtonHoverLeave() {
       this.shouldShowTooltip = false;
-    },
-    onEndLiveChatButtonHoverEnter() {
-      this.shouldShowEndLiveChatTooltip = true;
-    },
-    onEndLiveChatButtonHoverLeave() {
-      this.shouldShowEndLiveChatTooltip = false;
     },
     onMicClick() {
       this.onInputButtonHoverLeave();
@@ -272,10 +239,6 @@ export default {
             this.setInputTextFieldFocus();
           }
         });
-    },
-    onEndLiveChatClick() {
-      this.shouldShowEndLiveChatTooltip = false;
-      this.$emit('endLiveChatClicked');
     },
     startSpeechConversation() {
       if (this.isMicMuted) {

@@ -13,6 +13,10 @@
       v-bind:toolbar-title="toolbarTitle"
       v-bind:toolbar-color="toolbarColor"
       v-bind:toolbar-logo="toolbarLogo"
+      v-bind:toolbarStartLiveChatLabel="toolbarStartLiveChatLabel"
+      v-bind:toolbarStartLiveChatIcon="toolbarStartLiveChatIcon"
+      v-bind:toolbarEndLiveChatLabel="toolbarEndLiveChatLabel"
+      v-bind:toolbarEndLiveChatIcon="toolbarEndLiveChatIcon"
       v-bind:is-ui-minimized="isUiMinimized"
       v-on:toggleMinimizeUi="toggleMinimizeUi"
       @requestLogin="handleRequestLogin"
@@ -40,7 +44,6 @@
       v-if="!isUiMinimized && !hasButtons"
       v-bind:text-input-placeholder="textInputPlaceholder"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
-      @endLiveChatClicked="handleEndLiveChat"
     ></input-container>
     <div
       v-if="isSFXOn"
@@ -105,6 +108,18 @@ export default {
     },
     toolbarLogo() {
       return this.$store.state.config.ui.toolbarLogo;
+    },
+    toolbarStartLiveChatLabel() {
+      return this.$store.state.config.ui.toolbarStartLiveChatLabel;
+    },
+    toolbarStartLiveChatIcon() {
+      return this.$store.state.config.ui.toolbarStartLiveChatIcon;
+    },
+    toolbarEndLiveChatLabel() {
+      return this.$store.state.config.ui.toolbarEndLiveChatLabel;
+    },
+    toolbarEndLiveChatIcon() {
+      return this.$store.state.config.ui.toolbarEndLiveChatIcon;
     },
     isSFXOn() {
       return this.$store.state.isSFXOn;
@@ -349,7 +364,16 @@ export default {
     },
     handleEndLiveChat() {
       console.info('LexWeb: handleEndLiveChat');
-      this.$store.dispatch('requestLiveChatEnd');
+      try {
+        this.$store.dispatch('requestLiveChatEnd');
+      } catch (error) {
+        console.error(`error requesting disconnect ${error}`);
+        this.$store.dispatch('pushLiveChatMessage', {
+          type: 'agent',
+          text: this.$store.state.config.connect.chatEndedMessage,
+        });
+        this.$store.dispatch('liveChatSessionEnded');
+      }
     },
     // messages from parent
     messageHandler(evt) {
@@ -376,11 +400,11 @@ export default {
         case 'parentReady':
           evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
           break;
-        case 'toggleMinimizeUi':         
+        case 'toggleMinimizeUi':
           this.$store.dispatch('toggleIsUiMinimized')
             .then(() => evt.ports[0].postMessage({
               event: 'resolve', type: evt.data.event,
-            }));          
+            }));
           break;
         case 'postText':
           if (!evt.data.message) {

@@ -193,6 +193,30 @@ Parameters:
         Description: >
             Attach chat transcript as file. This only works if you enable
 
+    ConnectStartLiveChatLabel:
+      Type: String
+      Description: >
+        Label used in Menu to start connect live chat
+      Default: "Start Live Chat"
+
+    ConnectStartLiveChatIcon:
+      Type: String
+      Description: >
+        Icon to use in menu to start connect live chat
+      Default: "people_alt"
+
+    ConnectEndLiveChatLabel:
+      Type: String
+      Description: >
+        Label to use in menu and toolbar to end connect live chat
+      Default: "End Live Chat"
+
+    ConnectEndLiveChatIcon:
+      Type: String
+      Description: >
+        Icon to use in menu and toolbar to end connect live chat
+      Default: "call_end"
+
     LexV2BotId:
       Description: >
         Bot ID (not bot name) of an existing Lex V2 Bot to be used by the web ui. NOTE: You must
@@ -614,6 +638,14 @@ Resources:
                       Value: !Ref ConnectChatEndedMessage
                     - Name: CONNECT_ATTACH_CHAT_TRANSCRIPT
                       Value: !Ref ConnectAttachChatTranscript
+                    - Name: CONNECT_START_LIVE_CHAT_LABEL
+                      Value: !Ref ConnectStartLiveChatLabel
+                    - Name: CONNECT_START_LIVE_CHAT_ICON
+                      Value: !Ref ConnectStartLiveChatIcon
+                    - Name: CONNECT_END_LIVE_CHAT_LABEL
+                      Value: !Ref ConnectEndLiveChatLabel
+                    - Name: CONNECT_END_LIVE_CHAT_ICON
+                      Value: !Ref ConnectEndLiveChatIcon
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME
@@ -726,6 +758,10 @@ Resources:
             ConnectChatEndedMessage: !Ref ConnectChatEndedMessage
             ConnectAttachChatTranscript: !Ref ConnectAttachChatTranscript
             ConnectLiveChatTerms: !Ref ConnectLiveChatTerms
+            ConnectStartLiveChatLabel: !Ref ConnectStartLiveChatLabel
+            ConnectStartLiveChatIcon: !Ref ConnectStartLiveChatIcon
+            ConnectEndLiveChatLabel: !Ref ConnectEndLiveChatLabel
+            ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
             WebAppBucket: !Ref WebAppBucket
             LexV2BotId: !Ref LexV2BotId
             LexV2BotAliasId: !Ref LexV2BotAliasId

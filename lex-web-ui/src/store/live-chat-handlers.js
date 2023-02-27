@@ -18,6 +18,8 @@
 /* eslint no-console: ["error", { allow: ["info", "warn", "error", "time", "timeEnd"] }] */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
+import {liveChatStatus} from "./state";
+
 export const createLiveChatSession = result =>
   (window.connect.ChatSession.create({
     chatDetails: result.startChatResult,
@@ -60,14 +62,14 @@ export const initLiveChatHandlers = (context, session) => {
               type: 'agent',
               text: context.state.config.connect.agentJoinedMessage.replaceAll("{Agent}", data.DisplayName),
             });
-  
+
             const transcriptArray = context.getters.liveChatTextTranscriptArray();
             transcriptArray.forEach((text, index) => {
               var formattedText = "Bot Transcript: (" + (index + 1).toString() + "\\" + transcriptArray.length + ")\n" + text;
               sendChatMessageWithDelay(session, formattedText, index * 150);
               console.info((index + 1).toString() + "-" + formattedText);
             });
-  
+
             if(context.state.config.connect.attachChatTranscript &&
               (context.state.config.connect.attachChatTranscript === 'true'
                 || context.state.config.connect.attachChatTranscript === true )
@@ -106,11 +108,13 @@ export const initLiveChatHandlers = (context, session) => {
         }
         break;
       case 'application/vnd.amazonaws.connect.event.chat.ended':
-        context.dispatch('pushLiveChatMessage', {
-          type: 'agent',
-          text: context.state.config.connect.chatEndedMessage,
-        });
-        context.dispatch('liveChatSessionEnded');
+        if (context.state.liveChat.status !== liveChatStatus.ENDED) {
+          context.dispatch('pushLiveChatMessage', {
+            type: 'agent',
+            text: context.state.config.connect.chatEndedMessage,
+          });
+          context.dispatch('liveChatSessionEnded');
+        }
         break;
       case 'text/plain':
         switch (data.ParticipantRole) {
