@@ -441,6 +441,30 @@ Parameters:
             Command separated list of terms that can be used to start Live Chat mode
         Default: "live chat"
 
+    ConnectStartLiveChatLabel:
+        Type: String
+        Description: >
+            Label used in Menu to start connect live chat
+        Default: "Start Live Chat"
+
+    ConnectStartLiveChatIcon:
+        Type: String
+        Description: >
+            Icon to use in menu to start connect live chat
+        Default: "people_alt"
+
+    ConnectEndLiveChatLabel:
+        Type: String
+        Description: >
+            Label to use in menu and toolbar to end connect live chat
+        Default: "End Live Chat"
+
+    ConnectEndLiveChatIcon:
+        Type: String
+        Description: >
+            Icon to use in menu and toolbar to end connect live chat
+        Default: "call_end"
+
 Rules:
   ValidateEitherV1orV2:
     RuleCondition: !Not 
@@ -526,6 +550,10 @@ Metadata:
                   - ConnectAgentLeftMessage
                   - ConnectChatEndedMessage
                   - ConnectAttachChatTranscript
+                  - ConnectStartLiveChatLabel
+                  - ConnectStartLiveChatIcon
+                  - ConnectEndLiveChatLabel
+                  - ConnectEndLiveChatIcon
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
@@ -643,7 +671,11 @@ Resources:
                 ConnectChatEndedMessage: !Ref ConnectChatEndedMessage
                 ConnectAttachChatTranscript: !Ref ConnectAttachChatTranscript
                 ConnectLiveChatTerms: !Ref ConnectLiveChatTerms
-                Timestamp: 1665984339
+                ConnectStartLiveChatLabel: !Ref ConnectStartLiveChatLabel
+                ConnectStartLiveChatIcon: !Ref ConnectStartLiveChatIcon
+                ConnectEndLiveChatLabel: !Ref ConnectEndLiveChatLabel
+                ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
+                Timestamp: 1677532224
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -657,7 +689,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1665984339
+                Timestamp: 1677532224
 
 Outputs:
     BotName:

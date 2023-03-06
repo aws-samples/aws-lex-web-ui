@@ -272,6 +272,30 @@ Parameters:
         Command separated list of terms that can be used to start Live Chat mode
       Default: "live chat"
 
+    ConnectStartLiveChatLabel:
+      Type: String
+      Description: >
+        Label used in Menu to start connect live chat
+      Default: "Start Live Chat"
+
+    ConnectStartLiveChatIcon:
+      Type: String
+      Description: >
+        Icon to use in menu to start connect live chat
+      Default: "people_alt"
+
+    ConnectEndLiveChatLabel:
+      Type: String
+      Description: >
+        Label to use in menu and toolbar to end connect live chat
+      Default: "End Live Chat"
+
+    ConnectEndLiveChatIcon:
+      Type: String
+      Description: >
+        Icon to use in menu and toolbar to end connect live chat
+      Default: "call_end"
+
     ResourcePrefix:
       Type: String
       Description: >
@@ -528,6 +552,14 @@ Resources:
                       Value: !Ref ConnectChatEndedMessage
                     - Name: CONNECT_ATTACH_CHAT_TRANSCRIPT
                       Value: !Ref ConnectAttachChatTranscript
+                    - Name: CONNECT_START_LIVE_CHAT_LABEL
+                      Value: !Ref ConnectStartLiveChatLabel
+                    - Name: CONNECT_START_LIVE_CHAT_ICON
+                      Value: !Ref ConnectStartLiveChatIcon
+                    - Name: CONNECT_END_LIVE_CHAT_LABEL
+                      Value: !Ref ConnectEndLiveChatLabel
+                    - Name: CONNECT_END_LIVE_CHAT_ICON
+                      Value: !Ref ConnectEndLiveChatIcon
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME

@@ -47,7 +47,11 @@
     "messageMenu": true,
     "hideButtonMessageBubble": false,
     "saveHistory": false,
-    "enableLiveChat": false
+    "enableLiveChat": false,
+    "toolbarStartLiveChatLabel": "Start Live Chat",
+    "toolbarEndLiveChatLabel": "End Live Chat",
+    "toolbarStartLiveChatIcon": "people_alt",
+    "toolbarEndLiveChatIcon": "call_end"
   },
   "polly": {
     "voiceId": "Salli"

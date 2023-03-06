@@ -170,7 +170,19 @@ const configDefault = {
     // chat window title
     toolbarTitle: 'Order Flowers',
 
-    // logo used in toolbar - also used as favicon not specificied
+    // toolbar menu start live chat label
+    toolbarStartLiveChatLabel: "Start Live Chat",
+
+    // toolbar menu / btn stop live chat label
+    toolbarEndLiveChatLabel: "End Live Chat",
+
+    // toolbar menu icon for start live chat
+    toolbarStartLiveChatIcon: "people_alt",
+
+    // toolbar menu / btn icon for end live chat
+    toolbarEndLiveChatIcon: "call_end",
+
+    // logo used in toolbar - also used as favicon not specified
     toolbarLogo: '',
 
     // fav icon

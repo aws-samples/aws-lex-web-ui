@@ -936,6 +936,11 @@ export default {
     context.commit('clearLiveChatIntervalId');
     if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession) {
       requestLiveChatEnd(liveChatSession);
+      context.dispatch('pushLiveChatMessage', {
+        type: 'agent',
+        text: context.state.config.connect.chatEndedMessage,
+      });
+      context.dispatch('liveChatSessionEnded');
       context.commit('setLiveChatStatus', liveChatStatus.ENDED);
     }
   },
