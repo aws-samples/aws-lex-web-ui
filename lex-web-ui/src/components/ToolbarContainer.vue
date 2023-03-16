@@ -13,6 +13,7 @@
   >
   <!-- eslint-enable max-len -->
     <img
+      class="toolbar-image"
       v-if="toolbarLogo"
       v-bind:src="toolbarLogo"
       alt="logo"
@@ -585,4 +586,11 @@ export default {
   width: unset !important;
 }
 
+.toolbar-image {
+  margin-left: 0px !important;
+}
+
+.toolbar__title {
+  margin-left: 0px !important;
+}
 </style>
