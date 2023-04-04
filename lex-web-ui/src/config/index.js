@@ -170,7 +170,19 @@ const configDefault = {
     // chat window title
     toolbarTitle: 'Order Flowers',
 
-    // logo used in toolbar - also used as favicon not specificied
+    // toolbar menu start live chat label
+    toolbarStartLiveChatLabel: "Start Live Chat",
+
+    // toolbar menu / btn stop live chat label
+    toolbarEndLiveChatLabel: "End Live Chat",
+
+    // toolbar menu icon for start live chat
+    toolbarStartLiveChatIcon: "people_alt",
+
+    // toolbar menu / btn icon for end live chat
+    toolbarEndLiveChatIcon: "call_end",
+
+    // logo used in toolbar - also used as favicon not specified
     toolbarLogo: '',
 
     // fav icon
@@ -333,6 +345,10 @@ const configDefault = {
     // used to control maximum number of consecutive silent recordings
     // before the conversation is ended
     silentConsecutiveRecordingMax: 3,
+  },
+
+  iframe: {
+    shouldLoadIframeMinimized: false,
   },
 
   // URL query parameters are put in here at run time

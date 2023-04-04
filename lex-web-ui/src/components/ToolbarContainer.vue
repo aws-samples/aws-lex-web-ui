@@ -13,6 +13,7 @@
   >
   <!-- eslint-enable max-len -->
     <img
+      class="toolbar-image"
       v-if="toolbarLogo"
       v-bind:src="toolbarLogo"
       alt="logo"
@@ -76,17 +77,17 @@
         <v-list-tile v-if="canLiveChat">
           <v-list-tile-title v-on:click="requestLiveChat" aria-label="request live chat">
             <v-icon>
-              {{ items[5].icon }}
+              {{ toolbarStartLiveChatIcon }}
             </v-icon>
-            {{ items[5].title }}
+            {{ toolbarStartLiveChatLabel }}
           </v-list-tile-title>
         </v-list-tile>
         <v-list-tile v-if="isLiveChat">
           <v-list-tile-title v-on:click="endLiveChat" aria-label="end live chat">
             <v-icon>
-              {{ items[6].icon }}
+              {{ toolbarEndLiveChatIcon }}
             </v-icon>
-            {{ items[6].title }}
+            {{ toolbarEndLiveChatLabel }}
           </v-list-tile-title>
         </v-list-tile>
         <v-list-tile  v-if="isLocaleSelectable"
@@ -156,6 +157,14 @@
       <span id="help-tooltip">help</span>
     </v-tooltip>
     <v-tooltip
+      v-model="shouldShowEndLiveChatTooltip"
+      content-class="tooltip-custom"
+      activator=".end-live-chat-btn"
+      left
+    >
+      <span id="end-live-chat-tooltip">{{ toolbarEndLiveChatLabel }}</span>
+    </v-tooltip>
+    <v-tooltip
       v-model="shouldShowMenuTooltip"
       content-class="tooltip-custom"
       activator=".menu"
@@ -165,7 +174,7 @@
     </v-tooltip>
     <span v-if="isLocaleSelectable" class="localeInfo">{{currentLocale}}</span>
     <v-btn
-      v-if="shouldRenderHelpButton && !isUiMinimized"
+      v-if="shouldRenderHelpButton && !isLiveChat && !isUiMinimized"
       v-on:click="sendHelp"
       v-on="tooltipHelpEventHandlers"
       v-bind:disabled="isLexProcessing"
@@ -174,7 +183,17 @@
     >
       <v-icon> help_outline </v-icon>
     </v-btn>
-
+    <v-btn
+      v-if="isLiveChat && !isUiMinimized"
+      v-on:click="endLiveChat"
+      v-on="tooltipEndLiveChatEventHandlers"
+      v-bind:disabled="!isLiveChat"
+      icon
+      class="end-live-chat-btn"
+    >
+      <span class="hangup-text">{{ toolbarEndLiveChatLabel }}</span>
+      <v-icon class="call-end"> {{ toolbarEndLiveChatIcon }} </v-icon>
+    </v-btn>
 
     <v-btn
       v-if="$store.state.isRunningEmbedded"
@@ -216,12 +235,11 @@ export default {
         { title: 'Clear Chat', icon: 'delete' },
         { title: 'Mute', icon: 'volume_up' },
         { title: 'Unmute', icon: 'volume_off' },
-        { title: 'Start Live Chat', icon: 'people_alt' },
-        { title: 'End Live Chat', icon: 'call_end' },
       ],
       shouldShowTooltip: false,
       shouldShowHelpTooltip: false,
       shouldShowMenuTooltip: false,
+      shouldShowEndLiveChatTooltip: false,
       prevNav: false,
       prevNavEventHandlers: {
         mouseenter: this.mouseOverPrev,
@@ -251,6 +269,13 @@ export default {
         touchend: this.onInputButtonHoverLeave,
         touchcancel: this.onInputButtonHoverLeave,
       },
+      tooltipEndLiveChatEventHandlers: {
+        mouseenter: this.onEndLiveChatButtonHoverEnter,
+        mouseleave: this.onEndLiveChatButtonHoverLeave,
+        touchstart: this.onEndLiveChatButtonHoverEnter,
+        touchend: this.onEndLiveChatButtonHoverLeave,
+        touchcancel: this.onEndLiveChatButtonHoverLeave,
+      },
     };
   },
   props: [
@@ -259,6 +284,10 @@ export default {
     'toolbarLogo',
     'isUiMinimized',
     'userName',
+    'toolbarStartLiveChatLabel',
+    'toolbarStartLiveChatIcon',
+    'toolbarEndLiveChatLabel',
+    'toolbarEndLiveChatIcon',
   ],
   computed: {
     toolbarClickHandler() {
@@ -375,6 +404,12 @@ export default {
     },
     onHelpButtonHoverLeave() {
       this.shouldShowHelpTooltip = false;
+    },
+    onEndLiveChatButtonHoverEnter() {
+      this.shouldShowEndLiveChatTooltip = true;
+    },
+    onEndLiveChatButtonHoverLeave() {
+      this.shouldShowEndLiveChatTooltip = false;
     },
     onMenuButtonHoverEnter() {
       this.shouldShowMenuTooltip = true;
@@ -498,6 +533,7 @@ export default {
       this.$emit('requestLiveChat');
     },
     endLiveChat() {
+      this.shouldShowEndLiveChatTooltip = false;
       this.$emit('endLiveChat');
     },
     toggleIsLoggedIn() {
@@ -536,5 +572,25 @@ export default {
 
 .menu__content {
   border-radius: 4px;
+}
+
+.call-end {
+  width: 36px;
+  margin-left: 5px;
+}
+
+.hangup-text {
+}
+
+.end-live-chat-btn {
+  width: unset !important;
+}
+
+.toolbar-image {
+  margin-left: 0px !important;
+}
+
+.toolbar__title {
+  margin-left: 0px !important;
 }
 </style>

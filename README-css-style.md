@@ -144,6 +144,13 @@ Set background of the bot's response messages
   background-color: #afcffa !important;
 }
 ```
+//todo verify and set
+##### Hide the first input message / initial utterance
+```
+.message-human:first-of-type {
+  display:none;
+}
+```
 
 #### Message bubble margins
 ```
@@ -214,6 +221,14 @@ Set background of the bot's response messages
 .input-group--text-field textarea,
 .input-group--text-field label {
     font-size: 14px !important;
+}
+```
+
+#### End Connect Live Chat Button
+```
+button.end-live-chat-button.btn {
+  color: white !important;
+  background-color: red !important
 }
 ```
 
