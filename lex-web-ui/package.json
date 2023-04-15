@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "amazon-connect-chatjs": "^1.1.7",
-    "aws-sdk": "^2.903.0",
+    "aws-sdk": "^2.1354.0",
     "core-js": "^3.6.5",
     "jsonwebtoken": "^9.0.0",
     "marked": "^4.0.12",
