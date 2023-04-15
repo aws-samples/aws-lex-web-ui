@@ -37,7 +37,7 @@ export const dependenciesFullPage = {
     },
     {
       name: 'Vuetify',
-      url: 'https://unpkg.com/vuetify@1.5.0/dist/vuetify.js',
+      url: 'https://unpkg.com/vuetify@0.17.7/dist/vuetify.js',
       canUseMin: true,
     },
     {
@@ -53,7 +53,7 @@ export const dependenciesFullPage = {
     },
     {
       name: 'vuetify',
-      url: 'https://unpkg.com/vuetify@1.5.0/dist/vuetify.css',
+      url: 'https://unpkg.com/vuetify@0.17.7/dist/vuetify.css',
       canUseMin: true,
     },
     {
