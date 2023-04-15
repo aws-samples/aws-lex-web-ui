@@ -60,29 +60,24 @@
                       <div class="headline">{{message.interactiveMessage.data.content.title}}</div>
                       <span>{{message.interactiveMessage.data.content.subtitle}}</span>
                     </div>
-                  </v-card-title>
-                  <v-list two-line class="message-bubble interactive-row">
-                    <v-list-group 
-                      v-for="item in this.message.interactiveMessage.timeslots">
-                      <template v-slot:activator>
+                  </v-card-title>                  
+                    <template v-for="item in this.message.interactiveMessage.timeslots">
+                      <v-subheader>{{ item.date }}</v-subheader>
+                      <v-list two-line class="message-bubble interactive-row">
                         <v-list-tile>
-                          <v-list-tile-content>
-                            <v-list-tile-title>{{ item.date }}</v-list-tile-title>
-                          </v-list-tile-content>
-                        </v-list-tile>
-                      </template>
-                      <v-list-tile
-                        v-for="subItem in item.slots"
-                        v-bind:key="subItem.localTime"
-                        v-bind:data="subItem"
-                        @click="resendMessage(subItem.date)"
-                      >
-                        <v-list-tile-content>
-                          <v-list-tile-title>{{ subItem.localTime }}</v-list-tile-title>
-                        </v-list-tile-content>
-                      </v-list-tile>
-                    </v-list-group>
+                          <v-list-tile
+                            v-for="subItem in item.slots"
+                            v-bind:key="subItem.localTime"
+                            v-bind:data="subItem"
+                            @click="resendMessage(subItem.date)"
+                          >
+                            <v-list-tile-content>
+                              <v-list-tile-title>{{ subItem.localTime }}</v-list-tile-title>
+                            </v-list-tile-content>
+                          </v-list-tile>
+                      </v-list-tile>                      
                   </v-list>
+                </template>
                 </div>
                 <div
                   v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'DateTimePicker'">
