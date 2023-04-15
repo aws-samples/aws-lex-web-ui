@@ -432,11 +432,10 @@ Resources:
         Properties:
           VersioningConfiguration:
             Status: Enabled
-          AccessControl: "LogDeliveryWrite"
           BucketEncryption:
             ServerSideEncryptionConfiguration:
               - ServerSideEncryptionByDefault:
-                  SSEAlgorithm: AES256
+                  SSEAlgorithm: AES256    
 
     # Bucket where the web app is deployed
     WebAppBucket:
@@ -464,6 +463,28 @@ Resources:
                         - GET
                       AllowedOrigins:
                         - !Ref ParentOrigin
+
+    S3ServerAccessLogsBucketPolicy:
+        Type: "AWS::S3::BucketPolicy"
+        Properties:
+          Bucket:
+            Ref: "S3ServerAccessLogs"
+          PolicyDocument:
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "s3:PutObject"
+                Resource:
+                  - !Sub "arn:aws:s3:::${S3ServerAccessLogs}/*"
+                Principal:
+                  Service: "logging.s3.amazonaws.com"
+                Condition:
+                  ArnLike:
+                    aws:SourceArn:
+                      - !Sub "arn:aws:s3:::${WebAppBucket}"
+                  StringEquals:
+                    aws:SourceAccount:
+                      - !Sub "${AWS::AccountId}"
 
     # Bucket for CloudFrontDistributionLogs
     LexWebUiCloudFrontDistributionLogsBucket:
