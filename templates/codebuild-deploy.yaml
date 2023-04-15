@@ -435,7 +435,7 @@ Resources:
           BucketEncryption:
             ServerSideEncryptionConfiguration:
               - ServerSideEncryptionByDefault:
-                  SSEAlgorithm: AES256    
+                  SSEAlgorithm: AES256
 
     # Bucket where the web app is deployed
     WebAppBucket:
