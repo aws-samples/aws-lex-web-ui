@@ -30,11 +30,9 @@
                 ></message-text>
                 <div
                   v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'ListPicker'">
-                  <v-img
-                    :src="message.interactiveMessage.data.content.imageData"
-                  ></v-img>
                   <v-card-title primary-title>
                     <div>
+                      <img :src="message.interactiveMessage.data.content.imageData">
                       <div class="headline">{{message.interactiveMessage.data.content.title}}</div>
                       <span>{{message.interactiveMessage.data.content.subtitle}}</span>
                     </div>
@@ -62,31 +60,24 @@
                       <div class="headline">{{message.interactiveMessage.data.content.title}}</div>
                       <span>{{message.interactiveMessage.data.content.subtitle}}</span>
                     </div>
-                  </v-card-title>
-                  <v-list two-line class="message-bubble interactive-row">
-                    <v-list-group 
-                      v-for="(item, key) in this.message.interactiveMessage.timeslots"
-                      v-bind:key="key"
-                      v-bind:data="item">
-                      <template v-slot:activator>
+                  </v-card-title>                  
+                    <template v-for="item in this.message.interactiveMessage.timeslots">
+                      <v-subheader>{{ item.date }}</v-subheader>
+                      <v-list two-line class="message-bubble interactive-row">
                         <v-list-tile>
-                          <v-list-tile-content>
-                            <v-list-tile-title>{{ key }}</v-list-tile-title>
-                          </v-list-tile-content>
-                        </v-list-tile>
-                      </template>
-                      <v-list-tile
-                        v-for="subItem in item"
-                        v-bind:key="subItem.localTime"
-                        v-bind:data="subItem"
-                        @click="resendMessage(subItem.date)"
-                      >
-                        <v-list-tile-content>
-                          <v-list-tile-title>{{ subItem.localTime }}</v-list-tile-title>
-                        </v-list-tile-content>
-                      </v-list-tile>
-                    </v-list-group>
+                          <v-list-tile
+                            v-for="subItem in item.slots"
+                            v-bind:key="subItem.localTime"
+                            v-bind:data="subItem"
+                            @click="resendMessage(subItem.date)"
+                          >
+                            <v-list-tile-content>
+                              <v-list-tile-title>{{ subItem.localTime }}</v-list-tile-title>
+                            </v-list-tile-content>
+                          </v-list-tile>
+                      </v-list-tile>                      
                   </v-list>
+                </template>
                 </div>
                 <div
                   v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'DateTimePicker'">
@@ -321,23 +312,30 @@ export default {
           }
 
           if (this.message.interactiveMessage.templateType == 'TimePicker')
-          {            
+          {                     
             var sortedslots = this.message.interactiveMessage.data.content.timeslots.sort((a, b) => a.date.localeCompare(b.date));
             const dateFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
             const timeFormatOptions = { hour: "numeric", minute: "numeric", timeZoneName: "short" };
-            var locale = (this.$store.state.config.lex.v2BotLocaleId || 'en-US').replace('_','-');
+            const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : this.$store.state.config.lex.v2BotLocaleId.split(',')[0];
+            var locale = (localeId || 'en-US').replace('_','-');
 
-            var timeslots = sortedslots.reduce((slotMap, slot) => {
+            var dateArray = [];
+            sortedslots.forEach(function (slot, index) {            
               slot.localTime = new Date(slot.date).toLocaleTimeString(locale, timeFormatOptions);
               const msToMidnightOfDate = new Date(slot.date).setHours(0, 0, 0, 0);
               const dateKey = new Date(msToMidnightOfDate).toLocaleDateString(locale, dateFormatOptions);
-              if(!slotMap[dateKey]){
-                slotMap[dateKey] = [];
+
+              let existingDate = dateArray.find(e => e.date === dateKey);
+              if (existingDate) {
+                existingDate.slots.push(slot)
               }
-              slotMap[dateKey].push(slot)
-              return slotMap;
-            }, {});
-            this.message.interactiveMessage.timeslots = timeslots;
+              else {
+                var item = { date: dateKey, slots: [slot] };
+                dateArray.push(item);
+              }
+            });
+
+            this.message.interactiveMessage.timeslots = dateArray;           
           }
       } catch (e) {
           return false;

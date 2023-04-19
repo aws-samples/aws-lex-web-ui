@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.8] - 2023-04-15
+- Update CloudFormation template to remove ACL on S3 server access logs bucket and replaced with a bucket policy to align with best practices. This will also prevent the template from failing when the default settings for S3 buckets are changed in the near future.
+- Fixed issue where multilingual bots were not properly rendering the TimePicker interactive message component
+
+## [0.19.7] - 2023-03-27
+- Update to not allow V1 and V2 bots to be selected in CloudFormation parameters 
+- Disable initial utterance sending if chat window is minimized on load
+- Reduced minimized width of iframe to prevent overflow covering up page elements
+- Rearrange live chat button locations for better UI experience
+
 ## [0.19.6] - 2022-10-17
 - Fix issue where some empty string variables would break the Code Deploy build, for example, if InitialText was cleared out of the CloudFormation parameters.
 - Added more CloudFormation parameters for commonly used UI properties. The new variables include:
