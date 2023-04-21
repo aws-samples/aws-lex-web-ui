@@ -514,6 +514,9 @@ Resources:
       UpdateReplacePolicy: Retain
       DeletionPolicy: Retain
       Properties:
+        OwnershipControls:
+          Rules:
+            - ObjectOwnership: BucketOwnerPreferred
         VersioningConfiguration:
           Status: Enabled
         BucketEncryption:
