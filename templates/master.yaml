@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.19.7)
+    Master Lex Web UI CloudFormation template (v0.19.8)
     The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
     Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
     version input parameters as defaulted.
@@ -461,6 +461,12 @@ Parameters:
             Command separated list of terms that can be used to start Live Chat mode
         Default: "live chat"
 
+    ConnectTranscriptMessageDelayInMsec:
+        Type: Number
+        Description: >
+            Delay to insert between each transcript message send to Connect in msec.
+        Default: 150
+
     ConnectStartLiveChatLabel:
         Type: String
         Description: >
@@ -577,6 +583,7 @@ Metadata:
                   - ConnectStartLiveChatIcon
                   - ConnectEndLiveChatLabel
                   - ConnectEndLiveChatIcon
+                  - ConnectTranscriptMessageDelayInMsec
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
@@ -596,7 +603,7 @@ Resources:
                 NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 CustomResourceCodeBucket: !Ref BootstrapBucket
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.7.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.8.zip"
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
@@ -627,9 +634,9 @@ Resources:
                 CodeBuildName: !Ref CodeBuildName
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.19.7.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.7.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.19.7.zip"
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.19.8.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.19.8.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.19.8.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
@@ -701,7 +708,8 @@ Resources:
                 ConnectStartLiveChatIcon: !Ref ConnectStartLiveChatIcon
                 ConnectEndLiveChatLabel: !Ref ConnectEndLiveChatLabel
                 ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
-                Timestamp: 1680632412
+                ConnectTranscriptMessageDelayInMsec: !Ref ConnectTranscriptMessageDelayInMsec
+                Timestamp: 1683124094
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -715,7 +723,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1680632412
+                Timestamp: 1683124094
 
 Outputs:
     BotName:
