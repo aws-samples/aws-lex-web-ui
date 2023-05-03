@@ -74,6 +74,8 @@ const configDefault = {
     waitingForAgentMessageIntervalSeconds: 60,
     // Terms to start live chat
     liveChatTerms: 'live chat',
+    // The delay to use between sending transcript blocks to connect
+    transcriptMessageDelayInMsec: 150,
   },
   lex: {
     // Lex V2 fields

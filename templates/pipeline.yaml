@@ -316,6 +316,12 @@ Parameters:
         Icon to use in menu and toolbar to end connect live chat
       Default: "call_end"
 
+    ConnectTranscriptMessageDelayInMsec:
+      Type: Number
+      Description: >
+        Delay to insert between each transcript message send to Connect in msec.
+      Default: 150
+
     ResourcePrefix:
       Type: String
       Description: >
@@ -598,6 +604,8 @@ Resources:
                       Value: !Ref ConnectEndLiveChatLabel
                     - Name: CONNECT_END_LIVE_CHAT_ICON
                       Value: !Ref ConnectEndLiveChatIcon
+                    - Name: CONNECT_TRANSCRIPT_MESSAGE_DELAY_IN_MSEC
+                      Value: !Ref ConnectTranscriptMessageDelayInMsec
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME

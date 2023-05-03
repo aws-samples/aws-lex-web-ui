@@ -9,6 +9,7 @@
     "agentJoinedMessage": "",
     "agentLeftMessage": "",
     "chatEndedMessage": "",
-    "attachChatTranscript": ""
+    "attachChatTranscript": "",
+    "transcriptMessageDelayInMsec": ""
   }
 }
