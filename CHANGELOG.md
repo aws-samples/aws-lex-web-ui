@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.19.9] - 2023-05-22
+- Add configurable parameter to control delay between transcript message send on startup to Connect. Workaround Connect problem with respect to out of order delivery of sent messages.
+- Add the ability to configure a precreated CNAME, ACM Certificate, and WAFV2 ACL via template parameters. If the values are left empty default CloudFront distribution url and certificates is used. If a WAFV2 ACl is not supplied then no WAF Acl is configured for use by CloudFront.
+
 ## [0.19.8] - 2023-04-15
 - Update CloudFormation template to remove ACL on S3 server access logs bucket and replaced with a bucket policy to align with best practices. This will also prevent the template from failing when the default settings for S3 buckets are changed in the near future.
 - Fixed issue where multilingual bots were not properly rendering the TimePicker interactive message component

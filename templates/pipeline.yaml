@@ -200,6 +200,26 @@ Parameters:
             When pressed the button will send the entered string to the bot as a help message.  If left empty
             the help button will be disabled.
 
+    WebAppConfCname:
+        Type: String
+        Default: ""
+        Description: This optional parameter allows a single CNAME to be defined and used as an alias to
+            the cloudfront distribution that is created by this template. If a CNAME is provided, a
+            WebAppAcmCertificateArn must also be provided.
+
+    WebAppAcmCertificateArn:
+        Type: String
+        Default: ""
+        Description: This optional parameter allows a AcmCertificateArn to be provided for use in the Cloudfront
+            distribution created by this template. if a AcmCertificateArn is provided, a WebAppConfCname must also
+            be provided.
+
+    WebAppWafAclArn:
+      Type: String
+      Default: ""
+      Description: This optional parameter allows a AWS WAF web ACL to be specified in ARN formation. This supports
+        AWS WAF V2.
+
     ShouldEnableLiveChat:
       Type: String
       Default: false
@@ -296,6 +316,12 @@ Parameters:
         Icon to use in menu and toolbar to end connect live chat
       Default: "call_end"
 
+    ConnectTranscriptMessageDelayInMsec:
+      Type: Number
+      Description: >
+        Delay to insert between each transcript message send to Connect in msec.
+      Default: 150
+
     ResourcePrefix:
       Type: String
       Description: >
@@ -305,6 +331,8 @@ Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
     EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
+    UseDefaultCloudfrontUrl: !Or [ !Equals [!Ref WebAppConfCname, ''], !Equals [!Ref WebAppAcmCertificateArn, ''] ]
+    ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
 
 Resources:
     # Bucket where S3 access logs are stored
@@ -472,8 +500,24 @@ Resources:
               OriginRequestPolicyId: "88a5eaf4-2fd4-4709-b370-b4c650ea3fcf"
               ViewerProtocolPolicy: redirect-to-https
               ResponseHeadersPolicyId: !GetAtt LexWebUIResponseHeaderPolicy.Id
+            Aliases:
+              !If
+              - UseDefaultCloudfrontUrl
+              - !Ref AWS::NoValue
+              - [ !Ref WebAppConfCname ]
             ViewerCertificate:
-              CloudFrontDefaultCertificate: true
+              !If
+              - UseDefaultCloudfrontUrl
+              - CloudFrontDefaultCertificate: true
+              - AcmCertificateArn: !Ref WebAppAcmCertificateArn
+                CloudFrontDefaultCertificate: false
+                MinimumProtocolVersion: TLSv1.2_2018
+                SslSupportMethod: sni-only
+            WebACLId:
+              !If
+              - ShouldNotSpecifyWafAcl
+              - !Ref AWS::NoValue
+              - !Ref WebAppWafAclArn
             HttpVersion: http2
             IPV6Enabled: true
 
@@ -560,6 +604,8 @@ Resources:
                       Value: !Ref ConnectEndLiveChatLabel
                     - Name: CONNECT_END_LIVE_CHAT_ICON
                       Value: !Ref ConnectEndLiveChatIcon
+                    - Name: CONNECT_TRANSCRIPT_MESSAGE_DELAY_IN_MSEC
+                      Value: !Ref ConnectTranscriptMessageDelayInMsec
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME

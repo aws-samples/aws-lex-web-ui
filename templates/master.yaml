@@ -326,6 +326,26 @@ Parameters:
         Default: Order Flowers
         Description: Title displayed in the chatbot UI toolbar
 
+    WebAppConfCname:
+        Type: String
+        Default: ""
+        Description: This optional parameter allows a single CNAME to be defined and used as an alias to
+            the cloudfront distribution that is created by this template. If a CNAME is provided, a
+            WebAppAcmCertificateArn must also be provided.
+
+    WebAppAcmCertificateArn:
+        Type: String
+        Default: ""
+        Description: This optional parameter allows a AcmCertificateArn to be provided for use in the Cloudfront
+            distribution created by this template. if a AcmCertificateArn is provided, a WebAppConfCname must also
+            be provided.
+
+    WebAppWafAclArn:
+        Type: String
+        Default: ""
+        Description: This optional parameter allows a AWS WAF web ACL to be specified in ARN formation. This supports
+            AWS WAF V2.
+
     HideButtonMessageBubble:
         Type: String
         Default: false
@@ -441,6 +461,12 @@ Parameters:
             Command separated list of terms that can be used to start Live Chat mode
         Default: "live chat"
 
+    ConnectTranscriptMessageDelayInMsec:
+        Type: Number
+        Description: >
+            Delay to insert between each transcript message send to Connect in msec.
+        Default: 150
+
     ConnectStartLiveChatLabel:
         Type: String
         Description: >
@@ -530,6 +556,9 @@ Metadata:
                   - WebAppConfNegativeFeedback
                   - WebAppConfPositiveFeedback
                   - WebAppConfHelp
+                  - WebAppAcmCertificateArn
+                  - WebAppConfCname
+                  - WebAppWafAclArn
                   - HideButtonMessageBubble
                   - MessageMenu
                   - BackButton
@@ -554,6 +583,7 @@ Metadata:
                   - ConnectStartLiveChatIcon
                   - ConnectEndLiveChatLabel
                   - ConnectEndLiveChatIcon
+                  - ConnectTranscriptMessageDelayInMsec
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
@@ -632,6 +662,9 @@ Resources:
                 WebAppConfNegativeFeedback: !Ref WebAppConfNegativeFeedback
                 WebAppConfPositiveFeedback: !Ref WebAppConfPositiveFeedback
                 WebAppConfHelp: !Ref WebAppConfHelp
+                WebAppConfCname: !Ref WebAppConfCname
+                WebAppAcmCertificateArn: !Ref WebAppAcmCertificateArn
+                WebAppWafAclArn: !Ref WebAppWafAclArn
                 HideButtonMessageBubble: !Ref HideButtonMessageBubble
                 MessageMenu: !Ref MessageMenu
                 BackButton: !Ref BackButton
@@ -675,7 +708,8 @@ Resources:
                 ConnectStartLiveChatIcon: !Ref ConnectStartLiveChatIcon
                 ConnectEndLiveChatLabel: !Ref ConnectEndLiveChatLabel
                 ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
-                Timestamp: 1681672670
+                ConnectTranscriptMessageDelayInMsec: !Ref ConnectTranscriptMessageDelayInMsec
+                Timestamp: 1683124094
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -689,7 +723,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1681672670
+                Timestamp: 1683124094
 
 Outputs:
     BotName:
