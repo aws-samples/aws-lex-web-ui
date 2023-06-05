@@ -29,4 +29,4 @@ function adjustCSSRules(selector, props, sheets)
 }
 
 var css_location = '../dist/custom-chatbot-style.css'
-if (process.env['messageTextColor']) { adjustCSSRules('.message-text', 'color: red', css_location )}
+if (process.env['MESSAGE_TEXT_COLOR']) { adjustCSSRules('.message-text', 'color: ' + process.env['MESSAGE_TEXT_COLOR'], css_location )}

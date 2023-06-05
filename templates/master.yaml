@@ -491,6 +491,13 @@ Parameters:
             Icon to use in menu and toolbar to end connect live chat
         Default: "call_end"
 
+    ## CSS Configuration Options
+    MessageTextColor:
+        Type: String
+        Default: '#000000'
+        Description: >
+         Sets the color of the message text - can be a valid CSS color or Hex value
+
 Rules:
   ValidateEitherV1orV2:
     RuleCondition: !Not 
@@ -584,6 +591,10 @@ Metadata:
                   - ConnectEndLiveChatLabel
                   - ConnectEndLiveChatIcon
                   - ConnectTranscriptMessageDelayInMsec
+            - Label:
+                default: CSS Customization Parameters
+              Parameters:
+                  - MessageTextColor
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
@@ -709,6 +720,7 @@ Resources:
                 ConnectEndLiveChatLabel: !Ref ConnectEndLiveChatLabel
                 ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
                 ConnectTranscriptMessageDelayInMsec: !Ref ConnectTranscriptMessageDelayInMsec
+                MessageTextColor: !Ref MessageTextColor
                 Timestamp: 1683124094
 
     CognitoIdentityPoolConfig:

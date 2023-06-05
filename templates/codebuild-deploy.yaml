@@ -444,6 +444,13 @@ Parameters:
         Description: >
           This will be a prefix for resources that must have unique names.
 
+     ## CSS Configuration Options
+    MessageTextColor:
+        Type: String
+        Default: '#000000'
+        Description: >
+         Sets the color of the message text - can be a valid CSS color or Hex value
+
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
@@ -792,6 +799,8 @@ Resources:
                       Value: !Ref retryCountPostTextTimeout
                     - Name: TIMESTAMP
                       Value: !Ref Timestamp
+                    - Name: MESSAGE_TEXT_COLOR
+                      Value: !Ref MessageTextColor
 
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
