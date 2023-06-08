@@ -451,6 +451,36 @@ Parameters:
         Description: >
          Sets the color of the message text - can be a valid CSS color or Hex value
 
+    MessageFont:
+        Type: String
+        Default: 'Roboto, sans-serif'
+        Description: >
+         Sets the font style of the messages sent by the agent and customer
+
+    ChatBackgroundColor:
+        Type: String
+        Default: 'transparent'
+        Description: >
+         Sets the background color of the message area - can be a valid CSS color or Hex value
+
+    ToolbarColor:
+        Type: String
+        Default: '#F44336'
+        Description: >
+         Sets the background color of the toolbar
+
+    AgentChatBubble:
+        Type: String
+        Default: '#FFEBEE'
+        Description: >
+         Sets the background color of the bubble for the agent
+    
+    CustomerChatBubble:
+        Type: String
+        Default: '#E8EAF6'
+        Description: >
+         Sets the background color of the bubble for the customer
+
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
@@ -687,7 +717,7 @@ Resources:
                 Type: NO_ARTIFACTS
             Environment:
                 Type: LINUX_CONTAINER
-                Image: aws/codebuild/amazonlinux2-x86_64-standard:2.0
+                Image: aws/codebuild/amazonlinux2-x86_64-standard:4.0
                 ComputeType: BUILD_GENERAL1_SMALL
                 EnvironmentVariables:
                     - Name: BUILD_TYPE
@@ -801,6 +831,16 @@ Resources:
                       Value: !Ref Timestamp
                     - Name: MESSAGE_TEXT_COLOR
                       Value: !Ref MessageTextColor
+                    - Name: MESSAGE_FONT
+                      Value: !Ref MessageFont
+                    - Name: CHAT_BACKGROUND_COLOR
+                      Value: !Ref ChatBackgroundColor
+                    - Name: TOOLBAR_COLOR
+                      Value: !Ref ToolbarColor
+                    - Name: AGENT_CHAT_BUBBLE
+                      Value: !Ref AgentChatBubble
+                    - Name: CUSTOMER_CHAT_BUBBLE
+                      Value: !Ref CustomerChatBubble
 
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
@@ -814,6 +854,7 @@ Resources:
                             commands:
                                 - aws configure set region "$AWS_DEFAULT_REGION"
                                 - make load-current-config
+                                - npm install                                
                                 - make config
                         post_build:
                             commands:

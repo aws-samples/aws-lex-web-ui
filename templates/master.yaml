@@ -498,6 +498,36 @@ Parameters:
         Description: >
          Sets the color of the message text - can be a valid CSS color or Hex value
 
+    MessageFont:
+        Type: String
+        Default: 'Roboto, sans-serif'
+        Description: >
+         Sets the font style of the messages sent by the agent and customer
+
+    ChatBackgroundColor:
+        Type: String
+        Default: 'transparent'
+        Description: >
+         Sets the background color of the message area - can be a valid CSS color or Hex value
+
+    ToolbarColor:
+        Type: String
+        Default: '#F44336'
+        Description: >
+         Sets the background color of the toolbar
+
+    AgentChatBubble:
+        Type: String
+        Default: '#FFEBEE'
+        Description: >
+         Sets the background color of the bubble for the agent
+    
+    CustomerChatBubble:
+        Type: String
+        Default: '#E8EAF6'
+        Description: >
+         Sets the background color of the bubble for the customer
+
 Rules:
   ValidateEitherV1orV2:
     RuleCondition: !Not 
@@ -595,6 +625,12 @@ Metadata:
                 default: CSS Customization Parameters
               Parameters:
                   - MessageTextColor
+                  - MessageFont
+                  - ChatBackgroundColor
+                  - ToolbarColor
+                  - AgentChatBubble
+                  - CustomerChatBubble
+
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
@@ -721,6 +757,11 @@ Resources:
                 ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
                 ConnectTranscriptMessageDelayInMsec: !Ref ConnectTranscriptMessageDelayInMsec
                 MessageTextColor: !Ref MessageTextColor
+                MessageFont: !Ref MessageFont
+                ChatBackgroundColor: !Ref ChatBackgroundColor
+                ToolbarColor: !Ref ToolbarColor
+                AgentChatBubble: !Ref AgentChatBubble
+                CustomerChatBubble: !Ref CustomerChatBubble
                 Timestamp: 1683124094
 
     CognitoIdentityPoolConfig:
