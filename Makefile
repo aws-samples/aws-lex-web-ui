@@ -84,12 +84,11 @@ $(IFRAME_SNIPPET_FILE): $(CREATE_IFRAME_SNIPPET_SCRIPT)
 create-iframe-snippet: $(IFRAME_SNIPPET_FILE)
 
 # creates an CSS file with the specified use settings
-CREATE_CUSTOM_CSS := $(BUILD_DIR)/create-custom-css.sh
-export CUSTOM_CSS_FILE := $(DIST_DIR)/custom-chatbot-style.css
-$(CUSTOM_CSS_FILE): $(CREATE_CUSTOM_CSS)
-	@echo "[INFO] Creating CSS file: [$(@)]"
-	bash $(?)
-create-css-file: $(CUSTOM_CSS_FILE)
+CREATE_CUSTOM_CSS := $(BUILD_DIR)/create-custom-css.js
+custom-css: $(CREATE_CUSTOM_CSS)
+	@echo "[INFO] Running custom css creation script: [$(<)]"
+	node $(<)
+.PHONY: custom-css
 
 # used by the Pipeline deployment mode when building from scratch
 WEBAPP_DIST_DIR := $(WEBAPP_DIR)/dist
