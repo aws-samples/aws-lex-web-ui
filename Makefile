@@ -50,6 +50,7 @@ load-current-config:
 BUILD_TYPE ?= $()
 
 # updates the config files with values from the environment
+CREATE_CUSTOM_CSS := $(BUILD_DIR)/create-custom-css.js
 UPDATE_CONFIG_SCRIPT := $(BUILD_DIR)/update-lex-web-ui-config.js
 export CURRENT_CONFIG_FILE ?= $(realpath $(CURRENT_CONFIG_FILE))
 export WEBAPP_CONFIG_PROD ?= $(realpath $(WEBAPP_DIR)/src/config/config.prod.json)
@@ -62,6 +63,8 @@ CONFIG_FILES := \
 config: $(UPDATE_CONFIG_SCRIPT) $(CONFIG_ENV) $(CONFIG_FILES)
 	@echo "[INFO] Running config script: [$(<)]"
 	node $(<)
+	@echo "[INFO] Running custom css creation script: [$(<)]"
+	node $(CREATE_CUSTOM_CSS)
 .PHONY: config
 
 build: config
@@ -82,13 +85,6 @@ $(IFRAME_SNIPPET_FILE): $(CREATE_IFRAME_SNIPPET_SCRIPT)
 	@echo "[INFO] Creating iframe snippet file: [$(@)]"
 	bash $(?)
 create-iframe-snippet: $(IFRAME_SNIPPET_FILE)
-
-# creates an CSS file with the specified use settings
-CREATE_CUSTOM_CSS := $(BUILD_DIR)/create-custom-css.js
-custom-css: $(CREATE_CUSTOM_CSS)
-	@echo "[INFO] Running custom css creation script: [$(<)]"
-	node $(<)
-.PHONY: custom-css
 
 # used by the Pipeline deployment mode when building from scratch
 WEBAPP_DIST_DIR := $(WEBAPP_DIR)/dist

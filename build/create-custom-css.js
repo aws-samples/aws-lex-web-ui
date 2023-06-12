@@ -35,7 +35,7 @@ function modifyRule(styleSheet, selector, props) {
 }
 
 // Reading the current CSS and adding it into an in-memory DOM object for easier manipulation
-var css_location = '../dist/custom-chatbot-style.css';
+var css_location = 'dist/custom-chatbot-style.css';
 var current_css = fs.readFileSync(css_location,{ encoding: 'utf8' });
 const dom = new JSDOM('<body><style>' + current_css + '</style></body>');
 
