@@ -469,17 +469,29 @@ Parameters:
         Description: >
          Sets the background color of the toolbar
 
-    AgentChatBubble:
+    BotChatBubble:
         Type: String
         Default: '#FFEBEE'
         Description: >
-         Sets the background color of the bubble for the agent
+         Sets the background color of the bubble for the bot
     
     CustomerChatBubble:
         Type: String
         Default: '#E8EAF6'
         Description: >
          Sets the background color of the bubble for the customer
+
+    TitleLogoImgUrl:
+        Type: String
+        Description: >
+         This is an optional parameter, when set to an image URL that is accessible by the application it will 
+         display the image left of the toolbar title. Image must be formatted to the correct size for display.
+
+    BotAvatarImgUrl:
+        Type: String
+        Description: >
+         This is an optional parameter, when set to an image URL that is accessible by the application it will 
+         display on the left of all bot messages
 
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
@@ -838,9 +850,13 @@ Resources:
                     - Name: TOOLBAR_COLOR
                       Value: !Ref ToolbarColor
                     - Name: AGENT_CHAT_BUBBLE
-                      Value: !Ref AgentChatBubble
+                      Value: !Ref BotChatBubble
                     - Name: CUSTOMER_CHAT_BUBBLE
                       Value: !Ref CustomerChatBubble
+                    - Name: TITLE_LOGO_IMG_URL
+                      Value: !Ref TitleLogoImgUrl
+                    - Name: BOT_AVATAR_IMG_URL
+                      Value: !Ref BotAvatarImgUrl
 
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10

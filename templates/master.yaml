@@ -516,17 +516,29 @@ Parameters:
         Description: >
          Sets the background color of the toolbar
 
-    AgentChatBubble:
+    BotChatBubble:
         Type: String
         Default: '#FFEBEE'
         Description: >
-         Sets the background color of the bubble for the agent
+         Sets the background color of the bubble for the bot
     
     CustomerChatBubble:
         Type: String
         Default: '#E8EAF6'
         Description: >
          Sets the background color of the bubble for the customer
+
+    TitleLogoImgUrl:
+        Type: String
+        Description: >
+         This is an optional parameter, when set to an image URL that is accessible by the application it will 
+         display the image left of the toolbar title. Image must be formatted to the correct size for display.
+
+    BotAvatarImgUrl:
+        Type: String
+        Description: >
+         This is an optional parameter, when set to an image URL that is accessible by the application it will 
+         display on the left of all bot messages
 
 Rules:
   ValidateEitherV1orV2:
@@ -602,6 +614,8 @@ Metadata:
                   - MinimizedButtonContent
                   - WebAppConfToolbarTitle
                   - ShouldLoadIframeMinimized
+                  - TitleLogoImgUrl
+                  - BotAvatarImgUrl
             - Label:
                 default: Connect Live Chat Parameters
               Parameters:
@@ -628,7 +642,7 @@ Metadata:
                   - MessageFont
                   - ChatBackgroundColor
                   - ToolbarColor
-                  - AgentChatBubble
+                  - BotChatBubble
                   - CustomerChatBubble
 
 Conditions:
@@ -760,8 +774,10 @@ Resources:
                 MessageFont: !Ref MessageFont
                 ChatBackgroundColor: !Ref ChatBackgroundColor
                 ToolbarColor: !Ref ToolbarColor
-                AgentChatBubble: !Ref AgentChatBubble
+                BotChatBubble: !Ref BotChatBubble
                 CustomerChatBubble: !Ref CustomerChatBubble
+                TitleLogoImgUrl: !Ref TitleLogoImgUrl
+                BotAvatarImgUrl: !Ref BotAvatarImgUrl
                 Timestamp: 1683124094
 
     CognitoIdentityPoolConfig:
