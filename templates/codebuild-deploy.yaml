@@ -853,7 +853,7 @@ Resources:
                       Value: !Ref BotChatBubble
                     - Name: CUSTOMER_CHAT_BUBBLE
                       Value: !Ref CustomerChatBubble
-                    - Name: TITLE_LOGO_IMG_URL
+                    - Name: UI_TOOLBAR_LOGO
                       Value: !Ref TitleLogoImgUrl
                     - Name: BOT_AVATAR_IMG_URL
                       Value: !Ref BotAvatarImgUrl
