@@ -444,42 +444,54 @@ Parameters:
         Description: >
           This will be a prefix for resources that must have unique names.
 
-     ## CSS Configuration Options
+    ## CSS Configuration Options
     MessageTextColor:
         Type: String
-        Default: '#000000'
+        Default: ''
         Description: >
-         Sets the color of the message text - can be a valid CSS color or Hex value
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the color of the message text, can be a valid CSS color or Hex value
 
     MessageFont:
         Type: String
-        Default: 'Roboto, sans-serif'
+        Default: ''
         Description: >
          Sets the font style of the messages sent by the agent and customer
 
     ChatBackgroundColor:
         Type: String
-        Default: 'transparent'
+        Default: ''
         Description: >
-         Sets the background color of the message area - can be a valid CSS color or Hex value
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the message area, can be a valid CSS color or Hex value
 
     ToolbarColor:
         Type: String
-        Default: '#F44336'
+        Default: ''
         Description: >
-         Sets the background color of the toolbar
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the toolbar, can be a valid CSS color or Hex value
 
     BotChatBubble:
         Type: String
-        Default: '#FFEBEE'
+        Default: ''
         Description: >
-         Sets the background color of the bubble for the bot
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the bubble for the bot, can be a valid CSS color or Hex value
     
     CustomerChatBubble:
         Type: String
-        Default: '#E8EAF6'
+        Default: ''
         Description: >
-         Sets the background color of the bubble for the customer
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the bubble for the customer, can be a valid CSS color or Hex value.
+
+    MinimizedButtonColor:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the button displayed when the chat is minimized, can be a valid CSS color or Hex value.
 
     TitleLogoImgUrl:
         Type: String
@@ -853,6 +865,8 @@ Resources:
                       Value: !Ref BotChatBubble
                     - Name: CUSTOMER_CHAT_BUBBLE
                       Value: !Ref CustomerChatBubble
+                    - Name: MINIMIZED_BUTTON_COLOR
+                      Value: !Ref MinimizedButtonColor
                     - Name: UI_TOOLBAR_LOGO
                       Value: !Ref TitleLogoImgUrl
                     - Name: BOT_AVATAR_IMG_URL

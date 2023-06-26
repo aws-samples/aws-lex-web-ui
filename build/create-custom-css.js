@@ -42,23 +42,26 @@ const dom = new JSDOM('<body><style>' + current_css + '</style></body>');
 document = dom.window.document;
 styleSheet = document.styleSheets[document.styleSheets.length - 1];
 
-if (process.env['MESSAGE_TEXT_COLOR']) { 
+if (process.env['MESSAGE_TEXT_COLOR'] && process.env['MESSAGE_TEXT_COLOR'].length > 0) { 
     modifyRule(styleSheet, '.message-text', { color: process.env['MESSAGE_TEXT_COLOR'] + ' !important'});
 }
-if (process.env['MESSAGE_FONT']) { 
+if (process.env['MESSAGE_FONT'] && process.env['MESSAGE_FONT'].length > 0) { 
     modifyRule(styleSheet, '.message-text', { "font-family": process.env['MESSAGE_FONT'] + ' !important'});
 }
-if (process.env['CHAT_BACKGROUND_COLOR']) { 
+if (process.env['CHAT_BACKGROUND_COLOR'] && process.env['CHAT_BACKGROUND_COLOR'].length > 0) { 
     modifyRule(styleSheet, '.message-list-container', { "background-color": process.env['CHAT_BACKGROUND_COLOR'] + ' !important'});
 }
-if (process.env['TOOLBAR_COLOR']) { 
+if (process.env['TOOLBAR_COLOR'] && process.env['TOOLBAR_COLOR'].length > 0) { 
     modifyRule(styleSheet, '.toolbar.theme--dark', { "background-color": process.env['TOOLBAR_COLOR'] + ' !important'});
 }
-if (process.env['AGENT_CHAT_BUBBLE']) { 
+if (process.env['AGENT_CHAT_BUBBLE'] && process.env['AGENT_CHAT_BUBBLE'].length > 0) { 
     modifyRule(styleSheet, '.message-bot .message-bubble', { "background-color": process.env['AGENT_CHAT_BUBBLE'] + ' !important'});
 }
-if (process.env['CUSTOMER_CHAT_BUBBLE']) { 
+if (process.env['CUSTOMER_CHAT_BUBBLE'] && process.env['CUSTOMER_CHAT_BUBBLE'].length > 0) { 
     modifyRule(styleSheet, '.message-human .message-bubble', { "background-color": process.env['CUSTOMER_CHAT_BUBBLE'] + ' !important'});
+}
+if (process.env['MINIMIZED_BUTTON_COLOR'] && process.env['MINIMIZED_BUTTON_COLOR'].length > 0) { 
+    modifyRule(styleSheet, 'button.min-button', { "background-color": process.env['CUSTOMER_CHAT_BUBBLE'] + ' !important'});
 }
 
 //Write the CSS back to the file (formatting will be changed if it had manual inputs but rules/properties should remain)
