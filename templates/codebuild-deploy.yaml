@@ -944,6 +944,15 @@ Resources:
             ParentOrigin: !Ref ParentOrigin
             retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
             retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
+            MessageTextColor: !Ref MessageTextColor
+            MessageFont: !Ref MessageFont
+            ChatBackgroundColor: !Ref ChatBackgroundColor
+            ToolbarColor: !Ref ToolbarColor
+            BotChatBubble: !Ref BotChatBubble
+            CustomerChatBubble: !Ref CustomerChatBubble
+            MinimizedButtonColor: !Ref MinimizedButtonColor
+            TitleLogoImgUrl: !Ref TitleLogoImgUrl
+            BotAvatarImgUrl: !Ref BotAvatarImgUrl
             Timestamp: !Ref Timestamp
 
     # Lambda function for custom resource

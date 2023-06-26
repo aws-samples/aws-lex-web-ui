@@ -64,7 +64,7 @@ config: $(UPDATE_CONFIG_SCRIPT) $(CONFIG_ENV) $(CONFIG_FILES)
 	@echo "[INFO] Running config script: [$(<)]"
 	node $(<)
 	@echo "[INFO] Running custom css creation script: [$(<)]"
-	node $(CREATE_CUSTOM_CSS)
+	node $(CREATE_CUSTOM_CSS) $(USER_CUSTOM_CSS_COPY)
 .PHONY: config
 
 build: config
