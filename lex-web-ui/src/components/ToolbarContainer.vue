@@ -588,6 +588,7 @@ export default {
 
 .toolbar-image {
   margin-left: 0px !important;
+  max-height: 100%;
 }
 
 .toolbar__title {
