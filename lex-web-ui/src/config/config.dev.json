@@ -1,34 +1,22 @@
 {
   "region": "us-east-1",
   "cognito": {
-    "poolId": "us-east-1:98131d49-c88e-43d4-bfb7-7296a5ff19b8",
-    "appUserPoolClientId": "209psopfcb4viteshuoo4tn4qg",
-    "appUserPoolName": "us-east-1_D6gFjBObV",
-    "appDomainName": "atjklexkwebkuikidentitypoolconfigkbgmfhjxqn564048246598.auth.us-east-1.amazoncognito.com",
+    "poolId": "",
+    "appUserPoolClientId": "",
+    "appUserPoolName": "",
+    "appDomainName": "",
     "aws_cognito_region": "us-east-1",
     "region": "us-east-1"
   },
-  "connect": {
-    "contactFlowId": "4b6814b-a997-4ece-b84e-a476dd594a2b",
-    "instanceId": "a2102e84-4480-43bb-9ce2-1f64c4e4a008",
-    "waitingForAgentMessage": "Thanks for waiting. An agent will be with you when available.",
-    "waitingForAgentMessageIntervalSeconds": "60",
-    "agentJoinedMessage": "Chat Started",
-    "agentLeftMessage": "{Agent} has left.",
-    "chatEndedMessage": "Chat ended.",
-    "attachChatTranscript": "false",
-    "liveChatTerms": "live chat",
-    "talkDeskWebsocketEndpoint": "wss://c68lvra88j.execute-api.us-east-1.amazonaws.com/dev"
-  },
   "lex": {
-    "v2BotId": "URM3A38NN9",
-    "v2BotAliasId": "79WW9UWKCL",
-    "v2BotLocaleId": "en_US,fr_FR",
-    "botName": "QnA Demo Bot",
+    "v2BotId": "",
+    "v2BotAliasId": "",
+    "v2BotLocaleId": "",
+    "botName": "",
     "botAlias": "$LATEST",
-    "initialText": "",
+    "initialText": "Type 'Buy Flowers' to get started.",
     "initialSpeechInstruction": "Say 'Buy Flowers' to get started.",
-    "initialUtterance": "Hello",
+    "initialUtterance": "",
     "reInitSessionAttributesOnRestart": false,
     "region": "us-east-1",
     "retryOnLexPostTextTimeout": "false",
@@ -36,29 +24,36 @@
   },
   "ui": {
     "parentOrigin": "",
-    "toolbarTitle": "Example Bot",
-    "avatarImageUrl": "https://cdn.iconscout.com/icon/free/png-256/free-aws-3215369-2673787.png",
-    "toolbarLogo": "https://cdn.iconscout.com/icon/free/png-256/free-aws-3215369-2673787.png",
+    "toolbarTitle": "Order Flowers",
+    "toolbarLogo": "",
     "positiveFeedbackIntent": "Thumbs up",
     "negativeFeedbackIntent": "Thumbs down",
     "helpIntent": "Help",
-    "minButtonContent": "chat",
-    "backButton": "true",
-    "messageMenu": "true",
-    "hideButtonMessageBubble": true,
     "enableLogin": false,
-    "enableLiveChat": false,
     "forceLogin": false,
     "AllowSuperDangerousHTMLInMessage": true,
     "shouldDisplayResponseCardTitle": false,
-    "uploadMimeTypes": "text/*",
     "saveHistory": false,
-    "helpContent": {},
-    "enableSFX": false,
-    "hideInputFieldsForButtonResponse": true,
+    "minButtonContent": "",
+    "hideInputFieldsForButtonResponse": false,
     "pushInitialTextOnRestart": false,
     "directFocusToBotInput": false,
-    "showDialogStateIcon": false
+    "showDialogStateIcon": false,
+    "backButton": false,
+    "messageMenu": true,
+    "hideButtonMessageBubble": false,
+    "enableLiveChat": false
+  },
+  "connect": {
+    "contactFlowId" : "",
+    "instanceId" : "",
+    "apiGatewayEndpoint" : "",
+    "waitingForAgentMessage": "Thanks for waiting. An agent will be with you when available.",
+    "waitingForAgentMessageIntervalSeconds": 60,
+    "agentJoinedMessage": "{Agent} has joined.",
+    "agentLeftMessage": "{Agent} has left.", 
+    "chatEndedMessage": "Chat ended.",
+    "attachChatTranscript": true
   },
   "polly": {
     "voiceId": "Salli"
@@ -68,7 +63,7 @@
   },
   "iframe": {
     "iframeOrigin": "",
-    "shouldLoadIframeMinimized": true,
+    "shouldLoadIframeMinimized": false,
     "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true"
   }
 }
