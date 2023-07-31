@@ -22,22 +22,22 @@ export const dependenciesFullPage = {
   script: [
     {
       name: 'AWS',
-      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.903.0.js',
+      url: './aws-sdk-2.903.0.js',
       canUseMin: true,
     },
     {
       name: 'Vue',
-      url: 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js',
+      url: './2.6.11_dist_vue.js',
       canUseMin: true,
     },
     {
       name: 'Vuex',
-      url: 'https://unpkg.com/vuex@3.4.0/dist/vuex.js',
+      url: './3.4.0_dist_vuex.js',
       canUseMin: true,
     },
     {
       name: 'Vuetify',
-      url: 'https://unpkg.com/vuetify@0.17.7/dist/vuetify.js',
+      url: './0.17.7_dist_vuetify.js',
       canUseMin: true,
     },
     {
@@ -49,11 +49,11 @@ export const dependenciesFullPage = {
   css: [
     {
       name: 'roboto-material-icons',
-      url: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons',
+      url: './material_icons.css',
     },
     {
       name: 'vuetify',
-      url: 'https://unpkg.com/vuetify@0.17.7/dist/vuetify.css',
+      url: './0.17.7_dist_vuetify.css',
       canUseMin: true,
     },
     {

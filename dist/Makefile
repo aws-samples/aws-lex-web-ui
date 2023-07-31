@@ -24,11 +24,12 @@ copy-bundle: $(LIBRARY_SRC_FILES) $(LIBRARY_FILES)
 # copy website bot loader files from source to dist dir
 SRC_DIR := ../src
 LOADER_SRC_DIR := $(SRC_DIR)/lex-web-ui-loader
+LOADER_SRC_DEPENDENCIES := $(wildcard $(LOADER_SRC_DIR)/dependencies/*)
 LOADER_SRC_JS_FILES := \
 	$(wildcard $(LOADER_SRC_DIR)/js/*.js) \
 	$(wildcard $(LOADER_SRC_DIR)/lib/*.js)
 LOADER_SRC_CSS_FILES := $(wildcard $(LOADER_SRC_DIR)/css/*.css)
-LOADER_SRC_FILES := $(LOADER_SRC_JS_FILES) $(LOADER_SRC_CSS_FILES)
+LOADER_SRC_FILES := $(LOADER_SRC_JS_FILES) $(LOADER_SRC_CSS_FILES) $(LOADER_SRC_DEPENDENCIES)
 
 LOADER_SRC_BASE_NAME := lex-web-ui-loader
 LOADER_TARGET_PROD_FILES := \

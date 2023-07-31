@@ -224,5 +224,5 @@ function chainWebpackApp(config, destDir = '') {
 }
 
 module.exports = {
-  chainWebpack: (buildType.isLib) ? chainWebpackLib : chainWebpackApp,
+  chainWebpack: chainWebpackApp,
 };
