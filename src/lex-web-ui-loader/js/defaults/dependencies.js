@@ -72,7 +72,7 @@ export const dependenciesIframe = {
   script: [
     {
       name: 'AWS',
-      url: 'https://sdk.amazonaws.com/js/aws-sdk-2.903.0.js',
+      url: './aws-sdk-2.903.0.js',
       canUseMin: true,
     },
   ],
