@@ -395,6 +395,8 @@ To utilize the second approach configure and use the following:
 
 * Set the `ui.AllowSuperDangerousHTMLInMessage` config field to `true`. __WARNING__: Enabling this feature increases the risk of XSS. Make sure that the HTML/Markdown message has been properly escaped/encoded/filtered in the Lex Handler Lambda function. For more information on XSS see [here](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS))
 
+* If using markdown to render images or video from another domain, add those domains as a space seperated list in the Cloudformation template `MarkdownSupportDomains` field - this will update the Cloudfront security headers to allow those domains.
+
 * Program you lambda function to provide your Markdown and HTML messages as alt-messages in the session attribute `appContext.altMessages`. For example your session attribute could look like this or markdown messages:
 
 ```

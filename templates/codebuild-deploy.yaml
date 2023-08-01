@@ -82,6 +82,12 @@ Parameters:
         Description: >
             If set to True, Markdown formatting in ResponseCards will be enabled.
 
+    MarkdownSupportDomains:
+        Type: String
+        Description: >
+            If enabling Markdown support, provide a space-seperated list of allowable sources 
+            for content (images/video). Any domain not listed here will be blocked by Content Security Policy.
+
     ReInitSessionAttributesOnRestart:
         Type: String
         Default: false
@@ -590,7 +596,7 @@ Resources:
               AccessControlMaxAgeSec: 47304000
             ContentSecurityPolicy:
               Override: false
-              ContentSecurityPolicy: "default-src 'self' data:; worker-src blob: data:; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: *.amazonaws.com; font-src 'self' fonts.gstatic.com; upgrade-insecure-requests;"
+              ContentSecurityPolicy: !Sub "default-src 'self' {MarkdownSupportDomains} data:; worker-src blob: data:; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: *.amazonaws.com; font-src 'self' fonts.gstatic.com; upgrade-insecure-requests;"
 
     LexWebUiDistribution:
         Type: AWS::CloudFront::Distribution
