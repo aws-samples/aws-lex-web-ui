@@ -588,6 +588,9 @@ Resources:
               IncludeSubdomains: True
               Preload: False
               AccessControlMaxAgeSec: 47304000
+            ContentSecurityPolicy:
+              Override: false
+              ContentSecurityPolicy: "default-src 'self' data:; worker-src blob: data:; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self'; connect-src 'self' ws: *.amazonaws.com; font-src 'self' fonts.gstatic.com; upgrade-insecure-requests;"
 
     LexWebUiDistribution:
         Type: AWS::CloudFront::Distribution

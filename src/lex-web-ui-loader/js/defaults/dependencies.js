@@ -21,6 +21,10 @@
 export const dependenciesFullPage = {
   script: [
     {
+      name: 'Loader',
+      url: './initiate-loader.js',
+    },
+    {
       name: 'AWS',
       url: './aws-sdk-2.903.0.js',
       canUseMin: true,
