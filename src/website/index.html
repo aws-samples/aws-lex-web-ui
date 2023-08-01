@@ -2,6 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self' data:; 
+      worker-src blob: data:;
+      img-src * data:;
+      script-src 'self' 'unsafe-eval' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline';
+      connect-src 'self' ws: *.amazonaws.com;
+      font-src 'self' fonts.gstatic.com; 
+      upgrade-insecure-requests;">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <title>LexWebUi Demo</title>
     <!-- empty favicon to avoid 404 -->
