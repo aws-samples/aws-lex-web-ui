@@ -596,7 +596,7 @@ Resources:
               AccessControlMaxAgeSec: 47304000
             ContentSecurityPolicy:
               Override: false
-              ContentSecurityPolicy: !Sub "img-src 'self' {MarkdownSupportDomains}; frame-src {MarkdownSupportDomains};"
+              ContentSecurityPolicy: !Sub "img-src 'self' ${MarkdownSupportDomains}; frame-src 'self' ${MarkdownSupportDomains};"
 
     LexWebUiDistribution:
         Type: AWS::CloudFront::Distribution
