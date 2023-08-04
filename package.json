@@ -33,8 +33,7 @@
     "amazon-cognito-auth-js": "^1.2.4",
     "core-js": "^3.6.5",
     "jsonwebtoken": "^9.0.0",
-    "regenerator-runtime": "^0.13.5",
-    "jsdom": "^22.0.0"
+    "regenerator-runtime": "^0.13.5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",

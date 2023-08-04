@@ -52,7 +52,6 @@ module.exports = {
     helpIntent: process.env.HELP_INTENT,
     minButtonToolTipContent: process.env.MIN_BUTTON_TOOLTIP_CONTENT,
     minButtonContent: process.env.MIN_BUTTON_CONTENT,
-    avatarImageUrl: process.env.BOT_AVATAR_IMG_URL,
     backButton: (process.env.BACK_BUTTON === undefined) ? undefined : (process.env.BACK_BUTTON === 'true') ? true : false,
     messageMenu: (process.env.MESSAGE_MENU === undefined) ? undefined : (process.env.MESSAGE_MENU === 'true') ? true : false,
     hideButtonMessageBubble: (process.env.HIDE_BUTTON_MESSAGE_BUBBLE === undefined) ? undefined : (process.env.HIDE_BUTTON_MESSAGE_BUBBLE === 'true') ? true : false,
