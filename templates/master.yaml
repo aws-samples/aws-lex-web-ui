@@ -491,6 +491,67 @@ Parameters:
             Icon to use in menu and toolbar to end connect live chat
         Default: "call_end"
 
+    ## CSS Configuration Options
+    MessageTextColor:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the color of the message text, can be a valid CSS color (red, green, etc) or Hex value (#FF0000, #ADD8E6, etc)
+
+    MessageFont:
+        Type: String
+        Default: ''
+        Description: >
+         Sets the font style of the messages sent by the agent and customer
+
+    ChatBackgroundColor:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the message area, can be a valid CSS color (red, green, etc) or Hex value (#FF0000, #ADD8E6, etc)
+
+    ToolbarColor:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the toolbar, can be a valid CSS color (red, green, etc) or Hex value (#FF0000, #ADD8E6, etc)
+
+    BotChatBubble:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the bubble for the bot, can be a valid CSS color (red, green, etc) or Hex value (#FF0000, #ADD8E6, etc)
+    
+    CustomerChatBubble:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the bubble for the customer, can be a valid CSS color (red, green, etc) or Hex value (#FF0000, #ADD8E6, etc)
+
+    MinimizedButtonColor:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the button displayed when the chat is minimized, can be a valid CSS color (red, green, etc) or Hex value (#FF0000, #ADD8E6, etc)
+
+    TitleLogoImgUrl:
+        Type: String
+        Description: >
+         This is an optional parameter, when set to an image URL that is accessible by the application it will 
+         display the image left of the toolbar title. Image must be formatted to the correct size for display.
+
+    BotAvatarImgUrl:
+        Type: String
+        Description: >
+         This is an optional parameter, when set to an image URL that is accessible by the application it will 
+         display on the left of all bot messages
+
 Rules:
   ValidateEitherV1orV2:
     RuleCondition: !Not 
@@ -565,6 +626,8 @@ Metadata:
                   - MinimizedButtonContent
                   - WebAppConfToolbarTitle
                   - ShouldLoadIframeMinimized
+                  - TitleLogoImgUrl
+                  - BotAvatarImgUrl
             - Label:
                 default: Connect Live Chat Parameters
               Parameters:
@@ -584,6 +647,17 @@ Metadata:
                   - ConnectEndLiveChatLabel
                   - ConnectEndLiveChatIcon
                   - ConnectTranscriptMessageDelayInMsec
+            - Label:
+                default: CSS Customization Parameters
+              Parameters:
+                  - MessageTextColor
+                  - MessageFont
+                  - ChatBackgroundColor
+                  - ToolbarColor
+                  - BotChatBubble
+                  - CustomerChatBubble
+                  - MinimizedButtonColor
+
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
@@ -709,7 +783,16 @@ Resources:
                 ConnectEndLiveChatLabel: !Ref ConnectEndLiveChatLabel
                 ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
                 ConnectTranscriptMessageDelayInMsec: !Ref ConnectTranscriptMessageDelayInMsec
-                Timestamp: 1684778631
+                MessageTextColor: !Ref MessageTextColor
+                MessageFont: !Ref MessageFont
+                ChatBackgroundColor: !Ref ChatBackgroundColor
+                ToolbarColor: !Ref ToolbarColor
+                BotChatBubble: !Ref BotChatBubble
+                CustomerChatBubble: !Ref CustomerChatBubble
+                MinimizedButtonColor: !Ref MinimizedButtonColor
+                TitleLogoImgUrl: !Ref TitleLogoImgUrl
+                BotAvatarImgUrl: !Ref BotAvatarImgUrl
+                Timestamp: 1683124094
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -723,8 +806,96 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1684778631
+                Timestamp: 1683124094
 
+    ##########################################################################
+    # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment
+    ##########################################################################
+    CSSValidationLambda:
+        Type: AWS::Lambda::Function
+        Properties:
+            Description: 'Lambda invoke wrapper for Custom CFN actions'
+            Code:
+                ZipFile: !Sub |
+                    import re
+                    import cfnresponse
+
+                    def handler(event, context):
+                        responseData = {}
+                        try:
+                            if event['RequestType'] == "Create" or event['RequestType'] == "Update":
+                                colors = ['aqua', 'black', 'blue', 'fuchsia', 'gray', 'green', 'lime', 'maroon', 'navy', 'olive', 'purple', 'red', 'silver', 'teal', 'white', 'yellow']
+                                                                
+                                if (not re.search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', "${MessageTextColor}")) and (not "${MessageTextColor}" in colors) and ("${MessageTextColor}".strip()):
+                                    responseData['Data'] = "${MessageTextColor}" + " is not a valid color or HEX code"
+                                if (not re.search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', "${ChatBackgroundColor}")) and (not "${ChatBackgroundColor}" in colors) and ("${ChatBackgroundColor}".strip()):
+                                    responseData['Data'] = "${ChatBackgroundColor}" + " is not a valid color or HEX code"                                
+                                if (not re.search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', "${ToolbarColor}")) and (not "${ToolbarColor}" in colors) and ("${ToolbarColor}".strip()):
+                                    responseData['Data'] = "${ToolbarColor}" + " is not a valid color or HEX code"                                                                
+                                if (not re.search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', "${BotChatBubble}")) and (not "${BotChatBubble}" in colors) and ("${BotChatBubble}".strip()):              
+                                    responseData['Data'] = "${BotChatBubble}" + " is not a valid color or HEX code"                                                                
+                                if (not re.search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', "${CustomerChatBubble}")) and (not "${CustomerChatBubble}" in colors) and ("${CustomerChatBubble}".strip()):
+                                    responseData['Data'] = "${CustomerChatBubble}" + " is not a valid color or HEX code"                                                                
+                                if (not re.search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', "${MinimizedButtonColor}")) and (not "${MinimizedButtonColor}" in colors) and ("${MinimizedButtonColor}".strip()):
+                                    responseData['Data'] = "${MinimizedButtonColor}" + " is not a valid color or HEX code" 
+                                    
+                                if 'Data' in responseData:
+                                    cfnresponse.send(event, context, cfnresponse.FAILED, responseData, 'scm-cfn-customresource-id', False, responseData['Data'])
+                                else:
+                                    responseData['Data'] = "CSS Validation Complete"
+                                    cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData, 'scm-cfn-customresource-id')
+                            else:
+                                responseData['Data'] = "CSS Validation Delete Complete"
+                                cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData, 'scm-cfn-customresource-id')
+                        except:
+                            responseData['Data'] = "Unknown error when validating CSS colors"
+                            cfnresponse.send(event, context, cfnresponse.FAILED, responseData, 'scm-cfn-customresource-id', False, responseData['Data']) 
+                        
+            Handler: index.handler
+            Role: !GetAtt CSSValidationLambdaRole.Arn
+            Runtime: python3.9
+            Timeout: 60
+
+    CSSValidationLambdaRole:
+        Type: AWS::IAM::Role
+        Properties:
+            Path: /
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    - Principal:
+                          Service:
+                              - lambda.amazonaws.com
+                      Effect: Allow
+                      Action:
+                          - sts:AssumeRole
+            Policies:
+                - PolicyName: LogsForLambda
+                  PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                          - Effect: Allow
+                            Action:
+                                - logs:CreateLogGroup
+                                - logs:CreateLogStream
+                                - logs:PutLogEvents
+                            Resource:
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
+                                - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*:*"
+                        
+    CSSValidationLambdaInvoker:
+        Type: AWS::CloudFormation::CustomResource
+        DependsOn: CSSValidationLambda
+        Version: "1.0"
+        Properties:
+            ServiceToken: !GetAtt CSSValidationLambda.Arn
+            MessageTextColor: !Ref MessageTextColor
+            ChatBackgroundColor: !Ref ChatBackgroundColor
+            ToolbarColor: !Ref ToolbarColor
+            BotChatBubble: !Ref BotChatBubble
+            CustomerChatBubble: !Ref CustomerChatBubble
+            MinimizedButtonColor: !Ref MinimizedButtonColor
+            
 Outputs:
     BotName:
         Condition: NeedsBot

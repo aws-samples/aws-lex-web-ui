@@ -31,6 +31,8 @@ module.exports = function mergeConfig(baseConfig, srcConfig) {
             key=== 'initialUtterance' ||
             key=== 'minButtonContent' ||
             key=== 'initialText' ||
+            key=== 'avatarImageUrl' ||
+            key=== 'toolbarLogo' ||
             !isEmpty(srcConfig[key]) ) {
             value = (typeof (baseConfig[key]) === 'object') ?
                 // recursively merge sub-objects in both directions
