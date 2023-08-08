@@ -82,6 +82,12 @@ Parameters:
         Description: >
             If set to True, Markdown formatting in ResponseCards will be enabled.
 
+    MarkdownSupportDomains:
+        Type: String
+        Description: >
+            If enabling Markdown support, provide a space-seperated list of allowable sources 
+            for content (images/video). Any domain not listed here will be blocked by Content Security Policy.
+
     ReInitSessionAttributesOnRestart:
         Type: String
         Default: false
@@ -444,6 +450,67 @@ Parameters:
         Description: >
           This will be a prefix for resources that must have unique names.
 
+    ## CSS Configuration Options
+    MessageTextColor:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the color of the message text, can be a valid CSS color or Hex value
+
+    MessageFont:
+        Type: String
+        Default: ''
+        Description: >
+         Sets the font style of the messages sent by the agent and customer
+
+    ChatBackgroundColor:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the message area, can be a valid CSS color or Hex value
+
+    ToolbarColor:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the toolbar, can be a valid CSS color or Hex value
+
+    BotChatBubble:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the bubble for the bot, can be a valid CSS color or Hex value
+    
+    CustomerChatBubble:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the bubble for the customer, can be a valid CSS color or Hex value.
+
+    MinimizedButtonColor:
+        Type: String
+        Default: ''
+        Description: >
+         Optional parameter, leave empty to retain previous settings. 
+         Sets the background color of the button displayed when the chat is minimized, can be a valid CSS color or Hex value.
+
+    TitleLogoImgUrl:
+        Type: String
+        Description: >
+         This is an optional parameter, when set to an image URL that is accessible by the application it will 
+         display the image left of the toolbar title. Image must be formatted to the correct size for display.
+
+    BotAvatarImgUrl:
+        Type: String
+        Description: >
+         This is an optional parameter, when set to an image URL that is accessible by the application it will 
+         display on the left of all bot messages
+
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
@@ -588,6 +655,9 @@ Resources:
               IncludeSubdomains: True
               Preload: False
               AccessControlMaxAgeSec: 47304000
+            ContentSecurityPolicy:
+              Override: false
+              ContentSecurityPolicy: !Sub "img-src 'self' ${MarkdownSupportDomains}; frame-src 'self' ${MarkdownSupportDomains};"
 
     LexWebUiDistribution:
         Type: AWS::CloudFront::Distribution
@@ -680,7 +750,7 @@ Resources:
                 Type: NO_ARTIFACTS
             Environment:
                 Type: LINUX_CONTAINER
-                Image: aws/codebuild/amazonlinux2-x86_64-standard:2.0
+                Image: aws/codebuild/amazonlinux2-x86_64-standard:4.0
                 ComputeType: BUILD_GENERAL1_SMALL
                 EnvironmentVariables:
                     - Name: BUILD_TYPE
@@ -792,6 +862,24 @@ Resources:
                       Value: !Ref retryCountPostTextTimeout
                     - Name: TIMESTAMP
                       Value: !Ref Timestamp
+                    - Name: MESSAGE_TEXT_COLOR
+                      Value: !Ref MessageTextColor
+                    - Name: MESSAGE_FONT
+                      Value: !Ref MessageFont
+                    - Name: CHAT_BACKGROUND_COLOR
+                      Value: !Ref ChatBackgroundColor
+                    - Name: TOOLBAR_COLOR
+                      Value: !Ref ToolbarColor
+                    - Name: AGENT_CHAT_BUBBLE
+                      Value: !Ref BotChatBubble
+                    - Name: CUSTOMER_CHAT_BUBBLE
+                      Value: !Ref CustomerChatBubble
+                    - Name: MINIMIZED_BUTTON_COLOR
+                      Value: !Ref MinimizedButtonColor
+                    - Name: UI_TOOLBAR_LOGO
+                      Value: !Ref TitleLogoImgUrl
+                    - Name: BOT_AVATAR_IMG_URL
+                      Value: !Ref BotAvatarImgUrl
 
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
@@ -805,6 +893,7 @@ Resources:
                             commands:
                                 - aws configure set region "$AWS_DEFAULT_REGION"
                                 - make load-current-config
+                                - npm install                                
                                 - make config
                         post_build:
                             commands:
@@ -864,6 +953,15 @@ Resources:
             ParentOrigin: !Ref ParentOrigin
             retryOnLexPostTextTimeout: !Ref retryOnLexPostTextTimeout
             retryCountPostTextTimeout: !Ref retryCountPostTextTimeout
+            MessageTextColor: !Ref MessageTextColor
+            MessageFont: !Ref MessageFont
+            ChatBackgroundColor: !Ref ChatBackgroundColor
+            ToolbarColor: !Ref ToolbarColor
+            BotChatBubble: !Ref BotChatBubble
+            CustomerChatBubble: !Ref CustomerChatBubble
+            MinimizedButtonColor: !Ref MinimizedButtonColor
+            TitleLogoImgUrl: !Ref TitleLogoImgUrl
+            BotAvatarImgUrl: !Ref BotAvatarImgUrl
             Timestamp: !Ref Timestamp
 
     # Lambda function for custom resource
