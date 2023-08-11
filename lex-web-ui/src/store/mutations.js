@@ -405,6 +405,45 @@ export default {
     state.liveChat.isProcessing = bool;
   },
 
+  setLiveChatUtteranceSent(state) {
+    state.liveChatUtteranceSent = true;
+  },
+
+  setParticipantToken(state, participantToken) {
+    if (typeof participantToken !== 'string') {
+      console.error('setParticipantToken is not valid', participantToken);
+      return;
+    }
+    state.liveChat.participantToken = participantToken;
+  },
+
+  setParticipantId(state, participantId) {
+    if (typeof participantId !== 'string') {
+      console.error('setParticipantId is not valid', participantId);
+      return;
+    }
+    state.liveChat.participantId = participantId;
+  },
+
+  setContactId(state, contactId) {
+    if (typeof contactId !== 'string') {
+      console.error('setContactId is not valid', contactId);
+      return;
+    }
+    state.liveChat.contactId = contactId;
+  },
+
+
+
+
+  setReconnectToActiveChat(state, bool) {
+    if (typeof bool !== 'boolean'){
+      console.error('setReconnectToActiveChat status not boolean', bool);
+      return;
+    }
+    state.liveChat.reconnectToActiveChat = bool;
+  },
+
   setLiveChatUserName(state, name) {
     if (typeof name !== 'string') {
       console.error('setLiveChatUserName is not vaild', name);

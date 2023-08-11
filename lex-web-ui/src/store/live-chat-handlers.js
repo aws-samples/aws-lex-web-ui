@@ -42,6 +42,10 @@ export const initLiveChatHandlers = (context, session) => {
     //   type: 'agent',
     //   text: 'Live Chat Connection Established',
     // });
+    if (context.state.liveChat.reconnectToActiveChat){
+      context.commit('setIsLiveChatProcessing', false);
+      context.dispatch('liveChatAgentJoined');
+    }
   });
 
   session.onMessage((event) => {
@@ -144,17 +148,45 @@ export const initLiveChatHandlers = (context, session) => {
   });
 
   session.onTyping((typingEvent) => {
+    console.info('typingEvent: ', typingEvent);
     if (typingEvent.data.ParticipantRole === 'AGENT') {
       console.info('Agent is typing ');
       context.dispatch('agentIsTyping');
     }
   });
 
+  /*
   session.onConnectionBroken((data) => {
     console.info('Connection broken', data);
     context.dispatch('liveChatSessionReconnectRequest');
   });
+ 
+  session.onEnded(event => {
+    const { chatDetails, data } = event;
+    console.info('Connection has ended.', event);
+  });
+  
+  session.onParticipantIdle(event => {
+    const { chatDetails, data } = event;
+    console.info('participant.idle event', event);
+  });
 
+  session.onParticipantReturned(event => {
+    const { chatDetails, data } = event;
+    console.info('onParticipantReturned event', event);
+  });
+
+  session.onAutoDisconnection(event => {
+    const { chatDetails, data } = event;
+    console.info('onAutoDisconnection event', event);
+  });
+  
+  session.onConnectionLost(event => {
+    const { chatDetails, data } = event;
+    console.info('onConnectionLost event', event);
+  });
+  */
+ 
   /*
   NOT WORKING
   session.onEnded((data) => {

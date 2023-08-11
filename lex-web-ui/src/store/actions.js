@@ -89,6 +89,15 @@ export default {
       context.dispatch('postTextMessage', message);
     }
   },
+  sendLiveChatUtterance(context) {
+      console.info('sendLiveChatUtterance');
+      const message = {
+        type: context.state.config.ui.hideButtonMessageBubble ? 'button' : 'human',
+        text: 'live chat',  //TODO: pick the first live chat term and put it here
+      };
+      context.dispatch('postTextMessage', message);
+      console.info('postTextMessage', message);
+  },
   initMessageList(context) {
     context.commit('reloadMessages');
     if (context.state.messages &&
@@ -490,18 +499,26 @@ export default {
       })
       .then(() => {
         const liveChatTerms = context.state.config.connect.liveChatTerms ? context.state.config.connect.liveChatTerms.toLowerCase().split(',').map(str => str.trim()) : [];
+        console.info('context.state.chatMode: ', context.state.chatMode);
+        console.info('context.state.liveChat.status: ', context.state.liveChat.status);
+        console.info('message.text: ', message.text);
         if (context.state.config.ui.enableLiveChat &&
           liveChatTerms.find(el => el === message.text.toLowerCase()) &&
           context.state.chatMode === chatMode.BOT) {
-          return context.dispatch('requestLiveChat');
+            console.info('HERE 1: dispatch requestLiveChat');
+            return context.dispatch('requestLiveChat');
         } else if (context.state.liveChat.status === liveChatStatus.REQUEST_USERNAME) {
           context.commit('setLiveChatUserName', message.text);
+          console.info('HERE 2: commit setLiveChatUserName dispatch requestLiveChat');
           return context.dispatch('requestLiveChat');
         } else if (context.state.chatMode === chatMode.LIVECHAT) {
+          console.info('HERE 3: Check liveChat.status')
           if (context.state.liveChat.status === liveChatStatus.ESTABLISHED) {
+            console.info('HERE 4: dispatch sendChatMessage')
             return context.dispatch('sendChatMessage', message.text);
           }
         }
+        console.info('HERE 5')
         return Promise.resolve(context.commit('pushUtterance', message.text))
       })
       .then(() => {
@@ -865,6 +882,7 @@ export default {
     .then(json => json.data)
     .then((result) => {
       console.info('Live Chat Config Success:', result);
+      console.info('ParticipantToken: ', result.startChatResult.ParticipantToken)
       context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
       function waitMessage(context, type, message) {
         context.commit('pushLiveChatMessage', {
@@ -880,6 +898,22 @@ export default {
           context.state.config.connect.waitingForAgentMessage);
         console.info(`interval now set: ${intervalID}`);
         context.commit('setLiveChatIntervalId', intervalID);
+      }
+      //Determine if we need to overwrite the result.startChatResult.ParticipantToken
+      //before passing it to createLiveChatSession
+      console.info('context.state.liveChat.participantToken: ', context.state.liveChat.participantToken)
+      if (!context.state.liveChat.participantToken){
+        console.info('First Connection save the participant token');
+        context.commit('setParticipantToken', result.startChatResult.ParticipantToken);
+        context.commit('setParticipantId', result.startChatResult.ParticipantId);
+        context.commit('setContactId', result.startChatResult.ContactId);
+        context.commit('setReconnectToActiveChat', false);
+      } else{
+        console.info('Reconnecting to Connect LiveChat use the previous participant token');
+        result.startChatResult.ParticipantToken = context.state.liveChat.participantToken;
+        result.startChatResult.ParticipantId = context.state.liveChat.participantId;
+        result.startChatResult.ContactId = context.state.liveChat.contactId;
+        context.commit('setReconnectToActiveChat', true);
       }
       liveChatSession = createLiveChatSession(result);
       console.info('Live Chat Session Created:', liveChatSession);
@@ -902,7 +936,10 @@ export default {
   },
 
   requestLiveChat(context) {
-    console.info('requestLiveChat');
+    const loggedInUserEmail = context.state.lex.sessionAttributes['connect_loggedInUserEmail'];
+    if (loggedInUserEmail){
+      context.commit('setLiveChatUserName', loggedInUserEmail);
+    }
     if (!context.getters.liveChatUserName()) {
       context.commit('setLiveChatStatus', liveChatStatus.REQUEST_USERNAME);
       context.commit(

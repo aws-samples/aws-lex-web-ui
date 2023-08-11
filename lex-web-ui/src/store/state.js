@@ -60,6 +60,10 @@ export default {
     isProcessing: false,
     status: liveChatStatus.DISCONNECTED,
     message: '',
+    participantToken: '',
+    participantId: '',
+    contactId: '',
+    reconnectToActiveChat: false,
   },
   messages: [],
   utteranceStack: [],
@@ -95,6 +99,7 @@ export default {
     !!config.ui.messageSentSFX && !!config.ui.messageReceivedSFX) : false,
   isUiMinimized: false, // when running embedded, is the iframe minimized?
   initialUtteranceSent: false, // has the initial utterance already been sent
+  liveChatUtteranceSent: false, // has the live chat utterance already been sent
   isEnableLogin: false, // true when a login/logout menu should be displayed
   isForceLogin: false, // true when a login/logout menu should be displayed
   isLoggedIn: false, // when running with login/logout enabled
