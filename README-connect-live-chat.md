@@ -115,7 +115,7 @@ and then the **live chat** button to start a chat session with the agent. At thi
 the user and agent should be able to interact with each other. Users can also invoke the live chat feature using
 "live chat" for text input. 
 
-To disconnect from Live Chat, click the hangup button next to text input or use the menu to "Stop Live Chat". 
+To disconnect from Live Chat, click the hangup button next to text input or use the menu to "Stop Live Chat". Note that live chat sessions have a 60-minute expiration by default, but this value can be updated in the Lambda deployed to the API Gateway if extended expiration times are desired.
 
 ## Connect Disconnect Flow logic
 
