@@ -51,6 +51,7 @@ function startChatContact(body) {
             "InstanceId": instanceId == "" ? process.env.INSTANCE_ID : instanceId,
             "ContactFlowId": contactFlowId == "" ? process.env.CONTACT_FLOW_ID : contactFlowId,
             "Attributes": attributes,
+            "ChatDurationInMinutes": 60,
             "ParticipantDetails": {
                 "DisplayName": body["ParticipantDetails"]["DisplayName"]
             }

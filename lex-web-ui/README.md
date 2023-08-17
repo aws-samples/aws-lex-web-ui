@@ -549,6 +549,9 @@ creates a Cognito Pool Id, the Pool Id is passed to CodeBuild which in
 turn modifies the JSON files described above. Please take into account
 that CodeBuild may override the values in your files at build time.
 
+**NOTE**: The configuration parameters in the JSON file are visible in the
+browser - configurations should never contain sensitive data.
+
 ### Run Time Configuration
 The chatbot UI can be passed dynamic configuration at run time. This allows
 to override the default and build time configuration.
@@ -630,6 +633,9 @@ to the Lex API and automatically updates it from the bot responses.
 
 The `sessionAttributes` parameter can be initialized so that the client
 passes a value in the first request.
+
+**NOTE:** Session attributes are part of the Lex API request and response being passed
+in the browser network traffic. Lex Web UI utilizes the Lex API for all requests back to Lex.
 
 ### Response Cards
 The chatbot UI supports Lex
