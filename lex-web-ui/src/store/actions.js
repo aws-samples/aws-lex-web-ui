@@ -215,6 +215,7 @@ export default {
           markdown: context.state.config.lex.initialText,
         },
       });
+      context.dispatch('sendInitialUtterance');
     }
     return Promise.resolve();
   },
@@ -1157,6 +1158,7 @@ export default {
         markdown: context.state.config.lex.initialText,
       },
     });
+    context.dispatch('sendInitialUtterance');
   },
   changeLocaleIds(context, data) {
     context.commit('updateLocaleIds', data);
