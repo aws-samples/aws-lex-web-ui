@@ -29,6 +29,15 @@ module.exports = (env) => {
       libraryExport: 'ChatBotUiLoader',
       libraryTarget: 'umd',
     },
+    resolve: {
+        fallback: {
+            util: require.resolve('util/'),
+            crypto: require.resolve('crypto-browserify'),
+            buffer: require.resolve('buffer/'),
+            stream: require.resolve('stream-browserify'),
+            'process/browser': require.resolve('process/browser'),
+        },
+    },
     module: {
       rules: [
         /* TODO pending clean-up to re-enable
@@ -58,9 +67,6 @@ module.exports = (env) => {
           ] : [
             {
               loader: MiniCssExtractPlugin.loader,
-              options: {
-                hmr: true,
-              },
             },
             'css-loader',
           ],
@@ -84,6 +90,10 @@ module.exports = (env) => {
       modules: false,
     },
     plugins: [
+      new webpack.ProvidePlugin({
+        process: "process/browser",
+        Buffer: ["buffer", "Buffer"],
+      }),
       new HtmlWebpackPlugin({
         filename: 'index.html',
         template: path.join(basePath, 'src/website/index.html'),
@@ -109,29 +119,31 @@ module.exports = (env) => {
       new MiniCssExtractPlugin({
         filename: (isProd) ? '[name].min.css' : '[name].css',
       }),
-      new CopyPlugin([
-        // copy parent page
+      new CopyPlugin(
         {
-          from: path.join(basePath, 'src/website/parent.html'),
-          to: distDir,
-        },
-        // copy custom css
-        {
-          from: path.join(basePath, 'src/website/custom-chatbot-style.css'),
-          to: distDir,
-        },
-        // copy lex-web-ui library
-        {
-          from: path.join(basePath, 'lex-web-ui/dist/bundle/lex-web-ui.*'),
-          to: distDir,
-          flatten: true,
-        },
-        {
-          from: path.join(basePath, 'lex-web-ui/dist/bundle/wav-worker.*'),
-          to: distDir,
-          flatten: true,
-        },
-      ]),
+          patterns: [
+            // copy parent page
+            {
+              from: path.join(basePath, 'src/website/parent.html'),
+              to: distDir,
+            },
+            // copy custom css
+            {
+              from: path.join(basePath, 'src/website/custom-chatbot-style.css'),
+              to: distDir,
+            },
+            // copy lex-web-ui library
+            {
+              from: path.join(basePath, 'lex-web-ui/dist/bundle/lex-web-ui.*'),
+              to: distDir,
+            },
+            {
+              from: path.join(basePath, 'lex-web-ui/dist/bundle/wav-worker.*'),
+              to: distDir,
+            }
+          ]
+        }
+      ),
     ].filter(Boolean),
   };
 };

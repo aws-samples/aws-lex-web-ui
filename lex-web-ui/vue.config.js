@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const webpack = require('webpack');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin'); 
 
 const distDir = path.resolve(__dirname, 'dist');
 const assetsDir = path.resolve(__dirname, 'src/assets');
@@ -84,8 +85,8 @@ function chainWebpackCommon(config, destDir) {
       return args;
     })
     .end();
-
-  config.devtool((buildType.isProd) ? false : '#source-map');
+  
+  config.devtool(buildType.isProd ? false : 'source-map');
 
   chainWebpackWorker(config, destDir);
 
@@ -96,6 +97,8 @@ function chainWebpackCommon(config, destDir) {
       return args;
     })
     .end();
+  
+  config.plugin('NodePolyfillPlugin').use(new NodePolyfillPlugin());
 }
 
 function chainWebpackLib(
@@ -207,7 +210,8 @@ function chainWebpackApp(config, destDir = '') {
     .tap((args) => {
       // unshift to have lower precedence
       // from the default vue cli `public` rule
-      args[0].unshift(
+      patterns = Array.from(args[0]);
+      patterns.unshift(
         // favicon.png
         {
           from: getAssetPath(favIconPath, flowerLogoPath),
@@ -219,6 +223,7 @@ function chainWebpackApp(config, destDir = '') {
           to: `${distDir}/logo.png`,
         },
       );
+      args[0] = { patterns: patterns };
       return args;
     });
 }

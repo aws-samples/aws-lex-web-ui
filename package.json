@@ -24,17 +24,22 @@
   "homepage": "https://github.com/awslabs/aws-lex-web-ui#readme",
   "scripts": {
     "build-prod": "webpack --mode production --env production",
-    "build-dev": "webpack --mode development --hide-modules",
+    "build-dev": "webpack --mode development",
     "build": "npm run build-dev && npm run build-prod",
     "dev": "webpack-dev-server --mode development  --hot",
     "lint": "eslint --format node_modules/eslint-formatter-friendly src/lex-web-ui-loader"
   },
   "dependencies": {
     "amazon-cognito-auth-js": "^1.2.4",
+    "buffer": "^6.0.3",
     "core-js": "^3.6.5",
+    "crypto-browserify": "^3.12.0",
+    "jsdom": "^22.0.0",
     "jsonwebtoken": "^9.0.0",
+    "process": "^0.11.10",
     "regenerator-runtime": "^0.13.5",
-    "jsdom": "^22.0.0"
+    "stream-browserify": "^3.0.0",
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -42,9 +47,9 @@
     "@babel/preset-env": "^7.9.6",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
-    "copy-webpack-plugin": "^5.1.2",
+    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^3.5.2",
-    "cssnano": "^4.1.10",
+    "cssnano": "^6.0.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-formatter-friendly": "^7.0.0",
@@ -52,16 +57,16 @@
     "eslint-plugin-import": "^2.20.2",
     "express": "^4.17.1",
     "html-webpack-plugin": "^4.3.0",
-    "mini-css-extract-plugin": "^0.9.0",
+    "mini-css-extract-plugin": "^2.0.0",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
-    "postcss-preset-env": "^6.7.0",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12",
+    "postcss-preset-env": "^7.0.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.11.1"
   },
   "engines": {
-    "node": ">= 12.0.0",
+    "node": ">= 15.0.0",
     "npm": ">= 7.10.0"
   },
   "browserslist": [
