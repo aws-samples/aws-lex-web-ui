@@ -326,7 +326,9 @@ to pass Lex state and other events. These features are detailed in the
 The HTML code below is a basic example of a parent page that adds the
 chatbot UI as an iframe. In this scenario, the libraries and related
 files from the `dist` directory of this repo are hosted in the same
-directory as the parent page.
+directory as the parent page. If hosting the iframe on the same domain
+as your parent page is desired, you must deploy the iframe code into your
+own environment to allow the use of SAMEORIGIN configurations.
 
 Please note that the `loaderOptions` variable has an `iframeSrcPath`
 field which defines the path to the full page chatbot UI. This variable
@@ -459,7 +461,9 @@ UI. You can run a development version of this sample site on your machine.
 #### Running Locally
 This project provides a simple HTTP server to serve the sample site.
 You can run the server using [Node.js](https://nodejs.org) on your local
-machine or a test server.
+machine or a test server. Please note that running locally is only designed
+for testing purposes as the localhost only runs on HTTP and does not use
+a secure HTTPs configuration.
 
 The chatbot UI requires proper configuration values in the files located
 under the [src/config](src/config) directory. Modify the values in the
@@ -543,7 +547,7 @@ export BUCKET="yourbootstrapbucketname"
 ```
 
 Note that "yourbootstrapbucket" (S3 bucket) must allow objects with public-read acl to be added. This approach
-is described in the image below.
+is described in the image below. Please be aware of the [security implications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html) of allowing public-read acl. Do not add any sensitive data into this bucket as it will be publicly readable.
 
 Once you've uploaded your distribution to your own bootstrap bucket, you can launch an installation of LexWebUi 
 in the AWS region where this bucket is located by using the master.yaml from your bootstrap bucket. You can 
