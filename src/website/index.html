@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <!-- Frame and Image source CSP is controlled by Cloudfront headers to allow customization via Cloudformation -->
     <meta http-equiv="Content-Security-Policy" 
-      content="default-src 'self' data:; 
+      content="default-src 'self' blob: data:; 
         worker-src blob: data:;
         img-src *;
         frame-src *;

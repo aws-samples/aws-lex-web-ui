@@ -228,6 +228,8 @@ After login processing fully completes, an event fires in the browser indicating
 are now available. At that time, the Lex Web UI will switch to using auth based role by 
 using new temporary credentials.
 
+Note: When modifying the Web UI code for your own use cases, refrain from adding data in sessionStorage 
+that is intended for server-side logic or to make security decisions/guarantees.
 
 #### Force Login
 Optionally, if set to True, the menu with a login action will not be displayed in the Lex Web Ui, and the Cognito login will be executed automatically. 
