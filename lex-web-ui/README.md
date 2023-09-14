@@ -358,7 +358,9 @@ devices.
 
 NOTE: browsers may require the application to be served using HTTPS for
 the WebRTC API to work. Make sure to serve the application from an HTTPS
-enabled server or if hosting on S3 or CloudFront, use https in the URL.
+enabled server or if hosting on S3 or CloudFront, use https in the URL. By
+default CloudFront uses TLS 1.1, if you would like to enforce a higher level
+of TLS please follow [these instructions to deploy a custom domain](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html).
 
 ## Sound Effects
 You can enable sound effects when a message is sent or received. This
