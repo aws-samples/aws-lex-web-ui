@@ -105,7 +105,7 @@ The new parameters configurable in lex-web-ui-loader-config.json are shown below
 ## Usage
 
 Once the stack creation has completed, you can open the parent page hosting the Lex Web UI on your browser.
-When you send a live chat request to the bot, it will intiate a POST call to a the deployed API Gateway. This Gateway uses a Lambda function to securely interact with the Connect API within your AWS account to obtain a ParticipantToken which will be used to connect the end user to the agent. This token has a TTL of one hour by default, but can be configured via the deployed Lambda function if a longer timeout is desired. 
+When you send a live chat request to the bot, it will intiate a POST call to a the deployed API Gateway. This Gateway uses a Lambda function to securely interact with the Connect API within your AWS account to obtain a ParticipantToken which will be used to connect the end user to the agent. This token has a TTL of one hour by default, but can be configured via the deployed Lambda function if a longer timeout is desired. Note that by default API Gateway uses TLS 1.1, if you wish to enforce higher TLS settings please follow these instructions to deploy your own [custom domains](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html).
 
 On a separate browser window or tab, sign in as an agent on 
 the [Amazon Connect Contact Control Panel (CCP)](https://docs.aws.amazon.com/connect/latest/adminguide/agent-user-guide.html) 
