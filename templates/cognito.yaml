@@ -68,6 +68,8 @@ Resources:
   CognitoUserPool:
     Type: AWS::Cognito::UserPool
     Properties:
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: True
       AutoVerifiedAttributes:
         - "email"
       MfaConfiguration: "OFF"
