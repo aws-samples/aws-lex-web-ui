@@ -13,8 +13,7 @@ const distDir = path.join(basePath, 'dist');
 const devServerPort = (process.env.PORT) ? Number(process.env.PORT) : 8000;
 
 module.exports = (env) => {
-  const buildEnv = env || 'development';
-  const isProd = (buildEnv === 'production');
+  const isProd = env.production;
 
   return {
     mode: (isProd) ? 'production' : 'development',
