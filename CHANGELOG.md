@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.20.0] - 2023-09-28
+- CSS adjustments can now be made directly in the CloudFormation template for some common use cases. If left blank
+- Major updates to dependencies and webpack build processes for both the loader & web ui projects.
+This update removes all dependency vulnerabilities as of release date.
+- Adding template support for af-south-1
+- Dependencies used by the loader have been internalized to remove calls to external CDNs
+- Removed all inline scripts and added a CSP header to the index.html as well as CSP configurations to CloudFront. If your bot uses Markdown please not you will need to allow list all domains serving image/vidoe using the MarkdownSupportDomains parameter
+- Updated Cognito so that self registration is disabled by default on creation. If your bot needs self registration, you will need to manually configure that setting in Cognito post deployment.
+- Lowered the default timeout for Connect connections to 60 minutes.
+
 ## [0.19.9] - 2023-05-22
 - Add configurable parameter to control delay between transcript message send on startup to Connect. Workaround Connect problem with respect to out of order delivery of sent messages.
 - Add the ability to configure a precreated CNAME, ACM Certificate, and WAFV2 ACL via template parameters. If the values are left empty default CloudFront distribution url and certificates is used. If a WAFV2 ACl is not supplied then no WAF Acl is configured for use by CloudFront.
