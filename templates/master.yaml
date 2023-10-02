@@ -129,6 +129,16 @@ Parameters:
             in the Lex Web Ui, and the Cognito login will be executed automatically. This implicitly sets
             EnableCognitoLogin to be true.
 
+    AllowedSignUpEmailDomain:
+        Type: String
+        Default: ''
+        Description: >-
+            Email address domain (example.com) or comma separated list of email domains 
+            (example1.com, example2.com) allowed to signin and signup using the web UI.
+            If left empty, signup via the web UI is disabled and users will have to be created using
+            Cognito.
+        AllowedPattern: '^(|([\w-]+\.)+[\w-]{2,6}(, *([\w-]+\.)+[\w-]{2,6})*)$'
+
     SaveHistory:
         Type: String
         Default: false
@@ -601,6 +611,7 @@ Metadata:
               Parameters:
                   - EnableCognitoLogin
                   - ForceCognitoLogin
+                  - AllowedSignUpEmailDomain
                   - EnableMarkdownSupport
                   - MarkdownSupportDomains
                   - ReInitSessionAttributesOnRestart
@@ -702,6 +713,7 @@ Resources:
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
+                AllowedSignUpEmailDomain: !Ref AllowedSignUpEmailDomain
 
     ##########################################################################
     # Simplified deployment using CodeBuild to build config and push to S3
