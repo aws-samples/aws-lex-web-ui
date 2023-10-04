@@ -228,6 +228,8 @@ After login processing fully completes, an event fires in the browser indicating
 are now available. At that time, the Lex Web UI will switch to using auth based role by 
 using new temporary credentials.
 
+Note: When modifying the Web UI code for your own use cases, refrain from adding data in sessionStorage 
+that is intended for server-side logic or to make security decisions/guarantees.
 
 #### Force Login
 Optionally, if set to True, the menu with a login action will not be displayed in the Lex Web Ui, and the Cognito login will be executed automatically. 
@@ -358,7 +360,9 @@ devices.
 
 NOTE: browsers may require the application to be served using HTTPS for
 the WebRTC API to work. Make sure to serve the application from an HTTPS
-enabled server or if hosting on S3 or CloudFront, use https in the URL.
+enabled server or if hosting on S3 or CloudFront, use https in the URL. By
+default CloudFront uses TLS 1.1, if you would like to enforce a higher level
+of TLS please follow [these instructions to deploy a custom domain](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html).
 
 ## Sound Effects
 You can enable sound effects when a message is sent or received. This
@@ -394,6 +398,8 @@ and/or Markdown messages the response message's session attributes.
 To utilize the second approach configure and use the following:
 
 * Set the `ui.AllowSuperDangerousHTMLInMessage` config field to `true`. __WARNING__: Enabling this feature increases the risk of XSS. Make sure that the HTML/Markdown message has been properly escaped/encoded/filtered in the Lex Handler Lambda function. For more information on XSS see [here](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS))
+
+* If using markdown to render images or video from another domain, add those domains as a space seperated list in the Cloudformation template `MarkdownSupportDomains` field - this will update the Cloudfront security headers to allow those domains.
 
 * Program you lambda function to provide your Markdown and HTML messages as alt-messages in the session attribute `appContext.altMessages`. For example your session attribute could look like this or markdown messages:
 
@@ -547,6 +553,9 @@ creates a Cognito Pool Id, the Pool Id is passed to CodeBuild which in
 turn modifies the JSON files described above. Please take into account
 that CodeBuild may override the values in your files at build time.
 
+**NOTE**: The configuration parameters in the JSON file are visible in the
+browser - configurations should never contain sensitive data.
+
 ### Run Time Configuration
 The chatbot UI can be passed dynamic configuration at run time. This allows
 to override the default and build time configuration.
@@ -628,6 +637,9 @@ to the Lex API and automatically updates it from the bot responses.
 
 The `sessionAttributes` parameter can be initialized so that the client
 passes a value in the first request.
+
+**NOTE:** Session attributes are part of the Lex API request and response being passed
+in the browser network traffic. Lex Web UI utilizes the Lex API for all requests back to Lex.
 
 ### Response Cards
 The chatbot UI supports Lex
