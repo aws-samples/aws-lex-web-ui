@@ -84,6 +84,7 @@ Parameters:
 
     MarkdownSupportDomains:
         Type: String
+        Default: ''
         Description: >
             If enabling Markdown support, provide a space-seperated list of allowable sources 
             for content (images/video). Any domain not listed here will be blocked by Content Security Policy.
@@ -501,12 +502,14 @@ Parameters:
 
     TitleLogoImgUrl:
         Type: String
+        Default: ''
         Description: >
          This is an optional parameter, when set to an image URL that is accessible by the application it will 
          display the image left of the toolbar title. Image must be formatted to the correct size for display.
 
     BotAvatarImgUrl:
         Type: String
+        Default: ''
         Description: >
          This is an optional parameter, when set to an image URL that is accessible by the application it will 
          display on the left of all bot messages
