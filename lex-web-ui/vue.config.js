@@ -223,6 +223,7 @@ function chainWebpackApp(config, destDir = '') {
           to: `${distDir}/logo.png`,
         },
       );
+      // eslint-disable-next-line no-param-reassign
       args[0] = { patterns };
       return args;
     });
