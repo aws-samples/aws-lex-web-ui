@@ -74,19 +74,32 @@ module.exports = (env) => {
     },
     devtool: (isProd) ? 'source-map' : 'cheap-module-source-map',
     devServer: {
-      contentBase: [
-        path.join(__dirname, 'src/config'),
-        path.join(__dirname, 'src/website'),
-        distDir,
+      static: [
+        {
+          directory: path.join(__dirname, 'src/config'),
+        },
+        {
+          directory: path.join(__dirname, 'src/website'),
+        },
+        {
+          directory: distDir,
+        },
       ],
-      clientLogLevel: 'warning',
+      client: {
+        logging: 'warn',
+        overlay: {
+          errors: true,
+          warnings: false,
+          runtimeErrors: true,
+
+        },
+      },
       hot: true,
       port: devServerPort,
-      overlay: { warnings: false, errors: true },
-      stats: 'errors-only',
     },
     stats: {
       modules: false,
+      logging: 'error',
     },
     plugins: [
       new webpack.ProvidePlugin({
