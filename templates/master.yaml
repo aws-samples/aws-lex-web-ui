@@ -568,6 +568,17 @@ Parameters:
          This is an optional parameter, when set to an image URL that is accessible by the application it will 
          display on the left of all bot messages
 
+    EnableStreaming:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
+            in addition to the Lex bot directly. More details on how to configure your bot for streaming intereactions
+            can be found here: https://github.com/zhengjie28/lex-web-ui-websocket
+
 Rules:
   ValidateEitherV1orV2:
     RuleCondition: !Not 
@@ -827,6 +838,17 @@ Resources:
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
                 Timestamp: 1697053734
+
+    StreamingSupport:
+        Type: AWS::CloudFormation::Stack
+        Condition: EnableStreaming
+        Properties:
+            TimeoutInMinutes: 15
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/streaming-support.yaml"
+            Parameters:
+                ParentStackName: !Ref "AWS::StackName"
+                SourceBucket: !Ref BootstrapBucket
+                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.20.0.zip"
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment
