@@ -136,6 +136,9 @@ const configDefault = {
 
     // defines the retry count. default is 1. Only used if retryOnLexError is set to true.
     retryCountPostTextTimeout: 1,
+
+    // allows the Lex bot to use streaming responses for integration with LLMs or other streaming protocols
+    allowStreamingResponses: false,
   },
 
   polly: {

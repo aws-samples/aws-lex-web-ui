@@ -568,7 +568,7 @@ Parameters:
          This is an optional parameter, when set to an image URL that is accessible by the application it will 
          display on the left of all bot messages
 
-    EnableStreaming:
+    AllowStreamingResponses:
         Type: String
         Default: false
         AllowedValues:
@@ -630,6 +630,7 @@ Metadata:
                   - SaveHistory
                   - retryOnLexPostTextTimeout
                   - retryCountPostTextTimeout
+                  - AllowStreamingResponses
             - Label:
                 default: Cognito Parameters
               Parameters:
@@ -694,6 +695,7 @@ Conditions:
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
     EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
+    EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
 
 Resources:
     Bot:
@@ -823,7 +825,8 @@ Resources:
                 MinimizedButtonColor: !Ref MinimizedButtonColor
                 TitleLogoImgUrl: !Ref TitleLogoImgUrl
                 BotAvatarImgUrl: !Ref BotAvatarImgUrl
-                Timestamp: 1697053734
+                AllowStreamingResponses: !Ref AllowStreamingResponses
+                Timestamp: 1697648787
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -837,7 +840,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1697053734
+                Timestamp: 1697648787
 
     StreamingSupport:
         Type: AWS::CloudFormation::Stack

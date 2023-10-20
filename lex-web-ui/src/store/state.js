@@ -43,6 +43,7 @@ export default {
     isProcessing: false,
     isPostTextRetry: false,
     retryCountPostTextTimeout: 0,
+    allowStreamingResponses: false,
     inputTranscript: '',
     intentName: '',
     message: '',

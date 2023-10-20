@@ -513,6 +513,17 @@ Parameters:
         Description: >
          This is an optional parameter, when set to an image URL that is accessible by the application it will 
          display on the left of all bot messages
+    
+    AllowStreamingResponses:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
+            in addition to the Lex bot directly. More details on how to configure your bot for streaming intereactions
+            can be found here: https://github.com/zhengjie28/lex-web-ui-websocket
 
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
@@ -883,6 +894,8 @@ Resources:
                       Value: !Ref TitleLogoImgUrl
                     - Name: BOT_AVATAR_IMG_URL
                       Value: !Ref BotAvatarImgUrl
+                    - Name: ALLOW_STREAMING_RESPONSES
+                      Value: !Ref AllowStreamingResponses
 
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
@@ -965,6 +978,7 @@ Resources:
             MinimizedButtonColor: !Ref MinimizedButtonColor
             TitleLogoImgUrl: !Ref TitleLogoImgUrl
             BotAvatarImgUrl: !Ref BotAvatarImgUrl
+            AllowStreamingResponses: !Ref AllowStreamingResponses
             Timestamp: !Ref Timestamp
 
     # Lambda function for custom resource

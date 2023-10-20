@@ -21,6 +21,7 @@
     "region": "us-east-1",
     "retryOnLexPostTextTimeout": false,
     "retryCountPostTextTimeout": 1,
+    "allowStreamingResponses": false,
     "v2BotId": "",
     "v2BotAliasId": "",
     "v2BotLocaleId": ""

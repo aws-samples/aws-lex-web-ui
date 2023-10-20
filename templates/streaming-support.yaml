@@ -72,10 +72,9 @@ Resources:
                     - !Sub "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
                 - Effect: "Allow"
                   Action:
-                    - "connect:StartChatContact"
+                    - "dynamodb:PutItem"
                   Resource:
-                    - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}"
-                    - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}/*"
+                    - !Sub "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TableName}"
 
      #### DynamoDB #####
 
@@ -90,6 +89,8 @@ Resources:
         KeySchema:
         - AttributeName: "connectionId"
           KeyType: "HASH"
+        - AttributeName: "sessionId"
+          KeyType: "RANGE"
         ProvisionedThroughput:
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5
@@ -126,7 +127,7 @@ Resources:
         IntegrationType: AWS_PROXY
         IntegrationUri: 
           Fn::Sub:
-              arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${OnConnectFunction.Arn}/invocations    
+              arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StreamingLambda.Arn}/invocations    
 
     Deployment:
       Type: AWS::ApiGatewayV2::Deployment
