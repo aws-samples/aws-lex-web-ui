@@ -589,7 +589,7 @@ export default {
         if (context.state.lex.dialogState === 'Fulfilled') {
           context.dispatch('reInitBot');
         }
-        if (context.state.isPostTextRetry) {
+        if (context.state.lex.isPostTextRetry) {
           context.commit('setPostTextRetry', false);
         }
       })
