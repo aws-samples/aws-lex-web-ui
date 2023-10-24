@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.20.1] - 2023-10-24
+- Removed breaking change of adding CSP configurations into Cloudfront. CSP will remain in place on index.html file but Cloudfront CSPs will need to be manually configured. As a result removed MarkdownSupportDomains parameter.
+- Minor bug fixes.
+- Dependency upgrades to fix critical vulnerabilities.
+
 ## [0.20.0] - 2023-09-28
 - **BREAKING CHANGE**: Removed all inline scripts and added a CSP header to the index.html as well as CSP configurations to CloudFront. If your bot uses Markdown please not you will need to allow list all domains serving image/video using the MarkdownSupportDomains parameter (parent origin is automatically added to the CSP so no action is required in this case). Existing bots updating to this version & using Markdown **will break** if appropriate domains are not supplied.
 - CSS adjustments can now be made directly in the CloudFormation template for some common use cases. If left blank
