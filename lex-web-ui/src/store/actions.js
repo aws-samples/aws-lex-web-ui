@@ -38,6 +38,7 @@ let lexClient;
 let audio;
 let recorder;
 let liveChatSession;
+let wsClient;
 
 export default {
   /***********************************************************************
@@ -115,8 +116,15 @@ export default {
       'setLexSessionAttributes',
       context.state.config.lex.sessionAttributes,
     );
+    // Initiate WebSocket after lexClient get credential, due to sessionId was assigned from identityId
     return context.dispatch('getCredentials')
-      .then(() => lexClient.initCredentials(awsCredentials));
+      .then(() => {
+        lexClient.initCredentials(awsCredentials)
+        //Enable streaming response
+        if(context.state.lex.allowStreamingResponses){
+          context.dispatch('InitWebSocketConnect')
+        }
+      });
   },
   initPollyClient(context, client) {
     if (!context.state.recState.isRecorderEnabled) {
@@ -654,15 +662,39 @@ export default {
     const localeId = context.state.config.lex.v2BotLocaleId
       ? context.state.config.lex.v2BotLocaleId.split(',')[0]
       : undefined;
+    const sessionId = lexClient.userId;
     return context.dispatch('refreshAuthTokens')
       .then(() => context.dispatch('getCredentials'))
-      .then(() => lexClient.postText(text, localeId, session))
+      .then(() => {
+       // WS client will receive Lambda call post_to_connect via APIGW return WS message  firstly 
+        // TODO: Need to handle if the error occurred. typing would be broke since lexClient.postText throw error
+        if(context.state.lex.allowStreamingResponses){
+          context.commit('setIsStartingTypingWsMessages', true);
+
+          wsClient.onmessage = (event) => {
+            if(event.data!=='/stop/' && context.getters.isStartingTypingWsMessages()){
+              console.info("IS STILL STREAMING? ", context.getters.isStartingTypingWsMessages());
+              context.commit('pushWebSocketMessage',event.data);
+              context.dispatch('typingWsMessages')
+            }else{
+              console.info('STOPPING STREAMING!!!!');
+            }
+          }
+        }
+        // Return Lex response
+        return lexClient.postText(text, localeId, session);
+      })
       .then((data) => {
+        console.log("======lexClient.postText Response=====");
+        //TODO: Waiting for all wsMessages typing on the chat bubbles
+        context.commit('setIsStartingTypingWsMessages', false);
         context.commit('setIsLexProcessing', false);
         return context.dispatch('updateLexState', data)
           .then(() => Promise.resolve(data));
       })
       .catch((error) => {
+        //TODO: Need to handle if the error occurred
+        context.commit('setIsStartingTypingWsMessages', false);
         context.commit('setIsLexProcessing', false);
         throw error;
       });
@@ -1161,4 +1193,24 @@ export default {
   changeLocaleIds(context, data) {
     context.commit('updateLocaleIds', data);
   },
+
+/***********************************************************************
+ *
+ * WebSocket Actions
+ *
+ **********************************************************************/
+  InitWebSocketConnect(context){
+    const sessionId = lexClient.userId;
+    wsClient = new WebSocket('wss://mvcsllihd0.execute-api.us-east-1.amazonaws.com/demo?sessionId='+sessionId);
+    console.log("WS connect! ", wsClient);
+  },
+
+
+  typingWsMessages(context){
+    if (context.getters.wsMessagesCurrentIndex()<context.getters.wsMessagesLength()-1){
+      setTimeout(() => {
+        context.commit('typingWsMessages');
+      }, 500);
+    }
+},
 };
