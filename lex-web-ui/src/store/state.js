@@ -107,4 +107,12 @@ export default {
   awsCreds: {
     provider: 'cognito', // cognito|parentWindow
   },
+
+  streaming:{
+    wssEndpointWithStage:'', // wss://{domain}/{stage}
+    wsMessages:[],
+    wsMessagesCurrentIndex:0,
+    wsMessagesString:'',
+    isStartingTypingWsMessages:true
+  }
 };

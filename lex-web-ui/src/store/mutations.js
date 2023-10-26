@@ -529,4 +529,41 @@ export default {
   updateLocaleIds(state, data) {
     state.config.lex.v2BotLocaleId = data;
   },
+
+  /**
+   * use to set the voice output
+   */ 
+  toggleIsVoiceOutput(state, bool) {
+    state.botAudio.isVoiceOutput = bool;
+  },
+
+//Push WS Message to streamingMessage[]
+pushWebSocketMessage(state, wsMessages){
+  state.streaming.wsMessages.push(wsMessages);
+},
+
+//Append wsMessage to wsMessageString in MessageLoading.vue
+typingWsMessages(state){
+  if(state.streaming.isStartingTypingWsMessages){
+    state.streaming.wsMessagesString = state.streaming.wsMessagesString.concat(state.streaming.wsMessages[state.streaming.wsMessagesCurrentIndex]);
+    state.streaming.wsMessagesCurrentIndex++;
+
+  }else if (state.streaming.isStartingTypingWsMessages){
+    state.streaming.isStartingTypingWsMessages = false;
+    //reset wsMessage to default
+    state.streaming.wsMessagesString = '';
+    state.streaming.wsMessages=[];
+    state.streaming.wsMessagesCurrentIndex=0;
+  }
+},
+
+setIsStartingTypingWsMessages(state, bool){
+  state.streaming.isStartingTypingWsMessages = bool;
+  if(!bool){
+    //reset wsMessage to default
+    state.streaming.wsMessagesString = '';
+    state.streaming.wsMessages=[];
+    state.streaming.wsMessagesCurrentIndex=0;
+  }
+}, 
 };
