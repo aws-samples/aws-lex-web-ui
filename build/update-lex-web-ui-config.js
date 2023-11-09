@@ -157,8 +157,45 @@ const lexV2BotLocaleVoices = {
   'HELP_INTENT',
   'MIN_BUTTON_TOOLTIP_CONTENT',
 ].forEach(function (envVar) {
-  console.log('[INFO] Env var - %s: [%s]', envVar, process.env[envVar]);
+  console.info('[INFO] Env var - %s: [%s]', envVar, process.env[envVar]);
 });
+
+function createMp3(text, languageCode, voiceId, output) {
+  let lcDefinition = (languageCode.length > 0) ? `--language-code ${languageCode}` : '';
+  const cmd = `aws polly synthesize-speech --text "${text}" ${lcDefinition} --voice-id "${voiceId}"  --output-format mp3 --text-type text "${output}"`
+  exec(cmd, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`createMp3 error: ${error.message}`);
+    }
+    if (stderr) {
+      console.error(`createMp3 stderr: ${stderr}`);
+    }
+    console.info(`createMp3 stdout: ${stdout}`);
+  });
+}
+
+function translateAndCreateMp3(localeId, text, output) {
+  let targetPollyVoiceConfig = lexV2BotLocaleVoices[localeId];
+  if (targetPollyVoiceConfig && localeId !== 'en_US') {
+    // translate the english text defined in CF template to the target language.
+    const targetTranslateLang = localeId.split("_")[0];
+    const translateCmd = `aws translate translate-text --text "${text}" --source-language-code auto --target-language-code ${targetTranslateLang} --output json --query 'TranslatedText'`
+    exec(translateCmd, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`translate error: ${error.message}`);
+      }
+      if (stderr) {
+        console.error(`translate stderr: ${stderr}`);
+      }
+      console.info(`translate stdout: ${stdout.trim()}`);
+      // if a language code for the target locale exists, specify this for the polly command
+      createMp3(stdout.trim(), targetPollyVoiceConfig.languageCode, targetPollyVoiceConfig.voiceId, output)
+    });
+  } else { // the specified locale can't be translated as it is not in the map. Generate an english version for this locale.
+    createMp3(text,"en-US", targetPollyVoiceConfig.voiceId, output)
+  }
+}
+
 Object.keys(config)
 .map(function (confKey) { return config[confKey]; })
 .forEach(function (item) {
@@ -167,66 +204,35 @@ Object.keys(config)
       console.error('[ERROR] could not write file: ', err);
       process.exit(1);
     }
-    console.log('[INFO] Updated file: ', item.file);
-    console.log('[INFO] Config contents: ', JSON.stringify(item.conf));
+    console.info('[INFO] Updated file: ', item.file);
+    console.info('[INFO] Config contents: ', JSON.stringify(item.conf));
     revisedConfig = item.conf;
+    let enUSPollyVoiceConfig = lexV2BotLocaleVoices["en_US"];
+    const {exec} = require("child_process");
+    const path = require('path');
+    const configDir = path.parse(item.file).dir;
+    console.info('[INFO] Config dir is: ', configDir);
+
+    // if an initial speach is set in the configuration, generate mp3 files for english and other configured locales
     if (revisedConfig.lex && revisedConfig.lex.initialSpeechInstruction && revisedConfig.lex.initialSpeechInstruction.length > 0) {
-      const {exec} = require("child_process");
-      const path = require('path');
-      const configDir = path.parse(item.file).dir;
-      console.log('[INFO] Config dir is: ', configDir);
       // always generate an en_US mp3 if initial speech is defined
-      const cmd = `aws polly synthesize-speech --text "${revisedConfig.lex.initialSpeechInstruction.replace(/['"]+/g, '')}" --language-code "en-US" --voice-id "${revisedConfig.polly.voiceId}"  --output-format mp3 --text-type text "${configDir}/initial_speech_en_US.mp3"`
-      exec(cmd, (error, stdout, stderr) => {
-        if (error) {
-          console.log(`error: ${error.message}`);
-        }
-        if (stderr) {
-          console.log(`stderr: ${stderr}`);
-        }
-        console.log(`stdout: ${stdout}`);
-      });
+      createMp3(revisedConfig.lex.initialSpeechInstruction.replace(/['"]+/g, ''), "en-US", enUSPollyVoiceConfig.voiceId,`${configDir}/initial_speech_en_US.mp3`);
+
       // Iterate through the map of the configured v2BotLocaleIds and generate mp3 files with initial speech.
       // This is only supported for LexV2 bots.
-      revisedConfig.lex.v2BotLocaleId.split(",").map((origLocaleId) => {
-        let targetPollyVoiceConfig = lexV2BotLocaleVoices[origLocaleId];
-        if (targetPollyVoiceConfig && origLocaleId !== 'en_US') {
-          // translate the english text defined in CF template to the target language.
-          const targetTranslateLang = origLocaleId.split("_")[0];
-          const translateCmd = `aws translate translate-text --text "${revisedConfig.lex.initialSpeechInstruction}" --source-language-code auto --target-language-code ${targetTranslateLang} --output json --query 'TranslatedText'`
-          exec(translateCmd, (error, stdout, stderr) => {
-            if (error) {
-              console.log(`error: ${error.message}`);
-            }
-            if (stderr) {
-              console.log(`stderr: ${stderr}`);
-            }
-            console.log(`stdout: ${stdout.trim()}`);
-            // if a language code for the target locale exists, specify this for the polly command
-            let lcDefinition = (targetPollyVoiceConfig.languageCode.length > 0) ? `--language-code ${targetPollyVoiceConfig.languageCode}` : '';
-            const pollyCmd = `aws polly synthesize-speech --text ${stdout.trim()} ${lcDefinition} --voice-id "${targetPollyVoiceConfig.voiceId}"  --engine "${targetPollyVoiceConfig.engine}" --output-format mp3 --text-type text "${configDir}/initial_speech_${origLocaleId}.mp3"`
-            exec(pollyCmd, (error, stdout, stderr) => {
-              if (error) {
-                console.log(`error: ${error.message}`);
-              }
-              if (stderr) {
-                console.log(`stderr: ${stderr}`);
-              }
-              console.log(`stdout: ${stdout}`);
-            });
-          });
-        } else { // the specified local can't be translated as it is not in the map. Generate an english version for this locale.
-          const defaultPollyCmd = `aws polly synthesize-speech --text "${revisedConfig.lex.initialSpeechInstruction.replace(/['"]+/g, '')}" --language-code "en-US" --voice-id "${revisedConfig.polly.voiceId}"  --output-format mp3 --text-type text "${configDir}/initial_speech_${origLocaleId}.mp3"`
-          exec(defaultPollyCmd, (error, stdout, stderr) => {
-            if (error) {
-              console.log(`error: ${error.message}`);
-            }
-            if (stderr) {
-              console.log(`stderr: ${stderr}`);
-            }
-            console.log(`stdout: ${stdout}`);
-          });
-        }
+      revisedConfig.lex.v2BotLocaleId.split(",").map((localeId) => {
+        translateAndCreateMp3(localeId, revisedConfig.lex.initialSpeechInstruction.replace(/['"]+/g, ''), `${configDir}/initial_speech_${localeId}.mp3` )
+      });
+    }
+
+    // create mp3 audio files for other prompts used by lex-web-ui in english and other locales
+    if (revisedConfig && revisedConfig.lex) {
+      // Create special case MP3s that lexwebui might utilize
+      createMp3('All done', "en-US", enUSPollyVoiceConfig.voiceId, `${configDir}/all_done_en_US.mp3`);
+      createMp3('There was an error', "en-US", enUSPollyVoiceConfig.voiceId, `${configDir}/there_was_an_error_en_US.mp3`);
+      revisedConfig.lex.v2BotLocaleId.split(",").map((localeId) => {
+        translateAndCreateMp3(localeId, 'All done', `${configDir}/all_done_${localeId}.mp3`)
+        translateAndCreateMp3(localeId, 'There was an error', `${configDir}/there_was_an_error_${localeId}.mp3`)
       });
     }
   });

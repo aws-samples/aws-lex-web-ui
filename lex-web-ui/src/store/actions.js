@@ -38,6 +38,8 @@ let lexClient;
 let audio;
 let recorder;
 let liveChatSession;
+let pollyAllDoneBlob = undefined;
+let pollyThereWasAnErrorBlob = undefined;
 
 export default {
   /***********************************************************************
@@ -434,6 +436,32 @@ export default {
       .then(blob => context.dispatch('getAudioUrl', blob))
       .then(audioUrl => context.dispatch('playAudio', audioUrl));
   },
+  pollySynthesizeAllDone: function (context) {
+    if (pollyAllDoneBlob) {
+      return Promise.resolve(pollyAllDoneBlob)
+    } else {
+      const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : context.state.config.lex.v2BotLocaleId.split(',')[0];
+      return fetch(`./all_done_${localeId}.mp3`)
+        .then(data => data.blob())
+        .then(blob => {
+          pollyAllDoneBlob = blob;
+          return Promise.resolve(blob)
+        })
+    }
+  },
+  pollySynthesizeThereWasAnError(context) {
+    if (pollyThereWasAnErrorBlob) {
+      return Promise.resolve(pollyThereWasAnErrorBlob);
+    } else {
+      const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : context.state.config.lex.v2BotLocaleId.split(',')[0];
+      return fetch(`./there_was_an_error_${localeId}.mp3`)
+        .then(data => data.blob())
+        .then(blob => {
+          pollyThereWasAnErrorBlob = blob;
+          return Promise.resolve(blob)
+        })
+    }
+  },
   interruptSpeechConversation(context) {
     if (!context.state.recState.isConversationGoing &&
         !context.state.botAudio.isSpeaking
@@ -714,13 +742,14 @@ export default {
     return Promise.resolve()
       .then(() => {
         if (!audioStream || !audioStream.length) {
-          const text = (dialogState === 'ReadyForFulfillment') ?
-            'All done' :
-            'There was an error';
-          return context.dispatch('pollyGetBlob', text);
+          if (dialogState === 'ReadyForFulfillment') {
+            return context.dispatch('pollySynthesizeAllDone');
+          } else {
+            return context.dispatch('pollySynthesizeThereWasAnError');
+          }
+        } else {
+          return Promise.resolve(new Blob([audioStream], {type: contentType}));
         }
-
-        return Promise.resolve(new Blob([audioStream], { type: contentType }));
       });
   },
   updateLexState(context, lexState) {
