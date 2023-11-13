@@ -38,8 +38,9 @@ let lexClient;
 let audio;
 let recorder;
 let liveChatSession;
-let pollyAllDoneBlob = undefined;
-let pollyThereWasAnErrorBlob = undefined;
+let pollyInitialSpeechBlob = {};
+let pollyAllDoneBlob = {};
+let pollyThereWasAnErrorBlob = {};
 
 export default {
   /***********************************************************************
@@ -430,34 +431,41 @@ export default {
       .then(audioUrl => context.dispatch('playAudio', audioUrl));
   },
   pollySynthesizeInitialSpeech(context) {
-    const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : context.state.config.lex.v2BotLocaleId.split(',')[0];
-    return fetch(`./initial_speech_${localeId}.mp3`)
-      .then(data => data.blob())
-      .then(blob => context.dispatch('getAudioUrl', blob))
-      .then(audioUrl => context.dispatch('playAudio', audioUrl));
+    const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : context.state.config.lex.v2BotLocaleId.split(',')[0].trim();
+    if (localeId in pollyInitialSpeechBlob) {
+      return Promise.resolve(pollyInitialSpeechBlob[localeId]);
+    } else {
+      return fetch(`./initial_speech_${localeId}.mp3`)
+        .then(data => data.blob())
+        .then((blob) => {
+          pollyInitialSpeechBlob[localeId] = blob;
+          return context.dispatch('getAudioUrl', blob)
+        })
+        .then(audioUrl => context.dispatch('playAudio', audioUrl));
+    }
   },
   pollySynthesizeAllDone: function (context) {
-    if (pollyAllDoneBlob) {
-      return Promise.resolve(pollyAllDoneBlob)
+    const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : context.state.config.lex.v2BotLocaleId.split(',')[0].trim();
+    if (localeId in pollyAllDoneBlob) {
+      return Promise.resolve(pollyAllDoneBlob[localeId]);
     } else {
-      const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : context.state.config.lex.v2BotLocaleId.split(',')[0];
       return fetch(`./all_done_${localeId}.mp3`)
         .then(data => data.blob())
         .then(blob => {
-          pollyAllDoneBlob = blob;
+          pollyAllDoneBlob[localeId] = blob;
           return Promise.resolve(blob)
         })
     }
   },
   pollySynthesizeThereWasAnError(context) {
-    if (pollyThereWasAnErrorBlob) {
-      return Promise.resolve(pollyThereWasAnErrorBlob);
+    const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : context.state.config.lex.v2BotLocaleId.split(',')[0].trim();
+    if (localeId in pollyThereWasAnErrorBlob) {
+      return Promise.resolve(pollyThereWasAnErrorBlob[localeId]);
     } else {
-      const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : context.state.config.lex.v2BotLocaleId.split(',')[0];
       return fetch(`./there_was_an_error_${localeId}.mp3`)
         .then(data => data.blob())
         .then(blob => {
-          pollyThereWasAnErrorBlob = blob;
+          pollyThereWasAnErrorBlob[localeId] = blob;
           return Promise.resolve(blob)
         })
     }

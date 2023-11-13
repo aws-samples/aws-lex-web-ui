@@ -160,9 +160,18 @@ const lexV2BotLocaleVoices = {
   console.info('[INFO] Env var - %s: [%s]', envVar, process.env[envVar]);
 });
 
+/**
+ * Create an Mp3 file in the specified output folder for the given text, languageCode, and voiceId
+ * using AWS Polly.
+ * @param text
+ * @param languageCode
+ * @param voiceId
+ * @param output
+ */
 function createMp3(text, languageCode, voiceId, output) {
   let lcDefinition = (languageCode.length > 0) ? `--language-code ${languageCode}` : '';
   const cmd = `aws polly synthesize-speech --text "${text}" ${lcDefinition} --voice-id "${voiceId}"  --output-format mp3 --text-type text "${output}"`
+  console.info(`createMp3 cmd is \n${cmd}`);
   exec(cmd, (error, stdout, stderr) => {
     if (error) {
       console.error(`createMp3 error: ${error.message}`);
@@ -174,12 +183,27 @@ function createMp3(text, languageCode, voiceId, output) {
   });
 }
 
+/**
+ * Translate the specified text to the specified localeId and create an Mp3 in
+ * the specified output folder.
+ * @param localeId
+ * @param text
+ * @param output
+ */
 function translateAndCreateMp3(localeId, text, output) {
-  let targetPollyVoiceConfig = lexV2BotLocaleVoices[localeId];
-  if (targetPollyVoiceConfig && localeId !== 'en_US') {
+  console.info(`translate '${text}' to ${localeId.trim()} with output of ${output}`);
+  lid = localeId.trim()
+  if (lid === 'en_US') {
+    return;
+  }
+  let targetPollyVoiceConfig = lexV2BotLocaleVoices[lid]
+  let enUSPollyVoiceConfig = lexV2BotLocaleVoices["en_US"];
+  console.info(`targetPollyVoiceConfig ${JSON.stringify(targetPollyVoiceConfig,null,4)}`);
+  if (targetPollyVoiceConfig) {
     // translate the english text defined in CF template to the target language.
-    const targetTranslateLang = localeId.split("_")[0];
+    const targetTranslateLang = lid.split("_")[0];
     const translateCmd = `aws translate translate-text --text "${text}" --source-language-code auto --target-language-code ${targetTranslateLang} --output json --query 'TranslatedText'`
+    console.info(`translate cmd is \n${translateCmd}`);
     exec(translateCmd, (error, stdout, stderr) => {
       if (error) {
         console.error(`translate error: ${error.message}`);
@@ -189,10 +213,11 @@ function translateAndCreateMp3(localeId, text, output) {
       }
       console.info(`translate stdout: ${stdout.trim()}`);
       // if a language code for the target locale exists, specify this for the polly command
-      createMp3(stdout.trim(), targetPollyVoiceConfig.languageCode, targetPollyVoiceConfig.voiceId, output)
+      createMp3(stdout.trim().replace(/['"]+/g, ''), targetPollyVoiceConfig.languageCode, targetPollyVoiceConfig.voiceId, output)
     });
   } else { // the specified locale can't be translated as it is not in the map. Generate an english version for this locale.
-    createMp3(text,"en-US", targetPollyVoiceConfig.voiceId, output)
+    console.info(`Could not find specified locale "${lid}"`)
+    createMp3(text.trim().replace(/['"]+/g, ''), enUSPollyVoiceConfig.languageCode, enUSPollyVoiceConfig.voiceId, output)
   }
 }
 
@@ -204,6 +229,13 @@ Object.keys(config)
       console.error('[ERROR] could not write file: ', err);
       process.exit(1);
     }
+
+    // This following code pre-creates mp3 files needed for voice interaction. These files need to be pre-created
+    // and made available to the lex-web-ui for voice mode as the unauthenticated IAM role built for lex-web-ui no
+    // longer has access to Polly dynamically. The build IAM role does have access to Polly and Translate. The files
+    // are made available in the lex-web-ui web app bucket alongside of other UI assets. The files created are used
+    // for initial voice, the "All done" verbal response, and the "There was an error" verbal response.
+
     console.info('[INFO] Updated file: ', item.file);
     console.info('[INFO] Config contents: ', JSON.stringify(item.conf));
     revisedConfig = item.conf;
@@ -221,7 +253,10 @@ Object.keys(config)
       // Iterate through the map of the configured v2BotLocaleIds and generate mp3 files with initial speech.
       // This is only supported for LexV2 bots.
       revisedConfig.lex.v2BotLocaleId.split(",").map((localeId) => {
-        translateAndCreateMp3(localeId, revisedConfig.lex.initialSpeechInstruction.replace(/['"]+/g, ''), `${configDir}/initial_speech_${localeId}.mp3` )
+        lid = localeId.trim();
+        if (lid != "en_US") {
+          translateAndCreateMp3(lid, revisedConfig.lex.initialSpeechInstruction.replace(/['"]+/g, ''), `${configDir}/initial_speech_${lid}.mp3`)
+        }
       });
     }
 
@@ -231,8 +266,9 @@ Object.keys(config)
       createMp3('All done', "en-US", enUSPollyVoiceConfig.voiceId, `${configDir}/all_done_en_US.mp3`);
       createMp3('There was an error', "en-US", enUSPollyVoiceConfig.voiceId, `${configDir}/there_was_an_error_en_US.mp3`);
       revisedConfig.lex.v2BotLocaleId.split(",").map((localeId) => {
-        translateAndCreateMp3(localeId, 'All done', `${configDir}/all_done_${localeId}.mp3`)
-        translateAndCreateMp3(localeId, 'There was an error', `${configDir}/there_was_an_error_${localeId}.mp3`)
+        let lid = localeId.trim();
+        translateAndCreateMp3(localeId, 'All done', `${configDir}/all_done_${lid}.mp3`)
+        translateAndCreateMp3(localeId, 'There was an error', `${configDir}/there_was_an_error_${lid}.mp3`)
       });
     }
   });
