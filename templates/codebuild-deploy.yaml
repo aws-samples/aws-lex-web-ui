@@ -531,6 +531,7 @@ Conditions:
     EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
     UseDefaultCloudfrontUrl: !Or [ !Equals [!Ref WebAppConfCname, ''], !Equals [!Ref WebAppAcmCertificateArn, ''] ]
     ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
+    EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
 
 Resources:
     # Bucket where S3 access logs are stored
@@ -754,6 +755,23 @@ Resources:
                   - UseDefaultCloudfrontUrl
                   - !Sub "https://${LexWebUiDistribution.DomainName}"
                   - !Sub "https://${WebAppConfCname}"
+    
+    StreamingSupport:
+        Type: AWS::CloudFormation::Stack
+        Condition: EnableStreaming
+        Properties:
+            TimeoutInMinutes: 15
+            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/streaming-support.yaml"
+            Parameters:
+                ParentStackName: !Ref "AWS::StackName"
+                SourceBucket: !Ref BootstrapBucket
+                StreamingLambdaCodeObject: !Sub "${SourcePrefix}/streaming-lambda-v0.20.0.zip"
+                ParentOrigin:
+                  !If
+                    - UseDefaultCloudfrontUrl
+                    - !Sub "https://${LexWebUiDistribution.DomainName}"
+                    - !Sub "https://${WebAppConfCname}"
+    
 
     CodeBuild:
         Type: AWS::CodeBuild::Project
@@ -896,6 +914,8 @@ Resources:
                       Value: !Ref BotAvatarImgUrl
                     - Name: ALLOW_STREAMING_RESPONSES
                       Value: !Ref AllowStreamingResponses
+                    - Name: STREAMING_WEB_SOCKET_ENDPOINT
+                      Value: !If [EnableStreaming, !Sub "wss://${StreamingSupport.Outputs.WebSocketURI}.execute-api.${AWS::Region}.amazonaws.com/prod", ""]
 
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10

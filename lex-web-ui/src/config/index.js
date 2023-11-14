@@ -139,6 +139,9 @@ const configDefault = {
 
     // allows the Lex bot to use streaming responses for integration with LLMs or other streaming protocols
     allowStreamingResponses: false,
+
+     // web socket endpoint for streaming
+     streamingWebSocketEndpoint: '',
   },
 
   polly: {

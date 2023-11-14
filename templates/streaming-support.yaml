@@ -6,143 +6,148 @@ Description: >
 
 Parameters:
     ParentStackName:
-        Type: String
-        Description: Parent Stack Name
-        Default: lex-web-ui-stack
+      Type: String
+      Description: Parent Stack Name
+      Default: lex-web-ui-stack
 
     SourceBucket:
-        Description: S3 bucket where the source is located
-        Type: String
-        Default: aws-bigdata-blog
+      Description: S3 bucket where the source is located
+      Type: String
+      Default: aws-bigdata-blog
 
     StreamingLambdaCodeObject:
-        Type: String
-        Description: >
-            S3 object zip file containing Lambda initiate chat functions
-        Default: artifacts/aws-lex-web-ui/artifacts/streaming-lambda.zip
+      Type: String
+      Description: >
+          S3 object zip file containing Lambda initiate chat functions
+      Default: artifacts/aws-lex-web-ui/artifacts/streaming-lambda.zip
     
     TableName:
-        Description: DynamoDB Table Name
-        Type: String
-        Default: streaming-chat-table
+      Description: DynamoDB Table Name
+      Type: String
+      Default: streaming-chat-table
+    
+    ParentOrigin:
+      Type: String
+      Description: >
+          Parent Origin for CORS allow-origin
 
 Resources:
 
-    #### Lambda #####
-    StreamingLambda:
-      Type: "AWS::Lambda::Function"
-      Properties:
-        Description:  AWS Lambda Function to initiate web socket connection for streaming
-        Handler: "index.handler"
-        Role: !GetAtt StreamingLambdaExecutionRole.Arn
-        Runtime: "nodejs14.x"
-        MemorySize: 128
-        Timeout: 30
-        Environment:
-          Variables:
-            TABLE_NAME: !Ref TableName
-        Code:
-          S3Bucket: !Ref SourceBucket
-          S3Key: !Ref StreamingLambdaCodeObject
+  #### Lambda #####
+  StreamingLambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Description:  AWS Lambda Function to initiate web socket connection for streaming
+      Handler: "index.handler"
+      Role: !GetAtt StreamingLambdaExecutionRole.Arn
+      Runtime: "nodejs14.x"
+      MemorySize: 128
+      Timeout: 30
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref TableName
+      Code:
+        S3Bucket: !Ref SourceBucket
+        S3Key: !Ref StreamingLambdaCodeObject
 
-    StreamingLambdaExecutionRole:
-      Type: "AWS::IAM::Role"
-      Properties:
-        AssumeRolePolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-            - Effect: "Allow"
-              Principal:
-                Service:
-                  - "lambda.amazonaws.com"
-              Action:
-                - "sts:AssumeRole"
-        Path: "/"
-        Policies:
-          - PolicyName: streaming-execution-policy
-            PolicyDocument:
-              Version: "2012-10-17"
-              Statement:
-                - Effect: "Allow"
-                  Action:
-                    - 'logs:CreateLogGroup'
-                    - 'logs:CreateLogStream'
-                    - 'logs:PutLogEvents'
-                  Resource:
-                    - !Sub "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
-                - Effect: "Allow"
-                  Action:
-                    - "dynamodb:PutItem"
-                  Resource:
-                    - !Sub "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TableName}"
+  StreamingLambdaExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "lambda.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        - PolicyName: streaming-execution-policy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource:
+                  - !Sub "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
+              - Effect: "Allow"
+                Action:
+                  - "dynamodb:PutItem"
+                Resource:
+                  - !Sub "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TableName}"
 
-     #### DynamoDB #####
+    #### DynamoDB #####
 
-    ConnectionsTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        AttributeDefinitions:
-        - AttributeName: "connectionId"
-          AttributeType: "S"
-        - AttributeName: "sessionId"
-          AttributeType: "S"
-        KeySchema:
-        - AttributeName: "connectionId"
-          KeyType: "HASH"
-        - AttributeName: "sessionId"
-          KeyType: "RANGE"
-        ProvisionedThroughput:
-          ReadCapacityUnits: 5
-          WriteCapacityUnits: 5
-        SSESpecification:
-          SSEEnabled: True
-        TableName: !Ref TableName
+  ConnectionsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: "connectionId"
+        AttributeType: "S"
+      - AttributeName: "sessionId"
+        AttributeType: "S"
+      KeySchema:
+      - AttributeName: "sessionId"
+        KeyType: "HASH"
+      - AttributeName: "connectionId"
+        KeyType: "RANGE"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      SSESpecification:
+        SSEEnabled: True
+      TableName: !Ref TableName
 
-    #### API Gateway #####
+  #### API Gateway #####
 
-    StreamingWebSocket:
-      Type: AWS::ApiGatewayV2::Api
-      Properties:
-        Name: !Join ["-", [!Ref ParentStackName, "Streaming-API"]]
-        ProtocolType: WEBSOCKET
-        RouteSelectionExpression: "$request.body.action"
+  StreamingWebSocket:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: !Join ["-", [!Ref ParentStackName, "Streaming-API"]]
+      ProtocolType: WEBSOCKET
+      RouteSelectionExpression: "$request.body.action"
 
-    ConnectRoute:
-      Type: AWS::ApiGatewayV2::Route
-      Properties:
-        ApiId: !Ref StreamingWebSocket
-        RouteKey: $connect
-        AuthorizationType: NONE
-        OperationName: ConnectRoute
-        Target: !Join
-          - '/'
-          - - 'integrations'
-            - !Ref ConnectInteg
+  ConnectRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref StreamingWebSocket
+      RouteKey: $connect
+      AuthorizationType: NONE
+      OperationName: ConnectRoute
+      Target: !Join
+        - '/'
+        - - 'integrations'
+          - !Ref ConnectInteg
 
-    ConnectInteg:
-      Type: AWS::ApiGatewayV2::Integration
-      Properties:
-        ApiId: !Ref StreamingWebSocket
-        Description: Connect Integration
-        IntegrationType: AWS_PROXY
-        IntegrationUri: 
-          Fn::Sub:
-              arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StreamingLambda.Arn}/invocations    
+  ConnectInteg:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref StreamingWebSocket
+      Description: Connect Integration
+      IntegrationType: AWS_PROXY
+      IntegrationUri: 
+        Fn::Sub:
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StreamingLambda.Arn}/invocations    
 
-    Deployment:
-      Type: AWS::ApiGatewayV2::Deployment
-      DependsOn:
-      - ConnectRoute
-      Properties:
-        ApiId: !Ref StreamingWebSocket
+  Deployment:
+    Type: AWS::ApiGatewayV2::Deployment
+    DependsOn:
+    - ConnectRoute
+    Properties:
+      ApiId: !Ref StreamingWebSocket
 
-    Stage:
-      Type: AWS::ApiGatewayV2::Stage
-      Properties:
-        StageName: Prod
-        Description: Prod Stage
-        DeploymentId: !Ref Deployment
-        ApiId: !Ref StreamingWebSocket
+  Stage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      StageName: Prod
+      Description: Prod Stage
+      DeploymentId: !Ref Deployment
+      ApiId: !Ref StreamingWebSocket
 
 Outputs:
   WebSocketURI:

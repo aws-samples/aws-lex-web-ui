@@ -695,7 +695,6 @@ Conditions:
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
     EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
-    EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
 
 Resources:
     Bot:
@@ -841,17 +840,6 @@ Resources:
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
                 Timestamp: 1697648787
-
-    StreamingSupport:
-        Type: AWS::CloudFormation::Stack
-        Condition: EnableStreaming
-        Properties:
-            TimeoutInMinutes: 15
-            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/streaming-support.yaml"
-            Parameters:
-                ParentStackName: !Ref "AWS::StackName"
-                SourceBucket: !Ref BootstrapBucket
-                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.20.0.zip"
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment

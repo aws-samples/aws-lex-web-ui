@@ -121,7 +121,7 @@ export default {
       .then(() => {
         lexClient.initCredentials(awsCredentials)
         //Enable streaming response
-        if(context.state.lex.allowStreamingResponses){
+        if(context.state.config.lex.allowStreamingResponses){
           context.dispatch('InitWebSocketConnect')
         }
       });
@@ -668,7 +668,7 @@ export default {
       .then(() => {
        // WS client will receive Lambda call post_to_connect via APIGW return WS message  firstly 
         // TODO: Need to handle if the error occurred. typing would be broke since lexClient.postText throw error
-        if(context.state.lex.allowStreamingResponses){
+        if(context.state.config.lex.allowStreamingResponses){
           context.commit('setIsStartingTypingWsMessages', true);
 
           wsClient.onmessage = (event) => {
@@ -1201,7 +1201,7 @@ export default {
  **********************************************************************/
   InitWebSocketConnect(context){
     const sessionId = lexClient.userId;
-    wsClient = new WebSocket('wss://mvcsllihd0.execute-api.us-east-1.amazonaws.com/demo?sessionId='+sessionId);
+    wsClient = new WebSocket('wss://s7ax5kqxu5.execute-api.us-east-1.amazonaws.com/prod?sessionId='+sessionId);
     console.log("WS connect! ", wsClient);
   },
 
