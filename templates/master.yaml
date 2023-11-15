@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.20.0)
+    Master Lex Web UI CloudFormation template (v0.20.1)
     The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
     Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
     version input parameters as defaulted.
@@ -237,12 +237,6 @@ Parameters:
             Warning: Improper use of the Markdown/html feature can open you up to a cross-site
             scripting (XSS) attack from insecure Bots. Make sure you trust the Bot being used
             by the LexWebUi.
-
-    MarkdownSupportDomains:
-        Type: String
-        Description: >
-            If enabling Markdown support, provide a space-seperated list of allowable sources 
-            for content (images/video). Any domain not listed here will be blocked by Content Security Policy.
 
     ReInitSessionAttributesOnRestart:
         Type: String
@@ -624,7 +618,6 @@ Metadata:
                   - ForceCognitoLogin
                   - AllowedSignUpEmailDomain
                   - EnableMarkdownSupport
-                  - MarkdownSupportDomains
                   - ReInitSessionAttributesOnRestart
                   - ShowResponseCardTitle
                   - SaveHistory
@@ -707,7 +700,7 @@ Resources:
                 NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 CustomResourceCodeBucket: !Ref BootstrapBucket
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.20.0.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.20.1.zip"
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
@@ -740,9 +733,9 @@ Resources:
                 CodeBuildName: !Ref CodeBuildName
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.20.0.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.20.0.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.20.0.zip"
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.20.1.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.20.1.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.20.1.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
@@ -786,7 +779,6 @@ Resources:
                 ShouldForceCognitoLogin: !Ref ForceCognitoLogin
                 ReInitSessionAttributesOnRestart: !Ref ReInitSessionAttributesOnRestart
                 EnableMarkdownSupport: !Ref EnableMarkdownSupport
-                MarkdownSupportDomains: !Ref MarkdownSupportDomains
                 ShouldLoadIframeMinimized: !Ref ShouldLoadIframeMinimized
                 ShowResponseCardTitle: !Ref ShowResponseCardTitle
                 CognitoAppUserPoolClientId:
