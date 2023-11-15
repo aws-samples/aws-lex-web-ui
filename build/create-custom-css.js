@@ -61,7 +61,7 @@ if (process.env['CUSTOMER_CHAT_BUBBLE'] && process.env['CUSTOMER_CHAT_BUBBLE'].l
     modifyRule(styleSheet, '.message-human .message-bubble', { "background-color": process.env['CUSTOMER_CHAT_BUBBLE'] + ' !important'});
 }
 if (process.env['MINIMIZED_BUTTON_COLOR'] && process.env['MINIMIZED_BUTTON_COLOR'].length > 0) { 
-    modifyRule(styleSheet, 'button.min-button', { "background-color": process.env['CUSTOMER_CHAT_BUBBLE'] + ' !important'});
+    modifyRule(styleSheet, 'button.min-button', { "background-color": process.env['MINIMIZED_BUTTON_COLOR'] + ' !important'});
 }
 
 //Write the CSS back to the file (formatting will be changed if it had manual inputs but rules/properties should remain)

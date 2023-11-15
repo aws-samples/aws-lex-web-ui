@@ -666,18 +666,17 @@ export default {
     return context.dispatch('refreshAuthTokens')
       .then(() => context.dispatch('getCredentials'))
       .then(() => {
-       // WS client will receive Lambda call post_to_connect via APIGW return WS message  firstly 
         // TODO: Need to handle if the error occurred. typing would be broke since lexClient.postText throw error
         if(context.state.config.lex.allowStreamingResponses){
           context.commit('setIsStartingTypingWsMessages', true);
 
           wsClient.onmessage = (event) => {
             if(event.data!=='/stop/' && context.getters.isStartingTypingWsMessages()){
-              console.info("IS STILL STREAMING? ", context.getters.isStartingTypingWsMessages());
+              console.info("streaming ", context.getters.isStartingTypingWsMessages());
               context.commit('pushWebSocketMessage',event.data);
               context.dispatch('typingWsMessages')
             }else{
-              console.info('STOPPING STREAMING!!!!');
+              console.info('stopping streaming');
             }
           }
         }
@@ -685,7 +684,6 @@ export default {
         return lexClient.postText(text, localeId, session);
       })
       .then((data) => {
-        console.log("======lexClient.postText Response=====");
         //TODO: Waiting for all wsMessages typing on the chat bubbles
         context.commit('setIsStartingTypingWsMessages', false);
         context.commit('setIsLexProcessing', false);
@@ -1102,7 +1100,6 @@ export default {
 
   toggleIsUiMinimized(context) {
     if (!context.state.initialUtteranceSent && context.state.isUiMinimized) {
-      console.log("Minimization toggled");
       setTimeout(() => context.dispatch('sendInitialUtterance'), 500);
       context.commit('setInitialUtteranceSent', true);
     }
@@ -1201,8 +1198,7 @@ export default {
  **********************************************************************/
   InitWebSocketConnect(context){
     const sessionId = lexClient.userId;
-    wsClient = new WebSocket('wss://s7ax5kqxu5.execute-api.us-east-1.amazonaws.com/prod?sessionId='+sessionId);
-    console.log("WS connect! ", wsClient);
+    wsClient = new WebSocket(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId);
   },
 
 

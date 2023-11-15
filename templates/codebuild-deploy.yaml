@@ -522,8 +522,7 @@ Parameters:
         - false
         Description: >
             If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
-            in addition to the Lex bot directly. More details on how to configure your bot for streaming intereactions
-            can be found here: https://github.com/zhengjie28/lex-web-ui-websocket
+            in addition to the Lex bot directly.
 
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
@@ -761,11 +760,12 @@ Resources:
         Condition: EnableStreaming
         Properties:
             TimeoutInMinutes: 15
-            TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/streaming-support.yaml"
+            TemplateURL: !Sub "https://${SourceBucket}.s3.${AWS::Region}.amazonaws.com/${SourcePrefix}/templates/streaming-support.yaml"
             Parameters:
                 ParentStackName: !Ref "AWS::StackName"
-                SourceBucket: !Ref BootstrapBucket
+                SourceBucket: !Ref SourceBucket
                 StreamingLambdaCodeObject: !Sub "${SourcePrefix}/streaming-lambda-v0.20.0.zip"
+                TableName: !Join ["-", [!Ref "AWS::StackName", "streaming"]]
                 ParentOrigin:
                   !If
                     - UseDefaultCloudfrontUrl
@@ -915,7 +915,8 @@ Resources:
                     - Name: ALLOW_STREAMING_RESPONSES
                       Value: !Ref AllowStreamingResponses
                     - Name: STREAMING_WEB_SOCKET_ENDPOINT
-                      Value: !If [EnableStreaming, !Sub "wss://${StreamingSupport.Outputs.WebSocketURI}.execute-api.${AWS::Region}.amazonaws.com/prod", ""]
+                      Value: !If [EnableStreaming, !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod", ""]
+
 
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
@@ -1268,3 +1269,13 @@ Outputs:
         Value: !Sub "${RestApi.Outputs.RestApiId}"
         Description: Rest API ID if required by other elements
         Condition: EnableLiveChat
+    
+    WebSocketId:
+        Value: !Sub "${StreamingSupport.Outputs.WebSocketId}"
+        Description: Websocket API ID
+        Condition: EnableStreaming
+
+    WebSocketId:
+        Value: !Sub "${StreamingSupport.Outputs.DynamoTableName}"
+        Description: DynamoDB table name
+        Condition: EnableStreaming

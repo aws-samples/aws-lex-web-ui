@@ -34,6 +34,7 @@ Parameters:
 Resources:
 
   #### Lambda #####
+  
   StreamingLambda:
     Type: "AWS::Lambda::Function"
     Properties:
@@ -81,21 +82,27 @@ Resources:
                 Resource:
                   - !Sub "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TableName}"
 
-    #### DynamoDB #####
+  StreamingLambdaInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref StreamingLambda
+      Action: "lambda:InvokeFunction"
+      Principal: apigateway.amazonaws.com
+      SourceArn: 
+        Fn::Sub:
+            arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${StreamingWebSocket}/*
+
+  #### DynamoDB #####
 
   ConnectionsTable:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
-      - AttributeName: "connectionId"
-        AttributeType: "S"
       - AttributeName: "sessionId"
         AttributeType: "S"
       KeySchema:
       - AttributeName: "sessionId"
         KeyType: "HASH"
-      - AttributeName: "connectionId"
-        KeyType: "RANGE"
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
@@ -150,6 +157,10 @@ Resources:
       ApiId: !Ref StreamingWebSocket
 
 Outputs:
-  WebSocketURI:
-    Description: "The WSS Protocol URI to connect to"
-    Value: !Join [ '', [ 'wss://', !Ref StreamingWebSocket, '.execute-api.',!Ref 'AWS::Region','.amazonaws.com/',!Ref 'Stage'] ]
+  WebSocketId:
+    Description: "The WSS ID to connect to"
+    Value: !Ref StreamingWebSocket
+
+  DynamoTableName:
+    Value: !Ref TableName
+    Description: "DynamoDB table name"
