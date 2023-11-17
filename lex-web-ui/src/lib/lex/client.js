@@ -263,11 +263,16 @@ export default class {
             res.slotToElicit = oState.dialogAction.slotToElicit;
           }
           else {  // Fallback for some responses that do not have an intent (ElicitIntent, etc)
-            res.intentName = oState.interpretations[0].intent.name;
-            res.slots = oState.interpretations[0].intent.slots;
+            if ("interpretations" in oState) {
+              res.intentName = oState.interpretations[0].intent.name;
+              res.slots = oState.interpretations[0].intent.slots;
+            } else {
+              res.intentName = '';
+              res.slots = '';
+            }
             res.dialogState = '';
             res.slotToElicit = '';
-          }          
+          }
           res.inputTranscript = res.inputTranscript
             && b64CompressedToString(res.inputTranscript);
           res.interpretations = res.interpretations

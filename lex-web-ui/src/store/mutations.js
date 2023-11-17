@@ -527,6 +527,6 @@ export default {
     state.lex.isPostTextRetry = bool;
   },
   updateLocaleIds(state, data) {
-    state.config.lex.v2BotLocaleId = data;
+    state.config.lex.v2BotLocaleId = data.trim().replace(/ /g, '');
   },
 };
