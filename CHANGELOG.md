@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.20.1] - 2023-11-28
+- Adjust handling of Elicit Intent response to account for no interpretations from Lex. Precreate mp3 audio files needed for voice response as default un-authenticated role can't use Polly to create these responses dynamically.
+- Dependency upgrades to fix critical vulnerabilities.
+
 ## [0.20.1] - 2023-10-24
 - Removed breaking change of adding CSP configurations into Cloudfront. CSP will remain in place on index.html file but Cloudfront CSPs will need to be manually configured. As a result removed MarkdownSupportDomains parameter.
 - Minor bug fixes.
