@@ -152,6 +152,8 @@ sync-website: create-iframe-snippet
 		--metadata-directive REPLACE --cache-control max-age=0 \
 		--include 'lex-web-ui-loader-config.json' \
 		--include 'initial_speech*.*' \
+		--include 'all_done*.*' \
+		--include 'there_was_an_error*.*' \
 		"$(CONFIG_DIR)" s3://$(WEBAPP_BUCKET)
 	@echo "[INFO] all done deploying"
 .PHONY: sync-website
