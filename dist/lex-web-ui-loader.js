@@ -14864,7 +14864,10 @@ module.exports = crt
   \******************************************************/
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./browser/algorithms.json */ "../../../node_modules/browserify-sign/browser/algorithms.json")
+"use strict";
+
+
+module.exports = __webpack_require__(/*! ./browser/algorithms.json */ "../../../node_modules/browserify-sign/browser/algorithms.json");
 
 
 /***/ }),
@@ -14875,90 +14878,91 @@ module.exports = __webpack_require__(/*! ./browser/algorithms.json */ "../../../
   \**************************************************************/
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var Buffer = (__webpack_require__(/*! safe-buffer */ "../../../node_modules/safe-buffer/index.js").Buffer)
-var createHash = __webpack_require__(/*! create-hash */ "../../../node_modules/create-hash/browser.js")
-var stream = __webpack_require__(/*! readable-stream */ "../../../node_modules/readable-stream/readable-browser.js")
-var inherits = __webpack_require__(/*! inherits */ "../../../node_modules/inherits/inherits_browser.js")
-var sign = __webpack_require__(/*! ./sign */ "../../../node_modules/browserify-sign/browser/sign.js")
-var verify = __webpack_require__(/*! ./verify */ "../../../node_modules/browserify-sign/browser/verify.js")
+"use strict";
 
-var algorithms = __webpack_require__(/*! ./algorithms.json */ "../../../node_modules/browserify-sign/browser/algorithms.json")
+
+var Buffer = (__webpack_require__(/*! safe-buffer */ "../../../node_modules/safe-buffer/index.js").Buffer);
+var createHash = __webpack_require__(/*! create-hash */ "../../../node_modules/create-hash/browser.js");
+var stream = __webpack_require__(/*! readable-stream */ "../../../node_modules/readable-stream/readable-browser.js");
+var inherits = __webpack_require__(/*! inherits */ "../../../node_modules/inherits/inherits_browser.js");
+var sign = __webpack_require__(/*! ./sign */ "../../../node_modules/browserify-sign/browser/sign.js");
+var verify = __webpack_require__(/*! ./verify */ "../../../node_modules/browserify-sign/browser/verify.js");
+
+var algorithms = __webpack_require__(/*! ./algorithms.json */ "../../../node_modules/browserify-sign/browser/algorithms.json");
 Object.keys(algorithms).forEach(function (key) {
-  algorithms[key].id = Buffer.from(algorithms[key].id, 'hex')
-  algorithms[key.toLowerCase()] = algorithms[key]
-})
+  algorithms[key].id = Buffer.from(algorithms[key].id, 'hex');
+  algorithms[key.toLowerCase()] = algorithms[key];
+});
 
-function Sign (algorithm) {
-  stream.Writable.call(this)
+function Sign(algorithm) {
+  stream.Writable.call(this);
 
-  var data = algorithms[algorithm]
-  if (!data) throw new Error('Unknown message digest')
+  var data = algorithms[algorithm];
+  if (!data) { throw new Error('Unknown message digest'); }
 
-  this._hashType = data.hash
-  this._hash = createHash(data.hash)
-  this._tag = data.id
-  this._signType = data.sign
+  this._hashType = data.hash;
+  this._hash = createHash(data.hash);
+  this._tag = data.id;
+  this._signType = data.sign;
 }
-inherits(Sign, stream.Writable)
+inherits(Sign, stream.Writable);
 
-Sign.prototype._write = function _write (data, _, done) {
-  this._hash.update(data)
-  done()
+Sign.prototype._write = function _write(data, _, done) {
+  this._hash.update(data);
+  done();
+};
+
+Sign.prototype.update = function update(data, enc) {
+  this._hash.update(typeof data === 'string' ? Buffer.from(data, enc) : data);
+
+  return this;
+};
+
+Sign.prototype.sign = function signMethod(key, enc) {
+  this.end();
+  var hash = this._hash.digest();
+  var sig = sign(hash, key, this._hashType, this._signType, this._tag);
+
+  return enc ? sig.toString(enc) : sig;
+};
+
+function Verify(algorithm) {
+  stream.Writable.call(this);
+
+  var data = algorithms[algorithm];
+  if (!data) { throw new Error('Unknown message digest'); }
+
+  this._hash = createHash(data.hash);
+  this._tag = data.id;
+  this._signType = data.sign;
 }
+inherits(Verify, stream.Writable);
 
-Sign.prototype.update = function update (data, enc) {
-  if (typeof data === 'string') data = Buffer.from(data, enc)
+Verify.prototype._write = function _write(data, _, done) {
+  this._hash.update(data);
+  done();
+};
 
-  this._hash.update(data)
-  return this
-}
+Verify.prototype.update = function update(data, enc) {
+  this._hash.update(typeof data === 'string' ? Buffer.from(data, enc) : data);
 
-Sign.prototype.sign = function signMethod (key, enc) {
-  this.end()
-  var hash = this._hash.digest()
-  var sig = sign(hash, key, this._hashType, this._signType, this._tag)
+  return this;
+};
 
-  return enc ? sig.toString(enc) : sig
-}
+Verify.prototype.verify = function verifyMethod(key, sig, enc) {
+  var sigBuffer = typeof sig === 'string' ? Buffer.from(sig, enc) : sig;
 
-function Verify (algorithm) {
-  stream.Writable.call(this)
+  this.end();
+  var hash = this._hash.digest();
+  return verify(sigBuffer, hash, key, this._signType, this._tag);
+};
 
-  var data = algorithms[algorithm]
-  if (!data) throw new Error('Unknown message digest')
-
-  this._hash = createHash(data.hash)
-  this._tag = data.id
-  this._signType = data.sign
-}
-inherits(Verify, stream.Writable)
-
-Verify.prototype._write = function _write (data, _, done) {
-  this._hash.update(data)
-  done()
-}
-
-Verify.prototype.update = function update (data, enc) {
-  if (typeof data === 'string') data = Buffer.from(data, enc)
-
-  this._hash.update(data)
-  return this
-}
-
-Verify.prototype.verify = function verifyMethod (key, sig, enc) {
-  if (typeof sig === 'string') sig = Buffer.from(sig, enc)
-
-  this.end()
-  var hash = this._hash.digest()
-  return verify(sig, hash, key, this._signType, this._tag)
-}
-
-function createSign (algorithm) {
-  return new Sign(algorithm)
+function createSign(algorithm) {
+  return new Sign(algorithm);
 }
 
-function createVerify (algorithm) {
-  return new Verify(algorithm)
+function createVerify(algorithm) {
+  return new Verify(algorithm);
 }
 
 module.exports = {
@@ -14966,7 +14970,7 @@ module.exports = {
   Verify: createVerify,
   createSign: createSign,
   createVerify: createVerify
-}
+};
 
 
 /***/ }),
@@ -14977,149 +14981,157 @@ module.exports = {
   \*************************************************************/
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
-var Buffer = (__webpack_require__(/*! safe-buffer */ "../../../node_modules/safe-buffer/index.js").Buffer)
-var createHmac = __webpack_require__(/*! create-hmac */ "../../../node_modules/create-hmac/browser.js")
-var crt = __webpack_require__(/*! browserify-rsa */ "../../../node_modules/browserify-rsa/index.js")
-var EC = (__webpack_require__(/*! elliptic */ "../../../node_modules/elliptic/lib/elliptic.js").ec)
-var BN = __webpack_require__(/*! bn.js */ "../../../node_modules/bn.js/lib/bn.js")
-var parseKeys = __webpack_require__(/*! parse-asn1 */ "../../../node_modules/parse-asn1/index.js")
-var curves = __webpack_require__(/*! ./curves.json */ "../../../node_modules/browserify-sign/browser/curves.json")
+"use strict";
 
-function sign (hash, key, hashType, signType, tag) {
-  var priv = parseKeys(key)
+
+// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
+var Buffer = (__webpack_require__(/*! safe-buffer */ "../../../node_modules/safe-buffer/index.js").Buffer);
+var createHmac = __webpack_require__(/*! create-hmac */ "../../../node_modules/create-hmac/browser.js");
+var crt = __webpack_require__(/*! browserify-rsa */ "../../../node_modules/browserify-rsa/index.js");
+var EC = (__webpack_require__(/*! elliptic */ "../../../node_modules/elliptic/lib/elliptic.js").ec);
+var BN = __webpack_require__(/*! bn.js */ "../../../node_modules/bn.js/lib/bn.js");
+var parseKeys = __webpack_require__(/*! parse-asn1 */ "../../../node_modules/parse-asn1/index.js");
+var curves = __webpack_require__(/*! ./curves.json */ "../../../node_modules/browserify-sign/browser/curves.json");
+
+var RSA_PKCS1_PADDING = 1;
+
+function sign(hash, key, hashType, signType, tag) {
+  var priv = parseKeys(key);
   if (priv.curve) {
     // rsa keys can be interpreted as ecdsa ones in openssl
-    if (signType !== 'ecdsa' && signType !== 'ecdsa/rsa') throw new Error('wrong private key type')
-    return ecSign(hash, priv)
+    if (signType !== 'ecdsa' && signType !== 'ecdsa/rsa') { throw new Error('wrong private key type'); }
+    return ecSign(hash, priv);
   } else if (priv.type === 'dsa') {
-    if (signType !== 'dsa') throw new Error('wrong private key type')
-    return dsaSign(hash, priv, hashType)
-  } else {
-    if (signType !== 'rsa' && signType !== 'ecdsa/rsa') throw new Error('wrong private key type')
+    if (signType !== 'dsa') { throw new Error('wrong private key type'); }
+    return dsaSign(hash, priv, hashType);
   }
-  hash = Buffer.concat([tag, hash])
-  var len = priv.modulus.byteLength()
-  var pad = [0, 1]
-  while (hash.length + pad.length + 1 < len) pad.push(0xff)
-  pad.push(0x00)
-  var i = -1
-  while (++i < hash.length) pad.push(hash[i])
+  if (signType !== 'rsa' && signType !== 'ecdsa/rsa') { throw new Error('wrong private key type'); }
+  if (key.padding !== undefined && key.padding !== RSA_PKCS1_PADDING) { throw new Error('illegal or unsupported padding mode'); }
 
-  var out = crt(pad, priv)
-  return out
+  hash = Buffer.concat([tag, hash]);
+  var len = priv.modulus.byteLength();
+  var pad = [0, 1];
+  while (hash.length + pad.length + 1 < len) { pad.push(0xff); }
+  pad.push(0x00);
+  var i = -1;
+  while (++i < hash.length) { pad.push(hash[i]); }
+
+  var out = crt(pad, priv);
+  return out;
 }
 
-function ecSign (hash, priv) {
-  var curveId = curves[priv.curve.join('.')]
-  if (!curveId) throw new Error('unknown curve ' + priv.curve.join('.'))
+function ecSign(hash, priv) {
+  var curveId = curves[priv.curve.join('.')];
+  if (!curveId) { throw new Error('unknown curve ' + priv.curve.join('.')); }
 
-  var curve = new EC(curveId)
-  var key = curve.keyFromPrivate(priv.privateKey)
-  var out = key.sign(hash)
+  var curve = new EC(curveId);
+  var key = curve.keyFromPrivate(priv.privateKey);
+  var out = key.sign(hash);
 
-  return Buffer.from(out.toDER())
+  return Buffer.from(out.toDER());
 }
 
-function dsaSign (hash, priv, algo) {
-  var x = priv.params.priv_key
-  var p = priv.params.p
-  var q = priv.params.q
-  var g = priv.params.g
-  var r = new BN(0)
-  var k
-  var H = bits2int(hash, q).mod(q)
-  var s = false
-  var kv = getKey(x, q, hash, algo)
+function dsaSign(hash, priv, algo) {
+  var x = priv.params.priv_key;
+  var p = priv.params.p;
+  var q = priv.params.q;
+  var g = priv.params.g;
+  var r = new BN(0);
+  var k;
+  var H = bits2int(hash, q).mod(q);
+  var s = false;
+  var kv = getKey(x, q, hash, algo);
   while (s === false) {
-    k = makeKey(q, kv, algo)
-    r = makeR(g, k, p, q)
-    s = k.invm(q).imul(H.add(x.mul(r))).mod(q)
+    k = makeKey(q, kv, algo);
+    r = makeR(g, k, p, q);
+    s = k.invm(q).imul(H.add(x.mul(r))).mod(q);
     if (s.cmpn(0) === 0) {
-      s = false
-      r = new BN(0)
+      s = false;
+      r = new BN(0);
     }
   }
-  return toDER(r, s)
+  return toDER(r, s);
 }
 
-function toDER (r, s) {
-  r = r.toArray()
-  s = s.toArray()
+function toDER(r, s) {
+  r = r.toArray();
+  s = s.toArray();
 
   // Pad values
-  if (r[0] & 0x80) r = [0].concat(r)
-  if (s[0] & 0x80) s = [0].concat(s)
+  if (r[0] & 0x80) { r = [0].concat(r); }
+  if (s[0] & 0x80) { s = [0].concat(s); }
 
-  var total = r.length + s.length + 4
-  var res = [0x30, total, 0x02, r.length]
-  res = res.concat(r, [0x02, s.length], s)
-  return Buffer.from(res)
+  var total = r.length + s.length + 4;
+  var res = [
+    0x30, total, 0x02, r.length
+  ];
+  res = res.concat(r, [0x02, s.length], s);
+  return Buffer.from(res);
 }
 
-function getKey (x, q, hash, algo) {
-  x = Buffer.from(x.toArray())
+function getKey(x, q, hash, algo) {
+  x = Buffer.from(x.toArray());
   if (x.length < q.byteLength()) {
-    var zeros = Buffer.alloc(q.byteLength() - x.length)
-    x = Buffer.concat([zeros, x])
+    var zeros = Buffer.alloc(q.byteLength() - x.length);
+    x = Buffer.concat([zeros, x]);
   }
-  var hlen = hash.length
-  var hbits = bits2octets(hash, q)
-  var v = Buffer.alloc(hlen)
-  v.fill(1)
-  var k = Buffer.alloc(hlen)
-  k = createHmac(algo, k).update(v).update(Buffer.from([0])).update(x).update(hbits).digest()
-  v = createHmac(algo, k).update(v).digest()
-  k = createHmac(algo, k).update(v).update(Buffer.from([1])).update(x).update(hbits).digest()
-  v = createHmac(algo, k).update(v).digest()
-  return { k: k, v: v }
+  var hlen = hash.length;
+  var hbits = bits2octets(hash, q);
+  var v = Buffer.alloc(hlen);
+  v.fill(1);
+  var k = Buffer.alloc(hlen);
+  k = createHmac(algo, k).update(v).update(Buffer.from([0])).update(x).update(hbits).digest();
+  v = createHmac(algo, k).update(v).digest();
+  k = createHmac(algo, k).update(v).update(Buffer.from([1])).update(x).update(hbits).digest();
+  v = createHmac(algo, k).update(v).digest();
+  return { k: k, v: v };
 }
 
-function bits2int (obits, q) {
-  var bits = new BN(obits)
-  var shift = (obits.length << 3) - q.bitLength()
-  if (shift > 0) bits.ishrn(shift)
-  return bits
+function bits2int(obits, q) {
+  var bits = new BN(obits);
+  var shift = (obits.length << 3) - q.bitLength();
+  if (shift > 0) { bits.ishrn(shift); }
+  return bits;
 }
 
-function bits2octets (bits, q) {
-  bits = bits2int(bits, q)
-  bits = bits.mod(q)
-  var out = Buffer.from(bits.toArray())
+function bits2octets(bits, q) {
+  bits = bits2int(bits, q);
+  bits = bits.mod(q);
+  var out = Buffer.from(bits.toArray());
   if (out.length < q.byteLength()) {
-    var zeros = Buffer.alloc(q.byteLength() - out.length)
-    out = Buffer.concat([zeros, out])
+    var zeros = Buffer.alloc(q.byteLength() - out.length);
+    out = Buffer.concat([zeros, out]);
   }
-  return out
+  return out;
 }
 
-function makeKey (q, kv, algo) {
-  var t
-  var k
+function makeKey(q, kv, algo) {
+  var t;
+  var k;
 
   do {
-    t = Buffer.alloc(0)
+    t = Buffer.alloc(0);
 
     while (t.length * 8 < q.bitLength()) {
-      kv.v = createHmac(algo, kv.k).update(kv.v).digest()
-      t = Buffer.concat([t, kv.v])
+      kv.v = createHmac(algo, kv.k).update(kv.v).digest();
+      t = Buffer.concat([t, kv.v]);
     }
 
-    k = bits2int(t, q)
-    kv.k = createHmac(algo, kv.k).update(kv.v).update(Buffer.from([0])).digest()
-    kv.v = createHmac(algo, kv.k).update(kv.v).digest()
-  } while (k.cmp(q) !== -1)
+    k = bits2int(t, q);
+    kv.k = createHmac(algo, kv.k).update(kv.v).update(Buffer.from([0])).digest();
+    kv.v = createHmac(algo, kv.k).update(kv.v).digest();
+  } while (k.cmp(q) !== -1);
 
-  return k
+  return k;
 }
 
-function makeR (g, k, p, q) {
-  return g.toRed(BN.mont(p)).redPow(k).fromRed().mod(q)
+function makeR(g, k, p, q) {
+  return g.toRed(BN.mont(p)).redPow(k).fromRed().mod(q);
 }
 
-module.exports = sign
-module.exports.getKey = getKey
-module.exports.makeKey = makeKey
+module.exports = sign;
+module.exports.getKey = getKey;
+module.exports.makeKey = makeKey;
 
 
 /***/ }),
@@ -15130,90 +15142,93 @@ module.exports.makeKey = makeKey
   \***************************************************************/
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
-var Buffer = (__webpack_require__(/*! safe-buffer */ "../../../node_modules/safe-buffer/index.js").Buffer)
-var BN = __webpack_require__(/*! bn.js */ "../../../node_modules/bn.js/lib/bn.js")
-var EC = (__webpack_require__(/*! elliptic */ "../../../node_modules/elliptic/lib/elliptic.js").ec)
-var parseKeys = __webpack_require__(/*! parse-asn1 */ "../../../node_modules/parse-asn1/index.js")
-var curves = __webpack_require__(/*! ./curves.json */ "../../../node_modules/browserify-sign/browser/curves.json")
+"use strict";
 
-function verify (sig, hash, key, signType, tag) {
-  var pub = parseKeys(key)
+
+// much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
+var Buffer = (__webpack_require__(/*! safe-buffer */ "../../../node_modules/safe-buffer/index.js").Buffer);
+var BN = __webpack_require__(/*! bn.js */ "../../../node_modules/bn.js/lib/bn.js");
+var EC = (__webpack_require__(/*! elliptic */ "../../../node_modules/elliptic/lib/elliptic.js").ec);
+var parseKeys = __webpack_require__(/*! parse-asn1 */ "../../../node_modules/parse-asn1/index.js");
+var curves = __webpack_require__(/*! ./curves.json */ "../../../node_modules/browserify-sign/browser/curves.json");
+
+function verify(sig, hash, key, signType, tag) {
+  var pub = parseKeys(key);
   if (pub.type === 'ec') {
     // rsa keys can be interpreted as ecdsa ones in openssl
-    if (signType !== 'ecdsa' && signType !== 'ecdsa/rsa') throw new Error('wrong public key type')
-    return ecVerify(sig, hash, pub)
+    if (signType !== 'ecdsa' && signType !== 'ecdsa/rsa') { throw new Error('wrong public key type'); }
+    return ecVerify(sig, hash, pub);
   } else if (pub.type === 'dsa') {
-    if (signType !== 'dsa') throw new Error('wrong public key type')
-    return dsaVerify(sig, hash, pub)
-  } else {
-    if (signType !== 'rsa' && signType !== 'ecdsa/rsa') throw new Error('wrong public key type')
+    if (signType !== 'dsa') { throw new Error('wrong public key type'); }
+    return dsaVerify(sig, hash, pub);
   }
-  hash = Buffer.concat([tag, hash])
-  var len = pub.modulus.byteLength()
-  var pad = [1]
-  var padNum = 0
+  if (signType !== 'rsa' && signType !== 'ecdsa/rsa') { throw new Error('wrong public key type'); }
+
+  hash = Buffer.concat([tag, hash]);
+  var len = pub.modulus.byteLength();
+  var pad = [1];
+  var padNum = 0;
   while (hash.length + pad.length + 2 < len) {
-    pad.push(0xff)
-    padNum++
+    pad.push(0xff);
+    padNum += 1;
   }
-  pad.push(0x00)
-  var i = -1
+  pad.push(0x00);
+  var i = -1;
   while (++i < hash.length) {
-    pad.push(hash[i])
+    pad.push(hash[i]);
   }
-  pad = Buffer.from(pad)
-  var red = BN.mont(pub.modulus)
-  sig = new BN(sig).toRed(red)
+  pad = Buffer.from(pad);
+  var red = BN.mont(pub.modulus);
+  sig = new BN(sig).toRed(red);
 
-  sig = sig.redPow(new BN(pub.publicExponent))
-  sig = Buffer.from(sig.fromRed().toArray())
-  var out = padNum < 8 ? 1 : 0
-  len = Math.min(sig.length, pad.length)
-  if (sig.length !== pad.length) out = 1
+  sig = sig.redPow(new BN(pub.publicExponent));
+  sig = Buffer.from(sig.fromRed().toArray());
+  var out = padNum < 8 ? 1 : 0;
+  len = Math.min(sig.length, pad.length);
+  if (sig.length !== pad.length) { out = 1; }
 
-  i = -1
-  while (++i < len) out |= sig[i] ^ pad[i]
-  return out === 0
+  i = -1;
+  while (++i < len) { out |= sig[i] ^ pad[i]; }
+  return out === 0;
 }
 
-function ecVerify (sig, hash, pub) {
-  var curveId = curves[pub.data.algorithm.curve.join('.')]
-  if (!curveId) throw new Error('unknown curve ' + pub.data.algorithm.curve.join('.'))
+function ecVerify(sig, hash, pub) {
+  var curveId = curves[pub.data.algorithm.curve.join('.')];
+  if (!curveId) { throw new Error('unknown curve ' + pub.data.algorithm.curve.join('.')); }
 
-  var curve = new EC(curveId)
-  var pubkey = pub.data.subjectPrivateKey.data
+  var curve = new EC(curveId);
+  var pubkey = pub.data.subjectPrivateKey.data;
 
-  return curve.verify(hash, sig, pubkey)
+  return curve.verify(hash, sig, pubkey);
 }
 
-function dsaVerify (sig, hash, pub) {
-  var p = pub.data.p
-  var q = pub.data.q
-  var g = pub.data.g
-  var y = pub.data.pub_key
-  var unpacked = parseKeys.signature.decode(sig, 'der')
-  var s = unpacked.s
-  var r = unpacked.r
-  checkValue(s, q)
-  checkValue(r, q)
-  var montp = BN.mont(p)
-  var w = s.invm(q)
+function dsaVerify(sig, hash, pub) {
+  var p = pub.data.p;
+  var q = pub.data.q;
+  var g = pub.data.g;
+  var y = pub.data.pub_key;
+  var unpacked = parseKeys.signature.decode(sig, 'der');
+  var s = unpacked.s;
+  var r = unpacked.r;
+  checkValue(s, q);
+  checkValue(r, q);
+  var montp = BN.mont(p);
+  var w = s.invm(q);
   var v = g.toRed(montp)
     .redPow(new BN(hash).mul(w).mod(q))
     .fromRed()
     .mul(y.toRed(montp).redPow(r.mul(w).mod(q)).fromRed())
     .mod(p)
-    .mod(q)
-  return v.cmp(r) === 0
+    .mod(q);
+  return v.cmp(r) === 0;
 }
 
-function checkValue (b, q) {
-  if (b.cmpn(0) <= 0) throw new Error('invalid sig')
-  if (b.cmp(q) >= q) throw new Error('invalid sig')
+function checkValue(b, q) {
+  if (b.cmpn(0) <= 0) { throw new Error('invalid sig'); }
+  if (b.cmp(q) >= 0) { throw new Error('invalid sig'); }
 }
 
-module.exports = verify
+module.exports = verify;
 
 
 /***/ }),
