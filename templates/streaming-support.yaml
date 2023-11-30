@@ -109,6 +109,9 @@ Resources:
       SSESpecification:
         SSEEnabled: True
       TableName: !Ref TableName
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
 
   #### API Gateway #####
 
