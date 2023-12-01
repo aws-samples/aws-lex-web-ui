@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.20.1)
+    Master Lex Web UI CloudFormation template (v0.20.2)
     The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
     Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
     version input parameters as defaulted.
@@ -700,7 +700,7 @@ Resources:
                 NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 CustomResourceCodeBucket: !Ref BootstrapBucket
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.20.1.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.20.2.zip"
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
@@ -733,9 +733,9 @@ Resources:
                 CodeBuildName: !Ref CodeBuildName
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.20.1.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.20.1.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.20.1.zip"
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.20.2.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.20.2.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.20.2.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
