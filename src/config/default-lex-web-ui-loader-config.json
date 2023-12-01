@@ -23,7 +23,9 @@
     "retryCountPostTextTimeout": 1,
     "v2BotId": "",
     "v2BotAliasId": "",
-    "v2BotLocaleId": ""
+    "v2BotLocaleId": "",
+    "allowStreamingResponses": false,
+    "streamingWebSocketEndpoint": ""
   },
   "ui": {
     "parentOrigin": "http://localhost:8000",

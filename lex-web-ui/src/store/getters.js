@@ -89,4 +89,20 @@ export default {
     var file = new File([blob], 'chatTranscript.txt', { lastModified: new Date().getTime(), type: blob.type });
     return file;
   },
+
+  wsMessages:(state)=>()=>{
+    return state.streaming.wsMessages;
+  },
+
+  wsMessagesCurrentIndex:(state) => () =>  {
+    return state.streaming.wsMessagesCurrentIndex;
+  },
+
+  wsMessagesLength:(state) => () =>{
+    return state.streaming.wsMessages.length;
+  },
+
+  isStartingTypingWsMessages:(state)=>()=>{
+    return state.streaming.isStartingTypingWsMessages;
+  }
 };

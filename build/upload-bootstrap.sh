@@ -32,6 +32,9 @@ aws s3 cp --acl public-read out/custom-resources-$version.zip \
 aws s3 cp --acl public-read out/initiate-chat-lambda-$version.zip \
   "s3://${BOOTSTRAP_BUCKET_PATH}/initiate-chat-lambda-$version.zip"
 
+aws s3 cp --acl public-read out/streaming-lambda-$version.zip \
+  "s3://${BOOTSTRAP_BUCKET_PATH}/streaming-lambda-$version.zip"
+
 aws s3 sync --acl public-read --exclude "*" --include "*.yaml" \
   ../templates "s3://${BOOTSTRAP_BUCKET_PATH}/templates/"
 

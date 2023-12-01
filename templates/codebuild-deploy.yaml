@@ -513,6 +513,16 @@ Parameters:
         Description: >
          This is an optional parameter, when set to an image URL that is accessible by the application it will 
          display on the left of all bot messages
+    
+    AllowStreamingResponses:
+        Type: String
+        Default: false
+        AllowedValues:
+        - true
+        - false
+        Description: >
+            If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
+            in addition to the Lex bot directly.
 
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
@@ -520,6 +530,7 @@ Conditions:
     EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
     UseDefaultCloudfrontUrl: !Or [ !Equals [!Ref WebAppConfCname, ''], !Equals [!Ref WebAppAcmCertificateArn, ''] ]
     ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
+    EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
 
 Resources:
     # Bucket where S3 access logs are stored
@@ -740,6 +751,24 @@ Resources:
                   - UseDefaultCloudfrontUrl
                   - !Sub "https://${LexWebUiDistribution.DomainName}"
                   - !Sub "https://${WebAppConfCname}"
+    
+    StreamingSupport:
+        Type: AWS::CloudFormation::Stack
+        Condition: EnableStreaming
+        Properties:
+            TimeoutInMinutes: 15
+            TemplateURL: !Sub "https://${SourceBucket}.s3.${AWS::Region}.amazonaws.com/${SourcePrefix}/templates/streaming-support.yaml"
+            Parameters:
+                ParentStackName: !Ref "AWS::StackName"
+                SourceBucket: !Ref SourceBucket
+                StreamingLambdaCodeObject: !Sub "${SourcePrefix}/streaming-lambda-v0.20.0.zip"
+                TableName: !Join ["-", [!Ref "AWS::StackName", "streaming"]]
+                ParentOrigin:
+                  !If
+                    - UseDefaultCloudfrontUrl
+                    - !Sub "https://${LexWebUiDistribution.DomainName}"
+                    - !Sub "https://${WebAppConfCname}"
+    
 
     CodeBuild:
         Type: AWS::CodeBuild::Project
@@ -880,6 +909,11 @@ Resources:
                       Value: !Ref TitleLogoImgUrl
                     - Name: BOT_AVATAR_IMG_URL
                       Value: !Ref BotAvatarImgUrl
+                    - Name: ALLOW_STREAMING_RESPONSES
+                      Value: !Ref AllowStreamingResponses
+                    - Name: STREAMING_WEB_SOCKET_ENDPOINT
+                      Value: !If [EnableStreaming, !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod", ""]
+
 
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 10
@@ -962,6 +996,7 @@ Resources:
             MinimizedButtonColor: !Ref MinimizedButtonColor
             TitleLogoImgUrl: !Ref TitleLogoImgUrl
             BotAvatarImgUrl: !Ref BotAvatarImgUrl
+            AllowStreamingResponses: !Ref AllowStreamingResponses
             Timestamp: !Ref Timestamp
 
     # Lambda function for custom resource
@@ -1231,3 +1266,13 @@ Outputs:
         Value: !Sub "${RestApi.Outputs.RestApiId}"
         Description: Rest API ID if required by other elements
         Condition: EnableLiveChat
+    
+    WebSocketId:
+        Value: !Sub "${StreamingSupport.Outputs.WebSocketId}"
+        Description: Websocket API ID
+        Condition: EnableStreaming
+
+    WebSocketId:
+        Value: !Sub "${StreamingSupport.Outputs.DynamoTableName}"
+        Description: DynamoDB table name
+        Condition: EnableStreaming

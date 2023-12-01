@@ -43,6 +43,7 @@ export default {
     isProcessing: false,
     isPostTextRetry: false,
     retryCountPostTextTimeout: 0,
+    allowStreamingResponses: false,
     inputTranscript: '',
     intentName: '',
     message: '',
@@ -106,4 +107,12 @@ export default {
   awsCreds: {
     provider: 'cognito', // cognito|parentWindow
   },
+
+  streaming:{
+    wssEndpointWithStage:'', // wss://{domain}/{stage}
+    wsMessages:[],
+    wsMessagesCurrentIndex:0,
+    wsMessagesString:'',
+    isStartingTypingWsMessages:true
+  }
 };
