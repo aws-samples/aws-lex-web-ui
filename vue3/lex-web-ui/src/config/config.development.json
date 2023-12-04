@@ -1,74 +1,26 @@
 {
-  "region": "us-east-1",
   "cognito": {
-    "poolId": "us-east-1:98131d49-c88e-43d4-bfb7-7296a5ff19b8",
-    "appUserPoolClientId": "209psopfcb4viteshuoo4tn4qg",
-    "appUserPoolName": "us-east-1_D6gFjBObV",
-    "appDomainName": "atjklexkwebkuikidentitypoolconfigkbgmfhjxqn564048246598.auth.us-east-1.amazoncognito.com",
-    "aws_cognito_region": "us-east-1",
-    "region": "us-east-1"
+    "poolId": ""
   },
   "connect": {
-    "contactFlowId": "e9cc3735-2a0a-463f-a4f5-f516d781e598",
-    "instanceId": "a2102e84-4480-43bb-9ce2-1f64c4e4a008",
-    "apiGatewayEndpoint": "https://xkm03znpqa.execute-api.us-east-1.amazonaws.com/Prod/livechat",
-    "promptForNameMessage": "Before starting a live chat, please tell me your name?",
-    "waitingForAgentMessage": "Thanks for waiting. An agent will be with you when available.",
-    "waitingForAgentMessageIntervalSeconds": "60",
-    "agentJoinedMessage": "{Agent} has joined.",
-    "agentLeftMessage": "{Agent} has left.",
-    "chatEndedMessage": "Chat ended.",
-    "attachChatTranscript": "false",
-    "liveChatTerms": "live chat",
-    "talkDeskWebsocketEndpoint": "https://xkm03znpqa.execute-api.us-east-1.amazonaws.com/Prod/livechat"
+    "contactFlowId": "",
+    "instanceId": "",
+    "apiGatewayEndpoint": ""
   },
   "lex": {
-    "v2BotId": "7VLIBJZ6GX",
-    "v2BotAliasId": "TIVMSBQIBQ",
-    "v2BotLocaleId": "en_US,fr_FR",
-    "botName": "QnA Demo Bot",
-    "botAlias": "$LATEST",
-    "initialText": "",
-    "initialSpeechInstruction": "Say 'Buy Flowers' to get started.",
-    "initialUtterance": "Hello",
-    "reInitSessionAttributesOnRestart": false,
-    "region": "us-east-1",
-    "retryOnLexPostTextTimeout": "false",
-    "retryCountPostTextTimeout": "1"
-  },
-  "ui": {
-    "parentOrigin": "",
-    "toolbarTitle": "QnA Example Bot",
-    "toolbarLogo": "",
-    "positiveFeedbackIntent": "Thumbs up",
-    "negativeFeedbackIntent": "Thumbs down",
-    "helpIntent": "Help",
-    "minButtonContent": "chat",
-    "backButton": "true",
-    "messageMenu": "true",
-    "hideButtonMessageBubble": true,
-    "enableLogin": false,
-    "enableLiveChat": false,
-    "forceLogin": false,
-    "AllowSuperDangerousHTMLInMessage": true,
-    "shouldDisplayResponseCardTitle": false,
-    "saveHistory": false,
-    "helpContent": {},
-    "enableSFX": false,
-    "hideInputFieldsForButtonResponse": true,
-    "pushInitialTextOnRestart": false,
-    "directFocusToBotInput": false,
-    "showDialogStateIcon": false
+    "botName": "WebUiOrderFlowers",
+    "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
+    "initialSpeechInstruction": "Say 'Order Flowers' to get started."
   },
   "polly": {
     "voiceId": "Salli"
   },
+  "ui": {
+    "parentOrigin": "http://localhost:8080",
+    "pageTitle": "Order Flowers Bot",
+    "toolbarTitle": "Order Flowers"
+  },
   "recorder": {
     "preset": "speech_recognition"
-  },
-  "iframe": {
-    "iframeOrigin": "",
-    "shouldLoadIframeMinimized": true,
-    "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true"
   }
 }

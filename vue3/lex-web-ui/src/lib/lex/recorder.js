@@ -14,9 +14,6 @@
 /* eslint no-console: ["error", { allow: ["info", "warn", "error"] }] */
 /* global AudioContext CustomEvent document Event navigator window */
 
-// wav encoder worker - uses webpack worker loader
-import WavWorker from './wav-worker'
-
 /**
  * Lex Recorder Module
  * Based on Recorderjs. It sort of mimics the MediaRecorder API.
@@ -139,7 +136,9 @@ export default class {
     this._eventTarget = document.createDocumentFragment()
 
     // encoder worker
-    this._encoderWorker = new WavWorker()
+    //this._encoderWorker = new WavWorker()
+
+    this._encoderWorker = new Worker(new URL('./wav-worker.js', import.meta.url))
 
     // worker uses this event listener to signal back
     // when wav has finished encoding

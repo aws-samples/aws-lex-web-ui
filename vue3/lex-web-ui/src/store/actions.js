@@ -788,8 +788,8 @@ export default {
    * Live Chat Actions
    *
    **********************************************************************/
-  initLiveChat(context) {
-    import('amazon-connect-chatjs')
+  async initLiveChat(context) {
+    await import('amazon-connect-chatjs')
     if (window.connect) {
       window.connect.ChatSession.setGlobalConfig({
         region: context.state.config.region

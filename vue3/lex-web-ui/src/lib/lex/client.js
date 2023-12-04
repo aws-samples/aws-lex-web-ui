@@ -12,18 +12,20 @@
  */
 
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-import * as zlib from 'zlib'
+import * as pako from 'pako'
 
 function b64CompressedToObject(src) {
-  return JSON.parse(zlib.unzipSync(Buffer.from(src, 'base64')).toString('utf-8'))
+  return JSON.parse(pako.inflate(Buffer.from(src, 'base64')).toString('utf-8'))
 }
 
 function b64CompressedToString(src) {
-  return zlib.unzipSync(Buffer.from(src, 'base64')).toString('utf-8').replaceAll('"', '')
+  return pako.inflate(Buffer.from(src, 'base64')).toString('utf-8').replaceAll('"', '')
 }
 
 function compressAndB64Encode(src) {
-  return zlib.gzipSync(Buffer.from(JSON.stringify(src))).toString('base64')
+  const compressed = pako.deflate(Buffer.from(JSON.stringify(src)))
+  const encoded = String.fromCharCode.apply(null, compressed).toString('base64')
+  return encoded
 }
 
 export default class {

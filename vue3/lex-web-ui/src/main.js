@@ -4,8 +4,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import './assets/main.css'
-
 // Vuetify
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -18,6 +16,10 @@ const vuetify = createVuetify({
   directives
 })
 
+import { Buffer } from 'buffer'
+global.Buffer = Buffer
+
+// Lex Web UI plugin
 import * as Vue from 'vue'
 import * as Vuex from 'vuex'
 import { Config as AWSConfig, CognitoIdentityCredentials } from 'aws-sdk/global'

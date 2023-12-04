@@ -152,12 +152,12 @@ export default {
     this.initConfig()
       .then(() =>
         Promise.all([
-          this.$store.dispatch('initCredentials', this.$lexWebUi.awsConfig.credentials)
-          //this.$store.dispatch('initRecorder'),
-          /*this.$store.dispatch(
+          this.$store.dispatch('initCredentials', this.$lexWebUi.awsConfig.credentials),
+          this.$store.dispatch('initRecorder'),
+          this.$store.dispatch(
           'initBotAudio',
           (window.Audio) ? new Audio() : null,
-        ),*/
+        ),
         ])
       )
       .then(() => {

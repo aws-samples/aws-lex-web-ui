@@ -3,11 +3,11 @@ import LexWeb from './components/LexWeb.vue'
 </script>
 
 <template>
-  <header>
+  <body>
     <div class="wrapper">
       <LexWeb />
     </div>
-  </header>
+  </body>
 </template>
 
 <style scoped>

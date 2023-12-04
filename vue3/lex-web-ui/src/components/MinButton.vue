@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="min-button-container">
+  <v-container fluid class="pa-0 min-button-container">
     <v-fab-transition>
       <v-btn
         bottom
@@ -16,7 +16,7 @@
         class="min-button min-button-content"
       >
         <v-icon left>
-          {{ 'chat' }}
+          {{ 'mdi-chat' }}
         </v-icon>
         {{ minButtonContent }}
       </v-btn>
@@ -37,7 +37,7 @@
         class="min-button"
       >
         <v-icon>
-          {{ 'chat' }}
+          {{ 'mdi-chat' }}
         </v-icon>
       </v-btn>
     </v-fab-transition>
