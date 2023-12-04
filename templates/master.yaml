@@ -736,6 +736,7 @@ Resources:
                 SourceObject: !Sub "${BootstrapPrefix}/src-v0.20.2.zip"
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.20.2.zip"
                 InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.20.2.zip"
+                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.20.2.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If

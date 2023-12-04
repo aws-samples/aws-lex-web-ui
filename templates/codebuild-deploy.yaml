@@ -42,6 +42,12 @@ Parameters:
         S3 object zip file containing Lambda custom resource functions
       Default: artifacts/aws-lex-web-ui/artifacts/initiate-chat-lambda.zip
 
+    StreamingLambdaCodeObject:
+      Type: String
+      Description: >
+        S3 object zip file containing Lambda custom resource functions
+      Default: artifacts/aws-lex-web-ui/artifacts/streaming-lambda.zip
+
     CleanupBuckets:
         Type: String
         Default: true
@@ -761,7 +767,7 @@ Resources:
             Parameters:
                 ParentStackName: !Ref "AWS::StackName"
                 SourceBucket: !Ref SourceBucket
-                StreamingLambdaCodeObject: !Sub "${SourcePrefix}/streaming-lambda-v0.20.0.zip"
+                StreamingLambdaCodeObject: !Ref StreamingLambdaCodeObject
                 TableName: !Join ["-", [!Ref "AWS::StackName", "streaming"]]
                 ParentOrigin:
                   !If

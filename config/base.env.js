@@ -38,7 +38,7 @@ module.exports = {
     region: process.env.AWS_DEFAULT_REGION,
     retryOnLexPostTextTimeout: process.env.BOT_RETRY_ON_LEX_POST_TEXT_TIMEOUT,
     retryCountPostTextTimeout: process.env.BOT_RETRY_COUNT_POST_TEXT_TIMEOUT,
-    allowStreamingResponses: process.env.ALLOW_STREAMING_RESPONSES,
+    allowStreamingResponses: (process.env.ALLOW_STREAMING_RESPONSES === undefined) ? undefined : (process.env.ALLOW_STREAMING_RESPONSES === 'true') ? true : false,
     streamingWebSocketEndpoint: process.env.STREAMING_WEB_SOCKET_ENDPOINT,
   },
   ui: {
