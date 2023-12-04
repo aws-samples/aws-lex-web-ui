@@ -3,9 +3,9 @@
     "poolId": ""
   },
   "connect": {
-    "contactFlowId" : "",
-    "instanceId" : "",
-    "apiGatewayEndpoint" : ""
+    "contactFlowId": "",
+    "instanceId": "",
+    "apiGatewayEndpoint": ""
   },
   "lex": {
     "botName": "WebUiOrderFlowers",

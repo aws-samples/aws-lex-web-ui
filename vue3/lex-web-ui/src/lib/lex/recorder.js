@@ -15,7 +15,7 @@
 /* global AudioContext CustomEvent document Event navigator window */
 
 // wav encoder worker - uses webpack worker loader
-import WavWorker from './wav-worker';
+import WavWorker from './wav-worker'
 
 /**
  * Lex Recorder Module
@@ -133,20 +133,17 @@ export default class {
    *   Reasonable values seem to be between 3500 and 5000. Default: 4000.
    */
   constructor(options = {}) {
-    this.initOptions(options);
+    this.initOptions(options)
 
     // event handler used for events similar to MediaRecorder API (e.g. onmute)
-    this._eventTarget = document.createDocumentFragment();
+    this._eventTarget = document.createDocumentFragment()
 
     // encoder worker
-    this._encoderWorker = new WavWorker();
+    this._encoderWorker = new WavWorker()
 
     // worker uses this event listener to signal back
     // when wav has finished encoding
-    this._encoderWorker.addEventListener(
-      'message',
-      evt => this._exportWav(evt.data),
-    );
+    this._encoderWorker.addEventListener('message', (evt) => this._exportWav(evt.data))
   }
 
   /**
@@ -158,85 +155,75 @@ export default class {
   initOptions(options = {}) {
     // TODO break this into functions, avoid side-effects, break into this.options.*
     if (options.preset) {
-      Object.assign(options, this._getPresetOptions(options.preset));
+      Object.assign(options, this._getPresetOptions(options.preset))
     }
 
-    this.mimeType = options.mimeType || 'audio/wav';
+    this.mimeType = options.mimeType || 'audio/wav'
 
-    this.recordingTimeMax = options.recordingTimeMax || 8;
-    this.recordingTimeMin = options.recordingTimeMin || 2;
+    this.recordingTimeMax = options.recordingTimeMax || 8
+    this.recordingTimeMin = options.recordingTimeMin || 2
     this.recordingTimeMinAutoIncrease =
-      (typeof options.recordingTimeMinAutoIncrease !== 'undefined') ?
-        !!options.recordingTimeMinAutoIncrease :
-        true;
+      typeof options.recordingTimeMinAutoIncrease !== 'undefined'
+        ? !!options.recordingTimeMinAutoIncrease
+        : true
 
     // speech detection configuration
     this.autoStopRecording =
-      (typeof options.autoStopRecording !== 'undefined') ?
-        !!options.autoStopRecording :
-        true;
-    this.quietThreshold = options.quietThreshold || 0.001;
-    this.quietTimeMin = options.quietTimeMin || 0.4;
-    this.volumeThreshold = options.volumeThreshold || -75;
+      typeof options.autoStopRecording !== 'undefined' ? !!options.autoStopRecording : true
+    this.quietThreshold = options.quietThreshold || 0.001
+    this.quietTimeMin = options.quietTimeMin || 0.4
+    this.volumeThreshold = options.volumeThreshold || -75
 
     // band pass configuration
-    this.useBandPass =
-      (typeof options.useBandPass !== 'undefined') ?
-        !!options.useBandPass :
-        true;
+    this.useBandPass = typeof options.useBandPass !== 'undefined' ? !!options.useBandPass : true
     // https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
-    this.bandPassFrequency = options.bandPassFrequency || 4000;
+    this.bandPassFrequency = options.bandPassFrequency || 4000
     // Butterworth 0.707 [sqrt(1/2)]  | Chebyshev < 1.414
-    this.bandPassQ = options.bandPassQ || 0.707;
+    this.bandPassQ = options.bandPassQ || 0.707
 
     // parameters passed to script processor and also used in encoder
     // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
-    this.bufferLength = options.bufferLength || 2048;
-    this.numChannels = options.numChannels || 1;
+    this.bufferLength = options.bufferLength || 2048
+    this.numChannels = options.numChannels || 1
 
     this.requestEchoCancellation =
-      (typeof options.requestEchoCancellation !== 'undefined') ?
-        !!options.requestEchoCancellation :
-        true;
+      typeof options.requestEchoCancellation !== 'undefined'
+        ? !!options.requestEchoCancellation
+        : true
 
     // automatic mute detection options
     this.useAutoMuteDetect =
-      (typeof options.useAutoMuteDetect !== 'undefined') ?
-        !!options.useAutoMuteDetect :
-        true;
-    this.muteThreshold = options.muteThreshold || 1e-7;
+      typeof options.useAutoMuteDetect !== 'undefined' ? !!options.useAutoMuteDetect : true
+    this.muteThreshold = options.muteThreshold || 1e-7
 
     // encoder options
     this.encoderUseTrim =
-      (typeof options.encoderUseTrim !== 'undefined') ?
-        !!options.encoderUseTrim :
-        true;
-    this.encoderQuietTrimThreshold =
-      options.encoderQuietTrimThreshold || 0.0008;
-    this.encoderQuietTrimSlackBack = options.encoderQuietTrimSlackBack || 4000;
+      typeof options.encoderUseTrim !== 'undefined' ? !!options.encoderUseTrim : true
+    this.encoderQuietTrimThreshold = options.encoderQuietTrimThreshold || 0.0008
+    this.encoderQuietTrimSlackBack = options.encoderQuietTrimSlackBack || 4000
   }
 
   _getPresetOptions(preset = 'low_latency') {
-    this._presets = ['low_latency', 'speech_recognition'];
+    this._presets = ['low_latency', 'speech_recognition']
 
     if (this._presets.indexOf(preset) === -1) {
-      console.error('invalid preset');
-      return {};
+      console.error('invalid preset')
+      return {}
     }
 
     const presets = {
       low_latency: {
         encoderUseTrim: true,
-        useBandPass: true,
+        useBandPass: true
       },
       speech_recognition: {
         encoderUseTrim: false,
         useBandPass: false,
-        useAutoMuteDetect: false,
-      },
-    };
+        useAutoMuteDetect: false
+      }
+    }
 
-    return presets[preset];
+    return presets[preset]
   }
 
   /**
@@ -249,46 +236,45 @@ export default class {
    *   ready.
    */
   init() {
-    this._state = 'inactive';
+    this._state = 'inactive'
 
-    this._instant = 0.0;
-    this._slow = 0.0;
-    this._clip = 0.0;
-    this._maxVolume = -Infinity;
+    this._instant = 0.0
+    this._slow = 0.0
+    this._clip = 0.0
+    this._maxVolume = -Infinity
 
-    this._isMicQuiet = true;
-    this._isMicMuted = false;
+    this._isMicQuiet = true
+    this._isMicMuted = false
 
-    this._isSilentRecording = true;
-    this._silentRecordingConsecutiveCount = 0;
+    this._isSilentRecording = true
+    this._silentRecordingConsecutiveCount = 0
 
-    return Promise.resolve();
+    return Promise.resolve()
   }
 
   /**
    * Start recording
    */
   async start() {
-    if (this._state !== 'inactive' ||
-      typeof this._stream === 'undefined') {
+    if (this._state !== 'inactive' || typeof this._stream === 'undefined') {
       if (this._state !== 'inactive') {
-        console.warn('invalid state to start recording');
-        return;
+        console.warn('invalid state to start recording')
+        return
       }
-      console.warn('initializing audiocontext after first user interaction - chrome fix');
+      console.warn('initializing audiocontext after first user interaction - chrome fix')
       await this._initAudioContext()
         .then(() => this._initMicVolumeProcessor())
-        .then(() => this._initStream());
+        .then(() => this._initStream())
       if (typeof this._stream === 'undefined') {
-        console.warn('failed to initialize audiocontext');
-        return;
+        console.warn('failed to initialize audiocontext')
+        return
       }
     }
 
-    this._state = 'recording';
+    this._state = 'recording'
 
-    this._recordingStartTime = this._audioContext.currentTime;
-    this._eventTarget.dispatchEvent(new Event('start'));
+    this._recordingStartTime = this._audioContext.currentTime
+    this._eventTarget.dispatchEvent(new Event('start'))
 
     this._encoderWorker.postMessage({
       command: 'init',
@@ -297,9 +283,9 @@ export default class {
         numChannels: this.numChannels,
         useTrim: this.encoderUseTrim,
         quietTrimThreshold: this.encoderQuietTrimThreshold,
-        quietTrimSlackBack: this.encoderQuietTrimSlackBack,
-      },
-    });
+        quietTrimSlackBack: this.encoderQuietTrimSlackBack
+      }
+    })
   }
 
   /**
@@ -307,119 +293,121 @@ export default class {
    */
   stop() {
     if (this._state !== 'recording') {
-      console.warn('recorder stop called out of state');
-      return;
+      console.warn('recorder stop called out of state')
+      return
     }
 
     if (this._recordingStartTime > this._quietStartTime) {
-      this._isSilentRecording = true;
-      this._silentRecordingConsecutiveCount += 1;
-      this._eventTarget.dispatchEvent(new Event('silentrecording'));
+      this._isSilentRecording = true
+      this._silentRecordingConsecutiveCount += 1
+      this._eventTarget.dispatchEvent(new Event('silentrecording'))
     } else {
-      this._isSilentRecording = false;
-      this._silentRecordingConsecutiveCount = 0;
-      this._eventTarget.dispatchEvent(new Event('unsilentrecording'));
+      this._isSilentRecording = false
+      this._silentRecordingConsecutiveCount = 0
+      this._eventTarget.dispatchEvent(new Event('unsilentrecording'))
     }
 
-    this._state = 'inactive';
-    this._recordingStartTime = 0;
+    this._state = 'inactive'
+    this._recordingStartTime = 0
 
     this._encoderWorker.postMessage({
       command: 'exportWav',
-      type: 'audio/wav',
-    });
+      type: 'audio/wav'
+    })
 
-    this._eventTarget.dispatchEvent(new Event('stop'));
+    this._eventTarget.dispatchEvent(new Event('stop'))
   }
 
   _exportWav(evt) {
-    const event = new CustomEvent('dataavailable', { detail: evt.data });
-    this._eventTarget.dispatchEvent(event);
-    this._encoderWorker.postMessage({ command: 'clear' });
+    const event = new CustomEvent('dataavailable', { detail: evt.data })
+    this._eventTarget.dispatchEvent(event)
+    this._encoderWorker.postMessage({ command: 'clear' })
   }
 
   _recordBuffers(inputBuffer) {
     if (this._state !== 'recording') {
-      console.warn('recorder _recordBuffers called out of state');
-      return;
+      console.warn('recorder _recordBuffers called out of state')
+      return
     }
-    const buffer = [];
+    const buffer = []
     for (let i = 0; i < inputBuffer.numberOfChannels; i++) {
-      buffer[i] = inputBuffer.getChannelData(i);
+      buffer[i] = inputBuffer.getChannelData(i)
     }
 
     this._encoderWorker.postMessage({
       command: 'record',
-      buffer,
-    });
+      buffer
+    })
   }
 
   _setIsMicMuted() {
     if (!this.useAutoMuteDetect) {
-      return;
+      return
     }
     // TODO incorporate _maxVolume
     if (this._instant >= this.muteThreshold) {
       if (this._isMicMuted) {
-        this._isMicMuted = false;
-        this._eventTarget.dispatchEvent(new Event('unmute'));
+        this._isMicMuted = false
+        this._eventTarget.dispatchEvent(new Event('unmute'))
       }
-      return;
+      return
     }
 
-    if (!this._isMicMuted && (this._slow < this.muteThreshold)) {
-      this._isMicMuted = true;
-      this._eventTarget.dispatchEvent(new Event('mute'));
+    if (!this._isMicMuted && this._slow < this.muteThreshold) {
+      this._isMicMuted = true
+      this._eventTarget.dispatchEvent(new Event('mute'))
       console.info(
         'mute - instant: %s - slow: %s - track muted: %s',
-        this._instant, this._slow, this._tracks[0].muted,
-      );
+        this._instant,
+        this._slow,
+        this._tracks[0].muted
+      )
 
       if (this._state === 'recording') {
-        this.stop();
-        console.info('stopped recording on _setIsMicMuted');
+        this.stop()
+        console.info('stopped recording on _setIsMicMuted')
       }
     }
   }
 
   _setIsMicQuiet() {
-    const now = this._audioContext.currentTime;
+    const now = this._audioContext.currentTime
 
-    const isMicQuiet = (this._maxVolume < this.volumeThreshold ||
-      this._slow < this.quietThreshold);
+    const isMicQuiet = this._maxVolume < this.volumeThreshold || this._slow < this.quietThreshold
 
     // start record the time when the line goes quiet
     // fire event
     if (!this._isMicQuiet && isMicQuiet) {
-      this._quietStartTime = this._audioContext.currentTime;
-      this._eventTarget.dispatchEvent(new Event('quiet'));
+      this._quietStartTime = this._audioContext.currentTime
+      this._eventTarget.dispatchEvent(new Event('quiet'))
     }
     // reset quiet timer when there's enough sound
     if (this._isMicQuiet && !isMicQuiet) {
-      this._quietStartTime = 0;
-      this._eventTarget.dispatchEvent(new Event('unquiet'));
+      this._quietStartTime = 0
+      this._eventTarget.dispatchEvent(new Event('unquiet'))
     }
-    this._isMicQuiet = isMicQuiet;
+    this._isMicQuiet = isMicQuiet
 
     // if autoincrease is enabled, exponentially increase the mimimun recording
     // time based on consecutive silent recordings
-    const recordingTimeMin =
-      (this.recordingTimeMinAutoIncrease) ?
-        (this.recordingTimeMin - 1) +
-        (this.recordingTimeMax **
-         (1 - (1 / (this._silentRecordingConsecutiveCount + 1)))) :
-        this.recordingTimeMin;
+    const recordingTimeMin = this.recordingTimeMinAutoIncrease
+      ? this.recordingTimeMin -
+        1 +
+        this.recordingTimeMax ** (1 - 1 / (this._silentRecordingConsecutiveCount + 1))
+      : this.recordingTimeMin
 
     // detect voice pause and stop recording
-    if (this.autoStopRecording &&
-      this._isMicQuiet && this._state === 'recording' &&
+    if (
+      this.autoStopRecording &&
+      this._isMicQuiet &&
+      this._state === 'recording' &&
       // have I been recording longer than the minimum recording time?
       now - this._recordingStartTime > recordingTimeMin &&
       // has the slow sample value been below the quiet threshold longer than
       // the minimum allowed quiet time?
       now - this._quietStartTime > this.quietTimeMin
     ) {
-      this.stop();
+      this.stop()
     }
   }
 
@@ -430,22 +418,22 @@ export default class {
    * @return {Promise} resolution of AudioContext
    */
   _initAudioContext() {
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    window.AudioContext = window.AudioContext || window.webkitAudioContext
     if (!window.AudioContext) {
-      return Promise.reject(new Error('Web Audio API not supported.'));
+      return Promise.reject(new Error('Web Audio API not supported.'))
     }
-    this._audioContext = new AudioContext();
+    this._audioContext = new AudioContext()
     document.addEventListener('visibilitychange', () => {
-      console.info('visibility change triggered in recorder. hidden:', document.hidden);
+      console.info('visibility change triggered in recorder. hidden:', document.hidden)
       if (document.hidden) {
-        this._audioContext.suspend();
+        this._audioContext.suspend()
       } else {
         this._audioContext.resume().then(() => {
-          console.info('Playback resumed successfully from visibility change');
-        });
+          console.info('Playback resumed successfully from visibility change')
+        })
       }
-    });
-    return Promise.resolve();
+    })
+    return Promise.resolve()
   }
 
   /**
@@ -461,46 +449,44 @@ export default class {
     const processor = this._audioContext.createScriptProcessor(
       this.bufferLength,
       this.numChannels,
-      this.numChannels,
-    );
+      this.numChannels
+    )
     processor.onaudioprocess = (evt) => {
       if (this._state === 'recording') {
         // send buffers to worker
-        this._recordBuffers(evt.inputBuffer);
+        this._recordBuffers(evt.inputBuffer)
 
         // stop recording if over the maximum time
-        if ((this._audioContext.currentTime - this._recordingStartTime)
-          > this.recordingTimeMax
-        ) {
-          console.warn('stopped recording due to maximum time');
-          this.stop();
+        if (this._audioContext.currentTime - this._recordingStartTime > this.recordingTimeMax) {
+          console.warn('stopped recording due to maximum time')
+          this.stop()
         }
       }
 
       // XXX assumes mono channel
-      const input = evt.inputBuffer.getChannelData(0);
-      let sum = 0.0;
-      let clipCount = 0;
+      const input = evt.inputBuffer.getChannelData(0)
+      let sum = 0.0
+      let clipCount = 0
       for (let i = 0; i < input.length; ++i) {
         // square to calculate signal power
-        sum += input[i] * input[i];
+        sum += input[i] * input[i]
         if (Math.abs(input[i]) > 0.99) {
-          clipCount += 1;
+          clipCount += 1
         }
       }
-      this._instant = Math.sqrt(sum / input.length);
-      this._slow = (0.95 * this._slow) + (0.05 * this._instant);
-      this._clip = (input.length) ? clipCount / input.length : 0;
+      this._instant = Math.sqrt(sum / input.length)
+      this._slow = 0.95 * this._slow + 0.05 * this._instant
+      this._clip = input.length ? clipCount / input.length : 0
 
-      this._setIsMicMuted();
-      this._setIsMicQuiet();
+      this._setIsMicMuted()
+      this._setIsMicQuiet()
 
-      this._analyser.getFloatFrequencyData(this._analyserData);
-      this._maxVolume = Math.max(...this._analyserData);
-    };
+      this._analyser.getFloatFrequencyData(this._analyserData)
+      this._maxVolume = Math.max(...this._analyserData)
+    }
 
-    this._micVolumeProcessor = processor;
-    return Promise.resolve();
+    this._micVolumeProcessor = processor
+    return Promise.resolve()
   }
 
   /*
@@ -516,55 +502,56 @@ export default class {
     // TODO obtain with navigator.mediaDevices.getSupportedConstraints()
     const constraints = {
       audio: {
-        optional: [{
-          echoCancellation: this.requestEchoCancellation,
-        }],
-      },
-    };
+        optional: [
+          {
+            echoCancellation: this.requestEchoCancellation
+          }
+        ]
+      }
+    }
 
-    return navigator.mediaDevices.getUserMedia(constraints)
-      .then((stream) => {
-        this._stream = stream;
+    return navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+      this._stream = stream
 
-        this._tracks = stream.getAudioTracks();
-        console.info('using media stream track labeled: ', this._tracks[0].label);
-        // assumes single channel
-        this._tracks[0].onmute = this._setIsMicMuted;
-        this._tracks[0].onunmute = this._setIsMicMuted;
+      this._tracks = stream.getAudioTracks()
+      console.info('using media stream track labeled: ', this._tracks[0].label)
+      // assumes single channel
+      this._tracks[0].onmute = this._setIsMicMuted
+      this._tracks[0].onunmute = this._setIsMicMuted
 
-        const source = this._audioContext.createMediaStreamSource(stream);
-        const gainNode = this._audioContext.createGain();
-        const analyser = this._audioContext.createAnalyser();
+      const source = this._audioContext.createMediaStreamSource(stream)
+      const gainNode = this._audioContext.createGain()
+      const analyser = this._audioContext.createAnalyser()
 
-        if (this.useBandPass) {
-          // bandpass filter around human voice
-          // https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
-          const biquadFilter = this._audioContext.createBiquadFilter();
-          biquadFilter.type = 'bandpass';
+      if (this.useBandPass) {
+        // bandpass filter around human voice
+        // https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
+        const biquadFilter = this._audioContext.createBiquadFilter()
+        biquadFilter.type = 'bandpass'
 
-          biquadFilter.frequency.value = this.bandPassFrequency;
-          biquadFilter.gain.Q = this.bandPassQ;
+        biquadFilter.frequency.value = this.bandPassFrequency
+        biquadFilter.gain.Q = this.bandPassQ
 
-          source.connect(biquadFilter);
-          biquadFilter.connect(gainNode);
-          analyser.smoothingTimeConstant = 0.5;
-        } else {
-          source.connect(gainNode);
-          analyser.smoothingTimeConstant = 0.9;
-        }
-        analyser.fftSize = this.bufferLength;
-        analyser.minDecibels = -90;
-        analyser.maxDecibels = -30;
+        source.connect(biquadFilter)
+        biquadFilter.connect(gainNode)
+        analyser.smoothingTimeConstant = 0.5
+      } else {
+        source.connect(gainNode)
+        analyser.smoothingTimeConstant = 0.9
+      }
+      analyser.fftSize = this.bufferLength
+      analyser.minDecibels = -90
+      analyser.maxDecibels = -30
 
-        gainNode.connect(analyser);
-        analyser.connect(this._micVolumeProcessor);
-        this._analyserData = new Float32Array(analyser.frequencyBinCount);
-        this._analyser = analyser;
+      gainNode.connect(analyser)
+      analyser.connect(this._micVolumeProcessor)
+      this._analyserData = new Float32Array(analyser.frequencyBinCount)
+      this._analyser = analyser
 
-        this._micVolumeProcessor.connect(this._audioContext.destination);
+      this._micVolumeProcessor.connect(this._audioContext.destination)
 
-        this._eventTarget.dispatchEvent(new Event('streamReady'));
-      });
+      this._eventTarget.dispatchEvent(new Event('streamReady'))
+    })
   }
 
   /*
@@ -577,7 +564,7 @@ export default class {
    * @return {string} state of recorder (inactive | recording | paused)
    */
   get state() {
-    return this._state;
+    return this._state
   }
 
   /**
@@ -585,38 +572,38 @@ export default class {
    * @return {MediaStream} media stream object obtain from getUserMedia
    */
   get stream() {
-    return this._stream;
+    return this._stream
   }
 
   get isMicQuiet() {
-    return this._isMicQuiet;
+    return this._isMicQuiet
   }
 
   get isMicMuted() {
-    return this._isMicMuted;
+    return this._isMicMuted
   }
 
   get isSilentRecording() {
-    return this._isSilentRecording;
+    return this._isSilentRecording
   }
 
   get isRecording() {
-    return (this._state === 'recording');
+    return this._state === 'recording'
   }
 
   /**
-  * Getter of mic volume levels.
-  * instant: root mean square of levels in buffer
-  * slow: time decaying level
-  * clip: count of samples at the top of signals (high noise)
-  */
+   * Getter of mic volume levels.
+   * instant: root mean square of levels in buffer
+   * slow: time decaying level
+   * clip: count of samples at the top of signals (high noise)
+   */
   get volume() {
-    return ({
+    return {
       instant: this._instant,
       slow: this._slow,
       clip: this._clip,
-      max: this._maxVolume,
-    });
+      max: this._maxVolume
+    }
   }
 
   /*
@@ -626,36 +613,36 @@ export default class {
 
   // TODO make setters replace the listener insted of adding
   set onstart(cb) {
-    this._eventTarget.addEventListener('start', cb);
+    this._eventTarget.addEventListener('start', cb)
   }
   set onstop(cb) {
-    this._eventTarget.addEventListener('stop', cb);
+    this._eventTarget.addEventListener('stop', cb)
   }
   set ondataavailable(cb) {
-    this._eventTarget.addEventListener('dataavailable', cb);
+    this._eventTarget.addEventListener('dataavailable', cb)
   }
   set onerror(cb) {
-    this._eventTarget.addEventListener('error', cb);
+    this._eventTarget.addEventListener('error', cb)
   }
   set onstreamready(cb) {
-    this._eventTarget.addEventListener('streamready', cb);
+    this._eventTarget.addEventListener('streamready', cb)
   }
   set onmute(cb) {
-    this._eventTarget.addEventListener('mute', cb);
+    this._eventTarget.addEventListener('mute', cb)
   }
   set onunmute(cb) {
-    this._eventTarget.addEventListener('unmute', cb);
+    this._eventTarget.addEventListener('unmute', cb)
   }
   set onsilentrecording(cb) {
-    this._eventTarget.addEventListener('silentrecording', cb);
+    this._eventTarget.addEventListener('silentrecording', cb)
   }
   set onunsilentrecording(cb) {
-    this._eventTarget.addEventListener('unsilentrecording', cb);
+    this._eventTarget.addEventListener('unsilentrecording', cb)
   }
   set onquiet(cb) {
-    this._eventTarget.addEventListener('quiet', cb);
+    this._eventTarget.addEventListener('quiet', cb)
   }
   set onunquiet(cb) {
-    this._eventTarget.addEventListener('unquiet', cb);
+    this._eventTarget.addEventListener('unquiet', cb)
   }
 }

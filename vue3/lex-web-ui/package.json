@@ -10,18 +10,19 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "amazon-connect-chatjs": "^1.1.7",
     "aws-sdk": "^2.1361.0",
-    "vuex": "^4.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "marked": "^4.0.12",
+    "material-design-icons": "^3.0.1",
+    "roboto-fontface": "^0.10.0",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
     "vuetify": "^3.1.5",
-    "amazon-connect-chatjs": "^1.1.7",
-    "jsonwebtoken": "^9.0.0",
-    "material-design-icons": "^3.0.1",
-    "roboto-fontface": "^0.10.0",
-    "marked": "^4.0.12"
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@mdi/font": "^7.2.96",
     "@rushstack/eslint-patch": "^1.2.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",

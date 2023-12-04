@@ -2,11 +2,9 @@
   <v-flex d-flex class="message">
     <!-- contains message and response card -->
     <v-layout column ma-2 class="message-layout">
-
       <!-- contains message bubble and date -->
       <v-flex d-flex class="message-bubble-date-container">
         <v-layout column class="message-bubble-column">
-
           <!-- contains message bubble and avatar -->
           <v-flex d-flex class="message-bubble-avatar-container">
             <v-layout row class="message-bubble-row">
@@ -16,8 +14,7 @@
                 tabindex="-1"
                 class="avatar"
                 aria-hidden="true"
-              >
-              </div>
+              ></div>
               <div
                 tabindex="0"
                 v-on:focus="onMessageFocus"
@@ -26,73 +23,106 @@
               >
                 <message-text
                   v-bind:message="message"
-                  v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayInteractiveMessage"
+                  v-if="
+                    'text' in message &&
+                    message.text !== null &&
+                    message.text.length &&
+                    !shouldDisplayInteractiveMessage
+                  "
                 ></message-text>
                 <div
-                  v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'ListPicker'">
+                  v-if="
+                    shouldDisplayInteractiveMessage &&
+                    message.interactiveMessage.templateType == 'ListPicker'
+                  "
+                >
                   <v-card-title primary-title>
                     <div>
-                      <img :src="message.interactiveMessage.data.content.imageData">
-                      <div class="headline">{{message.interactiveMessage.data.content.title}}</div>
-                      <span>{{message.interactiveMessage.data.content.subtitle}}</span>
+                      <img :src="message.interactiveMessage.data.content.imageData" />
+                      <div class="headline">
+                        {{ message.interactiveMessage.data.content.title }}
+                      </div>
+                      <span>{{ message.interactiveMessage.data.content.subtitle }}</span>
                     </div>
                   </v-card-title>
                   <v-list two-line class="message-bubble interactive-row">
-                    <template v-for="(item, index) in message.interactiveMessage.data.content.elements">
-                        <v-list-tile
-                          v-on:click="resendMessage(item.title)" >
-                          <v-list-tile-avatar v-if="item.imageData">
-                            <img :src="item.imageData">
-                          </v-list-tile-avatar>
-                          <v-list-tile-content>
-                            <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                            <v-list-tile-sub-title v-if="item.subtitle" v-html="item.subtitle"></v-list-tile-sub-title>
-                          </v-list-tile-content>
-                        </v-list-tile>
-                        <v-divider></v-divider>
+                    <template
+                      v-for="(item, index) in message.interactiveMessage.data.content.elements"
+                    >
+                      <v-list-tile v-on:click="resendMessage(item.title)">
+                        <v-list-tile-avatar v-if="item.imageData">
+                          <img :src="item.imageData" />
+                        </v-list-tile-avatar>
+                        <v-list-tile-content>
+                          <v-list-tile-title v-html="item.title"></v-list-tile-title>
+                          <v-list-tile-sub-title
+                            v-if="item.subtitle"
+                            v-html="item.subtitle"
+                          ></v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                      <v-divider></v-divider>
                     </template>
                   </v-list>
                 </div>
                 <div
-                  v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'TimePicker'">
+                  v-if="
+                    shouldDisplayInteractiveMessage &&
+                    message.interactiveMessage.templateType == 'TimePicker'
+                  "
+                >
                   <v-card-title primary-title>
                     <div>
-                      <div class="headline">{{message.interactiveMessage.data.content.title}}</div>
-                      <span>{{message.interactiveMessage.data.content.subtitle}}</span>
+                      <div class="headline">
+                        {{ message.interactiveMessage.data.content.title }}
+                      </div>
+                      <span>{{ message.interactiveMessage.data.content.subtitle }}</span>
                     </div>
-                  </v-card-title>                  
-                    <template v-for="item in this.message.interactiveMessage.timeslots">
-                      <v-subheader>{{ item.date }}</v-subheader>
-                      <v-list two-line class="message-bubble interactive-row">
-                        <v-list-tile>
-                          <v-list-tile
-                            v-for="subItem in item.slots"
-                            v-bind:key="subItem.localTime"
-                            v-bind:data="subItem"
-                            @click="resendMessage(subItem.date)"
-                          >
-                            <v-list-tile-content>
-                              <v-list-tile-title>{{ subItem.localTime }}</v-list-tile-title>
-                            </v-list-tile-content>
-                          </v-list-tile>
-                      </v-list-tile>                      
-                  </v-list>
-                </template>
+                  </v-card-title>
+                  <template v-for="item in this.message.interactiveMessage.timeslots">
+                    <v-subheader>{{ item.date }}</v-subheader>
+                    <v-list two-line class="message-bubble interactive-row">
+                      <v-list-tile>
+                        <v-list-tile
+                          v-for="subItem in item.slots"
+                          v-bind:key="subItem.localTime"
+                          v-bind:data="subItem"
+                          @click="resendMessage(subItem.date)"
+                        >
+                          <v-list-tile-content>
+                            <v-list-tile-title>{{ subItem.localTime }}</v-list-tile-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                      </v-list-tile>
+                    </v-list>
+                  </template>
                 </div>
                 <div
-                  v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback"
+                  v-if="
+                    message.id === this.$store.state.messages.length - 1 &&
+                    isLastMessageFeedback &&
+                    message.type === 'bot' &&
+                    botDialogState &&
+                    showDialogFeedback
+                  "
                   class="feedback-state"
                 >
                   <v-icon
                     v-on:click="onButtonClick(positiveIntent)"
-                    v-bind:class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
+                    v-bind:class="{
+                      'feedback-icons-positive': !positiveClick,
+                      positiveClick: positiveClick
+                    }"
                     tabindex="0"
                   >
                     thumb_up
                   </v-icon>
                   <v-icon
                     v-on:click="onButtonClick(negativeIntent)"
-                    v-bind:class="{'feedback-icons-negative': !negativeClick, 'negativeClick': negativeClick}"
+                    v-bind:class="{
+                      'feedback-icons-negative': !negativeClick,
+                      negativeClick: negativeClick
+                    }"
                     tabindex="0"
                   >
                     thumb_down
@@ -104,13 +134,13 @@
                   v-bind:class="`dialog-state-${botDialogState.state}`"
                   class="dialog-state"
                 >
-                  {{botDialogState.icon}}
+                  {{ botDialogState.icon }}
                 </v-icon>
                 <div v-if="message.type === 'human' && message.audio">
-                    <audio>
-                      <source v-bind:src="message.audio" type="audio/wav">
-                    </audio>
-                    <v-btn
+                  <audio>
+                    <source v-bind:src="message.audio" type="audio/wav" />
+                  </audio>
+                  <v-btn
                     v-on:click="playAudio"
                     tabindex="0"
                     icon
@@ -120,26 +150,22 @@
                     <v-icon class="play-icon">play_circle_outline</v-icon>
                   </v-btn>
                 </div>
-                 <v-menu offset-y v-if="message.type === 'human'" v-show="showMessageMenu">
-                  <v-btn
-                    slot="activator"
-                    icon
-                  >
-                    <v-icon class="smicon">
-                      more_vert
-                    </v-icon>
+                <v-menu offset-y v-if="message.type === 'human'" v-show="showMessageMenu">
+                  <v-btn slot="activator" icon>
+                    <v-icon class="smicon"> more_vert </v-icon>
                   </v-btn>
                   <v-list>
                     <v-list-tile>
                       <v-list-tile-title v-on:click="resendMessage(message.text)">
-                          <v-icon>replay</v-icon>
+                        <v-icon>replay</v-icon>
                       </v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile
                       v-if="message.type === 'human' && message.audio"
-                      class="message-audio">
+                      class="message-audio"
+                    >
                       <v-list-tile-title v-on:click="playAudio">
-                            <v-icon>play_circle_outline</v-icon>
+                        <v-icon>play_circle_outline</v-icon>
                       </v-list-tile-title>
                     </v-list-tile>
                   </v-list>
@@ -152,16 +178,11 @@
             class="text-xs-center message-date"
             aria-hidden="true"
           >
-           {{messageHumanDate}}
+            {{ messageHumanDate }}
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex
-        v-if="shouldDisplayResponseCard"
-        class="response-card"
-        d-flex
-        mt-2 mr-2 ml-3
-      >
+      <v-flex v-if="shouldDisplayResponseCard" class="response-card" d-flex mt-2 mr-2 ml-3>
         <response-card
           v-for="(card, index) in message.responseCard.genericAttachments"
           v-bind:response-card="card"
@@ -169,21 +190,22 @@
         >
         </response-card>
       </v-flex>
-      <v-flex
-        v-if="shouldDisplayResponseCardV2 && !shouldDisplayResponseCard"
-      >
-        <v-flex v-for="(item, index) in message.responseCardsLexV2"
+      <v-flex v-if="shouldDisplayResponseCardV2 && !shouldDisplayResponseCard">
+        <v-flex
+          v-for="(item, index) in message.responseCardsLexV2"
           class="response-card"
           d-flex
-          mt-2 mr-2 ml-3
+          mt-2
+          mr-2
+          ml-3
           v-bind:key="index"
         >
-        <response-card
-          v-for="(card, index) in item.genericAttachments"
-          v-bind:response-card="card"
-          v-bind:key="index"
-        >
-        </response-card>
+          <response-card
+            v-for="(card, index) in item.genericAttachments"
+            v-bind:response-card="card"
+            v-bind:key="index"
+          >
+          </response-card>
         </v-flex>
       </v-flex>
     </v-layout>
@@ -203,15 +225,15 @@ or in the "license" file accompanying this file. This file is distributed on an 
 BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
-import MessageText from './MessageText.vue';
-import ResponseCard from './ResponseCard.vue';
+import MessageText from './MessageText.vue'
+import ResponseCard from './ResponseCard.vue'
 
 export default {
   name: 'message',
   props: ['message', 'feedback'],
   components: {
     MessageText,
-    ResponseCard,
+    ResponseCard
   },
   data() {
     return {
@@ -227,128 +249,136 @@ export default {
       disableCardButtons: false,
       positiveIntent: this.$store.state.config.ui.positiveFeedbackIntent,
       negativeIntent: this.$store.state.config.ui.negativeFeedbackIntent,
-      hideInputFields: this.$store.state.config.ui.hideInputFieldsForButtonResponse,
-    };
+      hideInputFields: this.$store.state.config.ui.hideInputFieldsForButtonResponse
+    }
   },
   computed: {
     botDialogState() {
       if (!('dialogState' in this.message)) {
-        return null;
+        return null
       }
       switch (this.message.dialogState) {
         case 'Failed':
-          return { icon: 'error', color: 'red', state: 'fail' };
+          return { icon: 'error', color: 'red', state: 'fail' }
         case 'Fulfilled':
         case 'ReadyForFulfillment':
-          return { icon: 'done', color: 'green', state: 'ok' };
+          return { icon: 'done', color: 'green', state: 'ok' }
         default:
-          return null;
+          return null
       }
     },
     isLastMessageFeedback() {
-      if (this.$store.state.messages.length > 2 && this.$store.state.messages[this.$store.state.messages.length - 2].type !== 'feedback') {
-        return true;
+      if (
+        this.$store.state.messages.length > 2 &&
+        this.$store.state.messages[this.$store.state.messages.length - 2].type !== 'feedback'
+      ) {
+        return true
       }
-      return false;
+      return false
     },
     botAvatarUrl() {
-      return this.$store.state.config.ui.avatarImageUrl;
+      return this.$store.state.config.ui.avatarImageUrl
     },
     agentAvatarUrl() {
-      return this.$store.state.config.ui.agentAvatarImageUrl;
+      return this.$store.state.config.ui.agentAvatarImageUrl
     },
     showDialogStateIcon() {
-      return this.$store.state.config.ui.showDialogStateIcon;
+      return this.$store.state.config.ui.showDialogStateIcon
     },
     showMessageMenu() {
-      return this.$store.state.config.ui.messageMenu;
+      return this.$store.state.config.ui.messageMenu
     },
     showDialogFeedback() {
-      if (this.$store.state.config.ui.positiveFeedbackIntent.length > 2
-      && this.$store.state.config.ui.negativeFeedbackIntent.length > 2) {
-        return true;
+      if (
+        this.$store.state.config.ui.positiveFeedbackIntent.length > 2 &&
+        this.$store.state.config.ui.negativeFeedbackIntent.length > 2
+      ) {
+        return true
       }
-      return false;
+      return false
     },
     showErrorIcon() {
-      return this.$store.state.config.ui.showErrorIcon;
+      return this.$store.state.config.ui.showErrorIcon
     },
     shouldDisplayResponseCard() {
       return (
         this.message.responseCard &&
-        (this.message.responseCard.version === '1' ||
-         this.message.responseCard.version === 1) &&
+        (this.message.responseCard.version === '1' || this.message.responseCard.version === 1) &&
         this.message.responseCard.contentType === 'application/vnd.amazonaws.card.generic' &&
         'genericAttachments' in this.message.responseCard &&
         this.message.responseCard.genericAttachments instanceof Array
-      );
+      )
     },
     shouldDisplayResponseCardV2() {
       return (
-        'isLastMessageInGroup' in this.message
-        && this.message.isLastMessageInGroup === 'true'
-        && this.message.responseCardsLexV2
-        && this.message.responseCardsLexV2.length > 0
-      );
+        'isLastMessageInGroup' in this.message &&
+        this.message.isLastMessageInGroup === 'true' &&
+        this.message.responseCardsLexV2 &&
+        this.message.responseCardsLexV2.length > 0
+      )
     },
     shouldDisplayInteractiveMessage() {
-      try {           
-          this.message.interactiveMessage = JSON.parse(this.message.text);
-          
-          // Considering anything with the templateType property on a valid JSON object to be an interactive message
-          if (!this.message.interactiveMessage.hasOwnProperty("templateType"))
-          {
-            return false;
-          }
+      try {
+        this.message.interactiveMessage = JSON.parse(this.message.text)
 
-          if (this.message.interactiveMessage.templateType == 'TimePicker')
-          {                     
-            var sortedslots = this.message.interactiveMessage.data.content.timeslots.sort((a, b) => a.date.localeCompare(b.date));
-            const dateFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
-            const timeFormatOptions = { hour: "numeric", minute: "numeric", timeZoneName: "short" };
-            const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : this.$store.state.config.lex.v2BotLocaleId.split(',')[0];
-            var locale = (localeId || 'en-US').replace('_','-');
+        // Considering anything with the templateType property on a valid JSON object to be an interactive message
+        if (!this.message.interactiveMessage.hasOwnProperty('templateType')) {
+          return false
+        }
 
-            var dateArray = [];
-            sortedslots.forEach(function (slot, index) {            
-              slot.localTime = new Date(slot.date).toLocaleTimeString(locale, timeFormatOptions);
-              const msToMidnightOfDate = new Date(slot.date).setHours(0, 0, 0, 0);
-              const dateKey = new Date(msToMidnightOfDate).toLocaleDateString(locale, dateFormatOptions);
+        if (this.message.interactiveMessage.templateType == 'TimePicker') {
+          var sortedslots = this.message.interactiveMessage.data.content.timeslots.sort((a, b) =>
+            a.date.localeCompare(b.date)
+          )
+          const dateFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' }
+          const timeFormatOptions = { hour: 'numeric', minute: 'numeric', timeZoneName: 'short' }
+          const localeId = localStorage.getItem('selectedLocale')
+            ? localStorage.getItem('selectedLocale')
+            : this.$store.state.config.lex.v2BotLocaleId.split(',')[0]
+          var locale = (localeId || 'en-US').replace('_', '-')
 
-              let existingDate = dateArray.find(e => e.date === dateKey);
-              if (existingDate) {
-                existingDate.slots.push(slot)
-              }
-              else {
-                var item = { date: dateKey, slots: [slot] };
-                dateArray.push(item);
-              }
-            });
+          var dateArray = []
+          sortedslots.forEach(function (slot, index) {
+            slot.localTime = new Date(slot.date).toLocaleTimeString(locale, timeFormatOptions)
+            const msToMidnightOfDate = new Date(slot.date).setHours(0, 0, 0, 0)
+            const dateKey = new Date(msToMidnightOfDate).toLocaleDateString(
+              locale,
+              dateFormatOptions
+            )
 
-            this.message.interactiveMessage.timeslots = dateArray;           
-          }
+            let existingDate = dateArray.find((e) => e.date === dateKey)
+            if (existingDate) {
+              existingDate.slots.push(slot)
+            } else {
+              var item = { date: dateKey, slots: [slot] }
+              dateArray.push(item)
+            }
+          })
+
+          this.message.interactiveMessage.timeslots = dateArray
+        }
       } catch (e) {
-          return false;
+        return false
       }
-      return true;
+      return true
     },
     shouldShowAvatarImage() {
       if (this.message.type === 'bot') {
-        return this.botAvatarUrl;
+        return this.botAvatarUrl
       } else if (this.message.type === 'agent') {
-        return this.agentAvatarUrl;
+        return this.agentAvatarUrl
       }
-      return false;
+      return false
     },
     avatarBackground() {
-      const avatarURL = (this.message.type === 'bot') ? this.botAvatarUrl : this.agentAvatarUrl;
+      const avatarURL = this.message.type === 'bot' ? this.botAvatarUrl : this.agentAvatarUrl
       return {
-        background: `url(${avatarURL}) center center / contain no-repeat`,
-      };
+        background: `url(${avatarURL}) center center / contain no-repeat`
+      }
     },
     shouldShowMessageDate() {
-      return this.$store.state.config.ui.showMessageDate;
-    },
+      return this.$store.state.config.ui.showMessageDate
+    }
   },
   provide: function () {
     return {
@@ -357,40 +387,40 @@ export default {
     }
   },
   methods: {
-    setRCButtonsDisabled: function() {
-      this.disableCardButtons = true;
+    setRCButtonsDisabled: function () {
+      this.disableCardButtons = true
     },
-    getRCButtonsDisabled: function() {
-      return this.disableCardButtons;
+    getRCButtonsDisabled: function () {
+      return this.disableCardButtons
     },
     resendMessage(messageText) {
       const message = {
         type: 'human',
-        text: messageText,
-      };
-      this.$store.dispatch('postTextMessage', message);
+        text: messageText
+      }
+      this.$store.dispatch('postTextMessage', message)
     },
     sendDateTime(dateTime) {
       const message = {
         type: 'human',
-        text: dateTime.toLocaleString(),
-      };
-      this.$store.dispatch('postTextMessage', message);
+        text: dateTime.toLocaleString()
+      }
+      this.$store.dispatch('postTextMessage', message)
     },
     onButtonClick(feedback) {
       if (!this.hasButtonBeenClicked) {
-        this.hasButtonBeenClicked = true;
+        this.hasButtonBeenClicked = true
         if (feedback === this.$store.state.config.ui.positiveFeedbackIntent) {
-          this.positiveClick = true;
+          this.positiveClick = true
         } else {
-          this.negativeClick = true;
+          this.negativeClick = true
         }
         const message = {
           type: 'feedback',
-          text: feedback,
-        };
-        this.$emit('feedbackButton');
-        this.$store.dispatch('postTextMessage', message);
+          text: feedback
+        }
+        this.$emit('feedbackButton')
+        this.$store.dispatch('postTextMessage', message)
       }
     },
     playAudio() {
@@ -399,54 +429,57 @@ export default {
       const audio = new Audio(this.message.audio);
       audio.play();
       */
-      const audioElem = this.$el.querySelector('audio');
+      const audioElem = this.$el.querySelector('audio')
       if (audioElem) {
-        audioElem.play();
+        audioElem.play()
       }
     },
     onMessageFocus() {
       if (!this.shouldShowMessageDate) {
-        return;
+        return
       }
-      this.messageHumanDate = this.getMessageHumanDate();
-      this.isMessageFocused = true;
+      this.messageHumanDate = this.getMessageHumanDate()
+      this.isMessageFocused = true
       if (this.message.id === this.$store.state.messages.length - 1) {
-        this.$emit('scrollDown');
+        this.$emit('scrollDown')
       }
     },
     onMessageBlur() {
       if (!this.shouldShowMessageDate) {
-        return;
+        return
       }
-      this.isMessageFocused = false;
+      this.isMessageFocused = false
     },
     getMessageHumanDate() {
-      const dateDiff = Math.round((new Date() - this.message.date) / 1000);
-      const secsInHr = 3600;
-      const secsInDay = secsInHr * 24;
+      const dateDiff = Math.round((new Date() - this.message.date) / 1000)
+      const secsInHr = 3600
+      const secsInDay = secsInHr * 24
       if (dateDiff < 60) {
-        return 'Now';
+        return 'Now'
       } else if (dateDiff < secsInHr) {
-        return `${Math.floor(dateDiff / 60)} min ago`;
+        return `${Math.floor(dateDiff / 60)} min ago`
       } else if (dateDiff < secsInDay) {
-        return this.message.date.toLocaleTimeString();
+        return this.message.date.toLocaleTimeString()
       }
-      return this.message.date.toLocaleString();
-    },
+      return this.message.date.toLocaleString()
+    }
   },
   created() {
     if (this.message.responseCard && 'genericAttachments' in this.message.responseCard) {
-      if (this.message.responseCard.genericAttachments[0].buttons &&
-          this.hideInputFields && !this.$store.state.hasButtons) {
-        this.$store.dispatch('toggleHasButtons');
+      if (
+        this.message.responseCard.genericAttachments[0].buttons &&
+        this.hideInputFields &&
+        !this.$store.state.hasButtons
+      ) {
+        this.$store.dispatch('toggleHasButtons')
       }
     } else if (this.$store.state.config.ui.hideInputFieldsForButtonResponse) {
       if (this.$store.state.hasButtons) {
-        this.$store.dispatch('toggleHasButtons');
+        this.$store.dispatch('toggleHasButtons')
       }
     }
-  },
-};
+  }
+}
 </script>
 
 <style scoped>
@@ -454,11 +487,13 @@ export default {
   font-size: 14px;
 }
 
-.message, .message-bubble-column {
+.message,
+.message-bubble-column {
   flex: 0 0 auto;
 }
 
-.message, .message-bubble-row {
+.message,
+.message-bubble-row {
   max-width: 80vw;
 }
 
@@ -485,29 +520,29 @@ export default {
 }
 
 .focusable {
-  box-shadow: 0 0.25px 0.75px rgba(0,0,0,0.12), 0 0.25px 0.5px rgba(0,0,0,0.24);
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  box-shadow: 0 0.25px 0.75px rgba(0, 0, 0, 0.12), 0 0.25px 0.5px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: default;
 }
 
 .focusable:focus {
-  box-shadow: 0 1.25px 3.75px rgba(0,0,0,0.25), 0 1.25px 2.5px rgba(0,0,0,0.22);
+  box-shadow: 0 1.25px 3.75px rgba(0, 0, 0, 0.25), 0 1.25px 2.5px rgba(0, 0, 0, 0.22);
   outline: none;
 }
 
 .message-bot .message-bubble {
-  background-color: #FFEBEE; /* red-50 from material palette */
+  background-color: #ffebee; /* red-50 from material palette */
 }
 
 .message-agent .message-bubble {
-  background-color: #FFEBEE; /* red-50 from material palette */
+  background-color: #ffebee; /* red-50 from material palette */
 }
 .message-human .message-bubble {
-  background-color: #E8EAF6; /* indigo-50 from material palette */
+  background-color: #e8eaf6; /* indigo-50 from material palette */
 }
 
 .message-feedback .message-bubble {
-  background-color: #E8EAF6;
+  background-color: #e8eaf6;
 }
 
 .dialog-state {
@@ -530,34 +565,34 @@ export default {
   align-self: center;
 }
 
-.icon.feedback-icons-positive{
+.icon.feedback-icons-positive {
   color: grey;
   /* color: #E8EAF6; */
   /* color: green; */
-  padding: .125em;
+  padding: 0.125em;
 }
 
-.positiveClick{
+.positiveClick {
   color: green;
-  padding: .125em;
+  padding: 0.125em;
 }
 
-.negativeClick{
+.negativeClick {
   color: red;
-  padding: .125em;
+  padding: 0.125em;
 }
 
-.icon.feedback-icons-positive:hover{
-  color:green;
+.icon.feedback-icons-positive:hover {
+  color: green;
 }
 
-.icon.feedback-icons-negative{
+.icon.feedback-icons-negative {
   /* color: #E8EAF6; */
   color: grey;
-  padding: .125em;
+  padding: 0.125em;
 }
 
-.icon.feedback-icons-negative:hover{
+.icon.feedback-icons-negative:hover {
   color: red;
 }
 

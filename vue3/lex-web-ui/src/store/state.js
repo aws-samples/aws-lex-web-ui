@@ -14,12 +14,12 @@ License for the specific language governing permissions and limitations under th
 /**
  * Sets up the initial state of the store
  */
-import { config } from '../config';
+import { config } from '../config'
 
 export const chatMode = {
   BOT: 'bot',
-  LIVECHAT: 'livechat',
-};
+  LIVECHAT: 'livechat'
+}
 
 export const liveChatStatus = {
   REQUESTED: 'requested',
@@ -28,13 +28,11 @@ export const liveChatStatus = {
   CONNECTING: 'connecting',
   ESTABLISHED: 'established',
   DISCONNECTED: 'disconnected',
-  ENDED: 'ended',
-};
-
+  ENDED: 'ended'
+}
 
 export default {
-  version: (import.meta.env.PACKAGE_VERSION) ?
-  import.meta.env.PACKAGE_VERSION : '0.0.0',
+  version: import.meta.env.PACKAGE_VERSION ? import.meta.env.PACKAGE_VERSION : '0.0.0',
   chatMode: chatMode.BOT,
   lex: {
     acceptFormat: 'audio/ogg',
@@ -47,37 +45,35 @@ export default {
     intentName: '',
     message: '',
     responseCard: null,
-    sessionAttributes: (
-      config.lex &&
-      config.lex.sessionAttributes &&
-      typeof config.lex.sessionAttributes === 'object'
-    ) ? { ...config.lex.sessionAttributes } : {},
+    sessionAttributes:
+      config.lex && config.lex.sessionAttributes && typeof config.lex.sessionAttributes === 'object'
+        ? { ...config.lex.sessionAttributes }
+        : {},
     slotToElicit: '',
-    slots: {},
+    slots: {}
   },
   liveChat: {
     username: '',
     isProcessing: false,
     status: liveChatStatus.DISCONNECTED,
-    message: '',
+    message: ''
   },
   messages: [],
   utteranceStack: [],
   isBackProcessing: false,
   polly: {
     outputFormat: 'ogg_vorbis',
-    voiceId: (
-      config.polly &&
-      config.polly.voiceId &&
-      typeof config.polly.voiceId === 'string'
-    ) ? `${config.polly.voiceId}` : 'Joanna',
+    voiceId:
+      config.polly && config.polly.voiceId && typeof config.polly.voiceId === 'string'
+        ? `${config.polly.voiceId}`
+        : 'Joanna'
   },
   botAudio: {
     canInterrupt: false,
     interruptIntervalId: null,
     autoPlay: false,
     isInterrupting: false,
-    isSpeaking: false,
+    isSpeaking: false
   },
   recState: {
     isConversationGoing: false,
@@ -85,14 +81,15 @@ export default {
     isMicMuted: false,
     isMicQuiet: true,
     isRecorderSupported: false,
-    isRecorderEnabled: (config.recorder) ? !!config.recorder.enable : true,
+    isRecorderEnabled: config.recorder ? !!config.recorder.enable : true,
     isRecording: false,
-    silentRecordingCount: 0,
+    silentRecordingCount: 0
   },
 
   isRunningEmbedded: false, // am I running in an iframe?
-  isSFXOn: (config.ui) ? (!!config.ui.enableSFX &&
-    !!config.ui.messageSentSFX && !!config.ui.messageReceivedSFX) : false,
+  isSFXOn: config.ui
+    ? !!config.ui.enableSFX && !!config.ui.messageSentSFX && !!config.ui.messageReceivedSFX
+    : false,
   isUiMinimized: false, // when running embedded, is the iframe minimized?
   initialUtteranceSent: false, // has the initial utterance already been sent
   isEnableLogin: false, // true when a login/logout menu should be displayed
@@ -104,6 +101,6 @@ export default {
   tokens: {},
   config,
   awsCreds: {
-    provider: 'cognito', // cognito|parentWindow
-  },
-};
+    provider: 'cognito' // cognito|parentWindow
+  }
+}

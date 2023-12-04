@@ -1,8 +1,5 @@
 <template>
-  <div
-    aria-live="polite"
-    class="layout message-list column fill-height"
-  >
+  <div aria-live="polite" class="layout message-list column fill-height">
     <message
       ref="messages"
       v-for="message in messages"
@@ -11,9 +8,7 @@
       v-bind:class="`message-${message.type}`"
       v-on:scrollDown="scrollDown"
     ></message>
-    <MessageLoading
-      v-if="loading"
-    ></MessageLoading>
+    <MessageLoading v-if="loading"></MessageLoading>
   </div>
 </template>
 
@@ -30,53 +25,54 @@ or in the "license" file accompanying this file. This file is distributed on an 
 BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
-import Message from './Message.vue';
-import MessageLoading from './MessageLoading.vue';
+import Message from './Message.vue'
+import MessageLoading from './MessageLoading.vue'
 
 export default {
   name: 'message-list',
   components: {
     Message,
-    MessageLoading,
+    MessageLoading
   },
   computed: {
     messages() {
-      return this.$store.state.messages;
+      return this.$store.state.messages
     },
     loading() {
-      return this.$store.state.lex.isProcessing || this.$store.state.liveChat.isProcessing;
-    },
+      return this.$store.state.lex.isProcessing || this.$store.state.liveChat.isProcessing
+    }
   },
   watch: {
     // autoscroll message list to the bottom when messages change
     messages() {
-      this.scrollDown();
+      this.scrollDown()
     },
     loading() {
-      this.scrollDown();
-    },
+      this.scrollDown()
+    }
   },
   mounted() {
     setTimeout(() => {
-      this.scrollDown();
-    }, 1000);
+      this.scrollDown()
+    }, 1000)
   },
   methods: {
     scrollDown() {
       return this.$nextTick(() => {
         if (this.$el.lastElementChild) {
-          const lastMessageHeight = this.$el.lastElementChild.getBoundingClientRect().height;
-          const isLastMessageLoading = this.$el.lastElementChild.classList.contains('messsge-loading');
+          const lastMessageHeight = this.$el.lastElementChild.getBoundingClientRect().height
+          const isLastMessageLoading =
+            this.$el.lastElementChild.classList.contains('messsge-loading')
           if (isLastMessageLoading) {
-            this.$el.scrollTop = this.$el.scrollHeight;
+            this.$el.scrollTop = this.$el.scrollHeight
           } else {
-            this.$el.scrollTop = this.$el.scrollHeight - lastMessageHeight;
+            this.$el.scrollTop = this.$el.scrollHeight - lastMessageHeight
           }
         }
-      });
-    },
-  },
-};
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>

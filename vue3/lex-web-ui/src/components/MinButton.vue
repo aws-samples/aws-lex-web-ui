@@ -16,9 +16,9 @@
         class="min-button min-button-content"
       >
         <v-icon left>
-          {{'chat'}}
+          {{ 'chat' }}
         </v-icon>
-        {{minButtonContent}}   
+        {{ minButtonContent }}
       </v-btn>
       <!-- seperate button for button with text vs w/o -->
       <v-btn
@@ -37,7 +37,7 @@
         class="min-button"
       >
         <v-icon>
-          {{'chat'}}
+          {{ 'chat' }}
         </v-icon>
       </v-btn>
     </v-fab-transition>
@@ -67,39 +67,39 @@ export default {
         mouseleave: this.onInputButtonHoverLeave,
         touchstart: this.onInputButtonHoverEnter,
         touchend: this.onInputButtonHoverLeave,
-        touchcancel: this.onInputButtonHoverLeave,
-      },
-    };
+        touchcancel: this.onInputButtonHoverLeave
+      }
+    }
   },
   props: ['toolbarColor', 'isUiMinimized'],
   computed: {
     toolTipMinimize() {
-      return (this.isUiMinimized) ? 'maximize' : 'minimize';
+      return this.isUiMinimized ? 'maximize' : 'minimize'
     },
     minButtonContent() {
       //const n = this.$store.state.config.ui.minButtonContent.length;
       //return (n > 1) ? this.$store.state.config.ui.minButtonContent : false;
-      return false;
-    },
+      return false
+    }
   },
   methods: {
     onInputButtonHoverEnter() {
-      this.shouldShowTooltip = true;
+      this.shouldShowTooltip = true
     },
     onInputButtonHoverLeave() {
-      this.shouldShowTooltip = false;
+      this.shouldShowTooltip = false
     },
     toggleMinimize() {
       /*if (this.$store.state.isRunningEmbedded) {
         this.onInputButtonHoverLeave();
         this.$emit('toggleMinimizeUi');
       }*/
-    },
-  },
-};
+    }
+  }
+}
 </script>
 <style>
-  .min-button-content {
-    border-radius: 60px;
-  }
+.min-button-content {
+  border-radius: 60px;
+}
 </style>

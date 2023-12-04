@@ -19,7 +19,8 @@
     v-else-if="message.text && (message.type === 'bot' || message.type === 'agent')"
     class="message-text bot-message-plain"
   >
-    <span class="sr-only">{{ message.type }} says: </span>{{ (shouldStripTags) ? stripTagsFromMessage(message.text) : message.text }}
+    <span class="sr-only">{{ message.type }} says: </span
+    >{{ shouldStripTags ? stripTagsFromMessage(message.text) : message.text }}
   </div>
 </template>
 
@@ -36,50 +37,50 @@ or in the "license" file accompanying this file. This file is distributed on an 
 BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
-import * as marked from 'marked';
+import * as marked from 'marked'
 //const marked = require('marked');
-const renderer = {};
+const renderer = {}
 renderer.link = function link(href, title, text) {
-  return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
-};
-marked.use({renderer});
+  return `<a href="${href}" title="${title}" target="_blank">${text}</a>`
+}
+marked.use({ renderer })
 
 export default {
   name: 'message-text',
   props: ['message'],
   computed: {
     shouldConvertUrlToLinks() {
-      return this.$store.state.config.ui.convertUrlToLinksInBotMessages;
+      return this.$store.state.config.ui.convertUrlToLinksInBotMessages
     },
     shouldStripTags() {
-      return this.$store.state.config.ui.stripTagsFromBotMessages;
+      return this.$store.state.config.ui.stripTagsFromBotMessages
     },
     AllowSuperDangerousHTMLInMessage() {
-      return this.$store.state.config.ui.AllowSuperDangerousHTMLInMessage;
+      return this.$store.state.config.ui.AllowSuperDangerousHTMLInMessage
     },
     altHtmlMessage() {
-      let out = false;
+      let out = false
       if (this.message.alts) {
         if (this.message.alts.html) {
-          out = this.message.alts.html;
+          out = this.message.alts.html
         } else if (this.message.alts.markdown) {
-          out = marked.parse(this.message.alts.markdown);
+          out = marked.parse(this.message.alts.markdown)
         }
       }
-      if (out) out = this.prependBotScreenReader(out);
-      return out;
+      if (out) out = this.prependBotScreenReader(out)
+      return out
     },
     shouldRenderAsHtml() {
-      return (['bot', 'agent'].includes(this.message.type) && this.shouldConvertUrlToLinks);
+      return ['bot', 'agent'].includes(this.message.type) && this.shouldConvertUrlToLinks
     },
     botMessageAsHtml() {
       // Security Note: Make sure that the content is escaped according
       // to context (e.g. URL, HTML). This is rendered as HTML
-      const messageText = this.stripTagsFromMessage(this.message.text);
-      const messageWithLinks = this.botMessageWithLinks(messageText);
-      const messageWithSR = this.prependBotScreenReader(messageWithLinks);
-      return messageWithSR;
-    },
+      const messageText = this.stripTagsFromMessage(this.message.text)
+      const messageWithLinks = this.botMessageWithLinks(messageText)
+      const messageWithSR = this.prependBotScreenReader(messageWithLinks)
+      return messageWithSR
+    }
   },
   methods: {
     encodeAsHtml(value) {
@@ -88,7 +89,7 @@ export default {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;')
         .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+        .replace(/>/g, '&gt;')
     },
     botMessageWithLinks(messageText) {
       const linkReplacers = [
@@ -100,52 +101,45 @@ export default {
           type: 'web',
           regex: new RegExp(
             '\\b((?:https?://\\w{1}|www\\.)(?:[\\w-.]){2,256}' +
-            '(?:[\\w._~:/?#@!$&()*+,;=[\'\\]-]){0,256})',
-            'im',
+              "(?:[\\w._~:/?#@!$&()*+,;=['\\]-]){0,256})",
+            'im'
           ),
           replace: (item) => {
-            const url = (!/^https?:\/\//.test(item)) ? `http://${item}` : item;
-            return '<a target="_blank" ' +
-              `href="${encodeURI(url)}">${this.encodeAsHtml(item)}</a>`;
-          },
-        },
-      ];
+            const url = !/^https?:\/\//.test(item) ? `http://${item}` : item
+            return '<a target="_blank" ' + `href="${encodeURI(url)}">${this.encodeAsHtml(item)}</a>`
+          }
+        }
+      ]
       // TODO avoid double HTML encoding when there's more than 1 linkReplacer
-      return linkReplacers
-        .reduce(
-          (message, replacer) =>
-            // splits the message into an array containing content chunks
-            // and links. Content chunks will be the even indexed items in the
-            // array (or empty string when applicable).
-            // Links (if any) will be the odd members of the array since the
-            // regex keeps references.
-            message.split(replacer.regex)
-              .reduce(
-                (messageAccum, item, index, array) => {
-                  let messageResult = '';
-                  if ((index % 2) === 0) {
-                    const urlItem = ((index + 1) === array.length) ?
-                      '' : replacer.replace(array[index + 1]);
-                    messageResult = `${this.encodeAsHtml(item)}${urlItem}`;
-                  }
-                  return messageAccum + messageResult;
-                },
-                '',
-              ),
-          messageText,
-        );
+      return linkReplacers.reduce(
+        (message, replacer) =>
+          // splits the message into an array containing content chunks
+          // and links. Content chunks will be the even indexed items in the
+          // array (or empty string when applicable).
+          // Links (if any) will be the odd members of the array since the
+          // regex keeps references.
+          message.split(replacer.regex).reduce((messageAccum, item, index, array) => {
+            let messageResult = ''
+            if (index % 2 === 0) {
+              const urlItem = index + 1 === array.length ? '' : replacer.replace(array[index + 1])
+              messageResult = `${this.encodeAsHtml(item)}${urlItem}`
+            }
+            return messageAccum + messageResult
+          }, ''),
+        messageText
+      )
     },
     // used for stripping SSML (and other) tags from bot responses
     stripTagsFromMessage(messageText) {
-      const doc = document.implementation.createHTMLDocument('').body;
-      doc.innerHTML = messageText;
-      return doc.textContent || doc.innerText || '';
+      const doc = document.implementation.createHTMLDocument('').body
+      doc.innerHTML = messageText
+      return doc.textContent || doc.innerText || ''
     },
     prependBotScreenReader(messageText) {
-      return `<span class="sr-only">bot says: </span>${messageText}`;
-    },
-  },
-};
+      return `<span class="sr-only">bot says: </span>${messageText}`
+    }
+  }
+}
 </script>
 
 <style scoped>
