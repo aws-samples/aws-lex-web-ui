@@ -1,21 +1,21 @@
 <template>
   <div class="flex message d-flex message-bot messsge-loading" aria-hidden="true">
     <!-- contains message and response card -->
-    <v-layout column ma-2 class="message-layout">
+    <v-col ma-2 class="message-layout">
       <!-- contains message bubble and date -->
-      <v-flex d-flex class="message-bubble-date-container">
-        <v-layout column class="message-bubble-column">
+      <v-row d-flex class="message-bubble-date-container">
+        <v-col class="message-bubble-column">
           <!-- contains message bubble and avatar -->
-          <v-flex d-flex class="message-bubble-avatar-container">
-            <v-layout row class="message-bubble-row">
+          <v-row d-flex class="message-bubble-avatar-container">
+            <v-row row class="message-bubble-row">
               <div class="message-bubble" aria-hidden="true">
                 {{ progress }}
               </div>
-            </v-layout>
-          </v-flex>
-        </v-layout>
-      </v-flex>
-    </v-layout>
+            </v-row>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-col>
   </div>
 </template>
 

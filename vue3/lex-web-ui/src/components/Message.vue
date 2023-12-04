@@ -1,10 +1,10 @@
 <template>
-  <v-flex d-flex class="message">
+  <v-row d-flex class="message">
     <!-- contains message and response card -->
-    <v-layout column ma-2 class="message-layout">
+    <v-col ma-2 class="message-layout">
       <!-- contains message bubble and date -->
-      <v-flex d-flex class="message-bubble-date-container">
-        <v-layout column class="message-bubble-column">
+      <v-row d-flex class="message-bubble-date-container">
+        <v-col class="message-bubble-column">
           <!-- contains message bubble and avatar -->
           <v-flex d-flex class="message-bubble-avatar-container">
             <v-layout row class="message-bubble-row">
@@ -49,18 +49,18 @@
                     <template
                       v-for="(item, index) in message.interactiveMessage.data.content.elements"
                     >
-                      <v-list-tile v-on:click="resendMessage(item.title)">
-                        <v-list-tile-avatar v-if="item.imageData">
-                          <img :src="item.imageData" />
-                        </v-list-tile-avatar>
-                        <v-list-tile-content>
-                          <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                          <v-list-tile-sub-title
+                      <v-list-item v-on:click="resendMessage(item.title)">
+                        <v-list-item v-if="item.imageData">
+                          <v-avatar>
+                            <img :src="item.imageData" />
+                          </v-avatar>
+                        </v-list-item>
+                          <v-list-item-title v-html="item.title"></v-list-item-title>
+                          <v-list-item-subtitle
                             v-if="item.subtitle"
                             v-html="item.subtitle"
-                          ></v-list-tile-sub-title>
-                        </v-list-tile-content>
-                      </v-list-tile>
+                          ></v-list-item-subtitle>
+                      </v-list-item>
                       <v-divider></v-divider>
                     </template>
                   </v-list>
@@ -80,20 +80,18 @@
                     </div>
                   </v-card-title>
                   <template v-for="item in this.message.interactiveMessage.timeslots">
-                    <v-subheader>{{ item.date }}</v-subheader>
+                    <v-list-subheader>{{ item.date }}</v-list-subheader>
                     <v-list two-line class="message-bubble interactive-row">
-                      <v-list-tile>
-                        <v-list-tile
+                      <v-list-item>
+                        <v-list-item
                           v-for="subItem in item.slots"
                           v-bind:key="subItem.localTime"
                           v-bind:data="subItem"
                           @click="resendMessage(subItem.date)"
                         >
-                          <v-list-tile-content>
-                            <v-list-tile-title>{{ subItem.localTime }}</v-list-tile-title>
-                          </v-list-tile-content>
-                        </v-list-tile>
-                      </v-list-tile>
+                          <v-list-item-title>{{ subItem.localTime }}</v-list-item-title>
+                        </v-list-item>
+                      </v-list-item>
                     </v-list>
                   </template>
                 </div>
@@ -155,19 +153,19 @@
                     <v-icon class="smicon"> more_vert </v-icon>
                   </v-btn>
                   <v-list>
-                    <v-list-tile>
-                      <v-list-tile-title v-on:click="resendMessage(message.text)">
+                    <v-list-item>
+                      <v-list-item-title v-on:click="resendMessage(message.text)">
                         <v-icon>replay</v-icon>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile
+                      </v-list-item-title>
+                    </v-list-item>
+                    <v-list-item
                       v-if="message.type === 'human' && message.audio"
                       class="message-audio"
                     >
-                      <v-list-tile-title v-on:click="playAudio">
+                      <v-list-item-title v-on:click="playAudio">
                         <v-icon>play_circle_outline</v-icon>
-                      </v-list-tile-title>
-                    </v-list-tile>
+                      </v-list-item-title>
+                    </v-list-item>
                   </v-list>
                 </v-menu>
               </div>
@@ -180,18 +178,18 @@
           >
             {{ messageHumanDate }}
           </v-flex>
-        </v-layout>
-      </v-flex>
-      <v-flex v-if="shouldDisplayResponseCard" class="response-card" d-flex mt-2 mr-2 ml-3>
+        </v-col>
+      </v-row>
+      <v-row v-if="shouldDisplayResponseCard" class="response-card" d-flex mt-2 mr-2 ml-3>
         <response-card
           v-for="(card, index) in message.responseCard.genericAttachments"
           v-bind:response-card="card"
           v-bind:key="index"
         >
         </response-card>
-      </v-flex>
-      <v-flex v-if="shouldDisplayResponseCardV2 && !shouldDisplayResponseCard">
-        <v-flex
+      </v-row>
+      <v-row v-if="shouldDisplayResponseCardV2 && !shouldDisplayResponseCard">
+        <v-row
           v-for="(item, index) in message.responseCardsLexV2"
           class="response-card"
           d-flex
@@ -206,10 +204,10 @@
             v-bind:key="index"
           >
           </response-card>
-        </v-flex>
-      </v-flex>
-    </v-layout>
-  </v-flex>
+        </v-row>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

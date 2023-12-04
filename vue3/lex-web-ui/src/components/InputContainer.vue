@@ -1,63 +1,61 @@
 <template>
-  <v-form>
-    <v-container fluid>
-      <v-toolbar color="white" v-bind:dense="this.$store.state.isRunningEmbedded">
-        <!--
-          using v-show instead of v-if to make recorder-status transition work
-        -->
-        <v-text-field
-          v-bind:label="textInputPlaceholder"
-          v-show="shouldShowTextInput"
-          v-bind:disabled="isLexProcessing"
-          v-model="textInput"
-          v-on:keyup.enter.stop="postTextMessage"
-          v-on:focus="onTextFieldFocus"
-          v-on:blur="onTextFieldBlur"
-          @input="onKeyUp"
-          ref="textInput"
-          id="text-input"
-          name="text-input"
-          single-line
-          hide-details
-        ></v-text-field>
+  <v-container fluid>
+    <v-toolbar color="white" v-bind:dense="this.$store.state.isRunningEmbedded">
+      <!--
+        using v-show instead of v-if to make recorder-status transition work
+      -->
+      <v-text-field
+        v-bind:label="textInputPlaceholder"
+        v-show="shouldShowTextInput"
+        v-bind:disabled="isLexProcessing"
+        v-model="textInput"
+        v-on:keyup.enter.stop="postTextMessage"
+        v-on:focus="onTextFieldFocus"
+        v-on:blur="onTextFieldBlur"
+        @input="onKeyUp"
+        ref="textInput"
+        id="text-input"
+        name="text-input"
+        single-line
+        hide-details
+      ></v-text-field>
 
-        <recorder-status v-show="!shouldShowTextInput"></recorder-status>
+      <recorder-status v-show="!shouldShowTextInput"></recorder-status>
 
-        <!-- separate tooltip as a workaround to support mobile touch events -->
-        <!-- tooltip should be before btn to avoid right margin issue in mobile -->
-        <v-tooltip
-          activator=".input-button"
-          content-class="tooltip-custom"
-          v-model="shouldShowTooltip"
-          ref="tooltip"
-          left
-        >
-        <span id="input-button-tooltip">{{ inputButtonTooltip }}</span>
-        </v-tooltip>
-        <v-btn
-          v-if="shouldShowSendButton"
-          v-on:click="postTextMessage"
-          v-on="tooltipEventHandlers"
-          v-bind:disabled="isLexProcessing || isSendButtonDisabled"
-          ref="send"
-          class="icon-color input-button"
-          aria-label="Send Message"
-        >
-          <v-icon>mdi-send</v-icon>
-        </v-btn>
-        <v-btn
-          v-if="!shouldShowSendButton && !isModeLiveChat"
-          v-on:click="onMicClick"
-          v-on="tooltipEventHandlers"
-          v-bind:disabled="isMicButtonDisabled"
-          ref="mic"
-          class="icon-color input-button"
-        >
-          <v-icon>mdi-{{micButtonIcon}}</v-icon>
-        </v-btn>
-      </v-toolbar>
-    </v-container>
-  </v-form>
+      <!-- separate tooltip as a workaround to support mobile touch events -->
+      <!-- tooltip should be before btn to avoid right margin issue in mobile -->
+      <v-tooltip
+        activator=".input-button"
+        content-class="tooltip-custom"
+        v-model="shouldShowTooltip"
+        ref="tooltip"
+        left
+      >
+      <span id="input-button-tooltip">{{ inputButtonTooltip }}</span>
+      </v-tooltip>
+      <v-btn
+        v-if="shouldShowSendButton"
+        v-on:click="postTextMessage"
+        v-on="tooltipEventHandlers"
+        v-bind:disabled="isLexProcessing || isSendButtonDisabled"
+        ref="send"
+        class="icon-color input-button"
+        aria-label="Send Message"
+      >
+        <v-icon>mdi-send</v-icon>
+      </v-btn>
+      <v-btn
+        v-if="!shouldShowSendButton && !isModeLiveChat"
+        v-on:click="onMicClick"
+        v-on="tooltipEventHandlers"
+        v-bind:disabled="isMicButtonDisabled"
+        ref="mic"
+        class="icon-color input-button"
+      >
+        <v-icon>mdi-{{micButtonIcon}}</v-icon>
+      </v-btn>
+    </v-toolbar>
+  </v-container>
 </template>
 
 <script>
@@ -189,12 +187,9 @@ export default {
       this.$store.dispatch('sendTypingEvent')
     },
     setInputTextFieldFocus() {
-      // focus() needs to be wrapped in setTimeout for IE11
-      setTimeout(() => {
-        if (this.$refs && this.$refs.textInput && this.shouldShowTextInput) {
-          this.$refs.textInput.$refs.input.focus()
-        }
-      }, 10)
+      if (this.$refs && this.$refs.textInput && this.shouldShowTextInput) {
+        this.$refs.textInput.focus()
+      }
     },
     playInitialInstruction() {
       const isInitialState = ['', 'Fulfilled', 'Failed'].some(

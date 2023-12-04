@@ -15,7 +15,7 @@
 import * as pako from 'pako'
 
 function b64CompressedToObject(src) {
-  return JSON.parse(pako.inflate(Buffer.from(src, 'base64')).toString('utf-8'))
+  return JSON.parse(pako.ungzip(Buffer.from(src, 'base64'), { to: 'string' }))
 }
 
 function b64CompressedToString(src) {
@@ -23,9 +23,9 @@ function b64CompressedToString(src) {
 }
 
 function compressAndB64Encode(src) {
-  const compressed = pako.deflate(Buffer.from(JSON.stringify(src)))
-  const encoded = String.fromCharCode.apply(null, compressed).toString('base64')
-  return encoded
+  var compressed_uint8array = pako.gzip(JSON.stringify(src));
+  var b64encoded_string = window.btoa(String.fromCharCode.apply(null, compressed_uint8array));
+  return b64encoded_string
 }
 
 export default class {

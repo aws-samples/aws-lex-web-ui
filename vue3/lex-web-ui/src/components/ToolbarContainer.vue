@@ -6,7 +6,7 @@
     dark
     fixed
     v-if="!isUiMinimized"
-    v-on="toolbarClickHandler"
+    v-on:click="toolbarClickHandler"
     v-bind:dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
     v-bind:class="{ minimized: isUiMinimized }"
     aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
@@ -35,71 +35,71 @@
       </v-btn>
 
       <v-list>
-        <v-list-tile v-if="isEnableLogin">
-          <v-list-tile-title v-if="isLoggedIn" v-on:click="requestLogout" aria-label="logout">
+        <v-list-item v-if="isEnableLogin">
+          <v-list-item-title v-if="isLoggedIn" v-on:click="requestLogout" aria-label="logout">
             <v-icon>
               {{ items[1].icon }}
             </v-icon>
             {{ items[1].title }}
-          </v-list-tile-title>
-          <v-list-tile-title v-if="!isLoggedIn" v-on:click="requestLogin" aria-label="login">
+          </v-list-item-title>
+          <v-list-item-title v-if="!isLoggedIn" v-on:click="requestLogin" aria-label="login">
             <v-icon>
               {{ items[0].icon }}
             </v-icon>
             {{ items[0].title }}
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-if="isSaveHistory">
-          <v-list-tile-title v-on:click="requestResetHistory" aria-label="clear chat history">
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="isSaveHistory">
+          <v-list-item-title v-on:click="requestResetHistory" aria-label="clear chat history">
             <v-icon>
               {{ items[2].icon }}
             </v-icon>
             {{ items[2].title }}
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-if="shouldRenderSfxButton && isSFXOn">
-          <v-list-tile-title v-on:click="toggleSFXMute" aria-label="mute sound effects">
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="shouldRenderSfxButton && isSFXOn">
+          <v-list-item-title v-on:click="toggleSFXMute" aria-label="mute sound effects">
             <v-icon>
               {{ items[3].icon }}
             </v-icon>
             {{ items[3].title }}
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-if="shouldRenderSfxButton && !isSFXOn">
-          <v-list-tile-title v-on:click="toggleSFXMute" aria-label="unmute sound effects">
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="shouldRenderSfxButton && !isSFXOn">
+          <v-list-item-title v-on:click="toggleSFXMute" aria-label="unmute sound effects">
             <v-icon>
               {{ items[4].icon }}
             </v-icon>
             {{ items[4].title }}
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-if="canLiveChat">
-          <v-list-tile-title v-on:click="requestLiveChat" aria-label="request live chat">
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="canLiveChat">
+          <v-list-item-title v-on:click="requestLiveChat" aria-label="request live chat">
             <v-icon>
               {{ toolbarStartLiveChatIcon }}
             </v-icon>
             {{ toolbarStartLiveChatLabel }}
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-if="isLiveChat">
-          <v-list-tile-title v-on:click="endLiveChat" aria-label="end live chat">
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="isLiveChat">
+          <v-list-item-title v-on:click="endLiveChat" aria-label="end live chat">
             <v-icon>
               {{ toolbarEndLiveChatIcon }}
             </v-icon>
             {{ toolbarEndLiveChatLabel }}
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item
           v-if="isLocaleSelectable"
           v-bind:key="locale"
           :disabled="restrictLocaleChanges"
         >
-          <v-list-tile v-for="locale in locales">
-            <v-list-tile-title v-on:click="setLocale(locale)">
+          <v-list-item v-for="locale in locales">
+            <v-list-item-title v-on:click="setLocale(locale)">
               {{ locale }}
-            </v-list-tile-title>
-          </v-list-tile>
-        </v-list-tile>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list-item>
       </v-list>
     </v-menu>
 
