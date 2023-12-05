@@ -3,7 +3,7 @@ const ddb = new AWS.DynamoDB.DocumentClient({ apiVersion: '2012-08-10', region: 
 
 exports.handler = async event => {
     console.log("Received event: " + JSON.stringify(event));
-    const ttlTime = Date.now() + 86400000;
+    const ttlTime = Date.now() / 1000 + 86400; //One day later in epoch time for TTL
 
     const putParams = {
         TableName: process.env.TABLE_NAME,

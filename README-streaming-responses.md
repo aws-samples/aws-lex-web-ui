@@ -21,32 +21,21 @@ This will run a child template in the stack, which will add the following resour
 - DynamoDB Table
 - Lambda function
 
-When your bot is first visited by a user with streaming support enabled, the bot will establish a web socket connection to 
-the deployed API gateway. It will send any messages you put on the websocket back to the Web UI, enabling the user to receive
-messages that have not yet 
+When your bot is first visited by a user with streaming support enabled, the bot will establish a web socket connection to the deployed API gateway. It will send any messages you put on the websocket back to the Web UI, enabling the user to receive messages that have not yet been returned by the Lambda fullfilment process. By default, the API Gateway is deployed without authentication and a 1,000 request per day quota.
 
-When the final response comes back from Lex, it will replace the streamed responses with the final response and apply any custom
-formating (Markdown, HTML) to the message. Note that no formatting will be applied to the streamed text.
+When the final response comes back from Lex, it will replace the streamed responses with the final response and apply any custom formating (Markdown, HTML) to the message. Note that no formatting will be applied to the streamed text.
 
 ## Creating a fullfilment Lambda that implements streaming
 
-Once the stack creation has completed, the resources you'll need to enable streaming for Lex Web UI will be in place. However,
-you will still need to implement your own fullfilment Lambda function that pushes messages to the websocket connection for the Web
-UI to display.
+Once the stack creation has completed, the resources you'll need to enable streaming for Lex Web UI will be in place. However, you will still need to implement your own fullfilment Lambda function that pushes messages to the websocket connection for the Web UI to display.
 
-Here is an example fullfilment lambda that could be used for integrating to Amazon Bedrock, in this case using the Claude instant model
-for answering questions. In the example below, note a few important steps that will be needed for your fullfilment lambda to properly
-stream to the Web UI.
+Here is an example fullfilment lambda that could be used for integrating to Amazon Bedrock, in this case using the Claude instant model for answering questions. In the example below, note a few important steps that will be needed for your fullfilment lambda to properly stream to the Web UI.
 
-1. The Lambda will need two variables from the CloudFormation template - the name of the Dynamo table that was created and the endpoint
-URL of the API Gateway that was created (note that this should be an https URL not a wss URL).
+1. The Lambda will need two variables from the CloudFormation template - the name of the Dynamo table that was created and the endpoint URL of the API Gateway that was created (note that this should be an https URL not a wss URL).
 
-2. The fullfilment Lambda must get items off the DynamoDB table, using the session ID as the key. When a user initiates a session,
-the session ID is sent to the Websocket API and stored along with a connection ID in DynamoDB. The fullfilment Lambda needs to get this
-value so it knows where to push its streaming updates.
+2. The fullfilment Lambda must get items off the DynamoDB table, using the session ID as the key. When a user initiates a session, the session ID is sent to the Websocket API and stored along with a connection ID in DynamoDB. The fullfilment Lambda needs to get this value so it knows where to push its streaming updates.
 
-3. As the response is processing (in this case our LLM is returning chunks of the response), we push these updates to our Websocket using
-```apigatewaymanagementapi.post_to_connection``` which will send those updates back to the client via the Websocket connection.
+3. As the response is processing (in this case our LLM is returning chunks of the response), we push these updates to our Websocket using ```apigatewaymanagementapi.post_to_connection``` which will send those updates back to the client via the Websocket connection.
 
 ```
     import boto3
