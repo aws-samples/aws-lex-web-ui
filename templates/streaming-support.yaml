@@ -103,9 +103,7 @@ Resources:
       KeySchema:
       - AttributeName: "sessionId"
         KeyType: "HASH"
-      ProvisionedThroughput:
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
+      BillingMode: PAY_PER_REQUEST
       SSESpecification:
         SSEEnabled: True
       TableName: !Ref TableName
@@ -158,6 +156,33 @@ Resources:
       Description: Prod Stage
       DeploymentId: !Ref Deployment
       ApiId: !Ref StreamingWebSocket
+
+  UsagePlan:
+    Type: AWS::ApiGateway::UsagePlan
+    Properties:
+      ApiStages: 
+      - ApiId: !Ref StreamingWebSocket
+        Stage: !Ref Stage
+      Quota: 
+        Limit: 1000
+        Period: DAY
+      Throttle: 
+        BurstLimit: 10
+        RateLimit: 5
+      UsagePlanName: !Join ["-", [!Ref ParentStackName, "API-Usage-Plan"]]
+      
+  ApiKey:
+    Type: 'AWS::ApiGateway::ApiKey'
+    Properties:
+      Name: StreamingApiKey
+      Enabled: 'true'
+  
+  UsagePlanKey:
+    Type: 'AWS::ApiGateway::UsagePlanKey'
+    Properties:
+      KeyId: !Ref ApiKey
+      KeyType: API_KEY
+      UsagePlanId: !Ref UsagePlan
 
 Outputs:
   WebSocketId:

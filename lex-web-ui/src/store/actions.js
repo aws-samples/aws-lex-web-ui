@@ -124,7 +124,7 @@ export default {
       .then(() => {
         lexClient.initCredentials(awsCredentials)
         //Enable streaming response
-        if(context.state.config.lex.allowStreamingResponses){
+        if (String(context.state.config.lex.allowStreamingResponses) === "true") {
           context.dispatch('InitWebSocketConnect')
         }
       });
@@ -703,7 +703,7 @@ export default {
       .then(() => context.dispatch('getCredentials'))
       .then(() => {
         // TODO: Need to handle if the error occurred. typing would be broke since lexClient.postText throw error
-        if(context.state.config.lex.allowStreamingResponses){
+        if (String(context.state.config.lex.allowStreamingResponses) === "true") {
           context.commit('setIsStartingTypingWsMessages', true);
 
           wsClient.onmessage = (event) => {
