@@ -51,7 +51,7 @@ export default {
       }
     }, 500)
   },
-  destroyed() {
+  unmounted() {
     clearInterval(this.interval)
   }
 }

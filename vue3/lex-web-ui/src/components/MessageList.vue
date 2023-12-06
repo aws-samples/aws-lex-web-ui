@@ -3,10 +3,10 @@
     <message
       ref="messages"
       v-for="message in messages"
-      v-bind:message="message"
-      v-bind:key="message.id"
-      v-bind:class="`message-${message.type}`"
-      v-on:scrollDown="scrollDown"
+      :message="message"
+      :key="message.id"
+      :class="`message-${message.type}`"
+      @scrollDown="scrollDown"
     ></message>
     <MessageLoading v-if="loading"></MessageLoading>
   </div>

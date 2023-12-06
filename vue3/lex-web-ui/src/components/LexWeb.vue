@@ -1,22 +1,22 @@
 <template>
-  <v-app id="lex-web" v-bind:ui-minimized="isUiMinimized">
+  <v-app id="lex-web" :ui-minimized="isUiMinimized">
     <min-button
-      v-bind:toolbar-color="toolbarColor"
-      v-bind:is-ui-minimized="isUiMinimized"
-      v-on:toggleMinimizeUi="toggleMinimizeUi"
+      :toolbar-color="toolbarColor"
+      :is-ui-minimized="isUiMinimized"
+      @toggleMinimizeUi="toggleMinimizeUi"
     ></min-button>
     <toolbar-container
       v-if="!isUiMinimized"
-      v-bind:userName="userNameValue"
-      v-bind:toolbar-title="toolbarTitle"
-      v-bind:toolbar-color="toolbarColor"
-      v-bind:toolbar-logo="toolbarLogo"
-      v-bind:toolbarStartLiveChatLabel="toolbarStartLiveChatLabel"
-      v-bind:toolbarStartLiveChatIcon="toolbarStartLiveChatIcon"
-      v-bind:toolbarEndLiveChatLabel="toolbarEndLiveChatLabel"
-      v-bind:toolbarEndLiveChatIcon="toolbarEndLiveChatIcon"
-      v-bind:is-ui-minimized="isUiMinimized"
-      v-on:toggleMinimizeUi="toggleMinimizeUi"
+      :userName="userNameValue"
+      :toolbar-title="toolbarTitle"
+      :toolbar-color="toolbarColor"
+      :toolbar-logo="toolbarLogo"
+      :toolbarStartLiveChatLabel="toolbarStartLiveChatLabel"
+      :toolbarStartLiveChatIcon="toolbarStartLiveChatIcon"
+      :toolbarEndLiveChatLabel="toolbarEndLiveChatLabel"
+      :toolbarEndLiveChatIcon="toolbarEndLiveChatIcon"
+      :is-ui-minimized="isUiMinimized"
+      @toggleMinimizeUi="toggleMinimizeUi"
       @requestLogin="handleRequestLogin"
       @requestLogout="handleRequestLogout"
       @requestLiveChat="handleRequestLiveChat"
@@ -27,7 +27,7 @@
     <v-main v-if="!isUiMinimized">
       <v-container
         class="message-list-container"
-        v-bind:class="`toolbar-height-${toolbarHeightClassSuffix}`"
+        :class="`toolbar-height-${toolbarHeightClassSuffix}`"
         fluid
         pa-0
       >
@@ -256,7 +256,7 @@ export default {
         console.error('could not initialize application while mounting:', error)
       })
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (typeof window !== 'undefined') {
       window.removeEventListener('resize', this.onResize, { passive: true })
     }

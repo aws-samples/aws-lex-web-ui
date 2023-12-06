@@ -1,48 +1,43 @@
 <template>
-  <!-- eslint-disable max-len -->
   <v-toolbar
-    v-bind:color="toolbarColor"
+    v-if="!isUiMinimized"
+    :color="toolbarColor"
     app
     dark
     fixed
-    v-if="!isUiMinimized"
-    v-on:click="toolbarClickHandler"
-    v-bind:dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
-    v-bind:class="{ minimized: isUiMinimized }"
+    @click="toolbarClickHandler"
+    :dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
+    :class="{ minimized: isUiMinimized }"
     aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
   >
-    <!-- eslint-enable max-len -->
     <img
       class="toolbar-image"
       v-if="toolbarLogo"
-      v-bind:src="toolbarLogo"
+      :src="toolbarLogo"
       alt="logo"
       aria-hidden="true"
     />
-
-    <v-menu v-if="showToolbarMenu" offset-y>
-      <v-btn
-        slot="activator"
-        v-show="!isUiMinimized"
-        v-on="tooltipMenuEventHandlers"
-        class="menu"
-        icon
-        fab
-        small
-        aria-label="menu options"
-      >
-        <v-icon> mdi-menu </v-icon>
-      </v-btn>
-
+    <v-menu v-if="showToolbarMenu">
+      <template v-slot:activator="{ props }">
+        <v-btn
+          v-show="!isUiMinimized"
+          v-on="tooltipMenuEventHandlers"
+          class="menu"
+          icon="mdi-menu"
+          small
+          fab
+          aria-label="menu options"
+        ></v-btn>
+      </template>
       <v-list>
         <v-list-item v-if="isEnableLogin">
-          <v-list-item-title v-if="isLoggedIn" v-on:click="requestLogout" aria-label="logout">
+          <v-list-item-title v-if="isLoggedIn" @click="requestLogout" aria-label="logout">
             <v-icon>
               {{ items[1].icon }}
             </v-icon>
             {{ items[1].title }}
           </v-list-item-title>
-          <v-list-item-title v-if="!isLoggedIn" v-on:click="requestLogin" aria-label="login">
+          <v-list-item-title v-if="!isLoggedIn" @click="requestLogin" aria-label="login">
             <v-icon>
               {{ items[0].icon }}
             </v-icon>
@@ -50,7 +45,7 @@
           </v-list-item-title>
         </v-list-item>
         <v-list-item v-if="isSaveHistory">
-          <v-list-item-title v-on:click="requestResetHistory" aria-label="clear chat history">
+          <v-list-item-title @click="requestResetHistory" aria-label="clear chat history">
             <v-icon>
               {{ items[2].icon }}
             </v-icon>
@@ -58,7 +53,7 @@
           </v-list-item-title>
         </v-list-item>
         <v-list-item v-if="shouldRenderSfxButton && isSFXOn">
-          <v-list-item-title v-on:click="toggleSFXMute" aria-label="mute sound effects">
+          <v-list-item-title @click="toggleSFXMute" aria-label="mute sound effects">
             <v-icon>
               {{ items[3].icon }}
             </v-icon>
@@ -66,7 +61,7 @@
           </v-list-item-title>
         </v-list-item>
         <v-list-item v-if="shouldRenderSfxButton && !isSFXOn">
-          <v-list-item-title v-on:click="toggleSFXMute" aria-label="unmute sound effects">
+          <v-list-item-title @click="toggleSFXMute" aria-label="unmute sound effects">
             <v-icon>
               {{ items[4].icon }}
             </v-icon>
@@ -74,7 +69,7 @@
           </v-list-item-title>
         </v-list-item>
         <v-list-item v-if="canLiveChat">
-          <v-list-item-title v-on:click="requestLiveChat" aria-label="request live chat">
+          <v-list-item-title @click="requestLiveChat" aria-label="request live chat">
             <v-icon>
               {{ toolbarStartLiveChatIcon }}
             </v-icon>
@@ -82,7 +77,7 @@
           </v-list-item-title>
         </v-list-item>
         <v-list-item v-if="isLiveChat">
-          <v-list-item-title v-on:click="endLiveChat" aria-label="end live chat">
+          <v-list-item-title @click="endLiveChat" aria-label="end live chat">
             <v-icon>
               {{ toolbarEndLiveChatIcon }}
             </v-icon>
@@ -95,7 +90,7 @@
           :disabled="restrictLocaleChanges"
         >
           <v-list-item v-for="locale in locales">
-            <v-list-item-title v-on:click="setLocale(locale)">
+            <v-list-item-title @click="setLocale(locale)">
               {{ locale }}
             </v-list-item-title>
           </v-list-item>
@@ -106,16 +101,14 @@
     <div class="nav-buttons">
       <v-btn
         small
-        icon
         :disabled="isLexProcessing"
         class="nav-button-prev"
         v-on="prevNavEventHandlers"
-        v-on:click="onPrev"
+        @click="onPrev"
         v-show="hasPrevUtterance && !isUiMinimized && shouldRenderBackButton"
         aria-label="go back to previous message"
-      >
-        <v-icon> arrow_back </v-icon>
-      </v-btn>
+        icon="mdi-arrow-left"
+      ></v-btn>
       <v-tooltip
         v-model="prevNav"
         activator=".nav-button-prev"
@@ -127,11 +120,11 @@
     </div>
 
     <v-toolbar-title
-      class="hidden-xs-and-down"
-      v-on:click.stop="toggleMinimize"
+      class="hidden-xs-and-down toolbar-title"
+      @click.stop="toggleMinimize"
       v-show="!isUiMinimized"
     >
-      <h1>{{ toolbarTitle }}</h1>
+      <h2>{{ toolbarTitle }}</h2>
     </v-toolbar-title>
 
     <v-toolbar-title class="hidden-xs-and-down" v-show="!isUiMinimized">
@@ -175,17 +168,17 @@
     <span v-if="isLocaleSelectable" class="localeInfo">{{ currentLocale }}</span>
     <v-btn
       v-if="shouldRenderHelpButton && !isLiveChat && !isUiMinimized"
-      v-on:click="sendHelp"
+      @click="sendHelp"
       v-on="tooltipHelpEventHandlers"
       v-bind:disabled="isLexProcessing"
       icon
       class="help-toggle"
     >
-      <v-icon> help_outline </v-icon>
+      <v-icon>mdi-help-circle-outline</v-icon>
     </v-btn>
     <v-btn
       v-if="isLiveChat && !isUiMinimized"
-      v-on:click="endLiveChat"
+      @click="endLiveChat"
       v-on="tooltipEndLiveChatEventHandlers"
       v-bind:disabled="!isLiveChat"
       icon
@@ -197,7 +190,7 @@
 
     <v-btn
       v-if="$store.state.isRunningEmbedded"
-      v-on:click.stop="toggleMinimize"
+      @click.stop="toggleMinimize"
       v-on="tooltipEventHandlers"
       class="min-max-toggle"
       icon
@@ -565,6 +558,10 @@ export default {
   background-color: #003da5 !important;
 }
 
+.toolbar-title {
+  width: max-content;
+}
+
 .nav-buttons {
   padding: 0;
   margin-left: 8px !important;
@@ -605,6 +602,7 @@ export default {
 
 .toolbar-image {
   margin-left: 0px !important;
+  max-height: 100%;
 }
 
 .toolbar__title {
