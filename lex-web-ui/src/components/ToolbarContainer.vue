@@ -446,7 +446,6 @@ export default {
     shouldRepeatLastMessage() {
       const localeId = this.$store.state.config.lex.v2BotLocaleId ? this.$store.state.config.lex.v2BotLocaleId : 'en_US';
       const helpContent = this.$store.state.config.ui.helpContent;
-      console.log('inside repeat message');
       if(helpContent && helpContent[localeId] && (helpContent[localeId].repeatLastMessage === undefined ? true : helpContent[localeId].repeatLastMessage)) {
         return true;
       }

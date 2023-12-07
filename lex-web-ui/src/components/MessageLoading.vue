@@ -14,7 +14,7 @@
                 class="message-bubble"
                 aria-hidden="true"
               >
-                {{ progress }}
+              {{$store.state.config.lex.allowStreamingResponses? $store.state.streaming.wsMessagesString : progress }}
               </div>
             </v-layout>
           </v-flex>
@@ -46,6 +46,9 @@ export default {
     };
   },
   computed: {
+    isStartingTypingWsMessages(){
+      return this.$store.getters.isStartingTypingWsMessages();
+    }
   },
   methods: {
   },
