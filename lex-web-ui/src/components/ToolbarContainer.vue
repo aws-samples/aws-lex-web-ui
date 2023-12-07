@@ -20,10 +20,11 @@
     <v-menu v-if="showToolbarMenu">
       <template v-slot:activator="{ props }">
         <v-btn
+          v-bind="props"
           v-show="!isUiMinimized"
           v-on="tooltipMenuEventHandlers"
           class="menu"
-          icon="mdi-menu"
+          icon="menu"
           small
           fab
           aria-label="menu options"
@@ -86,10 +87,9 @@
         </v-list-item>
         <v-list-item
           v-if="isLocaleSelectable"
-          v-bind:key="locale"
           :disabled="restrictLocaleChanges"
         >
-          <v-list-item v-for="locale in locales">
+          <v-list-item v-for="(locale, index) in locales" :key="index">
             <v-list-item-title @click="setLocale(locale)">
               {{ locale }}
             </v-list-item-title>
@@ -99,23 +99,26 @@
     </v-menu>
 
     <div class="nav-buttons">
-      <v-btn
-        small
-        :disabled="isLexProcessing"
-        class="nav-button-prev"
-        v-on="prevNavEventHandlers"
-        @click="onPrev"
-        v-show="hasPrevUtterance && !isUiMinimized && shouldRenderBackButton"
-        aria-label="go back to previous message"
-        icon="mdi-arrow-left"
-      ></v-btn>
       <v-tooltip
+        text="Previous"
         v-model="prevNav"
         activator=".nav-button-prev"
         content-class="tooltip-custom"
         right
       >
-        <span>Previous</span>
+        <template v-slot:activator="{ props }">
+          <v-btn
+            v-bind="props"
+            small
+            :disabled="isLexProcessing"
+            class="nav-button-prev"
+            v-on="prevNavEventHandlers"
+            @click="onPrev"
+            v-show="hasPrevUtterance && !isUiMinimized && shouldRenderBackButton"
+            aria-label="go back to previous message"
+            icon="arrow_back"
+          ></v-btn>
+        </template>
       </v-tooltip>
     </div>
 
@@ -170,7 +173,7 @@
       icon
       class="help-toggle"
     >
-      <v-icon>mdi-help-circle-outline</v-icon>
+      <v-icon>help_outline</v-icon>
     </v-btn>
     <v-btn
       v-if="isLiveChat && !isUiMinimized"

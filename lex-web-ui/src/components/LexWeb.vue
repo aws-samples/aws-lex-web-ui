@@ -70,6 +70,7 @@ import * as LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2'
 
 import { Config as AWSConfig, CognitoIdentityCredentials } from 'aws-sdk/global'
 
+console.log("here");
 export default {
   name: 'lex-web',
   data() {
@@ -145,10 +146,10 @@ export default {
   created() {
     // override default vuetify vertical overflow on non-mobile devices
     // hide vertical scrollbars
+    console.log('creating lex web ui');
     if (!this.isMobile) {
       document.documentElement.style.overflowY = 'hidden'
     }
-
     this.initConfig()
       .then(() =>
         Promise.all([

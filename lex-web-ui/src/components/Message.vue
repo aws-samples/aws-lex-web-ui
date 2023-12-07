@@ -156,7 +156,7 @@
                   <template v-slot:activator="{ props }">
                     <v-btn
                       v-bind="props"
-                      icon="mdi-dots-vertical"
+                      icon="more_vert"
                       variant="text"
                       size="x-small"
                       class="smicon"
@@ -165,7 +165,7 @@
                   <v-list>
                     <v-list-item>
                       <v-list-item-title @click="resendMessage(message.text)">
-                        <v-icon>mdi-replay</v-icon>
+                        <v-icon>replay</v-icon>
                       </v-list-item-title>
                     </v-list-item>
                     <v-list-item
@@ -173,7 +173,7 @@
                       class="message-audio"
                     >
                       <v-list-item-title @click="playAudio">
-                        <v-icon>mdi-play-circle-outline</v-icon>
+                        <v-icon>play_circle_outline</v-icon>
                       </v-list-item-title>
                     </v-list-item>
                   </v-list>
@@ -591,7 +591,6 @@ export default {
   color: grey;
   /* color: #E8EAF6; */
   /* color: green; */
-  padding: 0.6em;
 }
 
 .positiveClick {
@@ -611,7 +610,7 @@ export default {
 .feedback-icons-negative {
   /* color: #E8EAF6; */
   color: grey;
-  padding: 0.6em;
+  padding-left: 0.2em;
 }
 
 .feedback-icons-negative:hover {

@@ -659,8 +659,8 @@ export default {
   lexPostText(context, text) {
     context.commit('setIsLexProcessing', true)
     context.commit('reapplyTokensToSessionAttributes')
+    context.commit('removeSessionAppContext')
     const session = context.state.lex.sessionAttributes
-    delete session.appContext
     const localeId = context.state.config.lex.v2BotLocaleId
       ? context.state.config.lex.v2BotLocaleId.split(',')[0]
       : undefined

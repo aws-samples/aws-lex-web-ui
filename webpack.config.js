@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const eslintFormatterFriendly = require('eslint-formatter-friendly');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader')
 
 
 const VERSION = require('./package.json').version;
@@ -36,6 +37,9 @@ module.exports = (env) => {
             stream: require.resolve('stream-browserify'),
             'process/browser': require.resolve('process/browser'),
         },
+        alias: {
+          vue: path.resolve('./node_modules/vue')
+        }
     },
     module: {
       rules: [
@@ -54,6 +58,9 @@ module.exports = (env) => {
           test: /\.js$/,
           exclude: /[\\/]node_modules[\\/]/,
           loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
         },
         {
           test: /\.css$/,
@@ -69,6 +76,10 @@ module.exports = (env) => {
             },
             'css-loader',
           ],
+        },
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader'
         },
       ],
     },
@@ -118,6 +129,7 @@ module.exports = (env) => {
         // script is included in template
         inject: false,
       }),
+      new VueLoaderPlugin(),
       isProd && new webpack.BannerPlugin({
         banner: `/*!
 * lex-web-ui v${VERSION}

@@ -22,7 +22,7 @@ import actions from './actions'
 
 export default {
   // prevent changes outside of mutation handlers
-  strict: import.meta.env.NODE_ENV === 'development',
+  strict: process.env.NODE_ENV === 'development',
   state: initialState,
   getters,
   mutations,

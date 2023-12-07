@@ -33,11 +33,13 @@
     "stream-browserify": "^3.0.0",
     "vue": "^3.3.10",
     "vue-router": "^4.2.5",
+    "vue-loader": "^17.3.1",
     "vuetify": "^3.4.6",
     "vuetify-datetime-picker": "^2.1.1",
     "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.23.3",
     "@mdi/font": "^7.2.96",
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^5.0.8",
@@ -56,6 +58,6 @@
     "npm": ">= 9.8.1"
   },
   "overrides": {
-    "postcss":"8.4.32"
+    "postcss": "8.4.32"
   }
 }

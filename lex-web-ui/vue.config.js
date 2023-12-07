@@ -135,6 +135,8 @@ function chainWebpackLib(
     /^aws-sdk\/.+$/,
   ]);
 
+  config.externalsType= 'window';
+
   config.optimization.splitChunks({
     cacheGroups: {
       default: false,

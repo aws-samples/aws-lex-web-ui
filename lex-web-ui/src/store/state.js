@@ -32,7 +32,7 @@ export const liveChatStatus = {
 }
 
 export default {
-  version: import.meta.env.PACKAGE_VERSION ? import.meta.env.PACKAGE_VERSION : '0.0.0',
+  version: process.env.PACKAGE_VERSION ? process.env.PACKAGE_VERSION : '0.0.0',
   chatMode: chatMode.BOT,
   lex: {
     acceptFormat: 'audio/ogg',

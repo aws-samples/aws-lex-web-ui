@@ -3,11 +3,9 @@ import LexWeb from './components/LexWeb.vue'
 </script>
 
 <template>
-  <body>
-    <div class="wrapper">
-      <LexWeb />
-    </div>
-  </body>
+  <div id="lex-app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <style scoped>

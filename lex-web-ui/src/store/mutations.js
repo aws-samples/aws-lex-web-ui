@@ -537,5 +537,10 @@ export default {
   },
   updateLocaleIds(state, data) {
     state.config.lex.v2BotLocaleId = data
+  },
+  removeSessionAppContext(state){
+    if(state.lex.sessionAttributes){
+      delete state.lex.sessionAttributes.appContext
+    }
   }
 }

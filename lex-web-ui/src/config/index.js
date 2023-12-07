@@ -34,16 +34,15 @@
 
 // get env shortname to require file
 const envShortName = ['development', 'prod', 'test'].find((env) =>
-  import.meta.env.MODE.startsWith(env)
-)
+  process.env.NODE_ENV.startsWith(env));
 
 if (!envShortName) {
-  console.error('unknown environment in config: ', import.meta.env.MODE)
+  console.error('unknown environment in config: ', process.env.NODE_ENV)
 }
 
 // eslint-disable-next-line import/no-dynamic-require
 const configEnvFile =
-  import.meta.env.BUILD_TARGET === 'lib' ? {} : await import(`./config.${envShortName}.json`)
+  process.env.BUILD_TARGET === 'lib' ? {} : await import(`./config.${envShortName}.json`)
 
 // default config used to provide a base structure for
 // environment and dynamic configs

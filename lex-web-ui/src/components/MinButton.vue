@@ -16,7 +16,7 @@
         class="min-button min-button-content"
       >
         <v-icon left>
-          {{ 'mdi-chat' }}
+          {{ 'chat' }}
         </v-icon>
         {{ minButtonContent }}
       </v-btn>
@@ -37,7 +37,7 @@
         class="min-button"
       >
         <v-icon>
-          {{ 'mdi-chat' }}
+          {{ 'chat' }}
         </v-icon>
       </v-btn>
     </v-fab-transition>

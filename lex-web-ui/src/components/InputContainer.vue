@@ -37,7 +37,7 @@
         <v-tooltip activator="parent" location="start">
           <span id="input-button-tooltip">{{ inputButtonTooltip }}</span>
         </v-tooltip>
-        <v-icon size="x-large">mdi-send</v-icon>
+        <v-icon size="x-large">send</v-icon>
       </v-btn>
       <v-btn
         v-if="!shouldShowSendButton && !isModeLiveChat"
@@ -50,7 +50,7 @@
         <v-tooltip activator="parent" v-model="shouldShowTooltip" location="start">
           <span id="input-button-tooltip">{{ inputButtonTooltip }}</span>
         </v-tooltip>
-        <v-icon size="x-large">mdi-{{ micButtonIcon }}</v-icon>
+        <v-icon size="x-large">{{ micButtonIcon }}</v-icon>
       </v-btn>
     </v-toolbar>
   </v-container>
@@ -129,7 +129,7 @@ export default {
       if (this.isBotSpeaking || this.isSpeechConversationGoing) {
         return 'stop'
       }
-      return 'microphone'
+      return 'mic'
     },
     inputButtonTooltip() {
       if (this.shouldShowSendButton) {
