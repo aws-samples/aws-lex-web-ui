@@ -18,142 +18,165 @@
 /* eslint no-console: ["error", { allow: ["info", "warn", "error", "time", "timeEnd"] }] */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
-import {liveChatStatus} from "./state";
+import { liveChatStatus } from './state'
 
-export const createLiveChatSession = result =>
-  (window.connect.ChatSession.create({
+export const createLiveChatSession = (result) =>
+  window.connect.ChatSession.create({
     chatDetails: result.startChatResult,
-    type: 'CUSTOMER',
-  }));
+    type: 'CUSTOMER'
+  })
 
-export const connectLiveChatSession = session =>
-  Promise.resolve(session.connect().then((response) => {
-    console.info(`successful connection: ${JSON.stringify(response)}`);
-    return Promise.resolve(response);
-  }, (error) => {
-    console.info(`unsuccessful connection ${JSON.stringify(error)}`);
-    return Promise.reject(error);
-  }));
+export const connectLiveChatSession = (session) =>
+  Promise.resolve(
+    session.connect().then(
+      (response) => {
+        console.info(`successful connection: ${JSON.stringify(response)}`)
+        return Promise.resolve(response)
+      },
+      (error) => {
+        console.info(`unsuccessful connection ${JSON.stringify(error)}`)
+        return Promise.reject(error)
+      }
+    )
+  )
 
 export const initLiveChatHandlers = (context, session) => {
   session.onConnectionEstablished((data) => {
-    console.info('Established!', data);
+    console.info('Established!', data)
     // context.dispatch('pushLiveChatMessage', {
     //   type: 'agent',
     //   text: 'Live Chat Connection Established',
     // });
-  });
+  })
 
   session.onMessage((event) => {
-    const { chatDetails, data } = event;
-    console.info(`Received message: ${JSON.stringify(event)}`);
-    console.info('Received message chatDetails:', chatDetails);
-    let type = '';
+    const { chatDetails, data } = event
+    console.info(`Received message: ${JSON.stringify(event)}`)
+    console.info('Received message chatDetails:', chatDetails)
+    let type = ''
     switch (data.ContentType) {
       case 'application/vnd.amazonaws.connect.event.participant.joined':
         switch (data.ParticipantRole) {
           case 'SYSTEM':
-            context.commit('setIsLiveChatProcessing', false);
-            break;
+            context.commit('setIsLiveChatProcessing', false)
+            break
           case 'AGENT':
-            context.dispatch('liveChatAgentJoined');
-            context.commit('setIsLiveChatProcessing', false);
+            context.dispatch('liveChatAgentJoined')
+            context.commit('setIsLiveChatProcessing', false)
             context.dispatch('pushLiveChatMessage', {
               type: 'agent',
-              text: context.state.config.connect.agentJoinedMessage.replaceAll("{Agent}", data.DisplayName),
-            });
+              text: context.state.config.connect.agentJoinedMessage.replaceAll(
+                '{Agent}',
+                data.DisplayName
+              )
+            })
 
-            const transcriptArray = context.getters.liveChatTextTranscriptArray();
+            const transcriptArray = context.getters.liveChatTextTranscriptArray()
             transcriptArray.forEach((text, index) => {
-              var formattedText = "Bot Transcript: (" + (index + 1).toString() + "\\" + transcriptArray.length + ")\n" + text;
-              sendChatMessageWithDelay(session, formattedText, index * context.state.config.connect.transcriptMessageDelayInMsec);
-              console.info((index + 1).toString() + "-" + formattedText);
-            });
+              var formattedText =
+                'Bot Transcript: (' +
+                (index + 1).toString() +
+                '\\' +
+                transcriptArray.length +
+                ')\n' +
+                text
+              sendChatMessageWithDelay(session, formattedText, index * 150)
+              console.info((index + 1).toString() + '-' + formattedText)
+            })
 
-            if(context.state.config.connect.attachChatTranscript &&
-              (context.state.config.connect.attachChatTranscript === 'true'
-                || context.state.config.connect.attachChatTranscript === true )
+            if (
+              context.state.config.connect.attachChatTranscript &&
+              (context.state.config.connect.attachChatTranscript === 'true' ||
+                context.state.config.connect.attachChatTranscript === true)
             ) {
-              console.info("Sending chat transcript.");
-              var textFile = context.getters.liveChatTranscriptFile();
-              session.controller.sendAttachment({
-                attachment: textFile
-              }).then(response => {
-                console.info("Transcript sent.");
-              }, reason => {
-                console.info("Error sending transcript.");
-              });
+              console.info('Sending chat transcript.')
+              var textFile = context.getters.liveChatTranscriptFile()
+              session.controller
+                .sendAttachment({
+                  attachment: textFile
+                })
+                .then(
+                  (response) => {
+                    console.info('Transcript sent.')
+                  },
+                  (reason) => {
+                    console.info('Error sending transcript.')
+                  }
+                )
             }
-            break;
+            break
           case 'CUSTOMER':
-            break;
+            break
           default:
-            break;
+            break
         }
-        break;
+        break
       case 'application/vnd.amazonaws.connect.event.participant.left':
         switch (data.ParticipantRole) {
           case 'SYSTEM':
-            break;
+            break
           case 'AGENT':
             context.dispatch('pushLiveChatMessage', {
               type: 'agent',
-              text: context.state.config.connect.agentLeftMessage.replaceAll("{Agent}", data.DisplayName),
-            });
-            break;
+              text: context.state.config.connect.agentLeftMessage.replaceAll(
+                '{Agent}',
+                data.DisplayName
+              )
+            })
+            break
           case 'CUSTOMER':
-            break;
+            break
           default:
-            break;
+            break
         }
-        break;
+        break
       case 'application/vnd.amazonaws.connect.event.chat.ended':
         if (context.state.liveChat.status !== liveChatStatus.ENDED) {
           context.dispatch('pushLiveChatMessage', {
             type: 'agent',
-            text: context.state.config.connect.chatEndedMessage,
-          });
-          context.dispatch('liveChatSessionEnded');
+            text: context.state.config.connect.chatEndedMessage
+          })
+          context.dispatch('liveChatSessionEnded')
         }
-        break;
+        break
       case 'text/plain':
         switch (data.ParticipantRole) {
           case 'SYSTEM':
-            type = 'bot';
-            break;
+            type = 'bot'
+            break
           case 'AGENT':
-            type = 'agent';
-            break;
+            type = 'agent'
+            break
           case 'CUSTOMER':
-            type = 'human';
-            break;
+            type = 'human'
+            break
           default:
-            break;
+            break
         }
-        context.commit('setIsLiveChatProcessing', false);
-        if(!data.Content.startsWith('Bot Transcript')) {
+        context.commit('setIsLiveChatProcessing', false)
+        if (!data.Content.startsWith('Bot Transcript')) {
           context.dispatch('pushLiveChatMessage', {
             type,
-            text: data.Content,
-          });
+            text: data.Content
+          })
         }
-        break;
+        break
       default:
-        break;
+        break
     }
-  });
+  })
 
   session.onTyping((typingEvent) => {
     if (typingEvent.data.ParticipantRole === 'AGENT') {
-      console.info('Agent is typing ');
-      context.dispatch('agentIsTyping');
+      console.info('Agent is typing ')
+      context.dispatch('agentIsTyping')
     }
-  });
+  })
 
   session.onConnectionBroken((data) => {
-    console.info('Connection broken', data);
-    context.dispatch('liveChatSessionReconnectRequest');
-  });
+    console.info('Connection broken', data)
+    context.dispatch('liveChatSessionReconnectRequest')
+  })
 
   /*
   NOT WORKING
@@ -162,32 +185,32 @@ export const initLiveChatHandlers = (context, session) => {
     context.dispatch('liveChatSessionEnded');
   });
   */
-};
+}
 
 export const sendChatMessage = async (liveChatSession, message) => {
   await liveChatSession.controller.sendMessage({
     message,
-    contentType: 'text/plain',
-  });
-};
+    contentType: 'text/plain'
+  })
+}
 
 export const sendChatMessageWithDelay = async (liveChatSession, message, delay) => {
   setTimeout(async () => {
     await liveChatSession.controller.sendMessage({
       message,
-      contentType: 'text/plain',
-    });
-  }, delay);
-};
+      contentType: 'text/plain'
+    })
+  }, delay)
+}
 
 export const sendTypingEvent = (liveChatSession) => {
-  console.info('liveChatHandler: sendTypingEvent');
+  console.info('liveChatHandler: sendTypingEvent')
   liveChatSession.controller.sendEvent({
-    contentType: 'application/vnd.amazonaws.connect.event.typing',
-  });
-};
+    contentType: 'application/vnd.amazonaws.connect.event.typing'
+  })
+}
 
 export const requestLiveChatEnd = (liveChatSession) => {
-  console.info('liveChatHandler: endLiveChat', liveChatSession);
-  liveChatSession.controller.disconnectParticipant();
-};
+  console.info('liveChatHandler: endLiveChat', liveChatSession)
+  liveChatSession.controller.disconnectParticipant()
+}

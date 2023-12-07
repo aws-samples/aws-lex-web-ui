@@ -1,75 +1,59 @@
 <template>
-  <div app fixed>
-    <v-layout
-      row
-      justify-space-between
-      ma-0
-      class="input-container"
-    >
-      <v-toolbar
-        color="white"
-        v-bind:dense="this.$store.state.isRunningEmbedded"
+  <v-container fluid>
+    <v-toolbar color="white" :dense="this.$store.state.isRunningEmbedded">
+      <!--
+        using v-show instead of v-if to make recorder-status transition work
+      -->
+      <v-text-field
+        :label="textInputPlaceholder"
+        v-show="shouldShowTextInput"
+        :disabled="isLexProcessing"
+        v-model="textInput"
+        @keyup.enter.stop="postTextMessage"
+        @focus="onTextFieldFocus"
+        @blur="onTextFieldBlur"
+        @input="onKeyUp"
+        ref="textInput"
+        id="text-input"
+        name="text-input"
+        single-line
+        hide-details
+        variant="underlined"
+      ></v-text-field>
+
+      <recorder-status v-show="!shouldShowTextInput"></recorder-status>
+
+      <!-- separate tooltip as a workaround to support mobile touch events -->
+      <!-- tooltip should be before btn to avoid right margin issue in mobile -->
+      <v-btn
+        v-if="shouldShowSendButton"
+        @click="postTextMessage"
+        v-on="tooltipEventHandlers"
+        :disabled="isLexProcessing || isSendButtonDisabled"
+        ref="send"
+        class="icon-color input-button"
+        aria-label="Send Message"
       >
-        <!--
-          using v-show instead of v-if to make recorder-status transition work
-        -->
-        <v-text-field
-          v-bind:label="textInputPlaceholder"
-          v-show="shouldShowTextInput"
-          v-bind:disabled="isLexProcessing"
-          v-model="textInput"
-          v-on:keyup.enter.stop="postTextMessage"
-          v-on:focus="onTextFieldFocus"
-          v-on:blur="onTextFieldBlur"
-          @input="onKeyUp"
-          ref="textInput"
-          id="text-input"
-          name="text-input"
-          single-line
-          hide-details
-        ></v-text-field>
-
-        <recorder-status
-          v-show="!shouldShowTextInput"
-        ></recorder-status>
-
-        <!-- separate tooltip as a workaround to support mobile touch events -->
-        <!-- tooltip should be before btn to avoid right margin issue in mobile -->
-        <v-tooltip
-          activator=".input-button"
-          content-class="tooltip-custom"
-          v-model="shouldShowTooltip"
-          ref="tooltip"
-          left
-        >
-          <span id="input-button-tooltip">{{inputButtonTooltip}}</span>
+        <v-tooltip activator="parent" location="start">
+          <span id="input-button-tooltip">{{ inputButtonTooltip }}</span>
         </v-tooltip>
-        <v-btn
-          v-if="shouldShowSendButton"
-          v-on:click="postTextMessage"
-          v-on="tooltipEventHandlers"
-          v-bind:disabled="isLexProcessing || isSendButtonDisabled"
-          ref="send"
-          class="icon-color input-button"
-          icon
-          aria-label="Send Message"
-        >
-          <v-icon medium>send</v-icon>
-        </v-btn>
-        <v-btn
-          v-if="!shouldShowSendButton && !isModeLiveChat"
-          v-on:click="onMicClick"
-          v-on="tooltipEventHandlers"
-          v-bind:disabled="isMicButtonDisabled"
-          ref="mic"
-          class="icon-color input-button"
-          icon
-        >
-          <v-icon medium>{{micButtonIcon}}</v-icon>
-        </v-btn>
-      </v-toolbar>
-    </v-layout>
-  </div>
+        <v-icon size="x-large">send</v-icon>
+      </v-btn>
+      <v-btn
+        v-if="!shouldShowSendButton && !isModeLiveChat"
+        @click="onMicClick"
+        v-on="tooltipEventHandlers"
+        :disabled="isMicButtonDisabled"
+        ref="mic"
+        class="icon-color input-button"
+      >
+        <v-tooltip activator="parent" v-model="shouldShowTooltip" location="start">
+          <span id="input-button-tooltip">{{ inputButtonTooltip }}</span>
+        </v-tooltip>
+        <v-icon size="x-large">{{ micButtonIcon }}</v-icon>
+      </v-btn>
+    </v-toolbar>
+  </v-container>
 </template>
 
 <script>
@@ -87,7 +71,7 @@ License for the specific language governing permissions and limitations under th
 */
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
-import RecorderStatus from '@/components/RecorderStatus';
+import RecorderStatus from './RecorderStatus.vue'
 
 export default {
   name: 'input-container',
@@ -102,169 +86,161 @@ export default {
         mouseleave: this.onInputButtonHoverLeave,
         touchstart: this.onInputButtonHoverEnter,
         touchend: this.onInputButtonHoverLeave,
-        touchcancel: this.onInputButtonHoverLeave,
-      },
-    };
+        touchcancel: this.onInputButtonHoverLeave
+      }
+    }
   },
   props: ['textInputPlaceholder', 'initialSpeechInstruction'],
   components: {
-    RecorderStatus,
+    RecorderStatus
   },
   computed: {
     isBotSpeaking() {
-      return this.$store.state.botAudio.isSpeaking;
+      return this.$store.state.botAudio.isSpeaking
     },
     isLexProcessing() {
-      return this.$store.state.lex.isProcessing;
+      return this.$store.state.lex.isProcessing
     },
     isSpeechConversationGoing() {
-      return this.$store.state.recState.isConversationGoing;
+      return this.$store.state.recState.isConversationGoing
     },
     isMicButtonDisabled() {
-      return this.isMicMuted;
+      return this.isMicMuted
     },
     isMicMuted() {
-      return this.$store.state.recState.isMicMuted;
+      return this.$store.state.recState.isMicMuted
     },
     isRecorderSupported() {
-      return this.$store.state.recState.isRecorderSupported;
+      return this.$store.state.recState.isRecorderSupported
     },
     isRecorderEnabled() {
-      return this.$store.state.recState.isRecorderEnabled;
+      return this.$store.state.recState.isRecorderEnabled
     },
     isSendButtonDisabled() {
-      return this.textInput.length < 1;
+      return this.textInput.length < 1
     },
     isModeLiveChat() {
-      return this.$store.state.chatMode === 'livechat';
+      return this.$store.state.chatMode === 'livechat'
     },
     micButtonIcon() {
       if (this.isMicMuted) {
-        return 'mic_off';
+        return 'mic_off'
       }
       if (this.isBotSpeaking || this.isSpeechConversationGoing) {
-        return 'stop';
+        return 'stop'
       }
-      return 'mic';
+      return 'microphone'
     },
     inputButtonTooltip() {
       if (this.shouldShowSendButton) {
-        return 'send';
+        return 'send'
       }
       if (this.isMicMuted) {
-        return 'mic seems to be muted';
+        return 'mic seems to be muted'
       }
       if (this.isBotSpeaking || this.isSpeechConversationGoing) {
-        return 'interrupt';
+        return 'interrupt'
       }
-      return 'click to use voice';
+      return 'click to use voice'
     },
     shouldShowSendButton() {
       return (
         (this.textInput.length && this.isTextFieldFocused) ||
-        (!this.isRecorderSupported || !this.isRecorderEnabled) ||
-        (this.isModeLiveChat)
-      );
+        !this.isRecorderSupported ||
+        !this.isRecorderEnabled ||
+        this.isModeLiveChat
+      )
     },
     shouldShowTextInput() {
-      return !(this.isBotSpeaking || this.isSpeechConversationGoing);
-    },
+      return !(this.isBotSpeaking || this.isSpeechConversationGoing)
+    }
   },
   methods: {
     onInputButtonHoverEnter() {
-      this.shouldShowTooltip = true;
+      this.shouldShowTooltip = true
     },
     onInputButtonHoverLeave() {
-      this.shouldShowTooltip = false;
+      this.shouldShowTooltip = false
     },
     onMicClick() {
-      this.onInputButtonHoverLeave();
+      this.onInputButtonHoverLeave()
       if (this.isBotSpeaking || this.isSpeechConversationGoing) {
-        return this.$store.dispatch('interruptSpeechConversation');
+        return this.$store.dispatch('interruptSpeechConversation')
       }
       if (!this.isSpeechConversationGoing) {
-        return this.startSpeechConversation();
+        return this.startSpeechConversation()
       }
 
-      return Promise.resolve();
+      return Promise.resolve()
     },
     onTextFieldFocus() {
-      this.isTextFieldFocused = true;
+      this.isTextFieldFocused = true
     },
     onTextFieldBlur() {
       if (!this.textInput.length && this.isTextFieldFocused) {
-        this.isTextFieldFocused = false;
+        this.isTextFieldFocused = false
       }
     },
     onKeyUp() {
-      this.$store.dispatch('sendTypingEvent');
+      this.$store.dispatch('sendTypingEvent')
     },
     setInputTextFieldFocus() {
-      // focus() needs to be wrapped in setTimeout for IE11
-      setTimeout(() => {
-        if (this.$refs && this.$refs.textInput && this.shouldShowTextInput) {
-          this.$refs.textInput.$refs.input.focus();
-        }
-      }, 10);
+      if (this.$refs && this.$refs.textInput && this.shouldShowTextInput) {
+        this.$refs.textInput.focus()
+      }
     },
     playInitialInstruction() {
-      const isInitialState = ['', 'Fulfilled', 'Failed']
-        .some(initialState => (
-          this.$store.state.lex.dialogState === initialState
-        ));
+      const isInitialState = ['', 'Fulfilled', 'Failed'].some(
+        (initialState) => this.$store.state.lex.dialogState === initialState
+      )
 
-      return (isInitialState && this.initialSpeechInstruction.length > 0) ?
-        this.$store.dispatch(
-          'pollySynthesizeInitialSpeech'
-        ) :
-        Promise.resolve();
+      return isInitialState && this.initialSpeechInstruction.length > 0
+        ? this.$store.dispatch('pollySynthesizeInitialSpeech')
+        : Promise.resolve()
     },
     postTextMessage() {
-      this.onInputButtonHoverLeave();
-      this.textInput = this.textInput.trim();
+      this.onInputButtonHoverLeave()
+      this.textInput = this.textInput.trim()
       // empty string
       if (!this.textInput.length) {
-        return Promise.resolve();
+        return Promise.resolve()
       }
 
       const message = {
         type: 'human',
-        text: this.textInput,
-      };
+        text: this.textInput
+      }
 
-      return this.$store.dispatch('postTextMessage', message)
-        .then(() => {
-          this.textInput = '';
-          if (this.shouldShowTextInput) {
-            this.setInputTextFieldFocus();
-          }
-        });
+      return this.$store.dispatch('postTextMessage', message).then(() => {
+        this.textInput = ''
+        if (this.shouldShowTextInput) {
+          this.setInputTextFieldFocus()
+        }
+      })
     },
     startSpeechConversation() {
       if (this.isMicMuted) {
-        return Promise.resolve();
+        return Promise.resolve()
       }
       return this.setAutoPlay()
         .then(() => this.playInitialInstruction())
         .then(() => {
-            return new Promise(function(resolve, reject) {
-              setTimeout(() => {
-                resolve();
-              }, 100)
-            });
+          return new Promise(function (resolve, reject) {
+            setTimeout(() => {
+              resolve()
+            }, 100)
           })
+        })
         .then(() => this.$store.dispatch('startConversation'))
         .catch((error) => {
-          console.error('error in startSpeechConversation', error);
-          const errorMessage = (this.$store.state.config.ui.showErrorDetails) ?
-            ` ${error}` : '';
+          console.error('error in startSpeechConversation', error)
+          const errorMessage = this.$store.state.config.ui.showErrorDetails ? ` ${error}` : ''
 
           this.$store.dispatch(
             'pushErrorMessage',
-            "Sorry, I couldn't start the conversation. Please try again." +
-            `${errorMessage}`,
-          );
-        });
+            "Sorry, I couldn't start the conversation. Please try again." + `${errorMessage}`
+          )
+        })
     },
     /**
      * Set auto-play attribute on audio element
@@ -276,12 +252,12 @@ export default {
      */
     setAutoPlay() {
       if (this.$store.state.botAudio.autoPlay) {
-        return Promise.resolve();
+        return Promise.resolve()
       }
-      return this.$store.dispatch('setAudioAutoPlay');
-    },
-  },
-};
+      return this.$store.dispatch('setAudioAutoPlay')
+    }
+  }
+}
 </script>
 <style>
 .input-container {

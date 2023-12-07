@@ -18,25 +18,38 @@ License for the specific language governing permissions and limitations under th
  * Exports Loader as the plugin constructor
  * and Store as store that can be used with Vuex.Store()
  */
-import Vue from 'vue';
-import Vuex from 'vuex';
 import { Config as AWSConfig, CognitoIdentityCredentials }
   from 'aws-sdk/global';
 import LexRuntime from 'aws-sdk/clients/lexruntime';
 import LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2';
 import Polly from 'aws-sdk/clients/polly';
+import { defineAsyncComponent, defineComponent, resolveComponent, h } from 'vue'
 
-import LexWeb from '@/components/LexWeb';
-import VuexStore from '@/store';
-
+import LexWeb from './components/LexWeb';
+import VuexStore from './store';
 import { config as defaultConfig, mergeConfig } from '@/config';
+//import { createApp } from 'vue/dist/vue.esm-bundler';
+import * as Vue from 'vue';
+//import 'vuetify/styles'
+import * as Vuetify from 'vuetify'
+import { aliases, mdi } from 'vuetify/iconsets/mdi';
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import { createStore } from 'vuex';
+import * as Vuex from 'vuex';
+//import { createVuetify } from 'vuetify'
+
+const VueConstructor = (window.Vue) ? window.Vue : Vue;
+console.log("window.Vue is");
+console.log(window.Vue);
 
 /**
  * Vue Component
  */
 const Component = {
   name: 'lex-web-ui',
-  template: '<lex-web v-on="$listeners"></lex-web>',
+  //template: '<lex-web v-on="$listeners"></lex-web>',
+  template: '<lex-web></lex-web>',
   components: { LexWeb },
 };
 
@@ -47,34 +60,26 @@ const errorComponent = {
   template: '<p>An error ocurred...</p>',
 };
 
+export const testComponent = {
+  template: '<div>I am async!</div>',
+};
+
 /**
  * Vue Asynchonous Component
  */
-const AsyncComponent = ({
-  component = Promise.resolve(Component),
-  loading = loadingComponent,
-  error = errorComponent,
-  delay = 200,
-  timeout = 10000,
-}) => ({
-  // must be a promise
-  component,
-  // A component to use while the async component is loading
-  loading,
-  // A component to use if the load fails
-  error,
-  // Delay before showing the loading component. Default: 200ms.
-  delay,
-  // The error component will be displayed if a timeout is
-  // provided and exceeded. Default: 10000ms.
-  timeout,
-});
+export const AsyncComponent = VueConstructor.defineAsyncComponent({
+  loader: () => Promise.resolve(Component),
+  delay: 200,
+  timeout: 10000,
+  errorComponent: errorComponent,
+  loadingComponent: loadingComponent
+})
 
 /**
  * Vue Plugin
  */
 export const Plugin = {
-  install(VueConstructor, {
+  install(app, {
     name = '$lexWebUi',
     componentName = 'lex-web-ui',
     awsConfig,
@@ -84,9 +89,9 @@ export const Plugin = {
     component = AsyncComponent,
     config = defaultConfig,
   }) {
-    if (name in VueConstructor) {
-      console.warn('plugin should only be used once');
-    }
+    //if (name in VueConstructor) { TODO- Manish check for this in vue3
+    //  console.warn('plugin should only be used once');
+    // }
     // values to be added to custom vue property
     const value = {
       config,
@@ -97,9 +102,9 @@ export const Plugin = {
     };
     // add custom property to Vue
     // for example, access this in a component via this.$lexWebUi
-    Object.defineProperty(VueConstructor.prototype, name, { value });
+    app.config.globalProperties[name] = value;
     // register as a global component
-    VueConstructor.component(componentName, component);
+    app.component(componentName, component);
   },
 };
 
@@ -110,17 +115,37 @@ export const Store = VuexStore;
  */
 export class Loader {
   constructor(config = {}) {
-    const mergedConfig = mergeConfig(defaultConfig, config);
-
-    const VueConstructor = (window.Vue) ? window.Vue : Vue;
-    if (!VueConstructor) {
-      throw new Error('unable to find Vue');
-    }
+    console.log("loading");
 
     const VuexConstructor = (window.Vuex) ? window.Vuex : Vuex;
     if (!VuexConstructor) {
       throw new Error('unable to find Vuex');
     }
+    console.log(window.Vue);
+    const VuetifyInstance = (window.Vuetify) ? window.Vuetify : Vuetify;
+    const { components, directives } = VuetifyInstance;
+    const vuetify = VuetifyInstance.createVuetify({
+      components,
+      directives,
+      // icons: {
+      //   defaultSet: 'mdi',
+      //   aliases,
+      //   sets: {
+      //     mdi,
+      //   },
+      // },
+    })
+    const app = VueConstructor.createApp({
+      template: '<div id="lex-web-ui"><lex-web-ui/></div>',
+    })
+
+    app.use(vuetify)
+    const store = VuexConstructor.createStore(VuexStore)
+    this.store = store
+    app.use(store)
+    this.app = app;
+
+    const mergedConfig = mergeConfig(defaultConfig, config);
 
     const AWSConfigConstructor = (window.AWS && window.AWS.Config) ?
       window.AWS.Config :
@@ -144,7 +169,7 @@ export class Loader {
       LexRuntimeV2;
 
     if (!AWSConfigConstructor || !CognitoConstructor || !PollyConstructor
-        || !LexRuntimeConstructor || !LexRuntimeConstructorV2) {
+      || !LexRuntimeConstructor || !LexRuntimeConstructorV2) {
       throw new Error('unable to find AWS SDK');
     }
 
@@ -166,14 +191,14 @@ export class Loader {
       (mergedConfig.recorder && mergedConfig.recorder.enable !== false)
     ) ? new PollyConstructor(awsConfig) : null;
 
-    this.store = new VuexConstructor.Store({ ...VuexStore });
-
-    VueConstructor.use(Plugin, {
+    app.use(Plugin, {
       config: mergedConfig,
       awsConfig,
       lexRuntimeClient,
       lexRuntimeV2Client,
       pollyClient,
     });
+    this.app = app;
   }
 }
+

@@ -19,8 +19,8 @@ License for the specific language governing permissions and limitations under th
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint spaced-comment: ["error", "always", { "exceptions": ["*"] }] */
 
-import { mergeConfig } from '@/config';
-import { chatMode, liveChatStatus } from '@/store/state';
+import { mergeConfig } from '../config'
+import { chatMode, liveChatStatus } from '../store/state'
 
 export default {
   /**
@@ -29,15 +29,15 @@ export default {
   // Checks whether a state object exists in sessionStorage and sets the states
   // messages to the previous session.
   reloadMessages(state) {
-    const value = sessionStorage.getItem('store');
+    const value = sessionStorage.getItem('store')
     if (value !== null) {
-      const sessionStore = JSON.parse(value);
+      const sessionStore = JSON.parse(value)
       // convert date string into Date object in messages
-      state.messages = sessionStore.messages.map(message => {
+      state.messages = sessionStore.messages.map((message) => {
         return Object.assign({}, message, {
           date: new Date(message.date)
-        });
-      });
+        })
+      })
     }
   },
 
@@ -52,11 +52,11 @@ export default {
    */
   setIsMicMuted(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setIsMicMuted status not boolean', bool);
-      return;
+      console.error('setIsMicMuted status not boolean', bool)
+      return
     }
     if (state.config.recorder.useAutoMuteDetect) {
-      state.recState.isMicMuted = bool;
+      state.recState.isMicMuted = bool
     }
   },
   /**
@@ -64,29 +64,29 @@ export default {
    */
   setIsMicQuiet(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setIsMicQuiet status not boolean', bool);
-      return;
+      console.error('setIsMicQuiet status not boolean', bool)
+      return
     }
-    state.recState.isMicQuiet = bool;
+    state.recState.isMicQuiet = bool
   },
   /**
    * set to true while speech conversation is going
    */
   setIsConversationGoing(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setIsConversationGoing status not boolean', bool);
-      return;
+      console.error('setIsConversationGoing status not boolean', bool)
+      return
     }
-    state.recState.isConversationGoing = bool;
+    state.recState.isConversationGoing = bool
   },
   /**
    * Signals recorder to start and sets recoding state to true
    */
   startRecording(state, recorder) {
-    console.info('start recording');
+    console.info('start recording')
     if (state.recState.isRecording === false) {
-      recorder.start();
-      state.recState.isRecording = true;
+      recorder.start()
+      state.recState.isRecording = true
     }
   },
   /**
@@ -94,9 +94,9 @@ export default {
    */
   stopRecording(state, recorder) {
     if (state.recState.isRecording === true) {
-      state.recState.isRecording = false;
+      state.recState.isRecording = false
       if (recorder.isRecording) {
-        recorder.stop();
+        recorder.stop()
       }
     }
   },
@@ -106,33 +106,33 @@ export default {
    * when too many recordings are silent
    */
   increaseSilentRecordingCount(state) {
-    state.recState.silentRecordingCount += 1;
+    state.recState.silentRecordingCount += 1
   },
   /**
    * Reset the number of consecutive silent recordings
    */
   resetSilentRecordingCount(state) {
-    state.recState.silentRecordingCount = 0;
+    state.recState.silentRecordingCount = 0
   },
   /**
    * Set to true if audio recording should be enabled
    */
   setIsRecorderEnabled(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setIsRecorderEnabled status not boolean', bool);
-      return;
+      console.error('setIsRecorderEnabled status not boolean', bool)
+      return
     }
-    state.recState.isRecorderEnabled = bool;
+    state.recState.isRecorderEnabled = bool
   },
   /**
    * Set to true if audio recording is supported
    */
   setIsRecorderSupported(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setIsRecorderSupported status not boolean', bool);
-      return;
+      console.error('setIsRecorderSupported status not boolean', bool)
+      return
     }
-    state.recState.isRecorderSupported = bool;
+    state.recState.isRecorderSupported = bool
   },
 
   /***********************************************************************
@@ -146,10 +146,10 @@ export default {
    */
   setIsBotSpeaking(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setIsBotSpeaking status not boolean', bool);
-      return;
+      console.error('setIsBotSpeaking status not boolean', bool)
+      return
     }
-    state.botAudio.isSpeaking = bool;
+    state.botAudio.isSpeaking = bool
   },
   /**
    * Set to true when the Lex audio is ready to autoplay
@@ -157,41 +157,41 @@ export default {
    */
   setAudioAutoPlay(state, { audio, status }) {
     if (typeof status !== 'boolean') {
-      console.error('setAudioAutoPlay status not boolean', status);
-      return;
+      console.error('setAudioAutoPlay status not boolean', status)
+      return
     }
-    state.botAudio.autoPlay = status;
-    audio.autoplay = status;
+    state.botAudio.autoPlay = status
+    audio.autoplay = status
   },
   /**
-  * set to true if bot playback can be interrupted
-  */
+   * set to true if bot playback can be interrupted
+   */
   setCanInterruptBotPlayback(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setCanInterruptBotPlayback status not boolean', bool);
-      return;
+      console.error('setCanInterruptBotPlayback status not boolean', bool)
+      return
     }
-    state.botAudio.canInterrupt = bool;
+    state.botAudio.canInterrupt = bool
   },
   /**
-  * set to true if bot playback is being interrupted
-  */
+   * set to true if bot playback is being interrupted
+   */
   setIsBotPlaybackInterrupting(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setIsBotPlaybackInterrupting status not boolean', bool);
-      return;
+      console.error('setIsBotPlaybackInterrupting status not boolean', bool)
+      return
     }
-    state.botAudio.isInterrupting = bool;
+    state.botAudio.isInterrupting = bool
   },
   /**
-  * used to set the setInterval Id for bot playback interruption
-  */
+   * used to set the setInterval Id for bot playback interruption
+   */
   setBotPlaybackInterruptIntervalId(state, id) {
     if (typeof id !== 'number') {
-      console.error('setIsBotPlaybackInterruptIntervalId id is not a number', id);
-      return;
+      console.error('setIsBotPlaybackInterruptIntervalId id is not a number', id)
+      return
     }
-    state.botAudio.interruptIntervalId = id;
+    state.botAudio.interruptIntervalId = id
   },
 
   /***********************************************************************
@@ -204,49 +204,50 @@ export default {
    * Updates Lex State from Lex responses
    */
   updateLexState(state, lexState) {
-    state.lex = { ...state.lex, ...lexState };
+    state.lex = { ...state.lex, ...lexState }
   },
   /**
    * Sets the Lex session attributes
    */
   setLexSessionAttributes(state, sessionAttributes) {
     if (typeof sessionAttributes !== 'object') {
-      console.error('sessionAttributes is not an object', sessionAttributes);
-      return;
+      console.error('sessionAttributes is not an object', sessionAttributes)
+      return
     }
-    state.lex.sessionAttributes = sessionAttributes;
+    state.lex.sessionAttributes = sessionAttributes
   },
   setLexSessionAttributeValue(state, data) {
     try {
-      const setPath = (object, path, value) => path
-        .split('.')
-        .reduce((o, p, i) => o[p] = path.split('.').length === ++i ? value : o[p] || {}, object);
+      const setPath = (object, path, value) =>
+        path
+          .split('.')
+          .reduce((o, p, i) => (o[p] = path.split('.').length === ++i ? value : o[p] || {}), object)
 
-      setPath(state.lex.sessionAttributes, data.key, data.value);
+      setPath(state.lex.sessionAttributes, data.key, data.value)
     } catch (e) {
-      console.error(`could not set session attribute: ${e} for ${JSON.stringify(data)}`);
+      console.error(`could not set session attribute: ${e} for ${JSON.stringify(data)}`)
     }
   },
   /**
-  * set to true while calling lexPost{Text,Content}
-  * to mark as processing
-  */
+   * set to true while calling lexPost{Text,Content}
+   * to mark as processing
+   */
   setIsLexProcessing(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setIsLexProcessing status not boolean', bool);
-      return;
+      console.error('setIsLexProcessing status not boolean', bool)
+      return
     }
-    state.lex.isProcessing = bool;
+    state.lex.isProcessing = bool
   },
   /**
-  * set to true if lex is being interrupted while speaking
-  */
+   * set to true if lex is being interrupted while speaking
+   */
   setIsLexInterrupting(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setIsLexInterrupting status not boolean', bool);
-      return;
+      console.error('setIsLexInterrupting status not boolean', bool)
+      return
     }
-    state.lex.isInterrupting = bool;
+    state.lex.isInterrupting = bool
   },
   /**
    * Set the supported content types to be used with Lex/Polly
@@ -256,16 +257,16 @@ export default {
       case 'mp3':
       case 'mpg':
       case 'mpeg':
-        state.polly.outputFormat = 'mp3';
-        state.lex.acceptFormat = 'audio/mpeg';
-        break;
+        state.polly.outputFormat = 'mp3'
+        state.lex.acceptFormat = 'audio/mpeg'
+        break
       case 'ogg':
       case 'ogg_vorbis':
       case 'x-cbr-opus-with-preamble':
       default:
-        state.polly.outputFormat = 'ogg_vorbis';
-        state.lex.acceptFormat = 'audio/ogg';
-        break;
+        state.polly.outputFormat = 'ogg_vorbis'
+        state.lex.acceptFormat = 'audio/ogg'
+        break
     }
   },
   /**
@@ -273,10 +274,10 @@ export default {
    */
   setPollyVoiceId(state, voiceId) {
     if (typeof voiceId !== 'string') {
-      console.error('polly voiceId is not a string', voiceId);
-      return;
+      console.error('polly voiceId is not a string', voiceId)
+      return
     }
-    state.polly.voiceId = voiceId;
+    state.polly.voiceId = voiceId
   },
 
   /***********************************************************************
@@ -292,135 +293,143 @@ export default {
    */
   mergeConfig(state, config) {
     if (typeof config !== 'object') {
-      console.error('config is not an object', config);
-      return;
+      console.error('config is not an object', config)
+      return
     }
 
     // region for lexRuntimeClient and cognito pool are required to be the same.
     // Use cognito pool-id to adjust the region identified in the config.
-    state.config.region = config.cognito.poolId.split(':')[0] || 'us-east-1';
+    state.config.region = config.cognito.poolId.split(':')[0] || 'us-east-1'
 
     // security: do not accept dynamic parentOrigin
-    const parentOrigin = (
-      state.config && state.config.ui &&
-      state.config.ui.parentOrigin
-    ) ?
-      state.config.ui.parentOrigin :
-      config.ui.parentOrigin || window.location.origin;
+    const parentOrigin =
+      state.config && state.config.ui && state.config.ui.parentOrigin
+        ? state.config.ui.parentOrigin
+        : config.ui.parentOrigin || window.location.origin
     const configFiltered = {
       ...config,
-      ...{ ui: { ...config.ui, parentOrigin } },
-    };
-    if (state.config && state.config.ui && state.config.ui.parentOrigin &&
-      config.ui && config.ui.parentOrigin &&
+      ...{ ui: { ...config.ui, parentOrigin } }
+    }
+    if (
+      state.config &&
+      state.config.ui &&
+      state.config.ui.parentOrigin &&
+      config.ui &&
+      config.ui.parentOrigin &&
       config.ui.parentOrigin !== state.config.ui.parentOrigin
     ) {
-      console.warn('ignoring parentOrigin in config: ', config.ui.parentOrigin);
+      console.warn('ignoring parentOrigin in config: ', config.ui.parentOrigin)
     }
-    state.config = mergeConfig(state.config, configFiltered);
+    state.config = mergeConfig(state.config, configFiltered)
   },
   /**
    * Set to true if running embedded in an iframe
    */
   setIsRunningEmbedded(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setIsRunningEmbedded status not boolean', bool);
-      return;
+      console.error('setIsRunningEmbedded status not boolean', bool)
+      return
     }
-    state.isRunningEmbedded = bool;
+    state.isRunningEmbedded = bool
   },
   /**
-  * used to track the expand/minimize status of the window when
-  * running embedded in an iframe
-  */
+   * used to track the expand/minimize status of the window when
+   * running embedded in an iframe
+   */
   toggleIsUiMinimized(state) {
-    state.isUiMinimized = !state.isUiMinimized;
+    state.isUiMinimized = !state.isUiMinimized
   },
 
   setInitialUtteranceSent(state) {
-    state.initialUtteranceSent = true;
+    state.initialUtteranceSent = true
   },
   toggleIsSFXOn(state) {
-    state.isSFXOn = !state.isSFXOn;
+    state.isSFXOn = !state.isSFXOn
   },
   /**
    * used to track the appearance of the input container
    * when the appearance of buttons should hide it
    */
   toggleHasButtons(state) {
-    state.hasButtons = !state.hasButtons;
+    state.hasButtons = !state.hasButtons
   },
   /**
    * used to track the expand/minimize status of the window when
    * running embedded in an iframe
    */
   setIsLoggedIn(state, bool) {
-    state.isLoggedIn = bool;
+    state.isLoggedIn = bool
   },
   /**
    * use to set the state of keep session history
    */
   setIsSaveHistory(state, bool) {
-    state.isSaveHistory = bool;
+    state.isSaveHistory = bool
   },
 
   /**
    * use to set the chat mode ( either bot or livechat )
    */
   setChatMode(state, mode) {
-    if (typeof mode !== 'string' || !Object.values(chatMode).find(element => element === mode.toLowerCase())) {
-      console.error('chatMode is not vaild', mode.toLowerCase());
-      return;
+    if (
+      typeof mode !== 'string' ||
+      !Object.values(chatMode).find((element) => element === mode.toLowerCase())
+    ) {
+      console.error('chatMode is not vaild', mode.toLowerCase())
+      return
     }
-    state.chatMode = mode.toLowerCase();
+    state.chatMode = mode.toLowerCase()
   },
 
   setLiveChatIntervalId(state, intervalId) {
-    state.liveChat.intervalId = intervalId;
+    state.liveChat.intervalId = intervalId
   },
   clearLiveChatIntervalId(state) {
     if (state.liveChat.intervalId) {
-      clearInterval(state.liveChat.intervalId);
-      state.liveChat.intervalId = undefined;
+      clearInterval(state.liveChat.intervalId)
+      state.liveChat.intervalId = undefined
     }
   },
   /**
    * use to set the live chat status
    */
   setLiveChatStatus(state, status) {
-    if (typeof status !== 'string' || !Object.values(liveChatStatus).find(element => element === status.toLowerCase())) {
-      console.error('liveChatStatus is not vaild', status.toLowerCase());
-      return;
+    if (
+      typeof status !== 'string' ||
+      !Object.values(liveChatStatus).find((element) => element === status.toLowerCase())
+    ) {
+      console.error('liveChatStatus is not vaild', status.toLowerCase())
+      return
     }
-    state.liveChat.status = status.toLowerCase();
+    state.liveChat.status = status.toLowerCase()
   },
   /**
-  * set to true while live chat session is being created or agent is typing
-  */
+   * set to true while live chat session is being created or agent is typing
+   */
   setIsLiveChatProcessing(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setIsLiveChatProcessing status not boolean', bool);
-      return;
+      console.error('setIsLiveChatProcessing status not boolean', bool)
+      return
     }
-    state.liveChat.isProcessing = bool;
+    state.liveChat.isProcessing = bool
   },
 
   setLiveChatUserName(state, name) {
     if (typeof name !== 'string') {
-      console.error('setLiveChatUserName is not vaild', name);
-      return;
+      console.error('setLiveChatUserName is not vaild', name)
+      return
     }
-    state.liveChat.username = name;
+    state.liveChat.username = name
   },
 
   reset(state) {
     const s = {
       messages: [],
-      utteranceStack: [],
-    };
+      utteranceStack: []
+    }
     Object.keys(s).forEach((key) => {
-      state[key] = s[key];
-    });
+      state[key] = s[key]
+    })
   },
   /**
    * Update tokens from cognito authentication
@@ -430,16 +439,16 @@ export default {
   reapplyTokensToSessionAttributes(state) {
     if (state) {
       if (state.tokens.idtokenjwt) {
-        console.error('found idtokenjwt');
-        state.lex.sessionAttributes.idtokenjwt = state.tokens.idtokenjwt;
+        console.error('found idtokenjwt')
+        state.lex.sessionAttributes.idtokenjwt = state.tokens.idtokenjwt
       }
       if (state.tokens.accesstokenjwt) {
-        console.error('found accesstokenjwt');
-        state.lex.sessionAttributes.accesstokenjwt = state.tokens.accesstokenjwt;
+        console.error('found accesstokenjwt')
+        state.lex.sessionAttributes.accesstokenjwt = state.tokens.accesstokenjwt
       }
       if (state.tokens.refreshtoken) {
-        console.error('found refreshtoken');
-        state.lex.sessionAttributes.refreshtoken = state.tokens.refreshtoken;
+        console.error('found refreshtoken')
+        state.lex.sessionAttributes.refreshtoken = state.tokens.refreshtoken
       }
     }
   },
@@ -451,14 +460,14 @@ export default {
    */
   setTokens(state, tokens) {
     if (tokens) {
-      state.tokens.idtokenjwt = tokens.idtokenjwt;
-      state.tokens.accesstokenjwt = tokens.accesstokenjwt;
-      state.tokens.refreshtoken = tokens.refreshtoken;
-      state.lex.sessionAttributes.idtokenjwt = tokens.idtokenjwt;
-      state.lex.sessionAttributes.accesstokenjwt = tokens.accesstokenjwt;
-      state.lex.sessionAttributes.refreshtoken = tokens.refreshtoken;
+      state.tokens.idtokenjwt = tokens.idtokenjwt
+      state.tokens.accesstokenjwt = tokens.accesstokenjwt
+      state.tokens.refreshtoken = tokens.refreshtoken
+      state.lex.sessionAttributes.idtokenjwt = tokens.idtokenjwt
+      state.lex.sessionAttributes.accesstokenjwt = tokens.accesstokenjwt
+      state.lex.sessionAttributes.refreshtoken = tokens.refreshtoken
     } else {
-      state.tokens = undefined;
+      state.tokens = undefined
     }
   },
   /**
@@ -468,8 +477,8 @@ export default {
     state.messages.push({
       id: state.messages.length,
       date: new Date(),
-      ...message,
-    });
+      ...message
+    })
   },
   /**
    * Push new liveChat message into messages array
@@ -478,14 +487,14 @@ export default {
     state.messages.push({
       id: state.messages.length,
       date: new Date(),
-      ...message,
-    });
+      ...message
+    })
   },
   /**
    * Set the AWS credentials provider
    */
   setAwsCredsProvider(state, provider) {
-    state.awsCreds.provider = provider;
+    state.awsCreds.provider = provider
   },
   /**
    * Push a user's utterance onto the utterance stack to be used with back functionality
@@ -493,40 +502,45 @@ export default {
   pushUtterance(state, utterance) {
     if (!state.isBackProcessing) {
       state.utteranceStack.push({
-        t: utterance,
-      });
+        t: utterance
+      })
       // max of 1000 utterances allowed in the stack
       if (state.utteranceStack.length > 1000) {
-        state.utteranceStack.shift();
+        state.utteranceStack.shift()
       }
     } else {
-      state.isBackProcessing = !state.isBackProcessing;
+      state.isBackProcessing = !state.isBackProcessing
     }
   },
   popUtterance(state) {
-    if (state.utteranceStack.length === 0) return;
-    state.utteranceStack.pop();
+    if (state.utteranceStack.length === 0) return
+    state.utteranceStack.pop()
   },
   toggleBackProcessing(state) {
-    state.isBackProcessing = !state.isBackProcessing;
+    state.isBackProcessing = !state.isBackProcessing
   },
   clearMessages(state) {
-    state.messages = [];
-    state.lex.sessionAttributes = {};
+    state.messages = []
+    state.lex.sessionAttributes = {}
   },
   setPostTextRetry(state, bool) {
     if (typeof bool !== 'boolean') {
-      console.error('setPostTextRetry status not boolean', bool);
-      return;
+      console.error('setPostTextRetry status not boolean', bool)
+      return
     }
     if (bool === false) {
-      state.lex.retryCountPostTextTimeout = 0;
+      state.lex.retryCountPostTextTimeout = 0
     } else {
-      state.lex.retryCountPostTextTimeout += 1;
+      state.lex.retryCountPostTextTimeout += 1
     }
-    state.lex.isPostTextRetry = bool;
+    state.lex.isPostTextRetry = bool
   },
   updateLocaleIds(state, data) {
-    state.config.lex.v2BotLocaleId = data.trim().replace(/ /g, '');
+    state.config.lex.v2BotLocaleId = data
   },
-};
+  removeSessionAppContext(state){
+    if(state.lex.sessionAttributes){
+      delete state.lex.sessionAttributes.appContext
+    }
+  }
+}
