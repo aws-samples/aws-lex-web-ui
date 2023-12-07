@@ -134,11 +134,11 @@ module.exports = (env) => {
       new CopyPlugin(
         {
           patterns: [
-            // copy parent page
-            {
-              from: path.join(basePath, 'src/website/parent.html'),
-              to: distDir,
-            },
+            // // copy parent page
+            // {
+            //   from: path.join(basePath, 'src/website/parent.html'),
+            //   to: distDir,
+            // },
             // copy custom css
             {
               from: path.join(basePath, 'src/website/custom-chatbot-style.css'),
@@ -157,5 +157,10 @@ module.exports = (env) => {
         }
       ),
     ].filter(Boolean),
+    performance: {
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
+  },
   };
 };

@@ -13,44 +13,49 @@
     "build": "vue-cli-service build --skip-plugins @vue/cli-plugin-eslint",
     "build:dev": "vue-cli-service build --mode development",
     "build-dist": "npm run build:lib-dev && npm run build:lib-prod",
-    "build:lib-dev": "BUILD_TARGET=lib vue-cli-service build --skip-plugins @vue/cli-plugin-eslint ---no-clean --mode development src/lex-web-ui.js",
-    "build:lib-prod": "BUILD_TARGET=lib vue-cli-service build --skip-plugins @vue/cli-plugin-eslint --no-clean ---mode production src/lex-web-ui.js",
+    "build:lib-dev": "BUILD_TARGET=lib vue-cli-service build --skip-plugins @vue/cli-plugin-eslint ---no-clean --mode development src/main.js",
+    "build:lib-prod": "BUILD_TARGET=lib vue-cli-service build --skip-plugins @vue/cli-plugin-eslint --no-clean ---mode production src/main.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "amazon-connect-chatjs": "^1.1.7",
     "aws-sdk": "^2.1354.0",
     "browserify-zlib": "^0.2.0",
+    "buffer": "^6.0.3",
     "core-js": "^3.6.5",
     "crypto-browserify": "^3.12.0",
     "jsonwebtoken": "^9.0.0",
     "marked": "^4.0.12",
     "material-design-icons": "^3.0.1",
     "node-polyfill-webpack-plugin": "^2.0.1",
+    "pako": "^2.1.0",
     "roboto-fontface": "^0.10.0",
     "stream-browserify": "^3.0.0",
-    "vue": "^2.6.11",
-    "vue-router": "^3.2.0",
-    "vuetify": "^1.5.0",
+    "vue": "^3.3.10",
+    "vue-router": "^4.2.5",
+    "vuetify": "^3.4.6",
     "vuetify-datetime-picker": "^2.1.1",
-    "vuex": "^3.4.0"
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@mdi/font": "^7.2.96",
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-plugin-router": "^5.0.8",
     "@vue/cli-plugin-vuex": "~5.0.8",
     "@vue/cli-service": "^5.0.8",
-    "@vue/eslint-config-airbnb": "^5.0.2",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.5.0",
+    "eslint": "^8.55.0",
     "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-vue": "^7.0.0",
-    "vue-template-compiler": "^2.6.11",
+    "eslint-plugin-vue": "^9.19.2",
+    "vue-template-compiler": "^2.7.15",
     "worker-loader": "^3.0.8"
   },
   "engines": {
-    "node": ">= 15.0.0",
-    "npm": ">= 7.10.0"
+    "node": ">= 18.18.0",
+    "npm": ">= 9.8.1"
+  },
+  "overrides": {
+    "postcss":"8.4.32"
   }
 }

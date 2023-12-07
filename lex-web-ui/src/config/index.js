@@ -33,19 +33,17 @@
 // TODO turn this into a class
 
 // get env shortname to require file
-const envShortName = [
-  'dev',
-  'prod',
-  'test',
-].find(env => process.env.NODE_ENV.startsWith(env));
+const envShortName = ['development', 'prod', 'test'].find((env) =>
+  import.meta.env.MODE.startsWith(env)
+)
 
 if (!envShortName) {
-  console.error('unknown environment in config: ', process.env.NODE_ENV);
+  console.error('unknown environment in config: ', import.meta.env.MODE)
 }
 
 // eslint-disable-next-line import/no-dynamic-require
-const configEnvFile = (process.env.BUILD_TARGET === 'lib') ?
-  {} : require(`./config.${envShortName}.json`);
+const configEnvFile =
+  import.meta.env.BUILD_TARGET === 'lib' ? {} : await import(`./config.${envShortName}.json`)
 
 // default config used to provide a base structure for
 // environment and dynamic configs
@@ -56,7 +54,7 @@ const configDefault = {
   cognito: {
     // Cognito pool id used to obtain credentials
     // e.g. poolId: 'us-east-1:deadbeef-cac0-babe-abcd-abcdef01234',
-    poolId: '',
+    poolId: ''
   },
   connect: {
     // The Connect contact flow id - user configured via CF template
@@ -68,14 +66,12 @@ const configDefault = {
     // Message to prompt the user for a name prior to establishing a session
     promptForNameMessage: 'Before starting a live chat, please tell me your name?',
     // The default message to message to display while waiting for a live agent
-    waitingForAgentMessage: "Thanks for waiting. An agent will be with you when available.",
+    waitingForAgentMessage: 'Thanks for waiting. An agent will be with you when available.',
     // The default interval with which to display the waitingForAgentMessage. When set to 0
     // the timer is disabled.
     waitingForAgentMessageIntervalSeconds: 60,
     // Terms to start live chat
-    liveChatTerms: 'live chat',
-    // The delay to use between sending transcript blocks to connect
-    transcriptMessageDelayInMsec: 150,
+    liveChatTerms: 'live chat'
   },
   lex: {
     // Lex V2 fields
@@ -90,7 +86,8 @@ const configDefault = {
     botAlias: '$LATEST',
 
     // instruction message shown in the UI
-    initialText: 'You can ask me for help ordering flowers. ' +
+    initialText:
+      'You can ask me for help ordering flowers. ' +
       'Just type "order flowers" or click on the mic and say it.',
 
     // instructions spoken when mic is clicked
@@ -135,11 +132,11 @@ const configDefault = {
     retryOnLexPostTextTimeout: false,
 
     // defines the retry count. default is 1. Only used if retryOnLexError is set to true.
-    retryCountPostTextTimeout: 1,
+    retryCountPostTextTimeout: 1
   },
 
   polly: {
-    voiceId: 'Joanna',
+    voiceId: 'Joanna'
   },
 
   ui: {
@@ -173,16 +170,16 @@ const configDefault = {
     toolbarTitle: 'Order Flowers',
 
     // toolbar menu start live chat label
-    toolbarStartLiveChatLabel: "Start Live Chat",
+    toolbarStartLiveChatLabel: 'Start Live Chat',
 
     // toolbar menu / btn stop live chat label
-    toolbarEndLiveChatLabel: "End Live Chat",
+    toolbarEndLiveChatLabel: 'End Live Chat',
 
     // toolbar menu icon for start live chat
-    toolbarStartLiveChatIcon: "people_alt",
+    toolbarStartLiveChatIcon: 'people_alt',
 
     // toolbar menu / btn icon for end live chat
-    toolbarEndLiveChatIcon: "call_end",
+    toolbarEndLiveChatIcon: 'call_end',
 
     // logo used in toolbar - also used as favicon not specified
     toolbarLogo: '',
@@ -252,8 +249,7 @@ const configDefault = {
     //         }
     //       }
     //     }
-    helpContent: {
-    },
+    helpContent: {},
 
     // for instances when you only want to show error icons and feedback
     showErrorIcon: true,
@@ -290,7 +286,7 @@ const configDefault = {
     saveHistory: false,
 
     // Optionally enable live chat via AWS Connect
-    enableLiveChat: false,
+    enableLiveChat: false
   },
 
   /* Configuration to enable voice and to pass options to the recorder
@@ -340,22 +336,22 @@ const configDefault = {
     useBandPass: false,
 
     // trim low volume samples at beginning and end of recordings
-    encoderUseTrim: false,
+    encoderUseTrim: false
   },
 
   converser: {
     // used to control maximum number of consecutive silent recordings
     // before the conversation is ended
-    silentConsecutiveRecordingMax: 3,
+    silentConsecutiveRecordingMax: 3
   },
 
   iframe: {
-    shouldLoadIframeMinimized: false,
+    shouldLoadIframeMinimized: false
   },
 
   // URL query parameters are put in here at run time
-  urlQueryParams: {},
-};
+  urlQueryParams: {}
+}
 
 /**
  * Obtains the URL query params and returns it as an object
@@ -363,24 +359,26 @@ const configDefault = {
  */
 function getUrlQueryParams(url) {
   try {
-    return url
-      .split('?', 2) // split query string up to a max of 2 elems
-      .slice(1, 2) // grab what's after the '?' char
-      // split params separated by '&'
-      .reduce((params, queryString) => queryString.split('&'), [])
-      // further split into key value pairs separated by '='
-      .map(params => params.split('='))
-      // turn into an object representing the URL query key/vals
-      .reduce((queryObj, param) => {
-        const [key, value = true] = param;
-        const paramObj = {
-          [key]: decodeURIComponent(value),
-        };
-        return { ...queryObj, ...paramObj };
-      }, {});
+    return (
+      url
+        .split('?', 2) // split query string up to a max of 2 elems
+        .slice(1, 2) // grab what's after the '?' char
+        // split params separated by '&'
+        .reduce((params, queryString) => queryString.split('&'), [])
+        // further split into key value pairs separated by '='
+        .map((params) => params.split('='))
+        // turn into an object representing the URL query key/vals
+        .reduce((queryObj, param) => {
+          const [key, value = true] = param
+          const paramObj = {
+            [key]: decodeURIComponent(value)
+          }
+          return { ...queryObj, ...paramObj }
+        }, {})
+    )
   } catch (e) {
-    console.error('error obtaining URL query parameters', e);
-    return {};
+    console.error('error obtaining URL query parameters', e)
+    return {}
   }
 }
 
@@ -389,10 +387,10 @@ function getUrlQueryParams(url) {
  */
 function getConfigFromQuery(query) {
   try {
-    return (query.lexWebUiConfig) ? JSON.parse(query.lexWebUiConfig) : {};
+    return query.lexWebUiConfig ? JSON.parse(query.lexWebUiConfig) : {}
   } catch (e) {
-    console.error('error parsing config from URL query', e);
-    return {};
+    console.error('error parsing config from URL query', e)
+    return {}
   }
 }
 
@@ -412,49 +410,49 @@ export function mergeConfig(baseConfig, srcConfig, deep = false) {
   function mergeValue(base, src, key, shouldMergeDeep) {
     // nothing to merge as the base key is not found in the src
     if (!(key in src)) {
-      return base[key];
+      return base[key]
     }
 
     // deep merge in both directions using recursion
     if (shouldMergeDeep && typeof base[key] === 'object') {
       return {
         ...mergeConfig(src[key], base[key], shouldMergeDeep),
-        ...mergeConfig(base[key], src[key], shouldMergeDeep),
-      };
+        ...mergeConfig(base[key], src[key], shouldMergeDeep)
+      }
     }
 
     // shallow merge key/values
     // overriding the base values with the ones from the source
-    return (typeof base[key] === 'object') ?
-      { ...base[key], ...src[key] } :
-      src[key];
+    return typeof base[key] === 'object' ? { ...base[key], ...src[key] } : src[key]
   }
 
   // use the baseConfig first level keys as the base for merging
-  return Object.keys(baseConfig)
-    .map((key) => {
-      const value = mergeValue(baseConfig, srcConfig, key, deep);
-      return { [key]: value };
-    })
-    // merge key values back into a single object
-    .reduce((merged, configItem) => ({ ...merged, ...configItem }), {});
+  return (
+    Object.keys(baseConfig)
+      .map((key) => {
+        const value = mergeValue(baseConfig, srcConfig, key, deep)
+        return { [key]: value }
+      })
+      // merge key values back into a single object
+      .reduce((merged, configItem) => ({ ...merged, ...configItem }), {})
+  )
 }
 
 // merge build time parameters
-const configFromFiles = mergeConfig(configDefault, configEnvFile);
+const configFromFiles = mergeConfig(configDefault, configEnvFile)
 
 // TODO move query config to a store action
 // run time config from url query parameter
-const queryParams = getUrlQueryParams(window.location.href);
-const configFromQuery = getConfigFromQuery(queryParams);
+const queryParams = getUrlQueryParams(window.location.href)
+const configFromQuery = getConfigFromQuery(queryParams)
 // security: delete origin from dynamic parameter
 if (configFromQuery.ui && configFromQuery.ui.parentOrigin) {
-  delete configFromQuery.ui.parentOrigin;
+  delete configFromQuery.ui.parentOrigin
 }
 
-const configFromMerge = mergeConfig(configFromFiles, configFromQuery);
+const configFromMerge = mergeConfig(configFromFiles, configFromQuery)
 
 export const config = {
   ...configFromMerge,
-  urlQueryParams: queryParams,
-};
+  urlQueryParams: queryParams
+}

@@ -1,26 +1,21 @@
 <template>
   <div class="flex message d-flex message-bot messsge-loading" aria-hidden="true">
     <!-- contains message and response card -->
-    <v-layout column ma-2 class="message-layout">
-
+    <v-col ma-2 class="message-layout">
       <!-- contains message bubble and date -->
-      <v-flex d-flex class="message-bubble-date-container">
-        <v-layout column class="message-bubble-column">
-
+      <v-row d-flex class="message-bubble-date-container">
+        <v-col class="message-bubble-column">
           <!-- contains message bubble and avatar -->
-          <v-flex d-flex class="message-bubble-avatar-container">
-            <v-layout row class="message-bubble-row">
-              <div
-                class="message-bubble"
-                aria-hidden="true"
-              >
+          <v-row d-flex class="message-bubble-avatar-container">
+            <v-row row class="message-bubble-row">
+              <div class="message-bubble" aria-hidden="true">
                 {{ progress }}
               </div>
-            </v-layout>
-          </v-flex>
-        </v-layout>
-      </v-flex>
-    </v-layout>
+            </v-row>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-col>
   </div>
 </template>
 
@@ -42,34 +37,34 @@ export default {
   name: 'messageLoading',
   data() {
     return {
-      progress: '.',
-    };
+      progress: '.'
+    }
   },
-  computed: {
-  },
-  methods: {
-  },
+  computed: {},
+  methods: {},
   created() {
     this.interval = setInterval(() => {
       if (this.progress.length > 2) {
-        this.progress = '.';
+        this.progress = '.'
       } else {
-        this.progress += '.';
+        this.progress += '.'
       }
-    }, 500);
+    }, 500)
   },
-  destroyed() {
-    clearInterval(this.interval);
-  },
-};
+  unmounted() {
+    clearInterval(this.interval)
+  }
+}
 </script>
 
 <style scoped>
-.message, .message-bubble-column {
+.message,
+.message-bubble-column {
   flex: 0 0 auto;
 }
 
-.message, .message-bubble-row {
+.message,
+.message-bubble-row {
   max-width: 80vw;
 }
 
@@ -82,10 +77,7 @@ export default {
   align-self: center;
 }
 
-
 .message-bot .message-bubble {
-  background-color: #FFEBEE; /* red-50 from material palette */
+  background-color: #ffebee; /* red-50 from material palette */
 }
-
-
 </style>

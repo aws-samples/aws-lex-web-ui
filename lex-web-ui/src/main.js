@@ -1,32 +1,181 @@
-/*
- Copyright 2017-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+import './init'
+import { createApp } from 'vue'
 
- Licensed under the Amazon Software License (the "License"). You may not use this file
- except in compliance with the License. A copy of the License is located at
+import App from './App.vue'
+import router from './router'
 
- http://aws.amazon.com/asl/
+// Vuetify
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import '@mdi/font/css/materialdesignicons.css'
 
- or in the "license" file accompanying this file. This file is distributed on an "AS IS"
- BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
- License for the specific language governing permissions and limitations under the License.
- */
+const vuetify = createVuetify({
+  components,
+  directives
+})
+
+import { Buffer } from 'buffer'
+global.Buffer = Buffer
+
+// Lex Web UI plugin
+import * as Vue from 'vue'
+import * as Vuex from 'vuex'
+import { Config as AWSConfig, CognitoIdentityCredentials } from 'aws-sdk/global'
+import * as LexRuntime from 'aws-sdk/clients/lexruntime'
+import * as LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2'
+import * as Polly from 'aws-sdk/clients/polly'
+
+import LexWeb from './components/LexWeb.vue'
+import VuexStore from './store'
+
+import { config as defaultConfig, mergeConfig } from './config'
+
+const app = createApp(App)
 
 /**
- * Entry point for sample application.
- * See lex-web-ui.js for the component entry point.
+ * Vue Component
  */
+const Component = {
+  name: 'lex-web-ui',
+  template: '<lex-web v-on="$listeners"></lex-web>',
+  components: { LexWeb }
+}
 
-import Vue from 'vue';
-import router from '@/router';
-import LexApp from '@/LexApp';
+const loadingComponent = {
+  template: '<p>Loading. Please wait...</p>'
+}
+const errorComponent = {
+  template: '<p>An error ocurred...</p>'
+}
 
-/* eslint-disable no-new */
-new Vue({
-  router,
-  render: (h) => h(LexApp),
-}).$mount('#lex-app');
+/**
+ * Vue Asynchonous Component
+ */
+const AsyncComponent = ({
+  component = Promise.resolve(Component),
+  loading = loadingComponent,
+  error = errorComponent,
+  delay = 200,
+  timeout = 10000
+}) => ({
+  // must be a promise
+  component,
+  // A component to use while the async component is loading
+  loading,
+  // A component to use if the load fails
+  error,
+  // Delay before showing the loading component. Default: 200ms.
+  delay,
+  // The error component will be displayed if a timeout is
+  // provided and exceeded. Default: 10000ms.
+  timeout
+})
 
-Vue.config.errorHandler = (err, vm, info) => {
-  // eslint-disable-next-line no-console
-  console.error('unhandled error in lex-app: ', err, vm, info);
-};
+/**
+ * Vue Plugin
+ */
+export const Plugin = {
+  install(
+    VueConstructor,
+    {
+      name = '$lexWebUi',
+      componentName = 'lex-web-ui',
+      awsConfig,
+      lexRuntimeClient,
+      lexRuntimeV2Client,
+      pollyClient,
+      component = AsyncComponent,
+      config = defaultConfig
+    }
+  ) {
+    if (name in VueConstructor) {
+      console.warn('plugin should only be used once')
+    }
+    // values to be added to custom vue property
+    const value = {
+      config,
+      awsConfig,
+      lexRuntimeClient,
+      lexRuntimeV2Client,
+      pollyClient
+    }
+    // add custom property to Vue
+    // for example, access this in a component via this.$lexWebUi
+    Object.defineProperty(app.config.globalProperties, name, { value })
+    // register as a global component
+    VueConstructor.component(componentName, component)
+  }
+}
+
+export const Store = VuexStore
+const mergedConfig = mergeConfig(defaultConfig, {})
+
+const VueConstructor = window.Vue ? window.Vue : Vue
+if (!VueConstructor) {
+  throw new Error('unable to find Vue')
+}
+
+const VuexConstructor = window.Vuex ? window.Vuex : Vuex
+if (!VuexConstructor) {
+  throw new Error('unable to find Vuex')
+}
+
+const AWSConfigConstructor = window.AWS && window.AWS.Config ? window.AWS.Config : AWSConfig
+
+const CognitoConstructor =
+  window.AWS && window.AWS.CognitoIdentityCredentials
+    ? window.AWS.CognitoIdentityCredentials
+    : CognitoIdentityCredentials
+
+const PollyConstructor = window.AWS && window.AWS.Polly ? window.AWS.Polly : Polly
+
+const LexRuntimeConstructor =
+  window.AWS && window.AWS.LexRuntime ? window.AWS.LexRuntime : LexRuntime
+
+const LexRuntimeConstructorV2 =
+  window.AWS && window.AWS.LexRuntimeV2 ? window.AWS.LexRuntimeV2 : LexRuntimeV2
+
+if (
+  !AWSConfigConstructor ||
+  !CognitoConstructor ||
+  !PollyConstructor ||
+  !LexRuntimeConstructor ||
+  !LexRuntimeConstructorV2
+) {
+  throw new Error('unable to find AWS SDK')
+}
+
+const credentials = new CognitoConstructor(
+  { IdentityPoolId: mergedConfig.cognito.poolId },
+  { region: mergedConfig.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1' }
+)
+
+const awsConfig = new AWSConfigConstructor({
+  region: mergedConfig.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1',
+  credentials
+})
+
+const lexRuntimeClient = new LexRuntimeConstructor(awsConfig)
+const lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig)
+/* eslint-disable no-console */
+const pollyClient =
+  typeof mergedConfig.recorder === 'undefined' ||
+  (mergedConfig.recorder && mergedConfig.recorder.enable !== false)
+    ? new PollyConstructor(awsConfig)
+    : null
+
+const store = new VuexConstructor.Store({ ...VuexStore })
+
+app.use(vuetify)
+app.use(router)
+app.use(store)
+app.use(Plugin, {
+  config: mergedConfig,
+  awsConfig,
+  lexRuntimeClient,
+  lexRuntimeV2Client,
+  pollyClient
+})
+app.mount('#app')

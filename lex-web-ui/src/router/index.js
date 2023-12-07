@@ -1,28 +1,15 @@
-/*
- Copyright 2017-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+import { createRouter, createWebHistory } from 'vue-router'
+import LexWeb from '../components/LexWeb.vue'
 
- Licensed under the Amazon Software License (the "License"). You may not use this file
- except in compliance with the License. A copy of the License is located at
-
- http://aws.amazon.com/asl/
-
- or in the "license" file accompanying this file. This file is distributed on an "AS IS"
- BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
- License for the specific language governing permissions and limitations under the License.
- */
-
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import LexWeb from '@/components/LexWeb';
-
-Vue.use(VueRouter);
-
-export default new VueRouter({
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'LexWeb',
-      component: LexWeb,
-    },
-  ],
-});
+      component: LexWeb
+    }
+  ]
+})
+
+export default router

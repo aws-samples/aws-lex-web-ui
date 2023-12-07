@@ -7296,7 +7296,7 @@ var dependenciesFullPage = {
     canUseMin: true
   }, {
     name: 'LexWebUi',
-    url: './lex-web-ui.js',
+    url: './main.js',
     canUseMin: true
   }],
   css: [{
@@ -76556,7 +76556,7 @@ module.exports = {
 
 
 
-var ERR_STREAM_PREMATURE_CLOSE = (__webpack_require__(/*! ../../../errors */ "../../../node_modules/readable-stream/errors-browser.js").codes.ERR_STREAM_PREMATURE_CLOSE);
+var ERR_STREAM_PREMATURE_CLOSE = (__webpack_require__(/*! ../../../errors */ "../../../node_modules/readable-stream/errors-browser.js").codes).ERR_STREAM_PREMATURE_CLOSE;
 function once(callback) {
   var called = false;
   return function () {
@@ -76758,7 +76758,7 @@ module.exports = pipeline;
 "use strict";
 
 
-var ERR_INVALID_OPT_VALUE = (__webpack_require__(/*! ../../../errors */ "../../../node_modules/readable-stream/errors-browser.js").codes.ERR_INVALID_OPT_VALUE);
+var ERR_INVALID_OPT_VALUE = (__webpack_require__(/*! ../../../errors */ "../../../node_modules/readable-stream/errors-browser.js").codes).ERR_INVALID_OPT_VALUE;
 function highWaterMarkFrom(options, isDuplex, duplexKey) {
   return options.highWaterMark != null ? options.highWaterMark : isDuplex ? options[duplexKey] : null;
 }
