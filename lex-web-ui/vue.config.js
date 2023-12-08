@@ -104,7 +104,7 @@ function chainWebpackCommon(config, destDir) {
 function chainWebpackLib(
   config,
   entryName = 'lex-web-ui',
-  entryFileName = './src/main.js',
+  entryFileName = './src/lex-web-ui.js',
   destDir = 'bundle',
   libraryName = 'LexWebUi',
   format = 'umd',

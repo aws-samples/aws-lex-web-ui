@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Security-Policy" 
       content="default-src 'self' blob: data:; 
         worker-src blob: data:;
-        img-src *;
+        img-src 'self' data:;
         frame-src *;
         script-src 'self' 'unsafe-eval';
         style-src 'self' 'unsafe-inline';
@@ -24,7 +24,7 @@
       replace the webpack tag with:
       <link href="lex-web-ui-loader.min.css" rel="stylesheet">
     -->
-    <%= htmlWebpackPlugin.tags.headTags %>
+    <link href="lex-web-ui-loader.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="./custom-chatbot-style.css">
   </head>
@@ -38,7 +38,7 @@
       replace the webpack tag with:
       <script src="./lex-web-ui-loader.min.js"></script>
     -->
-    <%= htmlWebpackPlugin.tags.bodyTags %>
+    <script src="./lex-web-ui-loader.min.js"></script>
 
     <!--
       The following script instantiate the full page loader and
