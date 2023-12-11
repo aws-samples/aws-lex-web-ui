@@ -297,6 +297,9 @@ const configDefault = {
 
     // Optionally enable live chat via AWS Connect
     enableLiveChat: false,
+
+    // Optionally enable file upload
+    enableUpload: false,
   },
 
   /* Configuration to enable voice and to pass options to the recorder

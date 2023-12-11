@@ -1237,13 +1237,65 @@ export default {
     const sessionId = lexClient.userId;
     wsClient = new WebSocket(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId);
   },
-
-
   typingWsMessages(context){
     if (context.getters.wsMessagesCurrentIndex()<context.getters.wsMessagesLength()-1){
       setTimeout(() => {
         context.commit('typingWsMessages');
       }, 500);
     }
-},
+  },
+
+/***********************************************************************
+ *
+ * File Upload Actions
+ *
+ **********************************************************************/
+  uploadFile(context, file) {
+    const uri = new URL(context.state.config.ui.uploadApiEndpoint);
+    const endpoint = new AWS.Endpoint(uri.hostname);
+    const req = new AWS.HttpRequest(endpoint, context.state.config.region);
+    req.method = 'GET';
+    req.path = uri.pathname + '?' + new URLSearchParams({
+      filename: file.name
+    });
+    req.headers.Host = endpoint.host;
+
+    const signer = new AWS.Signers.V4(req, 'execute-api');
+    signer.addAuthorization(awsCredentials, new Date());
+
+    const reqInit = {
+      method: 'GET',
+      mode: 'cors',
+      headers: req.headers,
+    };
+
+    return fetch(
+      context.state.config.ui.uploadApiEndpoint + '?' + new URLSearchParams({
+        filename: file.name
+      }),
+      reqInit)
+    .then(response => response.json())
+      .then(response => {
+          const options = {
+            method: 'PUT',
+            body: file
+          };
+          return fetch(response.url, options)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`${response.status}: ${response.statusText}`);
+              }
+              var documentsValue = [file.name];
+              if (context.state.config.lex.sessionAttributes.uploadedDocuments) {
+                documentsValue = JSON.parse(context.state.config.lex.sessionAttributes.uploadedDocuments)
+                documentsValue.push(file.name);
+              }
+              context.commit("setLexSessionAttributeValue",  { key: 'uploadedDocuments', value: JSON.stringify(documentsValue) });
+              return Promise.resolve();
+            });
+    }).catch((error) => {
+      console.error("Error getting presigned URL");
+      return Promise.resolve();
+    });;
+  },
 };

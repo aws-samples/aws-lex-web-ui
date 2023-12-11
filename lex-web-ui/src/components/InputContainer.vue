@@ -67,6 +67,21 @@
         >
           <v-icon medium>{{micButtonIcon}}</v-icon>
         </v-btn>
+        <v-btn
+          v-if="shouldShowUpload"
+          v-on:click="onPickFile"
+          v-bind:disabled="isLexProcessing"
+          ref="upload"
+          class="icon-color input-button"
+          icon
+        >
+          <v-icon medium>attach_file</v-icon>
+          <input
+            type="file"
+            style="display: none"
+            ref="fileInput"
+            @change="onFilePicked">
+        </v-btn>
       </v-toolbar>
     </v-layout>
   </div>
@@ -169,6 +184,9 @@ export default {
     shouldShowTextInput() {
       return !(this.isBotSpeaking || this.isSpeechConversationGoing);
     },
+    shouldShowUpload() {
+      return this.$store.state.config.ui.enableUpload;
+    }
   },
   methods: {
     onInputButtonHoverEnter() {
@@ -279,6 +297,29 @@ export default {
         return Promise.resolve();
       }
       return this.$store.dispatch('setAudioAutoPlay');
+    },
+    onPickFile () {
+      this.$refs.fileInput.click()
+    },
+    onFilePicked (event) {
+      const files = event.target.files
+      if (files[0] !== undefined) {
+        this.fileName = files[0].name
+        // Check validity of file
+        if (this.fileName.lastIndexOf('.') <= 0) {
+          return
+        }
+        // If valid, continue
+        const fr = new FileReader()
+        fr.readAsDataURL(files[0])
+        fr.addEventListener('load', () => {
+          this.fileObject = files[0] // this is an file that can be sent to server...
+          this.$store.dispatch('uploadFile', this.fileObject)
+        })
+      } else {
+        this.fileName = ''
+        this.fileObject = null
+      }
     },
   },
 };

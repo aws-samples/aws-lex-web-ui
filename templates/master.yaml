@@ -572,6 +572,31 @@ Parameters:
             If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
             in addition to the Lex bot directly. More details on how to configure your bot for streaming intereactions
             can be found here: https://github.com/zhengjie28/lex-web-ui-websocket
+    
+    ShouldEnableUpload:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          If set to True, the upload document functionality will be available. The icon for uploading documents
+          will appear in the UI.
+
+    ShouldEnableUpload:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          If set to True, the upload document functionality will be available. The icon for uploading documents
+          will appear in the UI.
+
+    UploadBucket:
+        Type: String
+        Description: >
+            S3 bucket containing pre-staged nested templates and source artifacts
 
 Rules:
   ValidateEitherV1orV2:
@@ -688,6 +713,7 @@ Conditions:
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
     EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
+    EnableApiGateway: !Or [ !Equals [!Ref ShouldEnableLiveChat, true], !Equals [!Ref ShouldEnableUpload, true] ]
 
 Resources:
     Bot:
@@ -717,7 +743,7 @@ Resources:
                       - !Ref BotName
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
-                ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
+                ShouldEnableLiveChat: !Ref EnableApiGateway
                 AllowStreamingResponses: !Ref AllowStreamingResponses
                 AllowedSignUpEmailDomain: !Ref AllowedSignUpEmailDomain
 
@@ -819,6 +845,8 @@ Resources:
                 TitleLogoImgUrl: !Ref TitleLogoImgUrl
                 BotAvatarImgUrl: !Ref BotAvatarImgUrl
                 AllowStreamingResponses: !Ref AllowStreamingResponses
+                ShouldEnableUpload: !Ref ShouldEnableUpload
+                UploadBucket: !Ref UploadBucket
                 Timestamp: 1697648787
 
     CognitoIdentityPoolConfig:

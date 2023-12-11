@@ -529,6 +529,21 @@ Parameters:
         Description: >
             If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
             in addition to the Lex bot directly.
+    
+    ShouldEnableUpload:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          If set to True, the upload document functionality will be available. The icon for uploading documents
+          will appear in the UI.
+
+    UploadBucket:
+        Type: String
+        Description: >
+            S3 bucket containing pre-staged nested templates and source artifacts
 
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
@@ -537,6 +552,7 @@ Conditions:
     UseDefaultCloudfrontUrl: !Or [ !Equals [!Ref WebAppConfCname, ''], !Equals [!Ref WebAppAcmCertificateArn, ''] ]
     ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
     EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
+    EnableApiGateway: !Or [ !Equals [!Ref ShouldEnableLiveChat, true], !Equals [!Ref ShouldEnableUpload, true] ]
 
 Resources:
     # Bucket where S3 access logs are stored
@@ -742,7 +758,7 @@ Resources:
 
     RestApi:
         Type: AWS::CloudFormation::Stack
-        Condition: EnableLiveChat
+        Condition: EnableApiGateway
         Properties:
           TimeoutInMinutes: 15
           TemplateURL: !Sub "https://${SourceBucket}.s3.${AWS::Region}.amazonaws.com/${SourcePrefix}/templates/restapi.yaml"
@@ -752,6 +768,9 @@ Resources:
               InitiateChatLambdaCodeObject: !Ref InitiateChatLambdaCodeObject
               ConnectContactFlowId: !Ref ConnectContactFlowId
               ConnectInstanceId: !Ref ConnectInstanceId
+              ShouldEnableUpload: !Ref ShouldEnableUpload
+              ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
+              UploadBucket: !Ref UploadBucket
               ParentOrigin:
                 !If
                   - UseDefaultCloudfrontUrl
