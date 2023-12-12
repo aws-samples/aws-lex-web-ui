@@ -210,8 +210,7 @@ function chainWebpackApp(config, destDir = '') {
     .tap((args) => {
       // unshift to have lower precedence
       // from the default vue cli `public` rule
-      const patterns = Array.from(args[0]);
-      patterns.unshift(
+      args[0].patterns.unshift(
         // favicon.png
         {
           from: getAssetPath(favIconPath, flowerLogoPath),
@@ -223,8 +222,6 @@ function chainWebpackApp(config, destDir = '') {
           to: `${distDir}/logo.png`,
         },
       );
-      // eslint-disable-next-line no-param-reassign
-      args[0] = { patterns };
       return args;
     });
 }
