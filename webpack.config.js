@@ -4,16 +4,22 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const eslintFormatterFriendly = require('eslint-formatter-friendly');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const fs = require('fs');
 
+function getAssetPath(filePath, defaultPath) {
+  const fileExists = fs.existsSync(filePath);
+  return fileExists ? filePath : defaultPath;
+}
 
 const VERSION = require('./package.json').version;
 
 const basePath = __dirname;
 const distDir = path.join(basePath, 'dist');
+const assetsDir = path.resolve(__dirname, 'lex-web-ui/dist/bundle');
 const devServerPort = (process.env.PORT) ? Number(process.env.PORT) : 8000;
 
 module.exports = (env) => {
-  const isProd = env.production;
+  const isProd =  (env.production === true);
 
   return {
     mode: (isProd) ? 'production' : 'development',
@@ -73,6 +79,9 @@ module.exports = (env) => {
       ],
     },
     devtool: (isProd) ? 'source-map' : 'cheap-module-source-map',
+    performance: {
+      hints: false,
+    },
     devServer: {
       static: [
         {
@@ -100,6 +109,9 @@ module.exports = (env) => {
     stats: {
       modules: false,
       logging: 'error',
+    },
+    optimization: {
+      minimize: false,
     },
     plugins: [
       new webpack.ProvidePlugin({
@@ -146,13 +158,15 @@ module.exports = (env) => {
             },
             // copy lex-web-ui library
             {
-              from: path.join(basePath, 'lex-web-ui/dist/bundle/lex-web-ui.*'),
-              to: distDir,
+              from: getAssetPath(path.join(basePath, 'lex-web-ui/dist/bundle/*.*'), assetsDir),
+              to: path.resolve(distDir, '[name][ext]'),
+              globOptions: {
+                ignore: [
+                  "**/*.html",
+                  "**.*.txt",
+                ],
+              },
             },
-            {
-              from: path.join(basePath, 'lex-web-ui/dist/bundle/wav-worker.*'),
-              to: distDir,
-            }
           ]
         }
       ),
