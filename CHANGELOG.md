@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.20.1] - 2023-11-28
+## [0.20.3] - 2023-12-7
+- Add streaming support. Refer to Streaming Responses README for full details.
+- Fixed bug where CSS was not being properly applied to minimized button color.
+
+## [0.20.2] - 2023-11-28
 - Adjust handling of Elicit Intent response to account for no interpretations from Lex. Precreate mp3 audio files needed for voice response as default un-authenticated role can't use Polly to create these responses dynamically.
 - Dependency upgrades to fix critical vulnerabilities.
 

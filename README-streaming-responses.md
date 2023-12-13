@@ -1,8 +1,8 @@
 # Lex Streaming Responses
 
-This feature allows users of the Lex Web UI to stream responses back from their bot to the Web UI client. This feature
-can be used to execute long running tasks and report back progress from an API or series of API calls, or to enable
-streaming responses from a large language model through services like Amazon Bedrock.
+In addition to the documentation below, a full workshop walking through how to integrate streaming responses is also [available here](https://catalog.us-east-1.prod.workshops.aws/workshops/5a58b6a0-7af6-49ce-a907-1a28568eeca1/en-US).
+
+This feature allows users of the Lex Web UI to stream responses back from their bot to the Web UI client. This feature can be used to execute long running tasks and report back progress from an API or series of API calls, or to enable streaming responses from a large language model through services like Amazon Bedrock.
 
 When this feature is turned on, the following architecture can be implemented to stream from your bot to the Web UI.
 Note that the Cloudformation will deploy the resources on the bottom of the diagram below, but the fullfilment Lambda
