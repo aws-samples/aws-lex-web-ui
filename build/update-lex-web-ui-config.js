@@ -156,6 +156,8 @@ const lexV2BotLocaleVoices = {
   'POSITIVE_INTENT',
   'HELP_INTENT',
   'MIN_BUTTON_TOOLTIP_CONTENT',
+  'ENABLE_UPLOAD',
+  'UPLOAD_API_ENDPOINT'
 ].forEach(function (envVar) {
   console.info('[INFO] Env var - %s: [%s]', envVar, process.env[envVar]);
 });

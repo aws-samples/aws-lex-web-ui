@@ -1285,10 +1285,10 @@ export default {
               if (!response.ok) {
                 throw new Error(`${response.status}: ${response.statusText}`);
               }
-              var documentsValue = [file.name];
+              var documentsValue = [response.url.split('?')[0]];
               if (context.state.config.lex.sessionAttributes.uploadedDocuments) {
                 documentsValue = JSON.parse(context.state.config.lex.sessionAttributes.uploadedDocuments)
-                documentsValue.push(file.name);
+                documentsValue.push(response.url.split('?')[0]);
               }
               context.commit("setLexSessionAttributeValue",  { key: 'uploadedDocuments', value: JSON.stringify(documentsValue) });
               return Promise.resolve();

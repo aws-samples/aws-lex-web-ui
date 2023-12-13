@@ -6,56 +6,72 @@ Description: >
 
 Parameters:
     ParentStackName:
-        Type: String
-        Description: Parent Stack Name
-        Default: lex-web-ui-stack
+      Type: String
+      Description: Parent Stack Name
+      Default: lex-web-ui-stack
 
     SourceBucket:
-        Description: S3 bucket where the source is located
-        Type: String
-        Default: aws-bigdata-blog
+      Description: S3 bucket where the source is located
+      Type: String
+      Default: aws-bigdata-blog
 
     InitiateChatLambdaCodeObject:
-        Type: String
-        Description: >
-            S3 object zip file containing Lambda initiate chat functions
-        Default: artifacts/aws-lex-web-ui/artifacts/initiate-chat-lambda.zip
+      Type: String
+      Description: >
+          S3 object zip file containing Lambda initiate chat functions
+      Default: artifacts/aws-lex-web-ui/artifacts/initiate-chat-lambda.zip
+        
+    UploadLambdaCodeObject:
+      Type: String
+      Description: >
+          S3 object zip file containing Lambda initiate chat functions
+      Default: artifacts/aws-lex-web-ui/artifacts/upload-lambda.zip
     
     ConnectContactFlowId:
-        Type: String
-        Description: >
-            Connect Contract Flow Id
+      Type: String
+      Description: >
+          Connect Contract Flow Id
 
     ConnectInstanceId:
-        Type: String
-        Description: >
-            Connect Instance Id
+      Type: String
+      Description: >
+          Connect Instance Id
 
     ParentOrigin:
-        Type: String
-        Description: >
-            Parent Origin for CORS allow-origin
+      Type: String
+      Description: >
+          Parent Origin for CORS allow-origin
     
     UploadLambdaCodeObject:
-        Type: String
-        Description: >
-            S3 object zip file containing Lambda initiate chat functions
-        Default: artifacts/aws-lex-web-ui/artifacts/upload-lambda.zip
+      Type: String
+      Description: >
+          S3 object zip file containing Lambda initiate chat functions
+      Default: artifacts/aws-lex-web-ui/artifacts/upload-lambda.zip
+    
+    ShouldEnableLiveChat:
+      Type: String
+      Default: false
+      AllowedValues:
+        - true
+        - false
+      Description: >
+        This is an optional parameter, if set to True, the AWS Connect live Chat functionality will be available.
+        A item to start a live chat will appear at the menu.
     
     ShouldEnableUpload:
-        Type: String
-        Default: false
-        AllowedValues:
-          - true
-          - false
-        Description: >
-          If set to True, the upload document functionality will be available. The icon for uploading documents
-          will appear in the UI.
+      Type: String
+      Default: false
+      AllowedValues:
+        - true
+        - false
+      Description: >
+        If set to True, the upload document functionality will be available. The icon for uploading documents
+        will appear in the UI.
 
     UploadBucket:
-        Type: String
-        Description: >
-            S3 bucket containing pre-staged nested templates and source artifacts
+      Type: String
+      Description: >
+          If enabling upload, the name of the S3 bucket where uploaded documents should be stored
     
 
 
@@ -118,22 +134,22 @@ Resources:
                     - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}"
                     - !Sub "arn:${AWS::Partition}:connect:${AWS::Region}:${AWS::AccountId}:instance/${ConnectInstanceId}/*"
 
-    InitiateUploadambda:
+    InitiateUploadLambda:
       Type: "AWS::Lambda::Function"
       Condition: EnableUploadApi
       Properties:
         Description:  AWS Lambda Function to generate a pre-signed Url for document upload
         Handler: "index.handler"
         Role: !GetAtt InitiateUploadLambdaExecutionRole.Arn
-        Runtime: "nodejs14.x"
+        Runtime: "nodejs20.x"
         MemorySize: 128
         Timeout: 30
         Environment:
           Variables:
-            S3_BUCKET: !Ref UploadS3Bucket
+            S3_BUCKET: !Ref UploadBucket
         Code:
           S3Bucket: !Ref SourceBucket
-          S3Key: !Ref InitiateUploadLambdaCodeObject
+          S3Key: !Ref UploadLambdaCodeObject
 
     InitiateUploadLambdaExecutionRole:
       Type: "AWS::IAM::Role"
@@ -163,10 +179,10 @@ Resources:
                     - !Sub "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
                 - Effect: "Allow"
                   Action:
-                    - "s3:PutObject",
-                    - "s3:GetObject"
+                    - 's3:PutObject'
+                    - 's3:GetObject'
                   Resource:
-                    - !Sub "arn:aws:s3:::${UploadS3Bucket}/*"
+                    - !Sub "arn:aws:s3:::${UploadBucket}/*"
 
     #### API Gateway #####
 
@@ -218,11 +234,21 @@ Resources:
         PathPart: "upload"
         RestApiId: !Ref ApiGatewayRestAPI # Required
 
-    LambdaApiGatewayInvokePermission:
+    LambdaApiGatewayLiveChatInvokePermission:
       Type: AWS::Lambda::Permission
+      Condition: EnableLiveChatApi
       Properties:
         Action: "lambda:InvokeFunction"
         FunctionName: !GetAtt InitiateChatLambda.Arn
+        Principal: "apigateway.amazonaws.com"
+        SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGatewayRestAPI}/*"
+    
+    LambdaApiGatewayUploadInvokePermission:
+      Type: AWS::Lambda::Permission
+      Condition: EnableUploadApi
+      Properties:
+        Action: "lambda:InvokeFunction"
+        FunctionName: !GetAtt InitiateUploadLambda.Arn
         Principal: "apigateway.amazonaws.com"
         SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGatewayRestAPI}/*"
 
@@ -237,10 +263,25 @@ Resources:
             - id: W84
               reason: By default CloudWatchLogs LogGroups data is encrypted using the CloudWatch server-side encryption keys (AWS Managed Keys).
 
-    ApiGatewayDeployment:
+    ApiGatewayLiveChatDeployment:
       Type: AWS::ApiGateway::Deployment
+      Condition: EnableLiveChatApi
       DependsOn:
         - ApiGatewayLiveChatMethod
+      Properties:
+        RestApiId: !Ref ApiGatewayRestAPI
+        StageName: "Prod"
+        StageDescription:
+          AccessLogSetting:
+            DestinationArn: !GetAtt ApiGatewayAccessLogGroup.Arn
+            Format: >-
+              {"requestId": "$context.requestId", "caller": "$context.identity.caller", "requestTime": "$context.requestTime", "httpMethod": "$context.httpMethod", "resourcePath": "$context.resourcePath", "status": "$context.status", "responseLength": "$context.responseLength", "integrationLatency": "$context.integrationLatency"}"
+    
+    ApiGatewayUploadDeployment:
+      Type: AWS::ApiGateway::Deployment
+      Condition: EnableUploadApi
+      DependsOn:
+        - ApiGatewayUploadMethod
       Properties:
         RestApiId: !Ref ApiGatewayRestAPI
         StageName: "Prod"
@@ -253,7 +294,7 @@ Resources:
     ApiGatewayLiveChatMethod:
       Type: AWS::ApiGateway::Method
       Condition: EnableLiveChatApi
-      DependsOn: LambdaApiGatewayInvokePermission
+      DependsOn: LambdaApiGatewayLiveChatInvokePermission
       Properties:
         AuthorizationType: "AWS_IAM"
         HttpMethod: "POST"
@@ -310,14 +351,14 @@ Resources:
     ApiGatewayUploadMethod:
       Type: AWS::ApiGateway::Method
       Condition: EnableUploadApi
-      DependsOn: LambdaApiGatewayInvokePermission
+      DependsOn: LambdaApiGatewayUploadInvokePermission
       Properties:
         AuthorizationType: "AWS_IAM"
         HttpMethod: "GET"
         Integration:
-          IntegrationHttpMethod: "GET"
+          IntegrationHttpMethod: "POST"
           Type: "AWS_PROXY"
-          Uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${InitiateUploadambda.Arn}/invocations"
+          Uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${InitiateUploadLambda.Arn}/invocations"
           PassthroughBehavior: WHEN_NO_MATCH
         ResourceId: !Ref ApiGatewayUploadResource
         RestApiId: !Ref ApiGatewayRestAPI

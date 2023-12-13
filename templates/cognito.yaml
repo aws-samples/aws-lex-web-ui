@@ -41,7 +41,17 @@ Parameters:
     Type: String
     Default: false
     Description: Whether or not add policy to invoke live chat API
-  
+
+  ShouldEnableUpload:
+    Type: String
+    Default: false
+    AllowedValues:
+      - true
+      - false
+    Description: >
+      If set to True, the upload document functionality will be available. The icon for uploading documents
+      will appear in the UI.
+          
   AllowedSignUpEmailDomain:
     Type: String
     Default: ''
@@ -69,6 +79,7 @@ Conditions:
   IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
   EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
   EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
+  EnableApiGateway: !Or [ !Equals [!Ref ShouldEnableLiveChat, true], !Equals [!Ref ShouldEnableUpload, true] ]
 
 Resources:
   CognitoIdentityPool:
@@ -163,7 +174,7 @@ Resources:
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
         - !If 
-          - EnableLiveChat
+          - EnableApiGateway
           - PolicyName: APIPost
             PolicyDocument:
               Version: 2012-10-17
@@ -173,6 +184,7 @@ Resources:
                     - execute-api:Invoke
                   Resource:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/POST/livechat"
+                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/GET/upload"
           - !Ref AWS::NoValue
         - !If 
           - EnableStreaming
@@ -219,7 +231,7 @@ Resources:
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot-alias/${LexV2BotId}/${LexV2BotAliasId}"
         - !If 
-          - EnableLiveChat
+          - EnableApiGateway
           - PolicyName: APIPost
             PolicyDocument:
               Version: 2012-10-17
@@ -229,6 +241,7 @@ Resources:
                     - execute-api:Invoke
                   Resource:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/POST/livechat"
+                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/GET/upload"
           - !Ref AWS::NoValue
         - !If 
           - EnableStreaming
@@ -283,7 +296,7 @@ Resources:
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
         - !If 
-          - EnableLiveChat
+          - EnableApiGateway
           - PolicyName: APIPost
             PolicyDocument:
               Version: 2012-10-17
@@ -293,6 +306,7 @@ Resources:
                     - execute-api:Invoke
                   Resource:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/POST/livechat"
+                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/GET/upload"
           - !Ref AWS::NoValue
         - !If 
           - EnableStreaming
@@ -347,7 +361,7 @@ Resources:
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot-alias/${LexV2BotId}/${LexV2BotAliasId}"
         - !If 
-          - EnableLiveChat
+          - EnableApiGateway
           - PolicyName: APIPostV2
             PolicyDocument:
               Version: 2012-10-17
@@ -357,6 +371,7 @@ Resources:
                     - execute-api:Invoke
                   Resource:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/POST/livechat"
+                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/GET/upload"
           - !Ref AWS::NoValue
         - !If 
           - EnableStreaming

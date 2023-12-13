@@ -581,22 +581,13 @@ Parameters:
           - false
         Description: >
           If set to True, the upload document functionality will be available. The icon for uploading documents
-          will appear in the UI.
-
-    ShouldEnableUpload:
-        Type: String
-        Default: false
-        AllowedValues:
-          - true
-          - false
-        Description: >
-          If set to True, the upload document functionality will be available. The icon for uploading documents
-          will appear in the UI.
+          will appear in the UI and an API Gateway endpoint will be deployed for generating pre-signed URLs for the UI
+          to utilize for uploading documents. By default, pre-signed URLs have a TTL of 60 seconds.
 
     UploadBucket:
         Type: String
         Description: >
-            S3 bucket containing pre-staged nested templates and source artifacts
+            If enabling upload, the name of the S3 bucket where uploaded documents should be stored
 
 Rules:
   ValidateEitherV1orV2:
@@ -649,6 +640,8 @@ Metadata:
                   - retryOnLexPostTextTimeout
                   - retryCountPostTextTimeout
                   - AllowStreamingResponses
+                  - ShouldEnableUpload
+                  - UploadBucket
             - Label:
                 default: Cognito Parameters
               Parameters:
@@ -713,7 +706,6 @@ Conditions:
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
     EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
-    EnableApiGateway: !Or [ !Equals [!Ref ShouldEnableLiveChat, true], !Equals [!Ref ShouldEnableUpload, true] ]
 
 Resources:
     Bot:
@@ -743,7 +735,8 @@ Resources:
                       - !Ref BotName
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
-                ShouldEnableLiveChat: !Ref EnableApiGateway
+                ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
+                ShouldEnableUpload: !Ref ShouldEnableUpload
                 AllowStreamingResponses: !Ref AllowStreamingResponses
                 AllowedSignUpEmailDomain: !Ref AllowedSignUpEmailDomain
 
@@ -763,6 +756,7 @@ Resources:
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.20.2.zip"
                 InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.20.2.zip"
                 StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.20.2.zip"
+                UploadLambdaCodeObject: !Sub "${BootstrapPrefix}/upload-lambda-v0.20.2.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
@@ -847,7 +841,7 @@ Resources:
                 AllowStreamingResponses: !Ref AllowStreamingResponses
                 ShouldEnableUpload: !Ref ShouldEnableUpload
                 UploadBucket: !Ref UploadBucket
-                Timestamp: 1697648787
+                Timestamp: 1702416434
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -861,7 +855,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1697648787
+                Timestamp: 1702416434
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment

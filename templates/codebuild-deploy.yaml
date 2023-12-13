@@ -47,6 +47,12 @@ Parameters:
       Description: >
         S3 object zip file containing Lambda custom resource functions
       Default: artifacts/aws-lex-web-ui/artifacts/streaming-lambda.zip
+      
+    UploadLambdaCodeObject:
+      Type: String
+      Description: >
+        S3 object zip file containing Lambda custom resource functions
+      Default: artifacts/aws-lex-web-ui/artifacts/upload-lambda.zip
 
     CleanupBuckets:
         Type: String
@@ -537,14 +543,14 @@ Parameters:
           - true
           - false
         Description: >
-          If set to True, the upload document functionality will be available. The icon for uploading documents
-          will appear in the UI.
+            If set to True, the upload document functionality will be available. The icon for uploading documents
+            will appear in the UI.
 
     UploadBucket:
         Type: String
         Description: >
-            S3 bucket containing pre-staged nested templates and source artifacts
-
+            If enabling upload, the name of the S3 bucket where uploaded documents should be stored
+             
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
@@ -552,6 +558,7 @@ Conditions:
     UseDefaultCloudfrontUrl: !Or [ !Equals [!Ref WebAppConfCname, ''], !Equals [!Ref WebAppAcmCertificateArn, ''] ]
     ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
     EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
+    EnableUpload: !Equals [!Ref ShouldEnableUpload, true]
     EnableApiGateway: !Or [ !Equals [!Ref ShouldEnableLiveChat, true], !Equals [!Ref ShouldEnableUpload, true] ]
 
 Resources:
@@ -766,6 +773,7 @@ Resources:
               ParentStackName: !Ref "AWS::StackName"
               SourceBucket: !Ref SourceBucket
               InitiateChatLambdaCodeObject: !Ref InitiateChatLambdaCodeObject
+              UploadLambdaCodeObject: !Ref UploadLambdaCodeObject
               ConnectContactFlowId: !Ref ConnectContactFlowId
               ConnectInstanceId: !Ref ConnectInstanceId
               ShouldEnableUpload: !Ref ShouldEnableUpload
@@ -938,6 +946,10 @@ Resources:
                       Value: !Ref AllowStreamingResponses
                     - Name: STREAMING_WEB_SOCKET_ENDPOINT
                       Value: !If [EnableStreaming, !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod", ""]
+                    - Name: ENABLE_UPLOAD
+                      Value: !Ref ShouldEnableUpload
+                    - Name: UPLOAD_API_ENDPOINT
+                      Value: !If [EnableUpload, !Sub "https://${RestApi.Outputs.RestApiId}.execute-api.${AWS::Region}.amazonaws.com/Prod/upload", ""]
 
 
             ServiceRole: !GetAtt CodeBuildRole.Arn
@@ -1022,6 +1034,8 @@ Resources:
             TitleLogoImgUrl: !Ref TitleLogoImgUrl
             BotAvatarImgUrl: !Ref BotAvatarImgUrl
             AllowStreamingResponses: !Ref AllowStreamingResponses
+            ShouldEnableUpload: !Ref ShouldEnableUpload
+            UploadBucket: !Ref UploadBucket
             Timestamp: !Ref Timestamp
 
     # Lambda function for custom resource

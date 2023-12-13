@@ -103,9 +103,9 @@ upload-streaming-lambda:
 
 UPLOAD_LAMBDA_DIR := $(SOURCE_DIR)/upload-lambda
 UPLOAD_LAMBDA_ZIP := upload-lambda-$(VERSION).zip
-UPLOAD_LAMBDA_RESOURCES_FILES := $(wildcard $(UPLOAD_LAMBDA_DIR)/*.js)
+UPLOAD_LAMBDA_RESOURCES_FILES := $(wildcard $(UPLOAD_LAMBDA_DIR)/*.mjs)
 
-$(UPLOAD_LAMBDA_ZIP): $(UPLOAD_LAMBDA_DIR)/index.js
+$(UPLOAD_LAMBDA_ZIP): $(UPLOAD_LAMBDA_DIR)/index.mjs
 	@echo "[INFO] Creating upload Lambda zip file"
 	zip -r -j "$(OUT)/$(UPLOAD_LAMBDA_ZIP)" $(UPLOAD_LAMBDA_DIR) ; 
 
