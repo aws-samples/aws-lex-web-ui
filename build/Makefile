@@ -22,7 +22,7 @@ VPATH := $(OUT)
 # upload files to bootstrap bucket
 # NOTE: files uploaded with public read permissions
 upload: upload-templates upload-custom-resources-zip upload-src-zip \
-	upload-response-card-image upload-initiate-chat-lambda upload-streaming-lambda upload-upload-lambda
+	upload-response-card-image upload-initiate-chat-lambda upload-streaming-lambda
 .PHONY: upload
 
 # create the output directory for tracking dependencies
@@ -83,7 +83,7 @@ upload-initiate-chat-lambda:
 			"$(OUT)/$(INITIATE_CHAT_LAMBDA_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/$(INITIATE_CHAT_LAMBDA_ZIP)" \
 			| tee -a "$(OUT)/$(@)"
 
-# initiate streaming function
+# initiate chat lambda function
 
 STREAMING_LAMBDA_DIR := $(SOURCE_DIR)/streaming-lambda
 STREAMING_LAMBDA_ZIP := streaming-lambda-$(VERSION).zip
@@ -97,22 +97,6 @@ upload-streaming-lambda:
 		@echo "[INFO] uploading streaming lambda"
 	aws s3 cp --acl public-read \
 			"$(OUT)/$(STREAMING_LAMBDA_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/$(STREAMING_LAMBDA_ZIP)" \
-			| tee -a "$(OUT)/$(@)"
-
-# initiate upload function
-
-UPLOAD_LAMBDA_DIR := $(SOURCE_DIR)/upload-lambda
-UPLOAD_LAMBDA_ZIP := upload-lambda-$(VERSION).zip
-UPLOAD_LAMBDA_RESOURCES_FILES := $(wildcard $(UPLOAD_LAMBDA_DIR)/*.mjs)
-
-$(UPLOAD_LAMBDA_ZIP): $(UPLOAD_LAMBDA_DIR)/index.mjs
-	@echo "[INFO] Creating upload Lambda zip file"
-	zip -r -j "$(OUT)/$(UPLOAD_LAMBDA_ZIP)" $(UPLOAD_LAMBDA_DIR) ; 
-
-upload-upload-lambda:
-		@echo "[INFO] uploading upload lambda"
-	aws s3 cp --acl public-read \
-			"$(OUT)/$(UPLOAD_LAMBDA_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/$(UPLOAD_LAMBDA_ZIP)" \
 			| tee -a "$(OUT)/$(@)"
 
 # files in this repo are bundled in a zip file to boostrap the codecommit repo

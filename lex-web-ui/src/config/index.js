@@ -300,7 +300,7 @@ const configDefault = {
 
     // Optionally enable file upload
     enableUpload: false,
-    uploadApiEndpoint: ''
+    uploadS3BucketName: '',
   },
 
   /* Configuration to enable voice and to pass options to the recorder

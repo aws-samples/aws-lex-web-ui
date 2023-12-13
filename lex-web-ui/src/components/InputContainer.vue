@@ -250,6 +250,20 @@ export default {
         text: this.textInput,
       };
 
+      // Correlate the sent message with any attachments that have been uploaded
+      /* Remove the messageSent attribute after processing
+      if (this.$store.state.config.lex.sessionAttributes.userFilesUploaded) {
+        const documents = JSON.parse(this.$store.state.config.lex.sessionAttributes.userFilesUploaded)
+        var unsentAttachements = documents.filter(function( obj ) {
+            return obj.messageSent = false;
+        });
+        if (unsentAttachements.length > 0) {
+          message.attachements = unsentAttachements;
+          const updatedDocuments = documents.map(({messageSent, ...items}) => items)
+          this.$store.commit("setLexSessionAttributeValue",  { key: 'userFilesUploaded', value: JSON.stringify(updatedDocuments) });
+        }
+      }*/
+
       return this.$store.dispatch('postTextMessage', message)
         .then(() => {
           this.textInput = '';

@@ -17,13 +17,13 @@
                 class="avatar"
                 aria-hidden="true"
               >
-              </div>
+              </div>              
               <div
                 tabindex="0"
                 v-on:focus="onMessageFocus"
                 v-on:blur="onMessageBlur"
                 class="message-bubble focusable"
-              >
+              >                
                 <message-text
                   v-bind:message="message"
                   v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayInteractiveMessage"
@@ -130,6 +130,13 @@
                     <v-icon class="play-icon">play_circle_outline</v-icon>
                   </v-btn>
                 </div>
+                  <div offset-y v-if="shouldShowAttachments">
+                    <v-btn v-on:hover="playAudio" icon>
+                      <v-icon medium>
+                        attach_file
+                      </v-icon>
+                    </v-btn>
+                  </div>
                  <v-menu offset-y v-if="message.type === 'human'" v-show="showMessageMenu">
                   <v-btn
                     slot="activator"
@@ -163,7 +170,7 @@
             aria-hidden="true"
           >
            {{messageHumanDate}}
-          </v-flex>
+          </v-flex>          
         </v-layout>
       </v-flex>
       <v-flex
@@ -359,6 +366,12 @@ export default {
     shouldShowMessageDate() {
       return this.$store.state.config.ui.showMessageDate;
     },
+    shouldShowAttachments() {
+      if (this.message.type === 'human' && this.message.attachements) {
+        return true;
+      }
+      return false;
+    },
   },
   provide: function () {
     return {
@@ -423,6 +436,9 @@ export default {
       if (this.message.id === this.$store.state.messages.length - 1) {
         this.$emit('scrollDown');
       }
+    },
+    getAttachedFiles() {
+      return this.message.attachements;
     },
     onMessageBlur() {
       if (!this.shouldShowMessageDate) {

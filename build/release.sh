@@ -26,7 +26,6 @@ sed -i -e "s/(v.*)/($VERSION)/g" \
 -e "s/initiate-chat-lambda-.*zip/initiate-chat-lambda-$VERSION.zip/g" \
 -e "s/streaming-lambda-.*zip/streaming-lambda-$VERSION.zip/g" \
 -e "s/custom-resources-.*zip/custom-resources-$VERSION.zip/g" \
--e "s/upload-lambda-.*zip/upload-lambda-$VERSION.zip/g" \
 ../templates/master.yaml;
 
 sed -i -e "s/(v.*)/($VERSION)/g" \
@@ -35,7 +34,6 @@ sed -i -e "s/(v.*)/($VERSION)/g" \
 -e "s/src-.*zip/src-$VERSION.zip/g" \
 -e "s/initiate-chat-lambda-.*zip/initiate-chat-lambda-$VERSION.zip/g" \
 -e "s/streaming-lambda-.*zip/streaming-lambda-$VERSION.zip/g" \
--e "s/upload-lambda-.*zip/upload-lambda-$VERSION.zip/g" \
 ../templates/master-pipeline.yaml;;
 
 *)
@@ -44,7 +42,6 @@ sed -i -e "s/(v.*)/($VERSION)/g" \
 -e "s/src-.*zip/src-$VERSION.zip/g" \
 -e "s/initiate-chat-lambda-.*zip/initiate-chat-lambda-$VERSION.zip/g" \
 -e "s/streaming-lambda-.*zip/streaming-lambda-$VERSION.zip/g" \
--e "s/upload-lambda-.*zip/upload-lambda-$VERSION.zip/g" \
 -e "s/custom-resources-.*zip/custom-resources-$VERSION.zip/g" \
 ../templates/master.yaml;
 
@@ -54,9 +51,7 @@ sed -i -e "s/(v.*)/($VERSION)/g" \
 -e "s/src-.*zip/src-$VERSION.zip/g" \
 -e "s/initiate-chat-lambda-.*zip/initiate-chat-lambda-$VERSION.zip/g" \
 -e "s/streaming-lambda-.*zip/streaming-lambda-$VERSION.zip/g" \
--e "s/upload-lambda-.*zip/upload-lambda-$VERSION.zip/g" \
-../templates/master-pipeline.yaml;
-
+../templates/master-pipeline.yaml;;
 
 
 esac
@@ -69,7 +64,6 @@ cd build
 make "custom-resources-$VERSION.zip"
 make "initiate-chat-lambda-$VERSION.zip"
 make "streaming-lambda-$VERSION.zip"
-make "upload-lambda-$VERSION.zip"
 cd ..
 cd dist
 make

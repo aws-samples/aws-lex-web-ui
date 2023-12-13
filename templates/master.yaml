@@ -737,6 +737,7 @@ Resources:
                 LexV2BotAliasId: !Ref LexV2BotAliasId
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
                 ShouldEnableUpload: !Ref ShouldEnableUpload
+                UploadBucket: !Ref UploadBucket
                 AllowStreamingResponses: !Ref AllowStreamingResponses
                 AllowedSignUpEmailDomain: !Ref AllowedSignUpEmailDomain
 
@@ -756,7 +757,6 @@ Resources:
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.20.3.zip"
                 InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.20.3.zip"
                 StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.20.3.zip"
-                UploadLambdaCodeObject: !Sub "${BootstrapPrefix}/upload-lambda-v0.20.3.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If

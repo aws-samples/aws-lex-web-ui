@@ -41,17 +41,7 @@ Parameters:
     Type: String
     Default: false
     Description: Whether or not add policy to invoke live chat API
-
-  ShouldEnableUpload:
-    Type: String
-    Default: false
-    AllowedValues:
-      - true
-      - false
-    Description: >
-      If set to True, the upload document functionality will be available. The icon for uploading documents
-      will appear in the UI.
-          
+  
   AllowedSignUpEmailDomain:
     Type: String
     Default: ''
@@ -71,6 +61,21 @@ Parameters:
     Description: >
         If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
         in addition to the Lex bot directly.
+  
+  ShouldEnableUpload:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, the upload document functionality will be available. The icon for uploading documents
+            will appear in the UI.
+
+    UploadBucket:
+        Type: String
+        Description: >
+            If enabling upload, the name of the S3 bucket where uploaded documents should be stored
 
 Conditions:
   ShouldAllowSignUpEmailDomain: !Not [!Equals [!Ref AllowedSignUpEmailDomain, ""]]
@@ -79,7 +84,7 @@ Conditions:
   IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
   EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
   EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
-  EnableApiGateway: !Or [ !Equals [!Ref ShouldEnableLiveChat, true], !Equals [!Ref ShouldEnableUpload, true] ]
+  EnableUpload: !Equals [!Ref   ShouldEnableUpload, true]
 
 Resources:
   CognitoIdentityPool:
@@ -174,7 +179,7 @@ Resources:
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
         - !If 
-          - EnableApiGateway
+          - EnableLiveChat
           - PolicyName: APIPost
             PolicyDocument:
               Version: 2012-10-17
@@ -184,7 +189,6 @@ Resources:
                     - execute-api:Invoke
                   Resource:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/POST/livechat"
-                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/GET/upload"
           - !Ref AWS::NoValue
         - !If 
           - EnableStreaming
@@ -197,6 +201,18 @@ Resources:
                     - execute-api:Invoke
                   Resource:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/$connect"
+          - !Ref AWS::NoValue
+        - !If 
+          - EnableUpload
+          - PolicyName: S3Upload
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
+                  Action:
+                    - s3:PutObject
+                  Resource:
+                    - !Sub "arn:aws:s3:::${UploadBucket}/*"
           - !Ref AWS::NoValue
                 
   CognitoUnauthRoleV2:
@@ -231,7 +247,7 @@ Resources:
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot-alias/${LexV2BotId}/${LexV2BotAliasId}"
         - !If 
-          - EnableApiGateway
+          - EnableLiveChat
           - PolicyName: APIPost
             PolicyDocument:
               Version: 2012-10-17
@@ -241,7 +257,6 @@ Resources:
                     - execute-api:Invoke
                   Resource:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/POST/livechat"
-                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/GET/upload"
           - !Ref AWS::NoValue
         - !If 
           - EnableStreaming
@@ -254,6 +269,18 @@ Resources:
                     - execute-api:Invoke
                   Resource:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/$connect"
+          - !Ref AWS::NoValue
+        - !If 
+          - EnableUpload
+          - PolicyName: S3Upload
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
+                  Action:
+                    - s3:PutObject
+                  Resource:
+                    - !Sub "arn:aws:s3:::${UploadBucket}/*"
           - !Ref AWS::NoValue
 
   CognitoAuthRoleV1:
@@ -296,7 +323,7 @@ Resources:
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
         - !If 
-          - EnableApiGateway
+          - EnableLiveChat
           - PolicyName: APIPost
             PolicyDocument:
               Version: 2012-10-17
@@ -306,7 +333,6 @@ Resources:
                     - execute-api:Invoke
                   Resource:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/POST/livechat"
-                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/GET/upload"
           - !Ref AWS::NoValue
         - !If 
           - EnableStreaming
@@ -314,11 +340,23 @@ Resources:
             PolicyDocument:
               Version: 2012-10-17
               Statement:
-                - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
+                - Effect: Allow
                   Action:
                     - execute-api:Invoke
                   Resource:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/$connect"
+          - !Ref AWS::NoValue
+        - !If 
+          - EnableUpload
+          - PolicyName: S3Upload
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - s3:PutObject
+                  Resource:
+                    - !Sub "arn:aws:s3:::${UploadBucket}/*"
           - !Ref AWS::NoValue
 
   CognitoAuthRoleV2:
@@ -361,7 +399,7 @@ Resources:
                 Resource:
                   - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot-alias/${LexV2BotId}/${LexV2BotAliasId}"
         - !If 
-          - EnableApiGateway
+          - EnableLiveChat
           - PolicyName: APIPostV2
             PolicyDocument:
               Version: 2012-10-17
@@ -371,7 +409,6 @@ Resources:
                     - execute-api:Invoke
                   Resource:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/POST/livechat"
-                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/GET/upload"
           - !Ref AWS::NoValue
         - !If 
           - EnableStreaming
@@ -384,6 +421,18 @@ Resources:
                     - execute-api:Invoke
                   Resource:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/$connect"
+          - !Ref AWS::NoValue
+        - !If 
+          - EnableUpload
+          - PolicyName: S3Upload
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - s3:PutObject
+                  Resource:
+                    - !Sub "arn:aws:s3:::${UploadBucket}/*"
           - !Ref AWS::NoValue
 
   CognitoUserPoolEmailDomainVerifyFunction:

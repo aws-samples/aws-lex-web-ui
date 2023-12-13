@@ -47,12 +47,6 @@ Parameters:
       Description: >
         S3 object zip file containing Lambda custom resource functions
       Default: artifacts/aws-lex-web-ui/artifacts/streaming-lambda.zip
-      
-    UploadLambdaCodeObject:
-      Type: String
-      Description: >
-        S3 object zip file containing Lambda custom resource functions
-      Default: artifacts/aws-lex-web-ui/artifacts/upload-lambda.zip
 
     CleanupBuckets:
         Type: String
@@ -559,7 +553,6 @@ Conditions:
     ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
     EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
     EnableUpload: !Equals [!Ref ShouldEnableUpload, true]
-    EnableApiGateway: !Or [ !Equals [!Ref ShouldEnableLiveChat, true], !Equals [!Ref ShouldEnableUpload, true] ]
 
 Resources:
     # Bucket where S3 access logs are stored
@@ -765,7 +758,7 @@ Resources:
 
     RestApi:
         Type: AWS::CloudFormation::Stack
-        Condition: EnableApiGateway
+        Condition: EnableLiveChat
         Properties:
           TimeoutInMinutes: 15
           TemplateURL: !Sub "https://${SourceBucket}.s3.${AWS::Region}.amazonaws.com/${SourcePrefix}/templates/restapi.yaml"
@@ -773,12 +766,9 @@ Resources:
               ParentStackName: !Ref "AWS::StackName"
               SourceBucket: !Ref SourceBucket
               InitiateChatLambdaCodeObject: !Ref InitiateChatLambdaCodeObject
-              UploadLambdaCodeObject: !Ref UploadLambdaCodeObject
               ConnectContactFlowId: !Ref ConnectContactFlowId
               ConnectInstanceId: !Ref ConnectInstanceId
-              ShouldEnableUpload: !Ref ShouldEnableUpload
               ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
-              UploadBucket: !Ref UploadBucket
               ParentOrigin:
                 !If
                   - UseDefaultCloudfrontUrl
@@ -948,8 +938,8 @@ Resources:
                       Value: !If [EnableStreaming, !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod", ""]
                     - Name: ENABLE_UPLOAD
                       Value: !Ref ShouldEnableUpload
-                    - Name: UPLOAD_API_ENDPOINT
-                      Value: !If [EnableUpload, !Sub "https://${RestApi.Outputs.RestApiId}.execute-api.${AWS::Region}.amazonaws.com/Prod/upload", ""]
+                    - Name: UPLOAD_BUCKET_NAME
+                      Value: !Ref UploadBucket
 
 
             ServiceRole: !GetAtt CodeBuildRole.Arn
