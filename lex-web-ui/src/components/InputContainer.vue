@@ -129,7 +129,7 @@ export default {
       if (this.isBotSpeaking || this.isSpeechConversationGoing) {
         return 'stop'
       }
-      return 'microphone'
+      return 'mic'
     },
     inputButtonTooltip() {
       if (this.shouldShowSendButton) {

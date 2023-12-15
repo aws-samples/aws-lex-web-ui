@@ -32,7 +32,7 @@ import { config as defaultConfig, mergeConfig } from '@/config';
 import * as Vue from 'vue';
 //import 'vuetify/styles'
 import * as Vuetify from 'vuetify'
-import { aliases, mdi } from 'vuetify/iconsets/mdi';
+import { aliases, md } from 'vuetify/iconsets/md';
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { createStore } from 'vuex';
@@ -127,13 +127,13 @@ export class Loader {
     const vuetify = VuetifyInstance.createVuetify({
       components,
       directives,
-      // icons: {
-      //   defaultSet: 'mdi',
-      //   aliases,
-      //   sets: {
-      //     mdi,
-      //   },
-      // },
+      icons: {
+        defaultSet: 'md',
+        aliases,
+        sets: {
+          md,
+        },
+      },
     })
     const app = VueConstructor.createApp({
       template: '<div id="lex-web-ui"><lex-web-ui/></div>',

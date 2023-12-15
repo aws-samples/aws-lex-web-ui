@@ -29,21 +29,21 @@ export const dependenciesFullPage = {
       url: './aws-sdk-2.903.0.js', 
       canUseMin: true,
     },
-    {
-      name: 'Vue',
-      url: './3.3.10_dist_vue.js',
-      canUseMin: false,
-    },
-    {
-      name: 'Vuex',
-      url: './4.1.0_dist_vuex.js',
-      canUseMin: true,
-    },
-   {
-     name: 'Vuetify',
-     url: './3.4.6_dist_vuetify.js',
-     canUseMin: true,
-   },
+  //   {
+  //     name: 'Vue',
+  //     url: './3.3.10_dist_vue.js',
+  //     canUseMin: false,
+  //   },
+  //   {
+  //     name: 'Vuex',
+  //     url: './4.1.0_dist_vuex.js',
+  //     canUseMin: true,
+  //   },
+  //  {
+  //    name: 'Vuetify',
+  //    url: './3.4.6_dist_vuetify.js',
+  //    canUseMin: true,
+  //  },
     {
       name: 'LexWebUi',
       url: './lex-web-ui.js',

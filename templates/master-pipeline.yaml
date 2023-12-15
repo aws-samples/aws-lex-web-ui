@@ -591,12 +591,12 @@ Resources:
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
 <<<<<<< HEAD
-                Timestamp: 1702656343
+                Timestamp: 1702665973
 =======
 <<<<<<< HEAD
-                Timestamp: 1702656343
+                Timestamp: 1702665973
 =======
-                Timestamp: 1702656343
+                Timestamp: 1702665973
 >>>>>>> d506986 (Fix icons)
 >>>>>>> 2e8b4d4 (Fix icons)
 
