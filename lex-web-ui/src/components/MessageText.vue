@@ -148,7 +148,6 @@ export default {
   overflow-wrap: break-word;
   padding: 0.8em;
   white-space: normal;
-  word-break: break-word;
   width: 100%;
 }
 </style>
