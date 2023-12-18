@@ -1273,9 +1273,9 @@ export default {
           fileName: file.name,
           messageSent: false   
         };
-        var documentsValue = [{documentObject}];
-        if (context.state.config.lex.sessionAttributes.userFilesUploaded) {
-          documentsValue = JSON.parse(context.state.config.lex.sessionAttributes.userFilesUploaded)
+        var documentsValue = [documentObject];
+        if (context.state.lex.sessionAttributes.userFilesUploaded) {
+          documentsValue = JSON.parse(context.state.lex.sessionAttributes.userFilesUploaded)
           documentsValue.push(documentObject);
         }
         context.commit("setLexSessionAttributeValue",  { key: 'userFilesUploaded', value: JSON.stringify(documentsValue) });

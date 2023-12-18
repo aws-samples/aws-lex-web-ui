@@ -131,11 +131,19 @@
                   </v-btn>
                 </div>
                   <div offset-y v-if="shouldShowAttachments">
-                    <v-btn v-on:hover="playAudio" icon>
+                    <v-btn :class="`tooltip-attachments-${message.id}`" v-on="attachmentEventHandlers" icon>
                       <v-icon medium>
                         attach_file
-                      </v-icon>
+                      </v-icon>                      
                     </v-btn>
+                    <v-tooltip
+                      v-model="showAttachmentsTooltip"
+                      :activator="`.tooltip-attachments-${message.id}`"
+                      content-class="tooltip-custom"
+                      left
+                    >
+                      <span>{{message.attachements}}</span>
+                    </v-tooltip>
                   </div>
                  <v-menu offset-y v-if="message.type === 'human'" v-show="showMessageMenu">
                   <v-btn
@@ -245,6 +253,14 @@ export default {
       positiveIntent: this.$store.state.config.ui.positiveFeedbackIntent,
       negativeIntent: this.$store.state.config.ui.negativeFeedbackIntent,
       hideInputFields: this.$store.state.config.ui.hideInputFieldsForButtonResponse,
+      showAttachmentsTooltip: false,
+      attachmentEventHandlers: {
+        mouseenter: this.mouseOverAttachment,
+        mouseleave: this.mouseOverAttachment,
+        touchstart: this.mouseOverAttachment,
+        touchend: this.mouseOverAttachment,
+        touchcancel: this.mouseOverAttachment,
+      },
     };
   },
   computed: {
@@ -437,8 +453,8 @@ export default {
         this.$emit('scrollDown');
       }
     },
-    getAttachedFiles() {
-      return this.message.attachements;
+    mouseOverAttachment() {
+      this.showAttachmentsTooltip = !this.showAttachmentsTooltip;
     },
     onMessageBlur() {
       if (!this.shouldShowMessageDate) {
