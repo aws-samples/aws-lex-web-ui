@@ -7,8 +7,8 @@
       :key="message.id"
       :class="`message-${message.type}`"
       @scrollDown="scrollDown"
-    ></message>
-    <MessageLoading v-if="loading"></MessageLoading>
+    />
+    <MessageLoading v-if="loading" />
   </div>
 </template>
 

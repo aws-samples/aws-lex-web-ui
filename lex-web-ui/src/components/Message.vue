@@ -116,7 +116,7 @@
                     tabindex="0"
                     size="small"
                   >
-                    mdi-thumb-up
+                    thumb_up
                   </v-icon>
                   <v-icon
                     @click="onButtonClick(negativeIntent)"
@@ -127,7 +127,7 @@
                     tabindex="0"
                     size="small"
                   >
-                    mdi-thumb-down
+                    thumb_down
                   </v-icon>
                 </div>
                 <v-icon
@@ -152,15 +152,15 @@
                     <v-icon class="play-icon">mdi-play-circle-outline</v-icon>
                   </v-btn>
                 </div>
-                <v-menu v-if="message.type === 'human'" v-show="showMessageMenu">
-                  <template v-slot:activator="{ props }">
+                <v-menu v-if="message.type === 'human' && showMessageMenu">
+                  <template #activator="{ props }">
                     <v-btn
                       v-bind="props"
                       icon="more_vert"
                       variant="text"
                       size="x-small"
                       class="smicon"
-                    ></v-btn>
+                    />
                   </template>
                   <v-list>
                     <v-list-item>

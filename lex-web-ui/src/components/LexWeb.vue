@@ -4,7 +4,7 @@
       :toolbar-color="toolbarColor"
       :is-ui-minimized="isUiMinimized"
       @toggleMinimizeUi="toggleMinimizeUi"
-    ></min-button>
+    />
     <toolbar-container
       v-if="!isUiMinimized"
       :userName="userNameValue"
@@ -22,8 +22,7 @@
       @requestLiveChat="handleRequestLiveChat"
       @endLiveChat="handleEndLiveChat"
       transition="fade-transition"
-    ></toolbar-container>
-
+    />
     <v-main v-if="!isUiMinimized">
       <v-container
         class="message-list-container"
@@ -31,16 +30,15 @@
         fluid
         pa-0
       >
-        <message-list v-if="!isUiMinimized"></message-list>
+        <message-list v-if="!isUiMinimized"/>
       </v-container>
     </v-main>
-
     <input-container
       ref="InputContainer"
       v-if="!isUiMinimized && !hasButtons"
       v-bind:text-input-placeholder="textInputPlaceholder"
       v-bind:initial-speech-instruction="initialSpeechInstruction"
-    ></input-container>
+    />
     <div v-if="isSFXOn" id="sound" aria-hidden="true" />
   </v-app>
 </template>

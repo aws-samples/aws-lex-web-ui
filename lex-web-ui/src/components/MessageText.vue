@@ -7,20 +7,19 @@
   </div>
   <div
     v-else-if="altHtmlMessage && AllowSuperDangerousHTMLInMessage"
-    v-html="altHtmlMessage"
     class="message-text"
-  ></div>
+    v-html="altHtmlMessage"
+  />
   <div
     v-else-if="message.text && shouldRenderAsHtml"
-    v-html="botMessageAsHtml"
     class="message-text"
-  ></div>
+    v-html="botMessageAsHtml"
+  />
   <div
     v-else-if="message.text && (message.type === 'bot' || message.type === 'agent')"
     class="message-text bot-message-plain"
   >
-    <span class="sr-only">{{ message.type }} says: </span
-    >{{ shouldStripTags ? stripTagsFromMessage(message.text) : message.text }}
+    <span class="sr-only">{{ message.type }} says: </span>{{ shouldStripTags ? stripTagsFromMessage(message.text) : message.text }}
   </div>
 </template>
 
