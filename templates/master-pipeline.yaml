@@ -590,19 +590,7 @@ Resources:
                 CodeBuildProjectName: !Ref CodeBuildName
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-<<<<<<< HEAD
-                Timestamp: 1702923480
-=======
-<<<<<<< HEAD
-                Timestamp: 1702923480
-=======
-<<<<<<< HEAD
-                Timestamp: 1702923480
-=======
-                Timestamp: 1702923480
->>>>>>> d506986 (Fix icons)
->>>>>>> 2e8b4d4 (Fix icons)
->>>>>>> 1ed9ee0 (Vue 3 Migration)
+                Timestamp: 1702926613
 
 Outputs:
     BotName:
