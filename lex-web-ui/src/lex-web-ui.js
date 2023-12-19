@@ -23,26 +23,17 @@ import { Config as AWSConfig, CognitoIdentityCredentials }
 import LexRuntime from 'aws-sdk/clients/lexruntime';
 import LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2';
 import Polly from 'aws-sdk/clients/polly';
-import { defineAsyncComponent, defineComponent, resolveComponent, h } from 'vue'
 
 import LexWeb from './components/LexWeb';
 import VuexStore from './store';
 import { config as defaultConfig, mergeConfig } from '@/config';
-//import { createApp } from 'vue/dist/vue.esm-bundler';
-import * as Vue from 'vue';
-//import 'vuetify/styles'
+import { createApp, defineAsyncComponent } from 'vue';
+import 'vuetify/styles'
 import * as Vuetify from 'vuetify'
 import { aliases, md } from 'vuetify/iconsets/md';
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
 import { createStore } from 'vuex';
-import * as Vuex from 'vuex';
-//import { createVuetify } from 'vuetify'
 
-const VueConstructor = (window.Vue) ? window.Vue : Vue;
-console.log("window.Vue is");
-console.log(window.Vue);
-
+const defineAsyncComponentInstance = (window.Vue) ? window.Vue.defineAsyncComponent : defineAsyncComponent;
 /**
  * Vue Component
  */
@@ -67,7 +58,7 @@ export const testComponent = {
 /**
  * Vue Asynchonous Component
  */
-export const AsyncComponent = VueConstructor.defineAsyncComponent({
+export const AsyncComponent = defineAsyncComponentInstance({
   loader: () => Promise.resolve(Component),
   delay: 200,
   timeout: 10000,
@@ -89,10 +80,6 @@ export const Plugin = {
     component = AsyncComponent,
     config = defaultConfig,
   }) {
-    //if (name in VueConstructor) { TODO- Manish check for this in vue3
-    //  console.warn('plugin should only be used once');
-    // }
-    // values to be added to custom vue property
     const value = {
       config,
       awsConfig,
@@ -115,16 +102,21 @@ export const Store = VuexStore;
  */
 export class Loader {
   constructor(config = {}) {
-    console.log("loading");
-
-    const VuexConstructor = (window.Vuex) ? window.Vuex : Vuex;
-    if (!VuexConstructor) {
-      throw new Error('unable to find Vuex');
+    const createAppInstance = (window.Vue) ? window.Vue.createApp : createApp;
+    if (!createAppInstance) {
+      throw new Error('unable to find vue');
     }
-    console.log(window.Vue);
-    const VuetifyInstance = (window.Vuetify) ? window.Vuetify : Vuetify;
-    const { components, directives } = VuetifyInstance;
-    const vuetify = VuetifyInstance.createVuetify({
+    const vuexCreateStore = (window.Vuex) ? window.Vuex.createStore : createStore;
+    if (!vuexCreateStore) {
+      throw new Error('unable to find vuex');
+    }
+    const vuetifyInstance = (window.Vuetify) ? window.Vuetify : Vuetify;
+    if (!vuetifyInstance) {
+      throw new Error('unable to find vuetify');
+    }
+    const { components, directives } = vuetifyInstance;
+
+    const vuetify = vuetifyInstance.createVuetify({
       components,
       directives,
       icons: {
@@ -135,12 +127,12 @@ export class Loader {
         },
       },
     })
-    const app = VueConstructor.createApp({
+    const app = createAppInstance({
       template: '<div id="lex-web-ui"><lex-web-ui/></div>',
     })
 
     app.use(vuetify)
-    const store = VuexConstructor.createStore(VuexStore)
+    const store = vuexCreateStore(VuexStore)
     this.store = store
     app.use(store)
     this.app = app;

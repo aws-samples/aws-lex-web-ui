@@ -26,7 +26,7 @@ export const dependenciesFullPage = {
     },
     {
       name: 'AWS',
-      url: './aws-sdk-2.903.0.js', 
+      url: './aws-sdk-2.903.0.js',
       canUseMin: true,
     },
     {
@@ -39,11 +39,11 @@ export const dependenciesFullPage = {
       url: './4.1.0_dist_vuex.js',
       canUseMin: true,
     },
-   {
-     name: 'Vuetify',
-     url: './3.4.6_dist_vuetify.js',
-     canUseMin: true,
-   },
+    {
+      name: 'Vuetify',
+      url: './3.4.6_dist_vuetify.js',
+      canUseMin: true,
+    },
     {
       name: 'LexWebUi',
       url: './lex-web-ui.js',

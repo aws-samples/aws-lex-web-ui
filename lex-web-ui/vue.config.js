@@ -128,14 +128,15 @@ function chainWebpackLib(
     // XXX TODO need to add dependencies below to the lex-web-ui-loader
     // 'jsonwebtoken',
     // 'marked',
-    'vue',
-    'vuex',
+    //'vue',
+    { 'vue': 'Vue' },
+    {'vuex': 'Vuex'},
     'vue-router',
-    'vuetify',
+    {'vuetify': 'Vuetify'},
     /^aws-sdk\/.+$/,
   ]);
 
-  config.externalsType= 'window';
+  config.externalsType = 'window';
 
   config.optimization.splitChunks({
     cacheGroups: {
@@ -209,26 +210,26 @@ function chainWebpackApp(config, destDir = '') {
 
     // copy artifacts to dist directory
     .plugin('copy')
-    // .tap((args) => {
-    //   // unshift to have lower precedence
-    //   // from the default vue cli `public` rule
-    //   const patterns = Array.from(args[0]);
-    //   patterns.unshift(
-    //     // favicon.png
-    //     {
-    //       from: getAssetPath(favIconPath, flowerLogoPath),
-    //       to: `${distDir}/favicon.png`,
-    //     },
-    //     // logo.png
-    //     {
-    //       from: getAssetPath(logoPath, flowerLogoPath),
-    //       to: `${distDir}/logo.png`,
-    //     },
-    //   );
-    //   // eslint-disable-next-line no-param-reassign
-    //   args[0] = { patterns };
-    //   return args;
-    // });
+  // .tap((args) => {
+  //   // unshift to have lower precedence
+  //   // from the default vue cli `public` rule
+  //   const patterns = Array.from(args[0]);
+  //   patterns.unshift(
+  //     // favicon.png
+  //     {
+  //       from: getAssetPath(favIconPath, flowerLogoPath),
+  //       to: `${distDir}/favicon.png`,
+  //     },
+  //     // logo.png
+  //     {
+  //       from: getAssetPath(logoPath, flowerLogoPath),
+  //       to: `${distDir}/logo.png`,
+  //     },
+  //   );
+  //   // eslint-disable-next-line no-param-reassign
+  //   args[0] = { patterns };
+  //   return args;
+  // });
 }
 
 module.exports = {

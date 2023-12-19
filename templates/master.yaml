@@ -804,7 +804,7 @@ Resources:
                 MinimizedButtonColor: !Ref MinimizedButtonColor
                 TitleLogoImgUrl: !Ref TitleLogoImgUrl
                 BotAvatarImgUrl: !Ref BotAvatarImgUrl
-                Timestamp: 1703032387
+                Timestamp: 1703053589
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -818,7 +818,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1703032387
+                Timestamp: 1703053589
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment

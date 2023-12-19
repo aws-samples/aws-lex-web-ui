@@ -38,7 +38,7 @@ module.exports = (env) => {
             'process/browser': require.resolve('process/browser'),
         },
         alias: {
-          vue: path.resolve('./node_modules/vue')
+          //vue: path.resolve('./node_modules/vue')
         }
     },
     module: {
