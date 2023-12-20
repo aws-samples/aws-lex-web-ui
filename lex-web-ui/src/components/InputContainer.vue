@@ -185,7 +185,10 @@ export default {
       return !(this.isBotSpeaking || this.isSpeechConversationGoing);
     },
     shouldShowUpload() {
-      return this.$store.state.config.ui.enableUpload;
+      return (
+        (this.$store.state.isLoggedIn && this.$store.state.config.ui.uploadRequireLogin && this.$store.state.config.ui.enableUpload) ||
+        (!this.$store.state.config.ui.uploadRequireLogin && this.$store.state.config.ui.enableUpload)
+      )
     }
   },
   methods: {

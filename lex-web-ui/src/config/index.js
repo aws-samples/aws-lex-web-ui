@@ -301,6 +301,9 @@ const configDefault = {
     // Optionally enable file upload
     enableUpload: false,
     uploadS3BucketName: '',
+    uploadSuccessMessage: 'Document uploaded successfully',
+    uploadFailureMessage: 'Document upload failed',
+    uploadRequireLogin: true,
   },
 
   /* Configuration to enable voice and to pass options to the recorder
