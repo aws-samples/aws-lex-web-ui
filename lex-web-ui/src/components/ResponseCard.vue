@@ -1,37 +1,41 @@
+<!-- eslint-disable vue/v-on-style -->
 <template>
   <v-card>
     <div v-if="shouldDisplayResponseCardTitle">
       <v-card-title
         v-if="responseCard.title && responseCard.title.trim()"
         primary-title
-        class="red lighten-5"
+        class="red lighten-5 headline"
       >
-        <span class="headline">{{ responseCard.title }}</span>
+        {{ responseCard.title }}
       </v-card-title>
     </div>
     <v-card-text v-if="responseCard.subTitle">
-      <span>{{ responseCard.subTitle }}</span>
+      {{ responseCard.subTitle }}
     </v-card-text>
     <v-card-text v-if="responseCard.subtitle">
-      <span>{{ responseCard.subtitle }}</span>
+      {{ responseCard.subtitle }}
     </v-card-text>
-    <v-card-media
+    <v-img
       v-if="responseCard.imageUrl"
-      v-bind:src="responseCard.imageUrl"
+      :src="responseCard.imageUrl"
       contain
       height="33vh"
     />
-    <v-card-actions v-if="responseCard.buttons" class="button-row">
+    <v-card-actions
+      v-if="responseCard.buttons"
+      class="button-row"
+    >
       <v-btn
         v-for="button in responseCard.buttons"
         v-show="button.text && button.value"
-        v-bind:key="button.id"
-        v-on:click.once="onButtonClick(button.value)"
-        v-bind:disabled="shouldDisableClickedResponseCardButtons"
+        :key="button.id"
+        :disabled="shouldDisableClickedResponseCardButtons"
         round
         default
-        v-bind:color="button.text.toLowerCase() === 'more' ? '' : 'accent'"
+        :color="button.text.toLowerCase() === 'more' ? '' : 'accent'"
         class="secondary--text"
+        v-on:click.once="onButtonClick(button.value)"
       >
         {{ button.text }}
       </v-btn>
@@ -41,7 +45,7 @@
         flat
         class="red lighten-5"
         tag="a"
-        v-bind:href="responseCard.attachmentLinkUrl"
+        :href="responseCard.attachmentLinkUrl"
         target="_blank"
       >
         Open Link
@@ -64,7 +68,8 @@ BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
 export default {
-  name: 'response-card',
+  name: 'ResponseCard',
+  inject: ['getRCButtonsDisabled', 'setRCButtonsDisabled'],
   props: ['response-card'],
   data() {
     return {
@@ -82,7 +87,6 @@ export default {
       )
     }
   },
-  inject: ['getRCButtonsDisabled', 'setRCButtonsDisabled'],
   methods: {
     onButtonClick(value) {
       this.hasButtonBeenClicked = true
