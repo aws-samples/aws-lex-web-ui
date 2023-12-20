@@ -128,7 +128,6 @@ function chainWebpackLib(
     // XXX TODO need to add dependencies below to the lex-web-ui-loader
     // 'jsonwebtoken',
     // 'marked',
-    //'vue',
     { 'vue': 'Vue' },
     {'vuex': 'Vuex'},
     'vue-router',

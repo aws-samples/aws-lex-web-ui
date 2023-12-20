@@ -161,7 +161,6 @@ export class DependencyLoader {
     // dependency url - can be automatically changed to a min link
     const minUrl = (useMin && dependency.canUseMin) ?
       DependencyLoader.getMinUrl(dependency.url) : dependency.url;
-    console.log(`Loading ${minUrl}`);
     // add base URL to relative URLs
     const url = (minUrl.match('^http')) ?
       minUrl : `${baseUrl}${minUrl}`;

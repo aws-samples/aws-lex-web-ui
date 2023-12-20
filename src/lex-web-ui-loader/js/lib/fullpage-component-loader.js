@@ -15,7 +15,6 @@
 /* global AWS LexWebUi Vue */
 import { ConfigLoader } from './config-loader';
 import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin } from './loginutil';
-import { createApp } from 'vue'
 
 /**
  * Instantiates and mounts the chatbot component

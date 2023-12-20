@@ -40,7 +40,6 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",
-    "@mdi/font": "^7.2.96",
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-plugin-router": "^5.0.8",
@@ -50,7 +49,6 @@
     "eslint": "^8.55.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^9.19.2",
-    "vue-template-compiler": "^2.7.15",
     "worker-loader": "^3.0.8"
   },
   "engines": {

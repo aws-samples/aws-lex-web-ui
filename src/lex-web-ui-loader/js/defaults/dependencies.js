@@ -47,7 +47,7 @@ export const dependenciesFullPage = {
     {
       name: 'LexWebUi',
       url: './lex-web-ui.js',
-      canUseMin: false,
+      canUseMin: true,
     },
   ],
   css: [
@@ -60,11 +60,11 @@ export const dependenciesFullPage = {
       url: './3.4.6_dist_vuetify.css',
       canUseMin: true,
     },
-    // {
-    //   name: 'lex-web-ui',
-    //   url: './lex-web-ui.css',
-    //   canUseMin: false,
-    // },
+    {
+      name: 'lex-web-ui',
+      url: './lex-web-ui.css',
+      canUseMin: true,
+    },
     {
       name: 'lex-web-ui-loader',
       url: './lex-web-ui-loader.css',
