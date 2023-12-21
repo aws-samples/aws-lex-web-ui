@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     messages() {
-      return this.$store.state.messages
+      return this.$store.state.messages;
     },
     loading() {
       return this.$store.state.lex.isProcessing || this.$store.state.liveChat.isProcessing
@@ -44,8 +44,11 @@ export default {
   },
   watch: {
     // autoscroll message list to the bottom when messages change
-    messages() {
-      this.scrollDown()
+    messages: {
+      handler(val, oldVal) {
+        this.scrollDown()
+      },
+      deep: true
     },
     loading() {
       this.scrollDown()
@@ -64,9 +67,9 @@ export default {
           const isLastMessageLoading =
             this.$el.lastElementChild.classList.contains('messsge-loading')
           if (isLastMessageLoading) {
-            this.$el.scrollTop = this.$el.scrollHeight
+            this.$el.scrollTop = this.$el.scrollHeight;
           } else {
-            this.$el.scrollTop = this.$el.scrollHeight - lastMessageHeight
+            this.$el.scrollTop = this.$el.scrollHeight;
           }
         }
       })
