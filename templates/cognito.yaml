@@ -393,7 +393,7 @@ Resources:
             PolicyDocument:
               Version: 2012-10-17
               Statement:
-                - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
+                - Effect: Allow
                   Action:
                     - execute-api:Invoke
                   Resource:
