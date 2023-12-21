@@ -2,7 +2,7 @@
 
 This feature allows users of the Lex Web UI to upload documents directly to a designated S3 bucket. This feature can be used to analyize documents or extract specific information using other AWS services through Lambda fulfillment in your Lex bot. When the user uploads a document, it is stored in the designated S3 bucket at a path location specific to that user. The location of the document in S3 is then set as a sessionAttribute in the Lex bot so that downstream processes can locate and retrieve the document.
 
-![upload functionality](./img/upload.png)
+<img src="./img/upload.png" width=480>
 
 **Note** - For security, upload functionality is only available for logged in users. To support anonymous uploading, you will need to configure your own IAM policies in Cognito and manually set `uploadRequireLogin` to false in your `lex-web-ui-loader-config.json` file. Allowing anonymous uploading of documents is not recommended.
 
