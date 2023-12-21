@@ -586,6 +586,7 @@ Parameters:
 
     UploadBucket:
         Type: String
+        Default: ''
         Description: >
             If enabling upload, the name of the S3 bucket where uploaded documents should be stored
 
