@@ -264,9 +264,14 @@ export default {
         text: this.textInput,
       };
 
-      // Add any attachments to the message
+      // Add attachment filename to message
       if (this.$store.state.lex.sessionAttributes.userFilesUploaded) {
-        message.attachements = JSON.parse(this.$store.state.lex.sessionAttributes.userFilesUploaded)
+        const documents = JSON.parse(this.$store.state.lex.sessionAttributes.userFilesUploaded)
+
+        message.attachements = documents
+          .map(function(att) {
+            return att.fileName;
+          }).toString();
       }
 
       return this.$store.dispatch('postTextMessage', message)
