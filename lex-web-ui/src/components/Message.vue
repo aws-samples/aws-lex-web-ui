@@ -17,13 +17,13 @@
                 class="avatar"
                 aria-hidden="true"
               >
-              </div>              
+              </div>
               <div
                 tabindex="0"
                 v-on:focus="onMessageFocus"
                 v-on:blur="onMessageBlur"
                 class="message-bubble focusable"
-              >                
+              >
                 <message-text
                   v-bind:message="message"
                   v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayInteractiveMessage"
@@ -178,7 +178,7 @@
             aria-hidden="true"
           >
            {{messageHumanDate}}
-          </v-flex>          
+          </v-flex>
         </v-layout>
       </v-flex>
       <v-flex

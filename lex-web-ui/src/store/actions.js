@@ -1274,8 +1274,7 @@ export default {
         console.log(data);           // successful response
         const documentObject = {
           s3Path: 's3://' + context.state.config.ui.uploadS3BucketName + '/' + documentKey,
-          fileName: file.name,
-          messageSent: false   
+          fileName: file.name
         };
         var documentsValue = [documentObject];
         if (context.state.lex.sessionAttributes.userFilesUploaded) {
