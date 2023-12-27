@@ -1283,10 +1283,12 @@ export default {
           documentsValue.push(documentObject);
         }
         context.commit("setLexSessionAttributeValue",  { key: 'userFilesUploaded', value: JSON.stringify(documentsValue) });
-        context.commit('pushMessage', {
-          type: 'bot',
-          text: context.state.config.ui.uploadSuccessMessage,
-        });
+        if (context.state.config.ui.uploadSuccessMessage.length > 0) {
+          context.commit('pushMessage', {
+            type: 'bot',
+            text: context.state.config.ui.uploadSuccessMessage,
+          });
+        }
         return Promise.resolve();
       }
     });

@@ -82,6 +82,16 @@
             ref="fileInput"
             @change="onFilePicked">
         </v-btn>
+        <v-btn
+          v-if="shouldShowAttachmentClear"
+          v-on:click="onRemoveAttachments"
+          v-bind:disabled="isLexProcessing"
+          ref="removeAttachments"
+          class="icon-color input-button"
+          icon
+        >
+          <v-icon medium>clear</v-icon>
+        </v-btn>
       </v-toolbar>
     </v-layout>
   </div>
@@ -111,6 +121,7 @@ export default {
       textInput: '',
       isTextFieldFocused: false,
       shouldShowTooltip: false,
+      shouldShowAttachmentClear: false,
       // workaround: vuetify tooltips doesn't seem to support touch events
       tooltipEventHandlers: {
         mouseenter: this.onInputButtonHoverEnter,
@@ -189,7 +200,7 @@ export default {
         (this.$store.state.isLoggedIn && this.$store.state.config.ui.uploadRequireLogin && this.$store.state.config.ui.enableUpload) ||
         (!this.$store.state.config.ui.uploadRequireLogin && this.$store.state.config.ui.enableUpload)
       )
-    }
+    },
   },
   methods: {
     onInputButtonHoverEnter() {
@@ -337,12 +348,17 @@ export default {
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
           this.fileObject = files[0] // this is an file that can be sent to server...
-          this.$store.dispatch('uploadFile', this.fileObject)
+          this.$store.dispatch('uploadFile', this.fileObject);
+          this.shouldShowAttachmentClear = true;
         })
       } else {
-        this.fileName = ''
-        this.fileObject = null
+        this.fileName = '';
+        this.fileObject = null;
       }
+    },
+    onRemoveAttachments() {
+      delete this.$store.state.lex.sessionAttributes.userFilesUploaded;
+      this.shouldShowAttachmentClear = false;
     },
   },
 };

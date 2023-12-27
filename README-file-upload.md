@@ -51,7 +51,7 @@ Here is an example CORS policy for an S3 bucket:
 ## Additional post deployment configuration
 
 To update the success & failure messages associated with document upload, add the following configuration items to the `ui` section of your `lex-web-ui-loader-config.json` file (this file is deployed into the webapp bucket during Cloudformation deployment):
-- uploadSuccessMessage
+- uploadSuccessMessage (blank by default, will only display if a value is provided)
 - uploadFailureMessage
 
-If these values are not set your users will see the default messages for uploading.
+If a failure message is not set, users will see the default failure message.

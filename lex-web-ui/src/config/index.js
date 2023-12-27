@@ -301,7 +301,7 @@ const configDefault = {
     // Optionally enable file upload
     enableUpload: false,
     uploadS3BucketName: '',
-    uploadSuccessMessage: 'Document uploaded successfully',
+    uploadSuccessMessage: '',
     uploadFailureMessage: 'Document upload failed',
     uploadRequireLogin: true,
   },
