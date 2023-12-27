@@ -572,6 +572,23 @@ Parameters:
             If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
             in addition to the Lex bot directly. More details on how to configure your bot for streaming intereactions
             can be found here: https://github.com/zhengjie28/lex-web-ui-websocket
+    
+    ShouldEnableUpload:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+          If set to True, the upload document functionality will be available. The icon for uploading documents
+          will appear in the UI and an API Gateway endpoint will be deployed for generating pre-signed URLs for the UI
+          to utilize for uploading documents. By default, pre-signed URLs have a TTL of 60 seconds.
+
+    UploadBucket:
+        Type: String
+        Default: ''
+        Description: >
+            If enabling upload, the name of the S3 bucket where uploaded documents should be stored
 
 Rules:
   ValidateEitherV1orV2:
@@ -624,6 +641,8 @@ Metadata:
                   - retryOnLexPostTextTimeout
                   - retryCountPostTextTimeout
                   - AllowStreamingResponses
+                  - ShouldEnableUpload
+                  - UploadBucket
             - Label:
                 default: Cognito Parameters
               Parameters:
@@ -718,6 +737,8 @@ Resources:
                 LexV2BotId: !Ref LexV2BotId
                 LexV2BotAliasId: !Ref LexV2BotAliasId
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
+                ShouldEnableUpload: !Ref ShouldEnableUpload
+                UploadBucket: !Ref UploadBucket
                 AllowStreamingResponses: !Ref AllowStreamingResponses
                 AllowedSignUpEmailDomain: !Ref AllowedSignUpEmailDomain
 
@@ -819,7 +840,9 @@ Resources:
                 TitleLogoImgUrl: !Ref TitleLogoImgUrl
                 BotAvatarImgUrl: !Ref BotAvatarImgUrl
                 AllowStreamingResponses: !Ref AllowStreamingResponses
-                Timestamp: 1701974109
+                ShouldEnableUpload: !Ref ShouldEnableUpload
+                UploadBucket: !Ref UploadBucket
+                Timestamp: 1702416434
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -833,7 +856,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1701974109
+                Timestamp: 1702416434
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment

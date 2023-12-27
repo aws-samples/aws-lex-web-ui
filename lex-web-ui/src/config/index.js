@@ -297,6 +297,13 @@ const configDefault = {
 
     // Optionally enable live chat via AWS Connect
     enableLiveChat: false,
+
+    // Optionally enable file upload
+    enableUpload: false,
+    uploadS3BucketName: '',
+    uploadSuccessMessage: '',
+    uploadFailureMessage: 'Document upload failed',
+    uploadRequireLogin: true,
   },
 
   /* Configuration to enable voice and to pass options to the recorder
