@@ -130,6 +130,21 @@
                     <v-icon class="play-icon">play_circle_outline</v-icon>
                   </v-btn>
                 </div>
+                  <div offset-y v-if="shouldShowAttachments">
+                    <v-btn :class="`tooltip-attachments-${message.id}`" v-on="attachmentEventHandlers" icon>
+                      <v-icon medium>
+                        attach_file
+                      </v-icon>                      
+                    </v-btn>
+                    <v-tooltip
+                      v-model="showAttachmentsTooltip"
+                      :activator="`.tooltip-attachments-${message.id}`"
+                      content-class="tooltip-custom"
+                      left
+                    >
+                      <span>{{message.attachements}}</span>
+                    </v-tooltip>
+                  </div>
                  <v-menu offset-y v-if="message.type === 'human'" v-show="showMessageMenu">
                   <v-btn
                     slot="activator"
@@ -238,6 +253,14 @@ export default {
       positiveIntent: this.$store.state.config.ui.positiveFeedbackIntent,
       negativeIntent: this.$store.state.config.ui.negativeFeedbackIntent,
       hideInputFields: this.$store.state.config.ui.hideInputFieldsForButtonResponse,
+      showAttachmentsTooltip: false,
+      attachmentEventHandlers: {
+        mouseenter: this.mouseOverAttachment,
+        mouseleave: this.mouseOverAttachment,
+        touchstart: this.mouseOverAttachment,
+        touchend: this.mouseOverAttachment,
+        touchcancel: this.mouseOverAttachment,
+      },
     };
   },
   computed: {
@@ -359,6 +382,12 @@ export default {
     shouldShowMessageDate() {
       return this.$store.state.config.ui.showMessageDate;
     },
+    shouldShowAttachments() {
+      if (this.message.type === 'human' && this.message.attachements) {
+        return true;
+      }
+      return false;
+    },
   },
   provide: function () {
     return {
@@ -423,6 +452,9 @@ export default {
       if (this.message.id === this.$store.state.messages.length - 1) {
         this.$emit('scrollDown');
       }
+    },
+    mouseOverAttachment() {
+      this.showAttachmentsTooltip = !this.showAttachmentsTooltip;
     },
     onMessageBlur() {
       if (!this.shouldShowMessageDate) {

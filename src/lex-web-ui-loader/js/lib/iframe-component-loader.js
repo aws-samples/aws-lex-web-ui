@@ -60,14 +60,14 @@ export class IframeComponentLoader {
     // assign the iframeOrigin if not found in config
     if (!(('iframeOrigin' in iframeConfig) && iframeConfig.iframeOrigin)) {
       this.config.iframe.iframeOrigin =
-        this.config.parentOrigin || window.location.origin;
+        this.config.ui.parentOrigin || window.location.origin;
     }
     if (iframeConfig.shouldLoadIframeMinimized === undefined) {
       this.config.iframe.shouldLoadIframeMinimized = true;
     }
     // assign parentOrigin if not found in config
-    if (!(this.config.parentOrigin)) {
-      this.config.parentOrigin =
+    if (!(this.config.ui.parentOrigin)) {
+      this.config.ui.parentOrigin =
        this.config.iframe.iframeOrigin || window.location.origin;
     }
     // validate config
@@ -89,7 +89,7 @@ export class IframeComponentLoader {
    * Validate that the config has the expected structure
    */
   static validateConfig(config) {
-    const { iframe: iframeConfig } = config;
+    const { iframe: iframeConfig, ui: uiConfig } = config;
     if (!iframeConfig) {
       console.error('missing iframe config field');
       return false;
@@ -102,7 +102,7 @@ export class IframeComponentLoader {
       console.error('missing iframeSrcPath config field');
       return false;
     }
-    if (!('parentOrigin' in config && config.parentOrigin)) {
+    if (!('parentOrigin' in uiConfig && uiConfig.parentOrigin)) {
       console.error('missing parentOrigin config field');
       return false;
     }
@@ -481,8 +481,8 @@ export class IframeComponentLoader {
           if (this.config.ui.enableLogin && this.config.ui.enableLogin === true) {
             const auth = getAuth(this.generateConfigObj());
             const session = auth.getSignInUserSession();
+            const tokens = {};
             if (session.isValid()) {
-              const tokens = {};
               tokens.idtokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
               tokens.accesstokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}accesstokenjwt`);
               tokens.refreshtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
@@ -502,7 +502,6 @@ export class IframeComponentLoader {
               if (refToken) {
                 refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
                   if (refSession.isValid()) {
-                    const tokens = {};
                     tokens.idtokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
                     tokens.accesstokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}accesstokenjwt`);
                     tokens.refreshtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);

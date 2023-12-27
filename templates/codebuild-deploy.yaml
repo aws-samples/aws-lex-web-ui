@@ -529,7 +529,23 @@ Parameters:
         Description: >
             If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
             in addition to the Lex bot directly.
+    
+    ShouldEnableUpload:
+        Type: String
+        Default: false
+        AllowedValues:
+          - true
+          - false
+        Description: >
+            If set to True, the upload document functionality will be available. The icon for uploading documents
+            will appear in the UI.
 
+    UploadBucket:
+        Type: String
+        Default: ''
+        Description: >
+            If enabling upload, the name of the S3 bucket where uploaded documents should be stored
+             
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
     ShouldCleanupBuckets: !Equals [!Ref CleanupBuckets, true]
@@ -537,6 +553,7 @@ Conditions:
     UseDefaultCloudfrontUrl: !Or [ !Equals [!Ref WebAppConfCname, ''], !Equals [!Ref WebAppAcmCertificateArn, ''] ]
     ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
     EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
+    EnableUpload: !Equals [!Ref ShouldEnableUpload, true]
 
 Resources:
     # Bucket where S3 access logs are stored
@@ -752,6 +769,7 @@ Resources:
               InitiateChatLambdaCodeObject: !Ref InitiateChatLambdaCodeObject
               ConnectContactFlowId: !Ref ConnectContactFlowId
               ConnectInstanceId: !Ref ConnectInstanceId
+              ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
               ParentOrigin:
                 !If
                   - UseDefaultCloudfrontUrl
@@ -919,6 +937,10 @@ Resources:
                       Value: !Ref AllowStreamingResponses
                     - Name: STREAMING_WEB_SOCKET_ENDPOINT
                       Value: !If [EnableStreaming, !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod", ""]
+                    - Name: ENABLE_UPLOAD
+                      Value: !Ref ShouldEnableUpload
+                    - Name: UPLOAD_BUCKET_NAME
+                      Value: !Ref UploadBucket
 
 
             ServiceRole: !GetAtt CodeBuildRole.Arn
@@ -1003,6 +1025,8 @@ Resources:
             TitleLogoImgUrl: !Ref TitleLogoImgUrl
             BotAvatarImgUrl: !Ref BotAvatarImgUrl
             AllowStreamingResponses: !Ref AllowStreamingResponses
+            ShouldEnableUpload: !Ref ShouldEnableUpload
+            UploadBucket: !Ref UploadBucket
             Timestamp: !Ref Timestamp
 
     # Lambda function for custom resource

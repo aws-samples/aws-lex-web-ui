@@ -1237,13 +1237,59 @@ export default {
     const sessionId = lexClient.userId;
     wsClient = new WebSocket(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId);
   },
-
-
   typingWsMessages(context){
     if (context.getters.wsMessagesCurrentIndex()<context.getters.wsMessagesLength()-1){
       setTimeout(() => {
         context.commit('typingWsMessages');
       }, 500);
     }
-},
+  },
+
+/***********************************************************************
+ *
+ * File Upload Actions
+ *
+ **********************************************************************/
+  uploadFile(context, file) {
+    const s3 = new AWS.S3({
+      credentials: awsCredentials
+    });
+    //Create a key that is unique to the user & time of upload
+    const documentKey = lexClient.userId + '/' + file.name.split('.').join('-' + Date.now() + '.')
+    const s3Params = {
+      Body: file,
+      Bucket: context.state.config.ui.uploadS3BucketName,
+      Key: documentKey,
+    };
+  
+    s3.putObject(s3Params, function(err, data) {
+      if (err) {
+        console.log(err, err.stack); // an error occurred
+        context.commit('pushMessage', {
+          type: 'bot',
+          text: context.state.config.ui.uploadFailureMessage,
+        });
+      } 
+      else {
+        console.log(data);           // successful response
+        const documentObject = {
+          s3Path: 's3://' + context.state.config.ui.uploadS3BucketName + '/' + documentKey,
+          fileName: file.name
+        };
+        var documentsValue = [documentObject];
+        if (context.state.lex.sessionAttributes.userFilesUploaded) {
+          documentsValue = JSON.parse(context.state.lex.sessionAttributes.userFilesUploaded)
+          documentsValue.push(documentObject);
+        }
+        context.commit("setLexSessionAttributeValue",  { key: 'userFilesUploaded', value: JSON.stringify(documentsValue) });
+        if (context.state.config.ui.uploadSuccessMessage.length > 0) {
+          context.commit('pushMessage', {
+            type: 'bot',
+            text: context.state.config.ui.uploadSuccessMessage,
+          });
+        }
+        return Promise.resolve();
+      }
+    });
+  },
 };
