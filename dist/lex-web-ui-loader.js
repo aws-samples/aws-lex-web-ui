@@ -8821,14 +8821,14 @@ var IframeComponentLoader = /*#__PURE__*/function () {
       var iframeConfig = this.config.iframe;
       // assign the iframeOrigin if not found in config
       if (!('iframeOrigin' in iframeConfig && iframeConfig.iframeOrigin)) {
-        this.config.iframe.iframeOrigin = this.config.parentOrigin || window.location.origin;
+        this.config.iframe.iframeOrigin = this.config.ui.parentOrigin || window.location.origin;
       }
       if (iframeConfig.shouldLoadIframeMinimized === undefined) {
         this.config.iframe.shouldLoadIframeMinimized = true;
       }
       // assign parentOrigin if not found in config
-      if (!this.config.parentOrigin) {
-        this.config.parentOrigin = this.config.iframe.iframeOrigin || window.location.origin;
+      if (!this.config.ui.parentOrigin) {
+        this.config.ui.parentOrigin = this.config.iframe.iframeOrigin || window.location.origin;
       }
       // validate config
       if (!IframeComponentLoader.validateConfig(this.config)) {
@@ -9192,14 +9192,14 @@ var IframeComponentLoader = /*#__PURE__*/function () {
             if (_this7.config.ui.enableLogin && _this7.config.ui.enableLogin === true) {
               var auth = (0,_loginutil__WEBPACK_IMPORTED_MODULE_14__.getAuth)(_this7.generateConfigObj());
               var session = auth.getSignInUserSession();
+              var tokens = {};
               if (session.isValid()) {
-                var _tokens = {};
-                _tokens.idtokenjwt = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "idtokenjwt"));
-                _tokens.accesstokenjwt = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "accesstokenjwt"));
-                _tokens.refreshtoken = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "refreshtoken"));
+                tokens.idtokenjwt = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "idtokenjwt"));
+                tokens.accesstokenjwt = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "accesstokenjwt"));
+                tokens.refreshtoken = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "refreshtoken"));
                 _this7.sendMessageToIframe({
                   event: 'confirmLogin',
-                  data: _tokens
+                  data: tokens
                 });
               } else if (_this7.config.ui.enableLogin && _this7.config.ui.forceLogin) {
                 (0,_loginutil__WEBPACK_IMPORTED_MODULE_14__.forceLogin)(_this7.generateConfigObj());
@@ -9212,13 +9212,12 @@ var IframeComponentLoader = /*#__PURE__*/function () {
                 if (refToken) {
                   (0,_loginutil__WEBPACK_IMPORTED_MODULE_14__.refreshLogin)(_this7.generateConfigObj(), refToken, function (refSession) {
                     if (refSession.isValid()) {
-                      var _tokens2 = {};
-                      _tokens2.idtokenjwt = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "idtokenjwt"));
-                      _tokens2.accesstokenjwt = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "accesstokenjwt"));
-                      _tokens2.refreshtoken = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "refreshtoken"));
+                      tokens.idtokenjwt = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "idtokenjwt"));
+                      tokens.accesstokenjwt = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "accesstokenjwt"));
+                      tokens.refreshtoken = localStorage.getItem("".concat(_this7.config.cognito.appUserPoolClientId, "refreshtoken"));
                       _this7.sendMessageToIframe({
                         event: 'confirmLogin',
-                        data: _tokens2
+                        data: tokens
                       });
                     }
                   });
@@ -9337,14 +9336,14 @@ var IframeComponentLoader = /*#__PURE__*/function () {
           if (refToken) {
             (0,_loginutil__WEBPACK_IMPORTED_MODULE_14__.refreshLogin)(this.generateConfigObj(), refToken, function (refSession) {
               if (refSession.isValid()) {
-                var _tokens3 = {};
-                _tokens3.idtokenjwt = localStorage.getItem("".concat(_this9.config.cognito.appUserPoolClientId, "idtokenjwt"));
-                _tokens3.accesstokenjwt = localStorage.getItem("".concat(_this9.config.cognito.appUserPoolClientId, "accesstokenjwt"));
-                _tokens3.refreshtoken = localStorage.getItem("".concat(_this9.config.cognito.appUserPoolClientId, "refreshtoken"));
+                var tokens = {};
+                tokens.idtokenjwt = localStorage.getItem("".concat(_this9.config.cognito.appUserPoolClientId, "idtokenjwt"));
+                tokens.accesstokenjwt = localStorage.getItem("".concat(_this9.config.cognito.appUserPoolClientId, "accesstokenjwt"));
+                tokens.refreshtoken = localStorage.getItem("".concat(_this9.config.cognito.appUserPoolClientId, "refreshtoken"));
                 evt.ports[0].postMessage({
                   event: 'resolve',
                   type: evt.data.event,
-                  data: _tokens3
+                  data: tokens
                 });
               } else {
                 console.error('failed to refresh credentials');
@@ -9547,7 +9546,8 @@ var IframeComponentLoader = /*#__PURE__*/function () {
   }], [{
     key: "validateConfig",
     value: function validateConfig(config) {
-      var iframeConfig = config.iframe;
+      var iframeConfig = config.iframe,
+        uiConfig = config.ui;
       if (!iframeConfig) {
         console.error('missing iframe config field');
         return false;
@@ -9560,7 +9560,7 @@ var IframeComponentLoader = /*#__PURE__*/function () {
         console.error('missing iframeSrcPath config field');
         return false;
       }
-      if (!('parentOrigin' in config && config.parentOrigin)) {
+      if (!('parentOrigin' in uiConfig && uiConfig.parentOrigin)) {
         console.error('missing parentOrigin config field');
         return false;
       }
