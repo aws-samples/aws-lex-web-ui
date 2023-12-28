@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.20.3] - 2023-12-27
+## [0.20.4] - 2023-12-27
 - Add support for file attachments. See new File Uploads README for full details.
 - Clean-up & fix issues related to webpack 5 and `npm run` related errors for some build types.
 
