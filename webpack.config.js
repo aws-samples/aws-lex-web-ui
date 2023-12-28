@@ -60,6 +60,9 @@ module.exports = (env) => {
           test: /\.js$/,
           exclude: /[\\/]node_modules[\\/]/,
           loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
         },
         {
           test: /\.css$/,
@@ -171,5 +174,10 @@ module.exports = (env) => {
         }
       ),
     ].filter(Boolean),
+    performance: {
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
+  },
   };
 };

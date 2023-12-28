@@ -3,47 +3,47 @@
     v-bind:ui-minimized="isUiMinimized"
   >
     <min-button
-      v-bind:toolbar-color="toolbarColor"
-      v-bind:is-ui-minimized="isUiMinimized"
-      v-on:toggleMinimizeUi="toggleMinimizeUi"
-    ></min-button>
+      :toolbar-color="toolbarColor"
+      :is-ui-minimized="isUiMinimized"
+      @toggleMinimizeUi="toggleMinimizeUi"
+    />
     <toolbar-container
       v-if="!isUiMinimized"
-      v-bind:userName="userNameValue"
-      v-bind:toolbar-title="toolbarTitle"
-      v-bind:toolbar-color="toolbarColor"
-      v-bind:toolbar-logo="toolbarLogo"
-      v-bind:toolbarStartLiveChatLabel="toolbarStartLiveChatLabel"
-      v-bind:toolbarStartLiveChatIcon="toolbarStartLiveChatIcon"
-      v-bind:toolbarEndLiveChatLabel="toolbarEndLiveChatLabel"
-      v-bind:toolbarEndLiveChatIcon="toolbarEndLiveChatIcon"
-      v-bind:is-ui-minimized="isUiMinimized"
-      v-on:toggleMinimizeUi="toggleMinimizeUi"
+      :userName="userNameValue"
+      :toolbar-title="toolbarTitle"
+      :toolbar-color="toolbarColor"
+      :toolbar-logo="toolbarLogo"
+      :toolbarStartLiveChatLabel="toolbarStartLiveChatLabel"
+      :toolbarStartLiveChatIcon="toolbarStartLiveChatIcon"
+      :toolbarEndLiveChatLabel="toolbarEndLiveChatLabel"
+      :toolbarEndLiveChatIcon="toolbarEndLiveChatIcon"
+      :is-ui-minimized="isUiMinimized"
+      @toggleMinimizeUi="toggleMinimizeUi"
       @requestLogin="handleRequestLogin"
       @requestLogout="handleRequestLogout"
       @requestLiveChat="handleRequestLiveChat"
       @endLiveChat="handleEndLiveChat"
       transition="fade-transition"
-    ></toolbar-container>
+    />
 
-    <v-content
+    <v-main
       v-if="!isUiMinimized"
     >
       <v-container
         class="message-list-container"
-        v-bind:class="`toolbar-height-${toolbarHeightClassSuffix}`"
+        :class="`toolbar-height-${toolbarHeightClassSuffix}`"
         fluid pa-0
       >
         <message-list v-if="!isUiMinimized"
         ></message-list>
       </v-container>
-    </v-content>
+    </v-main>
 
     <input-container
       ref="InputContainer"
       v-if="!isUiMinimized && !hasButtons"
-      v-bind:text-input-placeholder="textInputPlaceholder"
-      v-bind:initial-speech-instruction="initialSpeechInstruction"
+      :text-input-placeholder="textInputPlaceholder"
+      :initial-speech-instruction="initialSpeechInstruction"
     ></input-container>
     <div
       v-if="isSFXOn"
@@ -272,7 +272,7 @@ export default {
         console.error('could not initialize application while mounting:', error);
       });
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (typeof window !== 'undefined') {
       window.removeEventListener('resize', this.onResize, { passive: true });
     }

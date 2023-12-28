@@ -1,5 +1,5 @@
 <template>
-  <v-flex class="recorder-status white">
+  <v-row class="recorder-status white">
     <div class="status-text">
       <span>{{statusText}}</span>
     </div>
@@ -42,7 +42,7 @@
         ></v-progress-linear>
       </transition>
     </div>
-  </v-flex>
+  </v-row>
 </template>
 <script>
 /*

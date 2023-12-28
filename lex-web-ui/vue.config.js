@@ -128,12 +128,14 @@ function chainWebpackLib(
     // XXX TODO need to add dependencies below to the lex-web-ui-loader
     // 'jsonwebtoken',
     // 'marked',
-    'vue',
-    'vuex',
+    { 'vue': 'Vue' },
+    {'vuex': 'Vuex'},
     'vue-router',
-    'vuetify',
+    {'vuetify': 'Vuetify'},
     /^aws-sdk\/.+$/,
   ]);
+
+  config.externalsType = 'window';
 
   config.optimization.splitChunks({
     cacheGroups: {

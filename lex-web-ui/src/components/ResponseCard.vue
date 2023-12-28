@@ -11,22 +11,22 @@
     <v-card-text v-if="responseCard.subtitle">
       <span>{{responseCard.subtitle}}</span>
     </v-card-text>
-    <v-card-media
+    <v-img
       v-if="responseCard.imageUrl"
-      v-bind:src="responseCard.imageUrl"
+      :src="responseCard.imageUrl"
       contain
       height="33vh"
-    ></v-card-media>
+    />
     <v-card-actions v-if="responseCard.buttons" class="button-row">
       <v-btn
         v-for="(button) in responseCard.buttons"
         v-show="button.text && button.value"
-        v-bind:key="button.id"
-        v-on:click.once.native="onButtonClick(button.value)"
-        v-bind:disabled="shouldDisableClickedResponseCardButtons"
+        :key="button.id"
+        :disabled="shouldDisableClickedResponseCardButtons"
+        :color="button.text.toLowerCase() === 'more' ? '' : 'accent'"
         round
         default
-        v-bind:color="button.text.toLowerCase() === 'more' ? '' : 'accent'"
+        v-on:click.once.native="onButtonClick(button.value)"
         class="secondary--text"
       >
         {{button.text}}
@@ -37,7 +37,7 @@
         flat
         class="red lighten-5"
         tag="a"
-        v-bind:href="responseCard.attachmentLinkUrl"
+        :href="responseCard.attachmentLinkUrl"
         target="_blank"
       >
         Open Link

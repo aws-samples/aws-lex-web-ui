@@ -1,100 +1,89 @@
 <template>
-  <div app fixed>
-    <v-layout
-      row
-      justify-space-between
-      ma-0
-      class="input-container"
-    >
-      <v-toolbar
-        color="white"
-        v-bind:dense="this.$store.state.isRunningEmbedded"
-      >
+  <v-container fluid>
+    <v-toolbar color="white" :dense="this.$store.state.isRunningEmbedded">
+      <!--
+        using v-show instead of v-if to make recorder-status transition work
+      -->
         <!--
           using v-show instead of v-if to make recorder-status transition work
         -->
         <v-text-field
-          v-bind:label="textInputPlaceholder"
+          :label="textInputPlaceholder"
           v-show="shouldShowTextInput"
-          v-bind:disabled="isLexProcessing"
+          :disabled="isLexProcessing"
           v-model="textInput"
-          v-on:keyup.enter.stop="postTextMessage"
-          v-on:focus="onTextFieldFocus"
-          v-on:blur="onTextFieldBlur"
+          @keyup.enter.stop="postTextMessage"
+          @focus="onTextFieldFocus"
+          @blur="onTextFieldBlur"
           @input="onKeyUp"
           ref="textInput"
           id="text-input"
           name="text-input"
           single-line
           hide-details
+          variant="underlined"
         ></v-text-field>
 
         <recorder-status
           v-show="!shouldShowTextInput"
         ></recorder-status>
 
-        <!-- separate tooltip as a workaround to support mobile touch events -->
-        <!-- tooltip should be before btn to avoid right margin issue in mobile -->
-        <v-tooltip
-          activator=".input-button"
-          content-class="tooltip-custom"
-          v-model="shouldShowTooltip"
-          ref="tooltip"
-          left
-        >
-          <span id="input-button-tooltip">{{inputButtonTooltip}}</span>
+              <!-- separate tooltip as a workaround to support mobile touch events -->
+      <!-- tooltip should be before btn to avoid right margin issue in mobile -->
+      <v-btn
+        v-if="shouldShowSendButton"
+        @click="postTextMessage"
+        v-on="tooltipEventHandlers"
+        :disabled="isLexProcessing || isSendButtonDisabled"
+        ref="send"
+        class="icon-color input-button"
+        aria-label="Send Message"
+      >
+        <v-tooltip activator="parent" location="start">
+          <span id="input-button-tooltip">{{ inputButtonTooltip }}</span>
         </v-tooltip>
-        <v-btn
-          v-if="shouldShowSendButton"
-          v-on:click="postTextMessage"
-          v-on="tooltipEventHandlers"
-          v-bind:disabled="isLexProcessing || isSendButtonDisabled"
-          ref="send"
-          class="icon-color input-button"
-          icon
-          aria-label="Send Message"
-        >
-          <v-icon medium>send</v-icon>
-        </v-btn>
-        <v-btn
-          v-if="!shouldShowSendButton && !isModeLiveChat"
-          v-on:click="onMicClick"
-          v-on="tooltipEventHandlers"
-          v-bind:disabled="isMicButtonDisabled"
-          ref="mic"
-          class="icon-color input-button"
-          icon
-        >
-          <v-icon medium>{{micButtonIcon}}</v-icon>
-        </v-btn>
-        <v-btn
-          v-if="shouldShowUpload"
-          v-on:click="onPickFile"
-          v-bind:disabled="isLexProcessing"
-          ref="upload"
-          class="icon-color input-button"
-          icon
-        >
-          <v-icon medium>attach_file</v-icon>
-          <input
-            type="file"
-            style="display: none"
-            ref="fileInput"
-            @change="onFilePicked">
-        </v-btn>
-        <v-btn
-          v-if="shouldShowAttachmentClear"
-          v-on:click="onRemoveAttachments"
-          v-bind:disabled="isLexProcessing"
-          ref="removeAttachments"
-          class="icon-color input-button"
-          icon
-        >
-          <v-icon medium>clear</v-icon>
-        </v-btn>
-      </v-toolbar>
-    </v-layout>
-  </div>
+        <v-icon size="x-large">send</v-icon>
+      </v-btn>
+      <v-btn
+        v-if="!shouldShowSendButton && !isModeLiveChat"
+        @click="onMicClick"
+        v-on="tooltipEventHandlers"
+        :disabled="isMicButtonDisabled"
+        ref="mic"
+        class="icon-color input-button"
+      >
+        <v-tooltip activator="parent" v-model="shouldShowTooltip" location="start">
+          <span id="input-button-tooltip">{{ inputButtonTooltip }}</span>
+        </v-tooltip>
+        <v-icon size="x-large">{{ micButtonIcon }}</v-icon>
+      </v-btn>
+      <v-btn
+        v-if="shouldShowUpload"
+        v-on:click="onPickFile"
+        v-bind:disabled="isLexProcessing"
+        ref="upload"
+        class="icon-color input-button"
+        icon
+      >
+        <v-icon medium>attach_file</v-icon>
+        <input
+          type="file"
+          style="display: none"
+          ref="fileInput"
+          @change="onFilePicked">
+      </v-btn>
+      <v-btn
+        v-if="shouldShowAttachmentClear"
+        v-on:click="onRemoveAttachments"
+        v-bind:disabled="isLexProcessing"
+        ref="removeAttachments"
+        class="icon-color input-button"
+        icon
+      >
+        <v-icon medium>clear</v-icon>
+      </v-btn>
+    </v-toolbar>
+  </v-container>
 </template>
 
 <script>

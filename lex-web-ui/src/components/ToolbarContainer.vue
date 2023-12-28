@@ -1,134 +1,134 @@
 <template>
   <!-- eslint-disable max-len -->
   <v-toolbar
-    v-bind:color="toolbarColor"
+    :color="toolbarColor"
     app
     dark
     fixed
     v-if="!isUiMinimized"
-    v-on="toolbarClickHandler"
-    v-bind:dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
-    v-bind:class="{ minimized: isUiMinimized }"
+    @click="toolbarClickHandler"
+    :dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
+    :class="{ minimized: isUiMinimized }"
     aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
   >
   <!-- eslint-enable max-len -->
     <img
       class="toolbar-image"
       v-if="toolbarLogo"
-      v-bind:src="toolbarLogo"
+      :src="toolbarLogo"
       alt="logo"
       aria-hidden="true"
     />
 
     <v-menu v-if="showToolbarMenu" offset-y>
-      <v-btn
-      slot="activator"
-      v-show="!isUiMinimized"
-      v-on="tooltipMenuEventHandlers"
-      class="menu"
-      icon
-      fab
-      small
-      aria-label="menu options">
-        <v-icon>
-          menu
-        </v-icon>
-      </v-btn>
+      <template v-slot:activator="{ props }">
+        <v-btn
+          v-bind="props"
+          v-show="!isUiMinimized"
+          v-on="tooltipMenuEventHandlers"
+          class="menu"
+          icon="menu"
+          small
+          fab
+          aria-label="menu options"
+        ></v-btn>
+      </template>
 
       <v-list>
-        <v-list-tile v-if="isEnableLogin">
-          <v-list-tile-title v-if="isLoggedIn" v-on:click="requestLogout" aria-label="logout">
+        <v-list-item v-if="isEnableLogin">
+          <v-list-item-title v-if="isLoggedIn" @click="requestLogout" aria-label="logout">
             <v-icon>
               {{ items[1].icon }}
             </v-icon>
             {{ items[1].title }}
-          </v-list-tile-title>
-          <v-list-tile-title v-if="!isLoggedIn" v-on:click="requestLogin" aria-label="login">
+          </v-list-item-title>
+          <v-list-item-title v-if="!isLoggedIn" @click="requestLogin" aria-label="login">
             <v-icon>
               {{ items[0].icon }}
             </v-icon>
             {{ items[0].title }}
-            </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-if="isSaveHistory">
-          <v-list-tile-title v-on:click="requestResetHistory" aria-label="clear chat history">
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="isSaveHistory">
+          <v-list-item-title @click="requestResetHistory" aria-label="clear chat history">
             <v-icon>
               {{ items[2].icon }}
             </v-icon>
             {{ items[2].title }}
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-if="shouldRenderSfxButton && isSFXOn">
-          <v-list-tile-title v-on:click="toggleSFXMute" aria-label="mute sound effects">
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="shouldRenderSfxButton && isSFXOn">
+          <v-list-item-title @click="toggleSFXMute" aria-label="mute sound effects">
             <v-icon>
               {{ items[3].icon }}
             </v-icon>
             {{ items[3].title }}
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-if="shouldRenderSfxButton && !isSFXOn">
-          <v-list-tile-title v-on:click="toggleSFXMute" aria-label="unmute sound effects">
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="shouldRenderSfxButton && !isSFXOn">
+          <v-list-item-title @click="toggleSFXMute" aria-label="unmute sound effects">
             <v-icon>
               {{ items[4].icon }}
             </v-icon>
             {{ items[4].title }}
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-if="canLiveChat">
-          <v-list-tile-title v-on:click="requestLiveChat" aria-label="request live chat">
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="canLiveChat">
+          <v-list-item-title @click="requestLiveChat" aria-label="request live chat">
             <v-icon>
               {{ toolbarStartLiveChatIcon }}
             </v-icon>
             {{ toolbarStartLiveChatLabel }}
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-if="isLiveChat">
-          <v-list-tile-title v-on:click="endLiveChat" aria-label="end live chat">
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="isLiveChat">
+          <v-list-item-title @click="endLiveChat" aria-label="end live chat">
             <v-icon>
               {{ toolbarEndLiveChatIcon }}
             </v-icon>
             {{ toolbarEndLiveChatLabel }}
-          </v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile  v-if="isLocaleSelectable"
-                      v-for="(locale) in locales"
-                      v-bind:key=locale
-                      :disabled="restrictLocaleChanges"
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          v-if="isLocaleSelectable"
+          :disabled="restrictLocaleChanges"
         >
-          <v-list-tile-title
-            v-on:click="setLocale(locale)">
-            {{locale}}
-          </v-list-tile-title>
-        </v-list-tile>
+          <v-list-item v-for="(locale, index) in locales" :key="index">
+            <v-list-item-title @click="setLocale(locale)">
+              {{ locale }}
+            </v-list-item-title>
+          </v-list-item>
+        </v-list-item>
       </v-list>
     </v-menu>
 
     <div class="nav-buttons">
-      <v-btn
-        small
-        icon
-        :disabled="isLexProcessing"
-        class="nav-button-prev"
-        v-on="prevNavEventHandlers"
-        v-on:click="onPrev"
-        v-show="hasPrevUtterance && !isUiMinimized && shouldRenderBackButton"
-        aria-label="go back to previous message"
-      >
-        <v-icon> arrow_back </v-icon>
-      </v-btn>
       <v-tooltip
+        text="Previous"
         v-model="prevNav"
         activator=".nav-button-prev"
         content-class="tooltip-custom"
         right
       >
-        <span>Previous</span>
+        <template v-slot:activator="{ props }">
+          <v-btn
+            v-bind="props"
+            small
+            :disabled="isLexProcessing"
+            class="nav-button-prev"
+            v-on="prevNavEventHandlers"
+            @click="onPrev"
+            v-show="hasPrevUtterance && !isUiMinimized && shouldRenderBackButton"
+            aria-label="go back to previous message"
+            icon="arrow_back"
+          ></v-btn>
+        </template>
       </v-tooltip>
     </div>
 
     <v-toolbar-title
       class="hidden-xs-and-down"
-      v-on:click.stop="toggleMinimize"
+      @click.stop="toggleMinimize"
       v-show="!isUiMinimized"
     >
       <h1>{{ toolbarTitle }}</h1>
