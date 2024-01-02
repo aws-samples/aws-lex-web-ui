@@ -4,43 +4,55 @@
   </div>
 </template>
 
-<script>
-/*
-Copyright 2017-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-Licensed under the Amazon Software License (the "License"). You may not use this file
-except in compliance with the License. A copy of the License is located at
-
-http://aws.amazon.com/asl/
-
-or in the "license" file accompanying this file. This file is distributed on an "AS IS"
-BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
-License for the specific language governing permissions and limitations under the License.
-*/
-
-/* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
-import Vue from 'vue';
-import Vuex from 'vuex';
-import Vuetify from 'vuetify';
-import DatetimePicker from 'vuetify-datetime-picker'
-
-import 'roboto-fontface/css/roboto/roboto-fontface.css';
-import 'material-design-icons/iconfont/material-icons.css';
-import 'vuetify/dist/vuetify.min.css';
-
-import { Loader as LexWebUi } from '@/lex-web-ui';
-
-Vue.use(Vuex);
-Vue.use(Vuetify);
-Vue.use(DatetimePicker);
-
-const lexWebUi = new LexWebUi();
-
-export default {
-  name: 'lex-app',
-  store: lexWebUi.store,
-};
-</script>
-
-<style>
+<style scoped>
+header {
+  line-height: 1.5;
+  max-height: 100vh;
+}
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+}
+nav {
+  width: 100%;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 2rem;
+}
+nav a.router-link-exact-active {
+  color: var(--color-text);
+}
+nav a.router-link-exact-active:hover {
+  background-color: transparent;
+}
+nav a {
+  display: inline-block;
+  padding: 0 1rem;
+  border-left: 1px solid var(--color-border);
+}
+nav a:first-of-type {
+  border: 0;
+}
+@media (min-width: 1024px) {
+  header {
+    display: flex;
+    place-items: center;
+    padding-right: calc(var(--section-gap) / 2);
+  }
+  .logo {
+    margin: 0 2rem 0 0;
+  }
+  header .wrapper {
+    display: flex;
+    place-items: flex-start;
+    flex-wrap: wrap;
+  }
+  nav {
+    text-align: left;
+    margin-left: -1rem;
+    font-size: 1rem;
+    padding: 1rem 0;
+    margin-top: 1rem;
+  }
+}
 </style>

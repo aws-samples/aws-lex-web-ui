@@ -33,7 +33,6 @@
       <v-btn
         v-if="shouldShowSendButton"
         @click="postTextMessage"
-        v-on="tooltipEventHandlers"
         :disabled="isLexProcessing || isSendButtonDisabled"
         ref="send"
         class="icon-color input-button"
@@ -224,7 +223,7 @@ export default {
       // focus() needs to be wrapped in setTimeout for IE11
       setTimeout(() => {
         if (this.$refs && this.$refs.textInput && this.shouldShowTextInput) {
-          this.$refs.textInput.$refs.input.focus();
+          this.$refs.textInput.focus();
         }
       }, 10);
     },

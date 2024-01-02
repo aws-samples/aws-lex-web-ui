@@ -135,7 +135,7 @@ export default {
     },
     isMobile() {
       const mobileResolution = 900;
-      return (this.$vuetify.breakpoint.smAndDown &&
+      return (//this.$vuetify.breakpoint.smAndDown &&
         'navigator' in window && navigator.maxTouchPoints > 0 &&
         'screen' in window &&
         (window.screen.height < mobileResolution ||

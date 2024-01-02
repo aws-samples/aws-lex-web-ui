@@ -9,7 +9,7 @@
 
           <!-- contains message bubble and avatar -->
           <v-col d-flex class="message-bubble-avatar-container">
-            <v-row row class="message-bubble-row">
+            <v-row row :class="`message-bubble-row-${message.type}`">
               <div
                 v-if="shouldShowAvatarImage"
                 :style="avatarBackground"
@@ -23,6 +23,7 @@
                 @focus="onMessageFocus"
                 @blur="onMessageBlur"
                 class="message-bubble focusable"
+                :class="`message-bubble-row-${message.type}`"
               >
                 <message-text
                   :message="message"
@@ -95,15 +96,17 @@
                 >
                   <v-icon
                     @click="onButtonClick(positiveIntent)"
-                    :class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
+                    :class="{'feedback-icons-positive': !positiveClick, positiveClick: positiveClick}"
                     tabindex="0"
+                    size="small"
                   >
                     thumb_up
                   </v-icon>
                   <v-icon
                     @click="onButtonClick(negativeIntent)"
-                    :class="{'feedback-icons-negative': !negativeClick, 'negativeClick': negativeClick}"
+                    :class="{'feedback-icons-negative': !negativeClick, negativeClick: negativeClick}"
                     tabindex="0"
+                    size="small"
                   >
                     thumb_down
                   </v-icon>
@@ -174,7 +177,7 @@
           </v-col>
           <v-col
             v-if="shouldShowMessageDate && isMessageFocused"
-            class="text-xs-center message-date"
+            :class="`text-xs-center message-date-${message.type}`"
             aria-hidden="true"
           >
            {{messageHumanDate}}
@@ -486,14 +489,30 @@ export default {
 <style scoped>
 .smicon {
   font-size: 14px;
+  margin-top: 0.75em;
 }
-
-.message, .message-bubble-column {
+.message,
+.message-bubble-column {
   flex: 0 0 auto;
 }
-
-.message, .message-bubble-row {
+.message,
+.message-bubble-row-human {
+  justify-content: flex-end;
+}
+.message-bubble-row-feedback {
+  justify-content: flex-end;
+}
+.message-bubble-row-bot {
   max-width: 80vw;
+  flex-wrap: nowrap;
+}
+.message-date-human {
+  text-align: right;
+}
+.message-date-feedback {
+  text-align: right;
+}
+.message-date-bot {
 }
 
 .avatar {
@@ -548,10 +567,10 @@ export default {
   display: inline-flex;
 }
 
-.icon.dialog-state-ok {
+.dialog-state-ok {
   color: green;
 }
-.icon.dialog-state-fail {
+.dialog-state-fail {
   color: red;
 }
 
@@ -564,7 +583,7 @@ export default {
   align-self: center;
 }
 
-.icon.feedback-icons-positive{
+.feedback-icons-positive{
   color: grey;
   /* color: #E8EAF6; */
   /* color: green; */
@@ -581,17 +600,17 @@ export default {
   padding: .125em;
 }
 
-.icon.feedback-icons-positive:hover{
+.feedback-icons-positive:hover{
   color:green;
 }
 
-.icon.feedback-icons-negative{
+.feedback-icons-negative{
   /* color: #E8EAF6; */
   color: grey;
-  padding: .125em;
+  padding-left: 0.2em;
 }
 
-.icon.feedback-icons-negative:hover{
+.feedback-icons-negative:hover{
   color: red;
 }
 

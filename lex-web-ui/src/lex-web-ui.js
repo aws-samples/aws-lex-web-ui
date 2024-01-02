@@ -30,11 +30,15 @@ import LexWeb from '@/components/LexWeb';
 import VuexStore from '@/store';
 
 import { config as defaultConfig, mergeConfig } from '@/config';
-import { createApp, defineAsyncComponent } from 'vue';
-import 'vuetify/styles'
-import * as Vuetify from 'vuetify'
+import { createApp, defineAsyncComponent } from 'vue/dist/vue.esm-bundler.js';
 import { aliases, md } from 'vuetify/iconsets/md';
 import { createStore } from 'vuex';
+
+// Vuetify
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
 const defineAsyncComponentInstance = (window.Vue) ? window.Vue.defineAsyncComponent : defineAsyncComponent;
 /**
@@ -105,24 +109,9 @@ export const Store = VuexStore;
 export class Loader {
   constructor(config = {}) {
     const createAppInstance = (window.Vue) ? window.Vue.createApp : createApp;
-
-    if (!createAppInstance) {
-    const VueConstructor = (window.Vue) ? window.Vue : Vue;	      throw new Error('unable to find vue');
-    if (!VueConstructor) {	
-      throw new Error('unable to find Vue');	
-    }	    }
-
-    const vuexCreateStore = (window.Vuex) ? window.Vuex.createStore : createStore;
-    const VuexConstructor = (window.Vuex) ? window.Vuex : Vuex;	    if (!vuexCreateStore) {
-    if (!VuexConstructor) {	      throw new Error('unable to find vuex');
-      throw new Error('unable to find Vuex');	    }
-    const vuetifyInstance = (window.Vuetify) ? window.Vuetify : Vuetify;
-    if (!vuetifyInstance) {
-      throw new Error('unable to find vuetify');
-    }	    }
-    const { components, directives } = vuetifyInstance;
-
-    const vuetify = vuetifyInstance.createVuetify({
+    const vuexCreateStore = (window.Vuex) ? window.Vuex.createStore : createStore;    
+    
+    const vuetify = createVuetify({
       components,
       directives,
       icons: {
@@ -133,6 +122,7 @@ export class Loader {
         },
       },
     })
+    
     const app = createAppInstance({
       template: '<div id="lex-web-ui"><lex-web-ui/></div>',
     })
@@ -199,3 +189,6 @@ export class Loader {
     this.app = app;
   }
 }
+
+const lexWeb = new Loader();
+lexWeb.app.mount('#lex-app');

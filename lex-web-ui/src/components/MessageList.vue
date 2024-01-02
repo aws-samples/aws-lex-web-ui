@@ -101,4 +101,5 @@ export default {
 .message-feedback {
   align-self: flex-end;
 }
+
 </style>

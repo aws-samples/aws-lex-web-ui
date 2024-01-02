@@ -127,14 +127,14 @@
     </div>
 
     <v-toolbar-title
-      class="hidden-xs-and-down"
+      class="hidden-xs-and-down toolbar-title"
       @click.stop="toggleMinimize"
       v-show="!isUiMinimized"
     >
       <h1>{{ toolbarTitle }}</h1>
     </v-toolbar-title>
 
-    <v-toolbar-title class="hidden-xs-and-down" v-show="!isUiMinimized">
+    <v-toolbar-title class="hidden-xs-and-down toolbar-title" v-show="!isUiMinimized">
       {{ userName }}
     </v-toolbar-title>
 
@@ -590,7 +590,9 @@ export default {
   max-height: 100%;
 }
 
-.toolbar__title {
-  margin-left: 0px !important;
+.toolbar-title {
+  width: max-content;
+  line-height: 1.5 !important;
 }
+
 </style>
