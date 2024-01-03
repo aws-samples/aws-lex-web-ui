@@ -1,5 +1,5 @@
 <template>
-  <div class="flex message d-flex message-bot messsge-loading" aria-hidden="true">
+  <v-row d-flex class="message message-bot messsge-loading" aria-hidden="true">
     <!-- contains message and response card -->
     <v-col ma-2 class="message-layout">
 
@@ -8,7 +8,7 @@
         <v-col class="message-bubble-column">
 
           <!-- contains message bubble and avatar -->
-          <v-row d-flex class="message-bubble-avatar-container">
+          <v-col d-flex class="message-bubble-avatar-container">
             <v-row class="message-bubble-row">
               <div
                 class="message-bubble"
@@ -17,11 +17,11 @@
               {{$store.state.config.lex.allowStreamingResponses? $store.state.streaming.wsMessagesString : progress }}
               </div>
             </v-row>
-          </v-row>
+          </v-col>
         </v-col>
       </v-row>
     </v-col>
-  </div>
+  </v-row>
 </template>
 
 <script>

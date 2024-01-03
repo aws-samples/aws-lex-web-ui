@@ -131,14 +131,9 @@
       @click.stop="toggleMinimize"
       v-show="!isUiMinimized"
     >
-      <h1>{{ toolbarTitle }}</h1>
-    </v-toolbar-title>
+      <h2>{{ toolbarTitle }} {{ userName }}</h2>
+    </v-toolbar-title> 
 
-    <v-toolbar-title class="hidden-xs-and-down toolbar-title" v-show="!isUiMinimized">
-      {{ userName }}
-    </v-toolbar-title>
-
-    <v-spacer />
     <!-- tooltip should be before btn to avoid right margin issue in mobile -->
     <v-tooltip
       v-model="shouldShowTooltip"
@@ -592,7 +587,6 @@ export default {
 
 .toolbar-title {
   width: max-content;
-  line-height: 1.5 !important;
 }
 
 </style>
