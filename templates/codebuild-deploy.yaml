@@ -769,7 +769,6 @@ Resources:
               InitiateChatLambdaCodeObject: !Ref InitiateChatLambdaCodeObject
               ConnectContactFlowId: !Ref ConnectContactFlowId
               ConnectInstanceId: !Ref ConnectInstanceId
-              ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
               ParentOrigin:
                 !If
                   - UseDefaultCloudfrontUrl
