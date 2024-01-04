@@ -9,7 +9,7 @@
 
           <!-- contains message bubble and avatar -->
           <v-col d-flex class="message-bubble-avatar-container">
-            <v-row row :class="`message-bubble-row-${message.type}`">
+            <v-row :class="`message-bubble-row-${message.type}`">
               <div
                 v-if="shouldShowAvatarImage"
                 :style="avatarBackground"

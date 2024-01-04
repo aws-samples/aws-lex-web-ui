@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card flat>
     <div v-if=shouldDisplayResponseCardTitle>
       <v-card-title v-if="responseCard.title && responseCard.title.trim()" primary-title class="red lighten-5">
         <span class="headline">{{responseCard.title}}</span>
@@ -23,11 +23,10 @@
         v-show="button.text && button.value"
         :key="button.id"
         :disabled="shouldDisableClickedResponseCardButtons"
-        :color="button.text.toLowerCase() === 'more' ? '' : 'accent'"
-        round
-        default
+        :class="button.text.toLowerCase() === 'more' ? '' : 'bg-accent'"
+        rounded="xl"
+        :variant="shouldDisableClickedResponseCardButtons == true ? '' : 'elevated'"
         v-on:click.once.native="onButtonClick(button.value)"
-        class="secondary--text"
       >
         {{button.text}}
       </v-btn>

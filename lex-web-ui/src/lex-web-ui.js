@@ -39,6 +39,7 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import colors from 'vuetify/lib/util/colors'
 
 const defineAsyncComponentInstance = (window.Vue) ? window.Vue.defineAsyncComponent : defineAsyncComponent;
 /**
@@ -121,6 +122,32 @@ export class Loader {
           md,
         },
       },
+      theme: {
+        themes: {
+          light: {
+            colors: {
+              primary: colors.blue.darken2,
+              secondary: colors.grey.darken3,
+              accent: colors.blue.accent1,
+              error: colors.red.accent2,
+              info: colors.blue.base,
+              success: colors.green.base,
+              warning: colors.orange.darken1,
+            },
+          },
+          dark: {
+            colors: {
+              primary: colors.blue.base,
+              secondary: colors.grey.darken3,
+              accent: colors.pink.accent1,
+              error: colors.red.accent2,
+              info: colors.blue.base,
+              success: colors.green.base,
+              warning: colors.orange.darken1,
+            },
+          },
+        },
+      }
     })
     
     const app = createAppInstance({
