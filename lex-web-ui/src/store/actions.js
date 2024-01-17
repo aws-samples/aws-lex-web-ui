@@ -820,9 +820,12 @@ export default {
     }
     context.commit('updateLexState', { ...lexStateDefault, ...lexState });
     if (context.state.isRunningEmbedded) {
+      // Vue3 uses a Proxy object, this removes the proxy and gives back the raw object
+      // This works around an error when sending it back to the parent window
+      let rawState = JSON.parse(JSON.stringify(context.state.lex))
       context.dispatch(
         'sendMessageToParentWindow',
-        { event: 'updateLexState', state: context.state.lex },
+        { event: 'updateLexState', state: rawState },
       );
     }
     return Promise.resolve();
@@ -1208,7 +1211,7 @@ export default {
         }
       }
       window.parent.postMessage(
-        { source: 'lex-web-ui', ...message },
+        { source: 'lex-web-ui', ...rawMessage },
         target,
         [messageChannel.port2],
       );

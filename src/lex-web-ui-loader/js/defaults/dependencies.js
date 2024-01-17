@@ -31,8 +31,8 @@ export const dependenciesFullPage = {
     },
     {
       name: 'Vue',
-      url: './3.3.10_dist_vue.js',
-      canUseMin: true,
+      url: './3.3.10_dist_vue.global.prod.js',
+      canUseMin: false,
     },
     {
       name: 'Vuex',

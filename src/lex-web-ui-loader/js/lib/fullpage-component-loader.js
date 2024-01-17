@@ -364,15 +364,8 @@ export class FullPageComponentLoader {
       }
 
       try {
-        const LexWebUiComponent = Vue.extend({
-          store: lexWebUi.store,
-          template: '<div id="lex-web-ui"><lex-web-ui/></div>',
-        });
-
-        // mounts off-document
-        const lexWebUiComponent = new LexWebUiComponent().$mount();
-        // replace existing element
-        el.parentNode.replaceChild(lexWebUiComponent.$el, el);
+        const app = lexWebUi.app;
+        const lexWebUiComponent =  app.mount(`#${elId}`);
         resolve(lexWebUiComponent);
       } catch (err) {
         reject(new Error(`failed to mount lexWebUi component: ${err}`));

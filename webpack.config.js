@@ -126,12 +126,14 @@ module.exports = (env) => {
         template: path.join(basePath, 'src/website/index.html'),
         // script is included in template
         inject: false,
+        scriptLoading: 'blocking',
       }),
       new HtmlWebpackPlugin({
         filename: 'parent.html',
         template: path.join(basePath, 'src/website/parent.html'),
         // script is included in template
         inject: false,
+        scriptLoading: 'blocking',
       }),
       isProd && new webpack.BannerPlugin({
         banner: `/*!
@@ -150,10 +152,10 @@ module.exports = (env) => {
         {
           patterns: [
             // copy parent page
-            {
-              from: path.join(basePath, 'src/website/parent.html'),
-              to: distDir,
-            },
+            //{
+            //  from: path.join(basePath, 'src/website/parent.html'),
+            //  to: distDir,
+            //},
             // copy custom css
             {
               from: path.join(basePath, 'src/website/custom-chatbot-style.css'),
