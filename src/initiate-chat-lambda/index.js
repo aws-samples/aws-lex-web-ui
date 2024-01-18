@@ -70,9 +70,8 @@ async function startChatContact(body) {
     } catch (error) {
         console.log("Error starting the chat.");
         console.log(error, error.stack);
+        return response;
     }
-
-    return false;
 }
 
 function buildSuccessfulResponse(result) {
