@@ -1,6 +1,5 @@
-const AWS = require('aws-sdk');
-AWS.config.update({ region: process.env.REGION });
-const connect = new AWS.Connect();
+const { ConnectClient, StartChatContactCommand } = require("@aws-sdk/client-connect");
+const client = new ConnectClient({ region: process.env.REGION });
 const parentOrigin = process.env.PARENT_ORIGIN;
 
 exports.handler = (event, context, callback) => {
@@ -16,7 +15,7 @@ exports.handler = (event, context, callback) => {
     });
 };
 
-function startChatContact(body) {
+async function startChatContact(body) {
     let contactFlowId = "";
     if (body.hasOwnProperty('ContactFlowId')) {
         contactFlowId = body["ContactFlowId"];
@@ -46,38 +45,33 @@ function startChatContact(body) {
         attributes = body["Attributes"];
     }
 
-    return new Promise(function(resolve, reject) {
-        const startChat = {
-            "InstanceId": instanceId == "" ? process.env.INSTANCE_ID : instanceId,
-            "ContactFlowId": contactFlowId == "" ? process.env.CONTACT_FLOW_ID : contactFlowId,
-            "Attributes": attributes,
-            "ChatDurationInMinutes": 60,
-            "ParticipantDetails": {
-                "DisplayName": body["ParticipantDetails"]["DisplayName"]
-            }
+    const startChat = {
+        "InstanceId": instanceId == "" ? process.env.INSTANCE_ID : instanceId,
+        "ContactFlowId": contactFlowId == "" ? process.env.CONTACT_FLOW_ID : contactFlowId,
+        "Attributes": attributes,
+        "ChatDurationInMinutes": 60,
+        "ParticipantDetails": {
+            "DisplayName": body["ParticipantDetails"]["DisplayName"]
+        }
+    };
+    
+    if (initialMsgContent && initialMsgContentType != "" ){
+        startChat.InitialMessage = {
+            "Content": initialMsgContent,
+            "ContentType": initialMsgContentType
         };
-        
-        if (initialMsgContent && initialMsgContentType != "" ){
-            startChat.InitialMessage = {
-                "Content": initialMsgContent,
-                "ContentType": initialMsgContentType
-            };
-        };
-        
-        console.log('startChat params', startChat);
-        connect.startChatContact(startChat, function(err, data) {
-            if (err) {
-                console.log("Error starting the chat.");
-                console.log(err, err.stack);
-                reject(err);
-            }
-            else {
-                console.log("Start chat succeeded with the response: " + JSON.stringify(data));
-                resolve(data);
-            }
-        });
-
-    });
+    };
+    
+    console.log('startChat params', startChat);
+    const command = new StartChatContactCommand(startChat);
+    try {
+        const response = await client.send(command);
+        return response;
+    } catch (error) {
+        console.log("Error starting the chat.");
+        console.log(error, error.stack);
+        return response;
+    }
 }
 
 function buildSuccessfulResponse(result) {
