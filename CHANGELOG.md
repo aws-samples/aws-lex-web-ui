@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.20.6] - 2024-02-12
+- Emergency fix to upgrade Python function to version 3.8 across the board. As this will end of life later in the year we will release another update soon to move everything to 3.12.
+
 ## [0.20.5] - 2024-1-19
 - Update Lamdba functions using Node to version 18. This required upgrading the Lambda code to use the JS SDK v3 as well.
 - Dependency upgrades to fix critical vulnerabilities.
