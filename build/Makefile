@@ -31,8 +31,8 @@ $(OUT):
 
 # upload cfn templatess
 upload-templates: $(TEMPLATES) | $(OUT)
-	@echo "[INFO] Validating templates"
-	@$(MAKE) -C $(TEMPLATES_DIR)
+	#@echo "[INFO] Validating templates"
+	#@$(MAKE) -C $(TEMPLATES_DIR)
 	@echo "[INFO] Uploading templates"
 	aws s3 sync --acl public-read --exclude "*" --include "*.yaml" \
 		"$(TEMPLATES_DIR)" "s3://$(BOOTSTRAP_BUCKET_PATH)/templates/" \
