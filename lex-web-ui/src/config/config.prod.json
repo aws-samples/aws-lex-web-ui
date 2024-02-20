@@ -17,9 +17,9 @@
     "enableLiveChat": false
   },
   "connect": {
-    "contactFlowId" : "",
-    "instanceId" : "",
-    "apiGatewayEndpoint" : ""
+    "contactFlowId": "",
+    "instanceId": "",
+    "apiGatewayEndpoint": ""
   },
   "recorder": {
     "preset": "speech_recognition"

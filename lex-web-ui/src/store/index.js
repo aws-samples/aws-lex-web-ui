@@ -15,16 +15,16 @@
 /* eslint no-console: ["error", { allow: ["info", "warn", "error"] }] */
 /* eslint no-param-reassign: off */
 
-import initialState from '@/store/state';
-import getters from '@/store/getters';
-import mutations from '@/store/mutations';
-import actions from '@/store/actions';
+import initialState from './state'
+import getters from './getters'
+import mutations from './mutations'
+import actions from './actions'
 
 export default {
   // prevent changes outside of mutation handlers
-  strict: (process.env.NODE_ENV === 'development'),
+  strict: process.env.NODE_ENV === 'development',
   state: initialState,
   getters,
   mutations,
-  actions,
-};
+  actions
+}

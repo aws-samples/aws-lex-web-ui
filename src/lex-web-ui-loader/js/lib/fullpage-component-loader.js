@@ -364,17 +364,13 @@ export class FullPageComponentLoader {
       }
 
       try {
-        const LexWebUiComponent = Vue.extend({
-          store: lexWebUi.store,
-          template: '<div id="lex-web-ui"><lex-web-ui/></div>',
-        });
-
-        // mounts off-document
-        const lexWebUiComponent = new LexWebUiComponent().$mount();
+        const app = lexWebUi.app;
+        const lexWebUiComponent =  app.mount(`#${elId}`);
         // replace existing element
-        el.parentNode.replaceChild(lexWebUiComponent.$el, el);
+        //el.parentNode.replaceChild(lexWebUiComponent.$el, el);
         resolve(lexWebUiComponent);
       } catch (err) {
+        console.log(err);
         reject(new Error(`failed to mount lexWebUi component: ${err}`));
       }
     });

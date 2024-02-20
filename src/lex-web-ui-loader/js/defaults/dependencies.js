@@ -31,17 +31,17 @@ export const dependenciesFullPage = {
     },
     {
       name: 'Vue',
-      url: './2.6.11_dist_vue.js',
-      canUseMin: true,
+      url: './3.3.10_dist_vue.js',
+      canUseMin: false,
     },
     {
       name: 'Vuex',
-      url: './3.4.0_dist_vuex.js',
+      url: './4.1.0_dist_vuex.js',
       canUseMin: true,
     },
     {
       name: 'Vuetify',
-      url: './0.17.7_dist_vuetify.js',
+      url: './3.4.6_dist_vuetify.js',
       canUseMin: true,
     },
     {
@@ -57,7 +57,7 @@ export const dependenciesFullPage = {
     },
     {
       name: 'vuetify',
-      url: './0.17.7_dist_vuetify.css',
+      url: './3.4.6_dist_vuetify.css',
       canUseMin: true,
     },
     {

@@ -1,17 +1,11 @@
 <template>
-  <v-flex class="recorder-status white">
+  <v-row class="recorder-status white">
     <div class="status-text">
-      <span>{{statusText}}</span>
+      <span>{{ statusText }}</span>
     </div>
 
-    <div
-      class="voice-controls ml-2"
-    >
-      <transition
-        v-on:enter="enterMeter"
-        v-on:leave="leaveMeter"
-        v-bind:css="false"
-      >
+    <div class="voice-controls ml-2">
+      <transition v-on:enter="enterMeter" v-on:leave="leaveMeter" v-bind:css="false">
         <div v-if="isRecording" class="volume-meter">
           <meter
             v-bind:value="volume"
@@ -30,11 +24,7 @@
         class="processing-bar ma-0"
       ></v-progress-linear>
 
-      <transition
-        v-on:enter="enterAudioPlay"
-        v-on:leave="leaveAudioPlay"
-        v-bind:css="false"
-      >
+      <transition v-on:enter="enterAudioPlay" v-on:leave="leaveAudioPlay" v-bind:css="false">
         <v-progress-linear
           v-if="isBotSpeaking"
           v-model="audioPlayPercent"
@@ -42,7 +32,7 @@
         ></v-progress-linear>
       </transition>
     </div>
-  </v-flex>
+  </v-row>
 </template>
 <script>
 /*
@@ -63,106 +53,97 @@ License for the specific language governing permissions and limitations under th
 export default {
   name: 'recorder-status',
   data() {
-    return ({
+    return {
       volume: 0,
       volumeIntervalId: null,
       audioPlayPercent: 0,
-      audioIntervalId: null,
-    });
+      audioIntervalId: null
+    }
   },
   computed: {
     isSpeechConversationGoing() {
-      return this.isConversationGoing;
+      return this.isConversationGoing
     },
     isProcessing() {
-      return (
-        this.isSpeechConversationGoing &&
-        !this.isRecording &&
-        !this.isBotSpeaking
-      );
+      return this.isSpeechConversationGoing && !this.isRecording && !this.isBotSpeaking
     },
     statusText() {
       if (this.isInterrupting) {
-        return 'Interrupting...';
+        return 'Interrupting...'
       }
       if (this.canInterruptBotPlayback) {
-        return 'Say "skip" and I\'ll listen for your answer...';
+        return 'Say "skip" and I\'ll listen for your answer...'
       }
       if (this.isMicMuted) {
-        return 'Microphone seems to be muted...';
+        return 'Microphone seems to be muted...'
       }
       if (this.isRecording) {
-        return 'Listening...';
+        return 'Listening...'
       }
       if (this.isBotSpeaking) {
-        return 'Playing audio...';
+        return 'Playing audio...'
       }
       if (this.isSpeechConversationGoing) {
-        return 'Processing...';
+        return 'Processing...'
       }
       if (this.isRecorderSupported) {
-        return 'Click on the mic';
+        return 'Click on the mic'
       }
-      return '';
+      return ''
     },
     canInterruptBotPlayback() {
-      return this.$store.state.botAudio.canInterrupt;
+      return this.$store.state.botAudio.canInterrupt
     },
     isBotSpeaking() {
-      return this.$store.state.botAudio.isSpeaking;
+      return this.$store.state.botAudio.isSpeaking
     },
     isConversationGoing() {
-      return this.$store.state.recState.isConversationGoing;
+      return this.$store.state.recState.isConversationGoing
     },
     isInterrupting() {
-      return (
-        this.$store.state.recState.isInterrupting ||
-        this.$store.state.botAudio.isInterrupting
-      );
+      return this.$store.state.recState.isInterrupting || this.$store.state.botAudio.isInterrupting
     },
     isMicMuted() {
-      return this.$store.state.recState.isMicMuted;
+      return this.$store.state.recState.isMicMuted
     },
     isRecorderSupported() {
-      return this.$store.state.recState.isRecorderSupported;
+      return this.$store.state.recState.isRecorderSupported
     },
     isRecording() {
-      return this.$store.state.recState.isRecording;
-    },
+      return this.$store.state.recState.isRecording
+    }
   },
   methods: {
     enterMeter() {
-      const intervalTimeInMs = 50;
+      const intervalTimeInMs = 50
       this.volumeIntervalId = setInterval(() => {
-        this.$store.dispatch('getRecorderVolume')
-          .then((volume) => {
-            this.volume = volume.instant.toFixed(4);
-          });
-      }, intervalTimeInMs);
+        this.$store.dispatch('getRecorderVolume').then((volume) => {
+          this.volume = volume.instant.toFixed(4)
+        })
+      }, intervalTimeInMs)
     },
     leaveMeter() {
       if (this.volumeIntervalId) {
-        clearInterval(this.volumeIntervalId);
+        clearInterval(this.volumeIntervalId)
       }
     },
     enterAudioPlay() {
-      const intervalTimeInMs = 20;
+      const intervalTimeInMs = 20
       this.audioIntervalId = setInterval(() => {
-        this.$store.dispatch('getAudioProperties')
-          .then(({ end = 0, duration = 0 }) => {
-            const percent = (duration <= 0) ? 0 : (end / duration) * 100;
-            this.audioPlayPercent = (Math.ceil(percent / 10) * 10) + 5;
-          });
-      }, intervalTimeInMs);
+        this.$store.dispatch('getAudioProperties').then(({ end = 0, duration = 0 }) => {
+          const percent = duration <= 0 ? 0 : (end / duration) * 100
+          this.audioPlayPercent = Math.ceil(percent / 10) * 10 + 5
+        })
+      }, intervalTimeInMs)
     },
     leaveAudioPlay() {
       if (this.audioIntervalId) {
-        this.audioPlayPercent = 0;
-        clearInterval(this.audioIntervalId);
+        this.audioPlayPercent = 0
+        clearInterval(this.audioIntervalId)
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 <style scoped>
 .recorder-status {
