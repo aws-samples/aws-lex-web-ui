@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar color="white" :dense="this.$store.state.isRunningEmbedded" class="toolbar-content">
+  <v-toolbar elevation="3" color="white" :dense="this.$store.state.isRunningEmbedded" class="toolbar-content">
     <!--
       using v-show instead of v-if to make recorder-status transition work
     -->
@@ -14,15 +14,17 @@
         @keyup.enter.stop="postTextMessage"
         @focus="onTextFieldFocus"
         @blur="onTextFieldBlur"
-        @input="onKeyUp"
+        @update:model-value="onKeyUp"
         ref="textInput"
         id="text-input"
         name="text-input"
         single-line
         hide-details
+        density="compact"
         variant="underlined"
         class="toolbar-text"
-      ></v-text-field>
+      >
+    </v-text-field>
 
       <recorder-status
         v-show="!shouldShowTextInput"
@@ -55,7 +57,7 @@
       <v-tooltip activator="parent" v-model="shouldShowTooltip" location="start">
         <span id="input-button-tooltip">{{ inputButtonTooltip }}</span>
       </v-tooltip>
-      <v-icon medium>{{ micButtonIcon }}</v-icon>
+      <v-icon size="x-large">{{ micButtonIcon }}</v-icon>
     </v-btn>
     <v-btn
       v-if="shouldShowUpload"
@@ -65,7 +67,7 @@
       class="icon-color input-button"
       icon
     >
-      <v-icon medium>attach_file</v-icon>
+      <v-icon size="x-large">attach_file</v-icon>
       <input
         type="file"
         style="display: none"
@@ -80,7 +82,7 @@
       class="icon-color input-button"
       icon
     >
-      <v-icon medium>clear</v-icon>
+      <v-icon size="x-large">clear</v-icon>
     </v-btn>
   </v-toolbar>
 </template>
@@ -356,10 +358,11 @@ export default {
 
 .toolbar-content {
   padding-left: 16px;
-  box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12) !important;
+  font-size: 16px !important;
 }
 
 .v-input {
   margin-bottom: 10px;
 }
+
 </style>

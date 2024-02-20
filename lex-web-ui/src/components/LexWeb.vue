@@ -585,4 +585,7 @@ NOTE: not using var() for different heights due to IE11 compatibility
   the button is shown */
   background: transparent;
 }
+
+html { font-size: 14px !important; } 
+
 </style>

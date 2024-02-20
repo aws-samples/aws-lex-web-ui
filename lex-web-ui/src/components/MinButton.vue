@@ -1,46 +1,40 @@
 <template>
   <v-container fluid class="pa-0 min-button-container">
-    <v-fab-transition>
-      <v-btn
-        bottom
-        dark
-        depressed
-        fixed
-        right
-        v-if="minButtonContent"
-        v-show="isUiMinimized"
-        v-bind:color="toolbarColor"
-        v-on:click.stop="toggleMinimize"
-        v-on="tooltipEventHandlers"
-        aria-label="show chat window"
-        class="min-button min-button-content"
-      >
-        <v-icon left>
-          {{'chat'}}
-        </v-icon>
-        {{minButtonContent}}   
-      </v-btn>
-      <!-- seperate button for button with text vs w/o -->
-      <v-btn
-        bottom
-        dark
-        depressed
-        fab
-        fixed
-        right
-        v-else
-        v-show="isUiMinimized"
-        v-bind:color="toolbarColor"
-        v-on:click.stop="toggleMinimize"
-        v-on="tooltipEventHandlers"
-        aria-label="show chat window"
-        class="min-button"
-      >
-        <v-icon>
-          {{'chat'}}
-        </v-icon>
-      </v-btn>
-    </v-fab-transition>
+    <v-row justify="end">
+      <v-col cols="auto">
+        <v-fab-transition>
+          <v-btn
+            size="x-large"
+            v-if="minButtonContent"
+            v-show="isUiMinimized"
+            v-bind:color="toolbarColor"
+            v-on:click.stop="toggleMinimize"
+            v-on="tooltipEventHandlers"
+            aria-label="show chat window"
+            class="min-button min-button-content"
+          >
+            <v-icon start>
+              {{'chat'}}
+            </v-icon>
+            {{minButtonContent}}   
+          </v-btn>
+          <!-- seperate button for button with text vs w/o -->
+          <v-btn
+            v-else
+            v-show="isUiMinimized"
+            v-bind:color="toolbarColor"
+            v-on:click.stop="toggleMinimize"
+            v-on="tooltipEventHandlers"
+            aria-label="show chat window"
+            class="min-button"
+          >
+            <v-icon>
+              {{'chat'}}
+            </v-icon>
+          </v-btn>
+        </v-fab-transition>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -98,6 +92,10 @@ export default {
 };
 </script>
 <style>
+  .min-button {
+
+  }
+
   .min-button-content {
     border-radius: 60px;
   }

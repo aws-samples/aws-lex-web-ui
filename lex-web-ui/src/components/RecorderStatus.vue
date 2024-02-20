@@ -1,5 +1,5 @@
 <template>
-  <v-row class="recorder-status white">
+  <v-row class="recorder-status bg-white">
     <div class="status-text">
       <span>{{statusText}}</span>
     </div>

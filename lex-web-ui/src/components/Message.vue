@@ -34,11 +34,11 @@
                   <v-card-title primary-title>
                     <div>
                       <img :src="message.interactiveMessage.data.content.imageData" />
-                      <div class="headline">{{message.interactiveMessage.data.content.title}}</div>
+                      <div class="text-h5">{{message.interactiveMessage.data.content.title}}</div>
                       <span>{{message.interactiveMessage.data.content.subtitle}}</span>
                     </div>
                   </v-card-title>
-                  <v-list two-line class="message-bubble interactive-row">
+                  <v-list lines="two" class="message-bubble interactive-row">
                     <template v-for="(item, index) in message.interactiveMessage.data.content.elements" :key="index">
                       <v-list-item @click="resendMessage(item.title)">
                         <v-list-item v-if="item.imageData">
@@ -60,13 +60,13 @@
                   v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'TimePicker'">
                   <v-card-title primary-title>
                     <div>
-                      <div class="headline">{{message.interactiveMessage.data.content.title}}</div>
+                      <div class="text-h5">{{message.interactiveMessage.data.content.title}}</div>
                       <span>{{message.interactiveMessage.data.content.subtitle}}</span>
                     </div>
                   </v-card-title>                  
                   <template v-for="item in this.message.interactiveMessage.timeslots">
                     <v-list-subheader>{{ item.date }}</v-list-subheader>
-                    <v-list two-line class="message-bubble interactive-row">
+                    <v-list lines="two" class="message-bubble interactive-row">
                       <v-list-item>
                         <v-list-item
                           v-for="subItem in item.slots"
@@ -88,7 +88,7 @@
                     :text-field-props="textFieldProps"
                   >
                   </v-datetime-picker>
-                  <v-btn v-on:click="sendDateTime(datetime)" depressed>Confirm</v-btn>
+                  <v-btn v-on:click="sendDateTime(datetime)" variant="flat">Confirm</v-btn>
                 </div>
                 <div
                   v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback"
@@ -112,7 +112,7 @@
                   </v-icon>
                 </div>
                 <v-icon
-                  medium
+                  size="medium"
                   v-if="message.type === 'bot' && botDialogState && showDialogStateIcon"
                   :class="`dialog-state-${botDialogState.state}`"
                   class="dialog-state"
@@ -135,7 +135,7 @@
                 </div>
                   <div offset-y v-if="shouldShowAttachments">
                     <v-btn :class="`tooltip-attachments-${message.id}`" v-on="attachmentEventHandlers" icon>
-                      <v-icon medium>
+                      <v-icon size="medium">
                         attach_file
                       </v-icon>                      
                     </v-btn>
@@ -143,12 +143,12 @@
                       v-model="showAttachmentsTooltip"
                       :activator="`.tooltip-attachments-${message.id}`"
                       content-class="tooltip-custom"
-                      left
+                      location="left"
                     >
                       <span>{{message.attachements}}</span>
                     </v-tooltip>
                   </div>
-                 <v-menu offset-y v-if="message.type === 'human'" v-show="showMessageMenu">
+                 <v-menu v-if="message.type === 'human'" v-show="showMessageMenu">
                   <v-btn
                     slot="activator"
                     icon

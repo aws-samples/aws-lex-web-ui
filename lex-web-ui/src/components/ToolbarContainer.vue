@@ -1,13 +1,11 @@
 <template>
   <!-- eslint-disable max-len -->
   <v-toolbar
+    elevation="3"
     :color="toolbarColor"
-    app
-    dark
-    fixed
     v-if="!isUiMinimized"
     @click="toolbarClickHandler"
-    :dense="this.$store.state.isRunningEmbedded && !isUiMinimized"
+    :density="density"
     :class="{ minimized: isUiMinimized }"
     aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
   >
@@ -20,7 +18,7 @@
       aria-hidden="true"
     />
 
-    <v-menu v-if="showToolbarMenu" offset-y>
+    <v-menu v-if="showToolbarMenu">
       <template v-slot:activator="{ props }">
         <v-btn
           v-bind="props"
@@ -28,8 +26,7 @@
           v-on="tooltipMenuEventHandlers"
           class="menu"
           icon="menu"
-          small
-          fab
+          size="small"
           aria-label="menu options"
         ></v-btn>
       </template>
@@ -108,12 +105,12 @@
         v-model="prevNav"
         activator=".nav-button-prev"
         content-class="tooltip-custom"
-        right
+        location="right"
       >
         <template v-slot:activator="{ props }">
           <v-btn
             v-bind="props"
-            small
+            size="small"
             :disabled="isLexProcessing"
             class="nav-button-prev"
             v-on="prevNavEventHandlers"
@@ -139,7 +136,7 @@
       v-model="shouldShowTooltip"
       content-class="tooltip-custom"
       activator=".min-max-toggle"
-      left
+      location="left"
     >
       <span id="min-max-tooltip">{{ toolTipMinimize }}</span>
     </v-tooltip>
@@ -147,7 +144,7 @@
       v-model="shouldShowHelpTooltip"
       content-class="tooltip-custom"
       activator=".help-toggle"
-      left
+      location="left"
     >
       <span id="help-tooltip">help</span>
     </v-tooltip>
@@ -155,7 +152,7 @@
       v-model="shouldShowEndLiveChatTooltip"
       content-class="tooltip-custom"
       activator=".end-live-chat-btn"
-      left
+      location="left"
     >
       <span id="end-live-chat-tooltip">{{ toolbarEndLiveChatLabel }}</span>
     </v-tooltip>
@@ -163,7 +160,7 @@
       v-model="shouldShowMenuTooltip"
       content-class="tooltip-custom"
       activator=".menu"
-      right
+      location="right"
     >
       <span id="menu-tooltip">menu</span>
     </v-tooltip>
@@ -359,6 +356,12 @@ export default {
     },
     isSFXOn() {
       return this.$store.state.isSFXOn;
+    },
+    density() {
+      if (this.$store.state.isRunningEmbedded && !isUiMinimized) 
+        return "compact"
+      else 
+        return "default"
     },
     showToolbarMenu() {
       return this.$store.state.config.lex.v2BotLocaleId.split(',').length > 1
