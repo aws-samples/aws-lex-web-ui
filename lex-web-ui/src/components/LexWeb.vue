@@ -536,15 +536,18 @@ NOTE: not using var() for different heights due to IE11 compatibility
 .message-list-container.toolbar-height-sm {
   top: 56px;
   height: calc(100% - 2 * 56px);
+  background-color: white !important;
 }
 /* yes, the height is smaller in mid sizes */
 .message-list-container.toolbar-height-md {
   top: 48px;
   height: calc(100% - 2 * 48px);
+  background-color: white !important;
 }
 .message-list-container.toolbar-height-lg {
   top: 64px;
   height: calc(100% - 2 * 64px);
+  background-color: white !important;
 }
 
 #lex-web[ui-minimized] {

@@ -1,46 +1,40 @@
 <template>
   <v-container fluid class="pa-0 min-button-container">
-    <v-fab-transition>
-      <v-btn
-        bottom
-        dark
-        depressed
-        fixed
-        right
-        v-if="minButtonContent"
-        v-show="isUiMinimized"
-        v-bind:color="toolbarColor"
-        v-on:click.stop="toggleMinimize"
-        v-on="tooltipEventHandlers"
-        aria-label="show chat window"
-        class="min-button min-button-content"
-      >
-        <v-icon left>
-          {{ 'chat' }}
-        </v-icon>
-        {{ minButtonContent }}
-      </v-btn>
-      <!-- seperate button for button with text vs w/o -->
-      <v-btn
-        bottom
-        dark
-        depressed
-        fab
-        fixed
-        right
-        v-else
-        v-show="isUiMinimized"
-        v-bind:color="toolbarColor"
-        v-on:click.stop="toggleMinimize"
-        v-on="tooltipEventHandlers"
-        aria-label="show chat window"
-        class="min-button"
-      >
-        <v-icon>
-          {{ 'chat' }}
-        </v-icon>
-      </v-btn>
-    </v-fab-transition>
+    <v-row justify="end">
+      <v-col cols="auto">
+        <v-fab-transition>
+          <v-btn
+            size="x-large"
+            v-if="minButtonContent"
+            v-show="isUiMinimized"
+            v-bind:color="toolbarColor"
+            v-on:click.stop="toggleMinimize"
+            v-on="tooltipEventHandlers"
+            aria-label="show chat window"
+            class="min-button min-button-content"
+          >
+            <v-icon start>
+              {{'chat'}}
+            </v-icon>
+            {{minButtonContent}}   
+          </v-btn>
+          <!-- seperate button for button with text vs w/o -->
+          <v-btn
+            v-else
+            v-show="isUiMinimized"
+            v-bind:color="toolbarColor"
+            v-on:click.stop="toggleMinimize"
+            v-on="tooltipEventHandlers"
+            aria-label="show chat window"
+            class="min-button"
+          >
+            <v-icon>
+              {{'chat'}}
+            </v-icon>
+          </v-btn>
+        </v-fab-transition>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -67,39 +61,42 @@ export default {
         mouseleave: this.onInputButtonHoverLeave,
         touchstart: this.onInputButtonHoverEnter,
         touchend: this.onInputButtonHoverLeave,
-        touchcancel: this.onInputButtonHoverLeave
-      }
-    }
+        touchcancel: this.onInputButtonHoverLeave,
+      },
+    };
   },
   props: ['toolbarColor', 'isUiMinimized'],
   computed: {
     toolTipMinimize() {
-      return this.isUiMinimized ? 'maximize' : 'minimize'
+      return (this.isUiMinimized) ? 'maximize' : 'minimize';
     },
     minButtonContent() {
-      //const n = this.$store.state.config.ui.minButtonContent.length;
-      //return (n > 1) ? this.$store.state.config.ui.minButtonContent : false;
-      return false
-    }
+      const n = this.$store.state.config.ui.minButtonContent.length;
+      return (n > 1) ? this.$store.state.config.ui.minButtonContent : false;
+    },
   },
   methods: {
     onInputButtonHoverEnter() {
-      this.shouldShowTooltip = true
+      this.shouldShowTooltip = true;
     },
     onInputButtonHoverLeave() {
-      this.shouldShowTooltip = false
+      this.shouldShowTooltip = false;
     },
     toggleMinimize() {
-      /*if (this.$store.state.isRunningEmbedded) {
+      if (this.$store.state.isRunningEmbedded) {
         this.onInputButtonHoverLeave();
         this.$emit('toggleMinimizeUi');
-      }*/
-    }
-  }
-}
+      }
+    },
+  },
+};
 </script>
 <style>
-.min-button-content {
-  border-radius: 60px;
-}
+  .min-button {
+
+  }
+
+  .min-button-content {
+    border-radius: 60px;
+  }
 </style>
