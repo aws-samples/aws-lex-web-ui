@@ -565,6 +565,7 @@ NOTE: not using var() for different heights due to IE11 compatibility
 */
 .message-list-container {
   position: fixed;
+  background-color: #fefefe;
 }
 .message-list-container.toolbar-height-sm {
   top: 56px;

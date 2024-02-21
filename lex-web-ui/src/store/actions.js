@@ -1211,7 +1211,7 @@ export default {
         }
       }
       window.parent.postMessage(
-        { source: 'lex-web-ui', ...rawMessage },
+        { source: 'lex-web-ui', ...message },
         target,
         [messageChannel.port2],
       );

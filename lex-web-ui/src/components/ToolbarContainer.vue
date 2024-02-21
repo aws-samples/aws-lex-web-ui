@@ -358,7 +358,7 @@ export default {
       return this.$store.state.isSFXOn;
     },
     density() {
-      if (this.$store.state.isRunningEmbedded && !isUiMinimized) 
+      if (this.$store.state.isRunningEmbedded && !this.isUiMinimized) 
         return "compact"
       else 
         return "default"

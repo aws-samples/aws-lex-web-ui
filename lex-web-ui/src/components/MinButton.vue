@@ -4,6 +4,7 @@
       <v-col cols="auto">
         <v-fab-transition>
           <v-btn
+            rounded="xl" 
             size="x-large"
             v-if="minButtonContent"
             v-show="isUiMinimized"
@@ -12,15 +13,15 @@
             v-on="tooltipEventHandlers"
             aria-label="show chat window"
             class="min-button min-button-content"
+            prepend-icon="chat"
           >
-            <v-icon start>
-              {{'chat'}}
-            </v-icon>
             {{minButtonContent}}   
           </v-btn>
           <!-- seperate button for button with text vs w/o -->
           <v-btn
             v-else
+            icon="chat"
+            size="x-large"
             v-show="isUiMinimized"
             v-bind:color="toolbarColor"
             v-on:click.stop="toggleMinimize"
@@ -28,9 +29,6 @@
             aria-label="show chat window"
             class="min-button"
           >
-            <v-icon>
-              {{'chat'}}
-            </v-icon>
           </v-btn>
         </v-fab-transition>
       </v-col>
@@ -92,10 +90,6 @@ export default {
 };
 </script>
 <style>
-  .min-button {
-
-  }
-
   .min-button-content {
     border-radius: 60px;
   }
