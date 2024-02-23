@@ -30,7 +30,7 @@ import LexWeb from '@/components/LexWeb';
 import VuexStore from '@/store';
 
 import { config as defaultConfig, mergeConfig } from '@/config';
-import { createApp, defineAsyncComponent } from 'vue/dist/vue.esm-bundler.js';
+import { createApp, defineAsyncComponent } from 'vue';
 import { aliases, md } from 'vuetify/iconsets/md';
 import { createStore } from 'vuex';
 
