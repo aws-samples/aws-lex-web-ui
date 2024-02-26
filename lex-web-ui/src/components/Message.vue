@@ -130,7 +130,7 @@
                     v-show="!showMessageMenu"
                     class="icon-color ml-0 mr-0"
                   >
-                    <v-icon class="play-icon">mdi-play-circle-outline</v-icon>
+                    <v-icon class="play-icon">play_circle_outline</v-icon>
                   </v-btn>
                 </div>
                   <div offset-y v-if="shouldShowAttachments">
