@@ -7203,7 +7203,7 @@ var dependenciesFullPage = {
   }, {
     name: 'LexWebUi',
     url: './lex-web-ui.js',
-    canUseMin: true
+    canUseMin: false
   }],
   css: [{
     name: 'roboto-material-icons',
@@ -7889,6 +7889,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _config_loader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config-loader */ "./lib/config-loader.js");
 /* harmony import */ var _loginutil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loginutil */ "./lib/loginutil.js");
+/* harmony import */ var _aws_sdk_credential_providers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/credential-providers */ "../../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -7913,6 +7914,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "debug", "info"] }] */
 /* global AWS LexWebUi Vue */
+
 
 
 
@@ -7978,6 +7980,38 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
       }
       return requestTokens;
     }()
+  }, {
+    key: "getCredentials",
+    value: function () {
+      var _getCredentials = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(poolId, region) {
+        var logins,
+          credentialProvider,
+          credentials,
+          _args2 = arguments;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              logins = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : {};
+              credentialProvider = (0,_aws_sdk_credential_providers__WEBPACK_IMPORTED_MODULE_2__.fromCognitoIdentityPool)({
+                identityPoolId: poolId,
+                logins: logins,
+                clientConfig: {
+                  region: region
+                }
+              });
+              credentials = credentialProvider();
+              return _context2.abrupt("return", credentials);
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }));
+      function getCredentials(_x, _x2) {
+        return _getCredentials.apply(this, arguments);
+      }
+      return getCredentials;
+    }()
     /**
      * Send tokens to the Vue component and update the Vue component
      * with the latest AWS credentials to use to make calls to AWS
@@ -7998,17 +8032,21 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
       var cognitoPoolId = this.config.cognito.poolId;
       var region = this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
       var poolName = "cognito-idp.".concat(region, ".amazonaws.com/").concat(this.config.cognito.appUserPoolName);
+      var logins;
       var credentials;
+      var self = this;
       if (idtoken) {
         // auth role since logged in
         try {
-          var logins = {};
+          logins = {};
           logins[poolName] = idtoken;
-          credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: cognitoPoolId,
-            Logins: logins
-          }, {
-            region: region
+          this.getCredentials(cognitoPoolId, region, logins).then(function (creds) {
+            self.credentials = creds;
+            var message = {
+              event: 'replaceCreds',
+              creds: creds
+            };
+            FullPageComponentLoader.sendMessageToComponent(message);
           });
         } catch (err) {
           console.error(new Error("cognito auth credentials could not be created ".concat(err)));
@@ -8016,34 +8054,27 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
       } else {
         // noauth role
         try {
-          credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: cognitoPoolId
-          }, {
-            region: region
+          this.getCredentials(cognitoPoolId, region).then(function (creds) {
+            self.credentials = creds;
+            var message = {
+              event: 'replaceCreds',
+              creds: creds
+            };
+            FullPageComponentLoader.sendMessageToComponent(message);
           });
         } catch (err) {
           console.error(new Error("cognito noauth credentials could not be created ".concat(err)));
         }
       }
-      var self = this;
-      credentials.clearCachedId();
-      credentials.getPromise().then(function () {
-        self.credentials = credentials;
-        var message = {
-          event: 'replaceCreds',
-          creds: credentials
-        };
-        FullPageComponentLoader.sendMessageToComponent(message);
-      });
     }
   }, {
     key: "refreshAuthTokens",
     value: function () {
-      var _refreshAuthTokens = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var _refreshAuthTokens = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var _this = this;
         var refToken;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
               refToken = localStorage.getItem("".concat(this.config.cognito.appUserPoolClientId, "refreshtoken"));
               if (refToken) {
@@ -8059,9 +8090,9 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
               }
             case 2:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
       function refreshAuthTokens() {
         return _refreshAuthTokens.apply(this, arguments);
@@ -8130,26 +8161,18 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
         if (!cognitoPoolId) {
           return reject(new Error('missing cognito poolId config'));
         }
-        if (!('AWS' in window) || !('CognitoIdentityCredentials' in window.AWS)) {
-          return reject(new Error('unable to find AWS SDK global object'));
-        }
+        var logins;
         var credentials;
+        var self = _this3;
         var token = localStorage.getItem("".concat(_this3.config.cognito.appUserPoolClientId, "idtokenjwt"));
         if (token) {
           // auth role since logged in
           return _this3.validateIdToken().then(function (idToken) {
-            var logins = {};
+            logins = {};
             logins[poolName] = idToken;
-            credentials = new AWS.CognitoIdentityCredentials({
-              IdentityPoolId: cognitoPoolId,
-              Logins: logins
-            }, {
-              region: region
-            });
-            credentials.clearCachedId();
             var self = _this3;
-            return credentials.getPromise().then(function () {
-              self.credentials = credentials;
+            return _this3.getCredentials(cognitoPoolId, region, logins).then(function (creds) {
+              self.credentials = creds;
               self.propagateTokensUpdateCredentials();
               resolve();
             });
@@ -8160,15 +8183,8 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
             reject(unable);
           });
         }
-        credentials = new AWS.CognitoIdentityCredentials({
-          IdentityPoolId: cognitoPoolId
-        }, {
-          region: region
-        });
-        credentials.clearCachedId();
-        var self = _this3;
-        return credentials.getPromise().then(function () {
-          self.credentials = credentials;
+        return _this3.getCredentials(cognitoPoolId, region, logins).then(function (creds) {
+          self.credentials = creds;
           resolve();
         });
       });
@@ -8183,44 +8199,44 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
     value: function initBotMessageHandlers() {
       var _this4 = this;
       document.addEventListener('fullpagecomponent', /*#__PURE__*/function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(evt) {
-          return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-            while (1) switch (_context3.prev = _context3.next) {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(evt) {
+          return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+            while (1) switch (_context4.prev = _context4.next) {
               case 0:
                 if (!(evt.detail.event === 'requestLogin')) {
-                  _context3.next = 4;
+                  _context4.next = 4;
                   break;
                 }
                 (0,_loginutil__WEBPACK_IMPORTED_MODULE_1__.login)(_this4.generateConfigObj());
-                _context3.next = 19;
+                _context4.next = 19;
                 break;
               case 4:
                 if (!(evt.detail.event === 'requestLogout')) {
-                  _context3.next = 8;
+                  _context4.next = 8;
                   break;
                 }
                 (0,_loginutil__WEBPACK_IMPORTED_MODULE_1__.logout)(_this4.generateConfigObj());
-                _context3.next = 19;
+                _context4.next = 19;
                 break;
               case 8:
                 if (!(evt.detail.event === 'requestTokens')) {
-                  _context3.next = 13;
+                  _context4.next = 13;
                   break;
                 }
-                _context3.next = 11;
+                _context4.next = 11;
                 return _this4.requestTokens();
               case 11:
-                _context3.next = 19;
+                _context4.next = 19;
                 break;
               case 13:
                 if (!(evt.detail.event === 'refreshAuthTokens')) {
-                  _context3.next = 18;
+                  _context4.next = 18;
                   break;
                 }
-                _context3.next = 16;
+                _context4.next = 16;
                 return _this4.refreshAuthTokens();
               case 16:
-                _context3.next = 19;
+                _context4.next = 19;
                 break;
               case 18:
                 if (evt.detail.event === 'pong') {
@@ -8228,11 +8244,11 @@ var FullPageComponentLoader = /*#__PURE__*/function () {
                 }
               case 19:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
-          }, _callee3);
+          }, _callee4);
         }));
-        return function (_x) {
+        return function (_x3) {
           return _ref2.apply(this, arguments);
         };
       }(), false);
@@ -8397,7 +8413,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _config_loader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config-loader */ "./lib/config-loader.js");
 /* harmony import */ var _loginutil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loginutil */ "./lib/loginutil.js");
+/* harmony import */ var _aws_sdk_credential_providers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/credential-providers */ "../../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -8418,6 +8438,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "debug"] }] */
 /* global AWS */
+
 
 
 
@@ -8551,16 +8572,16 @@ var IframeComponentLoader = /*#__PURE__*/function () {
       var poolName = "cognito-idp.".concat(region, ".amazonaws.com/").concat(this.config.cognito.appUserPoolName);
       var credentials;
       var idtoken = localStorage.getItem("".concat(this.config.cognito.appUserPoolClientId, "idtokenjwt"));
+      var logins;
+      var self = this;
       if (idtoken) {
         // auth role since logged in
         try {
-          var logins = {};
+          logins = {};
           logins[poolName] = idtoken;
-          credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: cognitoPoolId,
-            Logins: logins
-          }, {
-            region: region
+          credentials = this.getCredentials(cognitoPoolId, region, logins).then(function (creds) {
+            self.credentials = creds;
+            return creds;
           });
         } catch (err) {
           console.error(new Error("cognito auth credentials could not be created ".concat(err)));
@@ -8568,19 +8589,14 @@ var IframeComponentLoader = /*#__PURE__*/function () {
       } else {
         // noauth role
         try {
-          credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: cognitoPoolId
-          }, {
-            region: region
+          credentials = this.getCredentials(cognitoPoolId, region).then(function (creds) {
+            self.credentials = creds;
+            return creds;
           });
         } catch (err) {
           console.error(new Error("cognito noauth credentials could not be created ".concat(err)));
         }
       }
-      var self = this;
-      credentials.getPromise().then(function () {
-        self.credentials = credentials;
-      });
     }
   }, {
     key: "validateIdToken",
@@ -8640,25 +8656,24 @@ var IframeComponentLoader = /*#__PURE__*/function () {
         if (!cognitoPoolId) {
           return reject(new Error('missing cognito poolId config'));
         }
-        if (!('AWS' in window) || !('CognitoIdentityCredentials' in window.AWS)) {
-          return reject(new Error('unable to find AWS SDK global object'));
-        }
+
+        // if (!('AWS' in window) ||
+        //   !('CognitoIdentityCredentials' in window.AWS)
+        // ) {
+        //   return reject(new Error('unable to find AWS SDK global object'));
+        // }
+
         var credentials;
         var token = localStorage.getItem("".concat(_this4.config.cognito.appUserPoolClientId, "idtokenjwt"));
+        var logins;
+        var self = _this4;
         if (token) {
           // auth role since logged in
           return _this4.validateIdToken().then(function (idToken) {
-            var logins = {};
+            logins = {};
             logins[poolName] = idToken;
-            credentials = new AWS.CognitoIdentityCredentials({
-              IdentityPoolId: cognitoPoolId,
-              Logins: logins
-            }, {
-              region: region
-            });
-            var self = _this4;
-            return credentials.getPromise().then(function () {
-              self.credentials = credentials;
+            credentials = _this4.getCredentials(cognitoPoolId, region, logins).then(function (creds) {
+              self.credentials = creds;
               resolve();
             });
           }, function (unable) {
@@ -8668,17 +8683,8 @@ var IframeComponentLoader = /*#__PURE__*/function () {
             reject(unable);
           });
         }
-        credentials = new AWS.CognitoIdentityCredentials({
-          IdentityPoolId: cognitoPoolId
-        }, {
-          region: region
-        });
-        if (_this4.config.ui.enableLogin) {
-          credentials.clearCachedId();
-        }
-        var self = _this4;
-        return credentials.getPromise().then(function () {
-          self.credentials = credentials;
+        credentials = _this4.getCredentials(cognitoPoolId, region).then(function (creds) {
+          self.credentials = creds;
           resolve();
         });
       });
@@ -8888,20 +8894,41 @@ var IframeComponentLoader = /*#__PURE__*/function () {
      */
   }, {
     key: "getCredentials",
-    value: function getCredentials() {
-      var _this8 = this;
-      if (!this.credentials || !('getPromise' in this.credentials)) {
-        return Promise.reject(new Error('invalid credentials'));
+    value: (function () {
+      var _getCredentials = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(poolId, region) {
+        var logins,
+          credentialProvider,
+          credentials,
+          _args = arguments;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              logins = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
+              credentialProvider = (0,_aws_sdk_credential_providers__WEBPACK_IMPORTED_MODULE_2__.fromCognitoIdentityPool)({
+                identityPoolId: poolId,
+                logins: logins,
+                clientConfig: {
+                  region: region
+                }
+              });
+              credentials = credentialProvider();
+              return _context.abrupt("return", credentials);
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }));
+      function getCredentials(_x, _x2) {
+        return _getCredentials.apply(this, arguments);
       }
-      return this.credentials.getPromise().then(function () {
-        return _this8.credentials;
-      });
-    }
-
+      return getCredentials;
+    }()
     /**
      * Event handler functions for messages from iframe
      * Used by onMessageFromIframe - "this" object is bound dynamically
      */
+    )
   }, {
     key: "initIframeMessageHandlers",
     value: function initIframeMessageHandlers() {
@@ -8917,7 +8944,9 @@ var IframeComponentLoader = /*#__PURE__*/function () {
         },
         // requests credentials from the parent
         getCredentials: function getCredentials(evt) {
-          return this.getCredentials().then(function (creds) {
+          var poolId = evt.target.iframeLoader.config.cognito.poolId;
+          var region = evt.target.iframeLoader.config.cognito.region;
+          return this.getCredentials(poolId, region).then(function (creds) {
             var tcreds = JSON.parse(JSON.stringify(creds));
             evt.ports[0].postMessage({
               event: 'resolve',
@@ -8978,15 +9007,15 @@ var IframeComponentLoader = /*#__PURE__*/function () {
         },
         // sent to refresh auth tokens as requested by iframe
         refreshAuthTokens: function refreshAuthTokens(evt) {
-          var _this9 = this;
+          var _this8 = this;
           var refToken = localStorage.getItem("".concat(this.config.cognito.appUserPoolClientId, "refreshtoken"));
           if (refToken) {
             (0,_loginutil__WEBPACK_IMPORTED_MODULE_1__.refreshLogin)(this.generateConfigObj(), refToken, function (refSession) {
               if (refSession.isValid()) {
                 var tokens = {};
-                tokens.idtokenjwt = localStorage.getItem("".concat(_this9.config.cognito.appUserPoolClientId, "idtokenjwt"));
-                tokens.accesstokenjwt = localStorage.getItem("".concat(_this9.config.cognito.appUserPoolClientId, "accesstokenjwt"));
-                tokens.refreshtoken = localStorage.getItem("".concat(_this9.config.cognito.appUserPoolClientId, "refreshtoken"));
+                tokens.idtokenjwt = localStorage.getItem("".concat(_this8.config.cognito.appUserPoolClientId, "idtokenjwt"));
+                tokens.accesstokenjwt = localStorage.getItem("".concat(_this8.config.cognito.appUserPoolClientId, "accesstokenjwt"));
+                tokens.refreshtoken = localStorage.getItem("".concat(_this8.config.cognito.appUserPoolClientId, "refreshtoken"));
                 evt.ports[0].postMessage({
                   event: 'resolve',
                   type: evt.data.event,
@@ -9033,7 +9062,7 @@ var IframeComponentLoader = /*#__PURE__*/function () {
   }, {
     key: "sendMessageToIframe",
     value: function sendMessageToIframe(message) {
-      var _this10 = this;
+      var _this9 = this;
       if (!this.iframeElement || !('contentWindow' in this.iframeElement) || !('postMessage' in this.iframeElement.contentWindow)) {
         return Promise.reject(new Error('invalid iframe element'));
       }
@@ -9052,7 +9081,7 @@ var IframeComponentLoader = /*#__PURE__*/function () {
             reject(new Error("iframe failed to handle message - ".concat(evt.data.error)));
           }
         };
-        _this10.iframeElement.contentWindow.postMessage(message, iframeOrigin, [messageChannel.port2]);
+        _this9.iframeElement.contentWindow.postMessage(message, iframeOrigin, [messageChannel.port2]);
       });
     }
 
@@ -9095,21 +9124,21 @@ var IframeComponentLoader = /*#__PURE__*/function () {
   }, {
     key: "showIframe",
     value: function showIframe() {
-      var _this11 = this;
+      var _this10 = this;
       return Promise.resolve().then(function () {
         // check for last state and resume with this configuration
-        if (_this11.config.iframe.shouldLoadIframeMinimized) {
-          _this11.api.toggleMinimizeUi();
-          localStorage.setItem("".concat(_this11.config.cognito.appUserPoolClientId, "lastUiIsMinimized"), 'true');
-        } else if (localStorage.getItem("".concat(_this11.config.cognito.appUserPoolClientId, "lastUiIsMinimized")) && localStorage.getItem("".concat(_this11.config.cognito.appUserPoolClientId, "lastUiIsMinimized")) === 'true') {
-          _this11.api.toggleMinimizeUi();
-        } else if (localStorage.getItem("".concat(_this11.config.cognito.appUserPoolClientId, "lastUiIsMinimized")) && localStorage.getItem("".concat(_this11.config.cognito.appUserPoolClientId, "lastUiIsMinimized")) === 'false') {
-          _this11.api.ping();
+        if (_this10.config.iframe.shouldLoadIframeMinimized) {
+          _this10.api.toggleMinimizeUi();
+          localStorage.setItem("".concat(_this10.config.cognito.appUserPoolClientId, "lastUiIsMinimized"), 'true');
+        } else if (localStorage.getItem("".concat(_this10.config.cognito.appUserPoolClientId, "lastUiIsMinimized")) && localStorage.getItem("".concat(_this10.config.cognito.appUserPoolClientId, "lastUiIsMinimized")) === 'true') {
+          _this10.api.toggleMinimizeUi();
+        } else if (localStorage.getItem("".concat(_this10.config.cognito.appUserPoolClientId, "lastUiIsMinimized")) && localStorage.getItem("".concat(_this10.config.cognito.appUserPoolClientId, "lastUiIsMinimized")) === 'false') {
+          _this10.api.ping();
         }
       })
       // display UI
       .then(function () {
-        return _this11.toggleShowUiClass();
+        return _this10.toggleShowUiClass();
       });
     }
 
@@ -9133,44 +9162,44 @@ var IframeComponentLoader = /*#__PURE__*/function () {
   }, {
     key: "initParentToIframeApi",
     value: function initParentToIframeApi() {
-      var _this12 = this;
+      var _this11 = this;
       this.api = {
         MESSAGE_TYPE_HUMAN: "human",
         MESSAGE_TYPE_BUTTON: "button",
         ping: function ping() {
-          return _this12.sendMessageToIframe({
+          return _this11.sendMessageToIframe({
             event: 'ping'
           });
         },
         sendParentReady: function sendParentReady() {
-          return _this12.sendMessageToIframe({
+          return _this11.sendMessageToIframe({
             event: 'parentReady'
           });
         },
         toggleMinimizeUi: function toggleMinimizeUi() {
-          return _this12.sendMessageToIframe({
+          return _this11.sendMessageToIframe({
             event: 'toggleMinimizeUi'
           });
         },
         postText: function postText(message, messageType) {
-          return _this12.sendMessageToIframe({
+          return _this11.sendMessageToIframe({
             event: 'postText',
             message: message,
             messageType: messageType
           });
         },
         deleteSession: function deleteSession() {
-          return _this12.sendMessageToIframe({
+          return _this11.sendMessageToIframe({
             event: 'deleteSession'
           });
         },
         startNewSession: function startNewSession() {
-          return _this12.sendMessageToIframe({
+          return _this11.sendMessageToIframe({
             event: 'startNewSession'
           });
         },
         setSessionAttribute: function setSessionAttribute(key, value) {
-          return _this12.sendMessageToIframe({
+          return _this11.sendMessageToIframe({
             event: 'setSessionAttribute',
             key: key,
             value: value
@@ -9179,11 +9208,11 @@ var IframeComponentLoader = /*#__PURE__*/function () {
       };
       return Promise.resolve().then(function () {
         // Add listener for parent to iframe event based API
-        document.addEventListener('lexWebUiMessage', _this12.onMessageToIframe.bind(_this12), false);
+        document.addEventListener('lexWebUiMessage', _this11.onMessageToIframe.bind(_this11), false);
       })
       // signal to iframe that the parent is ready
       .then(function () {
-        return _this12.api.sendParentReady();
+        return _this11.api.sendParentReady();
       })
       // signal to parent that the API is ready
       .then(function () {
@@ -61830,6 +61859,531 @@ module.exports = function whichTypedArray(value) {
 
 /***/ }),
 
+/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/InMemoryStorage.js":
+/*!***************************************************************************************************************!*\
+  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/InMemoryStorage.js ***!
+  \***************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   InMemoryStorage: function() { return /* binding */ InMemoryStorage; }
+/* harmony export */ });
+class InMemoryStorage {
+    constructor(store = {}) {
+        this.store = store;
+    }
+    getItem(key) {
+        if (key in this.store) {
+            return this.store[key];
+        }
+        return null;
+    }
+    removeItem(key) {
+        delete this.store[key];
+    }
+    setItem(key, value) {
+        this.store[key] = value;
+    }
+}
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/IndexedDbStorage.js":
+/*!****************************************************************************************************************!*\
+  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/IndexedDbStorage.js ***!
+  \****************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IndexedDbStorage: function() { return /* binding */ IndexedDbStorage; }
+/* harmony export */ });
+const STORE_NAME = "IdentityIds";
+class IndexedDbStorage {
+    constructor(dbName = "aws:cognito-identity-ids") {
+        this.dbName = dbName;
+    }
+    getItem(key) {
+        return this.withObjectStore("readonly", (store) => {
+            const req = store.get(key);
+            return new Promise((resolve) => {
+                req.onerror = () => resolve(null);
+                req.onsuccess = () => resolve(req.result ? req.result.value : null);
+            });
+        }).catch(() => null);
+    }
+    removeItem(key) {
+        return this.withObjectStore("readwrite", (store) => {
+            const req = store.delete(key);
+            return new Promise((resolve, reject) => {
+                req.onerror = () => reject(req.error);
+                req.onsuccess = () => resolve();
+            });
+        });
+    }
+    setItem(id, value) {
+        return this.withObjectStore("readwrite", (store) => {
+            const req = store.put({ id, value });
+            return new Promise((resolve, reject) => {
+                req.onerror = () => reject(req.error);
+                req.onsuccess = () => resolve();
+            });
+        });
+    }
+    getDb() {
+        const openDbRequest = self.indexedDB.open(this.dbName, 1);
+        return new Promise((resolve, reject) => {
+            openDbRequest.onsuccess = () => {
+                resolve(openDbRequest.result);
+            };
+            openDbRequest.onerror = () => {
+                reject(openDbRequest.error);
+            };
+            openDbRequest.onblocked = () => {
+                reject(new Error("Unable to access DB"));
+            };
+            openDbRequest.onupgradeneeded = () => {
+                const db = openDbRequest.result;
+                db.onerror = () => {
+                    reject(new Error("Failed to create object store"));
+                };
+                db.createObjectStore(STORE_NAME, { keyPath: "id" });
+            };
+        });
+    }
+    withObjectStore(mode, action) {
+        return this.getDb().then((db) => {
+            const tx = db.transaction(STORE_NAME, mode);
+            tx.oncomplete = () => db.close();
+            return new Promise((resolve, reject) => {
+                tx.onerror = () => reject(tx.error);
+                resolve(action(tx.objectStore(STORE_NAME)));
+            }).catch((err) => {
+                db.close();
+                throw err;
+            });
+        });
+    }
+}
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentity.js":
+/*!*******************************************************************************************************************!*\
+  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentity.js ***!
+  \*******************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   fromCognitoIdentity: function() { return /* binding */ fromCognitoIdentity; }
+/* harmony export */ });
+/* harmony import */ var _smithy_property_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/property-provider */ "../../../../../../node_modules/@smithy/property-provider/dist-es/index.js");
+/* harmony import */ var _resolveLogins__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolveLogins */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js");
+
+
+function fromCognitoIdentity(parameters) {
+    return async () => {
+        parameters.logger?.debug("@aws-sdk/credential-provider-cognito-identity", "fromCognitoIdentity");
+        const { GetCredentialsForIdentityCommand, CognitoIdentityClient } = await __webpack_require__.e(/*! import() */ "vendors-node_modules_aws-sdk_credential-provider-cognito-identity_dist-es_loadCognitoIdentity_js").then(__webpack_require__.bind(__webpack_require__, /*! ./loadCognitoIdentity */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/loadCognitoIdentity.js"));
+        const { Credentials: { AccessKeyId = throwOnMissingAccessKeyId(), Expiration, SecretKey = throwOnMissingSecretKey(), SessionToken, } = throwOnMissingCredentials(), } = await (parameters.client ??
+            new CognitoIdentityClient(Object.assign({}, parameters.clientConfig ?? {}, {
+                region: parameters.clientConfig?.region ?? parameters.parentClientConfig?.region,
+            }))).send(new GetCredentialsForIdentityCommand({
+            CustomRoleArn: parameters.customRoleArn,
+            IdentityId: parameters.identityId,
+            Logins: parameters.logins ? await (0,_resolveLogins__WEBPACK_IMPORTED_MODULE_1__.resolveLogins)(parameters.logins) : undefined,
+        }));
+        return {
+            identityId: parameters.identityId,
+            accessKeyId: AccessKeyId,
+            secretAccessKey: SecretKey,
+            sessionToken: SessionToken,
+            expiration: Expiration,
+        };
+    };
+}
+function throwOnMissingAccessKeyId() {
+    throw new _smithy_property_provider__WEBPACK_IMPORTED_MODULE_0__.CredentialsProviderError("Response from Amazon Cognito contained no access key ID");
+}
+function throwOnMissingCredentials() {
+    throw new _smithy_property_provider__WEBPACK_IMPORTED_MODULE_0__.CredentialsProviderError("Response from Amazon Cognito contained no credentials");
+}
+function throwOnMissingSecretKey() {
+    throw new _smithy_property_provider__WEBPACK_IMPORTED_MODULE_0__.CredentialsProviderError("Response from Amazon Cognito contained no secret key");
+}
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentityPool.js":
+/*!***********************************************************************************************************************!*\
+  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentityPool.js ***!
+  \***********************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   fromCognitoIdentityPool: function() { return /* binding */ fromCognitoIdentityPool; }
+/* harmony export */ });
+/* harmony import */ var _smithy_property_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/property-provider */ "../../../../../../node_modules/@smithy/property-provider/dist-es/index.js");
+/* harmony import */ var _fromCognitoIdentity__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fromCognitoIdentity */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentity.js");
+/* harmony import */ var _localStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./localStorage */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/localStorage.js");
+/* harmony import */ var _resolveLogins__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./resolveLogins */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js");
+
+
+
+
+function fromCognitoIdentityPool({ accountId, cache = (0,_localStorage__WEBPACK_IMPORTED_MODULE_1__.localStorage)(), client, clientConfig, customRoleArn, identityPoolId, logins, userIdentifier = !logins || Object.keys(logins).length === 0 ? "ANONYMOUS" : undefined, logger, parentClientConfig, }) {
+    logger?.debug("@aws-sdk/credential-provider-cognito-identity", "fromCognitoIdentity");
+    const cacheKey = userIdentifier
+        ? `aws:cognito-identity-credentials:${identityPoolId}:${userIdentifier}`
+        : undefined;
+    let provider = async () => {
+        const { GetIdCommand, CognitoIdentityClient } = await __webpack_require__.e(/*! import() */ "vendors-node_modules_aws-sdk_credential-provider-cognito-identity_dist-es_loadCognitoIdentity_js").then(__webpack_require__.bind(__webpack_require__, /*! ./loadCognitoIdentity */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/loadCognitoIdentity.js"));
+        const _client = client ??
+            new CognitoIdentityClient(Object.assign({}, clientConfig ?? {}, { region: clientConfig?.region ?? parentClientConfig?.region }));
+        let identityId = (cacheKey && (await cache.getItem(cacheKey)));
+        if (!identityId) {
+            const { IdentityId = throwOnMissingId() } = await _client.send(new GetIdCommand({
+                AccountId: accountId,
+                IdentityPoolId: identityPoolId,
+                Logins: logins ? await (0,_resolveLogins__WEBPACK_IMPORTED_MODULE_2__.resolveLogins)(logins) : undefined,
+            }));
+            identityId = IdentityId;
+            if (cacheKey) {
+                Promise.resolve(cache.setItem(cacheKey, identityId)).catch(() => { });
+            }
+        }
+        provider = (0,_fromCognitoIdentity__WEBPACK_IMPORTED_MODULE_3__.fromCognitoIdentity)({
+            client: _client,
+            customRoleArn,
+            logins,
+            identityId,
+        });
+        return provider();
+    };
+    return () => provider().catch(async (err) => {
+        if (cacheKey) {
+            Promise.resolve(cache.removeItem(cacheKey)).catch(() => { });
+        }
+        throw err;
+    });
+}
+function throwOnMissingId() {
+    throw new _smithy_property_provider__WEBPACK_IMPORTED_MODULE_0__.CredentialsProviderError("Response from Amazon Cognito contained no identity ID");
+}
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/localStorage.js":
+/*!************************************************************************************************************!*\
+  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/localStorage.js ***!
+  \************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   localStorage: function() { return /* binding */ localStorage; }
+/* harmony export */ });
+/* harmony import */ var _IndexedDbStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndexedDbStorage */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/IndexedDbStorage.js");
+/* harmony import */ var _InMemoryStorage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InMemoryStorage */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/InMemoryStorage.js");
+
+
+const inMemoryStorage = new _InMemoryStorage__WEBPACK_IMPORTED_MODULE_0__.InMemoryStorage();
+function localStorage() {
+    if (typeof self === "object" && self.indexedDB) {
+        return new _IndexedDbStorage__WEBPACK_IMPORTED_MODULE_1__.IndexedDbStorage();
+    }
+    if (typeof window === "object" && window.localStorage) {
+        return window.localStorage;
+    }
+    return inMemoryStorage;
+}
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js":
+/*!*************************************************************************************************************!*\
+  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js ***!
+  \*************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   resolveLogins: function() { return /* binding */ resolveLogins; }
+/* harmony export */ });
+function resolveLogins(logins) {
+    return Promise.all(Object.keys(logins).reduce((arr, name) => {
+        const tokenOrProvider = logins[name];
+        if (typeof tokenOrProvider === "string") {
+            arr.push([name, tokenOrProvider]);
+        }
+        else {
+            arr.push(tokenOrProvider().then((token) => [name, token]));
+        }
+        return arr;
+    }, [])).then((resolvedPairs) => resolvedPairs.reduce((logins, [key, value]) => {
+        logins[key] = value;
+        return logins;
+    }, {}));
+}
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js":
+/*!*******************************************************************************************************!*\
+  !*** ../../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js ***!
+  \*******************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   fromCognitoIdentityPool: function() { return /* binding */ fromCognitoIdentityPool; }
+/* harmony export */ });
+/* harmony import */ var _aws_sdk_credential_provider_cognito_identity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/credential-provider-cognito-identity */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentityPool.js");
+
+const fromCognitoIdentityPool = (options) => (0,_aws_sdk_credential_provider_cognito_identity__WEBPACK_IMPORTED_MODULE_0__.fromCognitoIdentityPool)({
+    ...options,
+});
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/CredentialsProviderError.js":
+/*!****************************************************************************************************!*\
+  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/CredentialsProviderError.js ***!
+  \****************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CredentialsProviderError: function() { return /* binding */ CredentialsProviderError; }
+/* harmony export */ });
+/* harmony import */ var _ProviderError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProviderError */ "../../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js");
+
+class CredentialsProviderError extends _ProviderError__WEBPACK_IMPORTED_MODULE_0__.ProviderError {
+    constructor(message, tryNextLink = true) {
+        super(message, tryNextLink);
+        this.tryNextLink = tryNextLink;
+        this.name = "CredentialsProviderError";
+        Object.setPrototypeOf(this, CredentialsProviderError.prototype);
+    }
+}
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js ***!
+  \*****************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ProviderError: function() { return /* binding */ ProviderError; }
+/* harmony export */ });
+class ProviderError extends Error {
+    constructor(message, tryNextLink = true) {
+        super(message);
+        this.tryNextLink = tryNextLink;
+        this.name = "ProviderError";
+        Object.setPrototypeOf(this, ProviderError.prototype);
+    }
+    static from(error, tryNextLink = true) {
+        return Object.assign(new this(error.message, tryNextLink), error);
+    }
+}
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/TokenProviderError.js":
+/*!**********************************************************************************************!*\
+  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/TokenProviderError.js ***!
+  \**********************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   TokenProviderError: function() { return /* binding */ TokenProviderError; }
+/* harmony export */ });
+/* harmony import */ var _ProviderError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProviderError */ "../../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js");
+
+class TokenProviderError extends _ProviderError__WEBPACK_IMPORTED_MODULE_0__.ProviderError {
+    constructor(message, tryNextLink = true) {
+        super(message, tryNextLink);
+        this.tryNextLink = tryNextLink;
+        this.name = "TokenProviderError";
+        Object.setPrototypeOf(this, TokenProviderError.prototype);
+    }
+}
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/chain.js":
+/*!*********************************************************************************!*\
+  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/chain.js ***!
+  \*********************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   chain: function() { return /* binding */ chain; }
+/* harmony export */ });
+/* harmony import */ var _ProviderError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProviderError */ "../../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js");
+
+const chain = (...providers) => async () => {
+    if (providers.length === 0) {
+        throw new _ProviderError__WEBPACK_IMPORTED_MODULE_0__.ProviderError("No providers in chain");
+    }
+    let lastProviderError;
+    for (const provider of providers) {
+        try {
+            const credentials = await provider();
+            return credentials;
+        }
+        catch (err) {
+            lastProviderError = err;
+            if (err?.tryNextLink) {
+                continue;
+            }
+            throw err;
+        }
+    }
+    throw lastProviderError;
+};
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/fromStatic.js":
+/*!**************************************************************************************!*\
+  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/fromStatic.js ***!
+  \**************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   fromStatic: function() { return /* binding */ fromStatic; }
+/* harmony export */ });
+const fromStatic = (staticValue) => () => Promise.resolve(staticValue);
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/index.js":
+/*!*********************************************************************************!*\
+  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/index.js ***!
+  \*********************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CredentialsProviderError: function() { return /* reexport safe */ _CredentialsProviderError__WEBPACK_IMPORTED_MODULE_0__.CredentialsProviderError; },
+/* harmony export */   ProviderError: function() { return /* reexport safe */ _ProviderError__WEBPACK_IMPORTED_MODULE_1__.ProviderError; },
+/* harmony export */   TokenProviderError: function() { return /* reexport safe */ _TokenProviderError__WEBPACK_IMPORTED_MODULE_2__.TokenProviderError; },
+/* harmony export */   chain: function() { return /* reexport safe */ _chain__WEBPACK_IMPORTED_MODULE_3__.chain; },
+/* harmony export */   fromStatic: function() { return /* reexport safe */ _fromStatic__WEBPACK_IMPORTED_MODULE_4__.fromStatic; },
+/* harmony export */   memoize: function() { return /* reexport safe */ _memoize__WEBPACK_IMPORTED_MODULE_5__.memoize; }
+/* harmony export */ });
+/* harmony import */ var _CredentialsProviderError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CredentialsProviderError */ "../../../../../../node_modules/@smithy/property-provider/dist-es/CredentialsProviderError.js");
+/* harmony import */ var _ProviderError__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProviderError */ "../../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js");
+/* harmony import */ var _TokenProviderError__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TokenProviderError */ "../../../../../../node_modules/@smithy/property-provider/dist-es/TokenProviderError.js");
+/* harmony import */ var _chain__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chain */ "../../../../../../node_modules/@smithy/property-provider/dist-es/chain.js");
+/* harmony import */ var _fromStatic__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fromStatic */ "../../../../../../node_modules/@smithy/property-provider/dist-es/fromStatic.js");
+/* harmony import */ var _memoize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./memoize */ "../../../../../../node_modules/@smithy/property-provider/dist-es/memoize.js");
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/memoize.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/memoize.js ***!
+  \***********************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   memoize: function() { return /* binding */ memoize; }
+/* harmony export */ });
+const memoize = (provider, isExpired, requiresRefresh) => {
+    let resolved;
+    let pending;
+    let hasResult;
+    let isConstant = false;
+    const coalesceProvider = async () => {
+        if (!pending) {
+            pending = provider();
+        }
+        try {
+            resolved = await pending;
+            hasResult = true;
+            isConstant = false;
+        }
+        finally {
+            pending = undefined;
+        }
+        return resolved;
+    };
+    if (isExpired === undefined) {
+        return async (options) => {
+            if (!hasResult || options?.forceRefresh) {
+                resolved = await coalesceProvider();
+            }
+            return resolved;
+        };
+    }
+    return async (options) => {
+        if (!hasResult || options?.forceRefresh) {
+            resolved = await coalesceProvider();
+        }
+        if (isConstant) {
+            return resolved;
+        }
+        if (requiresRefresh && !requiresRefresh(resolved)) {
+            isConstant = true;
+            return resolved;
+        }
+        if (isExpired(resolved)) {
+            await coalesceProvider();
+            return resolved;
+        }
+        return resolved;
+    };
+};
+
+
+/***/ }),
+
 /***/ "?e74d":
 /*!************************!*\
   !*** buffer (ignored) ***!
@@ -83404,6 +83958,9 @@ module.exports = /*#__PURE__*/JSON.parse('{"2.16.840.1.101.3.4.1.1":"aes-128-ecb
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	!function() {
@@ -83429,6 +83986,37 @@ module.exports = /*#__PURE__*/JSON.parse('{"2.16.840.1.101.3.4.1.1":"aes-128-ecb
 /******/ 		};
 /******/ 	}();
 /******/ 	
+/******/ 	/* webpack/runtime/ensure chunk */
+/******/ 	!function() {
+/******/ 		__webpack_require__.f = {};
+/******/ 		// This file contains only the entry chunk.
+/******/ 		// The chunk loading function for additional chunks
+/******/ 		__webpack_require__.e = function(chunkId) {
+/******/ 			return Promise.all(Object.keys(__webpack_require__.f).reduce(function(promises, key) {
+/******/ 				__webpack_require__.f[key](chunkId, promises);
+/******/ 				return promises;
+/******/ 			}, []));
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/get javascript chunk filename */
+/******/ 	!function() {
+/******/ 		// This function allow to reference async chunks
+/******/ 		__webpack_require__.u = function(chunkId) {
+/******/ 			// return url for filenames based on template
+/******/ 			return "" + chunkId + ".js";
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/get mini-css chunk filename */
+/******/ 	!function() {
+/******/ 		// This function allow to reference async chunks
+/******/ 		__webpack_require__.miniCssF = function(chunkId) {
+/******/ 			// return url for filenames based on template
+/******/ 			return undefined;
+/******/ 		};
+/******/ 	}();
+/******/ 	
 /******/ 	/* webpack/runtime/global */
 /******/ 	!function() {
 /******/ 		__webpack_require__.g = (function() {
@@ -83444,6 +84032,52 @@ module.exports = /*#__PURE__*/JSON.parse('{"2.16.840.1.101.3.4.1.1":"aes-128-ecb
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	!function() {
 /******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/load script */
+/******/ 	!function() {
+/******/ 		var inProgress = {};
+/******/ 		var dataWebpackPrefix = "ChatBotUiLoader:";
+/******/ 		// loadScript function to load a script via script tag
+/******/ 		__webpack_require__.l = function(url, done, key, chunkId) {
+/******/ 			if(inProgress[url]) { inProgress[url].push(done); return; }
+/******/ 			var script, needAttach;
+/******/ 			if(key !== undefined) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				for(var i = 0; i < scripts.length; i++) {
+/******/ 					var s = scripts[i];
+/******/ 					if(s.getAttribute("src") == url || s.getAttribute("data-webpack") == dataWebpackPrefix + key) { script = s; break; }
+/******/ 				}
+/******/ 			}
+/******/ 			if(!script) {
+/******/ 				needAttach = true;
+/******/ 				script = document.createElement('script');
+/******/ 		
+/******/ 				script.charset = 'utf-8';
+/******/ 				script.timeout = 120;
+/******/ 				if (__webpack_require__.nc) {
+/******/ 					script.setAttribute("nonce", __webpack_require__.nc);
+/******/ 				}
+/******/ 				script.setAttribute("data-webpack", dataWebpackPrefix + key);
+/******/ 		
+/******/ 				script.src = url;
+/******/ 			}
+/******/ 			inProgress[url] = [done];
+/******/ 			var onScriptComplete = function(prev, event) {
+/******/ 				// avoid mem leaks in IE.
+/******/ 				script.onerror = script.onload = null;
+/******/ 				clearTimeout(timeout);
+/******/ 				var doneFns = inProgress[url];
+/******/ 				delete inProgress[url];
+/******/ 				script.parentNode && script.parentNode.removeChild(script);
+/******/ 				doneFns && doneFns.forEach(function(fn) { return fn(event); });
+/******/ 				if(prev) return prev(event);
+/******/ 			}
+/******/ 			var timeout = setTimeout(onScriptComplete.bind(null, undefined, { type: 'timeout', target: script }), 120000);
+/******/ 			script.onerror = onScriptComplete.bind(null, script.onerror);
+/******/ 			script.onload = onScriptComplete.bind(null, script.onload);
+/******/ 			needAttach && document.head.appendChild(script);
+/******/ 		};
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
@@ -83464,6 +84098,121 @@ module.exports = /*#__PURE__*/JSON.parse('{"2.16.840.1.101.3.4.1.1":"aes-128-ecb
 /******/ 			if (!module.children) module.children = [];
 /******/ 			return module;
 /******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	!function() {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src;
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) {
+/******/ 					var i = scripts.length - 1;
+/******/ 					while (i > -1 && !scriptUrl) scriptUrl = scripts[i--].src;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	!function() {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"lex-web-ui-loader": 0
+/******/ 		};
+/******/ 		
+/******/ 		__webpack_require__.f.j = function(chunkId, promises) {
+/******/ 				// JSONP chunk loading for javascript
+/******/ 				var installedChunkData = __webpack_require__.o(installedChunks, chunkId) ? installedChunks[chunkId] : undefined;
+/******/ 				if(installedChunkData !== 0) { // 0 means "already installed".
+/******/ 		
+/******/ 					// a Promise means "currently loading".
+/******/ 					if(installedChunkData) {
+/******/ 						promises.push(installedChunkData[2]);
+/******/ 					} else {
+/******/ 						if(true) { // all chunks have JS
+/******/ 							// setup Promise in chunk cache
+/******/ 							var promise = new Promise(function(resolve, reject) { installedChunkData = installedChunks[chunkId] = [resolve, reject]; });
+/******/ 							promises.push(installedChunkData[2] = promise);
+/******/ 		
+/******/ 							// start chunk loading
+/******/ 							var url = __webpack_require__.p + __webpack_require__.u(chunkId);
+/******/ 							// create error before stack unwound to get useful stacktrace later
+/******/ 							var error = new Error();
+/******/ 							var loadingEnded = function(event) {
+/******/ 								if(__webpack_require__.o(installedChunks, chunkId)) {
+/******/ 									installedChunkData = installedChunks[chunkId];
+/******/ 									if(installedChunkData !== 0) installedChunks[chunkId] = undefined;
+/******/ 									if(installedChunkData) {
+/******/ 										var errorType = event && (event.type === 'load' ? 'missing' : event.type);
+/******/ 										var realSrc = event && event.target && event.target.src;
+/******/ 										error.message = 'Loading chunk ' + chunkId + ' failed.\n(' + errorType + ': ' + realSrc + ')';
+/******/ 										error.name = 'ChunkLoadError';
+/******/ 										error.type = errorType;
+/******/ 										error.request = realSrc;
+/******/ 										installedChunkData[1](error);
+/******/ 									}
+/******/ 								}
+/******/ 							};
+/******/ 							__webpack_require__.l(url, loadingEnded, "chunk-" + chunkId, chunkId);
+/******/ 						}
+/******/ 					}
+/******/ 				}
+/******/ 		};
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		// no on chunks loaded
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = function(parentChunkLoadingFunction, data) {
+/******/ 			var chunkIds = data[0];
+/******/ 			var moreModules = data[1];
+/******/ 			var runtime = data[2];
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			if(chunkIds.some(function(id) { return installedChunks[id] !== 0; })) {
+/******/ 				for(moduleId in moreModules) {
+/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 					}
+/******/ 				}
+/******/ 				if(runtime) var result = runtime(__webpack_require__);
+/******/ 			}
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					installedChunks[chunkId][0]();
+/******/ 				}
+/******/ 				installedChunks[chunkId] = 0;
+/******/ 			}
+/******/ 		
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = self["webpackChunkChatBotUiLoader"] = self["webpackChunkChatBotUiLoader"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	}();
 /******/ 	
 /************************************************************************/
