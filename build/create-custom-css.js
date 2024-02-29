@@ -52,7 +52,7 @@ if (process.env['CHAT_BACKGROUND_COLOR'] && process.env['CHAT_BACKGROUND_COLOR']
     modifyRule(styleSheet, '.message-list-container', { "background-color": process.env['CHAT_BACKGROUND_COLOR'] + ' !important'});
 }
 if (process.env['TOOLBAR_COLOR'] && process.env['TOOLBAR_COLOR'].length > 0) { 
-    modifyRule(styleSheet, '.toolbar.theme--dark', { "background-color": process.env['TOOLBAR_COLOR'] + ' !important'});
+    modifyRule(styleSheet, '.bg-red', { "background-color": process.env['TOOLBAR_COLOR'] + ' !important'});
 }
 if (process.env['AGENT_CHAT_BUBBLE'] && process.env['AGENT_CHAT_BUBBLE'].length > 0) { 
     modifyRule(styleSheet, '.message-bot .message-bubble', { "background-color": process.env['AGENT_CHAT_BUBBLE'] + ' !important'});

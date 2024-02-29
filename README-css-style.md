@@ -80,9 +80,9 @@ There are two distinct mechanisms for changing the background color.
 1) Update lex-web-ui-loader-config.json. Change the property ui.toolbarColor. You must select a value
 from.
 https://vuetifyjs.com/en/styles/colors#
-2) OR use the following in css
+2) OR use the following in css to overwrite the color of the default red CSS
 ```
-.toolbar.theme--dark {
+.bg-red {
   background-color: #2b2b2b !important;
 }
 ```

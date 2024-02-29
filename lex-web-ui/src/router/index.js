@@ -11,13 +11,11 @@
  License for the specific language governing permissions and limitations under the License.
  */
 
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router'
 import LexWeb from '@/components/LexWeb';
 
-Vue.use(VueRouter);
-
-export default new VueRouter({
+const router = createRouter({
+  history: createWebHashHistory(process.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -25,4 +23,6 @@ export default new VueRouter({
       component: LexWeb,
     },
   ],
-});
+})
+
+export default router

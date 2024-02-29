@@ -1,55 +1,38 @@
 <template>
-  <v-container fluid class="min-button-container">
-    <!-- Temporarily suspending the tool tip on the minimized button -->
-    <!-- <v-tooltip
-      v-model="shouldShowTooltip"
-      content-class="tooltip-min-button"
-      activator=".min-button"
-      left
-    >
-      <span id="min-button-tooltip">{{minButtonToolTipContent}}</span>
-    </v-tooltip> -->
-    <v-fab-transition>
-      <v-btn
-        bottom
-        dark
-        depressed
-        fixed
-        right
-        v-if="minButtonContent"
-        v-show="isUiMinimized"
-        v-bind:color="toolbarColor"
-        v-on:click.stop="toggleMinimize"
-        v-on="tooltipEventHandlers"
-        aria-label="show chat window"
-        class="min-button min-button-content"
-      >
-        <v-icon left>
-          {{'chat'}}
-        </v-icon>
-        {{minButtonContent}}   
-      </v-btn>
-      <!-- seperate button for button with text vs w/o -->
-      <v-btn
-        bottom
-        dark
-        depressed
-        fab
-        fixed
-        right
-        v-else
-        v-show="isUiMinimized"
-        v-bind:color="toolbarColor"
-        v-on:click.stop="toggleMinimize"
-        v-on="tooltipEventHandlers"
-        aria-label="show chat window"
-        class="min-button"
-      >
-        <v-icon>
-          {{'chat'}}
-        </v-icon>
-      </v-btn>
-    </v-fab-transition>
+  <v-container fluid class="pa-0 min-button-container">
+    <v-row justify="end">
+      <v-col cols="auto">
+        <v-fab-transition>
+          <v-btn
+            rounded="xl" 
+            size="x-large"
+            v-if="minButtonContent"
+            v-show="isUiMinimized"
+            v-bind:color="toolbarColor"
+            v-on:click.stop="toggleMinimize"
+            v-on="tooltipEventHandlers"
+            aria-label="show chat window"
+            class="min-button min-button-content"
+            prepend-icon="chat"
+          >
+            {{minButtonContent}}   
+          </v-btn>
+          <!-- seperate button for button with text vs w/o -->
+          <v-btn
+            v-else
+            icon="chat"
+            size="x-large"
+            v-show="isUiMinimized"
+            v-bind:color="toolbarColor"
+            v-on:click.stop="toggleMinimize"
+            v-on="tooltipEventHandlers"
+            aria-label="show chat window"
+            class="min-button"
+          >
+          </v-btn>
+        </v-fab-transition>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 

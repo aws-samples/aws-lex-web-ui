@@ -156,6 +156,10 @@ export default {
   word-break: break-word;
   width: 100%;
 }
+
+.message-text :deep(p) {
+  margin-bottom: 16px;
+}
 </style>
 
 <style>
