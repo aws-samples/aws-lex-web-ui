@@ -6,10 +6,10 @@
     <message
       ref="messages"
       v-for="message in messages"
-      v-bind:message="message"
-      v-bind:key="message.id"
-      v-bind:class="`message-${message.type}`"
-      v-on:scrollDown="scrollDown"
+      :message="message"
+      :key="message.id"
+      :class="`message-${message.type}`"
+      @scrollDown="scrollDown"
     ></message>
     <MessageLoading
       v-if="loading"
@@ -49,8 +49,11 @@ export default {
   },
   watch: {
     // autoscroll message list to the bottom when messages change
-    messages() {
-      this.scrollDown();
+    messages: {
+      handler(val, oldVal) {
+        this.scrollDown()
+      },
+      deep: true
     },
     loading() {
       this.scrollDown();
@@ -65,17 +68,18 @@ export default {
     scrollDown() {
       return this.$nextTick(() => {
         if (this.$el.lastElementChild) {
-          const lastMessageHeight = this.$el.lastElementChild.getBoundingClientRect().height;
-          const isLastMessageLoading = this.$el.lastElementChild.classList.contains('messsge-loading');
+          const lastMessageHeight = this.$el.lastElementChild.getBoundingClientRect().height
+          const isLastMessageLoading =
+            this.$el.lastElementChild.classList.contains('messsge-loading')
           if (isLastMessageLoading) {
             this.$el.scrollTop = this.$el.scrollHeight;
           } else {
-            this.$el.scrollTop = this.$el.scrollHeight - lastMessageHeight;
+            this.$el.scrollTop = this.$el.scrollHeight;
           }
         }
-      });
-    },
-  },
+      })
+    }
+  }
 };
 </script>
 
@@ -101,4 +105,5 @@ export default {
 .message-feedback {
   align-self: flex-end;
 }
+
 </style>

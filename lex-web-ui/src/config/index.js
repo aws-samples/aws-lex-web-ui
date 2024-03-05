@@ -45,7 +45,7 @@ if (!envShortName) {
 
 // eslint-disable-next-line import/no-dynamic-require
 const configEnvFile = (process.env.BUILD_TARGET === 'lib') ?
-  {} : require(`./config.${envShortName}.json`);
+  {} : await import(`./config.${envShortName}.json`);
 
 // default config used to provide a base structure for
 // environment and dynamic configs

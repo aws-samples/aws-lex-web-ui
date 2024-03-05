@@ -1,18 +1,18 @@
 <template>
-  <v-flex d-flex class="message">
+  <v-row d-flex class="message">
     <!-- contains message and response card -->
-    <v-layout column ma-2 class="message-layout">
+    <v-col ma-2 class="message-layout">
 
       <!-- contains message bubble and date -->
-      <v-flex d-flex class="message-bubble-date-container">
-        <v-layout column class="message-bubble-column">
+      <v-row d-flex class="message-bubble-date-container">
+        <v-col class="message-bubble-column">
 
           <!-- contains message bubble and avatar -->
-          <v-flex d-flex class="message-bubble-avatar-container">
-            <v-layout row class="message-bubble-row">
+          <v-col d-flex class="message-bubble-avatar-container">
+            <v-row :class="`message-bubble-row-${message.type}`">
               <div
                 v-if="shouldShowAvatarImage"
-                v-bind:style="avatarBackground"
+                :style="avatarBackground"
                 tabindex="-1"
                 class="avatar"
                 aria-hidden="true"
@@ -20,36 +20,39 @@
               </div>
               <div
                 tabindex="0"
-                v-on:focus="onMessageFocus"
-                v-on:blur="onMessageBlur"
+                @focus="onMessageFocus"
+                @blur="onMessageBlur"
                 class="message-bubble focusable"
+                :class="`message-bubble-row-${message.type}`"
               >
                 <message-text
-                  v-bind:message="message"
+                  :message="message"
                   v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayInteractiveMessage"
                 ></message-text>
                 <div
                   v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'ListPicker'">
                   <v-card-title primary-title>
                     <div>
-                      <img :src="message.interactiveMessage.data.content.imageData">
-                      <div class="headline">{{message.interactiveMessage.data.content.title}}</div>
+                      <img :src="message.interactiveMessage.data.content.imageData" />
+                      <div class="text-h5">{{message.interactiveMessage.data.content.title}}</div>
                       <span>{{message.interactiveMessage.data.content.subtitle}}</span>
                     </div>
                   </v-card-title>
-                  <v-list two-line class="message-bubble interactive-row">
-                    <template v-for="(item, index) in message.interactiveMessage.data.content.elements">
-                        <v-list-tile
-                          v-on:click="resendMessage(item.title)" >
-                          <v-list-tile-avatar v-if="item.imageData">
-                            <img :src="item.imageData">
-                          </v-list-tile-avatar>
-                          <v-list-tile-content>
-                            <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                            <v-list-tile-sub-title v-if="item.subtitle" v-html="item.subtitle"></v-list-tile-sub-title>
-                          </v-list-tile-content>
-                        </v-list-tile>
-                        <v-divider></v-divider>
+                  <v-list lines="two" class="message-bubble interactive-row">
+                    <template v-for="(item, index) in message.interactiveMessage.data.content.elements" :key="index">
+                      <v-list-item @click="resendMessage(item.title)">
+                        <v-list-item v-if="item.imageData">
+                          <v-avatar>
+                            <img :src="item.imageData" />
+                          </v-avatar>
+                        </v-list-item>
+                        <v-list-item-title v-html="item.title"></v-list-item-title>
+                        <v-list-item-subtitle
+                          v-if="item.subtitle"
+                          v-html="item.subtitle"
+                        ></v-list-item-subtitle>
+                      </v-list-item>
+                      <v-divider></v-divider>
                     </template>
                   </v-list>
                 </div>
@@ -57,27 +60,25 @@
                   v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'TimePicker'">
                   <v-card-title primary-title>
                     <div>
-                      <div class="headline">{{message.interactiveMessage.data.content.title}}</div>
+                      <div class="text-h5">{{message.interactiveMessage.data.content.title}}</div>
                       <span>{{message.interactiveMessage.data.content.subtitle}}</span>
                     </div>
                   </v-card-title>                  
-                    <template v-for="item in this.message.interactiveMessage.timeslots">
-                      <v-subheader>{{ item.date }}</v-subheader>
-                      <v-list two-line class="message-bubble interactive-row">
-                        <v-list-tile>
-                          <v-list-tile
-                            v-for="subItem in item.slots"
-                            v-bind:key="subItem.localTime"
-                            v-bind:data="subItem"
-                            @click="resendMessage(subItem.date)"
-                          >
-                            <v-list-tile-content>
-                              <v-list-tile-title>{{ subItem.localTime }}</v-list-tile-title>
-                            </v-list-tile-content>
-                          </v-list-tile>
-                      </v-list-tile>                      
-                  </v-list>
-                </template>
+                  <template v-for="item in this.message.interactiveMessage.timeslots">
+                    <v-list-subheader>{{ item.date }}</v-list-subheader>
+                    <v-list lines="two" class="message-bubble interactive-row">
+                      <v-list-item>
+                        <v-list-item
+                          v-for="subItem in item.slots"
+                          :key="subItem.localTime"
+                          :data="subItem"
+                          @click="resendMessage(subItem.date)"
+                        >
+                          <v-list-item-title>{{ subItem.localTime }}</v-list-item-title>
+                        </v-list-item>
+                      </v-list-item>
+                    </v-list>
+                  </template>
                 </div>
                 <div
                   v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'DateTimePicker'">
@@ -87,41 +88,43 @@
                     :text-field-props="textFieldProps"
                   >
                   </v-datetime-picker>
-                  <v-btn v-on:click="sendDateTime(datetime)" depressed>Confirm</v-btn>
+                  <v-btn v-on:click="sendDateTime(datetime)" variant="flat">Confirm</v-btn>
                 </div>
                 <div
                   v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback"
                   class="feedback-state"
                 >
                   <v-icon
-                    v-on:click="onButtonClick(positiveIntent)"
-                    v-bind:class="{'feedback-icons-positive': !positiveClick, 'positiveClick': positiveClick}"
+                    @click="onButtonClick(positiveIntent)"
+                    :class="{'feedback-icons-positive': !positiveClick, positiveClick: positiveClick}"
                     tabindex="0"
+                    size="small"
                   >
                     thumb_up
                   </v-icon>
                   <v-icon
-                    v-on:click="onButtonClick(negativeIntent)"
-                    v-bind:class="{'feedback-icons-negative': !negativeClick, 'negativeClick': negativeClick}"
+                    @click="onButtonClick(negativeIntent)"
+                    :class="{'feedback-icons-negative': !negativeClick, negativeClick: negativeClick}"
                     tabindex="0"
+                    size="small"
                   >
                     thumb_down
                   </v-icon>
                 </div>
                 <v-icon
-                  medium
+                  size="medium"
                   v-if="message.type === 'bot' && botDialogState && showDialogStateIcon"
-                  v-bind:class="`dialog-state-${botDialogState.state}`"
+                  :class="`dialog-state-${botDialogState.state}`"
                   class="dialog-state"
                 >
                   {{botDialogState.icon}}
                 </v-icon>
                 <div v-if="message.type === 'human' && message.audio">
-                    <audio>
-                      <source v-bind:src="message.audio" type="audio/wav">
-                    </audio>
-                    <v-btn
-                    v-on:click="playAudio"
+                  <audio>
+                    <source v-bind:src="message.audio" type="audio/wav" />
+                  </audio>
+                  <v-btn
+                    @click="playAudio"
                     tabindex="0"
                     icon
                     v-show="!showMessageMenu"
@@ -132,7 +135,7 @@
                 </div>
                   <div offset-y v-if="shouldShowAttachments">
                     <v-btn :class="`tooltip-attachments-${message.id}`" v-on="attachmentEventHandlers" icon>
-                      <v-icon medium>
+                      <v-icon size="medium">
                         attach_file
                       </v-icon>                      
                     </v-btn>
@@ -140,12 +143,12 @@
                       v-model="showAttachmentsTooltip"
                       :activator="`.tooltip-attachments-${message.id}`"
                       content-class="tooltip-custom"
-                      left
+                      location="left"
                     >
                       <span>{{message.attachements}}</span>
                     </v-tooltip>
                   </div>
-                 <v-menu offset-y v-if="message.type === 'human'" v-show="showMessageMenu">
+                 <v-menu v-if="message.type === 'human'" v-show="showMessageMenu">
                   <v-btn
                     slot="activator"
                     icon
@@ -155,64 +158,56 @@
                     </v-icon>
                   </v-btn>
                   <v-list>
-                    <v-list-tile>
-                      <v-list-tile-title v-on:click="resendMessage(message.text)">
-                          <v-icon>replay</v-icon>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile
+                    <v-list-item>
+                      <v-list-item-title @click="resendMessage(message.text)">
+                        <v-icon>replay</v-icon>
+                      </v-list-item-title>
+                    </v-list-item>
+                    <v-list-item
                       v-if="message.type === 'human' && message.audio"
                       class="message-audio">
-                      <v-list-tile-title v-on:click="playAudio">
-                            <v-icon>play_circle_outline</v-icon>
-                      </v-list-tile-title>
-                    </v-list-tile>
+                      <v-list-item-title @click="playAudio">
+                        <v-icon>play_circle_outline</v-icon>
+                      </v-list-item-title>
+                    </v-list-item>
                   </v-list>
                 </v-menu>
               </div>
-            </v-layout>
-          </v-flex>
-          <v-flex
+            </v-row>
+          </v-col>
+          <v-col
             v-if="shouldShowMessageDate && isMessageFocused"
-            class="text-xs-center message-date"
+            :class="`text-xs-center message-date-${message.type}`"
             aria-hidden="true"
           >
            {{messageHumanDate}}
-          </v-flex>
-        </v-layout>
-      </v-flex>
-      <v-flex
-        v-if="shouldDisplayResponseCard"
-        class="response-card"
-        d-flex
-        mt-2 mr-2 ml-3
-      >
+          </v-col>
+        </v-col>
+      </v-row>
+      <v-row v-if="shouldDisplayResponseCard" class="response-card" d-flex mt-2 mr-2 ml-3>
         <response-card
           v-for="(card, index) in message.responseCard.genericAttachments"
-          v-bind:response-card="card"
-          v-bind:key="index"
-        >
-        </response-card>
-      </v-flex>
-      <v-flex
-        v-if="shouldDisplayResponseCardV2 && !shouldDisplayResponseCard"
-      >
-        <v-flex v-for="(item, index) in message.responseCardsLexV2"
+          :response-card="card"
+          :key="index"
+        />
+      </v-row>
+      <v-row v-if="shouldDisplayResponseCardV2 && !shouldDisplayResponseCard">
+        <v-row v-for="(item, index) in message.responseCardsLexV2"
           class="response-card"
           d-flex
           mt-2 mr-2 ml-3
-          v-bind:key="index"
+          :key="index"
         >
         <response-card
           v-for="(card, index) in item.genericAttachments"
-          v-bind:response-card="card"
-          v-bind:key="index"
+          :response-card="card"
+          :key="index"
         >
         </response-card>
-        </v-flex>
-      </v-flex>
-    </v-layout>
-  </v-flex>
+        </v-row>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -494,14 +489,30 @@ export default {
 <style scoped>
 .smicon {
   font-size: 14px;
+  margin-top: 0.75em;
 }
-
-.message, .message-bubble-column {
+.message,
+.message-bubble-column {
   flex: 0 0 auto;
 }
-
-.message, .message-bubble-row {
+.message,
+.message-bubble-row-human {
+  justify-content: flex-end;
+}
+.message-bubble-row-feedback {
+  justify-content: flex-end;
+}
+.message-bubble-row-bot {
   max-width: 80vw;
+  flex-wrap: nowrap;
+}
+.message-date-human {
+  text-align: right;
+}
+.message-date-feedback {
+  text-align: right;
+}
+.message-date-bot {
 }
 
 .avatar {
@@ -556,10 +567,10 @@ export default {
   display: inline-flex;
 }
 
-.icon.dialog-state-ok {
+.dialog-state-ok {
   color: green;
 }
-.icon.dialog-state-fail {
+.dialog-state-fail {
   color: red;
 }
 
@@ -572,7 +583,7 @@ export default {
   align-self: center;
 }
 
-.icon.feedback-icons-positive{
+.feedback-icons-positive{
   color: grey;
   /* color: #E8EAF6; */
   /* color: green; */
@@ -589,17 +600,17 @@ export default {
   padding: .125em;
 }
 
-.icon.feedback-icons-positive:hover{
+.feedback-icons-positive:hover{
   color:green;
 }
 
-.icon.feedback-icons-negative{
+.feedback-icons-negative{
   /* color: #E8EAF6; */
   color: grey;
-  padding: .125em;
+  padding-left: 0.2em;
 }
 
-.icon.feedback-icons-negative:hover{
+.feedback-icons-negative:hover{
   color: red;
 }
 
@@ -611,4 +622,5 @@ export default {
 .no-point {
   pointer-events: none;
 }
+
 </style>

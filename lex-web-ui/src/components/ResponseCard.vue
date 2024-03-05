@@ -1,8 +1,8 @@
 <template>
-  <v-card>
+  <v-card flat>
     <div v-if=shouldDisplayResponseCardTitle>
-      <v-card-title v-if="responseCard.title && responseCard.title.trim()" primary-title class="red lighten-5">
-        <span class="headline">{{responseCard.title}}</span>
+      <v-card-title v-if="responseCard.title && responseCard.title.trim()" primary-title class="bg-red-lighten-5">
+        <span class="text-h5">{{responseCard.title}}</span>
       </v-card-title>
     </div>
     <v-card-text v-if="responseCard.subTitle">
@@ -11,33 +11,32 @@
     <v-card-text v-if="responseCard.subtitle">
       <span>{{responseCard.subtitle}}</span>
     </v-card-text>
-    <v-card-media
+    <v-img
       v-if="responseCard.imageUrl"
-      v-bind:src="responseCard.imageUrl"
+      :src="responseCard.imageUrl"
       contain
       height="33vh"
-    ></v-card-media>
+    />
     <v-card-actions v-if="responseCard.buttons" class="button-row">
       <v-btn
         v-for="(button) in responseCard.buttons"
         v-show="button.text && button.value"
-        v-bind:key="button.id"
+        :key="button.id"
+        :disabled="shouldDisableClickedResponseCardButtons"
+        :class="button.text.toLowerCase() === 'more' ? '' : 'bg-accent'"
+        rounded="xl"
+        :variant="shouldDisableClickedResponseCardButtons == true ? '' : 'elevated'"
         v-on:click.once.native="onButtonClick(button.value)"
-        v-bind:disabled="shouldDisableClickedResponseCardButtons"
-        round
-        default
-        v-bind:color="button.text.toLowerCase() === 'more' ? '' : 'accent'"
-        class="secondary--text"
       >
         {{button.text}}
       </v-btn>
     </v-card-actions>
     <v-card-actions v-if="responseCard.attachmentLinkUrl">
       <v-btn
-        flat
-        class="red lighten-5"
+        variant="flat"
+        class="bg-red-lighten-5"
         tag="a"
-        v-bind:href="responseCard.attachmentLinkUrl"
+        :href="responseCard.attachmentLinkUrl"
         target="_blank"
       >
         Open Link
@@ -96,7 +95,7 @@ export default {
 </script>
 
 <style scoped>
-.card {
+.v-card {
   width: 75vw;
   position: inherit; /* workaround to card being displayed on top of toolbar shadow */
   padding-bottom: 0.5em;
@@ -115,13 +114,13 @@ export default {
   display: inline-block;
 }
 
-.card__actions .btn {
+.v-card-actions .v-btn {
   margin: 4px 4px;
   font-size: 1em;
   min-width: 44px;
 }
 
-.card__actions.button-row {
+.v-card-actions.button-row {
   justify-content: center;
   padding-bottom: 0.15em;
 }

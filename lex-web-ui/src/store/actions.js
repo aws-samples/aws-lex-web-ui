@@ -694,7 +694,7 @@ export default {
     context.commit('setIsLexProcessing', true);
     context.commit('reapplyTokensToSessionAttributes');
     const session = context.state.lex.sessionAttributes;
-    delete session.appContext;
+    context.commit('removeAppContext');
     const localeId = context.state.config.lex.v2BotLocaleId
       ? context.state.config.lex.v2BotLocaleId.split(',')[0]
       : undefined;
@@ -820,9 +820,12 @@ export default {
     }
     context.commit('updateLexState', { ...lexStateDefault, ...lexState });
     if (context.state.isRunningEmbedded) {
+      // Vue3 uses a Proxy object, this removes the proxy and gives back the raw object
+      // This works around an error when sending it back to the parent window
+      let rawState = JSON.parse(JSON.stringify(context.state.lex))
       context.dispatch(
         'sendMessageToParentWindow',
-        { event: 'updateLexState', state: context.state.lex },
+        { event: 'updateLexState', state: rawState },
       );
     }
     return Promise.resolve();

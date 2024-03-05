@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.21.0] - 2024-03-01
+- Upgraded the existing solution and relevant dependencies to Vue 3. Migrating from Vuetify 1.5 -> 3 in the process, skipping over Vuetify 2 entirely, requiring clean-up and reconfiguration of all UI components. Goal was to get parity in UI from the previous release, which includes some new CSS rules to maintain the look at feel of the previous UI. These changes could result in **breaking changes** to custom CSS despite efforts to maintain backwards compatibilty many Vuetify classes changed names during the upgrade. Please use caution when updating to this version of the Lex Web UI UI.
+
 ## [0.20.6] - 2024-02-12
 - Emergency fix to upgrade Python function to version 3.8 across the board. As this will end of life later in the year we will release another update soon to move everything to 3.12.
 

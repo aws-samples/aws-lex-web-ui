@@ -239,6 +239,13 @@ export default {
     state.lex.isProcessing = bool;
   },
   /**
+   * remove appContext from Lex session attributes
+   */
+  removeAppContext(state) {
+    const session = state.lex.sessionAttributes;
+    delete session.appContext;
+  },
+  /**
   * set to true if lex is being interrupted while speaking
   */
   setIsLexInterrupting(state, bool) {

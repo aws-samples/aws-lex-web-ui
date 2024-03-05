@@ -1,3 +1,7 @@
+<script setup>
+import LexWeb from './components/LexWeb.vue'
+</script>
+
 <template>
   <div id="lex-app">
     <router-view></router-view>
