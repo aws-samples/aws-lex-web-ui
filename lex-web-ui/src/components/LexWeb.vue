@@ -73,11 +73,10 @@ import MinButton from '@/components/MinButton';
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
-import LexRuntime from 'aws-sdk/clients/lexruntime';
-import LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2';
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
-import { PollyClient } from '@aws-sdk/client-polly';
+import { LexRuntimeServiceClient } from '@aws-sdk/client-lex-runtime-service';
 import { LexRuntimeV2Client } from '@aws-sdk/client-lex-runtime-v2';
+import { PollyClient } from '@aws-sdk/client-polly';
 
 
 
@@ -203,14 +202,6 @@ export default {
           return Promise.reject(new Error('no cognito.poolId found in config'))
         }
 
-        const LexRuntimeConstructor = (window.AWS && window.AWS.LexRuntime) ?
-          window.AWS.LexRuntime :
-          LexRuntime;
-
-        const LexRuntimeConstructorV2 = (window.AWS && window.AWS.LexRuntimeV2) ?
-          window.AWS.LexRuntimeV2 :
-          LexRuntimeV2;
-
         const credentials = getCredentials(poolId, region)
           .then((creds) => {
             return creds;
@@ -222,12 +213,12 @@ export default {
           credentials,
         };
 
-        this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
-        this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
+        this.$lexWebUi.lexRuntimeClient = new LexRuntimeServiceClient(awsConfig);
+        this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeV2Client(awsConfig);
         this.$lexWebUi.pollyClient = new PollyClient(awsConfig)
         /* eslint-disable no-console */
-        console.log('this.$store.state', this.$store.state);
-        console.log(`lexRuntimeV2Client : ${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
+        // console.log('this.$store.state', this.$store.state);
+        // console.log(`lexRuntimeV2Client : ${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
 
         const promises = [
           this.$store.dispatch('initMessageList'),

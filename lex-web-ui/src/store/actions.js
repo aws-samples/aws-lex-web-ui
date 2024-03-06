@@ -30,6 +30,8 @@ import LexClient from '@/lib/lex/client';
 const jwt = require('jsonwebtoken');
 const AWS = require('aws-sdk');
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+
 
 
 // non-state variables that may be mutated outside of store
@@ -417,29 +419,6 @@ export default {
    *
    **********************************************************************/
 
-  // pollyGetBlob(context, text, format = 'text') {
-  //   return context.dispatch('refreshAuthTokens')
-  //     .then(() => context.dispatch('getCredentials'))
-  //     .then((creds) => {
-  //       pollyClient.config.credentials = creds;
-  //       const synthReq = pollyClient.synthesizeSpeech({
-  //         Text: text,
-  //         VoiceId: context.state.polly.voiceId,
-  //         OutputFormat: context.state.polly.outputFormat,
-  //         TextType: format,
-  //       });
-  //       return synthReq.promise();
-  //     })
-  //     .then((data) => {
-  //       const blob = new Blob([data.AudioStream], { type: data.ContentType });
-  //       return Promise.resolve(blob);
-  //     });
-  // },
-  // pollySynthesizeSpeech(context, text, format = 'text') {
-  //   return context.dispatch('pollyGetBlob', text, format)
-  //     .then(blob => context.dispatch('getAudioUrl', blob))
-  //     .then(audioUrl => context.dispatch('playAudio', audioUrl));
-  // },
   pollySynthesizeInitialSpeech(context) {
     const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : context.state.config.lex.v2BotLocaleId.split(',')[0].trim();
     if (localeId in pollyInitialSpeechBlob) {
@@ -1267,10 +1246,8 @@ export default {
  * File Upload Actions
  *
  **********************************************************************/
-  uploadFile(context, file) {
-    const s3 = new AWS.S3({
-      credentials: awsCredentials
-    });
+  async uploadFile(context, file) {
+    const s3 = new S3Client({credentials: awsCredentials});
     //Create a key that is unique to the user & time of upload
     const documentKey = lexClient.userId + '/' + file.name.split('.').join('-' + Date.now() + '.')
     const s3Params = {
@@ -1278,35 +1255,32 @@ export default {
       Bucket: context.state.config.ui.uploadS3BucketName,
       Key: documentKey,
     };
-  
-    s3.putObject(s3Params, function(err, data) {
-      if (err) {
-        console.log(err, err.stack); // an error occurred
+    const command = new PutObjectCommand(s3Params);
+    try {
+      const res = await s3.send(command);
+      console.log(res);
+      const documentObject = {
+        s3Path: 's3://' + context.state.config.ui.uploadS3BucketName + '/' + documentKey,
+        fileName: file.name
+      };
+      var documentsValue = [documentObject];
+      if (context.state.lex.sessionAttributes.userFilesUploaded) {
+        documentsValue = JSON.parse(context.state.lex.sessionAttributes.userFilesUploaded)
+        documentsValue.push(documentObject);
+      }
+      context.commit("setLexSessionAttributeValue",  { key: 'userFilesUploaded', value: JSON.stringify(documentsValue) });
+      if (context.state.config.ui.uploadSuccessMessage.length > 0) {
         context.commit('pushMessage', {
           type: 'bot',
-          text: context.state.config.ui.uploadFailureMessage,
+          text: context.state.config.ui.uploadSuccessMessage,
         });
-      } 
-      else {
-        console.log(data);           // successful response
-        const documentObject = {
-          s3Path: 's3://' + context.state.config.ui.uploadS3BucketName + '/' + documentKey,
-          fileName: file.name
-        };
-        var documentsValue = [documentObject];
-        if (context.state.lex.sessionAttributes.userFilesUploaded) {
-          documentsValue = JSON.parse(context.state.lex.sessionAttributes.userFilesUploaded)
-          documentsValue.push(documentObject);
-        }
-        context.commit("setLexSessionAttributeValue",  { key: 'userFilesUploaded', value: JSON.stringify(documentsValue) });
-        if (context.state.config.ui.uploadSuccessMessage.length > 0) {
-          context.commit('pushMessage', {
-            type: 'bot',
-            text: context.state.config.ui.uploadSuccessMessage,
-          });
-        }
-        return Promise.resolve();
       }
-    });
+    } catch (err) {
+      console.log(err);
+      context.commit('pushMessage', {
+        type: 'bot',
+        text: context.state.config.ui.uploadFailureMessage,
+      });
+    }
   },
 };
