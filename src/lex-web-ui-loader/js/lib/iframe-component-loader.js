@@ -251,12 +251,6 @@ export class IframeComponentLoader {
         return reject(new Error('missing cognito poolId config'));
       }
 
-      // if (!('AWS' in window) ||
-      //   !('CognitoIdentityCredentials' in window.AWS)
-      // ) {
-      //   return reject(new Error('unable to find AWS SDK global object'));
-      // }
-
       let credentials;
       const token = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
       let logins;

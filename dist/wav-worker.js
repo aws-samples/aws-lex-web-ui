@@ -36,13 +36,13 @@ module.exports = function (argument) {
 
 "use strict";
 
-var isPossiblePrototype = __webpack_require__(/*! ../internals/is-possible-prototype */ "./node_modules/core-js/internals/is-possible-prototype.js");
+var isCallable = __webpack_require__(/*! ../internals/is-callable */ "./node_modules/core-js/internals/is-callable.js");
 
 var $String = String;
 var $TypeError = TypeError;
 
 module.exports = function (argument) {
-  if (isPossiblePrototype(argument)) return argument;
+  if (typeof argument == 'object' || isCallable(argument)) return argument;
   throw new $TypeError("Can't set " + $String(argument) + ' as a prototype');
 };
 
@@ -81,113 +81,6 @@ module.exports = function (argument) {
 
 // eslint-disable-next-line es/no-typed-arrays -- safe
 module.exports = typeof ArrayBuffer != 'undefined' && typeof DataView != 'undefined';
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/array-buffer-byte-length.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/core-js/internals/array-buffer-byte-length.js ***!
-  \********************************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var uncurryThisAccessor = __webpack_require__(/*! ../internals/function-uncurry-this-accessor */ "./node_modules/core-js/internals/function-uncurry-this-accessor.js");
-var classof = __webpack_require__(/*! ../internals/classof-raw */ "./node_modules/core-js/internals/classof-raw.js");
-
-var $TypeError = TypeError;
-
-// Includes
-// - Perform ? RequireInternalSlot(O, [[ArrayBufferData]]).
-// - If IsSharedArrayBuffer(O) is true, throw a TypeError exception.
-module.exports = uncurryThisAccessor(ArrayBuffer.prototype, 'byteLength', 'get') || function (O) {
-  if (classof(O) !== 'ArrayBuffer') throw new $TypeError('ArrayBuffer expected');
-  return O.byteLength;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/array-buffer-is-detached.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/core-js/internals/array-buffer-is-detached.js ***!
-  \********************************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "./node_modules/core-js/internals/function-uncurry-this.js");
-var arrayBufferByteLength = __webpack_require__(/*! ../internals/array-buffer-byte-length */ "./node_modules/core-js/internals/array-buffer-byte-length.js");
-
-var slice = uncurryThis(ArrayBuffer.prototype.slice);
-
-module.exports = function (O) {
-  if (arrayBufferByteLength(O) !== 0) return false;
-  try {
-    slice(O, 0, 0);
-    return false;
-  } catch (error) {
-    return true;
-  }
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/array-buffer-transfer.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/core-js/internals/array-buffer-transfer.js ***!
-  \*****************************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
-var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "./node_modules/core-js/internals/function-uncurry-this.js");
-var uncurryThisAccessor = __webpack_require__(/*! ../internals/function-uncurry-this-accessor */ "./node_modules/core-js/internals/function-uncurry-this-accessor.js");
-var toIndex = __webpack_require__(/*! ../internals/to-index */ "./node_modules/core-js/internals/to-index.js");
-var isDetached = __webpack_require__(/*! ../internals/array-buffer-is-detached */ "./node_modules/core-js/internals/array-buffer-is-detached.js");
-var arrayBufferByteLength = __webpack_require__(/*! ../internals/array-buffer-byte-length */ "./node_modules/core-js/internals/array-buffer-byte-length.js");
-var detachTransferable = __webpack_require__(/*! ../internals/detach-transferable */ "./node_modules/core-js/internals/detach-transferable.js");
-var PROPER_STRUCTURED_CLONE_TRANSFER = __webpack_require__(/*! ../internals/structured-clone-proper-transfer */ "./node_modules/core-js/internals/structured-clone-proper-transfer.js");
-
-var structuredClone = global.structuredClone;
-var ArrayBuffer = global.ArrayBuffer;
-var DataView = global.DataView;
-var TypeError = global.TypeError;
-var min = Math.min;
-var ArrayBufferPrototype = ArrayBuffer.prototype;
-var DataViewPrototype = DataView.prototype;
-var slice = uncurryThis(ArrayBufferPrototype.slice);
-var isResizable = uncurryThisAccessor(ArrayBufferPrototype, 'resizable', 'get');
-var maxByteLength = uncurryThisAccessor(ArrayBufferPrototype, 'maxByteLength', 'get');
-var getInt8 = uncurryThis(DataViewPrototype.getInt8);
-var setInt8 = uncurryThis(DataViewPrototype.setInt8);
-
-module.exports = (PROPER_STRUCTURED_CLONE_TRANSFER || detachTransferable) && function (arrayBuffer, newLength, preserveResizability) {
-  var byteLength = arrayBufferByteLength(arrayBuffer);
-  var newByteLength = newLength === undefined ? byteLength : toIndex(newLength);
-  var fixedLength = !isResizable || !isResizable(arrayBuffer);
-  var newBuffer;
-  if (isDetached(arrayBuffer)) throw new TypeError('ArrayBuffer is detached');
-  if (PROPER_STRUCTURED_CLONE_TRANSFER) {
-    arrayBuffer = structuredClone(arrayBuffer, { transfer: [arrayBuffer] });
-    if (byteLength === newByteLength && (preserveResizability || fixedLength)) return arrayBuffer;
-  }
-  if (byteLength >= newByteLength && (!preserveResizability || fixedLength)) {
-    newBuffer = slice(arrayBuffer, 0, newByteLength);
-  } else {
-    var options = preserveResizability && !fixedLength && maxByteLength ? { maxByteLength: maxByteLength(arrayBuffer) } : undefined;
-    newBuffer = new ArrayBuffer(newByteLength, options);
-    var a = new DataView(arrayBuffer);
-    var b = new DataView(newBuffer);
-    var copyLength = min(newByteLength, byteLength);
-    for (var i = 0; i < copyLength; i++) setInt8(b, i, getInt8(a, i));
-  }
-  if (!PROPER_STRUCTURED_CLONE_TRANSFER) detachTransferable(arrayBuffer);
-  return newBuffer;
-};
 
 
 /***/ }),
@@ -434,7 +327,6 @@ var createMethod = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
     var O = toIndexedObject($this);
     var length = lengthOfArrayLike(O);
-    if (length === 0) return !IS_INCLUDES && -1;
     var index = toAbsoluteIndex(fromIndex, length);
     var value;
     // Array#includes uses SameValueZero equality algorithm
@@ -805,50 +697,24 @@ module.exports = !fails(function () {
 
 /***/ }),
 
-/***/ "./node_modules/core-js/internals/detach-transferable.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/core-js/internals/detach-transferable.js ***!
-  \***************************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+/***/ "./node_modules/core-js/internals/document-all.js":
+/*!********************************************************!*\
+  !*** ./node_modules/core-js/internals/document-all.js ***!
+  \********************************************************/
+/***/ (function(module) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
-var tryNodeRequire = __webpack_require__(/*! ../internals/try-node-require */ "./node_modules/core-js/internals/try-node-require.js");
-var PROPER_STRUCTURED_CLONE_TRANSFER = __webpack_require__(/*! ../internals/structured-clone-proper-transfer */ "./node_modules/core-js/internals/structured-clone-proper-transfer.js");
+var documentAll = typeof document == 'object' && document.all;
 
-var structuredClone = global.structuredClone;
-var $ArrayBuffer = global.ArrayBuffer;
-var $MessageChannel = global.MessageChannel;
-var detach = false;
-var WorkerThreads, channel, buffer, $detach;
+// https://tc39.es/ecma262/#sec-IsHTMLDDA-internal-slot
+// eslint-disable-next-line unicorn/no-typeof-undefined -- required for testing
+var IS_HTMLDDA = typeof documentAll == 'undefined' && documentAll !== undefined;
 
-if (PROPER_STRUCTURED_CLONE_TRANSFER) {
-  detach = function (transferable) {
-    structuredClone(transferable, { transfer: [transferable] });
-  };
-} else if ($ArrayBuffer) try {
-  if (!$MessageChannel) {
-    WorkerThreads = tryNodeRequire('worker_threads');
-    if (WorkerThreads) $MessageChannel = WorkerThreads.MessageChannel;
-  }
-
-  if ($MessageChannel) {
-    channel = new $MessageChannel();
-    buffer = new $ArrayBuffer(2);
-
-    $detach = function (transferable) {
-      channel.port1.postMessage(null, [transferable]);
-    };
-
-    if (buffer.byteLength === 2) {
-      $detach(buffer);
-      if (buffer.byteLength === 0) detach = $detach;
-    }
-  }
-} catch (error) { /* empty */ }
-
-module.exports = detach;
+module.exports = {
+  all: documentAll,
+  IS_HTMLDDA: IS_HTMLDDA
+};
 
 
 /***/ }),
@@ -890,54 +756,6 @@ module.exports = function (it) {
   if (it > MAX_SAFE_INTEGER) throw $TypeError('Maximum allowed index exceeded');
   return it;
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/engine-is-browser.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/core-js/internals/engine-is-browser.js ***!
-  \*************************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var IS_DENO = __webpack_require__(/*! ../internals/engine-is-deno */ "./node_modules/core-js/internals/engine-is-deno.js");
-var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "./node_modules/core-js/internals/engine-is-node.js");
-
-module.exports = !IS_DENO && !IS_NODE
-  && typeof window == 'object'
-  && typeof document == 'object';
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/engine-is-deno.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/core-js/internals/engine-is-deno.js ***!
-  \**********************************************************/
-/***/ (function(module) {
-
-"use strict";
-
-/* global Deno -- Deno case */
-module.exports = typeof Deno == 'object' && Deno && typeof Deno.version == 'object';
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/engine-is-node.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/core-js/internals/engine-is-node.js ***!
-  \**********************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
-var classof = __webpack_require__(/*! ../internals/classof-raw */ "./node_modules/core-js/internals/classof-raw.js");
-
-module.exports = classof(global.process) === 'process';
 
 
 /***/ }),
@@ -1057,7 +875,7 @@ module.exports = function (options, source) {
   } else if (STATIC) {
     target = global[TARGET] || defineGlobalProperty(TARGET, {});
   } else {
-    target = global[TARGET] && global[TARGET].prototype;
+    target = (global[TARGET] || {}).prototype;
   }
   if (target) for (key in source) {
     sourceProperty = source[key];
@@ -1519,17 +1337,17 @@ module.exports = function (it) {
 /*!*******************************************************!*\
   !*** ./node_modules/core-js/internals/is-callable.js ***!
   \*******************************************************/
-/***/ (function(module) {
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
-// https://tc39.es/ecma262/#sec-IsHTMLDDA-internal-slot
-var documentAll = typeof document == 'object' && document.all;
+var $documentAll = __webpack_require__(/*! ../internals/document-all */ "./node_modules/core-js/internals/document-all.js");
+
+var documentAll = $documentAll.all;
 
 // `IsCallable` abstract operation
 // https://tc39.es/ecma262/#sec-iscallable
-// eslint-disable-next-line unicorn/no-typeof-undefined -- required for testing
-module.exports = typeof documentAll == 'undefined' && documentAll !== undefined ? function (argument) {
+module.exports = $documentAll.IS_HTMLDDA ? function (argument) {
   return typeof argument == 'function' || argument === documentAll;
 } : function (argument) {
   return typeof argument == 'function';
@@ -1598,26 +1416,14 @@ module.exports = function (it) {
 "use strict";
 
 var isCallable = __webpack_require__(/*! ../internals/is-callable */ "./node_modules/core-js/internals/is-callable.js");
+var $documentAll = __webpack_require__(/*! ../internals/document-all */ "./node_modules/core-js/internals/document-all.js");
 
-module.exports = function (it) {
+var documentAll = $documentAll.all;
+
+module.exports = $documentAll.IS_HTMLDDA ? function (it) {
+  return typeof it == 'object' ? it !== null : isCallable(it) || it === documentAll;
+} : function (it) {
   return typeof it == 'object' ? it !== null : isCallable(it);
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/is-possible-prototype.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/core-js/internals/is-possible-prototype.js ***!
-  \*****************************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var isObject = __webpack_require__(/*! ../internals/is-object */ "./node_modules/core-js/internals/is-object.js");
-
-module.exports = function (argument) {
-  return isObject(argument) || argument === null;
 };
 
 
@@ -1714,7 +1520,7 @@ var TEMPLATE = String(String).split('String');
 
 var makeBuiltIn = module.exports = function (value, name, options) {
   if (stringSlice($String(name), 0, 7) === 'Symbol(') {
-    name = '[' + replace($String(name), /^Symbol\(([^)]*)\).*$/, '$1') + ']';
+    name = '[' + replace($String(name), /^Symbol\(([^)]*)\)/, '$1') + ']';
   }
   if (options && options.getter) name = 'get ' + name;
   if (options && options.setter) name = 'set ' + name;
@@ -2140,20 +1946,13 @@ module.exports = function (key) {
 
 "use strict";
 
-var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "./node_modules/core-js/internals/is-pure.js");
-var globalThis = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
+var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
 var defineGlobalProperty = __webpack_require__(/*! ../internals/define-global-property */ "./node_modules/core-js/internals/define-global-property.js");
 
 var SHARED = '__core-js_shared__';
-var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
+var store = global[SHARED] || defineGlobalProperty(SHARED, {});
 
-(store.versions || (store.versions = [])).push({
-  version: '3.36.0',
-  mode: IS_PURE ? 'pure' : 'global',
-  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.36.0/LICENSE',
-  source: 'https://github.com/zloirock/core-js'
-});
+module.exports = store;
 
 
 /***/ }),
@@ -2166,39 +1965,17 @@ var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, 
 
 "use strict";
 
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "./node_modules/core-js/internals/is-pure.js");
 var store = __webpack_require__(/*! ../internals/shared-store */ "./node_modules/core-js/internals/shared-store.js");
 
-module.exports = function (key, value) {
-  return store[key] || (store[key] = value || {});
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/structured-clone-proper-transfer.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/core-js/internals/structured-clone-proper-transfer.js ***!
-  \****************************************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
-var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-js/internals/fails.js");
-var V8 = __webpack_require__(/*! ../internals/engine-v8-version */ "./node_modules/core-js/internals/engine-v8-version.js");
-var IS_BROWSER = __webpack_require__(/*! ../internals/engine-is-browser */ "./node_modules/core-js/internals/engine-is-browser.js");
-var IS_DENO = __webpack_require__(/*! ../internals/engine-is-deno */ "./node_modules/core-js/internals/engine-is-deno.js");
-var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "./node_modules/core-js/internals/engine-is-node.js");
-
-var structuredClone = global.structuredClone;
-
-module.exports = !!structuredClone && !fails(function () {
-  // prevent V8 ArrayBufferDetaching protector cell invalidation and performance degradation
-  // https://github.com/zloirock/core-js/issues/679
-  if ((IS_DENO && V8 > 92) || (IS_NODE && V8 > 94) || (IS_BROWSER && V8 > 97)) return false;
-  var buffer = new ArrayBuffer(8);
-  var clone = structuredClone(buffer, { transfer: [buffer] });
-  return buffer.byteLength !== 0 || clone.byteLength !== 8;
+(module.exports = function (key, value) {
+  return store[key] || (store[key] = value !== undefined ? value : {});
+})('versions', []).push({
+  version: '3.34.0',
+  mode: IS_PURE ? 'pure' : 'global',
+  copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
+  license: 'https://github.com/zloirock/core-js/blob/v3.34.0/LICENSE',
+  source: 'https://github.com/zloirock/core-js'
 });
 
 
@@ -2282,32 +2059,6 @@ module.exports = function (argument) {
 
 /***/ }),
 
-/***/ "./node_modules/core-js/internals/to-index.js":
-/*!****************************************************!*\
-  !*** ./node_modules/core-js/internals/to-index.js ***!
-  \****************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var toIntegerOrInfinity = __webpack_require__(/*! ../internals/to-integer-or-infinity */ "./node_modules/core-js/internals/to-integer-or-infinity.js");
-var toLength = __webpack_require__(/*! ../internals/to-length */ "./node_modules/core-js/internals/to-length.js");
-
-var $RangeError = RangeError;
-
-// `ToIndex` abstract operation
-// https://tc39.es/ecma262/#sec-toindex
-module.exports = function (it) {
-  if (it === undefined) return 0;
-  var number = toIntegerOrInfinity(it);
-  var length = toLength(number);
-  if (number !== length) throw new $RangeError('Wrong length or index');
-  return length;
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/core-js/internals/to-indexed-object.js":
 /*!*************************************************************!*\
   !*** ./node_modules/core-js/internals/to-indexed-object.js ***!
@@ -2363,8 +2114,7 @@ var min = Math.min;
 // `ToLength` abstract operation
 // https://tc39.es/ecma262/#sec-tolength
 module.exports = function (argument) {
-  var len = toIntegerOrInfinity(argument);
-  return len > 0 ? min(len, 0x1FFFFFFFFFFFFF) : 0; // 2 ** 53 - 1 == 9007199254740991
+  return argument > 0 ? min(toIntegerOrInfinity(argument), 0x1FFFFFFFFFFFFF) : 0; // 2 ** 53 - 1 == 9007199254740991
 };
 
 
@@ -2465,26 +2215,6 @@ var test = {};
 test[TO_STRING_TAG] = 'z';
 
 module.exports = String(test) === '[object z]';
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/try-node-require.js":
-/*!************************************************************!*\
-  !*** ./node_modules/core-js/internals/try-node-require.js ***!
-  \************************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "./node_modules/core-js/internals/engine-is-node.js");
-
-module.exports = function (name) {
-  try {
-    // eslint-disable-next-line no-new-func -- safe
-    if (IS_NODE) return Function('return require("' + name + '")')();
-  } catch (error) { /* empty */ }
-};
 
 
 /***/ }),
@@ -2621,76 +2351,6 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ "./node_modules/core-js/modules/es.array-buffer.detached.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/core-js/modules/es.array-buffer.detached.js ***!
-  \******************************************************************/
-/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "./node_modules/core-js/internals/descriptors.js");
-var defineBuiltInAccessor = __webpack_require__(/*! ../internals/define-built-in-accessor */ "./node_modules/core-js/internals/define-built-in-accessor.js");
-var isDetached = __webpack_require__(/*! ../internals/array-buffer-is-detached */ "./node_modules/core-js/internals/array-buffer-is-detached.js");
-
-var ArrayBufferPrototype = ArrayBuffer.prototype;
-
-if (DESCRIPTORS && !('detached' in ArrayBufferPrototype)) {
-  defineBuiltInAccessor(ArrayBufferPrototype, 'detached', {
-    configurable: true,
-    get: function detached() {
-      return isDetached(this);
-    }
-  });
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/es.array-buffer.transfer-to-fixed-length.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/core-js/modules/es.array-buffer.transfer-to-fixed-length.js ***!
-  \**********************************************************************************/
-/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
-var $transfer = __webpack_require__(/*! ../internals/array-buffer-transfer */ "./node_modules/core-js/internals/array-buffer-transfer.js");
-
-// `ArrayBuffer.prototype.transferToFixedLength` method
-// https://tc39.es/proposal-arraybuffer-transfer/#sec-arraybuffer.prototype.transfertofixedlength
-if ($transfer) $({ target: 'ArrayBuffer', proto: true }, {
-  transferToFixedLength: function transferToFixedLength() {
-    return $transfer(this, arguments.length ? arguments[0] : undefined, false);
-  }
-});
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/es.array-buffer.transfer.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/core-js/modules/es.array-buffer.transfer.js ***!
-  \******************************************************************/
-/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
-var $transfer = __webpack_require__(/*! ../internals/array-buffer-transfer */ "./node_modules/core-js/internals/array-buffer-transfer.js");
-
-// `ArrayBuffer.prototype.transfer` method
-// https://tc39.es/proposal-arraybuffer-transfer/#sec-arraybuffer.prototype.transfer
-if ($transfer) $({ target: 'ArrayBuffer', proto: true }, {
-  transfer: function transfer() {
-    return $transfer(this, arguments.length ? arguments[0] : undefined, true);
-  }
-});
-
-
-/***/ }),
-
 /***/ "./node_modules/core-js/modules/es.array.push.js":
 /*!*******************************************************!*\
   !*** ./node_modules/core-js/modules/es.array.push.js ***!
@@ -2710,7 +2370,7 @@ var INCORRECT_TO_LENGTH = fails(function () {
   return [].push.call({ length: 0x100000000 }, 1) !== 4294967297;
 });
 
-// V8 <= 121 and Safari <= 15.4; FF < 23 throws InternalError
+// V8 and Safari <= 15.4, FF < 23 throws InternalError
 // https://bugs.chromium.org/p/v8/issues/detail?id=12681
 var properErrorOnNonWritableLength = function () {
   try {
@@ -2837,48 +2497,6 @@ exportTypedArrayMethod('with', { 'with': function (index, value) {
 } }['with'], !PROPER_ORDER);
 
 
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/esnext.array-buffer.detached.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/core-js/modules/esnext.array-buffer.detached.js ***!
-  \**********************************************************************/
-/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-// TODO: Remove from `core-js@4`
-__webpack_require__(/*! ../modules/es.array-buffer.detached */ "./node_modules/core-js/modules/es.array-buffer.detached.js");
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/esnext.array-buffer.transfer-to-fixed-length.js":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/core-js/modules/esnext.array-buffer.transfer-to-fixed-length.js ***!
-  \**************************************************************************************/
-/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-// TODO: Remove from `core-js@4`
-__webpack_require__(/*! ../modules/es.array-buffer.transfer-to-fixed-length */ "./node_modules/core-js/modules/es.array-buffer.transfer-to-fixed-length.js");
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/esnext.array-buffer.transfer.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/core-js/modules/esnext.array-buffer.transfer.js ***!
-  \**********************************************************************/
-/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-// TODO: Remove from `core-js@4`
-__webpack_require__(/*! ../modules/es.array-buffer.transfer */ "./node_modules/core-js/modules/es.array-buffer.transfer.js");
-
-
 /***/ })
 
 /******/ 	});
@@ -2931,9 +2549,6 @@ __webpack_require__(/*! core-js/modules/es.array.push.js */ "./node_modules/core
 __webpack_require__(/*! core-js/modules/es.typed-array.to-reversed.js */ "./node_modules/core-js/modules/es.typed-array.to-reversed.js");
 __webpack_require__(/*! core-js/modules/es.typed-array.to-sorted.js */ "./node_modules/core-js/modules/es.typed-array.to-sorted.js");
 __webpack_require__(/*! core-js/modules/es.typed-array.with.js */ "./node_modules/core-js/modules/es.typed-array.with.js");
-__webpack_require__(/*! core-js/modules/esnext.array-buffer.detached.js */ "./node_modules/core-js/modules/esnext.array-buffer.detached.js");
-__webpack_require__(/*! core-js/modules/esnext.array-buffer.transfer.js */ "./node_modules/core-js/modules/esnext.array-buffer.transfer.js");
-__webpack_require__(/*! core-js/modules/esnext.array-buffer.transfer-to-fixed-length.js */ "./node_modules/core-js/modules/esnext.array-buffer.transfer-to-fixed-length.js");
 // based on https://github.com/mattdiamond/Recorderjs/blob/master/src/recorder.js
 // with a few optimizations including downsampling and trimming quiet samples
 
