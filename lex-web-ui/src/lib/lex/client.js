@@ -12,6 +12,8 @@
  */
 
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+
 const zlib = require('zlib');
 
 function b64CompressedToObject(src) {
@@ -77,7 +79,16 @@ export default class {
       this.userId;
   }
 
-  deleteSession() {
+  async getCredentials(poolId, region) {
+    const credentialsProvider = fromCognitoIdentityPool({
+      identityPoolId: poolId,
+      clientConfig: { region: region },
+    })
+    const credentials = credentialsProvider();
+    return credentials;
+  }
+
+  deleteSession(poolId, region) {
     let deleteSessionReq;
     if (this.isV2Bot) {
       deleteSessionReq = this.lexRuntimeClient.deleteSession({
@@ -93,12 +104,12 @@ export default class {
         userId: this.userId,
       });
     }
-    return this.credentials.getPromise()
+    return this.getCredentials(poolId, region)
       .then(creds => creds && this.initCredentials(creds))
       .then(() => deleteSessionReq.promise());
   }
 
-  startNewSession() {
+  startNewSession(poolId, region) {
     let putSessionReq;
     if (this.isV2Bot) {
       putSessionReq = this.lexRuntimeClient.putSession({
@@ -122,12 +133,12 @@ export default class {
         },
       });
     }
-    return this.credentials.getPromise()
+    return this.getCredentials(poolId, region)
       .then(creds => creds && this.initCredentials(creds))
       .then(() => putSessionReq.promise());
   }
 
-  postText(inputText, localeId, sessionAttributes = {}) {
+  postText(inputText, localeId, poolId, region, sessionAttributes = {}) {
     let postTextReq;
     if (this.isV2Bot) {
       postTextReq = this.lexRuntimeClient.recognizeText({
@@ -149,7 +160,7 @@ export default class {
         sessionAttributes,
       });
     }
-    return this.credentials.getPromise()
+    return this.getCredentials(poolId, region)
       .then(creds => creds && this.initCredentials(creds))
       .then(async () => {
         const res = await postTextReq.promise();
@@ -209,6 +220,8 @@ export default class {
   postContent(
     blob,
     localeId,
+    poolId,
+    region,
     sessionAttributes = {},
     acceptFormat = 'audio/ogg',
     offset = 0,
@@ -249,7 +262,7 @@ export default class {
         sessionAttributes,
       });
     }
-    return this.credentials.getPromise()
+    return this.getCredentials(poolId, region)
       .then(creds => creds && this.initCredentials(creds))
       .then(async () => {
         const res = await postContentReq.promise();

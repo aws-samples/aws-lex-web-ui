@@ -842,7 +842,7 @@ Resources:
                 AllowStreamingResponses: !Ref AllowStreamingResponses
                 ShouldEnableUpload: !Ref ShouldEnableUpload
                 UploadBucket: !Ref UploadBucket
-                Timestamp: 1709669767
+                Timestamp: 1709580464
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -856,7 +856,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1709669767
+                Timestamp: 1709580464
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment

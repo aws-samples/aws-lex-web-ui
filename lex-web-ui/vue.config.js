@@ -23,10 +23,10 @@ from the material design icons library
 */
 const favIconPath = `${assetsDir}/favicon.png`;
 const logoPath = `${assetsDir}/logo.png`;
-const flowerLogoPath = path.resolve(
-  __dirname,
-  'node_modules/material-design-icons/maps/2x_web/ic_local_florist_white_18dp.png',
-);
+// const flowerLogoPath = path.resolve(
+//   __dirname,
+//   'node_modules/material-design-icons/maps/2x_web/ic_local_florist_white_18dp.png',
+// );
 
 // HTML page title injected into index.html by webpack
 const pageTitle = 'Lex Web UI';
@@ -240,23 +240,23 @@ function chainWebpackApp(
 
     // copy artifacts to dist directory
     .plugin('copy')
-    .tap((args) => {
-      // unshift to have lower precedence
-      // from the default vue cli `public` rule
-      args[0].patterns.unshift(
-        // favicon.png
-        {
-          from: getAssetPath(favIconPath, flowerLogoPath),
-          to: `${distDir}/favicon.png`,
-        },
-        // logo.png
-        {
-          from: getAssetPath(logoPath, flowerLogoPath),
-          to: `${distDir}/logo.png`,
-        },
-      );
-      return args;
-    });
+    // .tap((args) => {
+    //   // unshift to have lower precedence
+    //   // from the default vue cli `public` rule
+    //   args[0].patterns.unshift(
+    //     // favicon.png
+    //     {
+    //       from: getAssetPath(favIconPath, flowerLogoPath),
+    //       to: `${distDir}/favicon.png`,
+    //     },
+    //     // logo.png
+    //     {
+    //       from: getAssetPath(logoPath, flowerLogoPath),
+    //       to: `${distDir}/logo.png`,
+    //     },
+    //   );
+    //   return args;
+    // });
 }
 
 module.exports = {
