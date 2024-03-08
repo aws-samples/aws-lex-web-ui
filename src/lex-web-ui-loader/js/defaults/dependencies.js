@@ -42,7 +42,7 @@ export const dependenciesFullPage = {
     {
       name: 'LexWebUi',
       url: './lex-web-ui.js',
-      canUseMin: false,
+      canUseMin: true,
     },
   ],
   css: [
@@ -68,13 +68,7 @@ export const dependenciesFullPage = {
 };
 
 export const dependenciesIframe = {
-  script: [
-    {
-      name: 'AWS',
-      url: './aws-sdk-2.903.0.js',
-      canUseMin: true,
-    },
-  ],
+  script: [],
   css: [
     {
       name: 'lex-web-ui-loader',
