@@ -12,6 +12,20 @@
  */
 
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+import {
+  PostTextCommand,
+  DeleteSessionCommand as DeleteSessionCommandV1,
+  PutSessionCommand as PutSessionCommandV2,
+  PostContentCommand
+} from "@aws-sdk/client-lex-runtime-service";
+import {
+  RecognizeTextCommand,
+  DeleteSessionCommand as DeleteSessionCommandV2,
+  PutSessionCommand as PutSessionCommandV1,
+  RecognizeUtteranceCommand
+} from "@aws-sdk/client-lex-runtime-v2";
+
 const zlib = require('zlib');
 
 function b64CompressedToObject(src) {
@@ -77,31 +91,42 @@ export default class {
       this.userId;
   }
 
-  deleteSession() {
-    let deleteSessionReq;
+  async getCredentials(poolId, region) {
+    const credentialsProvider = fromCognitoIdentityPool({
+      identityPoolId: poolId,
+      clientConfig: { region: region },
+    })
+    const credentials = credentialsProvider();
+    return credentials;
+  }
+
+  deleteSession(poolId, region) {
+    let command;
     if (this.isV2Bot) {
-      deleteSessionReq = this.lexRuntimeClient.deleteSession({
+      command = new DeleteSessionCommandV2({
         botAliasId: this.botV2AliasId,
         botId: this.botV2Id,
         localeId: this.botV2LocaleId,
         sessionId: this.userId,
       });
     } else {
-      deleteSessionReq = this.lexRuntimeClient.deleteSession({
+      command = new DeleteSessionCommandV1({
         botAlias: this.botAlias,
         botName: this.botName,
         userId: this.userId,
       });
     }
-    return this.credentials.getPromise()
+    return this.getCredentials(poolId, region)
       .then(creds => creds && this.initCredentials(creds))
-      .then(() => deleteSessionReq.promise());
+      .then(async () => {
+        const res = await this.lexRuntimeClient.send(command);
+      });
   }
 
-  startNewSession() {
-    let putSessionReq;
+  startNewSession(poolId, region) {
+    let command;
     if (this.isV2Bot) {
-      putSessionReq = this.lexRuntimeClient.putSession({
+      command = new PutSessionCommandV2({
         botAliasId: this.botV2AliasId,
         botId: this.botV2Id,
         localeId: this.botV2LocaleId,
@@ -113,7 +138,7 @@ export default class {
         },
       });
     } else {
-      putSessionReq = this.lexRuntimeClient.putSession({
+      command = new PutSessionCommandV1({
         botAlias: this.botAlias,
         botName: this.botName,
         userId: this.userId,
@@ -122,15 +147,17 @@ export default class {
         },
       });
     }
-    return this.credentials.getPromise()
+    return this.getCredentials(poolId, region)
       .then(creds => creds && this.initCredentials(creds))
-      .then(() => putSessionReq.promise());
+      .then(async () => {
+        const res = await this.lexRuntimeClient.send(command);
+      });
   }
 
-  postText(inputText, localeId, sessionAttributes = {}) {
-    let postTextReq;
+  postText(inputText, localeId, poolId, region, sessionAttributes = {}) {
+    let command;
     if (this.isV2Bot) {
-      postTextReq = this.lexRuntimeClient.recognizeText({
+      command = new RecognizeTextCommand({
         botAliasId: this.botV2AliasId,
         botId: this.botV2Id,
         localeId: localeId ? localeId : 'en_US',
@@ -139,9 +166,9 @@ export default class {
         sessionState: {
           sessionAttributes,
         },
-      });
+      })
     } else {
-      postTextReq = this.lexRuntimeClient.postText({
+      command = new PostTextCommand({
         botAlias: this.botAlias,
         botName: this.botName,
         userId: this.userId,
@@ -149,10 +176,10 @@ export default class {
         sessionAttributes,
       });
     }
-    return this.credentials.getPromise()
+    return this.getCredentials(poolId, region)
       .then(creds => creds && this.initCredentials(creds))
       .then(async () => {
-        const res = await postTextReq.promise();
+        const res = await this.lexRuntimeClient.send(command);
         if (res.sessionState) { // this is v2 response
           res.sessionAttributes = res.sessionState.sessionAttributes;
           if (res.sessionState.intent) {
@@ -209,6 +236,8 @@ export default class {
   postContent(
     blob,
     localeId,
+    poolId,
+    region,
     sessionAttributes = {},
     acceptFormat = 'audio/ogg',
     offset = 0,
@@ -225,10 +254,10 @@ export default class {
     } else {
       console.warn('unknown media type in lex client');
     }
-    let postContentReq;
+    let command;
     if (this.isV2Bot) {
       const sessionState = { sessionAttributes };
-      postContentReq = this.lexRuntimeClient.recognizeUtterance({
+      command = new RecognizeUtteranceCommand({
         botAliasId: this.botV2AliasId,
         botId: this.botV2Id,
         localeId: localeId ? localeId : 'en_US',
@@ -239,7 +268,7 @@ export default class {
         sessionState: compressAndB64Encode(sessionState),
       });
     } else {
-      postContentReq = this.lexRuntimeClient.postContent({
+      command = new PostContentCommand({
         accept: acceptFormat,
         botAlias: this.botAlias,
         botName: this.botName,
@@ -249,10 +278,10 @@ export default class {
         sessionAttributes,
       });
     }
-    return this.credentials.getPromise()
+    return this.getCredentials(poolId, region)
       .then(creds => creds && this.initCredentials(creds))
       .then(async () => {
-        const res = await postContentReq.promise();
+        const res = await this.lexRuntimeClient.send(command);
         if (res.sessionState) {
           const oState = b64CompressedToObject(res.sessionState);
           res.sessionAttributes = oState.sessionAttributes ? oState.sessionAttributes : {};

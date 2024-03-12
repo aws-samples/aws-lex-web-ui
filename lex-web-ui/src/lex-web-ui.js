@@ -18,14 +18,7 @@ License for the specific language governing permissions and limitations under th
  * Exports Loader as the plugin constructor
  * and Store as store that can be used with Vuex.Store()
  */
-import Vue from 'vue';
-import Vuex from 'vuex';
-import { Config as AWSConfig, CognitoIdentityCredentials }
-  from 'aws-sdk/global';
-import LexRuntime from 'aws-sdk/clients/lexruntime';
-import LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2';
-import Polly from 'aws-sdk/clients/polly';
-
+import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
 import LexWeb from '@/components/LexWeb';
 import VuexStore from '@/store';
 
@@ -80,9 +73,6 @@ export const Plugin = {
     name = '$lexWebUi',
     componentName = 'lex-web-ui',
     awsConfig,
-    lexRuntimeClient,
-    lexRuntimeV2Client,
-    pollyClient,
     component = AsyncComponent,
     config = defaultConfig,
   }) {
@@ -90,9 +80,6 @@ export const Plugin = {
     const value = {
       config,
       awsConfig,
-      lexRuntimeClient,
-      lexRuntimeV2Client,
-      pollyClient,
     };
     // add custom property to Vue
     // for example, access this in a component via this.$lexWebUi
@@ -161,59 +148,33 @@ export class Loader {
     this.app = app;
 
     const mergedConfig = mergeConfig(defaultConfig, config);
-
-    const AWSConfigConstructor = (window.AWS && window.AWS.Config) ?
-      window.AWS.Config :
-      AWSConfig;
-
-    const CognitoConstructor =
-      (window.AWS && window.AWS.CognitoIdentityCredentials) ?
-        window.AWS.CognitoIdentityCredentials :
-        CognitoIdentityCredentials;
-
-    const PollyConstructor = (window.AWS && window.AWS.Polly) ?
-      window.AWS.Polly :
-      Polly;
-
-    const LexRuntimeConstructor = (window.AWS && window.AWS.LexRuntime) ?
-      window.AWS.LexRuntime :
-      LexRuntime;
-
-    const LexRuntimeConstructorV2 = (window.AWS && window.AWS.LexRuntimeV2) ?
-      window.AWS.LexRuntimeV2 :
-      LexRuntimeV2;
-
-    if (!AWSConfigConstructor || !CognitoConstructor || !PollyConstructor
-        || !LexRuntimeConstructor || !LexRuntimeConstructorV2) {
-      throw new Error('unable to find AWS SDK');
+    let credentials;
+    if (mergedConfig.cognito.poolId != '') {
+      credentials = this.getCredentials(mergedConfig).then((creds) => {
+        return creds;
+      });
     }
 
-    const credentials = new CognitoConstructor(
-      { IdentityPoolId: mergedConfig.cognito.poolId },
-      { region: mergedConfig.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1' },
-    );
-
-    const awsConfig = new AWSConfigConstructor({
+    const awsConfig = {
       region: mergedConfig.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1',
       credentials,
-    });
+    };
 
-    const lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
-    const lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
-    /* eslint-disable no-console */
-    const pollyClient = (
-      typeof mergedConfig.recorder === 'undefined' ||
-      (mergedConfig.recorder && mergedConfig.recorder.enable !== false)
-    ) ? new PollyConstructor(awsConfig) : null;
-
+    // /* eslint-disable no-console */
     app.use(Plugin, {
         config: mergedConfig,
-        awsConfig,
-        lexRuntimeClient,
-        lexRuntimeV2Client,
-        pollyClient,
+        awsConfig: awsConfig,
     });
     this.app = app;
+  }
+
+  async getCredentials(context) {
+    const credentialProvider = fromCognitoIdentityPool({
+      identityPoolId: context.cognito.poolId,
+      clientConfig: { region: context.region || context.cognito.poolId.split(':')[0] || 'us-east-1'},
+    })
+    const credentials = credentialProvider()
+    return credentials
   }
 }
 
