@@ -28,10 +28,11 @@ import silentMp3 from '@/assets/silent.mp3';
 import LexClient from '@/lib/lex/client';
 
 const jwt = require('jsonwebtoken');
-const AWS = require('aws-sdk');
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-
+const { SignatureV4 } = require("@smithy/signature-v4");
+const { HttpRequest } = require("@smithy/protocol-http");
+const { Sha256 } = require("@aws-crypto/sha256-js");
 
 
 // non-state variables that may be mutated outside of store
@@ -899,66 +900,74 @@ export default {
       InstanceId: context.state.config.connect.instanceId,
     };
 
-    const uri = new URL(context.state.config.connect.apiGatewayEndpoint);
-    const endpoint = new AWS.Endpoint(uri.hostname);
-    const req = new AWS.HttpRequest(endpoint, context.state.config.region);
-    req.method = 'POST';
-    req.path = uri.pathname;
-    req.headers['Content-Type'] = 'application/json';
-    req.body = JSON.stringify(initiateChatRequest);
-    req.headers.Host = endpoint.host;
-    req.headers['Content-Length'] = Buffer.byteLength(req.body);
+    const signer = new SignatureV4({
+      credentials: awsCredentials,
+      region: context.state.config.region,
+      service: 'execute-api',
+      sha256: Sha256
+    });
 
-    const signer = new AWS.Signers.V4(req, 'execute-api');
-    signer.addAuthorization(awsCredentials, new Date());
+    const parsedUrl = new URL(context.state.config.connect.apiGatewayEndpoint);
+    const endpoint = parsedUrl.hostname.toString();
+    const path = parsedUrl.pathname.toString();
+    const req = new HttpRequest({
+      hostname: endpoint,
+      path,
+      method: "POST",
+      body: JSON.stringify(initiateChatRequest),
+      headers: {
+        host: endpoint,
+        "Content-Type": "application/json",
+      },
+    });
 
-    const reqInit = {
-      method: 'POST',
-      mode: 'cors',
-      headers: req.headers,
-      body: req.body,
-    };
-
-    return fetch(
-      context.state.config.connect.apiGatewayEndpoint,
-      reqInit)
-    .then(response => response.json())
-    .then(json => json.data)
-    .then((result) => {
-      console.info('Live Chat Config Success:', result);
-      context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
-      function waitMessage(context, type, message) {
-        context.commit('pushLiveChatMessage', {
-          type,
-          text: message,
-        });
-      };
-      if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
-        const intervalID = setInterval(waitMessage,
-          1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
-          context,
-          'bot',
-          context.state.config.connect.waitingForAgentMessage);
-        console.info(`interval now set: ${intervalID}`);
-        context.commit('setLiveChatIntervalId', intervalID);
-      }
-      liveChatSession = createLiveChatSession(result);
-      console.info('Live Chat Session Created:', liveChatSession);
-      initLiveChatHandlers(context, liveChatSession);
-      console.info('Live Chat Handlers initialised:');
-      return connectLiveChatSession(liveChatSession);
-    })
-    .then((response) => {
-      console.info('live Chat session connection response', response);
-      console.info('Live Chat Session CONNECTED:', liveChatSession);
-      context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
-      // context.commit('setLiveChatbotSession', liveChatSession);
-      return Promise.resolve();
-    })
-    .catch((error) => {
-      console.error("Error esablishing live chat");
-      context.commit('setLiveChatStatus', liveChatStatus.ENDED);
-      return Promise.resolve();
+    signer.sign(req, { signingDate: new Date() }).then((signedRequest) => {
+      return fetch(
+        context.state.config.connect.apiGatewayEndpoint,
+        {
+          method: 'POST',
+          mode: 'cors',
+          headers: signedRequest.headers,
+          body: signedRequest.body,
+        })
+      .then(response => response.json())
+      .then(json => json.data)
+      .then((result) => {
+        console.info('Live Chat Config Success:', result);
+        context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
+        function waitMessage(context, type, message) {
+          context.commit('pushLiveChatMessage', {
+            type,
+            text: message,
+          });
+        };
+        if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
+          const intervalID = setInterval(waitMessage,
+            1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
+            context,
+            'bot',
+            context.state.config.connect.waitingForAgentMessage);
+          console.info(`interval now set: ${intervalID}`);
+          context.commit('setLiveChatIntervalId', intervalID);
+        }
+        liveChatSession = createLiveChatSession(result);
+        console.info('Live Chat Session Created:', liveChatSession);
+        initLiveChatHandlers(context, liveChatSession);
+        console.info('Live Chat Handlers initialised:');
+        return connectLiveChatSession(liveChatSession);
+      })
+      .then((response) => {
+        console.info('live Chat session connection response', response);
+        console.info('Live Chat Session CONNECTED:', liveChatSession);
+        context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
+        // context.commit('setLiveChatbotSession', liveChatSession);
+        return Promise.resolve();
+      })
+      .catch((error) => {
+        console.error("Error esablishing live chat");
+        context.commit('setLiveChatStatus', liveChatStatus.ENDED);
+        return Promise.resolve();
+      });
     });
   },
 

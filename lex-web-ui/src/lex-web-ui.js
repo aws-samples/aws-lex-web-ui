@@ -24,6 +24,7 @@ import VuexStore from '@/store';
 
 import { config as defaultConfig, mergeConfig } from '@/config';
 import { createApp, defineAsyncComponent } from 'vue';
+import { createAppDev } from 'vue/dist/vue.esm-bundler.js'; //This is necessary for local dev to function
 import { aliases, md } from 'vuetify/iconsets/md';
 import { createStore } from 'vuex';
 
