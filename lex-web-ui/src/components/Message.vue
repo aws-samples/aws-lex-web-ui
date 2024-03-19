@@ -28,14 +28,7 @@
                 <message-text
                   :message="message"
                   v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayInteractiveMessage"
-                ></message-text>
-                <v-icon
-                  v-if="message.type === 'bot' &&  message.id !== $store.state.messages[0].id"
-                  class="copy-icon"
-                  @click="copyMessageToClipboard(message.text)"
-                >
-                content_copy
-              </v-icon>
+                ></message-text>                
                 <div
                   v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'ListPicker'">
                   <v-card-title primary-title>
@@ -97,6 +90,13 @@
                   </v-datetime-picker>
                   <v-btn v-on:click="sendDateTime(datetime)" variant="flat">Confirm</v-btn>
                 </div>
+                <v-icon
+                  v-if="message.type === 'bot' &&  message.id !== $store.state.messages[0].id && showCopyIcon"
+                  class="copy-icon"
+                  @click="copyMessageToClipboard(message.text)"
+                >
+                  content_copy
+                </v-icon>
                 <div
                   v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback"
                   class="feedback-state"
@@ -294,6 +294,9 @@ export default {
     },
     showDialogStateIcon() {
       return this.$store.state.config.ui.showDialogStateIcon;
+    },
+    showCopyIcon() {
+      return this.$store.state.config.ui.showCopyIcon;
     },
     showMessageMenu() {
       return this.$store.state.config.ui.messageMenu;
@@ -628,6 +631,15 @@ export default {
 
 .feedback-icons-negative:hover{
   color: red;
+}
+
+.copy-icon {
+  display: inline-flex;
+  align-self: center;
+}
+
+.copy-icon:hover{
+  color: grey;
 }
 
 .response-card {
