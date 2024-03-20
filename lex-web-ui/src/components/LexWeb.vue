@@ -250,7 +250,11 @@ export default {
           Promise.resolve()
       ))
       .then(() => {
-        if (this.$store.state.config.ui.saveHistory === true) {
+        if (this.$store.state.config.ui.saveHistory === true) {   
+          var oldState = JSON.parse(sessionStorage.getItem('store'));
+          if (oldState) {
+            this.$store.replaceState(JSON.parse(sessionStorage.getItem('store')));
+          }
           this.$store.subscribe((mutation, state) => {
             sessionStorage.setItem('store', JSON.stringify(state));
           });
@@ -261,9 +265,25 @@ export default {
           'successfully initialized lex web ui version: ',
           this.$store.state.version,
         );
-        // after slight delay, send in initial utterance if it is defined.
+        //See if the liveChat was previously established
+        //console.info('liveChatStatus.ESTABLISHED: ', liveChatStatus.ESTABLISHED)  THIS IS UNDEFINED
+        //TODO: I need to add the logic here to see if we need to re-establish chat
+        if (this.$store.state.liveChat.status === 'established') {   
+          console.info('Previous liveChat connection was found.  Reconnecting...');
+
+          //Because of logic in action.js chatMode has to be bot
+          //context.state.chatMode to chatMode.BOT or bot
+          //TODO: figure out why importing chatMode.BOT doesn't work
+          this.$store.commit('setChatMode', 'bot');
+
+          // after slight delay, send in live chat utterance.
+          // waiting for credentials to settle down a bit.
+          setTimeout(() => this.$store.dispatch('sendLiveChatUtterance'), 500);
+          this.$store.commit('setLiveChatUtteranceSent', true);
+        }
+        // Else after slight delay, send in initial utterance if it is defined.
         // waiting for credentials to settle down a bit.
-        if (!this.$store.state.config.iframe.shouldLoadIframeMinimized) {
+        else if (!this.$store.state.config.iframe.shouldLoadIframeMinimized) {
           setTimeout(() => this.$store.dispatch('sendInitialUtterance'), 500);
           this.$store.commit('setInitialUtteranceSent', true);
         }
