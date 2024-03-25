@@ -5,6 +5,10 @@ requests a transfer, all subsequent messages are sent to Connect Live Chat Agent
 displayed back to the user as a message bubble. The conversation continues between user and agent until
 either party disconnects. Once disconnected, messages are again sent to the Lex bot.
 
+### TalkDesk integration
+
+Integration with TalkDesk is also supported, but requires configuration outside of the Web UI. For a full walkthrough please refer to this [blogpost](https://aws.amazon.com/blogs/machine-learning/provide-live-agent-assistance-for-your-chatbot-users-with-amazon-lex-and-talkdesk-cloud-contact-center/).
+
 ## Setup
 
 ### Configure a Connect Instance
