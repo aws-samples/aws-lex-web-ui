@@ -264,6 +264,16 @@ export default {
           }).toString();
       }
 
+      // If streaming, send session attributes for streaming
+      if(this.$store.state.config.lex.allowStreamingResponses){
+        // Replace with an HTTP endpoint for the fullfilment Lambda
+        const streamingEndpoint = this.$store.state.config.lex.streamingWebSocketEndpoint.replace('wss://', 'https://');
+        this.$store.dispatch('setSessionAttribute', 
+          { key: 'streamingEndpoint', value: streamingEndpoint });
+        this.$store.dispatch('setSessionAttribute', 
+          { key: 'streamingDynamoDbTable', value: this.$store.state.config.lex.streamingDynamoDbTable });
+      }
+
       return this.$store.dispatch('postTextMessage', message)
         .then(() => {
           this.textInput = '';

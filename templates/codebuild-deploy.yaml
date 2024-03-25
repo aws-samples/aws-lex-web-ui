@@ -936,6 +936,8 @@ Resources:
                       Value: !Ref AllowStreamingResponses
                     - Name: STREAMING_WEB_SOCKET_ENDPOINT
                       Value: !If [EnableStreaming, !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod", ""]
+                    - Name: STREAMING_DYNAMO_TABLE
+                      Value: !If [EnableStreaming, !Sub "${StreamingSupport.Outputs.DynamoTableName}", ""]                    
                     - Name: ENABLE_UPLOAD
                       Value: !Ref ShouldEnableUpload
                     - Name: UPLOAD_BUCKET_NAME

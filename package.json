@@ -67,12 +67,10 @@
     "webpack-dev-server": "^4.15.1"
   },
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=7.8.0"
+    "node": ">=18.0.0",
+    "npm": ">=10.0.0"
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "ie >= 11"
+    "defaults and fully supports es6-module"
   ]
 }
