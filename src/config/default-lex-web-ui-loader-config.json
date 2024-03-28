@@ -25,7 +25,8 @@
     "v2BotAliasId": "",
     "v2BotLocaleId": "",
     "allowStreamingResponses": false,
-    "streamingWebSocketEndpoint": ""
+    "streamingWebSocketEndpoint": "",
+    "streamingDynamoDbTable": ""
   },
   "ui": {
     "parentOrigin": "http://localhost:8000",
