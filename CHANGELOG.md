@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.21.1] - 2024-03-26
+- Updated the streaming feature to be more flexible so users can choose whether or not the fullfilment Lambda should be streaming responses. Additional details can be found in the streaming responses README.
+- Added a copy icon so responses from the bot can be easily copy/pasted. This option can be configured manually from the configuration file and is defaulted to 'off'.
+- Updated broswer targets to only support ES6 browsers.
+- Dependency upgrades to address vulnerabilities
+
 ## [0.21.0] - 2024-03-01
 - Upgraded the existing solution and relevant dependencies to Vue 3. Migrating from Vuetify 1.5 -> 3 in the process, skipping over Vuetify 2 entirely, requiring clean-up and reconfiguration of all UI components. Goal was to get parity in UI from the previous release, which includes some new CSS rules to maintain the look at feel of the previous UI. These changes could result in **breaking changes** to custom CSS despite efforts to maintain backwards compatibilty many Vuetify classes changed names during the upgrade. Please use caution when updating to this version of the Lex Web UI UI.
 

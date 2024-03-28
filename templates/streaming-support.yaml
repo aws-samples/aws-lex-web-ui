@@ -174,7 +174,7 @@ Resources:
   ApiKey:
     Type: 'AWS::ApiGateway::ApiKey'
     Properties:
-      Name: StreamingApiKey
+      Name: !Join ["-", [!Ref ParentStackName, "StreamingApiKey"]]
       Enabled: 'true'
   
   UsagePlanKey:
