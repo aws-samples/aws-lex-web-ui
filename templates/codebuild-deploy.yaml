@@ -1299,11 +1299,11 @@ Outputs:
         Condition: EnableLiveChat
     
     WebSocketId:
-        Value: !Sub "${StreamingSupport.Outputs.WebSocketId}"
+        Value: !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod", ""]
         Description: Websocket API ID
         Condition: EnableStreaming
 
-    WebSocketId:
+    DynamoTableName:
         Value: !Sub "${StreamingSupport.Outputs.DynamoTableName}"
         Description: DynamoDB table name
         Condition: EnableStreaming
