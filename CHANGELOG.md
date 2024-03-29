@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.21.1] - 2024-03-26
 - Updated the streaming feature to be more flexible so users can choose whether or not the fullfilment Lambda should be streaming responses. Additional details can be found in the streaming responses README.
 - Added a copy icon so responses from the bot can be easily copy/pasted. This option can be configured manually from the configuration file and is defaulted to 'off'.
+- TalkDesk integration is now supported with the Web UI. Please refer to this [blog post](https://aws.amazon.com/blogs/machine-learning/provide-live-agent-assistance-for-your-chatbot-users-with-amazon-lex-and-talkdesk-cloud-contact-center/) for full details.
 - Updated broswer targets to only support ES6 browsers.
 - Dependency upgrades to address vulnerabilities
 

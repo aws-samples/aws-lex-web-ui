@@ -402,6 +402,16 @@ export default {
     state.liveChat.status = status.toLowerCase();
   },
   /**
+   * use to set the TalkDesk Id for live chat
+   */
+  setTalkDeskConversationId(state, id) {
+    if (typeof id !== 'string') {
+      console.error('setTalkDeskConversationId is not vaild', id);
+      return;
+    }
+    state.liveChat.talkDeskConversationId = id;
+  },
+  /**
   * set to true while live chat session is being created or agent is typing
   */
   setIsLiveChatProcessing(state, bool) {
