@@ -18,6 +18,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^3.511.0",
+    "@aws-sdk/client-connect": "^3.511.0",
+    "@aws-sdk/client-lex-runtime-v2": "^3.514.0",
+    "@aws-sdk/credential-providers": "^3.511.0",
     "amazon-connect-chatjs": "^1.1.7",
     "aws-sdk": "^2.1354.0",
     "browserify-zlib": "^0.2.0",
