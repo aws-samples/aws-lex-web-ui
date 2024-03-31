@@ -418,29 +418,29 @@ export default {
    *
    **********************************************************************/
 
-  pollyGetBlob(context, text, format = 'text') {
-    return context.dispatch('refreshAuthTokens')
-      .then(() => context.dispatch('getCredentials'))
-      .then((creds) => {
-        pollyClient.config.credentials = creds;
-        const synthReq = pollyClient.synthesizeSpeech({
-          Text: text,
-          VoiceId: context.state.polly.voiceId,
-          OutputFormat: context.state.polly.outputFormat,
-          TextType: format,
-        });
-        return synthReq.promise();
-      })
-      .then((data) => {
-        const blob = new Blob([data.AudioStream], { type: data.ContentType });
-        return Promise.resolve(blob);
-      });
-  },
-  pollySynthesizeSpeech(context, text, format = 'text') {
-    return context.dispatch('pollyGetBlob', text, format)
-      .then(blob => context.dispatch('getAudioUrl', blob))
-      .then(audioUrl => context.dispatch('playAudio', audioUrl));
-  },
+  // pollyGetBlob(context, text, format = 'text') {
+  //   return context.dispatch('refreshAuthTokens')
+  //     .then(() => context.dispatch('getCredentials'))
+  //     .then((creds) => {
+  //       pollyClient.config.credentials = creds;
+  //       const synthReq = pollyClient.synthesizeSpeech({
+  //         Text: text,
+  //         VoiceId: context.state.polly.voiceId,
+  //         OutputFormat: context.state.polly.outputFormat,
+  //         TextType: format,
+  //       });
+  //       return synthReq.promise();
+  //     })
+  //     .then((data) => {
+  //       const blob = new Blob([data.AudioStream], { type: data.ContentType });
+  //       return Promise.resolve(blob);
+  //     });
+  // },
+  // pollySynthesizeSpeech(context, text, format = 'text') {
+  //   return context.dispatch('pollyGetBlob', text, format)
+  //     .then(blob => context.dispatch('getAudioUrl', blob))
+  //     .then(audioUrl => context.dispatch('playAudio', audioUrl));
+  // },
   pollySynthesizeInitialSpeech(context) {
     const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : context.state.config.lex.v2BotLocaleId.split(',')[0].trim();
     if (localeId in pollyInitialSpeechBlob) {
