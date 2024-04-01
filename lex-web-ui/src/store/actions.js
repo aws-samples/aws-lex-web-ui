@@ -23,12 +23,12 @@ import initRecorderHandlers from '@/store/recorder-handlers';
 import { chatMode, liveChatStatus } from '@/store/state';
 import { createLiveChatSession, connectLiveChatSession, initLiveChatHandlers, sendChatMessage, sendTypingEvent, requestLiveChatEnd } from '@/store/live-chat-handlers';
 import { initTalkDeskLiveChat, sendTalkDeskChatMessage, requestTalkDeskLiveChatEnd } from '@/store/talkdesk-live-chat-handlers.js';
+import { jwtDecode } from "jwt-decode";
 import silentOgg from '@/assets/silent.ogg';
 import silentMp3 from '@/assets/silent.mp3';
 
 import LexClient from '@/lib/lex/client';
 
-const jwt = require('jsonwebtoken');
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 const { SignatureV4 } = require("@smithy/signature-v4");
@@ -912,75 +912,81 @@ export default {
         InstanceId: context.state.config.connect.instanceId,
       };
 
-    const signer = new SignatureV4({
-      credentials: awsCredentials,
-      region: context.state.config.region,
-      service: 'execute-api',
-      sha256: Sha256
-    });
-
-    const parsedUrl = new URL(context.state.config.connect.apiGatewayEndpoint);
-    const endpoint = parsedUrl.hostname.toString();
-    const path = parsedUrl.pathname.toString();
-    const req = new HttpRequest({
-      hostname: endpoint,
-      path,
-      method: "POST",
-      body: JSON.stringify(initiateChatRequest),
-      headers: {
-        host: endpoint,
-        "Content-Type": "application/json",
-      },
-    });
-
-    signer.sign(req, { signingDate: new Date() }).then((signedRequest) => {
-      return fetch(
-        context.state.config.connect.apiGatewayEndpoint,
-        {
-          method: 'POST',
-          mode: 'cors',
-          headers: signedRequest.headers,
-          body: signedRequest.body,
-        })
-      .then(response => response.json())
-      .then(json => json.data)
-      .then((result) => {
-        console.info('Live Chat Config Success:', result);
-        context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
-        function waitMessage(context, type, message) {
-          context.commit('pushLiveChatMessage', {
-            type,
-            text: message,
-          });
-        };
-        if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
-          const intervalID = setInterval(waitMessage,
-            1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
-            context,
-            'bot',
-            context.state.config.connect.waitingForAgentMessage);
-          console.info(`interval now set: ${intervalID}`);
-          context.commit('setLiveChatIntervalId', intervalID);
-        }
-        liveChatSession = createLiveChatSession(result);
-        console.info('Live Chat Session Created:', liveChatSession);
-        initLiveChatHandlers(context, liveChatSession);
-        console.info('Live Chat Handlers initialised:');
-        return connectLiveChatSession(liveChatSession);
-      })
-      .then((response) => {
-        console.info('live Chat session connection response', response);
-        console.info('Live Chat Session CONNECTED:', liveChatSession);
-        context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
-        // context.commit('setLiveChatbotSession', liveChatSession);
-        return Promise.resolve();
-      })
-      .catch((error) => {
-        console.error("Error esablishing live chat");
-        context.commit('setLiveChatStatus', liveChatStatus.ENDED);
-        return Promise.resolve();
+      const signer = new SignatureV4({
+        credentials: awsCredentials,
+        region: context.state.config.region,
+        service: 'execute-api',
+        sha256: Sha256
       });
-    });
+
+      const parsedUrl = new URL(context.state.config.connect.apiGatewayEndpoint);
+      const endpoint = parsedUrl.hostname.toString();
+      const path = parsedUrl.pathname.toString();
+      const req = new HttpRequest({
+        hostname: endpoint,
+        path,
+        method: "POST",
+        body: JSON.stringify(initiateChatRequest),
+        headers: {
+          host: endpoint,
+          "Content-Type": "application/json",
+        },
+      });
+
+      signer.sign(req, { signingDate: new Date() }).then((signedRequest) => {
+        return fetch(
+          context.state.config.connect.apiGatewayEndpoint,
+          {
+            method: 'POST',
+            mode: 'cors',
+            headers: signedRequest.headers,
+            body: signedRequest.body,
+        })
+        .then(response => response.json())
+        .then(json => json.data)
+        .then((result) => {
+          console.info('Live Chat Config Success:', result);
+          context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
+          function waitMessage(context, type, message) {
+            context.commit('pushLiveChatMessage', {
+              type,
+              text: message,
+            });
+          };
+          if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
+            const intervalID = setInterval(waitMessage,
+              1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
+              context,
+              'bot',
+              context.state.config.connect.waitingForAgentMessage);
+            console.info(`interval now set: ${intervalID}`);
+            context.commit('setLiveChatIntervalId', intervalID);
+          }
+          liveChatSession = createLiveChatSession(result);
+          console.info('Live Chat Session Created:', liveChatSession);
+          initLiveChatHandlers(context, liveChatSession);
+          console.info('Live Chat Handlers initialised:');
+          return connectLiveChatSession(liveChatSession);
+        })
+        .then((response) => {
+          console.info('live Chat session connection response', response);
+          console.info('Live Chat Session CONNECTED:', liveChatSession);
+          context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
+          // context.commit('setLiveChatbotSession', liveChatSession);
+          return Promise.resolve();
+        })
+        .catch((error) => {
+          console.error("Error esablishing live chat");
+          context.commit('setLiveChatStatus', liveChatStatus.ENDED);
+          return Promise.resolve();
+        });
+      });
+    }
+    // If TalkDesk endpoint is available use 
+    else if (context.state.config.connect.talkDeskWebsocketEndpoint) {
+      liveChatSession = initTalkDeskLiveChat(context);
+      return Promise.resolve();
+    }
   },
 
   requestLiveChat(context) {
@@ -1148,7 +1154,7 @@ export default {
   refreshAuthTokens(context) {
     function isExpired(token) {
       if (token) {
-        const decoded = jwt.decode(token, { complete: true });
+        const decoded = jwtDecode(token);
         if (decoded) {
           const now = Date.now();
           // calculate and expiration time 5 minutes sooner and adjust to milliseconds
