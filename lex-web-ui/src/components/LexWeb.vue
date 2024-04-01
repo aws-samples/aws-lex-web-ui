@@ -73,10 +73,10 @@ import MinButton from '@/components/MinButton';
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
-import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
-import { LexRuntimeServiceClient } from '@aws-sdk/client-lex-runtime-service';
-import { LexRuntimeV2Client } from '@aws-sdk/client-lex-runtime-v2';
-import { PollyClient } from '@aws-sdk/client-polly';
+// import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+// import { LexRuntimeServiceClient } from '@aws-sdk/client-lex-runtime-service';
+// import { LexRuntimeV2Client } from '@aws-sdk/client-lex-runtime-v2';
+// import { PollyClient } from '@aws-sdk/client-polly';
 
 
 
@@ -157,15 +157,6 @@ export default {
     if (!this.isMobile) {
       document.documentElement.style.overflowY = 'hidden';
     }
-
-    async function getCredentials(poolId, region) {
-          const credentialProvider = fromCognitoIdentityPool({
-            identityPoolId: poolId,
-            clientConfig: { region: region },
-          })
-          const credentials = credentialProvider();
-          return credentials;
-    }
     
     this.initConfig()
       .then(() => Promise.all([
@@ -201,21 +192,15 @@ export default {
         if (!poolId) {
           return Promise.reject(new Error('no cognito.poolId found in config'))
         }
+        console.log('this.$lexWebUi', this.$lexWebUi);
+        // const awsConfig = {
+        //   region: region,
+        //   credentials: this.$lexWebUi.awsConfig.credentials,
+        // };
 
-        const credentials = getCredentials(poolId, region)
-          .then((creds) => {
-            return creds;
-          })
-          .catch((err) => { console.log(err) })
-
-        const awsConfig = {
-          region: region,
-          credentials,
-        };
-
-        this.$lexWebUi.lexRuntimeClient = new LexRuntimeServiceClient(awsConfig);
-        this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeV2Client(awsConfig);
-        this.$lexWebUi.pollyClient = new PollyClient(awsConfig)
+        // this.$lexWebUi.lexRuntimeClient = new LexRuntimeServiceClient(awsConfig);
+        // this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeV2Client(awsConfig);
+        // this.$lexWebUi.pollyClient = new PollyClient(awsConfig)
         /* eslint-disable no-console */
         // console.log('this.$store.state', this.$store.state);
         // console.log(`lexRuntimeV2Client : ${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
@@ -524,7 +509,7 @@ export default {
       }
 
       // get config
-      console.log('this.$lexWebUI.config', this.$lexWebUi.config)
+      console.log('this.$lexWebUI', this.$lexWebUi)
       return this.$store.dispatch('initConfig', this.$lexWebUi.config)
         .then(() => this.$store.dispatch('getConfigFromParent'))
         // avoid merging an empty config

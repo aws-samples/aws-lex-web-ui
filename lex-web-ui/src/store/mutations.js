@@ -459,6 +459,7 @@ export default {
         state.lex.sessionAttributes.refreshtoken = state.tokens.refreshtoken;
       }
     }
+    console.log('state', state)
   },
 
   /**

@@ -17,6 +17,8 @@
 import { ConfigLoader } from './config-loader';
 import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin } from './loginutil';
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+const { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } = require("@aws-sdk/client-cognito-identity");
+
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -52,7 +54,6 @@ export class IframeComponentLoader {
    */
   load(configParam) {
     this.config = ConfigLoader.mergeConfig(this.config, configParam);
-
     // add iframe config if missing
     if (!(('iframe' in this.config))) {
       this.config.iframe = {};
@@ -250,7 +251,9 @@ export class IframeComponentLoader {
       if (!cognitoPoolId) {
         return reject(new Error('missing cognito poolId config'));
       }
-
+      localStorage.setItem('poolId', cognitoPoolId);
+      localStorage.setItem('appUserPoolClientId', this.config.cognito.appUserPoolClientId);
+      localStorage.setItem('appUserPoolName', this.config.cognito.appUserPoolName)
       let credentials;
       const token = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
       let logins;
@@ -518,14 +521,54 @@ export class IframeComponentLoader {
    */
 
 
-  async getCredentials(poolId, region, logins = {}) {
-    const credentialProvider = fromCognitoIdentityPool({
-      identityPoolId: poolId,
-      logins: logins,
-      clientConfig: { region: region },
-    })
-    const credentials = credentialProvider();
-    return credentials;
+  async getCredentials(poolId, region, logins) {
+    if (logins) {
+      const client = new CognitoIdentityClient({ region });
+      const getIdentityId = new GetIdCommand({
+        IdentityPoolId: poolId,
+        Logins: logins
+      })
+      let identityId, getCreds;
+      try {
+        await client.send(getIdentityId)
+          .then((res) => {
+            identityId = res.IdentityId;
+            getCreds = new GetCredentialsForIdentityCommand({
+              IdentityId: identityId,
+              Logins: logins
+            })
+          })
+        const res = await client.send(getCreds);
+        const creds = res.Credentials;
+        const credentials = {
+          accessKeyId: creds.AccessKeyId,
+          identityId,
+          secretAccessKey: creds.SecretKey,
+          sessionToken: creds.SessionToken,
+          expiration: creds.Expiration,
+        };
+        console.log('credentials from iframe page', credentials)
+        return credentials;
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      const credentialProvider = fromCognitoIdentityPool({
+        identityPoolId: poolId,
+        logins: logins,
+        clientConfig: { region: region },
+      })
+      const credentials = credentialProvider();
+      return credentials;
+    }
+    
+    // const credentialProvider = fromCognitoIdentityPool({
+    //   identityPoolId: poolId,
+    //   logins: logins,
+    //   clientConfig: { region: region },
+    // })
+    // const credentials = credentialProvider();
+    // return credentials;
   }
 
   /**
@@ -543,25 +586,12 @@ export class IframeComponentLoader {
 
       // requests credentials from the parent
       getCredentials(evt) {
-        const poolId = evt.target.iframeLoader.config.cognito.poolId;
-        const region = evt.target.iframeLoader.config.cognito.region;
-        return this.getCredentials(poolId, region)
-          .then((creds) => {
-            const tcreds = JSON.parse(JSON.stringify(creds));
-            evt.ports[0].postMessage({
-              event: 'resolve',
-              type: evt.data.event,
-              data: tcreds,
-            });
-          })
-          .catch((error) => {
-            console.error('failed to get credentials', error);
-            evt.ports[0].postMessage({
-              event: 'reject',
-              type: evt.data.event,
-              error: 'failed to get credentials',
-            });
-          });
+        const tcreds = JSON.parse(JSON.stringify(this.credentials));
+        return evt.ports[0].postMessage({
+          event: 'resolve',
+          type: evt.data.event,
+          data: tcreds,
+        });
       },
 
       // requests chatbot UI config
