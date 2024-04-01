@@ -22,6 +22,7 @@ import LexAudioRecorder from '@/lib/lex/recorder';
 import initRecorderHandlers from '@/store/recorder-handlers';
 import { chatMode, liveChatStatus } from '@/store/state';
 import { createLiveChatSession, connectLiveChatSession, initLiveChatHandlers, sendChatMessage, sendTypingEvent, requestLiveChatEnd } from '@/store/live-chat-handlers';
+import { initTalkDeskLiveChat, sendTalkDeskChatMessage, requestTalkDeskLiveChatEnd } from '@/store/talkdesk-live-chat-handlers.js';
 import silentOgg from '@/assets/silent.ogg';
 import silentMp3 from '@/assets/silent.mp3';
 
@@ -712,6 +713,14 @@ export default {
         context.commit('setIsStartingTypingWsMessages', false);
         context.commit('setIsLexProcessing', false);
         return context.dispatch('updateLexState', data)
+          .then(() => {
+            // Initiate TalkDesk interaction if the session attribute exists and is not a previous session ID
+            if (context.state.lex.sessionAttributes.talkdesk_conversation_id
+              && context.state.lex.sessionAttributes.talkdesk_conversation_id != context.state.liveChat.talkDeskConversationId) {
+              context.commit('setTalkDeskConversationId', context.state.lex.sessionAttributes.talkdesk_conversation_id)
+              context.dispatch('requestLiveChat');
+            }
+          })
           .then(() => Promise.resolve(data));
       })
       .catch((error) => {
@@ -869,36 +878,39 @@ export default {
       console.error('error in initLiveChatSession() enableLiveChat is not true in config');
       return Promise.reject(new Error('error in initLiveChatSession() enableLiveChat is not true in config'));
     }
-    if (!context.state.config.connect.apiGatewayEndpoint) {
-      console.error('error in initLiveChatSession() apiGatewayEndpoint is not set in config');
-      return Promise.reject(new Error('error in initLiveChatSession() apiGatewayEndpoint is not set in config'));
-    }
-    if (!context.state.config.connect.contactFlowId) {
-      console.error('error in initLiveChatSession() contactFlowId is not set in config');
-      return Promise.reject(new Error('error in initLiveChatSession() contactFlowId is not set in config'));
-    }
-    if (!context.state.config.connect.instanceId) {
-      console.error('error in initLiveChatSession() instanceId is not set in config');
-      return Promise.reject(new Error('error in initLiveChatSession() instanceId is not set in config'));
+    if (!context.state.config.connect.apiGatewayEndpoint && !context.state.config.connect.talkDeskWebsocketEndpoint) {
+      console.error('error in initLiveChatSession() apiGatewayEndpoint or talkDeskWebsocketEndpoint is not set in config');
+      return Promise.reject(new Error('error in initLiveChatSession() apiGatewayEndpoint or talkDeskWebsocketEndpoint is not set in config'));
     }
 
-    context.commit('setLiveChatStatus', liveChatStatus.INITIALIZING);
-    console.log(context.state.lex);
-    const attributesToSend = Object.keys(context.state.lex.sessionAttributes).filter(function(k) {
-        return k.startsWith('connect_') || k === "topic";
-    }).reduce(function(newData, k) {
-        newData[k] = context.state.lex.sessionAttributes[k];
-        return newData;
-    }, {});
+    // If Connect API Gateway Endpoint is set, use Connect
+    if (context.state.config.connect.apiGatewayEndpoint) {
+      if (!context.state.config.connect.contactFlowId) {
+        console.error('error in initLiveChatSession() contactFlowId is not set in config');
+        return Promise.reject(new Error('error in initLiveChatSession() contactFlowId is not set in config'));
+      }
+      if (!context.state.config.connect.instanceId) {
+        console.error('error in initLiveChatSession() instanceId is not set in config');
+        return Promise.reject(new Error('error in initLiveChatSession() instanceId is not set in config'));
+      }
 
-    const initiateChatRequest = {
-      Attributes: attributesToSend,
-      ParticipantDetails: {
-        DisplayName: context.getters.liveChatUserName()
-      },
-      ContactFlowId: context.state.config.connect.contactFlowId,
-      InstanceId: context.state.config.connect.instanceId,
-    };
+      context.commit('setLiveChatStatus', liveChatStatus.INITIALIZING);
+      console.log(context.state.lex);
+      const attributesToSend = Object.keys(context.state.lex.sessionAttributes).filter(function(k) {
+          return k.startsWith('connect_') || k === "topic";
+      }).reduce(function(newData, k) {
+          newData[k] = context.state.lex.sessionAttributes[k];
+          return newData;
+      }, {});
+
+      const initiateChatRequest = {
+        Attributes: attributesToSend,
+        ParticipantDetails: {
+          DisplayName: context.getters.liveChatUserName()
+        },
+        ContactFlowId: context.state.config.connect.contactFlowId,
+        InstanceId: context.state.config.connect.instanceId,
+      };
 
     const signer = new SignatureV4({
       credentials: awsCredentials,
@@ -991,21 +1003,46 @@ export default {
   },
   sendTypingEvent(context) {
     console.info('actions: sendTypingEvent');
-    if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession) {
+    if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession && context.state.config.connect.apiGatewayEndpoint) {
       sendTypingEvent(liveChatSession);
     }
   },
   sendChatMessage(context, message) {
     console.info('actions: sendChatMessage');
     if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession) {
-      sendChatMessage(liveChatSession, message);
+      // If Connect API Gateway Endpoint is set, use Connect
+      if (context.state.config.connect.apiGatewayEndpoint) {
+        sendChatMessage(liveChatSession, message);
+      }
+      // If TalkDesk endpoint is available use 
+      else if (context.state.config.connect.talkDeskWebsocketEndpoint) {
+        sendTalkDeskChatMessage(context, liveChatSession, message);
+
+        context.dispatch(
+          'pushMessage',
+          {
+            text: message,
+            type: 'human',
+            dialogState: context.state.lex.dialogState
+          },
+        );
+      }    
     }
   },
   requestLiveChatEnd(context) {
     console.info('actions: endLiveChat');
     context.commit('clearLiveChatIntervalId');
     if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession) {
-      requestLiveChatEnd(liveChatSession);
+      
+      // If Connect API Gateway Endpoint is set, use Connect
+      if (context.state.config.connect.apiGatewayEndpoint) {
+        requestLiveChatEnd(liveChatSession);
+      }
+      // If TalkDesk endpoint is available use 
+      else if (context.state.config.connect.talkDeskWebsocketEndpoint) {
+        requestTalkDeskLiveChatEnd(context, liveChatSession, "agent");
+      }   
+
       context.dispatch('pushLiveChatMessage', {
         type: 'agent',
         text: context.state.config.connect.chatEndedMessage,

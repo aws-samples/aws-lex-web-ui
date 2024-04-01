@@ -140,8 +140,11 @@ const configDefault = {
     // allows the Lex bot to use streaming responses for integration with LLMs or other streaming protocols
     allowStreamingResponses: false,
 
-     // web socket endpoint for streaming
+    // web socket endpoint for streaming
      streamingWebSocketEndpoint: '',
+
+    // dynamo DB table for streaming
+    streamingDynamoDbTable: '',
   },
 
   polly: {
@@ -226,6 +229,9 @@ const configDefault = {
 
     // Show the diaglog state icon, check or alert, in the text bubble
     showDialogStateIcon: true,
+
+    // Give the ability for users to copy the text from the bot
+    showCopyIcon: false,
 
     // Hide the message bubble on a response card button press
     hideButtonMessageBubble: false,

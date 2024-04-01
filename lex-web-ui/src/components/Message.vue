@@ -28,7 +28,7 @@
                 <message-text
                   :message="message"
                   v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayInteractiveMessage"
-                ></message-text>
+                ></message-text>                
                 <div
                   v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'ListPicker'">
                   <v-card-title primary-title>
@@ -63,7 +63,7 @@
                       <div class="text-h5">{{message.interactiveMessage.data.content.title}}</div>
                       <span>{{message.interactiveMessage.data.content.subtitle}}</span>
                     </div>
-                  </v-card-title>                  
+                  </v-card-title>
                   <template v-for="item in this.message.interactiveMessage.timeslots">
                     <v-list-subheader>{{ item.date }}</v-list-subheader>
                     <v-list lines="two" class="message-bubble interactive-row">
@@ -83,13 +83,20 @@
                 <div
                   v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'DateTimePicker'">
                   <v-toolbar-title>{{message.interactiveMessage.data.content.title}}</v-toolbar-title>
-                  <v-datetime-picker 
+                  <v-datetime-picker
                     v-model="datetime"
                     :text-field-props="textFieldProps"
                   >
                   </v-datetime-picker>
                   <v-btn v-on:click="sendDateTime(datetime)" variant="flat">Confirm</v-btn>
                 </div>
+                <v-icon
+                  v-if="message.type === 'bot' &&  message.id !== $store.state.messages[0].id && showCopyIcon"
+                  class="copy-icon"
+                  @click="copyMessageToClipboard(message.text)"
+                >
+                  content_copy
+                </v-icon>
                 <div
                   v-if="message.id === this.$store.state.messages.length - 1 && isLastMessageFeedback && message.type === 'bot' && botDialogState && showDialogFeedback"
                   class="feedback-state"
@@ -137,7 +144,7 @@
                     <v-btn :class="`tooltip-attachments-${message.id}`" v-on="attachmentEventHandlers" icon>
                       <v-icon size="medium">
                         attach_file
-                      </v-icon>                      
+                      </v-icon>
                     </v-btn>
                     <v-tooltip
                       v-model="showAttachmentsTooltip"
@@ -288,6 +295,9 @@ export default {
     showDialogStateIcon() {
       return this.$store.state.config.ui.showDialogStateIcon;
     },
+    showCopyIcon() {
+      return this.$store.state.config.ui.showCopyIcon;
+    },
     showMessageMenu() {
       return this.$store.state.config.ui.messageMenu;
     },
@@ -320,9 +330,9 @@ export default {
       );
     },
     shouldDisplayInteractiveMessage() {
-      try {           
+      try {
           this.message.interactiveMessage = JSON.parse(this.message.text);
-          
+
           // Considering anything with the templateType property on a valid JSON object to be an interactive message
           if (!this.message.interactiveMessage.hasOwnProperty("templateType"))
           {
@@ -330,7 +340,7 @@ export default {
           }
 
           if (this.message.interactiveMessage.templateType == 'TimePicker')
-          {                     
+          {
             var sortedslots = this.message.interactiveMessage.data.content.timeslots.sort((a, b) => a.date.localeCompare(b.date));
             const dateFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
             const timeFormatOptions = { hour: "numeric", minute: "numeric", timeZoneName: "short" };
@@ -338,7 +348,7 @@ export default {
             var locale = (localeId || 'en-US').replace('_','-');
 
             var dateArray = [];
-            sortedslots.forEach(function (slot, index) {            
+            sortedslots.forEach(function (slot, index) {
               slot.localTime = new Date(slot.date).toLocaleTimeString(locale, timeFormatOptions);
               const msToMidnightOfDate = new Date(slot.date).setHours(0, 0, 0, 0);
               const dateKey = new Date(msToMidnightOfDate).toLocaleDateString(locale, dateFormatOptions);
@@ -353,7 +363,7 @@ export default {
               }
             });
 
-            this.message.interactiveMessage.timeslots = dateArray;           
+            this.message.interactiveMessage.timeslots = dateArray;
           }
       } catch (e) {
           return false;
@@ -470,6 +480,14 @@ export default {
       }
       return this.message.date.toLocaleString();
     },
+    copyMessageToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        // Notify the user that the text has been copied, e.g., through a tooltip or snackbar
+        console.log("Message copied to clipboard.");
+      }).catch(err => {
+        console.error("Failed to copy text: ", err);
+      });
+    },
   },
   created() {
     if (this.message.responseCard && 'genericAttachments' in this.message.responseCard) {
@@ -483,6 +501,7 @@ export default {
       }
     }
   },
+
 };
 </script>
 
@@ -612,6 +631,15 @@ export default {
 
 .feedback-icons-negative:hover{
   color: red;
+}
+
+.copy-icon {
+  display: inline-flex;
+  align-self: center;
+}
+
+.copy-icon:hover{
+  color: grey;
 }
 
 .response-card {
