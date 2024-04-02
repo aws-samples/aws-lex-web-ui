@@ -80,6 +80,11 @@
                     </v-list>
                   </template>
                 </div>
+                <div v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'QuickReply'">
+                  <message-text
+                    :message="{ text: message.interactiveMessage.data.content.title, type: 'bot'}"
+                  ></message-text>  
+                </div>
                 <v-icon
                   v-if="message.type === 'bot' &&  message.id !== $store.state.messages[0].id && showCopyIcon"
                   class="copy-icon"
@@ -188,6 +193,13 @@
           :key="index"
         />
       </v-row>
+      <v-row v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'QuickReply'" 
+        class="response-card" d-flex mt-2 mr-2 ml-3>
+        <response-card
+          :response-card="quickReplyResponseCard"
+          :key="index"
+        />
+      </v-row>
       <v-row v-if="shouldDisplayResponseCardV2 && !shouldDisplayResponseCard">
         <v-row v-for="(item, index) in message.responseCardsLexV2"
           class="response-card"
@@ -202,7 +214,7 @@
         >
         </response-card>
         </v-row>
-      </v-row>
+      </v-row>      
     </v-col>
   </v-row>
 </template>
@@ -321,17 +333,11 @@ export default {
     },
     shouldDisplayInteractiveMessage() {
       try {
-          this.message.interactiveMessage = JSON.parse(this.message.text);
-
-          // Considering anything with the templateType property on a valid JSON object to be an interactive message
-          if (!this.message.interactiveMessage.hasOwnProperty("templateType"))
-          {
-            return false;
-          }
+        this.message.interactiveMessage = JSON.parse(this.message.text);
+        return this.message.interactiveMessage.hasOwnProperty("templateType");
       } catch (e) {
-          return false;
+        return false;
       }
-      return true;
     },
     sortedTimeslots() {
       if (this.message.interactiveMessage?.templateType == 'TimePicker') {
@@ -358,6 +364,22 @@ export default {
         });
 
         return dateArray;
+      }
+    },
+    quickReplyResponseCard() {
+      if (this.message.interactiveMessage?.templateType == 'QuickReply') {
+        //Create a response card format so we can leverage existing ResponseCard display template
+        var responseCard = { 
+          buttons: []
+        };
+        this.message.interactiveMessage.data.content.elements.forEach(function (button, index) {
+          responseCard.buttons.push({
+            text: button.title,
+            value: button.title
+          });
+        });
+
+        return responseCard;
       }
     },
     shouldShowAvatarImage() {
