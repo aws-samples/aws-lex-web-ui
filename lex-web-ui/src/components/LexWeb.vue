@@ -74,9 +74,9 @@ import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
 // import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
-// import { LexRuntimeServiceClient } from '@aws-sdk/client-lex-runtime-service';
-// import { LexRuntimeV2Client } from '@aws-sdk/client-lex-runtime-v2';
-// import { PollyClient } from '@aws-sdk/client-polly';
+import { LexRuntimeServiceClient } from '@aws-sdk/client-lex-runtime-service';
+import { LexRuntimeV2Client } from '@aws-sdk/client-lex-runtime-v2';
+import { PollyClient } from '@aws-sdk/client-polly';
 
 
 
@@ -193,14 +193,15 @@ export default {
           return Promise.reject(new Error('no cognito.poolId found in config'))
         }
         console.log('this.$lexWebUi', this.$lexWebUi);
-        // const awsConfig = {
-        //   region: region,
-        //   credentials: this.$lexWebUi.awsConfig.credentials,
-        // };
 
-        // this.$lexWebUi.lexRuntimeClient = new LexRuntimeServiceClient(awsConfig);
-        // this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeV2Client(awsConfig);
-        // this.$lexWebUi.pollyClient = new PollyClient(awsConfig)
+        const awsConfig = {
+          region: region,
+          credentials: this.$lexWebUi.awsConfig.credentials,
+        };
+
+        this.$lexWebUi.lexRuntimeClient = new LexRuntimeServiceClient(awsConfig);
+        this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeV2Client(awsConfig);
+        this.$lexWebUi.pollyClient = new PollyClient(awsConfig)
         /* eslint-disable no-console */
         // console.log('this.$store.state', this.$store.state);
         // console.log(`lexRuntimeV2Client : ${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
