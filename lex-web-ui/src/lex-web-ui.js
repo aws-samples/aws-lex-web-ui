@@ -196,13 +196,10 @@ export class Loader {
     const poolName = `cognito-idp.${region}.amazonaws.com/${appUserPoolName}`;
     const appUserPoolClientId = context.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId')
     const idtoken = localStorage.getItem(`${appUserPoolClientId}idtokenjwt`);
-    console.log('localStorage', localStorage)
-    console.log('idtoken', idtoken)
     let logins;
     if (idtoken) {
       logins = {};
       logins[poolName] = idtoken;
-      console.log('logins', logins)
       const client = new CognitoIdentityClient({ region });
       const getIdentityId = new GetIdCommand({
         IdentityPoolId: poolId,
@@ -213,7 +210,6 @@ export class Loader {
       try {
         await client.send(getIdentityId)
           .then((res) => {
-            console.log(res.IdentityId)
             identityId = res.IdentityId;
             getCreds = new GetCredentialsForIdentityCommand({
               IdentityId: identityId,
@@ -249,6 +245,7 @@ export class Loader {
   }
 }
 
+// comment out for prod build
 // if(process.env.NODE_ENV === "development")
 // {
 //   const lexWeb = new Loader();

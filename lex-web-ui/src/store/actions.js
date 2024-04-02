@@ -1128,7 +1128,7 @@ export default {
     const appUserPoolName = context.state.config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
     poolName = `cognito-idp.${region}.amazonaws.com/${appUserPoolName}`;
     const appUserPoolClientId = context.state.config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId')
-    idToken = localStorage.getItem(`${appUserPoolClientId}idtokenjwt`);
+    idToken = context.state.config.lex.sessionAttributes.idtokenjwt || localStorage.getItem(`${appUserPoolClientId}idtokenjwt`)
     if (idToken) {
       logins = {};
       logins[poolName] = idToken;

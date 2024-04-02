@@ -192,7 +192,7 @@ export default {
         if (!poolId) {
           return Promise.reject(new Error('no cognito.poolId found in config'))
         }
-        console.log('this.$lexWebUi', this.$lexWebUi);
+        
 
         const awsConfig = {
           region: region,
@@ -202,6 +202,7 @@ export default {
         this.$lexWebUi.lexRuntimeClient = new LexRuntimeServiceClient(awsConfig);
         this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeV2Client(awsConfig);
         this.$lexWebUi.pollyClient = new PollyClient(awsConfig)
+        console.log('this.$lexWebUi', this.$lexWebUi);
         /* eslint-disable no-console */
         // console.log('this.$store.state', this.$store.state);
         // console.log(`lexRuntimeV2Client : ${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
@@ -510,7 +511,6 @@ export default {
       }
 
       // get config
-      console.log('this.$lexWebUI', this.$lexWebUi)
       return this.$store.dispatch('initConfig', this.$lexWebUi.config)
         .then(() => this.$store.dispatch('getConfigFromParent'))
         // avoid merging an empty config
