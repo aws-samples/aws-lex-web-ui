@@ -75,9 +75,7 @@ import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
 import LexRuntime from 'aws-sdk/clients/lexruntime';
 import LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2';
-
-import { Config as AWSConfig, CognitoIdentityCredentials }
-  from 'aws-sdk/global';
+import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
 
 export default {
   name: 'lex-web',
@@ -157,6 +155,15 @@ export default {
       document.documentElement.style.overflowY = 'hidden';
     }
 
+    async function getCredentials(poolId, region) {
+          const credentialProvider = fromCognitoIdentityPool({
+            identityPoolId: poolId,
+            clientConfig: { region: region },
+          })
+          const credentials = credentialProvider();
+          return credentials;
+    }
+    
     this.initConfig()
       .then(() => Promise.all([
         this.$store.dispatch(
@@ -192,15 +199,6 @@ export default {
           return Promise.reject(new Error('no cognito.poolId found in config'))
         }
 
-        const AWSConfigConstructor = (window.AWS && window.AWS.Config) ?
-          window.AWS.Config :
-          AWSConfig;
-
-        const CognitoConstructor =
-          (window.AWS && window.AWS.CognitoIdentityCredentials) ?
-            window.AWS.CognitoIdentityCredentials :
-            CognitoIdentityCredentials;
-
         const LexRuntimeConstructor = (window.AWS && window.AWS.LexRuntime) ?
           window.AWS.LexRuntime :
           LexRuntime;
@@ -209,18 +207,19 @@ export default {
           window.AWS.LexRuntimeV2 :
           LexRuntimeV2;
 
-        const credentials = new CognitoConstructor(
-          { IdentityPoolId: poolId },
-          { region: region },
-        );
+        const credentials = getCredentials(poolId, region)
+          .then((creds) => {
+            return creds;
+          })
+          .catch((err) => { console.log(err) })
 
-        const awsConfig = new AWSConfigConstructor({
+        const AWSConfigConstructor = {
           region: region,
           credentials,
-        });
+        };
 
-        this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
-        this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
+        this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(AWSConfigConstructor);
+        this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeConstructorV2(AWSConfigConstructor);
         /* eslint-disable no-console */
         console.log(`lexRuntimeV2Client : ${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
 
@@ -528,6 +527,7 @@ export default {
       }
 
       // get config
+      console.log('this.$lexWebUI.config', this.$lexWebUi.config)
       return this.$store.dispatch('initConfig', this.$lexWebUi.config)
         .then(() => this.$store.dispatch('getConfigFromParent'))
         // avoid merging an empty config

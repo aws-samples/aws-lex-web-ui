@@ -15,6 +15,7 @@
 /* global AWS LexWebUi Vue */
 import { ConfigLoader } from './config-loader';
 import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin } from './loginutil';
+import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
 
 /**
  * Instantiates and mounts the chatbot component
@@ -57,6 +58,16 @@ export class FullPageComponentLoader {
     }
   }
 
+  async getCredentials(poolId, region, logins = {}) {
+    const credentialProvider = fromCognitoIdentityPool({
+      identityPoolId: poolId,
+      logins: logins,
+      clientConfig: { region: region },
+    })
+    const credentials = credentialProvider();
+    return credentials;
+}
+
   /**
    * Send tokens to the Vue component and update the Vue component
    * with the latest AWS credentials to use to make calls to AWS
@@ -77,40 +88,38 @@ export class FullPageComponentLoader {
     const region =
         this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
     const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
-
+    let logins;
     let credentials;
+    const self = this;
     if (idtoken) { // auth role since logged in
       try {
-        const logins = {};
+        logins = {};
         logins[poolName] = idtoken;
-        credentials = new AWS.CognitoIdentityCredentials(
-          { IdentityPoolId: cognitoPoolId, Logins: logins },
-          { region },
-        );
+        this.getCredentials(cognitoPoolId, region, logins).then((creds) => {
+          self.credentials = creds;
+          const message = {
+            event: 'replaceCreds',
+            creds: creds,
+          };
+          FullPageComponentLoader.sendMessageToComponent(message);
+        });
       } catch (err) {
         console.error(new Error(`cognito auth credentials could not be created ${err}`));
       }
     } else { // noauth role
       try {
-        credentials = new AWS.CognitoIdentityCredentials(
-          { IdentityPoolId: cognitoPoolId },
-          { region },
-        );
+        this.getCredentials(cognitoPoolId, region).then((creds) => {
+          self.credentials = creds;
+          const message = {
+            event: 'replaceCreds',
+            creds: creds,
+          };
+          FullPageComponentLoader.sendMessageToComponent(message);
+        });
       } catch (err) {
         console.error(new Error(`cognito noauth credentials could not be created ${err}`));
       }
     }
-    const self = this;
-    credentials.clearCachedId();
-    credentials.getPromise()
-      .then(() => {
-        self.credentials = credentials;
-        const message = {
-          event: 'replaceCreds',
-          creds: credentials,
-        };
-        FullPageComponentLoader.sendMessageToComponent(message);
-      });
   }
 
   async refreshAuthTokens() {
@@ -185,28 +194,18 @@ export class FullPageComponentLoader {
       if (!cognitoPoolId) {
         return reject(new Error('missing cognito poolId config'));
       }
-
-      if (!('AWS' in window) ||
-        !('CognitoIdentityCredentials' in window.AWS)
-      ) {
-        return reject(new Error('unable to find AWS SDK global object'));
-      }
-
+      let logins;
       let credentials;
+      const self = this;
       const token = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
       if (token) { // auth role since logged in
         return this.validateIdToken().then((idToken) => {
-          const logins = {};
+          logins = {};
           logins[poolName] = idToken;
-          credentials = new AWS.CognitoIdentityCredentials(
-            { IdentityPoolId: cognitoPoolId, Logins: logins },
-            { region },
-          );
-          credentials.clearCachedId();
           const self = this;
-          return credentials.getPromise()
-            .then(() => {
-              self.credentials = credentials;
+          return this.getCredentials(cognitoPoolId, region, logins)
+            .then((creds) => {
+              self.credentials = creds;
               self.propagateTokensUpdateCredentials();
               resolve();
             });
@@ -217,15 +216,9 @@ export class FullPageComponentLoader {
           reject(unable);
         });
       }
-      credentials = new AWS.CognitoIdentityCredentials(
-        { IdentityPoolId: cognitoPoolId },
-        { region },
-      );
-      credentials.clearCachedId();
-      const self = this;
-      return credentials.getPromise()
-        .then(() => {
-          self.credentials = credentials;
+      return this.getCredentials(cognitoPoolId, region, logins)
+        .then((creds) => {
+          self.credentials = creds;
           resolve();
         });
     });
