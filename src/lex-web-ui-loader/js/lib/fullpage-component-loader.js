@@ -16,6 +16,8 @@
 import { ConfigLoader } from './config-loader';
 import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin } from './loginutil';
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+const { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } = require("@aws-sdk/client-cognito-identity");
+
 
 /**
  * Instantiates and mounts the chatbot component
@@ -58,14 +60,48 @@ export class FullPageComponentLoader {
     }
   }
 
-  async getCredentials(poolId, region, logins = {}) {
-    const credentialProvider = fromCognitoIdentityPool({
-      identityPoolId: poolId,
-      logins: logins,
-      clientConfig: { region: region },
-    })
-    const credentials = credentialProvider();
-    return credentials;
+  async getCredentials(poolId, region, logins) {
+    if (logins) {
+      const client = new CognitoIdentityClient({ region });
+      const getIdentityId = new GetIdCommand({
+        IdentityPoolId: poolId,
+        Logins: logins
+      })
+      let identityId, getCreds;
+      try {
+        await client.send(getIdentityId)
+          .then((res) => {
+            identityId = res.IdentityId;
+            getCreds = new GetCredentialsForIdentityCommand({
+              IdentityId: identityId,
+              Logins: logins
+            })
+          })
+        const res = await client.send(getCreds);
+        const creds = res.Credentials;
+        const credentials = {
+          accessKeyId: creds.AccessKeyId,
+          identityId,
+          secretAccessKey: creds.SecretKey,
+          sessionToken: creds.SessionToken,
+          expiration: creds.Expiration,
+        };
+        console.log('credentials from full page', credentials)
+        return credentials;
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      const credentialProvider = fromCognitoIdentityPool({
+        identityPoolId: poolId,
+        clientConfig: { region: region },
+      })
+      const credentials = credentialProvider();
+      return credentials;
+    }
+    
+
+
 }
 
   /**

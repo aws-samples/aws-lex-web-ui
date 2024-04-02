@@ -19,6 +19,10 @@ License for the specific language governing permissions and limitations under th
  * and Store as store that can be used with Vuex.Store()
  */
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+import { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } from '@aws-sdk/client-cognito-identity';
+import { LexRuntimeServiceClient } from '@aws-sdk/client-lex-runtime-service';
+import { LexRuntimeV2Client } from '@aws-sdk/client-lex-runtime-v2';
+import { PollyClient } from '@aws-sdk/client-polly';
 import LexWeb from '@/components/LexWeb';
 import VuexStore from '@/store';
 
@@ -74,6 +78,9 @@ export const Plugin = {
     name = '$lexWebUi',
     componentName = 'lex-web-ui',
     awsConfig,
+    lexRuntimeClient,
+    lexRuntimeV2Client,
+    pollyClient,
     component = AsyncComponent,
     config = defaultConfig,
   }) {
@@ -81,6 +88,9 @@ export const Plugin = {
     const value = {
       config,
       awsConfig,
+      lexRuntimeClient,
+      lexRuntimeV2Client,
+      pollyClient,
     };
     // add custom property to Vue
     // for example, access this in a component via this.$lexWebUi
@@ -149,38 +159,98 @@ export class Loader {
     this.app = app;
 
     const mergedConfig = mergeConfig(defaultConfig, config);
+    console.log('mergedConfig', mergedConfig);
+    console.log('localStorage', localStorage)
     let credentials;
-    if (mergedConfig.cognito.poolId != '') {
+    if (mergedConfig.cognito.poolId != '' || localStorage.getItem('poolId')) {
       credentials = this.getCredentials(mergedConfig).then((creds) => {
         return creds;
       });
     }
+
 
     const awsConfig = {
       region: mergedConfig.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1',
       credentials,
     };
 
+    const lexRuntimeClient = new LexRuntimeServiceClient(awsConfig);
+    const lexRuntimeV2Client = new LexRuntimeV2Client(awsConfig);
+    const pollyClient = new PollyClient(awsConfig);
+
     // /* eslint-disable no-console */
     app.use(Plugin, {
         config: mergedConfig,
-        awsConfig: awsConfig,
+        awsConfig,
+        lexRuntimeClient,
+        lexRuntimeV2Client,
+        pollyClient
     });
     this.app = app;
   }
 
   async getCredentials(context) {
-    const credentialProvider = fromCognitoIdentityPool({
-      identityPoolId: context.cognito.poolId,
-      clientConfig: { region: context.region || context.cognito.poolId.split(':')[0] || 'us-east-1'},
-    })
-    const credentials = credentialProvider()
-    return credentials
+    const region = context.region || context.cognito.poolId.split(':')[0] || 'us-east-1';
+    const poolId = context.cognito.poolId || localStorage.getItem('poolId');
+    const appUserPoolName = context.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
+    const poolName = `cognito-idp.${region}.amazonaws.com/${appUserPoolName}`;
+    const appUserPoolClientId = context.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId')
+    const idtoken = localStorage.getItem(`${appUserPoolClientId}idtokenjwt`);
+    console.log('localStorage', localStorage)
+    console.log('idtoken', idtoken)
+    let logins;
+    if (idtoken) {
+      logins = {};
+      logins[poolName] = idtoken;
+      console.log('logins', logins)
+      const client = new CognitoIdentityClient({ region });
+      const getIdentityId = new GetIdCommand({
+        IdentityPoolId: poolId,
+        Logins: logins ? logins : {}
+      })
+      let identityId, getCreds;
+      
+      try {
+        await client.send(getIdentityId)
+          .then((res) => {
+            console.log(res.IdentityId)
+            identityId = res.IdentityId;
+            getCreds = new GetCredentialsForIdentityCommand({
+              IdentityId: identityId,
+              Logins: logins ? logins : {}
+            })
+          })
+        const res = await client.send(getCreds);
+        const creds = res.Credentials;
+        const credentials = {
+          accessKeyId: creds.AccessKeyId,
+          identityId,
+          secretAccessKey: creds.SecretKey,
+          sessionToken: creds.SessionToken,
+          expiration: creds.Expiration,
+        };
+        console.log('auth credentials from lex-web-ui.js', credentials)
+        return credentials;
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      const credentialProvider = fromCognitoIdentityPool({
+        identityPoolId: poolId,
+        clientConfig: { region },
+      })
+      const credentials = credentialProvider()
+      console.log('unauth creds in lex-web-ui.js', credentials)
+      return credentials
+    }
+    
+
+    
   }
 }
 
-if(process.env.NODE_ENV === "development")
-{
-  const lexWeb = new Loader();
-  lexWeb.app.mount('#lex-app');
-}
+// if(process.env.NODE_ENV === "development")
+// {
+//   const lexWeb = new Loader();
+//   lexWeb.app.mount('#lex-app');
+// }

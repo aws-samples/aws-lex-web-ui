@@ -31,6 +31,7 @@ import LexClient from '@/lib/lex/client';
 const jwt = require('jsonwebtoken');
 const AWS = require('aws-sdk');
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+import { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } from '@aws-sdk/client-cognito-identity';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 
@@ -47,6 +48,12 @@ let wsClient;
 let pollyInitialSpeechBlob = {};
 let pollyAllDoneBlob = {};
 let pollyThereWasAnErrorBlob = {};
+let poolId;
+let identityId;
+let poolName;
+let idToken;
+let logins;
+let region;
 
 export default {
   /***********************************************************************
@@ -431,7 +438,7 @@ export default {
           pollyInitialSpeechBlob[localeId] = blob;
           return context.dispatch('getAudioUrl', blob)
         })
-        .then(audioUrl => context.dispatch('playAudio', audioUrl));
+        .then(audioUrl => context.dispatch('playAudio', audioUrl))
     }
   },
   pollySynthesizeAllDone: function (context) {
@@ -537,6 +544,7 @@ export default {
         }
         return Promise.resolve();
       })
+      .catch((err)=> console.log(err))
       .then((response) => {
         if (context.state.chatMode === chatMode.BOT &&
           context.state.liveChat.status != liveChatStatus.REQUEST_USERNAME) {
@@ -644,11 +652,11 @@ export default {
   },
   deleteSession(context) {
     const poolId = context.state.config.cognito.poolId;
-    const region = context.state.config.cognito.region;
+    const region = context.state.config.region ? context.state.config.region : context.state.config.cognito.region;
     context.commit('setIsLexProcessing', true);
     return context.dispatch('refreshAuthTokens')
       .then(() => context.dispatch('getCredentials'))
-      .then(() => lexClient.deleteSession(poolId, region))
+      .then(() => lexClient.deleteSession(poolId, region, poolName, idToken))
       .then((data) => {
         context.commit('setIsLexProcessing', false);
         return context.dispatch('updateLexState', data)
@@ -662,10 +670,10 @@ export default {
   startNewSession(context) {
     context.commit('setIsLexProcessing', true);
     const poolId = context.state.config.cognito.poolId;
-    const region = context.state.config.cognito.region;
+    const region = context.state.config.region ? context.state.config.region : context.state.config.cognito.region;
     return context.dispatch('refreshAuthTokens')
       .then(() => context.dispatch('getCredentials'))
-      .then(() => lexClient.startNewSession(poolId, region))
+      .then(() => lexClient.startNewSession(poolId, region, poolName, idToken))
       .then((data) => {
         context.commit('setIsLexProcessing', false);
         return context.dispatch('updateLexState', data)
@@ -685,7 +693,7 @@ export default {
       ? context.state.config.lex.v2BotLocaleId.split(',')[0]
       : undefined;
     const poolId = context.state.config.cognito.poolId;
-    const region = context.state.config.cognito.region;
+    const region = context.state.config.region ? context.state.config.region : context.state.config.cognito.region;
     const sessionId = lexClient.userId;
     return context.dispatch('refreshAuthTokens')
       .then(() => context.dispatch('getCredentials'))
@@ -705,7 +713,7 @@ export default {
           }
         }
         // Return Lex response
-        return lexClient.postText(text, localeId, poolId, region, session);
+        return lexClient.postText(text, localeId, poolId, region, poolName, idToken, session);
       })
       .then((data) => {
         //TODO: Waiting for all wsMessages typing on the chat bubbles
@@ -734,7 +742,7 @@ export default {
     context.commit('reapplyTokensToSessionAttributes');
     const session = context.state.lex.sessionAttributes;
     const poolId = context.state.config.cognito.poolId;
-    const region = context.state.config.cognito.region;
+    const region = context.state.config.region ? context.state.config.region : context.state.config.cognito.region;
     delete session.appContext;
     console.info('audio blob size:', audioBlob.size);
     let timeStart;
@@ -751,12 +759,15 @@ export default {
           localeId,
           poolId,
           region,
+          poolName,
+          idToken,
           session,
           context.state.lex.acceptFormat,
           offset,
         );
       })
       .then((lexResponse) => {
+        console.log('lexResponse', lexResponse)
         const timeEnd = performance.now();
         console.info(
           'lex postContent processing time:',
@@ -776,7 +787,11 @@ export default {
   },
   processLexContentResponse(context, lexData) {
     const { audioStream, contentType, dialogState } = lexData;
-
+    console.log('audioStream', audioStream);
+    console.log('!audioStream', !audioStream);
+    console.log('audioStream.length', audioStream.length);
+    console.log('contentType', contentType);
+    console.log('dialogState', dialogState);
     return Promise.resolve()
       .then(() => {
         if (!audioStream || !audioStream.length) {
@@ -894,7 +909,6 @@ export default {
       }
 
       context.commit('setLiveChatStatus', liveChatStatus.INITIALIZING);
-      console.log(context.state.lex);
       const attributesToSend = Object.keys(context.state.lex.sessionAttributes).filter(function(k) {
           return k.startsWith('connect_') || k === "topic";
       }).reduce(function(newData, k) {
@@ -1108,12 +1122,56 @@ export default {
     if (context.state.awsCreds.provider === 'parentWindow') {
       return context.dispatch('getCredentialsFromParent');
     }
-    const credentialProvider = fromCognitoIdentityPool({
-      identityPoolId: context.state.config.cognito.poolId,
-      clientConfig: { region: context.state.config.cognito.region },
-    })
-    const credentials = credentialProvider();
-    return credentials;
+    region = context.state.config.cognito.region || context.state.config.region || 'us-east-1';
+    poolId = context.state.config.cognito.poolId;
+
+    const appUserPoolName = context.state.config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
+    poolName = `cognito-idp.${region}.amazonaws.com/${appUserPoolName}`;
+    const appUserPoolClientId = context.state.config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId')
+    idToken = localStorage.getItem(`${appUserPoolClientId}idtokenjwt`);
+    if (idToken) {
+      logins = {};
+      logins[poolName] = idToken;
+      const client = new CognitoIdentityClient({ region });
+      const getIdentityId = new GetIdCommand({
+        IdentityPoolId: poolId,
+        Logins: logins ? logins : {}
+      })
+      let getCreds;
+      try {
+        await client.send(getIdentityId)
+          .then((res) => {
+            identityId = res.IdentityId;
+            getCreds = new GetCredentialsForIdentityCommand({
+              IdentityId: identityId,
+              Logins: logins ? logins : {}
+            })
+          })
+        const res = await client.send(getCreds);
+        const creds = res.Credentials;
+        const credentials = {
+          accessKeyId: creds.AccessKeyId,
+          identityId,
+          secretAccessKey: creds.SecretKey,
+          sessionToken: creds.SessionToken,
+          expiration: creds.Expiration,
+        };
+        console.log('auth credentials from actions.js', credentials)
+        return credentials;
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      const credentialProvider = fromCognitoIdentityPool({
+        identityPoolId: context.state.config.cognito.poolId,
+        clientConfig: { region: context.state.config.cognito.region },
+      })
+      const credentials = credentialProvider();
+      console.log('unauth creds in action.js', credentials)
+      return credentials;
+    }
+    
+    
   },
 
   /***********************************************************************
@@ -1301,7 +1359,6 @@ export default {
     const command = new PutObjectCommand(s3Params);
     try {
       const res = await s3.send(command);
-      console.log(res);
       const documentObject = {
         s3Path: 's3://' + context.state.config.ui.uploadS3BucketName + '/' + documentKey,
         fileName: file.name
