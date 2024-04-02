@@ -19,8 +19,6 @@ License for the specific language governing permissions and limitations under th
  * and Store as store that can be used with Vuex.Store()
  */
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
-import Polly from 'aws-sdk/clients/polly';
-
 import LexWeb from '@/components/LexWeb';
 import VuexStore from '@/store';
 
@@ -76,7 +74,6 @@ export const Plugin = {
     name = '$lexWebUi',
     componentName = 'lex-web-ui',
     awsConfig,
-    pollyClient,
     component = AsyncComponent,
     config = defaultConfig,
   }) {
@@ -84,7 +81,6 @@ export const Plugin = {
     const value = {
       config,
       awsConfig,
-      pollyClient,
     };
     // add custom property to Vue
     // for example, access this in a component via this.$lexWebUi
@@ -153,11 +149,6 @@ export class Loader {
     this.app = app;
 
     const mergedConfig = mergeConfig(defaultConfig, config);
-
-    const PollyConstructor = (window.AWS && window.AWS.Polly) ?
-      window.AWS.Polly :
-      Polly;
-    
     let credentials;
     if (mergedConfig.cognito.poolId != '') {
       credentials = this.getCredentials(mergedConfig).then((creds) => {
@@ -165,21 +156,15 @@ export class Loader {
       });
     }
 
-    const AWSConfigConstructor = {
+    const awsConfig = {
       region: mergedConfig.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1',
       credentials,
     };
 
     // /* eslint-disable no-console */
-    const pollyClient = (
-      typeof mergedConfig.recorder === 'undefined' ||
-      (mergedConfig.recorder && mergedConfig.recorder.enable !== false)
-    ) ? new PollyConstructor(AWSConfigConstructor) : null;
-
     app.use(Plugin, {
         config: mergedConfig,
-        awsConfig: AWSConfigConstructor,
-        pollyClient,
+        awsConfig: awsConfig,
     });
     this.app = app;
   }

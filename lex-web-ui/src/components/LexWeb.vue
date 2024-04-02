@@ -76,6 +76,10 @@ import InputContainer from '@/components/InputContainer';
 import LexRuntime from 'aws-sdk/clients/lexruntime';
 import LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2';
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+import { PollyClient } from '@aws-sdk/client-polly';
+import { LexRuntimeV2Client } from '@aws-sdk/client-lex-runtime-v2';
+
+
 
 export default {
   name: 'lex-web',
@@ -213,14 +217,16 @@ export default {
           })
           .catch((err) => { console.log(err) })
 
-        const AWSConfigConstructor = {
+        const awsConfig = {
           region: region,
           credentials,
         };
 
-        this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(AWSConfigConstructor);
-        this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeConstructorV2(AWSConfigConstructor);
+        this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
+        this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
+        this.$lexWebUi.pollyClient = new PollyClient(awsConfig)
         /* eslint-disable no-console */
+        console.log('this.$store.state', this.$store.state);
         console.log(`lexRuntimeV2Client : ${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
 
         const promises = [
