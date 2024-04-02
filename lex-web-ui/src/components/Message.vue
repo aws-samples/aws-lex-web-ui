@@ -64,7 +64,7 @@
                       <span>{{message.interactiveMessage.data.content.subtitle}}</span>
                     </div>
                   </v-card-title>
-                  <template v-for="item in this.message.interactiveMessage.timeslots">
+                  <template v-for="item in sortedTimeslots">
                     <v-list-subheader>{{ item.date }}</v-list-subheader>
                     <v-list lines="two" class="message-bubble interactive-row">
                       <v-list-item>
@@ -79,16 +79,6 @@
                       </v-list-item>
                     </v-list>
                   </template>
-                </div>
-                <div
-                  v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'DateTimePicker'">
-                  <v-toolbar-title>{{message.interactiveMessage.data.content.title}}</v-toolbar-title>
-                  <v-datetime-picker
-                    v-model="datetime"
-                    :text-field-props="textFieldProps"
-                  >
-                  </v-datetime-picker>
-                  <v-btn v-on:click="sendDateTime(datetime)" variant="flat">Confirm</v-btn>
                 </div>
                 <v-icon
                   v-if="message.type === 'bot' &&  message.id !== $store.state.messages[0].id && showCopyIcon"
@@ -338,37 +328,37 @@ export default {
           {
             return false;
           }
-
-          if (this.message.interactiveMessage.templateType == 'TimePicker')
-          {
-            var sortedslots = this.message.interactiveMessage.data.content.timeslots.sort((a, b) => a.date.localeCompare(b.date));
-            const dateFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
-            const timeFormatOptions = { hour: "numeric", minute: "numeric", timeZoneName: "short" };
-            const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : this.$store.state.config.lex.v2BotLocaleId.split(',')[0];
-            var locale = (localeId || 'en-US').replace('_','-');
-
-            var dateArray = [];
-            sortedslots.forEach(function (slot, index) {
-              slot.localTime = new Date(slot.date).toLocaleTimeString(locale, timeFormatOptions);
-              const msToMidnightOfDate = new Date(slot.date).setHours(0, 0, 0, 0);
-              const dateKey = new Date(msToMidnightOfDate).toLocaleDateString(locale, dateFormatOptions);
-
-              let existingDate = dateArray.find(e => e.date === dateKey);
-              if (existingDate) {
-                existingDate.slots.push(slot)
-              }
-              else {
-                var item = { date: dateKey, slots: [slot] };
-                dateArray.push(item);
-              }
-            });
-
-            this.message.interactiveMessage.timeslots = dateArray;
-          }
       } catch (e) {
           return false;
       }
       return true;
+    },
+    sortedTimeslots() {
+      if (this.message.interactiveMessage?.templateType == 'TimePicker') {
+        var sortedslots = this.message.interactiveMessage.data.content.timeslots.sort((a, b) => a.date.localeCompare(b.date));
+        const dateFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+        const timeFormatOptions = { hour: "numeric", minute: "numeric", timeZoneName: "short" };
+        const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : this.$store.state.config.lex.v2BotLocaleId.split(',')[0];
+        var locale = (localeId || 'en-US').replace('_','-');
+
+        var dateArray = [];
+        sortedslots.forEach(function (slot, index) {
+          slot.localTime = new Date(slot.date).toLocaleTimeString(locale, timeFormatOptions);
+          const msToMidnightOfDate = new Date(slot.date).setHours(0, 0, 0, 0);
+          const dateKey = new Date(msToMidnightOfDate).toLocaleDateString(locale, dateFormatOptions);
+
+          let existingDate = dateArray.find(e => e.date === dateKey);
+          if (existingDate) {
+            existingDate.slots.push(slot)
+          }
+          else {
+            var item = { date: dateKey, slots: [slot] };
+            dateArray.push(item);
+          }
+        });
+
+        return dateArray;
+      }
     },
     shouldShowAvatarImage() {
       if (this.message.type === 'bot') {
@@ -530,8 +520,6 @@ export default {
 }
 .message-date-feedback {
   text-align: right;
-}
-.message-date-bot {
 }
 
 .avatar {
