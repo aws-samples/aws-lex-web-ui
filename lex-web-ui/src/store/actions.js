@@ -795,7 +795,7 @@ export default {
     return Promise.resolve()
       .then(() => {
         if (!audioStream || !audioStream.length) {
-          if (dialogState === 'Fulfilled') {
+          if (dialogState === 'ReadyForFulfillment') {
             return context.dispatch('pollySynthesizeAllDone');
           } else {
             return context.dispatch('pollySynthesizeThereWasAnError');
