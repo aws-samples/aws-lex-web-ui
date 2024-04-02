@@ -1163,8 +1163,8 @@ export default {
       }
     } else {
       const credentialProvider = fromCognitoIdentityPool({
-        identityPoolId: context.state.config.cognito.poolId,
-        clientConfig: { region: context.state.config.cognito.region },
+        identityPoolId: poolId,
+        clientConfig: { region },
       })
       const credentials = credentialProvider();
       console.log('unauth creds in action.js', credentials)
