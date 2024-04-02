@@ -73,11 +73,12 @@ import MinButton from '@/components/MinButton';
 import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
-import LexRuntime from 'aws-sdk/clients/lexruntime';
-import LexRuntimeV2 from 'aws-sdk/clients/lexruntimev2';
+// import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+import { LexRuntimeServiceClient } from '@aws-sdk/client-lex-runtime-service';
+import { LexRuntimeV2Client } from '@aws-sdk/client-lex-runtime-v2';
+import { PollyClient } from '@aws-sdk/client-polly';
 
-import { Config as AWSConfig, CognitoIdentityCredentials }
-  from 'aws-sdk/global';
+
 
 export default {
   name: 'lex-web',
@@ -156,7 +157,7 @@ export default {
     if (!this.isMobile) {
       document.documentElement.style.overflowY = 'hidden';
     }
-
+    
     this.initConfig()
       .then(() => Promise.all([
         this.$store.dispatch(
@@ -191,38 +192,19 @@ export default {
         if (!poolId) {
           return Promise.reject(new Error('no cognito.poolId found in config'))
         }
+        
 
-        const AWSConfigConstructor = (window.AWS && window.AWS.Config) ?
-          window.AWS.Config :
-          AWSConfig;
-
-        const CognitoConstructor =
-          (window.AWS && window.AWS.CognitoIdentityCredentials) ?
-            window.AWS.CognitoIdentityCredentials :
-            CognitoIdentityCredentials;
-
-        const LexRuntimeConstructor = (window.AWS && window.AWS.LexRuntime) ?
-          window.AWS.LexRuntime :
-          LexRuntime;
-
-        const LexRuntimeConstructorV2 = (window.AWS && window.AWS.LexRuntimeV2) ?
-          window.AWS.LexRuntimeV2 :
-          LexRuntimeV2;
-
-        const credentials = new CognitoConstructor(
-          { IdentityPoolId: poolId },
-          { region: region },
-        );
-
-        const awsConfig = new AWSConfigConstructor({
+        const awsConfig = {
           region: region,
-          credentials,
-        });
+          credentials: this.$lexWebUi.awsConfig.credentials,
+        };
 
-        this.$lexWebUi.lexRuntimeClient = new LexRuntimeConstructor(awsConfig);
-        this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeConstructorV2(awsConfig);
+        this.$lexWebUi.lexRuntimeClient = new LexRuntimeServiceClient(awsConfig);
+        this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeV2Client(awsConfig);
+        this.$lexWebUi.pollyClient = new PollyClient(awsConfig)
         /* eslint-disable no-console */
-        console.log(`lexRuntimeV2Client : ${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
+        // console.log('this.$store.state', this.$store.state);
+        // console.log(`lexRuntimeV2Client : ${JSON.stringify(this.$lexWebUi.lexRuntimeV2Client)}`);
 
         const promises = [
           this.$store.dispatch('initMessageList'),
