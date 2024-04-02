@@ -7245,11 +7245,7 @@ const dependenciesFullPage = {
   }]
 };
 const dependenciesIframe = {
-  script: [{
-    name: 'AWS',
-    url: './aws-sdk-2.903.0.js',
-    canUseMin: true
-  }],
+  script: [],
   css: [{
     name: 'lex-web-ui-loader',
     url: './lex-web-ui-loader.css'
