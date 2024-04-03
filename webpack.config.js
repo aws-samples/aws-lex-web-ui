@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const eslintFormatterFriendly = require('eslint-formatter-friendly');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
@@ -99,7 +98,6 @@ module.exports = (env) => {
           errors: true,
           warnings: false,
           runtimeErrors: true,
-
         },
       },
       hot: true,
@@ -113,6 +111,9 @@ module.exports = (env) => {
       minimize: false,
     },
     plugins: [
+      new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 1,
+      }),
       new webpack.ProvidePlugin({
         process: "process/browser",
       }),
@@ -171,10 +172,5 @@ module.exports = (env) => {
         }
       ),
     ].filter(Boolean),
-    performance: {
-      hints: false,
-      maxEntrypointSize: 512000,
-      maxAssetSize: 512000
-  },
   };
 };
