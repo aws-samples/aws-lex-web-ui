@@ -78,14 +78,7 @@ function chainWebpackWorker(config, destDir = '', srcDir = 'src/lib') {
   // custom components
   config.module
     .rule('vue')
-    .use('vue-loader')
-    .tap(options => {
-      options.compilerOptions = {
-        ...options.compilerOptions,
-        isCustomElement: tag => tag.startsWith('v-datetime-picker')
-      }
-      return options
-    });
+    .use('vue-loader');
 }
 
 function chainWebpackCommon(config, destDir) {
@@ -146,14 +139,10 @@ function chainWebpackLib(
   chainWebpackCommon(config, destDir);
 
   config.externals([
-    // XXX TODO need to add dependencies below to the lex-web-ui-loader
-    // 'jsonwebtoken',
-    // 'marked',
     { 'vue': 'Vue' },
     {'vuex': 'Vuex'},
     'vue-router',
     {'vuetify': 'Vuetify'},
-    /^aws-sdk\/.+$/,
   ]);
 
   config.externalsType = 'window';
@@ -164,6 +153,9 @@ function chainWebpackLib(
     },
   });
   config.optimization.runtimeChunk(false);
+  config.optimization.delete('splitChunks');
+  config.plugin('limitSplitChunks')
+    .use(webpack.optimize.LimitChunkCountPlugin, [{ maxChunks: 1 }]);
 
   if (config.plugins.has('extract-css')) {
     config

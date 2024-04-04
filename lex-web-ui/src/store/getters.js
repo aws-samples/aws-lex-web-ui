@@ -10,7 +10,7 @@ or in the "license" file accompanying this file. This file is distributed on an 
 BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
-const jwt = require('jsonwebtoken');
+import { jwtDecode } from "jwt-decode";
 
 export default {
   canInterruptBotPlayback: state => state.botAudio.canInterrupt,
@@ -30,7 +30,7 @@ export default {
   userName: state => () => {
     let v = '';
     if (state.tokens && state.tokens.idtokenjwt) {
-      const decoded = jwt.decode(state.tokens.idtokenjwt, { complete: true });
+      const decoded = jwtDecode(state.tokens.idtokenjwt);
       if (decoded) {
         if (decoded.payload) {
           if (decoded.payload.email) {
@@ -48,7 +48,7 @@ export default {
   liveChatUserName: state => () => {
     let v = '';
     if (state.tokens && state.tokens.idtokenjwt) {
-      const decoded = jwt.decode(state.tokens.idtokenjwt, { complete: true });
+      const decoded = jwtDecode(state.tokens.idtokenjwt);
       if (decoded) {
         if (decoded.payload) {
           if (decoded.payload.preferred_username) {
