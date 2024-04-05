@@ -5,33 +5,21 @@ all: copy-bundle build-loader
 WEB_UI_DIR := ../lex-web-ui
 WEB_UI_SRC_FILES := $(shell git ls-files $(WEB_UI_DIR)/src)
 WEB_UI_BUNDLE_DIR := $(WEB_UI_DIR)/dist/bundle
-WEB_UI_JS_DIR := $(WEB_UI_DIR)/dist/js
-LIBRARY_SRC_BUNDLE_FILES := $(wildcard $(WEB_UI_BUNDLE_DIR)/lex-web-ui.*)
-LIBRARY_SRC_BUNDLE_FILES += $(wildcard $(WEB_UI_BUNDLE_DIR)/*-worker.*)
-LIBRARY_BUNDLE_FILES := $(patsubst $(WEB_UI_BUNDLE_DIR)/%,%,$(LIBRARY_SRC_BUNDLE_FILES))
-LIBRARY_SRC_JS_FILES += $(wildcard $(WEB_UI_JS_DIR)/*.js)
-LIBRARY_JS_FILES := $(patsubst $(WEB_UI_JS_DIR)/%,%,$(LIBRARY_SRC_JS_FILES))
-
+LIBRARY_SRC_FILES := $(wildcard $(WEB_UI_BUNDLE_DIR)/lex-web-ui.*)
+LIBRARY_SRC_FILES += $(wildcard $(WEB_UI_BUNDLE_DIR)/*-worker.*)
+LIBRARY_FILES := $(patsubst $(WEB_UI_BUNDLE_DIR)/%,%,$(LIBRARY_SRC_FILES))
 
 # build the application bundle
-$(LIBRARY_SRC_BUNDLE_FILES): $(WEB_UI_SRC_FILES)
+$(LIBRARY_SRC_FILES): $(WEB_UI_SRC_FILES)
 	@echo "[INFO] Building from dir [$(WEB_UI_DIR)]"
 	cd $(WEB_UI_DIR) && npm run build-dist
 
-# Copy lex-web-ui/dist/bundle files to dist dir
-$(LIBRARY_BUNDLE_FILES): $(LIBRARY_SRC_BUNDLE_FILES)
-	@echo "[INFO] Copying lex-web-ui/dist/bundle files to dist dir"
+# copy library files to dist dir
+$(LIBRARY_FILES): $(LIBRARY_SRC_FILES)
+	@echo "[INFO] Copying library files"
 	cp $(?) .
 
-copy-bundle: $(LIBRARY_SRC_BUNDLE_FILES) $(LIBRARY_BUNDLE_FILES)
-
-# Copy lex-web-ui/dist/js files to dist dir
-$(LIBRARY_JS_FILES): $(LIBRARY_SRC_JS_FILES)
-	@echo "[INFO] Copying lex-web-ui/dist/js files to dist dir"
-	mkdir -p js
-	cp $(?) ./js
-
-copy-bundle: $(LIBRARY_SRC_JS_FILES) $(LIBRARY_JS_FILES)
+copy-bundle: $(LIBRARY_SRC_FILES) $(LIBRARY_FILES)
 
 # copy website bot loader files from source to dist dir
 SRC_DIR := ../src
