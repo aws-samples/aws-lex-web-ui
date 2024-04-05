@@ -1,1 +1,0 @@
-"use strict";(self["webpackChunkLexWebUi"]=self["webpackChunkLexWebUi"]||[]).push([[887],{97887:(e,t,n)=>{n.d(t,{CognitoIdentityClient:()=>i.D,GetCredentialsForIdentityCommand:()=>d.t,GetIdCommand:()=>C.x});var i=n(86806),d=n(65351),C=n(13749)}}]);
