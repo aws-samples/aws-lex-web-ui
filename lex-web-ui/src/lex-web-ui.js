@@ -223,7 +223,6 @@ export class Loader {
           sessionToken: creds.SessionToken,
           expiration: creds.Expiration,
         };
-        console.log('auth credentials from lex-web-ui.js', credentials)
         return credentials;
       } catch (err) {
         console.log(err)
@@ -234,7 +233,6 @@ export class Loader {
         clientConfig: { region },
       })
       const credentials = credentialProvider()
-      console.log('unauth creds in lex-web-ui.js', credentials)
       return credentials
     }
     
