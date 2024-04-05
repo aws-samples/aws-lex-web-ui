@@ -148,24 +148,6 @@ TimePicker in Web UI:
 
 <img src="./img/interactive-message-datepicker.png" width=350>
 
-Additionally, Lex Web UI supports a DateTimePicker templateType which will give the end user an open-ended selector for a date/time variable to send back to Lex. DateTimePicker format expected:
-
-```
-{
-   "templateType":"TimePicker",                                 (mandatory)
-   "version":"1.0",                                             (mandatory)
-   "data":{                                                     (mandatory)
-      "content":{                                               (mandatory)
-         "title":"Schedule appointment",                       (mandatory)
-      }
-   }
-} 
-```
-
-DateTimePicker  in Web UI:
-
-<img src="./img/interactive-message-datetimepicker.png" width=400>
-
 ## Examples
 The examples below are organized around the following use cases:
 1. [Stand-Alone Page](#stand-alone-page)
