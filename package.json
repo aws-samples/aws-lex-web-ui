@@ -30,13 +30,17 @@
     "lint": "eslint --format node_modules/eslint-formatter-friendly src/lex-web-ui-loader"
   },
   "dependencies": {
-    "@aws-sdk/credential-providers": "^3.540.0",
     "amazon-cognito-auth-js": "^1.2.4",
+    "buffer": "^6.0.3",
     "core-js": "^3.6.5",
+    "crypto-browserify": "^3.12.0",
     "jsdom": "^22.0.0",
-    "jwt-decode": "^4.0.0",
+    "jsonwebtoken": "^9.0.0",
     "process": "^0.11.10",
-    "regenerator-runtime": "^0.13.5"
+    "regenerator-runtime": "^0.13.5",
+    "stream-browserify": "^3.0.0",
+    "util": "^0.12.5",
+    "vm-browserify": "^1.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.23.5",
