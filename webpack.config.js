@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const eslintFormatterFriendly = require('eslint-formatter-friendly');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
@@ -36,12 +35,7 @@ module.exports = (env) => {
     },
     resolve: {
         fallback: {
-            util: require.resolve('util/'),
-            crypto: require.resolve('crypto-browserify'),
-            buffer: require.resolve('buffer/'),
-            stream: require.resolve('stream-browserify'),
             'process/browser': require.resolve('process/browser'),
-            "vm": require.resolve("vm-browserify"),
         },
     },
     module: {
@@ -104,7 +98,6 @@ module.exports = (env) => {
           errors: true,
           warnings: false,
           runtimeErrors: true,
-
         },
       },
       hot: true,
@@ -118,9 +111,11 @@ module.exports = (env) => {
       minimize: false,
     },
     plugins: [
+      new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 1,
+      }),
       new webpack.ProvidePlugin({
         process: "process/browser",
-        Buffer: ["buffer", "Buffer"],
       }),
       new HtmlWebpackPlugin({
         filename: 'index.html',
@@ -177,10 +172,5 @@ module.exports = (env) => {
         }
       ),
     ].filter(Boolean),
-    performance: {
-      hints: false,
-      maxEntrypointSize: 512000,
-      maxAssetSize: 512000
-  },
   };
 };
