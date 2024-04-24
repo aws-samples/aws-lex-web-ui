@@ -111,15 +111,6 @@ Parameters:
             will be preserved. Only applies if the bot is created by
             this stack.
             
-    HideButtonMessageBubble:
-        Type: String
-        Default: false
-        AllowedValues:
-            - true
-            - false
-        Description: >
-            If set to true, hide the message bubble on a response card button press
-            
     ShouldEnableLiveChat:
         Type: String
         Default: false
@@ -134,6 +125,7 @@ Parameters:
         Type: String
         Description: >
             Connect Contract Flow Id
+        Default: ""
 
     ConnectInstanceId:
         Type: String
@@ -560,7 +552,6 @@ Resources:
                 WebAppConfCname: !Ref WebAppConfCname
                 WebAppAcmCertificateArn: !Ref WebAppAcmCertificateArn
                 WebAppWafAclArn: !Ref WebAppWafAclArn
-                HideButtonMessageBubble: !Ref HideButtonMessageBubble
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
                 ConnectContactFlowId: !Ref ConnectContactFlowId
                 ConnectInstanceId: !Ref ConnectInstanceId
