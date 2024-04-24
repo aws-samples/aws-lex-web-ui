@@ -903,7 +903,7 @@ Resources:
                         
             Handler: index.handler
             Role: !GetAtt CSSValidationLambdaRole.Arn
-            Runtime: python3.9
+            Runtime: python3.10
             Timeout: 60
 
     CSSValidationLambdaRole:
