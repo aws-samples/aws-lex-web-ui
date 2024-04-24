@@ -888,7 +888,7 @@ Resources:
                 S3Key: !Ref CustomResourceCodeObject
             Handler: s3-cleanup.handler
             Role: !GetAtt S3CleanupLambdaRole.Arn
-            Runtime: python3.8
+            Runtime: python3.10
             Timeout: 120
             TracingConfig:
                 Mode: Active
