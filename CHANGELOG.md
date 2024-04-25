@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.21.2] - 2024-04-24
+- Added support for more Connect interactive messages. The UI now supports Panel, QuickReply & Carousel messages.
+- Removed the DateTime picker component due to its legacy dependency on Vue 2, please use the DatePicker going forward.
+- Cleaned up some dependencies to reduce the amount of polyfills required
+- Upgrade all python scripts to 3.10
+- Other minor bug fixes and documentation updates.
+
 ## [0.21.1] - 2024-03-26
 - Updated the streaming feature to be more flexible so users can choose whether or not the fullfilment Lambda should be streaming responses. Additional details can be found in the streaming responses README.
 - Added a copy icon so responses from the bot can be easily copy/pasted. This option can be configured manually from the configuration file and is defaulted to 'off'.
