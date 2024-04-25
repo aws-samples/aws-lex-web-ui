@@ -125,7 +125,7 @@ Resources:
                 Type: NO_ARTIFACTS
             Environment:
                 Type: LINUX_CONTAINER
-                Image: aws/codebuild/nodejs:10.14.1
+                Image: aws/codebuild/amazonlinux2-x86_64-standard:5.0
                 ComputeType: BUILD_GENERAL1_SMALL
                 EnvironmentVariables:
                     - Name: REPO_URL
@@ -152,9 +152,9 @@ Resources:
                     phases:
                         install:
                             commands:
-                                - npm install -g n
                                 - n stable
                                 - npm update -g npm
+                                - make install-deps
                         pre_build:
                             commands:
                                 - make config
@@ -188,7 +188,7 @@ Resources:
                 S3Key: !Ref CustomResourceCodeObject
             Handler: codebuild-start.handler
             Role: !GetAtt CodeBuildStarterLambdaRole.Arn
-            Runtime: python3.8
+            Runtime: python3.10
             Timeout: 120
             TracingConfig:
                 Mode: Active

@@ -343,11 +343,32 @@ Resources:
       Properties:
         VersioningConfiguration:
           Status: Enabled
-        AccessControl: "LogDeliveryWrite"
         BucketEncryption:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: AES256
+
+    S3ServerAccessLogsBucketPolicy:
+      Type: "AWS::S3::BucketPolicy"
+      Properties:
+        Bucket:
+          Ref: "S3ServerAccessLogs"
+        PolicyDocument:
+          Statement:
+            - Effect: "Allow"
+              Action:
+                - "s3:PutObject"
+              Resource:
+                - !Sub "arn:aws:s3:::${S3ServerAccessLogs}/*"
+              Principal:
+                Service: "logging.s3.amazonaws.com"
+              Condition:
+                ArnLike:
+                  aws:SourceArn:
+                    - !Sub "arn:aws:s3:::${WebAppBucket}"
+                StringEquals:
+                  aws:SourceAccount:
+                    - !Sub "${AWS::AccountId}"
 
     # Artifact Bucket used by CodePipeline and CodBuild
     ArtifactStore:
@@ -382,6 +403,15 @@ Resources:
               ServerSideEncryptionConfiguration:
                 - ServerSideEncryptionByDefault:
                     SSEAlgorithm: AES256
+            CorsConfiguration:
+                !If
+                  - NeedsParentOrigin
+                  - !Ref AWS::NoValue
+                  - CorsRules:
+                    - AllowedMethods:
+                        - GET
+                      AllowedOrigins:
+                        - !Ref ParentOrigin
                 
     WebAppBucketOriginAccessIdentity:
         Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
@@ -410,6 +440,9 @@ Resources:
         UpdateReplacePolicy: Retain
         DeletionPolicy: Retain
         Properties:
+          OwnershipControls:
+            Rules:
+              - ObjectOwnership: BucketOwnerPreferred
           VersioningConfiguration:
             Status: Enabled
           BucketEncryption:
@@ -467,7 +500,7 @@ Resources:
               S3OriginConfig:
                 OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${WebAppBucketOriginAccessIdentity}"
               Id: webuiorigin
-            Enabled: 'true'
+            Enabled: true
             Comment: cloudfront distribution for lex-web-ui
             DefaultRootObject: index.html
             Logging:
@@ -510,7 +543,6 @@ Resources:
               - UseDefaultCloudfrontUrl
               - CloudFrontDefaultCertificate: true
               - AcmCertificateArn: !Ref WebAppAcmCertificateArn
-                CloudFrontDefaultCertificate: false
                 MinimumProtocolVersion: TLSv1.2_2018
                 SslSupportMethod: sni-only
             WebACLId:
@@ -856,7 +888,7 @@ Resources:
                 S3Key: !Ref CustomResourceCodeObject
             Handler: s3-cleanup.handler
             Role: !GetAtt S3CleanupLambdaRole.Arn
-            Runtime: python3.8
+            Runtime: python3.10
             Timeout: 120
             TracingConfig:
                 Mode: Active
