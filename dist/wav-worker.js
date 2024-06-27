@@ -1,5 +1,5 @@
 /*!
-* lex-web-ui v0.21.2
+* lex-web-ui v0.21.3
 * (c) 2017-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 * Released under the Amazon Software License.
 */  
@@ -2009,7 +2009,8 @@ exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
 
 /* eslint-disable no-proto -- safe */
 var uncurryThisAccessor = __webpack_require__(/*! ../internals/function-uncurry-this-accessor */ "./node_modules/core-js/internals/function-uncurry-this-accessor.js");
-var anObject = __webpack_require__(/*! ../internals/an-object */ "./node_modules/core-js/internals/an-object.js");
+var isObject = __webpack_require__(/*! ../internals/is-object */ "./node_modules/core-js/internals/is-object.js");
+var requireObjectCoercible = __webpack_require__(/*! ../internals/require-object-coercible */ "./node_modules/core-js/internals/require-object-coercible.js");
 var aPossiblePrototype = __webpack_require__(/*! ../internals/a-possible-prototype */ "./node_modules/core-js/internals/a-possible-prototype.js");
 
 // `Object.setPrototypeOf` method
@@ -2026,8 +2027,9 @@ module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
     CORRECT_SETTER = test instanceof Array;
   } catch (error) { /* empty */ }
   return function setPrototypeOf(O, proto) {
-    anObject(O);
+    requireObjectCoercible(O);
     aPossiblePrototype(proto);
+    if (!isObject(O)) return O;
     if (CORRECT_SETTER) setter(O, proto);
     else O.__proto__ = proto;
     return O;
@@ -2148,10 +2150,10 @@ var SHARED = '__core-js_shared__';
 var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 (store.versions || (store.versions = [])).push({
-  version: '3.36.0',
+  version: '3.37.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.36.0/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.37.1/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -2837,48 +2839,6 @@ exportTypedArrayMethod('with', { 'with': function (index, value) {
 } }['with'], !PROPER_ORDER);
 
 
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/esnext.array-buffer.detached.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/core-js/modules/esnext.array-buffer.detached.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-// TODO: Remove from `core-js@4`
-__webpack_require__(/*! ../modules/es.array-buffer.detached */ "./node_modules/core-js/modules/es.array-buffer.detached.js");
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/esnext.array-buffer.transfer-to-fixed-length.js":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/core-js/modules/esnext.array-buffer.transfer-to-fixed-length.js ***!
-  \**************************************************************************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-// TODO: Remove from `core-js@4`
-__webpack_require__(/*! ../modules/es.array-buffer.transfer-to-fixed-length */ "./node_modules/core-js/modules/es.array-buffer.transfer-to-fixed-length.js");
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/esnext.array-buffer.transfer.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/core-js/modules/esnext.array-buffer.transfer.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-// TODO: Remove from `core-js@4`
-__webpack_require__(/*! ../modules/es.array-buffer.transfer */ "./node_modules/core-js/modules/es.array-buffer.transfer.js");
-
-
 /***/ })
 
 /******/ 	});
@@ -2922,18 +2882,16 @@ __webpack_require__(/*! ../modules/es.array-buffer.transfer */ "./node_modules/c
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!****************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js!./src/lib/lex/wav-worker.js ***!
   \****************************************************************************/
 __webpack_require__(/*! core-js/modules/es.array.push.js */ "./node_modules/core-js/modules/es.array.push.js");
+__webpack_require__(/*! core-js/modules/es.array-buffer.detached.js */ "./node_modules/core-js/modules/es.array-buffer.detached.js");
+__webpack_require__(/*! core-js/modules/es.array-buffer.transfer.js */ "./node_modules/core-js/modules/es.array-buffer.transfer.js");
+__webpack_require__(/*! core-js/modules/es.array-buffer.transfer-to-fixed-length.js */ "./node_modules/core-js/modules/es.array-buffer.transfer-to-fixed-length.js");
 __webpack_require__(/*! core-js/modules/es.typed-array.to-reversed.js */ "./node_modules/core-js/modules/es.typed-array.to-reversed.js");
 __webpack_require__(/*! core-js/modules/es.typed-array.to-sorted.js */ "./node_modules/core-js/modules/es.typed-array.to-sorted.js");
 __webpack_require__(/*! core-js/modules/es.typed-array.with.js */ "./node_modules/core-js/modules/es.typed-array.with.js");
-__webpack_require__(/*! core-js/modules/esnext.array-buffer.detached.js */ "./node_modules/core-js/modules/esnext.array-buffer.detached.js");
-__webpack_require__(/*! core-js/modules/esnext.array-buffer.transfer.js */ "./node_modules/core-js/modules/esnext.array-buffer.transfer.js");
-__webpack_require__(/*! core-js/modules/esnext.array-buffer.transfer-to-fixed-length.js */ "./node_modules/core-js/modules/esnext.array-buffer.transfer-to-fixed-length.js");
 // based on https://github.com/mattdiamond/Recorderjs/blob/master/src/recorder.js
 // with a few optimizations including downsampling and trimming quiet samples
 
@@ -3146,8 +3104,6 @@ function downsampleTrimBuffer(buffer, rate) {
   // slice based on quiet threshold and put slack back into the buffer
   result.slice(Math.max(0, firstNonQuiet - options.quietTrimSlackBack), Math.min(newLength, lastNonQuiet + options.quietTrimSlackBack)) : result;
 }
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=wav-worker.js.map
