@@ -207,7 +207,7 @@ Set background of the bot's response messages
 
 #### Response card buttons - margins, background-color
 ```
-.card__actions .btn {
+.v-card-actions .v-btn {
   margin: 4px 4px !important;
   font-size: 1em !important;
   min-width: 44px !important;
