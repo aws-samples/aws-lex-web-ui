@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.21.2] - 2024-06-27
+- Dependency & documentation updates
+- Fixed a bug that was causing builds on Windows machines to fail
+ 
 ## [0.21.2] - 2024-04-24
 - Added support for more Connect interactive messages. The UI now supports Panel, QuickReply & Carousel messages.
 - Removed the DateTime picker component due to its legacy dependency on Vue 2, please use the DatePicker going forward.
