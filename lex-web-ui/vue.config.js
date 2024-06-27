@@ -124,8 +124,6 @@ function chainWebpackLib(
   format = 'umd',
 ) {
   const baseFilename = `${destDir}/${entryName}`;
-  const filename = (buildType.isProd)
-    ? `${baseFilename}.min.js` : `${baseFilename}.js`;
 
   config
     .entry(entryName)
@@ -134,14 +132,13 @@ function chainWebpackLib(
     .output
     .libraryTarget(format)
     .library(libraryName)
-    .filename(filename);
+    .filename(
+      (buildType.isProd) ? 'bundle/[name].min.js' : 'bundle/[name].js',
+    );
 
   chainWebpackCommon(config, destDir);
-
+  
   config.externals([
-    // XXX TODO need to add dependencies below to the lex-web-ui-loader
-    // 'jsonwebtoken',
-    // 'marked',
     { 'vue': 'Vue' },
     {'vuex': 'Vuex'},
     'vue-router',
@@ -230,26 +227,6 @@ function chainWebpackApp(
       return args;
     })
     .end()
-
-    // copy artifacts to dist directory
-    .plugin('copy')
-    .tap((args) => {
-      // unshift to have lower precedence
-      // from the default vue cli `public` rule
-      args[0].patterns.unshift(
-        // favicon.png
-        {
-          from: getAssetPath(favIconPath, flowerLogoPath),
-          to: `${distDir}/favicon.png`,
-        },
-        // logo.png
-        {
-          from: getAssetPath(logoPath, flowerLogoPath),
-          to: `${distDir}/logo.png`,
-        },
-      );
-      return args;
-    });
 }
 
 module.exports = {
