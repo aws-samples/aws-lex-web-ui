@@ -1,0 +1,218 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  Deploys lambda function and resources to integrate with QBusiness
+
+Parameters:
+
+  AmazonQAppId:
+    Type: String
+    AllowedPattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{35}$'
+    Description: Amazon Q Application ID
+
+  IDCApplicationARN:
+    Type: String
+    Description: ARN of the Identity Center customer managed application created for QBusiness
+
+  DynamoDBTableName:
+    Type: String
+    Description: DynamoDB Table Name used for caching QBusiness credentials
+
+  AmazonQRegion:
+    Type: String
+    Default: "us-east-1"
+    AllowedPattern: '^[a-z]{2}-[a-z]+-[0-9]+$'
+    Description: Amazon Q Region
+
+  AmazonQEndpointUrl:
+    Type: String
+    Default: ""
+    Description: (Optional) Amazon Q Endpoint (leave empty for default endpoint)
+
+  QBusinessLambdaCodeObject:
+    Type: String
+    Description: >
+        S3 object zip file containing Lambda for QBusiness integration
+    Default: artifacts/aws-lex-web-ui/artifacts/streaming-lambda.zip
+
+Resources:
+
+  QManagedPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Sid: AllowQChat
+          Effect: Allow
+          Action:
+          - "qbusiness:ChatSync"
+          Resource: !Sub "arn:${AWS::Partition}:qbusiness:${AWS::Region}:${AWS::AccountId}:application/${AmazonQAppId}"
+        
+  QServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+        - Effect: Allow
+          Principal:
+            AWS:
+            - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:root
+          Action:
+          - sts:AssumeRole
+          - sts:SetContext
+      Path: /
+      ManagedPolicyArns:
+      - !Ref QManagedPolicy
+
+  QBusinessModelLayer:
+    Type: "AWS::Lambda::LayerVersion"
+    Properties:
+      Content: ../../layers/qbusiness_boto3_model
+      CompatibleRuntimes:
+        - python3.12
+
+  KMSKey:
+    Type: 'AWS::KMS::Key'
+    Properties:
+      KeySpec: 'SYMMETRIC_DEFAULT'
+      KeyUsage: 'ENCRYPT_DECRYPT'
+      KeyPolicy:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+          Action: 'kms:*'
+          Resource: '*'
+
+  CredentialsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: "jti"
+        AttributeType: "S"
+      KeySchema:
+      - AttributeName: "jti"
+        KeyType: "HASH"
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: True
+      TableName: !Ref DynamoDBTableName
+      TimeToLiveSpecification:
+        AttributeName: ExpiresAt
+        Enabled: true
+
+  LambdaFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "qbusiness:ChatSync"
+                Resource: !Sub "arn:aws:qbusiness:${AWS::Region}:${AWS::AccountId}:application/${AmazonQAppId}"
+          PolicyName: QBusinessPolicy
+        - PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "s3:GetObject"
+                Resource: "arn:aws:s3:::*/*"
+          PolicyName: S3ImportBucketPolicy
+        - PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                   - "dynamodb:PutItem"
+                   - "dynamodb:GetItem"
+                Resource:
+                   - !Sub "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${DynamoDBTableName}"
+          PolicyName: DynamoDbPolicy
+        - PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                   - "kms:Decrypt"
+                   - "kms:Encrypt"
+                Resource:
+                   - !Sub "arn:${AWS::Partition}:kms:${AWS::Region}:${AWS::AccountId}:key/${KMSKey}"
+          PolicyName: KmsPolicy
+        - PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                   - "sso-oauth:CreateTokenWithIAM"
+                Resource: "*"
+          PolicyName: OICDPolicy
+        - PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                   - "sts:AssumeRole"
+                   - "sts:SetContext"
+                Resource:
+                   - !GetAtt QServiceRole.Arn
+          PolicyName: AllowAssumeQRole
+
+  QnaItemLambdaHookFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+    # LambdaHook name must start with 'QNA-' to match QnAbot invoke policy
+      FunctionName: !Sub "QNA-LAMBDAHOOK-${AWS::StackName}"
+      Handler: lambdahook.lambda_handler
+      Role: !GetAtt 'LambdaFunctionRole.Arn'
+      Runtime: python3.12
+      Layers: 
+        - !Ref QBusinessModelLayer
+      Timeout: 60
+      MemorySize: 128
+      Environment:
+        Variables:
+          AWS_DATA_PATH: /opt/model
+          AMAZONQ_APP_ID: !Ref AmazonQAppId
+          AMAZONQ_ROLE_ARN: !GetAtt QServiceRole.Arn
+          DYNAMODB_CACHE_TABLE_NAME: !Ref CredentialsTable
+          KMS_KEY_ID: !Ref KMSKey
+          IDC_CLIENT_ID: !Ref IDCApplicationARN
+          AMAZONQ_ENDPOINT_URL: !Ref AmazonQEndpointUrl
+      Code: ./src
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W89
+            reason: No VPC resources.
+          - id: W92
+            reason: No requirements to set reserved concurrencies.
+
+
+Outputs:
+
+  QnAItemLambdaHookFunctionName:
+    Description: QnA Item Lambda Hook Function Name (use with no_hits item for optional ask-Amazon-Q-Business fallback)
+    Value: !Ref 'QnaItemLambdaHookFunction'
+
+  QnAItemLambdaHookArgs:
+    Description: QnA Item Lambda Hook Args (use with no_hits item for optional ask-the-LLM fallback)
+    Value: '{"Prefix":"Amazon Q Answer:", "ShowContextText":true, "ShowSourceLinks":true}'
+
+  QnAItemLambdaFunctionRoleArn:
+    Description: ARN of the Role created for executing the Lambda function
+    Value: !GetAtt LambdaFunctionRole.Arn
+    

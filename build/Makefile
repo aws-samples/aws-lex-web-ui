@@ -99,6 +99,20 @@ upload-streaming-lambda:
 			"$(OUT)/$(STREAMING_LAMBDA_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/$(STREAMING_LAMBDA_ZIP)" \
 			| tee -a "$(OUT)/$(@)"
 
+QBUSINESS_LAMBDA_DIR := $(SOURCE_DIR)/qbusiness-lambda
+QBUSINESS_LAMBDA_ZIP := qbusiness-lambda-$(VERSION).zip
+QBUSINESS_LAMBDA_RESOURCES_FILES := $(wildcard $(QBUSINESS_LAMBDA_DIR)/*.js)
+
+$(QBUSINESS_LAMBDA_ZIP): $(QBUSINESS_LAMBDA_DIR)/index.js
+	@echo "[INFO] Creating qbusiness Lambda zip file"
+	zip -r -j "$(OUT)/$(QBUSINESS_LAMBDA_ZIP)" $(QBUSINESS_LAMBDA_DIR) ; 
+
+upload-qbusiness-lambda:
+		@echo "[INFO] uploading qbusiness lambda"
+	aws s3 cp --acl public-read \
+			"$(OUT)/$(QBUSINESS_LAMBDA_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/$(QBUSINESS_LAMBDA_ZIP)" \
+			| tee -a "$(OUT)/$(@)"
+
 # files in this repo are bundled in a zip file to boostrap the codecommit repo
 SRC_ZIP := src-$(VERSION).zip
 SRC_FILES := $(shell git ls-files ..)
