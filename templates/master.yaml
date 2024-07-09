@@ -590,6 +590,19 @@ Parameters:
         Description: >
             If enabling upload, the name of the S3 bucket where uploaded documents should be stored
 
+    AmazonQAppId:
+        Type: String
+        AllowedPattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{35}$'
+        Description: Amazon Q Application ID. This option will automatically create a bot and the V1/V2 bot fields should be left blank.
+
+    IDCApplicationARN:
+        Type: String
+        Description: >
+            ARN of the Identity Center customer managed application created for QBusiness. This will need to be configured
+            manually after initial UI deployment. The value from manual creation will need to be supplied here and the template updated.
+            This process is not automated because in many use cases Identity Center will not be in the same account as the bot.
+            Manual set-up instructions can be found here: https://github.com/aws-samples/aws-lex-web-ui/blob/master/README-qbusiness.md
+
 Rules:
   ValidateEitherV1orV2:
     RuleCondition: !Not 
@@ -699,14 +712,21 @@ Metadata:
                   - BotChatBubble
                   - CustomerChatBubble
                   - MinimizedButtonColor
+            - Label:
+                default: Q Business Parameters
+              Parameters:
+                  - AmazonQAppId
+                  - IDCApplicationARN                 
 
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
-    NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
+    NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''], !Equals [!Ref AmazonQAppId, ''] ]
+    UseCreatedBot: !Or [ NeedsBot, !Equals [!Ref AmazonQAppId, ''] ]
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
     EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
+    EnableQBusiness: !Equals [!Ref AmazonQAppId, '']
 
 Resources:
     Bot:
@@ -721,6 +741,19 @@ Resources:
                 CustomResourceCodeBucket: !Ref BootstrapBucket
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.3.zip"
 
+    QBusiness:
+        Type: AWS::CloudFormation::Stack
+        Condition: EnableQBusiness
+        Properties:
+            TimeoutInMinutes: 15
+            TemplateURL: !Sub "https://${SourceBucket}.s3.${AWS::Region}.amazonaws.com/${SourcePrefix}/templates/qbusiness.yaml"
+            Parameters:
+                ParentStackName: !Ref "AWS::StackName"
+                SourceBucket: !Ref BootstrapBucket
+                QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-v0.21.3.zip"
+                AmazonQAppId: !Ref AmazonQAppId
+                IDCApplicationARN: !Ref IDCApplicationARN
+
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
         Condition: NeedsCognito
@@ -731,7 +764,7 @@ Resources:
                 ForceCognitoLogin: !Ref ForceCognitoLogin
                 LexBotName:
                     !If
-                      - NeedsBot
+                      - UseCreatedBot
                       - !GetAtt Bot.Outputs.BotName
                       - !Ref BotName
                 LexV2BotId: !Ref LexV2BotId

@@ -9,7 +9,7 @@ import uuid
 import boto3
 
 AMAZONQ_APP_ID = os.environ.get("AMAZONQ_APP_ID")
-AMAZONQ_REGION = os.environ.get("AMAZONQ_REGION") or os.environ["AWS_REGION"]
+AMAZONQ_REGION = os.environ["AWS_REGION"]
 AMAZONQ_ENDPOINT_URL = os.environ.get("AMAZONQ_ENDPOINT_URL") or f'https://qbusiness.{AMAZONQ_REGION}.api.aws'
 print("AMAZONQ_ENDPOINT_URL:", AMAZONQ_ENDPOINT_URL)
 

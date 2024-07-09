@@ -13,16 +13,6 @@ Parameters:
     Type: String
     Description: ARN of the Identity Center customer managed application created for QBusiness
 
-  DynamoDBTableName:
-    Type: String
-    Description: DynamoDB Table Name used for caching QBusiness credentials
-
-  AmazonQRegion:
-    Type: String
-    Default: "us-east-1"
-    AllowedPattern: '^[a-z]{2}-[a-z]+-[0-9]+$'
-    Description: Amazon Q Region
-
   AmazonQEndpointUrl:
     Type: String
     Default: ""
@@ -34,7 +24,88 @@ Parameters:
         S3 object zip file containing Lambda for QBusiness integration
     Default: artifacts/aws-lex-web-ui/artifacts/streaming-lambda.zip
 
+  SourceBucket:
+      Description: S3 bucket where the source is located
+      Type: String
+      Default: aws-bigdata-blog
+
 Resources:
+
+  QBusinessFulfillmentFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket: !Ref SourceBucket
+        S3Key: !Ref QBusinessLambdaCodeObject
+      Handler: index.handler
+      Runtime: python3.12
+      Role: !GetAtt LambdaExecutionRole.Arn
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  LexBot:
+    Type: AWS::Lex::Bot
+    Properties:
+      BotName: !Join ["-", [!Ref ParentStackName, "QBusiness-Bot"]]
+      DataPrivacy:
+        ChildDirected: false
+      IdleSessionTTLInSeconds: 300
+      RoleArn: !GetAtt LexServiceRole.Arn
+
+  LexServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lex.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonLexBotExecutionRole
+
+  MainIntent:
+    Type: AWS::Lex::Intent
+    Properties:
+      IntentName: MainIntent
+      BotId: !Ref LexBot
+      BotVersion: !GetAtt LexBot.Version
+      SampleUtterances: 
+        - "Hello"
+      DataPrivacy:
+        ChildDirected: false
+      FulfillmentCodeHook:
+        Enabled: true
+        FulfillmentLambda:
+          CodeHook:
+            LambdaArn: !GetAtt DemoFullfillmentFunction.Arn
+
+  FallbackIntent:
+    Type: AWS::Lex::Intent
+    Properties:
+      IntentName: FallbackIntent
+      BotId: !Ref LexBot
+      BotVersion: !GetAtt LexBot.Version
+      DataPrivacy:
+        ChildDirected: false
+      ParentIntentSignature: AMAZON.FallbackIntent
+      FulfillmentCodeHook:
+        Enabled: true
+        FulfillmentLambda:
+          CodeHook:
+            LambdaArn: !GetAtt DemoFullfillmentFunction.Arn
 
   QManagedPolicy:
     Type: AWS::IAM::ManagedPolicy
@@ -98,7 +169,7 @@ Resources:
       BillingMode: PAY_PER_REQUEST
       SSESpecification:
         SSEEnabled: True
-      TableName: !Ref DynamoDBTableName
+      TableName: !Join ["-", [!Ref ParentStackName, "CachedCreds-Table"]]
       TimeToLiveSpecification:
         AttributeName: ExpiresAt
         Enabled: true
@@ -140,7 +211,7 @@ Resources:
                    - "dynamodb:PutItem"
                    - "dynamodb:GetItem"
                 Resource:
-                   - !Sub "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${DynamoDBTableName}"
+                   - !Sub "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${CredentialsTable}"
           PolicyName: DynamoDbPolicy
         - PolicyDocument:
             Version: 2012-10-17
@@ -174,8 +245,7 @@ Resources:
   QnaItemLambdaHookFunction:
     Type: AWS::Lambda::Function
     Properties:
-    # LambdaHook name must start with 'QNA-' to match QnAbot invoke policy
-      FunctionName: !Sub "QNA-LAMBDAHOOK-${AWS::StackName}"
+      FunctionName: !Join ["-", [!Ref ParentStackName, "Fulfillment-Lambda"]]
       Handler: lambdahook.lambda_handler
       Role: !GetAtt 'LambdaFunctionRole.Arn'
       Runtime: python3.12
@@ -203,16 +273,11 @@ Resources:
 
 
 Outputs:
-
-  QnAItemLambdaHookFunctionName:
-    Description: QnA Item Lambda Hook Function Name (use with no_hits item for optional ask-Amazon-Q-Business fallback)
-    Value: !Ref 'QnaItemLambdaHookFunction'
-
-  QnAItemLambdaHookArgs:
-    Description: QnA Item Lambda Hook Args (use with no_hits item for optional ask-the-LLM fallback)
-    Value: '{"Prefix":"Amazon Q Answer:", "ShowContextText":true, "ShowSourceLinks":true}'
-
   QnAItemLambdaFunctionRoleArn:
     Description: ARN of the Role created for executing the Lambda function
     Value: !GetAtt LambdaFunctionRole.Arn
+
+  BotName:
+        Description: Lex Bot Name
+        Value: !Sub "${LexBot.BotName}"
     
