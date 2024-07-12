@@ -80,21 +80,6 @@ Parameters:
         ConstraintDescription: >
             Must conform with the permitted Lex Alias name pattern.
 
-    BotNamePrefix:
-        Type: String
-        Description: >
-            If Lex Version 2 BotId is left empty AND the Lex Version 1 BotName is left empty,
-            a Lex V1 Bot based on the OrderFlowers sample will be automatically created.
-            Specify a prefix to add to Lex resource names when using the sample bot.
-            Ignored if you provide your own bot. Must conform to the
-            permitted Lex Bot name syntax (alpha characters).
-        Default: WebUi
-        MinLength: 3
-        MaxLength: 32
-        AllowedPattern: '^[a-zA-Z\._]+$'
-        ConstraintDescription: >
-            Must conform with the permitted Lex Bot name pattern.
-
     ShouldDeleteBot:
         Type: String
         Default: true
@@ -592,7 +577,7 @@ Parameters:
 
     AmazonQAppId:
         Type: String
-        AllowedPattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{35}$'
+        Default: ''
         Description: Amazon Q Application ID. This option will automatically create a bot and the V1/V2 bot fields should be left blank.
 
     IDCApplicationARN:
@@ -639,7 +624,6 @@ Metadata:
             - Label:
                 default: Optional Sample Bot
               Parameters:
-                  - BotNamePrefix
                   - ShouldDeleteBot
             - Label:
                 default: Bot Behavior Parameters
@@ -720,13 +704,11 @@ Metadata:
 
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
-    NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''], !Equals [!Ref AmazonQAppId, ''] ]
-    UseCreatedBot: !Or [ NeedsBot, !Equals [!Ref AmazonQAppId, ''] ]
+    NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
     EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
-    EnableQBusiness: !Equals [!Ref AmazonQAppId, '']
 
 Resources:
     Bot:
@@ -736,21 +718,10 @@ Resources:
             TimeoutInMinutes: 15
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/lexbot.yaml"
             Parameters:
-                NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
-                CustomResourceCodeBucket: !Ref BootstrapBucket
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.3.zip"
-
-    QBusiness:
-        Type: AWS::CloudFormation::Stack
-        Condition: EnableQBusiness
-        Properties:
-            TimeoutInMinutes: 15
-            TemplateURL: !Sub "https://${SourceBucket}.s3.${AWS::Region}.amazonaws.com/${SourcePrefix}/templates/qbusiness.yaml"
-            Parameters:
                 ParentStackName: !Ref "AWS::StackName"
                 SourceBucket: !Ref BootstrapBucket
-                QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-v0.21.3.zip"
+                QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-lambda-v0.21.3.zip"
                 AmazonQAppId: !Ref AmazonQAppId
                 IDCApplicationARN: !Ref IDCApplicationARN
 
@@ -762,13 +733,17 @@ Resources:
             Parameters:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
                 ForceCognitoLogin: !Ref ForceCognitoLogin
-                LexBotName:
+                LexBotName: !Ref BotName
+                LexV2BotId: 
                     !If
-                      - UseCreatedBot
-                      - !GetAtt Bot.Outputs.BotName
-                      - !Ref BotName
-                LexV2BotId: !Ref LexV2BotId
-                LexV2BotAliasId: !Ref LexV2BotAliasId
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotId
+                      - !Ref LexV2BotId
+                LexV2BotAliasId:
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotAlias
+                      - !Ref LexV2BotAliasId                    
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
                 ShouldEnableUpload: !Ref ShouldEnableUpload
                 UploadBucket: !Ref UploadBucket
@@ -798,11 +773,19 @@ Resources:
                       - !Ref LexV2BotId
                       - !If
                           - NeedsBot
-                          - !GetAtt Bot.Outputs.BotName
+                          - !GetAtt Bot.Outputs.BotId
                           - !Ref BotName
                 BotAlias: !Ref BotAlias
-                LexV2BotId: !Ref LexV2BotId
-                LexV2BotAliasId: !Ref LexV2BotAliasId
+                LexV2BotId: 
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotId
+                      - !Ref LexV2BotId
+                LexV2BotAliasId:
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotAlias
+                      - !Ref LexV2BotAliasId  
                 LexV2BotLocaleId: !Ref LexV2BotLocaleId
                 CognitoIdentityPoolId:
                     !If
@@ -984,7 +967,12 @@ Outputs:
         Condition: NeedsBot
         Description: >
             Name of the Lex bot created by the stack
-        Value: !GetAtt Bot.Outputs.BotName
+        Value: !GetAtt Bot.Outputs.BotId
+
+    QBusinessLambdaRoleARN:
+        Condition: NeedsBot
+        Value: !GetAtt Bot.Outputs.QBusinessLambdaRoleARN
+        Description: ARN of role created for executing the Q Business Lambda fulfillment function
 
     CodeBuildUrl:
         Description: >
