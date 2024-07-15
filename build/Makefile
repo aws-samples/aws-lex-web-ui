@@ -21,8 +21,8 @@ VPATH := $(OUT)
 
 # upload files to bootstrap bucket
 # NOTE: files uploaded with public read permissions
-upload: upload-templates upload-custom-resources-zip upload-src-zip \
-	upload-response-card-image upload-initiate-chat-lambda upload-streaming-lambda
+upload: upload-templates upload-src-zip upload-response-card-image \
+	upload-initiate-chat-lambda upload-streaming-lambda upload-qbusiness-lambda
 .PHONY: upload
 
 # create the output directory for tracking dependencies
@@ -38,34 +38,6 @@ upload-templates: $(TEMPLATES) | $(OUT)
 		"$(TEMPLATES_DIR)" "s3://$(BOOTSTRAP_BUCKET_PATH)/templates/" \
 		| tee "$(OUT)/$(@)"
 	@echo "[INFO] master template: https://s3.amazonaws.com/$(BOOTSTRAP_BUCKET_PATH)/templates/master.yaml"
-
-# cfn custom resource lambda files are found under this directory
-CUSTOM_RESOURCES_DIR := $(TEMPLATES_DIR)/custom-resources
-
-# zip cfn custom resource lambda files
-BOT_DEFINITION_FILE := $(CUSTOM_RESOURCES_DIR)/bot-definition.json
-PY_MODULES := $(CUSTOM_RESOURCES_DIR)/py_modules
-CUSTOM_RESOURCES_ZIP := custom-resources-$(VERSION).zip
-CUSTOM_RESOURCES_FILES := $(wildcard $(CUSTOM_RESOURCES_DIR)/*.py)
-CUSTOM_RESOURCES_FILES += $(BOT_DEFINITION_FILE)
-CUSTOM_RESOURCES_FILES += $(PY_MODULES)
-$(PY_MODULES):
-	pushd $(CUSTOM_RESOURCES_DIR) ; \
-	[ -f requirements.txt ] && \
-    	python3 -m pip install --upgrade -r requirements.txt -t ./py_modules || true ; \
-    popd ;
-$(CUSTOM_RESOURCES_ZIP): $(CUSTOM_RESOURCES_FILES) | $(OUT)
-	@echo "[INFO] Creating custom resource Lambda zip file"
-	zip -u -j "$(OUT)/$(@)" $(?) ; \
-	pushd $(CUSTOM_RESOURCES_DIR)/py_modules ; \
-	zip -r -q "../../../build/$(OUT)/$(@)" . ; \
-	popd ;
-upload-custom-resources-zip: $(CUSTOM_RESOURCES_ZIP) | $(OUT)
-	@echo "[INFO] Uploading custom resources Lambda zip file"
-	aws s3 cp --acl public-read \
-		"$(OUT)/$(CUSTOM_RESOURCES_ZIP)" \
-		"s3://$(BOOTSTRAP_BUCKET_PATH)/$(CUSTOM_RESOURCES_ZIP)" \
-		| tee -a "$(OUT)/$(@)"
 
 # initiate chat lambda function
 
@@ -97,6 +69,20 @@ upload-streaming-lambda:
 		@echo "[INFO] uploading streaming lambda"
 	aws s3 cp --acl public-read \
 			"$(OUT)/$(STREAMING_LAMBDA_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/$(STREAMING_LAMBDA_ZIP)" \
+			| tee -a "$(OUT)/$(@)"
+
+QBUSINESS_LAMBDA_DIR := $(SOURCE_DIR)/qbusiness-lambda
+QBUSINESS_LAMBDA_ZIP := qbusiness-lambda-$(VERSION).zip
+QBUSINESS_LAMBDA_RESOURCES_FILES := $(wildcard $(QBUSINESS_LAMBDA_DIR)/*.py)
+
+$(QBUSINESS_LAMBDA_ZIP): $(QBUSINESS_LAMBDA_DIR)/index.py
+	@echo "[INFO] Creating qbusiness Lambda zip file"
+	zip -r -j "$(OUT)/$(QBUSINESS_LAMBDA_ZIP)" $(QBUSINESS_LAMBDA_DIR) ; 
+
+upload-qbusiness-lambda:
+		@echo "[INFO] uploading qbusiness lambda"
+	aws s3 cp --acl public-read \
+			"$(OUT)/$(QBUSINESS_LAMBDA_ZIP)" "s3://$(BOOTSTRAP_BUCKET_PATH)/$(QBUSINESS_LAMBDA_ZIP)" \
 			| tee -a "$(OUT)/$(@)"
 
 # files in this repo are bundled in a zip file to boostrap the codecommit repo
