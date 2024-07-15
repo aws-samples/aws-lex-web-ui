@@ -426,6 +426,7 @@ Resources:
 
   QBusinessModelLayer:
     Type: "AWS::Lambda::LayerVersion"
+    Condition: EnableQBusiness
     Properties:
       Content: 
         S3Bucket: !Ref SourceBucket
