@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Pipeline Lex Web UI CloudFormation template (v0.21.3)
+    Master Pipeline Lex Web UI CloudFormation template (v0.21.4)
     The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
     Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
     version input parameters as defaulted.
@@ -501,7 +501,7 @@ Resources:
                       - !GetAtt CognitoIdentityPool.Outputs.CognitoIdentityPoolId
                       - !Ref CognitoIdentityPoolId
                 SourceBucket: !Ref BootstrapBucket
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.21.3.zip"
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.21.4.zip"
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.3.zip"
 
     Pipeline:
@@ -534,7 +534,7 @@ Resources:
                 CustomResourceCodeBucket: !Ref BootstrapBucket
                 CustomResourceCodePrefix: !Ref BootstrapPrefix
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.3.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.21.3.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.21.4.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 CognitoAppUserPoolClientId:
                     !If
@@ -581,7 +581,7 @@ Resources:
                 CodeBuildProjectName: !Ref CodeBuildName
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1719503073
+                Timestamp: 1721061692
 
 Outputs:
     BotName:
