@@ -1,6 +1,6 @@
 {
   "name": "lex-web-ui",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "description": "Amazon Lex Web Interface",
   "author": "AWS",
   "license": "Amazon Software License",
@@ -18,7 +18,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "amazon-connect-chatjs": "^1.1.7",
+    "amazon-connect-chatjs": "^2.3.0",
     "aws-sdk": "^2.1354.0",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
