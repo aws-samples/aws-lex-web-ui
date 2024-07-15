@@ -40,6 +40,12 @@ Parameters:
             S3 object zip file containing Lambda for QBusiness integration
         Default: artifacts/aws-lex-web-ui/artifacts/streaming-lambda.zip
 
+    QBusinessLambdaLayerObject:
+        Type: String
+        Description: >
+            S3 object zip file containing Lambda layer for QBusiness integration
+        Default: artifacts/aws-lex-web-ui/artifacts/layers.zip
+
     SourceBucket:
         Description: S3 bucket where the source is located
         Type: String
@@ -418,6 +424,15 @@ Resources:
                    - !GetAtt QServiceRole.Arn
           PolicyName: AllowAssumeQRole
 
+  QBusinessModelLayer:
+    Type: "AWS::Lambda::LayerVersion"
+    Properties:
+      Content: 
+        S3Bucket: !Ref SourceBucket
+        S3Key: !Ref QBusinessLambdaLayerObject
+      CompatibleRuntimes:
+        - python3.12
+
   QnaBusinessLambdaFulfillmentFunction:
     Type: AWS::Lambda::Function
     Condition: EnableQBusiness
@@ -426,6 +441,8 @@ Resources:
       Handler: index.lambda_handler
       Role: !GetAtt 'LambdaFunctionRole.Arn'
       Runtime: python3.12
+      Layers: 
+        - !Ref QBusinessModelLayer
       Timeout: 60
       MemorySize: 128
       Code:
@@ -441,6 +458,14 @@ Resources:
           IDC_CLIENT_ID: !Ref IDCApplicationARN
           AMAZONQ_ENDPOINT_URL: !Ref AmazonQEndpointUrl
 
+  QBusinessBotPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref QnaBusinessLambdaFulfillmentFunction
+      Action: 'lambda:InvokeFunction'
+      Principal: 'lexv2.amazonaws.com'
+      SourceArn: !GetAtt BotAlias.Arn
+      
 Outputs:
   BotId:
     Value: !If [EnableQBusiness, !Ref QBusinessBot, !Ref OrderFlowersTemplateBot]
