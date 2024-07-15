@@ -73,9 +73,9 @@ upload-streaming-lambda:
 
 QBUSINESS_LAMBDA_DIR := $(SOURCE_DIR)/qbusiness-lambda
 QBUSINESS_LAMBDA_ZIP := qbusiness-lambda-$(VERSION).zip
-QBUSINESS_LAMBDA_RESOURCES_FILES := $(wildcard $(QBUSINESS_LAMBDA_DIR)/*.js)
+QBUSINESS_LAMBDA_RESOURCES_FILES := $(wildcard $(QBUSINESS_LAMBDA_DIR)/*.py)
 
-$(QBUSINESS_LAMBDA_ZIP): $(QBUSINESS_LAMBDA_DIR)/index.js
+$(QBUSINESS_LAMBDA_ZIP): $(QBUSINESS_LAMBDA_DIR)/index.py
 	@echo "[INFO] Creating qbusiness Lambda zip file"
 	zip -r -j "$(OUT)/$(QBUSINESS_LAMBDA_ZIP)" $(QBUSINESS_LAMBDA_DIR) ; 
 
