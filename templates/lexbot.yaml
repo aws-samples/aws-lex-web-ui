@@ -460,6 +460,7 @@ Resources:
 
   QBusinessBotPermission:
     Type: AWS::Lambda::Permission
+    Condition: EnableQBusiness
     Properties:
       FunctionName: !Ref QnaBusinessLambdaFulfillmentFunction
       Action: 'lambda:InvokeFunction'
