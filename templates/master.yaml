@@ -582,6 +582,7 @@ Parameters:
 
     IDCApplicationARN:
         Type: String
+        Default: ''
         Description: >
             ARN of the Identity Center customer managed application created for QBusiness. This will need to be configured
             manually after initial UI deployment. The value from manual creation will need to be supplied here and the template updated.
