@@ -12,7 +12,7 @@ This feature supports integration with file attachments, enable both to allow QB
 1. An existing deployment of a Q Business application is required for this solution. Please reference the AWS docs for creating a new [Q Business application](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/create-application.html)
 
 ### Deploy the Web UI
-1. A deployment of the Lex Web UI with login enabled is required for Q Business integration. To launch a new 
+1. A deployment of the Lex Web UI with login enabled is required for Q Business integration. To launch a new deployment of the Web UI, go to the main [README](https://github.com/aws-samples/aws-lex-web-ui/blob/master/README.md) and select `Launch` for the region where your Q Business app is deployed.
 
 2. The other bot fields for both V1 & V2 bots must be empty for the template to create the Q Business integration bot, please ensure that `Lex V1 Bot Configuration Parameters` and `Lex V2 Bot Configuration Parameters` are blank.
 
