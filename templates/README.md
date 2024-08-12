@@ -118,8 +118,6 @@ the stacks:
 | [cognito.yaml](./cognito.yaml) | Cognito Identity Pool and IAM role for unauthenticated identity access. |
 | [cognitouserpoolconfig.yaml](./cognitouserpoolconfig.yaml) | This template updates the cognito user pool with application client and domain configuration to enable login through either Cognito or other Identity Providers linked via federation. |
 | [codebuild-deploy.yaml](./codebuild-deploy.yaml) | Uses CodeBuild to create a configuration and deploy it along the site to S3. Used in CodeBuild Mode |
-| [coderepo.yaml](./coderepo.yaml) | CodeCommit repo dynamically initialized with the files in this repo using CodeBuild and a custom resource. Used in Pipeline Mode |
-| [pipeline.yaml](./pipeline.yaml) | Continuous deployment pipeline of the Lex Web UI Application using CodePipeline and CodeBuild. The pipeline takes the source from CodeCommit, builds the Lex web UI application using CodeBuild and deploys the app to an S3 bucket. Used in Pipeline Mode |
 
 ### Parameters
 When launching the stack, you will see a list of available parameters
