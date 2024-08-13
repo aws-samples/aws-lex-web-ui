@@ -450,7 +450,7 @@ Parameters:
         Type: Number
         Description: >
           This is a required parameter. It defines a timestamp allow the codebuild to execute as long as the
-          timestamp from master.yaml and master-pipeline.yaml varies.
+          timestamp from master.yaml varies.
 
     ResourcePrefix:
         Type: String
