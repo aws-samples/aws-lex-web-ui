@@ -17,22 +17,7 @@ modifications outlined in this README.
     * Modify the CSS accordingly and save the file locally on your desktop
     * Upload the custom-chatbot-style.css back to your WebApp S3 bucket
     * Use the CloudFront console to invalidate the CloudFront distribution such that it will be served up immediately
-
-* CodePipeline/CodeBuild distribution  
-  If you have used the master-pipeline.yaml to create a CodCommit/CodePipeline/CodeBuild distribution mechanism, 
-  follow these steps.
-    * git clone the repo from CodeCommit 
-    * Modify the CSS accordingly in your local repo
-    * Modify the root level Makefile and uncomment the lines noted below
-    ```
-    #	@echo "[INFO] copying custom-chatbot-style.css and setting cache max-age=0"
-    #	aws s3 cp \
-    #		--metadata-directive REPLACE --cache-control max-age=0 \
-    #		"$(DIST_DIR)/custom-chatbot-style.css" s3://$(WEBAPP_BUCKET)
-    ```
-    * Commit and push the changes to both files
-    * The resulting CodeBuild execution will publish the modified custom-chatbot-style.css to your WebApp S3 bucket.
-    
+  
 ## Summary of available css modifications
 
 ![Common use of CSS for LexWebUi](./img/LexWebUiStyle.png)

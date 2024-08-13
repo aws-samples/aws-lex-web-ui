@@ -26,6 +26,9 @@ popd
 aws s3 cp out/src-$version.zip \
   "s3://${BOOTSTRAP_BUCKET_PATH}/src-$version.zip"
 
+aws s3 cp out/custom-resources-$version.zip \
+  "s3://${BOOTSTRAP_BUCKET_PATH}/custom-resources-$version.zip"
+
 aws s3 cp out/initiate-chat-lambda-$version.zip \
   "s3://${BOOTSTRAP_BUCKET_PATH}/initiate-chat-lambda-$version.zip"
 
