@@ -10,7 +10,7 @@ sed -i '' -e "s/(v.*)/($VERSION)/g" \
 -e "s/custom-resources-.*zip/custom-resources-$VERSION.zip/g" \
 -e "s/src-.*zip/src-$VERSION.zip/g" \
 -e "s/initiate-chat-lambda-.*zip/initiate-chat-lambda-$VERSION.zip/g" \
-../templates/master.yaml;
+../templates/master.yaml;;
 
 "Linux")
 sed -i -e "s/(v.*)/($VERSION)/g" \
@@ -20,7 +20,7 @@ sed -i -e "s/(v.*)/($VERSION)/g" \
 -e "s/streaming-lambda-.*zip/streaming-lambda-$VERSION.zip/g" \
 -e "s/custom-resources-.*zip/custom-resources-$VERSION.zip/g" \
 -e "s/qbusiness-lambda-.*zip/qbusiness-lambda-$VERSION.zip/g" \
-../templates/master.yaml;
+../templates/master.yaml;;
 
 *)
 sed -i -e "s/(v.*)/($VERSION)/g" \
@@ -30,7 +30,7 @@ sed -i -e "s/(v.*)/($VERSION)/g" \
 -e "s/streaming-lambda-.*zip/streaming-lambda-$VERSION.zip/g" \
 -e "s/custom-resources-.*zip/custom-resources-$VERSION.zip/g" \
 -e "s/qbusiness-lambda-.*zip/qbusiness-lambda-$VERSION.zip/g" \
-../templates/master.yaml;
+../templates/master.yaml;;
 
 esac
 cd ../lex-web-ui

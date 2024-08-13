@@ -21,8 +21,8 @@ VPATH := $(OUT)
 
 # upload files to bootstrap bucket
 # NOTE: files uploaded with public read permissions
-upload: upload-templates upload-custom-resources-zip upload-src-zip upload-response-card-image \
-	upload-initiate-chat-lambda upload-streaming-lambda upload-qbusiness-lambda
+upload: upload-templates upload-custom-resources-zip upload-src-zip \
+	upload-response-card-image upload-initiate-chat-lambda upload-streaming-lambda upload-qbusiness-lambda
 .PHONY: upload
 
 # create the output directory for tracking dependencies
@@ -43,11 +43,9 @@ upload-templates: $(TEMPLATES) | $(OUT)
 CUSTOM_RESOURCES_DIR := $(TEMPLATES_DIR)/custom-resources
 
 # zip cfn custom resource lambda files
-BOT_DEFINITION_FILE := $(CUSTOM_RESOURCES_DIR)/bot-definition.json
 PY_MODULES := $(CUSTOM_RESOURCES_DIR)/py_modules
 CUSTOM_RESOURCES_ZIP := custom-resources-$(VERSION).zip
 CUSTOM_RESOURCES_FILES := $(wildcard $(CUSTOM_RESOURCES_DIR)/*.py)
-CUSTOM_RESOURCES_FILES += $(BOT_DEFINITION_FILE)
 CUSTOM_RESOURCES_FILES += $(PY_MODULES)
 $(PY_MODULES):
 	pushd $(CUSTOM_RESOURCES_DIR) ; \
