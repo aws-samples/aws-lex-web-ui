@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.21.4] - 2024-07-15
+- Removed pipeline deployment mode as CodeCommit is no longer accepting new repositories
+- Cleaned up some issues around lambda layer building 
+
+## [0.21.4] - 2024-07-15
 - The Lex Web UI can now act as a passthrough for Q Business, allowing users to converse directly with their Q Business application while inheriting all the features of the Web UI such as embedding, CSS customizations and more.
 - Upgraded version of amazon-connect-chatjs 
 
