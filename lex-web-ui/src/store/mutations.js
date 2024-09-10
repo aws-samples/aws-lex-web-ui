@@ -447,15 +447,15 @@ export default {
   reapplyTokensToSessionAttributes(state) {
     if (state) {
       if (state.tokens.idtokenjwt) {
-        console.error('found idtokenjwt');
+        console.info('found idtokenjwt');
         state.lex.sessionAttributes.idtokenjwt = state.tokens.idtokenjwt;
       }
       if (state.tokens.accesstokenjwt) {
-        console.error('found accesstokenjwt');
+        console.info('found accesstokenjwt');
         state.lex.sessionAttributes.accesstokenjwt = state.tokens.accesstokenjwt;
       }
       if (state.tokens.refreshtoken) {
-        console.error('found refreshtoken');
+        console.info('found refreshtoken');
         state.lex.sessionAttributes.refreshtoken = state.tokens.refreshtoken;
       }
     }
