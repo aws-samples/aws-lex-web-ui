@@ -1910,10 +1910,6 @@ const dependenciesFullPage = {
     name: 'Loader',
     url: './initiate-loader.js'
   }, {
-    name: 'AWS',
-    url: './aws-sdk-2.903.0.js',
-    canUseMin: true
-  }, {
     name: 'Vue',
     url: './3.3.10_dist_vue.global.prod.js',
     canUseMin: false
@@ -1928,7 +1924,7 @@ const dependenciesFullPage = {
   }, {
     name: 'LexWebUi',
     url: './lex-web-ui.js',
-    canUseMin: true
+    canUseMin: false
   }],
   css: [{
     name: 'roboto-material-icons',
@@ -1947,11 +1943,7 @@ const dependenciesFullPage = {
   }]
 };
 const dependenciesIframe = {
-  script: [{
-    name: 'AWS',
-    url: './aws-sdk-2.903.0.js',
-    canUseMin: true
-  }],
+  script: [],
   css: [{
     name: 'lex-web-ui-loader',
     url: './lex-web-ui-loader.css'
@@ -2565,6 +2557,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _config_loader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config-loader */ "./lib/config-loader.js");
 /* harmony import */ var _loginutil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loginutil */ "./lib/loginutil.js");
+/* harmony import */ var _aws_sdk_credential_providers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/credential-providers */ "../../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js");
 /*
  Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -2582,6 +2575,12 @@ __webpack_require__.r(__webpack_exports__);
 /* global AWS LexWebUi Vue */
 
 
+
+const {
+  CognitoIdentityClient,
+  GetIdCommand,
+  GetCredentialsForIdentityCommand
+} = __webpack_require__(/*! @aws-sdk/client-cognito-identity */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/index.js");
 
 /**
  * Instantiates and mounts the chatbot component
@@ -2625,6 +2624,48 @@ class FullPageComponentLoader {
       });
     }
   }
+  async getCredentials(poolId, region, logins) {
+    if (logins) {
+      const client = new CognitoIdentityClient({
+        region
+      });
+      const getIdentityId = new GetIdCommand({
+        IdentityPoolId: poolId,
+        Logins: logins
+      });
+      let identityId, getCreds;
+      try {
+        await client.send(getIdentityId).then(res => {
+          identityId = res.IdentityId;
+          getCreds = new GetCredentialsForIdentityCommand({
+            IdentityId: identityId,
+            Logins: logins
+          });
+        });
+        const res = await client.send(getCreds);
+        const creds = res.Credentials;
+        const credentials = {
+          accessKeyId: creds.AccessKeyId,
+          identityId,
+          secretAccessKey: creds.SecretKey,
+          sessionToken: creds.SessionToken,
+          expiration: creds.Expiration
+        };
+        return credentials;
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      const credentialProvider = (0,_aws_sdk_credential_providers__WEBPACK_IMPORTED_MODULE_2__.fromCognitoIdentityPool)({
+        identityPoolId: poolId,
+        clientConfig: {
+          region: region
+        }
+      });
+      const credentials = credentialProvider();
+      return credentials;
+    }
+  }
 
   /**
    * Send tokens to the Vue component and update the Vue component
@@ -2646,17 +2687,21 @@ class FullPageComponentLoader {
     } = this.config.cognito;
     const region = this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
     const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
+    let logins;
     let credentials;
+    const self = this;
     if (idtoken) {
       // auth role since logged in
       try {
-        const logins = {};
+        logins = {};
         logins[poolName] = idtoken;
-        credentials = new AWS.CognitoIdentityCredentials({
-          IdentityPoolId: cognitoPoolId,
-          Logins: logins
-        }, {
-          region
+        this.getCredentials(cognitoPoolId, region, logins).then(creds => {
+          self.credentials = creds;
+          const message = {
+            event: 'replaceCreds',
+            creds: creds
+          };
+          FullPageComponentLoader.sendMessageToComponent(message);
         });
       } catch (err) {
         console.error(new Error(`cognito auth credentials could not be created ${err}`));
@@ -2664,25 +2709,18 @@ class FullPageComponentLoader {
     } else {
       // noauth role
       try {
-        credentials = new AWS.CognitoIdentityCredentials({
-          IdentityPoolId: cognitoPoolId
-        }, {
-          region
+        this.getCredentials(cognitoPoolId, region).then(creds => {
+          self.credentials = creds;
+          const message = {
+            event: 'replaceCreds',
+            creds: creds
+          };
+          FullPageComponentLoader.sendMessageToComponent(message);
         });
       } catch (err) {
         console.error(new Error(`cognito noauth credentials could not be created ${err}`));
       }
     }
-    const self = this;
-    credentials.clearCachedId();
-    credentials.getPromise().then(() => {
-      self.credentials = credentials;
-      const message = {
-        event: 'replaceCreds',
-        creds: credentials
-      };
-      FullPageComponentLoader.sendMessageToComponent(message);
-    });
   }
   async refreshAuthTokens() {
     const refToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
@@ -2756,26 +2794,18 @@ class FullPageComponentLoader {
       if (!cognitoPoolId) {
         return reject(new Error('missing cognito poolId config'));
       }
-      if (!('AWS' in window) || !('CognitoIdentityCredentials' in window.AWS)) {
-        return reject(new Error('unable to find AWS SDK global object'));
-      }
+      let logins;
       let credentials;
+      const self = this;
       const token = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
       if (token) {
         // auth role since logged in
         return this.validateIdToken().then(idToken => {
-          const logins = {};
+          logins = {};
           logins[poolName] = idToken;
-          credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: cognitoPoolId,
-            Logins: logins
-          }, {
-            region
-          });
-          credentials.clearCachedId();
           const self = this;
-          return credentials.getPromise().then(() => {
-            self.credentials = credentials;
+          return this.getCredentials(cognitoPoolId, region, logins).then(creds => {
+            self.credentials = creds;
             self.propagateTokensUpdateCredentials();
             resolve();
           });
@@ -2786,15 +2816,8 @@ class FullPageComponentLoader {
           reject(unable);
         });
       }
-      credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: cognitoPoolId
-      }, {
-        region
-      });
-      credentials.clearCachedId();
-      const self = this;
-      return credentials.getPromise().then(() => {
-        self.credentials = credentials;
+      return this.getCredentials(cognitoPoolId, region, logins).then(creds => {
+        self.credentials = creds;
         resolve();
       });
     });
@@ -2956,6 +2979,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _config_loader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config-loader */ "./lib/config-loader.js");
 /* harmony import */ var _loginutil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loginutil */ "./lib/loginutil.js");
+/* harmony import */ var _aws_sdk_credential_providers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/credential-providers */ "../../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js");
 /*
  Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -2974,6 +2998,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+const {
+  CognitoIdentityClient,
+  GetIdCommand,
+  GetCredentialsForIdentityCommand
+} = __webpack_require__(/*! @aws-sdk/client-cognito-identity */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/index.js");
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -3008,7 +3038,6 @@ class IframeComponentLoader {
    */
   load(configParam) {
     this.config = _config_loader__WEBPACK_IMPORTED_MODULE_0__.ConfigLoader.mergeConfig(this.config, configParam);
-
     // add iframe config if missing
     if (!('iframe' in this.config)) {
       this.config.iframe = {};
@@ -3115,16 +3144,16 @@ class IframeComponentLoader {
     const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
     let credentials;
     const idtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
+    let logins;
+    const self = this;
     if (idtoken) {
       // auth role since logged in
       try {
-        const logins = {};
+        logins = {};
         logins[poolName] = idtoken;
-        credentials = new AWS.CognitoIdentityCredentials({
-          IdentityPoolId: cognitoPoolId,
-          Logins: logins
-        }, {
-          region
+        credentials = this.getCredentials(cognitoPoolId, region, logins).then(creds => {
+          self.credentials = creds;
+          return creds;
         });
       } catch (err) {
         console.error(new Error(`cognito auth credentials could not be created ${err}`));
@@ -3132,19 +3161,14 @@ class IframeComponentLoader {
     } else {
       // noauth role
       try {
-        credentials = new AWS.CognitoIdentityCredentials({
-          IdentityPoolId: cognitoPoolId
-        }, {
-          region
+        credentials = this.getCredentials(cognitoPoolId, region).then(creds => {
+          self.credentials = creds;
+          return creds;
         });
       } catch (err) {
         console.error(new Error(`cognito noauth credentials could not be created ${err}`));
       }
     }
-    const self = this;
-    credentials.getPromise().then(() => {
-      self.credentials = credentials;
-    });
   }
   validateIdToken() {
     return new Promise((resolve, reject) => {
@@ -3200,25 +3224,20 @@ class IframeComponentLoader {
       if (!cognitoPoolId) {
         return reject(new Error('missing cognito poolId config'));
       }
-      if (!('AWS' in window) || !('CognitoIdentityCredentials' in window.AWS)) {
-        return reject(new Error('unable to find AWS SDK global object'));
-      }
+      localStorage.setItem('poolId', cognitoPoolId);
+      localStorage.setItem('appUserPoolClientId', this.config.cognito.appUserPoolClientId);
+      localStorage.setItem('appUserPoolName', this.config.cognito.appUserPoolName);
       let credentials;
       const token = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
+      let logins;
+      const self = this;
       if (token) {
         // auth role since logged in
         return this.validateIdToken().then(idToken => {
-          const logins = {};
+          logins = {};
           logins[poolName] = idToken;
-          credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: cognitoPoolId,
-            Logins: logins
-          }, {
-            region
-          });
-          const self = this;
-          return credentials.getPromise().then(() => {
-            self.credentials = credentials;
+          credentials = this.getCredentials(cognitoPoolId, region, logins).then(creds => {
+            self.credentials = creds;
             resolve();
           });
         }, unable => {
@@ -3228,17 +3247,8 @@ class IframeComponentLoader {
           reject(unable);
         });
       }
-      credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: cognitoPoolId
-      }, {
-        region
-      });
-      if (this.config.ui.enableLogin) {
-        credentials.clearCachedId();
-      }
-      const self = this;
-      return credentials.getPromise().then(() => {
-        self.credentials = credentials;
+      credentials = this.getCredentials(cognitoPoolId, region).then(creds => {
+        self.credentials = creds;
         resolve();
       });
     });
@@ -3432,11 +3442,49 @@ class IframeComponentLoader {
   /**
    * Get AWS credentials to pass to the chatbot UI
    */
-  getCredentials() {
-    if (!this.credentials || !('getPromise' in this.credentials)) {
-      return Promise.reject(new Error('invalid credentials'));
+
+  async getCredentials(poolId, region, logins) {
+    if (logins) {
+      const client = new CognitoIdentityClient({
+        region
+      });
+      const getIdentityId = new GetIdCommand({
+        IdentityPoolId: poolId,
+        Logins: logins
+      });
+      let identityId, getCreds;
+      try {
+        await client.send(getIdentityId).then(res => {
+          identityId = res.IdentityId;
+          getCreds = new GetCredentialsForIdentityCommand({
+            IdentityId: identityId,
+            Logins: logins
+          });
+        });
+        const res = await client.send(getCreds);
+        const creds = res.Credentials;
+        const credentials = {
+          accessKeyId: creds.AccessKeyId,
+          identityId,
+          secretAccessKey: creds.SecretKey,
+          sessionToken: creds.SessionToken,
+          expiration: creds.Expiration
+        };
+        return credentials;
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      const credentialProvider = (0,_aws_sdk_credential_providers__WEBPACK_IMPORTED_MODULE_2__.fromCognitoIdentityPool)({
+        identityPoolId: poolId,
+        logins: logins,
+        clientConfig: {
+          region: region
+        }
+      });
+      const credentials = credentialProvider();
+      return credentials;
     }
-    return this.credentials.getPromise().then(() => this.credentials);
   }
 
   /**
@@ -3456,20 +3504,11 @@ class IframeComponentLoader {
       },
       // requests credentials from the parent
       getCredentials(evt) {
-        return this.getCredentials().then(creds => {
-          const tcreds = JSON.parse(JSON.stringify(creds));
-          evt.ports[0].postMessage({
-            event: 'resolve',
-            type: evt.data.event,
-            data: tcreds
-          });
-        }).catch(error => {
-          console.error('failed to get credentials', error);
-          evt.ports[0].postMessage({
-            event: 'reject',
-            type: evt.data.event,
-            error: 'failed to get credentials'
-          });
+        const tcreds = JSON.parse(JSON.stringify(this.credentials));
+        return evt.ports[0].postMessage({
+          event: 'resolve',
+          type: evt.data.event,
+          data: tcreds
         });
       },
       // requests chatbot UI config
@@ -26895,6 +26934,28 @@ function jwtDecode(token, options) {
     }
 }
 
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/package.json":
+/*!************************************************************************************!*\
+  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/package.json ***!
+  \************************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-cognito-identity","description":"AWS SDK for JavaScript Cognito Identity Client for Node.js, Browser and React Native","version":"3.511.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-cognito-identity","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo cognito-identity","test:e2e":"ts-mocha test/**/*.ispec.ts && karma start karma.conf.js"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"3.0.0","@aws-crypto/sha256-js":"3.0.0","@aws-sdk/client-sts":"3.511.0","@aws-sdk/core":"3.511.0","@aws-sdk/credential-provider-node":"3.511.0","@aws-sdk/middleware-host-header":"3.511.0","@aws-sdk/middleware-logger":"3.511.0","@aws-sdk/middleware-recursion-detection":"3.511.0","@aws-sdk/middleware-signing":"3.511.0","@aws-sdk/middleware-user-agent":"3.511.0","@aws-sdk/region-config-resolver":"3.511.0","@aws-sdk/types":"3.511.0","@aws-sdk/util-endpoints":"3.511.0","@aws-sdk/util-user-agent-browser":"3.511.0","@aws-sdk/util-user-agent-node":"3.511.0","@smithy/config-resolver":"^2.1.1","@smithy/core":"^1.3.1","@smithy/fetch-http-handler":"^2.4.1","@smithy/hash-node":"^2.1.1","@smithy/invalid-dependency":"^2.1.1","@smithy/middleware-content-length":"^2.1.1","@smithy/middleware-endpoint":"^2.4.1","@smithy/middleware-retry":"^2.1.1","@smithy/middleware-serde":"^2.1.1","@smithy/middleware-stack":"^2.1.1","@smithy/node-config-provider":"^2.2.1","@smithy/node-http-handler":"^2.3.1","@smithy/protocol-http":"^3.1.1","@smithy/smithy-client":"^2.3.1","@smithy/types":"^2.9.1","@smithy/url-parser":"^2.1.1","@smithy/util-base64":"^2.1.1","@smithy/util-body-length-browser":"^2.1.1","@smithy/util-body-length-node":"^2.2.1","@smithy/util-defaults-mode-browser":"^2.1.1","@smithy/util-defaults-mode-node":"^2.1.1","@smithy/util-endpoints":"^1.1.1","@smithy/util-retry":"^2.1.1","@smithy/util-utf8":"^2.1.1","tslib":"^2.5.0"},"devDependencies":{"@aws-sdk/client-iam":"3.511.0","@smithy/service-client-documentation-generator":"^2.1.1","@tsconfig/node14":"1.0.3","@types/chai":"^4.2.11","@types/mocha":"^8.0.4","@types/node":"^14.14.31","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=14.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-cognito-identity","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-cognito-identity"}}');
+
+/***/ }),
+
+/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partitions.json":
+/*!**********************************************************************************************!*\
+  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partitions.json ***!
+  \**********************************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = /*#__PURE__*/JSON.parse('{"partitions":[{"id":"aws","outputs":{"dnsSuffix":"amazonaws.com","dualStackDnsSuffix":"api.aws","implicitGlobalRegion":"us-east-1","name":"aws","supportsDualStack":true,"supportsFIPS":true},"regionRegex":"^(us|eu|ap|sa|ca|me|af|il)\\\\-\\\\w+\\\\-\\\\d+$","regions":{"af-south-1":{"description":"Africa (Cape Town)"},"ap-east-1":{"description":"Asia Pacific (Hong Kong)"},"ap-northeast-1":{"description":"Asia Pacific (Tokyo)"},"ap-northeast-2":{"description":"Asia Pacific (Seoul)"},"ap-northeast-3":{"description":"Asia Pacific (Osaka)"},"ap-south-1":{"description":"Asia Pacific (Mumbai)"},"ap-south-2":{"description":"Asia Pacific (Hyderabad)"},"ap-southeast-1":{"description":"Asia Pacific (Singapore)"},"ap-southeast-2":{"description":"Asia Pacific (Sydney)"},"ap-southeast-3":{"description":"Asia Pacific (Jakarta)"},"ap-southeast-4":{"description":"Asia Pacific (Melbourne)"},"aws-global":{"description":"AWS Standard global region"},"ca-central-1":{"description":"Canada (Central)"},"ca-west-1":{"description":"Canada West (Calgary)"},"eu-central-1":{"description":"Europe (Frankfurt)"},"eu-central-2":{"description":"Europe (Zurich)"},"eu-north-1":{"description":"Europe (Stockholm)"},"eu-south-1":{"description":"Europe (Milan)"},"eu-south-2":{"description":"Europe (Spain)"},"eu-west-1":{"description":"Europe (Ireland)"},"eu-west-2":{"description":"Europe (London)"},"eu-west-3":{"description":"Europe (Paris)"},"il-central-1":{"description":"Israel (Tel Aviv)"},"me-central-1":{"description":"Middle East (UAE)"},"me-south-1":{"description":"Middle East (Bahrain)"},"sa-east-1":{"description":"South America (Sao Paulo)"},"us-east-1":{"description":"US East (N. Virginia)"},"us-east-2":{"description":"US East (Ohio)"},"us-west-1":{"description":"US West (N. California)"},"us-west-2":{"description":"US West (Oregon)"}}},{"id":"aws-cn","outputs":{"dnsSuffix":"amazonaws.com.cn","dualStackDnsSuffix":"api.amazonwebservices.com.cn","implicitGlobalRegion":"cn-northwest-1","name":"aws-cn","supportsDualStack":true,"supportsFIPS":true},"regionRegex":"^cn\\\\-\\\\w+\\\\-\\\\d+$","regions":{"aws-cn-global":{"description":"AWS China global region"},"cn-north-1":{"description":"China (Beijing)"},"cn-northwest-1":{"description":"China (Ningxia)"}}},{"id":"aws-us-gov","outputs":{"dnsSuffix":"amazonaws.com","dualStackDnsSuffix":"api.aws","implicitGlobalRegion":"us-gov-west-1","name":"aws-us-gov","supportsDualStack":true,"supportsFIPS":true},"regionRegex":"^us\\\\-gov\\\\-\\\\w+\\\\-\\\\d+$","regions":{"aws-us-gov-global":{"description":"AWS GovCloud (US) global region"},"us-gov-east-1":{"description":"AWS GovCloud (US-East)"},"us-gov-west-1":{"description":"AWS GovCloud (US-West)"}}},{"id":"aws-iso","outputs":{"dnsSuffix":"c2s.ic.gov","dualStackDnsSuffix":"c2s.ic.gov","implicitGlobalRegion":"us-iso-east-1","name":"aws-iso","supportsDualStack":false,"supportsFIPS":true},"regionRegex":"^us\\\\-iso\\\\-\\\\w+\\\\-\\\\d+$","regions":{"aws-iso-global":{"description":"AWS ISO (US) global region"},"us-iso-east-1":{"description":"US ISO East"},"us-iso-west-1":{"description":"US ISO WEST"}}},{"id":"aws-iso-b","outputs":{"dnsSuffix":"sc2s.sgov.gov","dualStackDnsSuffix":"sc2s.sgov.gov","implicitGlobalRegion":"us-isob-east-1","name":"aws-iso-b","supportsDualStack":false,"supportsFIPS":true},"regionRegex":"^us\\\\-isob\\\\-\\\\w+\\\\-\\\\d+$","regions":{"aws-iso-b-global":{"description":"AWS ISOB (US) global region"},"us-isob-east-1":{"description":"US ISOB East (Ohio)"}}},{"id":"aws-iso-e","outputs":{"dnsSuffix":"cloud.adc-e.uk","dualStackDnsSuffix":"cloud.adc-e.uk","implicitGlobalRegion":"eu-isoe-west-1","name":"aws-iso-e","supportsDualStack":false,"supportsFIPS":true},"regionRegex":"^eu\\\\-isoe\\\\-\\\\w+\\\\-\\\\d+$","regions":{}},{"id":"aws-iso-f","outputs":{"dnsSuffix":"csp.hci.ic.gov","dualStackDnsSuffix":"csp.hci.ic.gov","implicitGlobalRegion":"us-isof-south-1","name":"aws-iso-f","supportsDualStack":false,"supportsFIPS":true},"regionRegex":"^us\\\\-isof\\\\-\\\\w+\\\\-\\\\d+$","regions":{}}],"version":"1.1"}');
 
 /***/ })
 
