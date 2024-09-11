@@ -589,6 +589,17 @@ Parameters:
             This process is not automated because in many use cases Identity Center will not be in the same account as the bot.
             Manual set-up instructions can be found here: https://github.com/aws-samples/aws-lex-web-ui/blob/master/README-qbusiness.md
 
+    VpcSubnetId:
+        Type: String
+        Default: ''
+        Description: ID of a VPC subnet where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+    VpcSecurityGroupId:
+        Type: String
+        Default: ''
+        Description: ID of a security group where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+    
 Rules:
   ValidateEitherV1orV2:
     RuleCondition: !Not 
@@ -698,6 +709,11 @@ Metadata:
                   - CustomerChatBubble
                   - MinimizedButtonColor
             - Label:
+                default: Lambda VPC Support
+              Parameters:
+                  - VpcSubnetId
+                  - VpcSecurityGroupId 
+            - Label:
                 default: Q Business Parameters
               Parameters:
                   - AmazonQAppId
@@ -706,6 +722,7 @@ Metadata:
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
+    NeedsVpc:  !And [ !Not [!Ref VpcSubnetId, ''], !Not [!Ref VpcSecurityGroupId, ''] ]
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
@@ -726,6 +743,8 @@ Resources:
                 QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-lambda-v0.21.5.zip"
                 AmazonQAppId: !Ref AmazonQAppId
                 IDCApplicationARN: !Ref IDCApplicationARN
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
@@ -751,6 +770,8 @@ Resources:
                 UploadBucket: !Ref UploadBucket
                 AllowStreamingResponses: !Ref AllowStreamingResponses
                 AllowedSignUpEmailDomain: !Ref AllowedSignUpEmailDomain
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
 
     ##########################################################################
     # Simplified deployment using CodeBuild to build config and push to S3
@@ -860,6 +881,8 @@ Resources:
                 AllowStreamingResponses: !Ref AllowStreamingResponses
                 ShouldEnableUpload: !Ref ShouldEnableUpload
                 UploadBucket: !Ref UploadBucket
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
                 Timestamp: 1723566731
 
     CognitoIdentityPoolConfig:
@@ -874,14 +897,25 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
                 Timestamp: 1723566731
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment
     ##########################################################################
     CSSValidationLambda:
-        Type: AWS::Lambda::Function
+        Type: AWS::Lambda::Function       
         Properties:
+            VpcConfig:
+                !If
+                - NeedsVpc
+                - 
+                    SecurityGroupIds:
+                        - !Ref VpcSubnetId
+                    SubnetIds:
+                        - !Ref VpcSecurityGroupId
+                - !Ref "AWS::NoValue"
             Description: 'Lambda invoke wrapper for Custom CFN actions'
             Code:
                 ZipFile: !Sub |

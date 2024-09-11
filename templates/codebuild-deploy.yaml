@@ -545,6 +545,16 @@ Parameters:
         Default: ''
         Description: >
             If enabling upload, the name of the S3 bucket where uploaded documents should be stored
+
+    VpcSubnetId:
+        Type: String
+        Default: ''
+        Description: ID of a VPC subnet where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+    VpcSecurityGroupId:
+        Type: String
+        Default: ''
+        Description: ID of a security group where all Lambda functions will run, only used if you need Lambda to run in a VPC
              
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
@@ -554,6 +564,7 @@ Conditions:
     ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
     EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
     EnableUpload: !Equals [!Ref ShouldEnableUpload, true]
+    NeedsVpc:  !And [ !Not [!Ref VpcSubnetId, ''], !Not [!Ref VpcSecurityGroupId, ''] ]
 
 Resources:
     # Bucket where S3 access logs are stored
@@ -769,6 +780,8 @@ Resources:
               InitiateChatLambdaCodeObject: !Ref InitiateChatLambdaCodeObject
               ConnectContactFlowId: !Ref ConnectContactFlowId
               ConnectInstanceId: !Ref ConnectInstanceId
+              VpcSubnetId: !Ref VpcSubnetId
+              VpcSecurityGroupId: !Ref VpcSecurityGroupId
               ParentOrigin:
                 !If
                   - UseDefaultCloudfrontUrl
@@ -786,6 +799,8 @@ Resources:
                 SourceBucket: !Ref SourceBucket
                 StreamingLambdaCodeObject: !Ref StreamingLambdaCodeObject
                 TableName: !Join ["-", [!Ref "AWS::StackName", "streaming"]]
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
                 ParentOrigin:
                   !If
                     - UseDefaultCloudfrontUrl
@@ -1032,8 +1047,17 @@ Resources:
 
     # Lambda function for custom resource
     CodeBuildStarterLambda:
-        Type: AWS::Lambda::Function
+        Type: AWS::Lambda::Function       
         Properties:
+            VpcConfig:
+              !If
+              - NeedsVpc
+              - 
+                  SecurityGroupIds:
+                      - !Ref VpcSubnetId
+                  SubnetIds:
+                      - !Ref VpcSecurityGroupId
+              - !Ref "AWS::NoValue"
             Code:
                 S3Bucket: !Ref SourceBucket
                 S3Key: !Ref CustomResourceCodeObject
@@ -1190,8 +1214,17 @@ Resources:
   # Lambda function for custom resource
     S3CleanupLambda:
         Type: AWS::Lambda::Function
-        Condition: ShouldCleanupBuckets
+        Condition: ShouldCleanupBuckets        
         Properties:
+            VpcConfig:
+              !If
+              - NeedsVpc
+              - 
+                  SecurityGroupIds:
+                      - !Ref VpcSubnetId
+                  SubnetIds:
+                      - !Ref VpcSecurityGroupId
+              - !Ref "AWS::NoValue"
             Code:
                 S3Bucket: !Ref SourceBucket
                 S3Key: !Ref CustomResourceCodeObject

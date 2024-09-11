@@ -51,10 +51,21 @@ Parameters:
         Type: String
         Default: aws-bigdata-blog
 
+    VpcSubnetId:
+        Type: String
+        Default: ''
+        Description: ID of a VPC subnet where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+    VpcSecurityGroupId:
+        Type: String
+        Default: ''
+        Description: ID of a security group where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
 Conditions:
     EnableQBusiness: !Not [!Equals [!Ref AmazonQAppId, '']]
     ExampleBot: !Equals [!Ref AmazonQAppId, '']
     DeleteBot: !Equals [!Ref ShouldDeleteBot, true]
+    NeedsVpc:  !And [ !Not [!Ref VpcSubnetId, ''], !Not [!Ref VpcSecurityGroupId, ''] ]
 
 Resources:
   ExampleBotRuntimeRole:
@@ -436,8 +447,17 @@ Resources:
 
   QnaBusinessLambdaFulfillmentFunction:
     Type: AWS::Lambda::Function
-    Condition: EnableQBusiness
+    Condition: EnableQBusiness    
     Properties:
+      VpcConfig:
+        !If
+        - NeedsVpc
+        - 
+            SecurityGroupIds:
+                - !Ref VpcSubnetId
+            SubnetIds:
+                - !Ref VpcSecurityGroupId
+        - !Ref "AWS::NoValue"
       FunctionName: !Join ["-", [!Ref ParentStackName, "Fulfillment-Lambda"]]
       Handler: index.lambda_handler
       Role: !GetAtt 'LambdaFunctionRole.Arn'
