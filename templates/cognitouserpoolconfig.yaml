@@ -47,7 +47,7 @@ Parameters:
         Description: ID of a security group where all Lambda functions will run, only used if you need Lambda to run in a VPC
 
 Conditions:
-    NeedsVpc:  !And [ !Not [!Ref VpcSubnetId, ''], !Not [!Ref VpcSecurityGroupId, ''] ]
+    NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
 
 Resources:
 
@@ -64,9 +64,9 @@ Resources:
                 - NeedsVpc
                 - 
                     SecurityGroupIds:
-                        - !Ref VpcSubnetId
-                    SubnetIds:
                         - !Ref VpcSecurityGroupId
+                    SubnetIds:
+                        - !Ref VpcSubnetId
                 - !Ref "AWS::NoValue"
             Handler: index.handler
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
@@ -168,6 +168,12 @@ Resources:
         Type: AWS::IAM::Role
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:
@@ -253,9 +259,9 @@ Resources:
                 - NeedsVpc
                 - 
                     SecurityGroupIds:
-                        - !Ref VpcSubnetId
-                    SubnetIds:
                         - !Ref VpcSecurityGroupId
+                    SubnetIds:
+                        - !Ref VpcSubnetId
                 - !Ref "AWS::NoValue"
             Handler: index.handler
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
@@ -347,6 +353,12 @@ Resources:
         Type: AWS::IAM::Role
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:
@@ -402,9 +414,9 @@ Resources:
                 - NeedsVpc
                 - 
                     SecurityGroupIds:
-                        - !Ref VpcSubnetId
-                    SubnetIds:
                         - !Ref VpcSecurityGroupId
+                    SubnetIds:
+                        - !Ref VpcSubnetId
                 - !Ref "AWS::NoValue"
             Handler: index.handler
             Role: !GetAtt CleanStackNameExecutionRole.Arn

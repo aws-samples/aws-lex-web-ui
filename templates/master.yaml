@@ -722,7 +722,7 @@ Metadata:
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
-    NeedsVpc:  !And [ !Not [!Ref VpcSubnetId, ''], !Not [!Ref VpcSecurityGroupId, ''] ]
+    NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
@@ -770,8 +770,6 @@ Resources:
                 UploadBucket: !Ref UploadBucket
                 AllowStreamingResponses: !Ref AllowStreamingResponses
                 AllowedSignUpEmailDomain: !Ref AllowedSignUpEmailDomain
-                VpcSubnetId: !Ref VpcSubnetId
-                VpcSecurityGroupId: !Ref VpcSecurityGroupId
 
     ##########################################################################
     # Simplified deployment using CodeBuild to build config and push to S3
@@ -883,7 +881,7 @@ Resources:
                 UploadBucket: !Ref UploadBucket
                 VpcSubnetId: !Ref VpcSubnetId
                 VpcSecurityGroupId: !Ref VpcSecurityGroupId
-                Timestamp: 1723566731
+                Timestamp: 1726069319
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -899,7 +897,7 @@ Resources:
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
                 VpcSubnetId: !Ref VpcSubnetId
                 VpcSecurityGroupId: !Ref VpcSecurityGroupId
-                Timestamp: 1723566731
+                Timestamp: 1726069319
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment
@@ -912,9 +910,9 @@ Resources:
                 - NeedsVpc
                 - 
                     SecurityGroupIds:
-                        - !Ref VpcSubnetId
-                    SubnetIds:
                         - !Ref VpcSecurityGroupId
+                    SubnetIds:
+                        - !Ref VpcSubnetId
                 - !Ref "AWS::NoValue"
             Description: 'Lambda invoke wrapper for Custom CFN actions'
             Code:
@@ -962,6 +960,12 @@ Resources:
         Type: AWS::IAM::Role
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:
@@ -991,6 +995,7 @@ Resources:
         Version: "1.0"
         Properties:
             ServiceToken: !GetAtt CSSValidationLambda.Arn
+            ServiceTimeout: 60
             MessageTextColor: !Ref MessageTextColor
             ChatBackgroundColor: !Ref ChatBackgroundColor
             ToolbarColor: !Ref ToolbarColor

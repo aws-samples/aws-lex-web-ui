@@ -564,7 +564,7 @@ Conditions:
     ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
     EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
     EnableUpload: !Equals [!Ref ShouldEnableUpload, true]
-    NeedsVpc:  !And [ !Not [!Ref VpcSubnetId, ''], !Not [!Ref VpcSecurityGroupId, ''] ]
+    NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
 
 Resources:
     # Bucket where S3 access logs are stored
@@ -1054,9 +1054,9 @@ Resources:
               - NeedsVpc
               - 
                   SecurityGroupIds:
-                      - !Ref VpcSubnetId
-                  SubnetIds:
                       - !Ref VpcSecurityGroupId
+                  SubnetIds:
+                      - !Ref VpcSubnetId
               - !Ref "AWS::NoValue"
             Code:
                 S3Bucket: !Ref SourceBucket
@@ -1152,6 +1152,12 @@ Resources:
         Type: AWS::IAM::Role
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:
@@ -1208,6 +1214,7 @@ Resources:
         Condition: ShouldCleanupBuckets
         Properties:
             ServiceToken: !GetAtt S3CleanupLambda.Arn
+            ServiceTimeout: 60
             Buckets:
                 - !Ref WebAppBucket
 
@@ -1221,9 +1228,9 @@ Resources:
               - NeedsVpc
               - 
                   SecurityGroupIds:
-                      - !Ref VpcSubnetId
-                  SubnetIds:
                       - !Ref VpcSecurityGroupId
+                  SubnetIds:
+                      - !Ref VpcSubnetId
               - !Ref "AWS::NoValue"
             Code:
                 S3Bucket: !Ref SourceBucket
@@ -1240,6 +1247,12 @@ Resources:
         Condition: ShouldCleanupBuckets
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:

@@ -65,7 +65,7 @@ Conditions:
     EnableQBusiness: !Not [!Equals [!Ref AmazonQAppId, '']]
     ExampleBot: !Equals [!Ref AmazonQAppId, '']
     DeleteBot: !Equals [!Ref ShouldDeleteBot, true]
-    NeedsVpc:  !And [ !Not [!Ref VpcSubnetId, ''], !Not [!Ref VpcSecurityGroupId, ''] ]
+    NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
 
 Resources:
   ExampleBotRuntimeRole:
@@ -378,7 +378,13 @@ Resources:
               Service: lambda.amazonaws.com
             Action: sts:AssumeRole
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        !If 
+          - NeedsVpc
+          -
+            - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+            - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+          - 
+            - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       Policies:
         - PolicyDocument:
             Version: 2012-10-17
@@ -454,9 +460,9 @@ Resources:
         - NeedsVpc
         - 
             SecurityGroupIds:
-                - !Ref VpcSubnetId
-            SubnetIds:
                 - !Ref VpcSecurityGroupId
+            SubnetIds:
+                - !Ref VpcSubnetId
         - !Ref "AWS::NoValue"
       FunctionName: !Join ["-", [!Ref ParentStackName, "Fulfillment-Lambda"]]
       Handler: index.lambda_handler
