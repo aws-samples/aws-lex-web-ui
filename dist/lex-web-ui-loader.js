@@ -5051,16 +5051,18 @@ module.exports = typeof ArrayBuffer != 'undefined' && typeof DataView != 'undefi
 
 "use strict";
 
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var uncurryThisAccessor = __webpack_require__(/*! ../internals/function-uncurry-this-accessor */ "../../../node_modules/core-js/internals/function-uncurry-this-accessor.js");
 var classof = __webpack_require__(/*! ../internals/classof-raw */ "../../../node_modules/core-js/internals/classof-raw.js");
 
-var $TypeError = TypeError;
+var ArrayBuffer = globalThis.ArrayBuffer;
+var TypeError = globalThis.TypeError;
 
 // Includes
 // - Perform ? RequireInternalSlot(O, [[ArrayBufferData]]).
 // - If IsSharedArrayBuffer(O) is true, throw a TypeError exception.
-module.exports = uncurryThisAccessor(ArrayBuffer.prototype, 'byteLength', 'get') || function (O) {
-  if (classof(O) !== 'ArrayBuffer') throw new $TypeError('ArrayBuffer expected');
+module.exports = ArrayBuffer && uncurryThisAccessor(ArrayBuffer.prototype, 'byteLength', 'get') || function (O) {
+  if (classof(O) !== 'ArrayBuffer') throw new TypeError('ArrayBuffer expected');
   return O.byteLength;
 };
 
@@ -5075,13 +5077,17 @@ module.exports = uncurryThisAccessor(ArrayBuffer.prototype, 'byteLength', 'get')
 
 "use strict";
 
-var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
+var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this-clause */ "../../../node_modules/core-js/internals/function-uncurry-this-clause.js");
 var arrayBufferByteLength = __webpack_require__(/*! ../internals/array-buffer-byte-length */ "../../../node_modules/core-js/internals/array-buffer-byte-length.js");
 
-var slice = uncurryThis(ArrayBuffer.prototype.slice);
+var ArrayBuffer = globalThis.ArrayBuffer;
+var ArrayBufferPrototype = ArrayBuffer && ArrayBuffer.prototype;
+var slice = ArrayBufferPrototype && uncurryThis(ArrayBufferPrototype.slice);
 
 module.exports = function (O) {
   if (arrayBufferByteLength(O) !== 0) return false;
+  if (!slice) return false;
   try {
     slice(O, 0, 0);
     return false;
@@ -5115,6 +5121,26 @@ module.exports = fails(function () {
 
 /***/ }),
 
+/***/ "../../../node_modules/core-js/internals/array-buffer-not-detached.js":
+/*!****************************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/array-buffer-not-detached.js ***!
+  \****************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var isDetached = __webpack_require__(/*! ../internals/array-buffer-is-detached */ "../../../node_modules/core-js/internals/array-buffer-is-detached.js");
+
+var $TypeError = TypeError;
+
+module.exports = function (it) {
+  if (isDetached(it)) throw new $TypeError('ArrayBuffer is detached');
+  return it;
+};
+
+
+/***/ }),
+
 /***/ "../../../node_modules/core-js/internals/array-buffer-transfer.js":
 /*!************************************************************************!*\
   !*** ../../../node_modules/core-js/internals/array-buffer-transfer.js ***!
@@ -5123,19 +5149,18 @@ module.exports = fails(function () {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var uncurryThisAccessor = __webpack_require__(/*! ../internals/function-uncurry-this-accessor */ "../../../node_modules/core-js/internals/function-uncurry-this-accessor.js");
 var toIndex = __webpack_require__(/*! ../internals/to-index */ "../../../node_modules/core-js/internals/to-index.js");
-var isDetached = __webpack_require__(/*! ../internals/array-buffer-is-detached */ "../../../node_modules/core-js/internals/array-buffer-is-detached.js");
+var notDetached = __webpack_require__(/*! ../internals/array-buffer-not-detached */ "../../../node_modules/core-js/internals/array-buffer-not-detached.js");
 var arrayBufferByteLength = __webpack_require__(/*! ../internals/array-buffer-byte-length */ "../../../node_modules/core-js/internals/array-buffer-byte-length.js");
 var detachTransferable = __webpack_require__(/*! ../internals/detach-transferable */ "../../../node_modules/core-js/internals/detach-transferable.js");
 var PROPER_STRUCTURED_CLONE_TRANSFER = __webpack_require__(/*! ../internals/structured-clone-proper-transfer */ "../../../node_modules/core-js/internals/structured-clone-proper-transfer.js");
 
-var structuredClone = global.structuredClone;
-var ArrayBuffer = global.ArrayBuffer;
-var DataView = global.DataView;
-var TypeError = global.TypeError;
+var structuredClone = globalThis.structuredClone;
+var ArrayBuffer = globalThis.ArrayBuffer;
+var DataView = globalThis.DataView;
 var min = Math.min;
 var ArrayBufferPrototype = ArrayBuffer.prototype;
 var DataViewPrototype = DataView.prototype;
@@ -5150,7 +5175,7 @@ module.exports = (PROPER_STRUCTURED_CLONE_TRANSFER || detachTransferable) && fun
   var newByteLength = newLength === undefined ? byteLength : toIndex(newLength);
   var fixedLength = !isResizable || !isResizable(arrayBuffer);
   var newBuffer;
-  if (isDetached(arrayBuffer)) throw new TypeError('ArrayBuffer is detached');
+  notDetached(arrayBuffer);
   if (PROPER_STRUCTURED_CLONE_TRANSFER) {
     arrayBuffer = structuredClone(arrayBuffer, { transfer: [arrayBuffer] });
     if (byteLength === newByteLength && (preserveResizability || fixedLength)) return arrayBuffer;
@@ -5182,7 +5207,7 @@ module.exports = (PROPER_STRUCTURED_CLONE_TRANSFER || detachTransferable) && fun
 
 var NATIVE_ARRAY_BUFFER = __webpack_require__(/*! ../internals/array-buffer-basic-detection */ "../../../node_modules/core-js/internals/array-buffer-basic-detection.js");
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../node_modules/core-js/internals/descriptors.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var isCallable = __webpack_require__(/*! ../internals/is-callable */ "../../../node_modules/core-js/internals/is-callable.js");
 var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../node_modules/core-js/internals/is-object.js");
 var hasOwn = __webpack_require__(/*! ../internals/has-own-property */ "../../../node_modules/core-js/internals/has-own-property.js");
@@ -5200,20 +5225,20 @@ var InternalStateModule = __webpack_require__(/*! ../internals/internal-state */
 
 var enforceInternalState = InternalStateModule.enforce;
 var getInternalState = InternalStateModule.get;
-var Int8Array = global.Int8Array;
+var Int8Array = globalThis.Int8Array;
 var Int8ArrayPrototype = Int8Array && Int8Array.prototype;
-var Uint8ClampedArray = global.Uint8ClampedArray;
+var Uint8ClampedArray = globalThis.Uint8ClampedArray;
 var Uint8ClampedArrayPrototype = Uint8ClampedArray && Uint8ClampedArray.prototype;
 var TypedArray = Int8Array && getPrototypeOf(Int8Array);
 var TypedArrayPrototype = Int8ArrayPrototype && getPrototypeOf(Int8ArrayPrototype);
 var ObjectPrototype = Object.prototype;
-var TypeError = global.TypeError;
+var TypeError = globalThis.TypeError;
 
 var TO_STRING_TAG = wellKnownSymbol('toStringTag');
 var TYPED_ARRAY_TAG = uid('TYPED_ARRAY_TAG');
 var TYPED_ARRAY_CONSTRUCTOR = 'TypedArrayConstructor';
 // Fixing native typed arrays in Opera Presto crashes the browser, see #595
-var NATIVE_ARRAY_BUFFER_VIEWS = NATIVE_ARRAY_BUFFER && !!setPrototypeOf && classof(global.opera) !== 'Opera';
+var NATIVE_ARRAY_BUFFER_VIEWS = NATIVE_ARRAY_BUFFER && !!setPrototypeOf && classof(globalThis.opera) !== 'Opera';
 var TYPED_ARRAY_TAG_REQUIRED = false;
 var NAME, Constructor, Prototype;
 
@@ -5269,7 +5294,7 @@ var aTypedArrayConstructor = function (C) {
 var exportTypedArrayMethod = function (KEY, property, forced, options) {
   if (!DESCRIPTORS) return;
   if (forced) for (var ARRAY in TypedArrayConstructorsList) {
-    var TypedArrayConstructor = global[ARRAY];
+    var TypedArrayConstructor = globalThis[ARRAY];
     if (TypedArrayConstructor && hasOwn(TypedArrayConstructor.prototype, KEY)) try {
       delete TypedArrayConstructor.prototype[KEY];
     } catch (error) {
@@ -5290,7 +5315,7 @@ var exportTypedArrayStaticMethod = function (KEY, property, forced) {
   if (!DESCRIPTORS) return;
   if (setPrototypeOf) {
     if (forced) for (ARRAY in TypedArrayConstructorsList) {
-      TypedArrayConstructor = global[ARRAY];
+      TypedArrayConstructor = globalThis[ARRAY];
       if (TypedArrayConstructor && hasOwn(TypedArrayConstructor, KEY)) try {
         delete TypedArrayConstructor[KEY];
       } catch (error) { /* empty */ }
@@ -5303,7 +5328,7 @@ var exportTypedArrayStaticMethod = function (KEY, property, forced) {
     } else return;
   }
   for (ARRAY in TypedArrayConstructorsList) {
-    TypedArrayConstructor = global[ARRAY];
+    TypedArrayConstructor = globalThis[ARRAY];
     if (TypedArrayConstructor && (!TypedArrayConstructor[KEY] || forced)) {
       defineBuiltIn(TypedArrayConstructor, KEY, property);
     }
@@ -5311,14 +5336,14 @@ var exportTypedArrayStaticMethod = function (KEY, property, forced) {
 };
 
 for (NAME in TypedArrayConstructorsList) {
-  Constructor = global[NAME];
+  Constructor = globalThis[NAME];
   Prototype = Constructor && Constructor.prototype;
   if (Prototype) enforceInternalState(Prototype)[TYPED_ARRAY_CONSTRUCTOR] = Constructor;
   else NATIVE_ARRAY_BUFFER_VIEWS = false;
 }
 
 for (NAME in BigIntArrayConstructorsList) {
-  Constructor = global[NAME];
+  Constructor = globalThis[NAME];
   Prototype = Constructor && Constructor.prototype;
   if (Prototype) enforceInternalState(Prototype)[TYPED_ARRAY_CONSTRUCTOR] = Constructor;
 }
@@ -5330,14 +5355,14 @@ if (!NATIVE_ARRAY_BUFFER_VIEWS || !isCallable(TypedArray) || TypedArray === Func
     throw new TypeError('Incorrect invocation');
   };
   if (NATIVE_ARRAY_BUFFER_VIEWS) for (NAME in TypedArrayConstructorsList) {
-    if (global[NAME]) setPrototypeOf(global[NAME], TypedArray);
+    if (globalThis[NAME]) setPrototypeOf(globalThis[NAME], TypedArray);
   }
 }
 
 if (!NATIVE_ARRAY_BUFFER_VIEWS || !TypedArrayPrototype || TypedArrayPrototype === ObjectPrototype) {
   TypedArrayPrototype = TypedArray.prototype;
   if (NATIVE_ARRAY_BUFFER_VIEWS) for (NAME in TypedArrayConstructorsList) {
-    if (global[NAME]) setPrototypeOf(global[NAME].prototype, TypedArrayPrototype);
+    if (globalThis[NAME]) setPrototypeOf(globalThis[NAME].prototype, TypedArrayPrototype);
   }
 }
 
@@ -5354,8 +5379,8 @@ if (DESCRIPTORS && !hasOwn(TypedArrayPrototype, TO_STRING_TAG)) {
       return isObject(this) ? this[TYPED_ARRAY_TAG] : undefined;
     }
   });
-  for (NAME in TypedArrayConstructorsList) if (global[NAME]) {
-    createNonEnumerableProperty(global[NAME], TYPED_ARRAY_TAG, NAME);
+  for (NAME in TypedArrayConstructorsList) if (globalThis[NAME]) {
+    createNonEnumerableProperty(globalThis[NAME], TYPED_ARRAY_TAG, NAME);
   }
 }
 
@@ -5384,7 +5409,7 @@ module.exports = {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../node_modules/core-js/internals/descriptors.js");
 var NATIVE_ARRAY_BUFFER = __webpack_require__(/*! ../internals/array-buffer-basic-detection */ "../../../node_modules/core-js/internals/array-buffer-basic-detection.js");
@@ -5418,14 +5443,14 @@ var WRONG_INDEX = 'Wrong index';
 var getInternalArrayBufferState = InternalStateModule.getterFor(ARRAY_BUFFER);
 var getInternalDataViewState = InternalStateModule.getterFor(DATA_VIEW);
 var setInternalState = InternalStateModule.set;
-var NativeArrayBuffer = global[ARRAY_BUFFER];
+var NativeArrayBuffer = globalThis[ARRAY_BUFFER];
 var $ArrayBuffer = NativeArrayBuffer;
 var ArrayBufferPrototype = $ArrayBuffer && $ArrayBuffer[PROTOTYPE];
-var $DataView = global[DATA_VIEW];
+var $DataView = globalThis[DATA_VIEW];
 var DataViewPrototype = $DataView && $DataView[PROTOTYPE];
 var ObjectPrototype = Object.prototype;
-var Array = global.Array;
-var RangeError = global.RangeError;
+var Array = globalThis.Array;
+var RangeError = globalThis.RangeError;
 var fill = uncurryThis(arrayFill);
 var reverse = uncurryThis([].reverse);
 
@@ -5590,7 +5615,7 @@ if (!NATIVE_ARRAY_BUFFER) {
   });
 } else {
   var INCORRECT_ARRAY_BUFFER_NAME = PROPER_FUNCTION_NAME && NativeArrayBuffer.name !== ARRAY_BUFFER;
-  /* eslint-disable no-new -- required for testing */
+  /* eslint-disable no-new, sonar/inconsistent-function-call -- required for testing */
   if (!fails(function () {
     NativeArrayBuffer(1);
   }) || !fails(function () {
@@ -5601,7 +5626,7 @@ if (!NATIVE_ARRAY_BUFFER) {
     new NativeArrayBuffer(NaN);
     return NativeArrayBuffer.length !== 1 || INCORRECT_ARRAY_BUFFER_NAME && !CONFIGURABLE_FUNCTION_NAME;
   })) {
-    /* eslint-enable no-new -- required for testing */
+    /* eslint-enable no-new, sonar/inconsistent-function-call -- required for testing */
     $ArrayBuffer = function ArrayBuffer(length) {
       anInstance(this, ArrayBufferPrototype);
       return inheritIfRequired(new NativeArrayBuffer(toIndex(length)), this, $ArrayBuffer);
@@ -6043,7 +6068,7 @@ module.exports = FORCED ? function lastIndexOf(searchElement /* , fromIndex = @[
 
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../node_modules/core-js/internals/well-known-symbol.js");
-var V8_VERSION = __webpack_require__(/*! ../internals/engine-v8-version */ "../../../node_modules/core-js/internals/engine-v8-version.js");
+var V8_VERSION = __webpack_require__(/*! ../internals/environment-v8-version */ "../../../node_modules/core-js/internals/environment-v8-version.js");
 
 var SPECIES = wellKnownSymbol('species');
 
@@ -6551,8 +6576,8 @@ module.exports = {
       setInternalState(that, {
         type: CONSTRUCTOR_NAME,
         index: create(null),
-        first: undefined,
-        last: undefined,
+        first: null,
+        last: null,
         size: 0
       });
       if (!DESCRIPTORS) that.size = 0;
@@ -6577,7 +6602,7 @@ module.exports = {
           key: key,
           value: value,
           previous: previous = state.last,
-          next: undefined,
+          next: null,
           removed: false
         };
         if (!state.first) state.first = entry;
@@ -6611,10 +6636,10 @@ module.exports = {
         var entry = state.first;
         while (entry) {
           entry.removed = true;
-          if (entry.previous) entry.previous = entry.previous.next = undefined;
+          if (entry.previous) entry.previous = entry.previous.next = null;
           entry = entry.next;
         }
-        state.first = state.last = undefined;
+        state.first = state.last = null;
         state.index = create(null);
         if (DESCRIPTORS) state.size = 0;
         else that.size = 0;
@@ -6706,7 +6731,7 @@ module.exports = {
         target: iterated,
         state: getInternalCollectionState(iterated),
         kind: kind,
-        last: undefined
+        last: null
       });
     }, function () {
       var state = getInternalIteratorState(this);
@@ -6717,7 +6742,7 @@ module.exports = {
       // get next entry
       if (!state.target || !(state.last = entry = entry ? entry.next : state.state.first)) {
         // or finish the iteration
-        state.target = undefined;
+        state.target = null;
         return createIterResultObject(undefined, true);
       }
       // return step by kind
@@ -6807,7 +6832,7 @@ module.exports = {
       setInternalState(that, {
         type: CONSTRUCTOR_NAME,
         id: id++,
-        frozen: undefined
+        frozen: null
       });
       if (!isNullOrUndefined(iterable)) iterate(iterable, that[ADDER], { that: that, AS_ENTRIES: IS_MAP });
     });
@@ -6855,7 +6880,7 @@ module.exports = {
         if (isObject(key)) {
           var data = getWeakData(key);
           if (data === true) return uncaughtFrozenStore(state).get(key);
-          return data ? data[state.id] : undefined;
+          if (data) return data[state.id];
         }
       },
       // `WeakMap.prototype.set(key, value)` method
@@ -6887,7 +6912,7 @@ module.exports = {
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var isForced = __webpack_require__(/*! ../internals/is-forced */ "../../../node_modules/core-js/internals/is-forced.js");
 var defineBuiltIn = __webpack_require__(/*! ../internals/define-built-in */ "../../../node_modules/core-js/internals/define-built-in.js");
@@ -6906,7 +6931,7 @@ module.exports = function (CONSTRUCTOR_NAME, wrapper, common) {
   var IS_MAP = CONSTRUCTOR_NAME.indexOf('Map') !== -1;
   var IS_WEAK = CONSTRUCTOR_NAME.indexOf('Weak') !== -1;
   var ADDER = IS_MAP ? 'set' : 'add';
-  var NativeConstructor = global[CONSTRUCTOR_NAME];
+  var NativeConstructor = globalThis[CONSTRUCTOR_NAME];
   var NativePrototype = NativeConstructor && NativeConstructor.prototype;
   var Constructor = NativeConstructor;
   var exported = {};
@@ -7338,16 +7363,16 @@ module.exports = function (target, src, options) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 
 // eslint-disable-next-line es/no-object-defineproperty -- safe
 var defineProperty = Object.defineProperty;
 
 module.exports = function (key, value) {
   try {
-    defineProperty(global, key, { value: value, configurable: true, writable: true });
+    defineProperty(globalThis, key, { value: value, configurable: true, writable: true });
   } catch (error) {
-    global[key] = value;
+    globalThis[key] = value;
   } return value;
 };
 
@@ -7400,13 +7425,13 @@ module.exports = !fails(function () {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
-var tryNodeRequire = __webpack_require__(/*! ../internals/try-node-require */ "../../../node_modules/core-js/internals/try-node-require.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
+var getBuiltInNodeModule = __webpack_require__(/*! ../internals/get-built-in-node-module */ "../../../node_modules/core-js/internals/get-built-in-node-module.js");
 var PROPER_STRUCTURED_CLONE_TRANSFER = __webpack_require__(/*! ../internals/structured-clone-proper-transfer */ "../../../node_modules/core-js/internals/structured-clone-proper-transfer.js");
 
-var structuredClone = global.structuredClone;
-var $ArrayBuffer = global.ArrayBuffer;
-var $MessageChannel = global.MessageChannel;
+var structuredClone = globalThis.structuredClone;
+var $ArrayBuffer = globalThis.ArrayBuffer;
+var $MessageChannel = globalThis.MessageChannel;
 var detach = false;
 var WorkerThreads, channel, buffer, $detach;
 
@@ -7416,7 +7441,7 @@ if (PROPER_STRUCTURED_CLONE_TRANSFER) {
   };
 } else if ($ArrayBuffer) try {
   if (!$MessageChannel) {
-    WorkerThreads = tryNodeRequire('worker_threads');
+    WorkerThreads = getBuiltInNodeModule('worker_threads');
     if (WorkerThreads) $MessageChannel = WorkerThreads.MessageChannel;
   }
 
@@ -7448,10 +7473,10 @@ module.exports = detach;
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../node_modules/core-js/internals/is-object.js");
 
-var document = global.document;
+var document = globalThis.document;
 // typeof document.createElement is 'object' in old IE
 var EXISTS = isObject(document) && isObject(document.createElement);
 
@@ -7586,15 +7611,37 @@ module.exports = DOMTokenListPrototype === Object.prototype ? undefined : DOMTok
 
 /***/ }),
 
-/***/ "../../../node_modules/core-js/internals/engine-ff-version.js":
-/*!********************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/engine-ff-version.js ***!
-  \********************************************************************/
+/***/ "../../../node_modules/core-js/internals/enum-bug-keys.js":
+/*!****************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/enum-bug-keys.js ***!
+  \****************************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+// IE8- don't enum bug keys
+module.exports = [
+  'constructor',
+  'hasOwnProperty',
+  'isPrototypeOf',
+  'propertyIsEnumerable',
+  'toLocaleString',
+  'toString',
+  'valueOf'
+];
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/internals/environment-ff-version.js":
+/*!*************************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/environment-ff-version.js ***!
+  \*************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
-var userAgent = __webpack_require__(/*! ../internals/engine-user-agent */ "../../../node_modules/core-js/internals/engine-user-agent.js");
+var userAgent = __webpack_require__(/*! ../internals/environment-user-agent */ "../../../node_modules/core-js/internals/environment-user-agent.js");
 
 var firefox = userAgent.match(/firefox\/(\d+)/i);
 
@@ -7603,91 +7650,45 @@ module.exports = !!firefox && +firefox[1];
 
 /***/ }),
 
-/***/ "../../../node_modules/core-js/internals/engine-is-browser.js":
-/*!********************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/engine-is-browser.js ***!
-  \********************************************************************/
+/***/ "../../../node_modules/core-js/internals/environment-is-ie-or-edge.js":
+/*!****************************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/environment-is-ie-or-edge.js ***!
+  \****************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
-var IS_DENO = __webpack_require__(/*! ../internals/engine-is-deno */ "../../../node_modules/core-js/internals/engine-is-deno.js");
-var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "../../../node_modules/core-js/internals/engine-is-node.js");
-
-module.exports = !IS_DENO && !IS_NODE
-  && typeof window == 'object'
-  && typeof document == 'object';
-
-
-/***/ }),
-
-/***/ "../../../node_modules/core-js/internals/engine-is-bun.js":
-/*!****************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/engine-is-bun.js ***!
-  \****************************************************************/
-/***/ ((module) => {
-
-"use strict";
-
-/* global Bun -- Bun case */
-module.exports = typeof Bun == 'function' && Bun && typeof Bun.version == 'string';
-
-
-/***/ }),
-
-/***/ "../../../node_modules/core-js/internals/engine-is-deno.js":
-/*!*****************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/engine-is-deno.js ***!
-  \*****************************************************************/
-/***/ ((module) => {
-
-"use strict";
-
-/* global Deno -- Deno case */
-module.exports = typeof Deno == 'object' && Deno && typeof Deno.version == 'object';
-
-
-/***/ }),
-
-/***/ "../../../node_modules/core-js/internals/engine-is-ie-or-edge.js":
-/*!***********************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/engine-is-ie-or-edge.js ***!
-  \***********************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var UA = __webpack_require__(/*! ../internals/engine-user-agent */ "../../../node_modules/core-js/internals/engine-user-agent.js");
+var UA = __webpack_require__(/*! ../internals/environment-user-agent */ "../../../node_modules/core-js/internals/environment-user-agent.js");
 
 module.exports = /MSIE|Trident/.test(UA);
 
 
 /***/ }),
 
-/***/ "../../../node_modules/core-js/internals/engine-is-ios-pebble.js":
-/*!***********************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/engine-is-ios-pebble.js ***!
-  \***********************************************************************/
+/***/ "../../../node_modules/core-js/internals/environment-is-ios-pebble.js":
+/*!****************************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/environment-is-ios-pebble.js ***!
+  \****************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
-var userAgent = __webpack_require__(/*! ../internals/engine-user-agent */ "../../../node_modules/core-js/internals/engine-user-agent.js");
+var userAgent = __webpack_require__(/*! ../internals/environment-user-agent */ "../../../node_modules/core-js/internals/environment-user-agent.js");
 
 module.exports = /ipad|iphone|ipod/i.test(userAgent) && typeof Pebble != 'undefined';
 
 
 /***/ }),
 
-/***/ "../../../node_modules/core-js/internals/engine-is-ios.js":
-/*!****************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/engine-is-ios.js ***!
-  \****************************************************************/
+/***/ "../../../node_modules/core-js/internals/environment-is-ios.js":
+/*!*********************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/environment-is-ios.js ***!
+  \*********************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
-var userAgent = __webpack_require__(/*! ../internals/engine-user-agent */ "../../../node_modules/core-js/internals/engine-user-agent.js");
+var userAgent = __webpack_require__(/*! ../internals/environment-user-agent */ "../../../node_modules/core-js/internals/environment-user-agent.js");
 
 // eslint-disable-next-line redos/no-vulnerable -- safe
 module.exports = /(?:ipad|iphone|ipod).*applewebkit/i.test(userAgent);
@@ -7695,63 +7696,67 @@ module.exports = /(?:ipad|iphone|ipod).*applewebkit/i.test(userAgent);
 
 /***/ }),
 
-/***/ "../../../node_modules/core-js/internals/engine-is-node.js":
-/*!*****************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/engine-is-node.js ***!
-  \*****************************************************************/
+/***/ "../../../node_modules/core-js/internals/environment-is-node.js":
+/*!**********************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/environment-is-node.js ***!
+  \**********************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
-var classof = __webpack_require__(/*! ../internals/classof-raw */ "../../../node_modules/core-js/internals/classof-raw.js");
+var ENVIRONMENT = __webpack_require__(/*! ../internals/environment */ "../../../node_modules/core-js/internals/environment.js");
 
-module.exports = classof(global.process) === 'process';
+module.exports = ENVIRONMENT === 'NODE';
 
 
 /***/ }),
 
-/***/ "../../../node_modules/core-js/internals/engine-is-webos-webkit.js":
-/*!*************************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/engine-is-webos-webkit.js ***!
-  \*************************************************************************/
+/***/ "../../../node_modules/core-js/internals/environment-is-webos-webkit.js":
+/*!******************************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/environment-is-webos-webkit.js ***!
+  \******************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
-var userAgent = __webpack_require__(/*! ../internals/engine-user-agent */ "../../../node_modules/core-js/internals/engine-user-agent.js");
+var userAgent = __webpack_require__(/*! ../internals/environment-user-agent */ "../../../node_modules/core-js/internals/environment-user-agent.js");
 
 module.exports = /web0s(?!.*chrome)/i.test(userAgent);
 
 
 /***/ }),
 
-/***/ "../../../node_modules/core-js/internals/engine-user-agent.js":
-/*!********************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/engine-user-agent.js ***!
-  \********************************************************************/
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
-
-
-/***/ }),
-
-/***/ "../../../node_modules/core-js/internals/engine-v8-version.js":
-/*!********************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/engine-v8-version.js ***!
-  \********************************************************************/
+/***/ "../../../node_modules/core-js/internals/environment-user-agent.js":
+/*!*************************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/environment-user-agent.js ***!
+  \*************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
-var userAgent = __webpack_require__(/*! ../internals/engine-user-agent */ "../../../node_modules/core-js/internals/engine-user-agent.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 
-var process = global.process;
-var Deno = global.Deno;
+var navigator = globalThis.navigator;
+var userAgent = navigator && navigator.userAgent;
+
+module.exports = userAgent ? String(userAgent) : '';
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/internals/environment-v8-version.js":
+/*!*************************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/environment-v8-version.js ***!
+  \*************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
+var userAgent = __webpack_require__(/*! ../internals/environment-user-agent */ "../../../node_modules/core-js/internals/environment-user-agent.js");
+
+var process = globalThis.process;
+var Deno = globalThis.Deno;
 var versions = process && process.versions || Deno && Deno.version;
 var v8 = versions && versions.v8;
 var match, version;
@@ -7778,15 +7783,15 @@ module.exports = version;
 
 /***/ }),
 
-/***/ "../../../node_modules/core-js/internals/engine-webkit-version.js":
-/*!************************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/engine-webkit-version.js ***!
-  \************************************************************************/
+/***/ "../../../node_modules/core-js/internals/environment-webkit-version.js":
+/*!*****************************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/environment-webkit-version.js ***!
+  \*****************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
-var userAgent = __webpack_require__(/*! ../internals/engine-user-agent */ "../../../node_modules/core-js/internals/engine-user-agent.js");
+var userAgent = __webpack_require__(/*! ../internals/environment-user-agent */ "../../../node_modules/core-js/internals/environment-user-agent.js");
 
 var webkit = userAgent.match(/AppleWebKit\/(\d+)\./);
 
@@ -7795,24 +7800,34 @@ module.exports = !!webkit && +webkit[1];
 
 /***/ }),
 
-/***/ "../../../node_modules/core-js/internals/enum-bug-keys.js":
-/*!****************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/enum-bug-keys.js ***!
-  \****************************************************************/
-/***/ ((module) => {
+/***/ "../../../node_modules/core-js/internals/environment.js":
+/*!**************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/environment.js ***!
+  \**************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
-// IE8- don't enum bug keys
-module.exports = [
-  'constructor',
-  'hasOwnProperty',
-  'isPrototypeOf',
-  'propertyIsEnumerable',
-  'toLocaleString',
-  'toString',
-  'valueOf'
-];
+/* global Bun, Deno -- detection */
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
+var userAgent = __webpack_require__(/*! ../internals/environment-user-agent */ "../../../node_modules/core-js/internals/environment-user-agent.js");
+var classof = __webpack_require__(/*! ../internals/classof-raw */ "../../../node_modules/core-js/internals/classof-raw.js");
+
+var userAgentStartsWith = function (string) {
+  return userAgent.slice(0, string.length) === string;
+};
+
+module.exports = (function () {
+  if (userAgentStartsWith('Bun/')) return 'BUN';
+  if (userAgentStartsWith('Cloudflare-Workers')) return 'CLOUDFLARE';
+  if (userAgentStartsWith('Deno/')) return 'DENO';
+  if (userAgentStartsWith('Node.js/')) return 'NODE';
+  if (globalThis.Bun && typeof Bun.version == 'string') return 'BUN';
+  if (globalThis.Deno && typeof Deno.version == 'object') return 'DENO';
+  if (classof(globalThis.process) === 'process') return 'NODE';
+  if (globalThis.window && globalThis.document) return 'BROWSER';
+  return 'REST';
+})();
 
 
 /***/ }),
@@ -7939,7 +7954,7 @@ module.exports = INCORRECT_TO_STRING ? function toString() {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var getOwnPropertyDescriptor = (__webpack_require__(/*! ../internals/object-get-own-property-descriptor */ "../../../node_modules/core-js/internals/object-get-own-property-descriptor.js").f);
 var createNonEnumerableProperty = __webpack_require__(/*! ../internals/create-non-enumerable-property */ "../../../node_modules/core-js/internals/create-non-enumerable-property.js");
 var defineBuiltIn = __webpack_require__(/*! ../internals/define-built-in */ "../../../node_modules/core-js/internals/define-built-in.js");
@@ -7968,11 +7983,11 @@ module.exports = function (options, source) {
   var STATIC = options.stat;
   var FORCED, target, key, targetProperty, sourceProperty, descriptor;
   if (GLOBAL) {
-    target = global;
+    target = globalThis;
   } else if (STATIC) {
-    target = global[TARGET] || defineGlobalProperty(TARGET, {});
+    target = globalThis[TARGET] || defineGlobalProperty(TARGET, {});
   } else {
-    target = global[TARGET] && global[TARGET].prototype;
+    target = globalThis[TARGET] && globalThis[TARGET].prototype;
   }
   if (target) for (key in source) {
     sourceProperty = source[key];
@@ -8393,6 +8408,32 @@ module.exports = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
 
 /***/ }),
 
+/***/ "../../../node_modules/core-js/internals/get-built-in-node-module.js":
+/*!***************************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/get-built-in-node-module.js ***!
+  \***************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
+var IS_NODE = __webpack_require__(/*! ../internals/environment-is-node */ "../../../node_modules/core-js/internals/environment-is-node.js");
+
+module.exports = function (name) {
+  if (IS_NODE) {
+    try {
+      return globalThis.process.getBuiltinModule(name);
+    } catch (error) { /* empty */ }
+    try {
+      // eslint-disable-next-line no-new-func -- safe
+      return Function('return require("' + name + '")')();
+    } catch (error) { /* empty */ }
+  }
+};
+
+
+/***/ }),
+
 /***/ "../../../node_modules/core-js/internals/get-built-in-prototype-method.js":
 /*!********************************************************************************!*\
   !*** ../../../node_modules/core-js/internals/get-built-in-prototype-method.js ***!
@@ -8401,10 +8442,10 @@ module.exports = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 
 module.exports = function (CONSTRUCTOR, METHOD) {
-  var Constructor = global[CONSTRUCTOR];
+  var Constructor = globalThis[CONSTRUCTOR];
   var Prototype = Constructor && Constructor.prototype;
   return Prototype && Prototype[METHOD];
 };
@@ -8420,7 +8461,7 @@ module.exports = function (CONSTRUCTOR, METHOD) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var isCallable = __webpack_require__(/*! ../internals/is-callable */ "../../../node_modules/core-js/internals/is-callable.js");
 
 var aFunction = function (argument) {
@@ -8428,7 +8469,7 @@ var aFunction = function (argument) {
 };
 
 module.exports = function (namespace, method) {
-  return arguments.length < 2 ? aFunction(global[namespace]) : global[namespace] && global[namespace][method];
+  return arguments.length < 2 ? aFunction(globalThis[namespace]) : globalThis[namespace] && globalThis[namespace][method];
 };
 
 
@@ -8675,10 +8716,10 @@ module.exports = function (matched, str, position, captures, namedCaptures, repl
 
 /***/ }),
 
-/***/ "../../../node_modules/core-js/internals/global.js":
-/*!*********************************************************!*\
-  !*** ../../../node_modules/core-js/internals/global.js ***!
-  \*********************************************************/
+/***/ "../../../node_modules/core-js/internals/global-this.js":
+/*!**************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/global-this.js ***!
+  \**************************************************************/
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -8864,7 +8905,7 @@ var pack = function (number, mantissaLength, bytes) {
     exponent /= 256;
     exponentLength -= 8;
   }
-  buffer[--index] |= sign * 128;
+  buffer[index - 1] |= sign * 128;
   return buffer;
 };
 
@@ -9123,7 +9164,7 @@ hiddenKeys[METADATA] = true;
 "use strict";
 
 var NATIVE_WEAK_MAP = __webpack_require__(/*! ../internals/weak-map-basic-detection */ "../../../node_modules/core-js/internals/weak-map-basic-detection.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../node_modules/core-js/internals/is-object.js");
 var createNonEnumerableProperty = __webpack_require__(/*! ../internals/create-non-enumerable-property */ "../../../node_modules/core-js/internals/create-non-enumerable-property.js");
 var hasOwn = __webpack_require__(/*! ../internals/has-own-property */ "../../../node_modules/core-js/internals/has-own-property.js");
@@ -9132,8 +9173,8 @@ var sharedKey = __webpack_require__(/*! ../internals/shared-key */ "../../../nod
 var hiddenKeys = __webpack_require__(/*! ../internals/hidden-keys */ "../../../node_modules/core-js/internals/hidden-keys.js");
 
 var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
-var TypeError = global.TypeError;
-var WeakMap = global.WeakMap;
+var TypeError = globalThis.TypeError;
+var WeakMap = globalThis.WeakMap;
 var set, get, has;
 
 var enforce = function (it) {
@@ -10166,20 +10207,20 @@ module.exports = Math.trunc || function trunc(x) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var safeGetBuiltIn = __webpack_require__(/*! ../internals/safe-get-built-in */ "../../../node_modules/core-js/internals/safe-get-built-in.js");
 var bind = __webpack_require__(/*! ../internals/function-bind-context */ "../../../node_modules/core-js/internals/function-bind-context.js");
 var macrotask = (__webpack_require__(/*! ../internals/task */ "../../../node_modules/core-js/internals/task.js").set);
 var Queue = __webpack_require__(/*! ../internals/queue */ "../../../node_modules/core-js/internals/queue.js");
-var IS_IOS = __webpack_require__(/*! ../internals/engine-is-ios */ "../../../node_modules/core-js/internals/engine-is-ios.js");
-var IS_IOS_PEBBLE = __webpack_require__(/*! ../internals/engine-is-ios-pebble */ "../../../node_modules/core-js/internals/engine-is-ios-pebble.js");
-var IS_WEBOS_WEBKIT = __webpack_require__(/*! ../internals/engine-is-webos-webkit */ "../../../node_modules/core-js/internals/engine-is-webos-webkit.js");
-var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "../../../node_modules/core-js/internals/engine-is-node.js");
+var IS_IOS = __webpack_require__(/*! ../internals/environment-is-ios */ "../../../node_modules/core-js/internals/environment-is-ios.js");
+var IS_IOS_PEBBLE = __webpack_require__(/*! ../internals/environment-is-ios-pebble */ "../../../node_modules/core-js/internals/environment-is-ios-pebble.js");
+var IS_WEBOS_WEBKIT = __webpack_require__(/*! ../internals/environment-is-webos-webkit */ "../../../node_modules/core-js/internals/environment-is-webos-webkit.js");
+var IS_NODE = __webpack_require__(/*! ../internals/environment-is-node */ "../../../node_modules/core-js/internals/environment-is-node.js");
 
-var MutationObserver = global.MutationObserver || global.WebKitMutationObserver;
-var document = global.document;
-var process = global.process;
-var Promise = global.Promise;
+var MutationObserver = globalThis.MutationObserver || globalThis.WebKitMutationObserver;
+var document = globalThis.document;
+var process = globalThis.process;
+var Promise = globalThis.Promise;
 var microtask = safeGetBuiltIn('queueMicrotask');
 var notify, toggle, node, promise, then;
 
@@ -10231,7 +10272,7 @@ if (!microtask) {
   // - setTimeout
   } else {
     // `webpack` dev server bug on IE global methods - use bind(fn, global)
-    macrotask = bind(macrotask, global);
+    macrotask = bind(macrotask, globalThis);
     notify = function () {
       macrotask(flush);
     };
@@ -10326,9 +10367,9 @@ module.exports = function (it) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 
-var globalIsFinite = global.isFinite;
+var globalIsFinite = globalThis.isFinite;
 
 // `Number.isFinite` method
 // https://tc39.es/ecma262/#sec-number.isfinite
@@ -10348,7 +10389,7 @@ module.exports = Number.isFinite || function isFinite(it) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var toString = __webpack_require__(/*! ../internals/to-string */ "../../../node_modules/core-js/internals/to-string.js");
@@ -10356,8 +10397,8 @@ var trim = (__webpack_require__(/*! ../internals/string-trim */ "../../../node_m
 var whitespaces = __webpack_require__(/*! ../internals/whitespaces */ "../../../node_modules/core-js/internals/whitespaces.js");
 
 var charAt = uncurryThis(''.charAt);
-var $parseFloat = global.parseFloat;
-var Symbol = global.Symbol;
+var $parseFloat = globalThis.parseFloat;
+var Symbol = globalThis.Symbol;
 var ITERATOR = Symbol && Symbol.iterator;
 var FORCED = 1 / $parseFloat(whitespaces + '-0') !== -Infinity
   // MS Edge 18- broken with boxed symbols
@@ -10382,15 +10423,15 @@ module.exports = FORCED ? function parseFloat(string) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var toString = __webpack_require__(/*! ../internals/to-string */ "../../../node_modules/core-js/internals/to-string.js");
 var trim = (__webpack_require__(/*! ../internals/string-trim */ "../../../node_modules/core-js/internals/string-trim.js").trim);
 var whitespaces = __webpack_require__(/*! ../internals/whitespaces */ "../../../node_modules/core-js/internals/whitespaces.js");
 
-var $parseInt = global.parseInt;
-var Symbol = global.Symbol;
+var $parseInt = globalThis.parseInt;
+var Symbol = globalThis.Symbol;
 var ITERATOR = Symbol && Symbol.iterator;
 var hex = /^[+-]?0x/i;
 var exec = uncurryThis(hex.exec);
@@ -10510,7 +10551,8 @@ var NullProtoObjectViaActiveX = function (activeXDocument) {
   activeXDocument.write(scriptTag(''));
   activeXDocument.close();
   var temp = activeXDocument.parentWindow.Object;
-  activeXDocument = null; // avoid memory leak
+  // eslint-disable-next-line no-useless-assignment -- avoid memory leak
+  activeXDocument = null;
   return temp;
 };
 
@@ -10926,10 +10968,12 @@ exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
 
 "use strict";
 
+/* eslint-disable no-undef, no-useless-call, sonar/no-reference-error -- required for testing */
+/* eslint-disable es/no-legacy-object-prototype-accessor-methods -- required for testing */
 var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
-var WEBKIT = __webpack_require__(/*! ../internals/engine-webkit-version */ "../../../node_modules/core-js/internals/engine-webkit-version.js");
+var WEBKIT = __webpack_require__(/*! ../internals/environment-webkit-version */ "../../../node_modules/core-js/internals/environment-webkit-version.js");
 
 // Forced replacement object prototype accessors methods
 module.exports = IS_PURE || !fails(function () {
@@ -10938,9 +10982,8 @@ module.exports = IS_PURE || !fails(function () {
   if (WEBKIT && WEBKIT < 535) return;
   var key = Math.random();
   // In FF throws only define methods
-  // eslint-disable-next-line no-undef, no-useless-call, es/no-legacy-object-prototype-accessor-methods -- required for testing
   __defineSetter__.call(null, key, function () { /* empty */ });
-  delete global[key];
+  delete globalThis[key];
 });
 
 
@@ -11127,9 +11170,9 @@ module.exports = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 
-module.exports = global;
+module.exports = globalThis;
 
 
 /***/ }),
@@ -11161,21 +11204,20 @@ module.exports = function (exec) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var NativePromiseConstructor = __webpack_require__(/*! ../internals/promise-native-constructor */ "../../../node_modules/core-js/internals/promise-native-constructor.js");
 var isCallable = __webpack_require__(/*! ../internals/is-callable */ "../../../node_modules/core-js/internals/is-callable.js");
 var isForced = __webpack_require__(/*! ../internals/is-forced */ "../../../node_modules/core-js/internals/is-forced.js");
 var inspectSource = __webpack_require__(/*! ../internals/inspect-source */ "../../../node_modules/core-js/internals/inspect-source.js");
 var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../node_modules/core-js/internals/well-known-symbol.js");
-var IS_BROWSER = __webpack_require__(/*! ../internals/engine-is-browser */ "../../../node_modules/core-js/internals/engine-is-browser.js");
-var IS_DENO = __webpack_require__(/*! ../internals/engine-is-deno */ "../../../node_modules/core-js/internals/engine-is-deno.js");
+var ENVIRONMENT = __webpack_require__(/*! ../internals/environment */ "../../../node_modules/core-js/internals/environment.js");
 var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
-var V8_VERSION = __webpack_require__(/*! ../internals/engine-v8-version */ "../../../node_modules/core-js/internals/engine-v8-version.js");
+var V8_VERSION = __webpack_require__(/*! ../internals/environment-v8-version */ "../../../node_modules/core-js/internals/environment-v8-version.js");
 
 var NativePromisePrototype = NativePromiseConstructor && NativePromiseConstructor.prototype;
 var SPECIES = wellKnownSymbol('species');
 var SUBCLASSING = false;
-var NATIVE_PROMISE_REJECTION_EVENT = isCallable(global.PromiseRejectionEvent);
+var NATIVE_PROMISE_REJECTION_EVENT = isCallable(globalThis.PromiseRejectionEvent);
 
 var FORCED_PROMISE_CONSTRUCTOR = isForced('Promise', function () {
   var PROMISE_CONSTRUCTOR_SOURCE = inspectSource(NativePromiseConstructor);
@@ -11200,7 +11242,7 @@ var FORCED_PROMISE_CONSTRUCTOR = isForced('Promise', function () {
     SUBCLASSING = promise.then(function () { /* empty */ }) instanceof FakePromise;
     if (!SUBCLASSING) return true;
   // Unhandled rejections tracking support, NodeJS Promise without it fails @@species test
-  } return !GLOBAL_CORE_JS_PROMISE && (IS_BROWSER || IS_DENO) && !NATIVE_PROMISE_REJECTION_EVENT;
+  } return !GLOBAL_CORE_JS_PROMISE && (ENVIRONMENT === 'BROWSER' || ENVIRONMENT === 'DENO') && !NATIVE_PROMISE_REJECTION_EVENT;
 });
 
 module.exports = {
@@ -11220,9 +11262,9 @@ module.exports = {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 
-module.exports = global.Promise;
+module.exports = globalThis.Promise;
 
 
 /***/ }),
@@ -11549,10 +11591,10 @@ module.exports = function (R) {
 "use strict";
 
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 
 // babel-minify and Closure Compiler transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
-var $RegExp = global.RegExp;
+var $RegExp = globalThis.RegExp;
 
 var UNSUPPORTED_Y = fails(function () {
   var re = $RegExp('a', 'y');
@@ -11591,10 +11633,10 @@ module.exports = {
 "use strict";
 
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 
 // babel-minify and Closure Compiler transpiles RegExp('.', 's') -> /./s and it causes SyntaxError
-var $RegExp = global.RegExp;
+var $RegExp = globalThis.RegExp;
 
 module.exports = fails(function () {
   var re = $RegExp('.', 's');
@@ -11613,10 +11655,10 @@ module.exports = fails(function () {
 "use strict";
 
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 
 // babel-minify and Closure Compiler transpiles RegExp('(?<a>b)', 'g') -> /(?<a>b)/g and it causes SyntaxError
-var $RegExp = global.RegExp;
+var $RegExp = globalThis.RegExp;
 
 module.exports = fails(function () {
   var re = $RegExp('(?<a>b)', 'g');
@@ -11657,7 +11699,7 @@ module.exports = function (it) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../node_modules/core-js/internals/descriptors.js");
 
 // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
@@ -11665,8 +11707,8 @@ var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 
 // Avoid NodeJS experimental warning
 module.exports = function (name) {
-  if (!DESCRIPTORS) return global[name];
-  var descriptor = getOwnPropertyDescriptor(global, name);
+  if (!DESCRIPTORS) return globalThis[name];
+  var descriptor = getOwnPropertyDescriptor(globalThis, name);
   return descriptor && descriptor.value;
 };
 
@@ -11700,18 +11742,18 @@ module.exports = Object.is || function is(x, y) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var apply = __webpack_require__(/*! ../internals/function-apply */ "../../../node_modules/core-js/internals/function-apply.js");
 var isCallable = __webpack_require__(/*! ../internals/is-callable */ "../../../node_modules/core-js/internals/is-callable.js");
-var ENGINE_IS_BUN = __webpack_require__(/*! ../internals/engine-is-bun */ "../../../node_modules/core-js/internals/engine-is-bun.js");
-var USER_AGENT = __webpack_require__(/*! ../internals/engine-user-agent */ "../../../node_modules/core-js/internals/engine-user-agent.js");
+var ENVIRONMENT = __webpack_require__(/*! ../internals/environment */ "../../../node_modules/core-js/internals/environment.js");
+var USER_AGENT = __webpack_require__(/*! ../internals/environment-user-agent */ "../../../node_modules/core-js/internals/environment-user-agent.js");
 var arraySlice = __webpack_require__(/*! ../internals/array-slice */ "../../../node_modules/core-js/internals/array-slice.js");
 var validateArgumentsLength = __webpack_require__(/*! ../internals/validate-arguments-length */ "../../../node_modules/core-js/internals/validate-arguments-length.js");
 
-var Function = global.Function;
+var Function = globalThis.Function;
 // dirty IE9- and Bun 0.3.0- checks
-var WRAP = /MSIE .\./.test(USER_AGENT) || ENGINE_IS_BUN && (function () {
-  var version = global.Bun.version.split('.');
+var WRAP = /MSIE .\./.test(USER_AGENT) || ENVIRONMENT === 'BUN' && (function () {
+  var version = globalThis.Bun.version.split('.');
   return version.length < 3 || version[0] === '0' && (version[1] < 3 || version[1] === '3' && version[2] === '0');
 })();
 
@@ -12187,17 +12229,17 @@ module.exports = function (key) {
 "use strict";
 
 var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
-var globalThis = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var defineGlobalProperty = __webpack_require__(/*! ../internals/define-global-property */ "../../../node_modules/core-js/internals/define-global-property.js");
 
 var SHARED = '__core-js_shared__';
 var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 (store.versions || (store.versions = [])).push({
-  version: '3.37.1',
+  version: '3.38.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.37.1/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -12326,7 +12368,7 @@ module.exports = {
 "use strict";
 
 // https://github.com/zloirock/core-js/issues/280
-var userAgent = __webpack_require__(/*! ../internals/engine-user-agent */ "../../../node_modules/core-js/internals/engine-user-agent.js");
+var userAgent = __webpack_require__(/*! ../internals/environment-user-agent */ "../../../node_modules/core-js/internals/environment-user-agent.js");
 
 module.exports = /Version\/10(?:\.\d+){1,2}(?: [\w./]+)?(?: Mobile\/\w+)? Safari\//.test(userAgent);
 
@@ -12721,19 +12763,17 @@ module.exports = {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
-var V8 = __webpack_require__(/*! ../internals/engine-v8-version */ "../../../node_modules/core-js/internals/engine-v8-version.js");
-var IS_BROWSER = __webpack_require__(/*! ../internals/engine-is-browser */ "../../../node_modules/core-js/internals/engine-is-browser.js");
-var IS_DENO = __webpack_require__(/*! ../internals/engine-is-deno */ "../../../node_modules/core-js/internals/engine-is-deno.js");
-var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "../../../node_modules/core-js/internals/engine-is-node.js");
+var V8 = __webpack_require__(/*! ../internals/environment-v8-version */ "../../../node_modules/core-js/internals/environment-v8-version.js");
+var ENVIRONMENT = __webpack_require__(/*! ../internals/environment */ "../../../node_modules/core-js/internals/environment.js");
 
-var structuredClone = global.structuredClone;
+var structuredClone = globalThis.structuredClone;
 
 module.exports = !!structuredClone && !fails(function () {
   // prevent V8 ArrayBufferDetaching protector cell invalidation and performance degradation
   // https://github.com/zloirock/core-js/issues/679
-  if ((IS_DENO && V8 > 92) || (IS_NODE && V8 > 94) || (IS_BROWSER && V8 > 97)) return false;
+  if ((ENVIRONMENT === 'DENO' && V8 > 92) || (ENVIRONMENT === 'NODE' && V8 > 94) || (ENVIRONMENT === 'BROWSER' && V8 > 97)) return false;
   var buffer = new ArrayBuffer(8);
   var clone = structuredClone(buffer, { transfer: [buffer] });
   return buffer.byteLength !== 0 || clone.byteLength !== 8;
@@ -12751,11 +12791,11 @@ module.exports = !!structuredClone && !fails(function () {
 "use strict";
 
 /* eslint-disable es/no-symbol -- required for testing */
-var V8_VERSION = __webpack_require__(/*! ../internals/engine-v8-version */ "../../../node_modules/core-js/internals/engine-v8-version.js");
+var V8_VERSION = __webpack_require__(/*! ../internals/environment-v8-version */ "../../../node_modules/core-js/internals/environment-v8-version.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 
-var $String = global.String;
+var $String = globalThis.String;
 
 // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
 module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
@@ -12828,7 +12868,7 @@ module.exports = NATIVE_SYMBOL && !!Symbol['for'] && !!Symbol.keyFor;
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var apply = __webpack_require__(/*! ../internals/function-apply */ "../../../node_modules/core-js/internals/function-apply.js");
 var bind = __webpack_require__(/*! ../internals/function-bind-context */ "../../../node_modules/core-js/internals/function-bind-context.js");
 var isCallable = __webpack_require__(/*! ../internals/is-callable */ "../../../node_modules/core-js/internals/is-callable.js");
@@ -12838,16 +12878,16 @@ var html = __webpack_require__(/*! ../internals/html */ "../../../node_modules/c
 var arraySlice = __webpack_require__(/*! ../internals/array-slice */ "../../../node_modules/core-js/internals/array-slice.js");
 var createElement = __webpack_require__(/*! ../internals/document-create-element */ "../../../node_modules/core-js/internals/document-create-element.js");
 var validateArgumentsLength = __webpack_require__(/*! ../internals/validate-arguments-length */ "../../../node_modules/core-js/internals/validate-arguments-length.js");
-var IS_IOS = __webpack_require__(/*! ../internals/engine-is-ios */ "../../../node_modules/core-js/internals/engine-is-ios.js");
-var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "../../../node_modules/core-js/internals/engine-is-node.js");
+var IS_IOS = __webpack_require__(/*! ../internals/environment-is-ios */ "../../../node_modules/core-js/internals/environment-is-ios.js");
+var IS_NODE = __webpack_require__(/*! ../internals/environment-is-node */ "../../../node_modules/core-js/internals/environment-is-node.js");
 
-var set = global.setImmediate;
-var clear = global.clearImmediate;
-var process = global.process;
-var Dispatch = global.Dispatch;
-var Function = global.Function;
-var MessageChannel = global.MessageChannel;
-var String = global.String;
+var set = globalThis.setImmediate;
+var clear = globalThis.clearImmediate;
+var process = globalThis.process;
+var Dispatch = globalThis.Dispatch;
+var Function = globalThis.Function;
+var MessageChannel = globalThis.MessageChannel;
+var String = globalThis.String;
 var counter = 0;
 var queue = {};
 var ONREADYSTATECHANGE = 'onreadystatechange';
@@ -12855,7 +12895,7 @@ var $location, defer, channel, port;
 
 fails(function () {
   // Deno throws a ReferenceError on `location` access without `--location` flag
-  $location = global.location;
+  $location = globalThis.location;
 });
 
 var run = function (id) {
@@ -12878,7 +12918,7 @@ var eventListener = function (event) {
 
 var globalPostMessageDefer = function (id) {
   // old engines have not location.origin
-  global.postMessage(String(id), $location.protocol + '//' + $location.host);
+  globalThis.postMessage(String(id), $location.protocol + '//' + $location.host);
 };
 
 // Node.js 0.9+ & IE10+ has setImmediate, otherwise:
@@ -12916,14 +12956,14 @@ if (!set || !clear) {
   // Browsers with postMessage, skip WebWorkers
   // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
   } else if (
-    global.addEventListener &&
-    isCallable(global.postMessage) &&
-    !global.importScripts &&
+    globalThis.addEventListener &&
+    isCallable(globalThis.postMessage) &&
+    !globalThis.importScripts &&
     $location && $location.protocol !== 'file:' &&
     !fails(globalPostMessageDefer)
   ) {
     defer = globalPostMessageDefer;
-    global.addEventListener('message', eventListener, false);
+    globalThis.addEventListener('message', eventListener, false);
   // IE8-
   } else if (ONREADYSTATECHANGE in createElement('script')) {
     defer = function (id) {
@@ -13280,26 +13320,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "../../../node_modules/core-js/internals/try-node-require.js":
-/*!*******************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/try-node-require.js ***!
-  \*******************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "../../../node_modules/core-js/internals/engine-is-node.js");
-
-module.exports = function (name) {
-  try {
-    // eslint-disable-next-line no-new-func -- safe
-    if (IS_NODE) return Function('return require("' + name + '")')();
-  } catch (error) { /* empty */ }
-};
-
-
-/***/ }),
-
 /***/ "../../../node_modules/core-js/internals/try-to-string.js":
 /*!****************************************************************!*\
   !*** ../../../node_modules/core-js/internals/try-to-string.js ***!
@@ -13330,7 +13350,7 @@ module.exports = function (argument) {
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../node_modules/core-js/internals/descriptors.js");
 var TYPED_ARRAYS_CONSTRUCTORS_REQUIRES_WRAPPERS = __webpack_require__(/*! ../internals/typed-array-constructors-require-wrappers */ "../../../node_modules/core-js/internals/typed-array-constructors-require-wrappers.js");
@@ -13368,7 +13388,7 @@ var setInternalState = InternalStateModule.set;
 var enforceInternalState = InternalStateModule.enforce;
 var nativeDefineProperty = definePropertyModule.f;
 var nativeGetOwnPropertyDescriptor = getOwnPropertyDescriptorModule.f;
-var RangeError = global.RangeError;
+var RangeError = globalThis.RangeError;
 var ArrayBuffer = ArrayBufferModule.ArrayBuffer;
 var ArrayBufferPrototype = ArrayBuffer.prototype;
 var DataView = ArrayBufferModule.DataView;
@@ -13446,7 +13466,7 @@ if (DESCRIPTORS) {
     var CONSTRUCTOR_NAME = TYPE + (CLAMPED ? 'Clamped' : '') + 'Array';
     var GETTER = 'get' + TYPE;
     var SETTER = 'set' + TYPE;
-    var NativeTypedArrayConstructor = global[CONSTRUCTOR_NAME];
+    var NativeTypedArrayConstructor = globalThis[CONSTRUCTOR_NAME];
     var TypedArrayConstructor = NativeTypedArrayConstructor;
     var TypedArrayConstructorPrototype = TypedArrayConstructor && TypedArrayConstructor.prototype;
     var exported = {};
@@ -13576,14 +13596,14 @@ if (DESCRIPTORS) {
 
 "use strict";
 
-/* eslint-disable no-new -- required for testing */
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+/* eslint-disable no-new, sonar/inconsistent-function-call -- required for testing */
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 var checkCorrectnessOfIteration = __webpack_require__(/*! ../internals/check-correctness-of-iteration */ "../../../node_modules/core-js/internals/check-correctness-of-iteration.js");
 var NATIVE_ARRAY_BUFFER_VIEWS = (__webpack_require__(/*! ../internals/array-buffer-view-core */ "../../../node_modules/core-js/internals/array-buffer-view-core.js").NATIVE_ARRAY_BUFFER_VIEWS);
 
-var ArrayBuffer = global.ArrayBuffer;
-var Int8Array = global.Int8Array;
+var ArrayBuffer = globalThis.ArrayBuffer;
+var Int8Array = globalThis.Int8Array;
 
 module.exports = !NATIVE_ARRAY_BUFFER_VIEWS || !fails(function () {
   Int8Array(1);
@@ -13734,7 +13754,7 @@ var ITERATOR = wellKnownSymbol('iterator');
 
 module.exports = !fails(function () {
   // eslint-disable-next-line unicorn/relative-url-style -- required for testing
-  var url = new URL('b?a=1&b=2&c=3', 'http://a');
+  var url = new URL('b?a=1&b=2&c=3', 'https://a');
   var params = url.searchParams;
   var params2 = new URLSearchParams('a=1&a=2&b=3');
   var result = '';
@@ -13750,7 +13770,7 @@ module.exports = !fails(function () {
   return (IS_PURE && (!url.toJSON || !params2.has('a', 1) || params2.has('a', 2) || !params2.has('a', undefined) || params2.has('b')))
     || (!params.size && (IS_PURE || !DESCRIPTORS))
     || !params.sort
-    || url.href !== 'http://a/c%20d?a=1&c=3'
+    || url.href !== 'https://a/c%20d?a=1&c=3'
     || params.get('c') !== '3'
     || String(new URLSearchParams('?a=1')) !== 'a=1'
     || !params[ITERATOR]
@@ -13758,13 +13778,13 @@ module.exports = !fails(function () {
     || new URL('https://a@b').username !== 'a'
     || new URLSearchParams(new URLSearchParams('a=b')).get('a') !== 'b'
     // not punycoded in Edge
-    || new URL('http://тест').host !== 'xn--e1aybc'
+    || new URL('https://тест').host !== 'xn--e1aybc'
     // not escaped in Chrome 62-
-    || new URL('http://a#б').hash !== '#%D0%B1'
+    || new URL('https://a#б').hash !== '#%D0%B1'
     // fails in Chrome 66-
     || result !== 'a1c3'
     // throws in Safari
-    || new URL('http://x', undefined).host !== 'x';
+    || new URL('https://x', undefined).host !== 'x';
 });
 
 
@@ -13838,10 +13858,10 @@ module.exports = function (passed, required) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var isCallable = __webpack_require__(/*! ../internals/is-callable */ "../../../node_modules/core-js/internals/is-callable.js");
 
-var WeakMap = global.WeakMap;
+var WeakMap = globalThis.WeakMap;
 
 module.exports = isCallable(WeakMap) && /native code/.test(String(WeakMap));
 
@@ -13894,14 +13914,14 @@ exports.f = wellKnownSymbol;
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var shared = __webpack_require__(/*! ../internals/shared */ "../../../node_modules/core-js/internals/shared.js");
 var hasOwn = __webpack_require__(/*! ../internals/has-own-property */ "../../../node_modules/core-js/internals/has-own-property.js");
 var uid = __webpack_require__(/*! ../internals/uid */ "../../../node_modules/core-js/internals/uid.js");
 var NATIVE_SYMBOL = __webpack_require__(/*! ../internals/symbol-constructor-detection */ "../../../node_modules/core-js/internals/symbol-constructor-detection.js");
 var USE_SYMBOL_AS_UID = __webpack_require__(/*! ../internals/use-symbol-as-uid */ "../../../node_modules/core-js/internals/use-symbol-as-uid.js");
 
-var Symbol = global.Symbol;
+var Symbol = globalThis.Symbol;
 var WellKnownSymbolsStore = shared('wks');
 var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol['for'] || Symbol : Symbol && Symbol.withoutSetter || uid;
 
@@ -14126,13 +14146,13 @@ __webpack_require__(/*! ../modules/es.aggregate-error.constructor */ "../../../n
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var arrayBufferModule = __webpack_require__(/*! ../internals/array-buffer */ "../../../node_modules/core-js/internals/array-buffer.js");
 var setSpecies = __webpack_require__(/*! ../internals/set-species */ "../../../node_modules/core-js/internals/set-species.js");
 
 var ARRAY_BUFFER = 'ArrayBuffer';
 var ArrayBuffer = arrayBufferModule[ARRAY_BUFFER];
-var NativeArrayBuffer = global[ARRAY_BUFFER];
+var NativeArrayBuffer = globalThis[ARRAY_BUFFER];
 
 // `ArrayBuffer` constructor
 // https://tc39.es/ecma262/#sec-arraybuffer-constructor
@@ -14338,7 +14358,7 @@ var createProperty = __webpack_require__(/*! ../internals/create-property */ "..
 var arraySpeciesCreate = __webpack_require__(/*! ../internals/array-species-create */ "../../../node_modules/core-js/internals/array-species-create.js");
 var arrayMethodHasSpeciesSupport = __webpack_require__(/*! ../internals/array-method-has-species-support */ "../../../node_modules/core-js/internals/array-method-has-species-support.js");
 var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../node_modules/core-js/internals/well-known-symbol.js");
-var V8_VERSION = __webpack_require__(/*! ../internals/engine-v8-version */ "../../../node_modules/core-js/internals/engine-v8-version.js");
+var V8_VERSION = __webpack_require__(/*! ../internals/environment-v8-version */ "../../../node_modules/core-js/internals/environment-v8-version.js");
 
 var IS_CONCAT_SPREADABLE = wellKnownSymbol('isConcatSpreadable');
 
@@ -14846,7 +14866,7 @@ module.exports = defineIterator(Array, 'Array', function (iterated, kind) {
   var target = state.target;
   var index = state.index++;
   if (!target || index >= target.length) {
-    state.target = undefined;
+    state.target = null;
     return createIterResultObject(undefined, true);
   }
   switch (state.kind) {
@@ -15052,8 +15072,8 @@ $({ target: 'Array', proto: true, arity: 1, forced: FORCED }, {
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
 var $reduceRight = (__webpack_require__(/*! ../internals/array-reduce */ "../../../node_modules/core-js/internals/array-reduce.js").right);
 var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "../../../node_modules/core-js/internals/array-method-is-strict.js");
-var CHROME_VERSION = __webpack_require__(/*! ../internals/engine-v8-version */ "../../../node_modules/core-js/internals/engine-v8-version.js");
-var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "../../../node_modules/core-js/internals/engine-is-node.js");
+var CHROME_VERSION = __webpack_require__(/*! ../internals/environment-v8-version */ "../../../node_modules/core-js/internals/environment-v8-version.js");
+var IS_NODE = __webpack_require__(/*! ../internals/environment-is-node */ "../../../node_modules/core-js/internals/environment-is-node.js");
 
 // Chrome 80-82 has a critical bug
 // https://bugs.chromium.org/p/chromium/issues/detail?id=1049982
@@ -15082,8 +15102,8 @@ $({ target: 'Array', proto: true, forced: FORCED }, {
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
 var $reduce = (__webpack_require__(/*! ../internals/array-reduce */ "../../../node_modules/core-js/internals/array-reduce.js").left);
 var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "../../../node_modules/core-js/internals/array-method-is-strict.js");
-var CHROME_VERSION = __webpack_require__(/*! ../internals/engine-v8-version */ "../../../node_modules/core-js/internals/engine-v8-version.js");
-var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "../../../node_modules/core-js/internals/engine-is-node.js");
+var CHROME_VERSION = __webpack_require__(/*! ../internals/environment-v8-version */ "../../../node_modules/core-js/internals/environment-v8-version.js");
+var IS_NODE = __webpack_require__(/*! ../internals/environment-is-node */ "../../../node_modules/core-js/internals/environment-is-node.js");
 
 // Chrome 80-82 has a critical bug
 // https://bugs.chromium.org/p/chromium/issues/detail?id=1049982
@@ -15235,10 +15255,10 @@ var toString = __webpack_require__(/*! ../internals/to-string */ "../../../node_
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 var internalSort = __webpack_require__(/*! ../internals/array-sort */ "../../../node_modules/core-js/internals/array-sort.js");
 var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "../../../node_modules/core-js/internals/array-method-is-strict.js");
-var FF = __webpack_require__(/*! ../internals/engine-ff-version */ "../../../node_modules/core-js/internals/engine-ff-version.js");
-var IE_OR_EDGE = __webpack_require__(/*! ../internals/engine-is-ie-or-edge */ "../../../node_modules/core-js/internals/engine-is-ie-or-edge.js");
-var V8 = __webpack_require__(/*! ../internals/engine-v8-version */ "../../../node_modules/core-js/internals/engine-v8-version.js");
-var WEBKIT = __webpack_require__(/*! ../internals/engine-webkit-version */ "../../../node_modules/core-js/internals/engine-webkit-version.js");
+var FF = __webpack_require__(/*! ../internals/environment-ff-version */ "../../../node_modules/core-js/internals/environment-ff-version.js");
+var IE_OR_EDGE = __webpack_require__(/*! ../internals/environment-is-ie-or-edge */ "../../../node_modules/core-js/internals/environment-is-ie-or-edge.js");
+var V8 = __webpack_require__(/*! ../internals/environment-v8-version */ "../../../node_modules/core-js/internals/environment-v8-version.js");
+var WEBKIT = __webpack_require__(/*! ../internals/environment-webkit-version */ "../../../node_modules/core-js/internals/environment-webkit-version.js");
 
 var test = [];
 var nativeSort = uncurryThis(test.sort);
@@ -15925,12 +15945,12 @@ if (String(new Date(NaN)) !== INVALID_DATE) {
 
 /* eslint-disable no-unused-vars -- required for functions `.length` */
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var apply = __webpack_require__(/*! ../internals/function-apply */ "../../../node_modules/core-js/internals/function-apply.js");
 var wrapErrorConstructorWithCause = __webpack_require__(/*! ../internals/wrap-error-constructor-with-cause */ "../../../node_modules/core-js/internals/wrap-error-constructor-with-cause.js");
 
 var WEB_ASSEMBLY = 'WebAssembly';
-var WebAssembly = global[WEB_ASSEMBLY];
+var WebAssembly = globalThis[WEB_ASSEMBLY];
 
 // eslint-disable-next-line es/no-error-cause -- feature detection
 var FORCED = new Error('e', { cause: 7 }).cause !== 7;
@@ -16159,12 +16179,12 @@ if (DESCRIPTORS && !FUNCTION_NAME_EXISTS) {
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 
 // `globalThis` object
 // https://tc39.es/ecma262/#sec-globalthis
-$({ global: true, forced: global.globalThis !== global }, {
-  globalThis: global
+$({ global: true, forced: globalThis.globalThis !== globalThis }, {
+  globalThis: globalThis
 });
 
 
@@ -16262,12 +16282,12 @@ if ($stringify) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var setToStringTag = __webpack_require__(/*! ../internals/set-to-string-tag */ "../../../node_modules/core-js/internals/set-to-string-tag.js");
 
 // JSON[@@toStringTag] property
 // https://tc39.es/ecma262/#sec-json-@@tostringtag
-setToStringTag(global.JSON, 'JSON', true);
+setToStringTag(globalThis.JSON, 'JSON', true);
 
 
 /***/ }),
@@ -16845,7 +16865,7 @@ $({ target: 'Math', stat: true }, {
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
 var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../node_modules/core-js/internals/descriptors.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var path = __webpack_require__(/*! ../internals/path */ "../../../node_modules/core-js/internals/path.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var isForced = __webpack_require__(/*! ../internals/is-forced */ "../../../node_modules/core-js/internals/is-forced.js");
@@ -16862,10 +16882,10 @@ var thisNumberValue = __webpack_require__(/*! ../internals/this-number-value */ 
 var trim = (__webpack_require__(/*! ../internals/string-trim */ "../../../node_modules/core-js/internals/string-trim.js").trim);
 
 var NUMBER = 'Number';
-var NativeNumber = global[NUMBER];
+var NativeNumber = globalThis[NUMBER];
 var PureNumberNamespace = path[NUMBER];
 var NumberPrototype = NativeNumber.prototype;
-var TypeError = global.TypeError;
+var TypeError = globalThis.TypeError;
 var stringSlice = uncurryThis(''.slice);
 var charCodeAt = uncurryThis(''.charCodeAt);
 
@@ -17210,10 +17230,7 @@ $({ target: 'Number', proto: true, forced: FORCED }, {
     if (f < 0 || f > 20) throw new $RangeError('Incorrect fraction digits');
     if (ROUNDS_PROPERLY) return nativeToExponential(x, f);
     var s = '';
-    var m = '';
-    var e = 0;
-    var c = '';
-    var d = '';
+    var m, e, c, d;
     if (x < 0) {
       s = '-';
       x = -x;
@@ -17226,9 +17243,8 @@ $({ target: 'Number', proto: true, forced: FORCED }, {
       // TODO: improve accuracy with big fraction digits
       var l = log10(x);
       e = floor(l);
-      var n = 0;
       var w = pow(10, e - f);
-      n = round(x / w);
+      var n = round(x / w);
       if (2 * x >= (2 * n + 1) * w) {
         n += 1;
       }
@@ -17817,7 +17833,7 @@ var toPropertyKey = __webpack_require__(/*! ../internals/to-property-key */ "../
 var iterate = __webpack_require__(/*! ../internals/iterate */ "../../../node_modules/core-js/internals/iterate.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 
-// eslint-disable-next-line es/no-object-map-groupby -- testing
+// eslint-disable-next-line es/no-object-groupby -- testing
 var nativeGroupBy = Object.groupBy;
 var create = getBuiltIn('Object', 'create');
 var push = uncurryThis([].push);
@@ -18483,8 +18499,8 @@ if (!IS_PURE && isCallable(NativePromiseConstructor)) {
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
 var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
-var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "../../../node_modules/core-js/internals/engine-is-node.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var IS_NODE = __webpack_require__(/*! ../internals/environment-is-node */ "../../../node_modules/core-js/internals/environment-is-node.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
 var defineBuiltIn = __webpack_require__(/*! ../internals/define-built-in */ "../../../node_modules/core-js/internals/define-built-in.js");
 var setPrototypeOf = __webpack_require__(/*! ../internals/object-set-prototype-of */ "../../../node_modules/core-js/internals/object-set-prototype-of.js");
@@ -18514,13 +18530,13 @@ var setInternalState = InternalStateModule.set;
 var NativePromisePrototype = NativePromiseConstructor && NativePromiseConstructor.prototype;
 var PromiseConstructor = NativePromiseConstructor;
 var PromisePrototype = NativePromisePrototype;
-var TypeError = global.TypeError;
-var document = global.document;
-var process = global.process;
+var TypeError = globalThis.TypeError;
+var document = globalThis.document;
+var process = globalThis.process;
 var newPromiseCapability = newPromiseCapabilityModule.f;
 var newGenericPromiseCapability = newPromiseCapability;
 
-var DISPATCH_EVENT = !!(document && document.createEvent && global.dispatchEvent);
+var DISPATCH_EVENT = !!(document && document.createEvent && globalThis.dispatchEvent);
 var UNHANDLED_REJECTION = 'unhandledrejection';
 var REJECTION_HANDLED = 'rejectionhandled';
 var PENDING = 0;
@@ -18593,14 +18609,14 @@ var dispatchEvent = function (name, promise, reason) {
     event.promise = promise;
     event.reason = reason;
     event.initEvent(name, false, true);
-    global.dispatchEvent(event);
+    globalThis.dispatchEvent(event);
   } else event = { promise: promise, reason: reason };
-  if (!NATIVE_PROMISE_REJECTION_EVENT && (handler = global['on' + name])) handler(event);
+  if (!NATIVE_PROMISE_REJECTION_EVENT && (handler = globalThis['on' + name])) handler(event);
   else if (name === UNHANDLED_REJECTION) hostReportErrors('Unhandled promise rejection', reason);
 };
 
 var onUnhandled = function (state) {
-  call(task, global, function () {
+  call(task, globalThis, function () {
     var promise = state.facade;
     var value = state.value;
     var IS_UNHANDLED = isUnhandled(state);
@@ -18623,7 +18639,7 @@ var isUnhandled = function (state) {
 };
 
 var onHandleUnhandled = function (state) {
-  call(task, global, function () {
+  call(task, globalThis, function () {
     var promise = state.facade;
     if (IS_NODE) {
       process.emit('rejectionHandled', promise);
@@ -18702,7 +18718,7 @@ if (FORCED_PROMISE_CONSTRUCTOR) {
       reactions: new Queue(),
       rejection: false,
       state: PENDING,
-      value: undefined
+      value: null
     });
   };
 
@@ -19408,14 +19424,14 @@ $({ target: 'Reflect', stat: true, forced: MS_EDGE_BUG }, {
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var setToStringTag = __webpack_require__(/*! ../internals/set-to-string-tag */ "../../../node_modules/core-js/internals/set-to-string-tag.js");
 
 $({ global: true }, { Reflect: {} });
 
 // Reflect[@@toStringTag] property
 // https://tc39.es/ecma262/#sec-reflect-@@tostringtag
-setToStringTag(global.Reflect, 'Reflect', true);
+setToStringTag(globalThis.Reflect, 'Reflect', true);
 
 
 /***/ }),
@@ -19429,7 +19445,7 @@ setToStringTag(global.Reflect, 'Reflect', true);
 "use strict";
 
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../node_modules/core-js/internals/descriptors.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var isForced = __webpack_require__(/*! ../internals/is-forced */ "../../../node_modules/core-js/internals/is-forced.js");
 var inheritIfRequired = __webpack_require__(/*! ../internals/inherit-if-required */ "../../../node_modules/core-js/internals/inherit-if-required.js");
@@ -19452,9 +19468,9 @@ var UNSUPPORTED_DOT_ALL = __webpack_require__(/*! ../internals/regexp-unsupporte
 var UNSUPPORTED_NCG = __webpack_require__(/*! ../internals/regexp-unsupported-ncg */ "../../../node_modules/core-js/internals/regexp-unsupported-ncg.js");
 
 var MATCH = wellKnownSymbol('match');
-var NativeRegExp = global.RegExp;
+var NativeRegExp = globalThis.RegExp;
 var RegExpPrototype = NativeRegExp.prototype;
-var SyntaxError = global.SyntaxError;
+var SyntaxError = globalThis.SyntaxError;
 var exec = uncurryThis(RegExpPrototype.exec);
 var charAt = uncurryThis(''.charAt);
 var replace = uncurryThis(''.replace);
@@ -19475,6 +19491,7 @@ var BASE_FORCED = DESCRIPTORS &&
   (!CORRECT_NEW || MISSED_STICKY || UNSUPPORTED_DOT_ALL || UNSUPPORTED_NCG || fails(function () {
     re2[MATCH] = false;
     // RegExp constructor can alter flags and IsRegExp works correct with @@match
+    // eslint-disable-next-line sonar/inconsistent-function-call -- required for testing
     return NativeRegExp(re1) !== re1 || NativeRegExp(re2) === re2 || String(NativeRegExp(re1, 'i')) !== '/a/i';
   }));
 
@@ -19524,11 +19541,15 @@ var handleNCG = function (string) {
         brackets = true;
         break;
       case chr === '(':
+        result += chr;
+        // ignore non-capturing groups
+        if (stringSlice(string, index + 1, index + 3) === '?:') {
+          continue;
+        }
         if (exec(IS_NCG, stringSlice(string, index + 1))) {
           index += 2;
           ncg = true;
         }
-        result += chr;
         groupid++;
         continue;
       case chr === '>' && ncg:
@@ -19614,7 +19635,7 @@ if (isForced('RegExp', BASE_FORCED)) {
 
   RegExpPrototype.constructor = RegExpWrapper;
   RegExpWrapper.prototype = RegExpPrototype;
-  defineBuiltIn(global, 'RegExp', RegExpWrapper, { constructor: true });
+  defineBuiltIn(globalThis, 'RegExp', RegExpWrapper, { constructor: true });
 }
 
 // https://tc39.es/ecma262/#sec-get-regexp-@@species
@@ -19688,14 +19709,14 @@ $({ target: 'RegExp', proto: true, forced: /./.exec !== exec }, {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../node_modules/core-js/internals/descriptors.js");
 var defineBuiltInAccessor = __webpack_require__(/*! ../internals/define-built-in-accessor */ "../../../node_modules/core-js/internals/define-built-in-accessor.js");
 var regExpFlags = __webpack_require__(/*! ../internals/regexp-flags */ "../../../node_modules/core-js/internals/regexp-flags.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 
 // babel-minify and Closure Compiler transpiles RegExp('.', 'd') -> /./d and it causes SyntaxError
-var RegExp = global.RegExp;
+var RegExp = globalThis.RegExp;
 var RegExpPrototype = RegExp.prototype;
 
 var FORCED = DESCRIPTORS && fails(function () {
@@ -20095,7 +20116,7 @@ var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules
 var charAt = uncurryThis(''.charAt);
 
 var FORCED = fails(function () {
-  // eslint-disable-next-line es/no-array-string-prototype-at -- safe
+  // eslint-disable-next-line es/no-string-prototype-at -- safe
   return '𠮷'.at(-2) !== '\uD842';
 });
 
@@ -20827,8 +20848,7 @@ var max = Math.max;
 $({ target: 'String', proto: true }, {
   replaceAll: function replaceAll(searchValue, replaceValue) {
     var O = requireObjectCoercible(this);
-    var IS_REG_EXP, flags, replacer, string, searchString, functionalReplace, searchLength, advanceBy, replacement;
-    var position = 0;
+    var IS_REG_EXP, flags, replacer, string, searchString, functionalReplace, searchLength, advanceBy, position, replacement;
     var endOfLastMatch = 0;
     var result = '';
     if (!isNullOrUndefined(searchValue)) {
@@ -20838,11 +20858,8 @@ $({ target: 'String', proto: true }, {
         if (!~indexOf(flags, 'g')) throw new $TypeError('`.replaceAll` does not allow non-global regexes');
       }
       replacer = getMethod(searchValue, REPLACE);
-      if (replacer) {
-        return call(replacer, searchValue, O, replaceValue);
-      } else if (IS_PURE && IS_REG_EXP) {
-        return replace(toString(O), searchValue, replaceValue);
-      }
+      if (replacer) return call(replacer, searchValue, O, replaceValue);
+      if (IS_PURE && IS_REG_EXP) return replace(toString(O), searchValue, replaceValue);
     }
     string = toString(O);
     searchString = toString(searchValue);
@@ -21388,7 +21405,7 @@ var $Array = Array;
 var charAt = uncurryThis(''.charAt);
 var charCodeAt = uncurryThis(''.charCodeAt);
 var join = uncurryThis([].join);
-// eslint-disable-next-line es/no-string-prototype-iswellformed-towellformed -- safe
+// eslint-disable-next-line es/no-string-prototype-towellformed -- safe
 var $toWellFormed = ''.toWellFormed;
 var REPLACEMENT_CHARACTER = '\uFFFD';
 
@@ -21560,7 +21577,7 @@ defineWellKnownSymbol('asyncIterator');
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
@@ -21605,11 +21622,11 @@ var setInternalState = InternalStateModule.set;
 var getInternalState = InternalStateModule.getterFor(SYMBOL);
 
 var ObjectPrototype = Object[PROTOTYPE];
-var $Symbol = global.Symbol;
+var $Symbol = globalThis.Symbol;
 var SymbolPrototype = $Symbol && $Symbol[PROTOTYPE];
-var RangeError = global.RangeError;
-var TypeError = global.TypeError;
-var QObject = global.QObject;
+var RangeError = globalThis.RangeError;
+var TypeError = globalThis.TypeError;
+var QObject = globalThis.QObject;
 var nativeGetOwnPropertyDescriptor = getOwnPropertyDescriptorModule.f;
 var nativeDefineProperty = definePropertyModule.f;
 var nativeGetOwnPropertyNames = getOwnPropertyNamesExternal.f;
@@ -21728,7 +21745,7 @@ if (!NATIVE_SYMBOL) {
     var description = !arguments.length || arguments[0] === undefined ? undefined : $toString(arguments[0]);
     var tag = uid(description);
     var setter = function (value) {
-      var $this = this === undefined ? global : this;
+      var $this = this === undefined ? globalThis : this;
       if ($this === ObjectPrototype) call(setter, ObjectPrototypeSymbols, value);
       if (hasOwn($this, HIDDEN) && hasOwn($this[HIDDEN], tag)) $this[HIDDEN][tag] = false;
       var descriptor = createPropertyDescriptor(1, value);
@@ -21837,7 +21854,7 @@ hiddenKeys[HIDDEN] = true;
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../node_modules/core-js/internals/descriptors.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var hasOwn = __webpack_require__(/*! ../internals/has-own-property */ "../../../node_modules/core-js/internals/has-own-property.js");
 var isCallable = __webpack_require__(/*! ../internals/is-callable */ "../../../node_modules/core-js/internals/is-callable.js");
@@ -21846,7 +21863,7 @@ var toString = __webpack_require__(/*! ../internals/to-string */ "../../../node_
 var defineBuiltInAccessor = __webpack_require__(/*! ../internals/define-built-in-accessor */ "../../../node_modules/core-js/internals/define-built-in-accessor.js");
 var copyConstructorProperties = __webpack_require__(/*! ../internals/copy-constructor-properties */ "../../../node_modules/core-js/internals/copy-constructor-properties.js");
 
-var NativeSymbol = global.Symbol;
+var NativeSymbol = globalThis.Symbol;
 var SymbolPrototype = NativeSymbol && NativeSymbol.prototype;
 
 if (DESCRIPTORS && isCallable(NativeSymbol) && (!('description' in SymbolPrototype) ||
@@ -21858,6 +21875,7 @@ if (DESCRIPTORS && isCallable(NativeSymbol) && (!('description' in SymbolPrototy
   var SymbolWrapper = function Symbol() {
     var description = arguments.length < 1 || arguments[0] === undefined ? undefined : toString(arguments[0]);
     var result = isPrototypeOf(SymbolPrototype, this)
+      // eslint-disable-next-line sonar/inconsistent-function-call -- ok
       ? new NativeSymbol(description)
       // in Edge 13, String(Symbol(undefined)) === 'Symbol(undefined)'
       : description === undefined ? NativeSymbol() : NativeSymbol(description);
@@ -22625,7 +22643,7 @@ createTypedArrayConstructor('Int8', function (init) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "../../../node_modules/core-js/internals/array-buffer-view-core.js");
@@ -22633,7 +22651,7 @@ var ArrayIterators = __webpack_require__(/*! ../modules/es.array.iterator */ "..
 var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../node_modules/core-js/internals/well-known-symbol.js");
 
 var ITERATOR = wellKnownSymbol('iterator');
-var Uint8Array = global.Uint8Array;
+var Uint8Array = globalThis.Uint8Array;
 var arrayValues = uncurryThis(ArrayIterators.values);
 var arrayKeys = uncurryThis(ArrayIterators.keys);
 var arrayEntries = uncurryThis(ArrayIterators.entries);
@@ -22864,7 +22882,7 @@ exportTypedArrayMethod('reverse', function reverse() {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
 var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "../../../node_modules/core-js/internals/array-buffer-view-core.js");
 var lengthOfArrayLike = __webpack_require__(/*! ../internals/length-of-array-like */ "../../../node_modules/core-js/internals/length-of-array-like.js");
@@ -22872,8 +22890,8 @@ var toOffset = __webpack_require__(/*! ../internals/to-offset */ "../../../node_
 var toIndexedObject = __webpack_require__(/*! ../internals/to-object */ "../../../node_modules/core-js/internals/to-object.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 
-var RangeError = global.RangeError;
-var Int8Array = global.Int8Array;
+var RangeError = globalThis.RangeError;
+var Int8Array = globalThis.Int8Array;
 var Int8ArrayPrototype = Int8Array && Int8Array.prototype;
 var $set = Int8ArrayPrototype && Int8ArrayPrototype.set;
 var aTypedArray = ArrayBufferViewCore.aTypedArray;
@@ -22978,20 +22996,20 @@ exportTypedArrayMethod('some', function some(callbackfn /* , thisArg */) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this-clause */ "../../../node_modules/core-js/internals/function-uncurry-this-clause.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 var aCallable = __webpack_require__(/*! ../internals/a-callable */ "../../../node_modules/core-js/internals/a-callable.js");
 var internalSort = __webpack_require__(/*! ../internals/array-sort */ "../../../node_modules/core-js/internals/array-sort.js");
 var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "../../../node_modules/core-js/internals/array-buffer-view-core.js");
-var FF = __webpack_require__(/*! ../internals/engine-ff-version */ "../../../node_modules/core-js/internals/engine-ff-version.js");
-var IE_OR_EDGE = __webpack_require__(/*! ../internals/engine-is-ie-or-edge */ "../../../node_modules/core-js/internals/engine-is-ie-or-edge.js");
-var V8 = __webpack_require__(/*! ../internals/engine-v8-version */ "../../../node_modules/core-js/internals/engine-v8-version.js");
-var WEBKIT = __webpack_require__(/*! ../internals/engine-webkit-version */ "../../../node_modules/core-js/internals/engine-webkit-version.js");
+var FF = __webpack_require__(/*! ../internals/environment-ff-version */ "../../../node_modules/core-js/internals/environment-ff-version.js");
+var IE_OR_EDGE = __webpack_require__(/*! ../internals/environment-is-ie-or-edge */ "../../../node_modules/core-js/internals/environment-is-ie-or-edge.js");
+var V8 = __webpack_require__(/*! ../internals/environment-v8-version */ "../../../node_modules/core-js/internals/environment-v8-version.js");
+var WEBKIT = __webpack_require__(/*! ../internals/environment-webkit-version */ "../../../node_modules/core-js/internals/environment-webkit-version.js");
 
 var aTypedArray = ArrayBufferViewCore.aTypedArray;
 var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
-var Uint16Array = global.Uint16Array;
+var Uint16Array = globalThis.Uint16Array;
 var nativeSort = Uint16Array && uncurryThis(Uint16Array.prototype.sort);
 
 // WebKit
@@ -23092,13 +23110,13 @@ exportTypedArrayMethod('subarray', function subarray(begin, end) {
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var apply = __webpack_require__(/*! ../internals/function-apply */ "../../../node_modules/core-js/internals/function-apply.js");
 var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "../../../node_modules/core-js/internals/array-buffer-view-core.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 var arraySlice = __webpack_require__(/*! ../internals/array-slice */ "../../../node_modules/core-js/internals/array-slice.js");
 
-var Int8Array = global.Int8Array;
+var Int8Array = globalThis.Int8Array;
 var aTypedArray = ArrayBufferViewCore.aTypedArray;
 var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
 var $toLocaleString = [].toLocaleString;
@@ -23191,10 +23209,10 @@ exportTypedArrayMethod('toSorted', function toSorted(compareFn) {
 
 var exportTypedArrayMethod = (__webpack_require__(/*! ../internals/array-buffer-view-core */ "../../../node_modules/core-js/internals/array-buffer-view-core.js").exportTypedArrayMethod);
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 
-var Uint8Array = global.Uint8Array;
+var Uint8Array = globalThis.Uint8Array;
 var Uint8ArrayPrototype = Uint8Array && Uint8Array.prototype || {};
 var arrayToString = [].toString;
 var join = uncurryThis([].join);
@@ -23404,7 +23422,7 @@ $({ global: true }, {
 "use strict";
 
 var FREEZING = __webpack_require__(/*! ../internals/freezing */ "../../../node_modules/core-js/internals/freezing.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var defineBuiltIns = __webpack_require__(/*! ../internals/define-built-ins */ "../../../node_modules/core-js/internals/define-built-ins.js");
 var InternalMetadataModule = __webpack_require__(/*! ../internals/internal-metadata */ "../../../node_modules/core-js/internals/internal-metadata.js");
@@ -23429,7 +23447,7 @@ var freeze = $Object.freeze;
 // eslint-disable-next-line es/no-object-seal -- safe
 var seal = $Object.seal;
 
-var IS_IE11 = !global.ActiveXObject && 'ActiveXObject' in global;
+var IS_IE11 = !globalThis.ActiveXObject && 'ActiveXObject' in globalThis;
 var InternalWeakMap;
 
 var wrapper = function (init) {
@@ -23569,7 +23587,7 @@ __webpack_require__(/*! ../modules/es.weak-set.constructor */ "../../../node_mod
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var getBuiltIn = __webpack_require__(/*! ../internals/get-built-in */ "../../../node_modules/core-js/internals/get-built-in.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
@@ -23614,7 +23632,7 @@ $({ global: true, bind: true, enumerable: true, forced: FORCED }, {
   atob: function atob(data) {
     validateArgumentsLength(arguments.length, 1);
     // `webpack` dev server bug on IE global methods - use call(fn, global, ...)
-    if (BASIC && !NO_SPACES_IGNORE && !NO_ENCODING_CHECK) return call($atob, global, data);
+    if (BASIC && !NO_SPACES_IGNORE && !NO_ENCODING_CHECK) return call($atob, globalThis, data);
     var string = replace(toString(data), whitespaces, '');
     var output = '';
     var position = 0;
@@ -23647,7 +23665,7 @@ $({ global: true, bind: true, enumerable: true, forced: FORCED }, {
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var getBuiltIn = __webpack_require__(/*! ../internals/get-built-in */ "../../../node_modules/core-js/internals/get-built-in.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
@@ -23680,7 +23698,7 @@ $({ global: true, bind: true, enumerable: true, forced: !BASIC || NO_ARG_RECEIVI
   btoa: function btoa(data) {
     validateArgumentsLength(arguments.length, 1);
     // `webpack` dev server bug on IE global methods - use call(fn, global, ...)
-    if (BASIC) return call($btoa, global, toString(data));
+    if (BASIC) return call($btoa, globalThis, toString(data));
     var string = toString(data);
     var output = '';
     var position = 0;
@@ -23709,12 +23727,12 @@ $({ global: true, bind: true, enumerable: true, forced: !BASIC || NO_ARG_RECEIVI
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var clearImmediate = (__webpack_require__(/*! ../internals/task */ "../../../node_modules/core-js/internals/task.js").clear);
 
 // `clearImmediate` method
 // http://w3c.github.io/setImmediate/#si-clearImmediate
-$({ global: true, bind: true, enumerable: true, forced: global.clearImmediate !== clearImmediate }, {
+$({ global: true, bind: true, enumerable: true, forced: globalThis.clearImmediate !== clearImmediate }, {
   clearImmediate: clearImmediate
 });
 
@@ -23729,7 +23747,7 @@ $({ global: true, bind: true, enumerable: true, forced: global.clearImmediate !=
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var DOMIterables = __webpack_require__(/*! ../internals/dom-iterables */ "../../../node_modules/core-js/internals/dom-iterables.js");
 var DOMTokenListPrototype = __webpack_require__(/*! ../internals/dom-token-list-prototype */ "../../../node_modules/core-js/internals/dom-token-list-prototype.js");
 var forEach = __webpack_require__(/*! ../internals/array-for-each */ "../../../node_modules/core-js/internals/array-for-each.js");
@@ -23746,7 +23764,7 @@ var handlePrototype = function (CollectionPrototype) {
 
 for (var COLLECTION_NAME in DOMIterables) {
   if (DOMIterables[COLLECTION_NAME]) {
-    handlePrototype(global[COLLECTION_NAME] && global[COLLECTION_NAME].prototype);
+    handlePrototype(globalThis[COLLECTION_NAME] && globalThis[COLLECTION_NAME].prototype);
   }
 }
 
@@ -23763,7 +23781,7 @@ handlePrototype(DOMTokenListPrototype);
 
 "use strict";
 
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var DOMIterables = __webpack_require__(/*! ../internals/dom-iterables */ "../../../node_modules/core-js/internals/dom-iterables.js");
 var DOMTokenListPrototype = __webpack_require__(/*! ../internals/dom-token-list-prototype */ "../../../node_modules/core-js/internals/dom-token-list-prototype.js");
 var ArrayIteratorMethods = __webpack_require__(/*! ../modules/es.array.iterator */ "../../../node_modules/core-js/modules/es.array.iterator.js");
@@ -23795,7 +23813,7 @@ var handlePrototype = function (CollectionPrototype, COLLECTION_NAME) {
 };
 
 for (var COLLECTION_NAME in DOMIterables) {
-  handlePrototype(global[COLLECTION_NAME] && global[COLLECTION_NAME].prototype, COLLECTION_NAME);
+  handlePrototype(globalThis[COLLECTION_NAME] && globalThis[COLLECTION_NAME].prototype, COLLECTION_NAME);
 }
 
 handlePrototype(DOMTokenListPrototype, 'DOMTokenList');
@@ -23812,8 +23830,8 @@ handlePrototype(DOMTokenListPrototype, 'DOMTokenList');
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var tryNodeRequire = __webpack_require__(/*! ../internals/try-node-require */ "../../../node_modules/core-js/internals/try-node-require.js");
 var getBuiltIn = __webpack_require__(/*! ../internals/get-built-in */ "../../../node_modules/core-js/internals/get-built-in.js");
+var getBuiltInNodeModule = __webpack_require__(/*! ../internals/get-built-in-node-module */ "../../../node_modules/core-js/internals/get-built-in-node-module.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 var create = __webpack_require__(/*! ../internals/object-create */ "../../../node_modules/core-js/internals/object-create.js");
 var createPropertyDescriptor = __webpack_require__(/*! ../internals/create-property-descriptor */ "../../../node_modules/core-js/internals/create-property-descriptor.js");
@@ -23838,7 +23856,7 @@ var Error = getBuiltIn('Error');
 var NativeDOMException = getBuiltIn(DOM_EXCEPTION) || (function () {
   try {
     // NodeJS < 15.0 does not expose `MessageChannel` to global
-    var MessageChannel = getBuiltIn('MessageChannel') || tryNodeRequire('worker_threads').MessageChannel;
+    var MessageChannel = getBuiltIn('MessageChannel') || getBuiltInNodeModule('worker_threads').MessageChannel;
     // eslint-disable-next-line es/no-weak-map, unicorn/require-post-message-target-origin -- safe
     new MessageChannel().port1.postMessage(new WeakMap());
   } catch (error) {
@@ -23968,7 +23986,7 @@ for (var key in DOMExceptionConstants) if (hasOwn(DOMExceptionConstants, key)) {
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var getBuiltIn = __webpack_require__(/*! ../internals/get-built-in */ "../../../node_modules/core-js/internals/get-built-in.js");
 var createPropertyDescriptor = __webpack_require__(/*! ../internals/create-property-descriptor */ "../../../node_modules/core-js/internals/create-property-descriptor.js");
 var defineProperty = (__webpack_require__(/*! ../internals/object-define-property */ "../../../node_modules/core-js/internals/object-define-property.js").f);
@@ -24004,7 +24022,7 @@ var ERROR_HAS_STACK = 'stack' in new Error(DOM_EXCEPTION);
 var DOM_EXCEPTION_HAS_STACK = 'stack' in new NativeDOMException(1, 2);
 
 // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
-var descriptor = NativeDOMException && DESCRIPTORS && Object.getOwnPropertyDescriptor(global, DOM_EXCEPTION);
+var descriptor = NativeDOMException && DESCRIPTORS && Object.getOwnPropertyDescriptor(globalThis, DOM_EXCEPTION);
 
 // Bun ~ 0.1.1 DOMException have incorrect descriptor and we can't redefine it
 // https://github.com/Jarred-Sumner/bun/issues/399
@@ -24081,7 +24099,7 @@ __webpack_require__(/*! ../modules/web.set-immediate */ "../../../node_modules/c
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var globalThis = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var microtask = __webpack_require__(/*! ../internals/microtask */ "../../../node_modules/core-js/internals/microtask.js");
 var aCallable = __webpack_require__(/*! ../internals/a-callable */ "../../../node_modules/core-js/internals/a-callable.js");
 var validateArgumentsLength = __webpack_require__(/*! ../internals/validate-arguments-length */ "../../../node_modules/core-js/internals/validate-arguments-length.js");
@@ -24117,31 +24135,31 @@ $({ global: true, enumerable: true, dontCallGetSet: true, forced: WRONG_ARITY },
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var defineBuiltInAccessor = __webpack_require__(/*! ../internals/define-built-in-accessor */ "../../../node_modules/core-js/internals/define-built-in-accessor.js");
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../node_modules/core-js/internals/descriptors.js");
 
 var $TypeError = TypeError;
 // eslint-disable-next-line es/no-object-defineproperty -- safe
 var defineProperty = Object.defineProperty;
-var INCORRECT_VALUE = global.self !== global;
+var INCORRECT_VALUE = globalThis.self !== globalThis;
 
 // `self` getter
 // https://html.spec.whatwg.org/multipage/window-object.html#dom-self
 try {
   if (DESCRIPTORS) {
     // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
-    var descriptor = Object.getOwnPropertyDescriptor(global, 'self');
+    var descriptor = Object.getOwnPropertyDescriptor(globalThis, 'self');
     // some engines have `self`, but with incorrect descriptor
     // https://github.com/denoland/deno/issues/15765
     if (INCORRECT_VALUE || !descriptor || !descriptor.get || !descriptor.enumerable) {
-      defineBuiltInAccessor(global, 'self', {
+      defineBuiltInAccessor(globalThis, 'self', {
         get: function self() {
-          return global;
+          return globalThis;
         },
         set: function self(value) {
-          if (this !== global) throw new $TypeError('Illegal invocation');
-          defineProperty(global, 'self', {
+          if (this !== globalThis) throw new $TypeError('Illegal invocation');
+          defineProperty(globalThis, 'self', {
             value: value,
             writable: true,
             configurable: true,
@@ -24153,7 +24171,7 @@ try {
       });
     }
   } else $({ global: true, simple: true, forced: INCORRECT_VALUE }, {
-    self: global
+    self: globalThis
   });
 } catch (error) { /* empty */ }
 
@@ -24169,16 +24187,16 @@ try {
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var setTask = (__webpack_require__(/*! ../internals/task */ "../../../node_modules/core-js/internals/task.js").set);
 var schedulersFix = __webpack_require__(/*! ../internals/schedulers-fix */ "../../../node_modules/core-js/internals/schedulers-fix.js");
 
 // https://github.com/oven-sh/bun/issues/1633
-var setImmediate = global.setImmediate ? schedulersFix(setTask, false) : setTask;
+var setImmediate = globalThis.setImmediate ? schedulersFix(setTask, false) : setTask;
 
 // `setImmediate` method
 // http://w3c.github.io/setImmediate/#si-setImmediate
-$({ global: true, bind: true, enumerable: true, forced: global.setImmediate !== setImmediate }, {
+$({ global: true, bind: true, enumerable: true, forced: globalThis.setImmediate !== setImmediate }, {
   setImmediate: setImmediate
 });
 
@@ -24194,14 +24212,14 @@ $({ global: true, bind: true, enumerable: true, forced: global.setImmediate !== 
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var schedulersFix = __webpack_require__(/*! ../internals/schedulers-fix */ "../../../node_modules/core-js/internals/schedulers-fix.js");
 
-var setInterval = schedulersFix(global.setInterval, true);
+var setInterval = schedulersFix(globalThis.setInterval, true);
 
 // Bun / IE9- setInterval additional parameters fix
 // https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-setinterval
-$({ global: true, bind: true, forced: global.setInterval !== setInterval }, {
+$({ global: true, bind: true, forced: globalThis.setInterval !== setInterval }, {
   setInterval: setInterval
 });
 
@@ -24217,14 +24235,14 @@ $({ global: true, bind: true, forced: global.setInterval !== setInterval }, {
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var schedulersFix = __webpack_require__(/*! ../internals/schedulers-fix */ "../../../node_modules/core-js/internals/schedulers-fix.js");
 
-var setTimeout = schedulersFix(global.setTimeout, true);
+var setTimeout = schedulersFix(globalThis.setTimeout, true);
 
 // Bun / IE9- setTimeout additional parameters fix
 // https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-settimeout
-$({ global: true, bind: true, forced: global.setTimeout !== setTimeout }, {
+$({ global: true, bind: true, forced: globalThis.setTimeout !== setTimeout }, {
   setTimeout: setTimeout
 });
 
@@ -24241,7 +24259,7 @@ $({ global: true, bind: true, forced: global.setTimeout !== setTimeout }, {
 
 var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var getBuiltIn = __webpack_require__(/*! ../internals/get-built-in */ "../../../node_modules/core-js/internals/get-built-in.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
@@ -24267,12 +24285,12 @@ var detachTransferable = __webpack_require__(/*! ../internals/detach-transferabl
 var ERROR_STACK_INSTALLABLE = __webpack_require__(/*! ../internals/error-stack-installable */ "../../../node_modules/core-js/internals/error-stack-installable.js");
 var PROPER_STRUCTURED_CLONE_TRANSFER = __webpack_require__(/*! ../internals/structured-clone-proper-transfer */ "../../../node_modules/core-js/internals/structured-clone-proper-transfer.js");
 
-var Object = global.Object;
-var Array = global.Array;
-var Date = global.Date;
-var Error = global.Error;
-var TypeError = global.TypeError;
-var PerformanceMark = global.PerformanceMark;
+var Object = globalThis.Object;
+var Array = globalThis.Array;
+var Date = globalThis.Date;
+var Error = globalThis.Error;
+var TypeError = globalThis.TypeError;
+var PerformanceMark = globalThis.PerformanceMark;
 var DOMException = getBuiltIn('DOMException');
 var Map = MapHelpers.Map;
 var mapHas = MapHelpers.has;
@@ -24293,7 +24311,7 @@ var TRANSFERRING = 'Transferring';
 
 var checkBasicSemantic = function (structuredCloneImplementation) {
   return !fails(function () {
-    var set1 = new global.Set([7]);
+    var set1 = new globalThis.Set([7]);
     var set2 = structuredCloneImplementation(set1);
     var number = structuredCloneImplementation(Object(7));
     return set2 === set1 || !set2.has(7) || !isObject(number) || +number !== 7;
@@ -24311,7 +24329,7 @@ var checkErrorsCloning = function (structuredCloneImplementation, $Error) {
 // https://github.com/whatwg/html/pull/5749
 var checkNewErrorsCloningSemantic = function (structuredCloneImplementation) {
   return !fails(function () {
-    var test = structuredCloneImplementation(new global.AggregateError([1], PERFORMANCE_MARK, { cause: 3 }));
+    var test = structuredCloneImplementation(new globalThis.AggregateError([1], PERFORMANCE_MARK, { cause: 3 }));
     return test.name !== 'AggregateError' || test.errors[0] !== 1 || test.message !== PERFORMANCE_MARK || test.cause !== 3;
   });
 };
@@ -24328,7 +24346,7 @@ var checkNewErrorsCloningSemantic = function (structuredCloneImplementation) {
 // NodeJS implementation can't clone DOMExceptions
 // https://github.com/nodejs/node/issues/41038
 // only FF103+ supports new (html/5749) error cloning semantic
-var nativeStructuredClone = global.structuredClone;
+var nativeStructuredClone = globalThis.structuredClone;
 
 var FORCED_REPLACEMENT = IS_PURE
   || !checkErrorsCloning(nativeStructuredClone, Error)
@@ -24368,10 +24386,10 @@ var tryNativeRestrictedStructuredClone = function (value, type) {
 var createDataTransfer = function () {
   var dataTransfer;
   try {
-    dataTransfer = new global.DataTransfer();
+    dataTransfer = new globalThis.DataTransfer();
   } catch (error) {
     try {
-      dataTransfer = new global.ClipboardEvent('').clipboardData;
+      dataTransfer = new globalThis.ClipboardEvent('').clipboardData;
     } catch (error2) { /* empty */ }
   }
   return dataTransfer && dataTransfer.items && dataTransfer.files ? dataTransfer : null;
@@ -24388,7 +24406,7 @@ var cloneBuffer = function (value, map, $type) {
     // SharedArrayBuffer should use shared memory, we can't polyfill it, so return the original
     else clone = value;
   } else {
-    var DataView = global.DataView;
+    var DataView = globalThis.DataView;
 
     // `ArrayBuffer#slice` is not available in IE10
     // `ArrayBuffer#slice` and `DataView` are not available in old FF
@@ -24419,7 +24437,7 @@ var cloneBuffer = function (value, map, $type) {
 };
 
 var cloneView = function (value, type, offset, length, map) {
-  var C = global[type];
+  var C = globalThis[type];
   // in some old engines like Safari 9, typeof C is 'object'
   // on Uint8ClampedArray or some other constructors
   if (!isObject(C)) throwUnpolyfillable(type);
@@ -24574,7 +24592,7 @@ var structuredCloneInternal = function (value, map) {
           } break;
         case 'DOMPoint':
         case 'DOMPointReadOnly':
-          C = global[type];
+          C = globalThis[type];
           try {
             cloned = C.fromPoint
               ? C.fromPoint(value)
@@ -24584,7 +24602,7 @@ var structuredCloneInternal = function (value, map) {
           } break;
         case 'DOMRect':
         case 'DOMRectReadOnly':
-          C = global[type];
+          C = globalThis[type];
           try {
             cloned = C.fromRect
               ? C.fromRect(value)
@@ -24594,7 +24612,7 @@ var structuredCloneInternal = function (value, map) {
           } break;
         case 'DOMMatrix':
         case 'DOMMatrixReadOnly':
-          C = global[type];
+          C = globalThis[type];
           try {
             cloned = C.fromMatrix
               ? C.fromMatrix(value)
@@ -24699,7 +24717,7 @@ var tryToTransfer = function (rawTransfer, map) {
       transferred = nativeStructuredClone(value, { transfer: [value] });
     } else switch (type) {
       case 'ImageBitmap':
-        C = global.OffscreenCanvas;
+        C = globalThis.OffscreenCanvas;
         if (!isConstructor(C)) throwUnpolyfillable(type, TRANSFERRING);
         try {
           canvas = new C(value.width, value.height);
@@ -24798,9 +24816,11 @@ __webpack_require__(/*! ../modules/web.set-timeout */ "../../../node_modules/cor
 
 // TODO: in core-js@4, move /modules/ dependencies to public entries for better optimization by tools like `preset-env`
 __webpack_require__(/*! ../modules/es.array.iterator */ "../../../node_modules/core-js/modules/es.array.iterator.js");
+__webpack_require__(/*! ../modules/es.string.from-code-point */ "../../../node_modules/core-js/modules/es.string.from-code-point.js");
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var safeGetBuiltIn = __webpack_require__(/*! ../internals/safe-get-built-in */ "../../../node_modules/core-js/internals/safe-get-built-in.js");
+var getBuiltIn = __webpack_require__(/*! ../internals/get-built-in */ "../../../node_modules/core-js/internals/get-built-in.js");
 var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../node_modules/core-js/internals/descriptors.js");
@@ -24840,10 +24860,11 @@ var NativeRequest = safeGetBuiltIn('Request');
 var Headers = safeGetBuiltIn('Headers');
 var RequestPrototype = NativeRequest && NativeRequest.prototype;
 var HeadersPrototype = Headers && Headers.prototype;
-var RegExp = global.RegExp;
-var TypeError = global.TypeError;
-var decodeURIComponent = global.decodeURIComponent;
-var encodeURIComponent = global.encodeURIComponent;
+var TypeError = globalThis.TypeError;
+var encodeURIComponent = globalThis.encodeURIComponent;
+var fromCharCode = String.fromCharCode;
+var fromCodePoint = getBuiltIn('String', 'fromCodePoint');
+var $parseInt = parseInt;
 var charAt = uncurryThis(''.charAt);
 var join = uncurryThis([].join);
 var push = uncurryThis([].push);
@@ -24852,33 +24873,125 @@ var shift = uncurryThis([].shift);
 var splice = uncurryThis([].splice);
 var split = uncurryThis(''.split);
 var stringSlice = uncurryThis(''.slice);
+var exec = uncurryThis(/./.exec);
 
 var plus = /\+/g;
-var sequences = Array(4);
+var FALLBACK_REPLACER = '\uFFFD';
+var VALID_HEX = /^[0-9a-f]+$/i;
 
-var percentSequence = function (bytes) {
-  return sequences[bytes - 1] || (sequences[bytes - 1] = RegExp('((?:%[\\da-f]{2}){' + bytes + '})', 'gi'));
+var parseHexOctet = function (string, start) {
+  var substr = stringSlice(string, start, start + 2);
+  if (!exec(VALID_HEX, substr)) return NaN;
+
+  return $parseInt(substr, 16);
 };
 
-var percentDecode = function (sequence) {
-  try {
-    return decodeURIComponent(sequence);
-  } catch (error) {
-    return sequence;
+var getLeadingOnes = function (octet) {
+  var count = 0;
+  for (var mask = 0x80; mask > 0 && (octet & mask) !== 0; mask >>= 1) {
+    count++;
   }
+  return count;
 };
 
-var deserialize = function (it) {
-  var result = replace(it, plus, ' ');
-  var bytes = 4;
-  try {
-    return decodeURIComponent(result);
-  } catch (error) {
-    while (bytes) {
-      result = replace(result, percentSequence(bytes--), percentDecode);
+var utf8Decode = function (octets) {
+  var codePoint = null;
+
+  switch (octets.length) {
+    case 1:
+      codePoint = octets[0];
+      break;
+    case 2:
+      codePoint = (octets[0] & 0x1F) << 6 | (octets[1] & 0x3F);
+      break;
+    case 3:
+      codePoint = (octets[0] & 0x0F) << 12 | (octets[1] & 0x3F) << 6 | (octets[2] & 0x3F);
+      break;
+    case 4:
+      codePoint = (octets[0] & 0x07) << 18 | (octets[1] & 0x3F) << 12 | (octets[2] & 0x3F) << 6 | (octets[3] & 0x3F);
+      break;
+  }
+
+  return codePoint > 0x10FFFF ? null : codePoint;
+};
+
+var decode = function (input) {
+  input = replace(input, plus, ' ');
+  var length = input.length;
+  var result = '';
+  var i = 0;
+
+  while (i < length) {
+    var decodedChar = charAt(input, i);
+
+    if (decodedChar === '%') {
+      if (charAt(input, i + 1) === '%' || i + 3 > length) {
+        result += '%';
+        i++;
+        continue;
+      }
+
+      var octet = parseHexOctet(input, i + 1);
+
+      // eslint-disable-next-line no-self-compare -- NaN check
+      if (octet !== octet) {
+        result += decodedChar;
+        i++;
+        continue;
+      }
+
+      i += 2;
+      var byteSequenceLength = getLeadingOnes(octet);
+
+      if (byteSequenceLength === 0) {
+        decodedChar = fromCharCode(octet);
+      } else {
+        if (byteSequenceLength === 1 || byteSequenceLength > 4) {
+          result += FALLBACK_REPLACER;
+          i++;
+          continue;
+        }
+
+        var octets = [octet];
+        var sequenceIndex = 1;
+
+        while (sequenceIndex < byteSequenceLength) {
+          i++;
+          if (i + 3 > length || charAt(input, i) !== '%') break;
+
+          var nextByte = parseHexOctet(input, i + 1);
+
+          // eslint-disable-next-line no-self-compare -- NaN check
+          if (nextByte !== nextByte) {
+            i += 3;
+            break;
+          }
+          if (nextByte > 191 || nextByte < 128) break;
+
+          push(octets, nextByte);
+          i += 2;
+          sequenceIndex++;
+        }
+
+        if (octets.length !== byteSequenceLength) {
+          result += FALLBACK_REPLACER;
+          continue;
+        }
+
+        var codePoint = utf8Decode(octets);
+        if (codePoint === null) {
+          result += FALLBACK_REPLACER;
+        } else {
+          decodedChar = fromCodePoint(codePoint);
+        }
+      }
     }
-    return result;
+
+    result += decodedChar;
+    i++;
   }
+
+  return result;
 };
 
 var find = /[!'()~]|%20/g;
@@ -24912,7 +25025,7 @@ var URLSearchParamsIterator = createIteratorConstructor(function Iterator(params
   var target = state.target;
   var index = state.index++;
   if (!target || index >= target.length) {
-    state.target = undefined;
+    state.target = null;
     return createIterResultObject(undefined, true);
   }
   var entry = target[index];
@@ -24971,8 +25084,8 @@ URLSearchParamsState.prototype = {
         if (attribute.length) {
           entry = split(attribute, '=');
           push(entries, {
-            key: deserialize(shift(entry)),
-            value: deserialize(join(entry, '='))
+            key: decode(shift(entry)),
+            value: decode(join(entry, '='))
           });
         }
       }
@@ -25420,7 +25533,7 @@ __webpack_require__(/*! ../modules/es.string.iterator */ "../../../node_modules/
 var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../node_modules/core-js/internals/descriptors.js");
 var USE_NATIVE_URL = __webpack_require__(/*! ../internals/url-constructor-detection */ "../../../node_modules/core-js/internals/url-constructor-detection.js");
-var global = __webpack_require__(/*! ../internals/global */ "../../../node_modules/core-js/internals/global.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var bind = __webpack_require__(/*! ../internals/function-bind-context */ "../../../node_modules/core-js/internals/function-bind-context.js");
 var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "../../../node_modules/core-js/internals/function-uncurry-this.js");
 var defineBuiltIn = __webpack_require__(/*! ../internals/define-built-in */ "../../../node_modules/core-js/internals/define-built-in.js");
@@ -25443,9 +25556,9 @@ var getInternalURLState = InternalStateModule.getterFor('URL');
 var URLSearchParams = URLSearchParamsModule.URLSearchParams;
 var getInternalSearchParamsState = URLSearchParamsModule.getState;
 
-var NativeURL = global.URL;
-var TypeError = global.TypeError;
-var parseInt = global.parseInt;
+var NativeURL = globalThis.URL;
+var TypeError = globalThis.TypeError;
+var parseInt = globalThis.parseInt;
 var floor = Math.floor;
 var pow = Math.pow;
 var charAt = uncurryThis(''.charAt);
@@ -25619,25 +25732,25 @@ var findLongestZeroSequence = function (ipv6) {
       ++currLength;
     }
   }
-  if (currLength > maxLength) {
-    maxIndex = currStart;
-    maxLength = currLength;
-  }
-  return maxIndex;
+  return currLength > maxLength ? currStart : maxIndex;
 };
 
 // https://url.spec.whatwg.org/#host-serializing
 var serializeHost = function (host) {
   var result, index, compress, ignore0;
+
   // ipv4
   if (typeof host == 'number') {
     result = [];
     for (index = 0; index < 4; index++) {
       unshift(result, host % 256);
       host = floor(host / 256);
-    } return join(result, '.');
+    }
+    return join(result, '.');
+  }
+
   // ipv6
-  } else if (typeof host == 'object') {
+  if (typeof host == 'object') {
     result = '';
     compress = findLongestZeroSequence(host);
     for (index = 0; index < 8; index++) {
@@ -25652,7 +25765,9 @@ var serializeHost = function (host) {
       }
     }
     return '[' + result + ']';
-  } return host;
+  }
+
+  return host;
 };
 
 var C0ControlPercentEncodeSet = {};

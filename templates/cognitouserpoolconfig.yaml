@@ -35,6 +35,19 @@ Parameters:
         Type: Number
         Description: >
             This is a required parameter.
+    
+    VpcSubnetId:
+        Type: String
+        Default: ''
+        Description: ID of a VPC subnet where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+    VpcSecurityGroupId:
+        Type: String
+        Default: ''
+        Description: ID of a security group where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+Conditions:
+    NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
 
 Resources:
 
@@ -44,8 +57,17 @@ Resources:
             ServiceToken: !GetAtt CognitoUserPoolDomainFunction.Arn
 
     CognitoUserPoolDomainFunction:
-        Type: AWS::Lambda::Function
+        Type: AWS::Lambda::Function        
         Properties:
+            VpcConfig:
+                !If
+                - NeedsVpc
+                - 
+                    SecurityGroupIds:
+                        - !Ref VpcSecurityGroupId
+                    SubnetIds:
+                        - !Ref VpcSubnetId
+                - !Ref "AWS::NoValue"
             Handler: index.handler
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
             Runtime: python3.10
@@ -146,6 +168,12 @@ Resources:
         Type: AWS::IAM::Role
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:
@@ -224,8 +252,17 @@ Resources:
             Timestamp: !Ref Timestamp
 
     CognitoUserPoolUpdatesFunction:
-        Type: AWS::Lambda::Function
+        Type: AWS::Lambda::Function        
         Properties:
+            VpcConfig:
+                !If
+                - NeedsVpc
+                - 
+                    SecurityGroupIds:
+                        - !Ref VpcSecurityGroupId
+                    SubnetIds:
+                        - !Ref VpcSubnetId
+                - !Ref "AWS::NoValue"
             Handler: index.handler
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
             Runtime: python3.10
@@ -316,6 +353,12 @@ Resources:
         Type: AWS::IAM::Role
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:
@@ -364,8 +407,17 @@ Resources:
         Properties:
             ServiceToken: !GetAtt CleanStackNameFunction.Arn
     CleanStackNameFunction:
-        Type: AWS::Lambda::Function
+        Type: AWS::Lambda::Function        
         Properties:
+            VpcConfig:
+                !If
+                - NeedsVpc
+                - 
+                    SecurityGroupIds:
+                        - !Ref VpcSecurityGroupId
+                    SubnetIds:
+                        - !Ref VpcSubnetId
+                - !Ref "AWS::NoValue"
             Handler: index.handler
             Role: !GetAtt CleanStackNameExecutionRole.Arn
             Runtime: python3.10
