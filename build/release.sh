@@ -46,4 +46,7 @@ make "qbusiness-lambda-$VERSION.zip"
 cd ..
 cd dist
 make
+cp app.js lex-web-ui.js
+cp app.min.js lex-web-ui.min.js
+cp app.js.map lex-web-ui.js.map
 
