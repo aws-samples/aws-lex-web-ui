@@ -78,14 +78,7 @@ function chainWebpackWorker(config, destDir = '', srcDir = 'src/lib') {
   // custom components
   config.module
     .rule('vue')
-    .use('vue-loader')
-    .tap(options => {
-      options.compilerOptions = {
-        ...options.compilerOptions,
-        isCustomElement: tag => tag.startsWith('v-datetime-picker')
-      }
-      return options
-    });
+    .use('vue-loader');
 }
 
 function chainWebpackCommon(config, destDir) {
@@ -133,7 +126,7 @@ function chainWebpackLib(
   const baseFilename = `${destDir}/${entryName}`;
   const filename = (buildType.isProd)
     ? `${baseFilename}.min.js` : `${baseFilename}.js`;
-
+    
   config
     .entry(entryName)
     .add(entryFileName)
@@ -144,7 +137,7 @@ function chainWebpackLib(
     .filename(filename);
 
   chainWebpackCommon(config, destDir);
-
+  
   config.externals([
     { 'vue': 'Vue' },
     {'vuex': 'Vuex'},

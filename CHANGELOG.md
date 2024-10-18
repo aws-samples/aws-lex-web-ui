@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.21.6] - 2024-09-20
+- Updatae the Web UI to allow VPC integration with all Lambda functions. This requires your VPC to at a minimum be able to access S3, and additional optional functionality will require additional VPC endpoints to services.
+- Package updates to address vulnerabilities. 
+
+## [0.21.5] - 2024-08-15
+- Removed pipeline deployment mode as CodeCommit is no longer accepting new repositories
+- Cleaned up some issues around lambda layer building 
+
+## [0.21.4] - 2024-07-15
+- The Lex Web UI can now act as a passthrough for Q Business, allowing users to converse directly with their Q Business application while inheriting all the features of the Web UI such as embedding, CSS customizations and more.
+- Upgraded version of amazon-connect-chatjs 
+
+## [0.21.3] - 2024-06-27
+- Dependency & documentation updates
+- Fixed a bug that was causing builds on Windows machines to fail
+ 
+## [0.21.2] - 2024-04-24
+- Added support for more Connect interactive messages. The UI now supports Panel, QuickReply & Carousel messages.
+- Removed the DateTime picker component due to its legacy dependency on Vue 2, please use the DatePicker going forward.
+- Cleaned up some dependencies to reduce the amount of polyfills required
+- Upgrade all python scripts to 3.10
+- Other minor bug fixes and documentation updates.
+
 ## [0.21.1] - 2024-03-26
 - Updated the streaming feature to be more flexible so users can choose whether or not the fullfilment Lambda should be streaming responses. Additional details can be found in the streaming responses README.
 - Added a copy icon so responses from the bot can be easily copy/pasted. This option can be configured manually from the configuration file and is defaulted to 'off'.
@@ -69,7 +92,7 @@ This update removes all dependency vulnerabilities as of release date.
     * BackButton
     * MinimizedButtonContent
 - Change initial speech mechanism to fetch and play mp3 files created during codebuild. Implement support for configured localeIds when creating the mp3 files. Create an mp3 for each configured localeId and use aws translate to generate text for the locale and use aws polly to create the mp3 files. When the user changes locale in the UI and clicks on the mic button, the initial speech for the selected locale will be played.
-- Add support for Connect interactive messaging into Lex Web UI: [https://docs.aws.amazon.com/connect/latest/adminguide/interactive-messages.html](https://docs.aws.amazon.com/connect/latest/adminguide/interactive-messages.html). Both ListPicker and TimePicker are supported templateTypes and can be sent using the exact same JSON structure as Connect. Additionally, added support for a DateTimePicker templateType which will give the end user an open-ended selector for a date/time variable to send back to Lex.
+- Add support for Connect interactive messaging into Lex Web UI: [https://docs.aws.amazon.com/connect/latest/adminguide/interactive-messages.html](https://docs.aws.amazon.com/connect/latest/adminguide/interactive-messages.html). Both ListPicker and TimePicker are supported templateTypes and can be sent using the exact same JSON structure as Connect.
 - Fix handling the new ElicitIntent dialogAction type LexV2 response, which does not have some expected properties on the sessionState object
 
 ## [0.19.5] - 2022-07-17

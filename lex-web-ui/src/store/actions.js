@@ -28,7 +28,7 @@ import silentMp3 from '@/assets/silent.mp3';
 
 import LexClient from '@/lib/lex/client';
 
-const jwt = require('jsonwebtoken');
+import { jwtDecode } from "jwt-decode";
 const AWS = require('aws-sdk');
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
 import { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } from '@aws-sdk/client-cognito-identity';
@@ -1176,12 +1176,12 @@ export default {
   refreshAuthTokens(context) {
     function isExpired(token) {
       if (token) {
-        const decoded = jwt.decode(token, { complete: true });
+        const decoded = jwtDecode(token);
         if (decoded) {
           const now = Date.now();
           // calculate and expiration time 5 minutes sooner and adjust to milliseconds
           // to compare with now.
-          const expiration = (decoded.payload.exp - (5 * 60)) * 1000;
+          const expiration = (decoded.exp - (5 * 60)) * 1000;
           if (now > expiration) {
             return true;
           }

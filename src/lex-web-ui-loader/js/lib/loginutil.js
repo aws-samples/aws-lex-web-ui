@@ -14,8 +14,8 @@ License for the specific language governing permissions and limitations under th
 /* eslint-disable prefer-template, no-console */
 
 import { CognitoAuth } from 'amazon-cognito-auth-js';
+import { jwtDecode } from "jwt-decode";
 
-const jwt = require('jsonwebtoken');
 const loopKey = `login_util_loop_count`;
 const maxLoopCount = 5;
 
@@ -149,10 +149,10 @@ function refreshLogin(config, token, callback) {
 
 // return true if a valid token and has expired. return false in all other cases
 function isTokenExpired(token) {
-  const decoded = jwt.decode(token, { complete: true });
+  const decoded = jwtDecode(token);
   if (decoded) {
     const now = Date.now();
-    const expiration = decoded.payload.exp * 1000;
+    const expiration = decoded.exp * 1000;
     if (now > expiration) {
       return true;
     }

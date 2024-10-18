@@ -450,7 +450,7 @@ Parameters:
         Type: Number
         Description: >
           This is a required parameter. It defines a timestamp allow the codebuild to execute as long as the
-          timestamp from master.yaml and master-pipeline.yaml varies.
+          timestamp from master.yaml varies.
 
     ResourcePrefix:
         Type: String
@@ -545,6 +545,16 @@ Parameters:
         Default: ''
         Description: >
             If enabling upload, the name of the S3 bucket where uploaded documents should be stored
+
+    VpcSubnetId:
+        Type: String
+        Default: ''
+        Description: ID of a VPC subnet where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+    VpcSecurityGroupId:
+        Type: String
+        Default: ''
+        Description: ID of a security group where all Lambda functions will run, only used if you need Lambda to run in a VPC
              
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
@@ -554,6 +564,7 @@ Conditions:
     ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
     EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
     EnableUpload: !Equals [!Ref ShouldEnableUpload, true]
+    NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
 
 Resources:
     # Bucket where S3 access logs are stored
@@ -769,6 +780,8 @@ Resources:
               InitiateChatLambdaCodeObject: !Ref InitiateChatLambdaCodeObject
               ConnectContactFlowId: !Ref ConnectContactFlowId
               ConnectInstanceId: !Ref ConnectInstanceId
+              VpcSubnetId: !Ref VpcSubnetId
+              VpcSecurityGroupId: !Ref VpcSecurityGroupId
               ParentOrigin:
                 !If
                   - UseDefaultCloudfrontUrl
@@ -786,6 +799,8 @@ Resources:
                 SourceBucket: !Ref SourceBucket
                 StreamingLambdaCodeObject: !Ref StreamingLambdaCodeObject
                 TableName: !Join ["-", [!Ref "AWS::StackName", "streaming"]]
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
                 ParentOrigin:
                   !If
                     - UseDefaultCloudfrontUrl
@@ -1032,14 +1047,23 @@ Resources:
 
     # Lambda function for custom resource
     CodeBuildStarterLambda:
-        Type: AWS::Lambda::Function
+        Type: AWS::Lambda::Function       
         Properties:
+            VpcConfig:
+              !If
+              - NeedsVpc
+              - 
+                  SecurityGroupIds:
+                      - !Ref VpcSecurityGroupId
+                  SubnetIds:
+                      - !Ref VpcSubnetId
+              - !Ref "AWS::NoValue"
             Code:
                 S3Bucket: !Ref SourceBucket
                 S3Key: !Ref CustomResourceCodeObject
             Handler: codebuild-start.handler
             Role: !GetAtt CodeBuildStarterLambdaRole.Arn
-            Runtime: python3.8
+            Runtime: python3.10
             Timeout: 120
             TracingConfig:
                 Mode: Active
@@ -1128,6 +1152,12 @@ Resources:
         Type: AWS::IAM::Role
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:
@@ -1184,20 +1214,30 @@ Resources:
         Condition: ShouldCleanupBuckets
         Properties:
             ServiceToken: !GetAtt S3CleanupLambda.Arn
+            ServiceTimeout: 60
             Buckets:
                 - !Ref WebAppBucket
 
   # Lambda function for custom resource
     S3CleanupLambda:
         Type: AWS::Lambda::Function
-        Condition: ShouldCleanupBuckets
+        Condition: ShouldCleanupBuckets        
         Properties:
+            VpcConfig:
+              !If
+              - NeedsVpc
+              - 
+                  SecurityGroupIds:
+                      - !Ref VpcSecurityGroupId
+                  SubnetIds:
+                      - !Ref VpcSubnetId
+              - !Ref "AWS::NoValue"
             Code:
                 S3Bucket: !Ref SourceBucket
                 S3Key: !Ref CustomResourceCodeObject
             Handler: s3-cleanup.handler
             Role: !GetAtt S3CleanupLambdaRole.Arn
-            Runtime: python3.8
+            Runtime: python3.10
             Timeout: 120
             TracingConfig:
                 Mode: Active
@@ -1207,6 +1247,12 @@ Resources:
         Condition: ShouldCleanupBuckets
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:

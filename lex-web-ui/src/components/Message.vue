@@ -30,41 +30,65 @@
                   v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayInteractiveMessage"
                 ></message-text>                
                 <div
-                  v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'ListPicker'">
+                  v-if="shouldDisplayInteractiveMessage && interactiveMessage?.templateType == 'ListPicker'">
                   <v-card-title primary-title>
                     <div>
-                      <img :src="message.interactiveMessage.data.content.imageData" />
-                      <div class="text-h5">{{message.interactiveMessage.data.content.title}}</div>
-                      <span>{{message.interactiveMessage.data.content.subtitle}}</span>
+                      <img :src="interactiveMessage?.data.content.imageData" />
+                      <div class="text-h5">{{interactiveMessage.data.content.title}}</div>
+                      <span>{{interactiveMessage?.data.content.subtitle}}</span>
                     </div>
                   </v-card-title>
-                  <v-list lines="two" class="message-bubble interactive-row">
-                    <template v-for="(item, index) in message.interactiveMessage.data.content.elements" :key="index">
-                      <v-list-item @click="resendMessage(item.title)">
-                        <v-list-item v-if="item.imageData">
-                          <v-avatar>
-                            <img :src="item.imageData" />
-                          </v-avatar>
-                        </v-list-item>
-                        <v-list-item-title v-html="item.title"></v-list-item-title>
-                        <v-list-item-subtitle
-                          v-if="item.subtitle"
-                          v-html="item.subtitle"
-                        ></v-list-item-subtitle>
-                      </v-list-item>
+                  <v-list density="compact" lines="two" class="message-bubble interactive-row">
+                    <v-list-item v-for="(item, index) in interactiveMessage?.data.content.elements" 
+                      :key="index"  
+                      :subtitle="item.subtitle"
+                      :title="item.title"
+                      @click="resendMessage(item.title)">
+                      <template v-if="item.imageData" v-slot:prepend>
+                        <v-avatar>
+                          <v-img :src="item.imageData"></v-img>
+                        </v-avatar>
+                      </template>
                       <v-divider></v-divider>
-                    </template>
+                    </v-list-item>
                   </v-list>
                 </div>
+                <div v-if="shouldDisplayInteractiveMessage && interactiveMessage?.templateType == 'Carousel'">
+                  <v-window show-arrows>
+                    <v-window-item v-for="(item, index) in interactiveMessage?.data.content.elements" :key="index">
+                      <v-card-title primary-title>
+                        <div>
+                          <img :src="item.imageData" />
+                          <div class="text-h5">{{item.title}}</div>
+                          <span>{{item.subtitle}}</span>
+                        </div>
+                      </v-card-title>
+                      <v-list density="compact" lines="two" class="message-bubble interactive-row">
+                        <v-list-item v-for="(panelItem, index) in item.data.content.elements" 
+                          :key="index"  
+                          :subtitle="panelItem.subtitle"
+                          :title="panelItem.title"
+                          @click="resendMessage(panelItem.title)">
+                          <template v-if="panelItem.imageData" v-slot:prepend>
+                            <v-avatar>
+                              <v-img :src="panelItem.imageData"></v-img>
+                            </v-avatar>
+                          </template>
+                          <v-divider></v-divider>
+                        </v-list-item>
+                      </v-list>
+                    </v-window-item>
+                  </v-window>
+                </div>
                 <div
-                  v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'TimePicker'">
+                  v-if="shouldDisplayInteractiveMessage && interactiveMessage?.templateType == 'TimePicker'">
                   <v-card-title primary-title>
                     <div>
-                      <div class="text-h5">{{message.interactiveMessage.data.content.title}}</div>
-                      <span>{{message.interactiveMessage.data.content.subtitle}}</span>
+                      <div class="text-h5">{{interactiveMessage?.data.content.title}}</div>
+                      <span>{{interactiveMessage?.data.content.subtitle}}</span>
                     </div>
                   </v-card-title>
-                  <template v-for="item in this.message.interactiveMessage.timeslots">
+                  <template v-for="item in sortedTimeslots">
                     <v-list-subheader>{{ item.date }}</v-list-subheader>
                     <v-list lines="two" class="message-bubble interactive-row">
                       <v-list-item>
@@ -80,15 +104,10 @@
                     </v-list>
                   </template>
                 </div>
-                <div
-                  v-if="shouldDisplayInteractiveMessage && message.interactiveMessage.templateType == 'DateTimePicker'">
-                  <v-toolbar-title>{{message.interactiveMessage.data.content.title}}</v-toolbar-title>
-                  <v-datetime-picker
-                    v-model="datetime"
-                    :text-field-props="textFieldProps"
-                  >
-                  </v-datetime-picker>
-                  <v-btn v-on:click="sendDateTime(datetime)" variant="flat">Confirm</v-btn>
+                <div v-if="shouldDisplayInteractiveMessage && interactiveMessage.templateType == 'QuickReply'">
+                  <message-text
+                    :message="{ text: interactiveMessage?.data.content.title, type: 'bot'}"
+                  ></message-text>  
                 </div>
                 <v-icon
                   v-if="message.type === 'bot' &&  message.id !== $store.state.messages[0].id && showCopyIcon"
@@ -198,6 +217,13 @@
           :key="index"
         />
       </v-row>
+      <v-row v-if="shouldDisplayInteractiveMessage && interactiveMessage?.templateType == 'QuickReply'" 
+        class="response-card" d-flex mt-2 mr-2 ml-3>
+        <response-card
+          :response-card="quickReplyResponseCard"
+          :key="index"
+        />
+      </v-row>
       <v-row v-if="shouldDisplayResponseCardV2 && !shouldDisplayResponseCard">
         <v-row v-for="(item, index) in message.responseCardsLexV2"
           class="response-card"
@@ -212,7 +238,7 @@
         >
         </response-card>
         </v-row>
-      </v-row>
+      </v-row>      
     </v-col>
   </v-row>
 </template>
@@ -252,6 +278,7 @@ export default {
       negativeClick: false,
       hasButtonBeenClicked: false,
       disableCardButtons: false,
+      interactiveMessage: null,
       positiveIntent: this.$store.state.config.ui.positiveFeedbackIntent,
       negativeIntent: this.$store.state.config.ui.negativeFeedbackIntent,
       hideInputFields: this.$store.state.config.ui.hideInputFieldsForButtonResponse,
@@ -331,44 +358,54 @@ export default {
     },
     shouldDisplayInteractiveMessage() {
       try {
-          this.message.interactiveMessage = JSON.parse(this.message.text);
-
-          // Considering anything with the templateType property on a valid JSON object to be an interactive message
-          if (!this.message.interactiveMessage.hasOwnProperty("templateType"))
-          {
-            return false;
-          }
-
-          if (this.message.interactiveMessage.templateType == 'TimePicker')
-          {
-            var sortedslots = this.message.interactiveMessage.data.content.timeslots.sort((a, b) => a.date.localeCompare(b.date));
-            const dateFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
-            const timeFormatOptions = { hour: "numeric", minute: "numeric", timeZoneName: "short" };
-            const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : this.$store.state.config.lex.v2BotLocaleId.split(',')[0];
-            var locale = (localeId || 'en-US').replace('_','-');
-
-            var dateArray = [];
-            sortedslots.forEach(function (slot, index) {
-              slot.localTime = new Date(slot.date).toLocaleTimeString(locale, timeFormatOptions);
-              const msToMidnightOfDate = new Date(slot.date).setHours(0, 0, 0, 0);
-              const dateKey = new Date(msToMidnightOfDate).toLocaleDateString(locale, dateFormatOptions);
-
-              let existingDate = dateArray.find(e => e.date === dateKey);
-              if (existingDate) {
-                existingDate.slots.push(slot)
-              }
-              else {
-                var item = { date: dateKey, slots: [slot] };
-                dateArray.push(item);
-              }
-            });
-
-            this.message.interactiveMessage.timeslots = dateArray;
-          }
+        this.interactiveMessage = JSON.parse(this.message.text);
+        return this.interactiveMessage.hasOwnProperty("templateType");
       } catch (e) {
-          return false;
+        return false;
       }
-      return true;
+    },
+    sortedTimeslots() {
+      if (this.interactiveMessage?.templateType == 'TimePicker') {
+        var sortedslots = this.interactiveMessage.data.content.timeslots.sort((a, b) => a.date.localeCompare(b.date));
+        const dateFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+        const timeFormatOptions = { hour: "numeric", minute: "numeric", timeZoneName: "short" };
+        const localeId = localStorage.getItem('selectedLocale') ? localStorage.getItem('selectedLocale') : this.$store.state.config.lex.v2BotLocaleId.split(',')[0];
+        var locale = (localeId || 'en-US').replace('_','-');
+
+        var dateArray = [];
+        sortedslots.forEach(function (slot, index) {
+          slot.localTime = new Date(slot.date).toLocaleTimeString(locale, timeFormatOptions);
+          const msToMidnightOfDate = new Date(slot.date).setHours(0, 0, 0, 0);
+          const dateKey = new Date(msToMidnightOfDate).toLocaleDateString(locale, dateFormatOptions);
+
+          let existingDate = dateArray.find(e => e.date === dateKey);
+          if (existingDate) {
+            existingDate.slots.push(slot)
+          }
+          else {
+            var item = { date: dateKey, slots: [slot] };
+            dateArray.push(item);
+          }
+        });
+
+        return dateArray;
+      }
+    },
+    quickReplyResponseCard() {
+      if (this.interactiveMessage?.templateType == 'QuickReply') {
+        //Create a response card format so we can leverage existing ResponseCard display template
+        var responseCard = { 
+          buttons: []
+        };
+        this.interactiveMessage.data.content.elements.forEach(function (button, index) {
+          responseCard.buttons.push({
+            text: button.title,
+            value: button.title
+          });
+        });
+
+        return responseCard;
+      }
     },
     shouldShowAvatarImage() {
       if (this.message.type === 'bot') {
@@ -530,8 +567,6 @@ export default {
 }
 .message-date-feedback {
   text-align: right;
-}
-.message-date-bot {
 }
 
 .avatar {

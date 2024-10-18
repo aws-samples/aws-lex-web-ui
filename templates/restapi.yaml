@@ -36,12 +36,34 @@ Parameters:
         Description: >
             Parent Origin for CORS allow-origin
 
+    VpcSubnetId:
+        Type: String
+        Default: ''
+        Description: ID of a VPC subnet where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+    VpcSecurityGroupId:
+        Type: String
+        Default: ''
+        Description: ID of a security group where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+Conditions:
+    NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
+
 Resources:
 
     #### Lambda #####
     InitiateChatLambda:
-      Type: "AWS::Lambda::Function"
+      Type: "AWS::Lambda::Function"      
       Properties:
+        VpcConfig:
+          !If
+          - NeedsVpc
+          - 
+              SecurityGroupIds:
+                - !Ref VpcSecurityGroupId
+              SubnetIds:
+                - !Ref VpcSubnetId
+          - !Ref "AWS::NoValue"
         Description:  AWS Lambda Function to initiate the chat with the end user
         Handler: "index.handler"
         Role: !GetAtt InitiateChatLambdaExecutionRole.Arn
@@ -60,6 +82,12 @@ Resources:
     InitiateChatLambdaExecutionRole:
       Type: "AWS::IAM::Role"
       Properties:
+        ManagedPolicyArns:
+          !If 
+            - NeedsVpc
+            -
+              - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+            - !Ref "AWS::NoValue"
         AssumeRolePolicyDocument:
           Version: "2012-10-17"
           Statement:

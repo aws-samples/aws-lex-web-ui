@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.21.1)
+    Master Lex Web UI CloudFormation template (v0.21.6)
     The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
     Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
     version input parameters as defaulted.
@@ -79,21 +79,6 @@ Parameters:
         AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
         ConstraintDescription: >
             Must conform with the permitted Lex Alias name pattern.
-
-    BotNamePrefix:
-        Type: String
-        Description: >
-            If Lex Version 2 BotId is left empty AND the Lex Version 1 BotName is left empty,
-            a Lex V1 Bot based on the OrderFlowers sample will be automatically created.
-            Specify a prefix to add to Lex resource names when using the sample bot.
-            Ignored if you provide your own bot. Must conform to the
-            permitted Lex Bot name syntax (alpha characters).
-        Default: WebUi
-        MinLength: 3
-        MaxLength: 32
-        AllowedPattern: '^[a-zA-Z\._]+$'
-        ConstraintDescription: >
-            Must conform with the permitted Lex Bot name pattern.
 
     ShouldDeleteBot:
         Type: String
@@ -590,6 +575,31 @@ Parameters:
         Description: >
             If enabling upload, the name of the S3 bucket where uploaded documents should be stored
 
+    AmazonQAppId:
+        Type: String
+        Default: ''
+        Description: Amazon Q Application ID. This option will automatically create a bot and the V1/V2 bot fields should be left blank.
+
+    IDCApplicationARN:
+        Type: String
+        Default: ''
+        Description: >
+            ARN of the Identity Center customer managed application created for QBusiness. This will need to be configured
+            manually after initial UI deployment. The value from manual creation will need to be supplied here and the template updated.
+            This process is not automated because in many use cases Identity Center will not be in the same account as the bot.
+            Manual set-up instructions can be found here: https://github.com/aws-samples/aws-lex-web-ui/blob/master/README-qbusiness.md
+
+    VpcSubnetId:
+        Type: String
+        Default: ''
+        Description: ID of a VPC subnet where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+    VpcSecurityGroupId:
+        Type: String
+        Default: ''
+        Description: ID of a security group where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+    
 Rules:
   ValidateEitherV1orV2:
     RuleCondition: !Not 
@@ -626,7 +636,6 @@ Metadata:
             - Label:
                 default: Optional Sample Bot
               Parameters:
-                  - BotNamePrefix
                   - ShouldDeleteBot
             - Label:
                 default: Bot Behavior Parameters
@@ -699,10 +708,21 @@ Metadata:
                   - BotChatBubble
                   - CustomerChatBubble
                   - MinimizedButtonColor
+            - Label:
+                default: Lambda VPC Support
+              Parameters:
+                  - VpcSubnetId
+                  - VpcSecurityGroupId 
+            - Label:
+                default: Q Business Parameters
+              Parameters:
+                  - AmazonQAppId
+                  - IDCApplicationARN                 
 
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
+    NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
@@ -716,10 +736,15 @@ Resources:
             TimeoutInMinutes: 15
             TemplateURL: !Sub "https://${BootstrapBucket}.s3.${AWS::Region}.amazonaws.com/${BootstrapPrefix}/templates/lexbot.yaml"
             Parameters:
-                NamePrefix: !Ref BotNamePrefix
                 ShouldDeleteBot: !Ref ShouldDeleteBot
-                CustomResourceCodeBucket: !Ref BootstrapBucket
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.1.zip"
+                ParentStackName: !Ref "AWS::StackName"
+                SourceBucket: !Ref BootstrapBucket
+                QBusinessLambdaLayerObject: !Sub "${BootstrapPrefix}/layers.zip"
+                QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-lambda-v0.21.6.zip"
+                AmazonQAppId: !Ref AmazonQAppId
+                IDCApplicationARN: !Ref IDCApplicationARN
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
@@ -729,13 +754,17 @@ Resources:
             Parameters:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
                 ForceCognitoLogin: !Ref ForceCognitoLogin
-                LexBotName:
+                LexBotName: !Ref BotName
+                LexV2BotId: 
                     !If
                       - NeedsBot
-                      - !GetAtt Bot.Outputs.BotName
-                      - !Ref BotName
-                LexV2BotId: !Ref LexV2BotId
-                LexV2BotAliasId: !Ref LexV2BotAliasId
+                      - !GetAtt Bot.Outputs.BotId
+                      - !Ref LexV2BotId
+                LexV2BotAliasId:
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotAlias
+                      - !Ref LexV2BotAliasId                    
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
                 ShouldEnableUpload: !Ref ShouldEnableUpload
                 UploadBucket: !Ref UploadBucket
@@ -754,10 +783,10 @@ Resources:
                 CodeBuildName: !Ref CodeBuildName
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.21.1.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.1.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.21.1.zip"
-                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.21.1.zip"
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.21.6.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.6.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.21.6.zip"
+                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.21.6.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
@@ -765,11 +794,19 @@ Resources:
                       - !Ref LexV2BotId
                       - !If
                           - NeedsBot
-                          - !GetAtt Bot.Outputs.BotName
+                          - !GetAtt Bot.Outputs.BotId
                           - !Ref BotName
                 BotAlias: !Ref BotAlias
-                LexV2BotId: !Ref LexV2BotId
-                LexV2BotAliasId: !Ref LexV2BotAliasId
+                LexV2BotId: 
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotId
+                      - !Ref LexV2BotId
+                LexV2BotAliasId:
+                    !If
+                      - NeedsBot
+                      - !GetAtt Bot.Outputs.BotAlias
+                      - !Ref LexV2BotAliasId  
                 LexV2BotLocaleId: !Ref LexV2BotLocaleId
                 CognitoIdentityPoolId:
                     !If
@@ -842,7 +879,9 @@ Resources:
                 AllowStreamingResponses: !Ref AllowStreamingResponses
                 ShouldEnableUpload: !Ref ShouldEnableUpload
                 UploadBucket: !Ref UploadBucket
-                Timestamp: 1712341436
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
+                Timestamp: 1729276322
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -856,14 +895,25 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1712341436
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
+                Timestamp: 1729276322
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment
     ##########################################################################
     CSSValidationLambda:
-        Type: AWS::Lambda::Function
+        Type: AWS::Lambda::Function       
         Properties:
+            VpcConfig:
+                !If
+                - NeedsVpc
+                - 
+                    SecurityGroupIds:
+                        - !Ref VpcSecurityGroupId
+                    SubnetIds:
+                        - !Ref VpcSubnetId
+                - !Ref "AWS::NoValue"
             Description: 'Lambda invoke wrapper for Custom CFN actions'
             Code:
                 ZipFile: !Sub |
@@ -903,13 +953,19 @@ Resources:
                         
             Handler: index.handler
             Role: !GetAtt CSSValidationLambdaRole.Arn
-            Runtime: python3.9
+            Runtime: python3.10
             Timeout: 60
 
     CSSValidationLambdaRole:
         Type: AWS::IAM::Role
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:
@@ -939,6 +995,7 @@ Resources:
         Version: "1.0"
         Properties:
             ServiceToken: !GetAtt CSSValidationLambda.Arn
+            ServiceTimeout: 60
             MessageTextColor: !Ref MessageTextColor
             ChatBackgroundColor: !Ref ChatBackgroundColor
             ToolbarColor: !Ref ToolbarColor
@@ -951,7 +1008,12 @@ Outputs:
         Condition: NeedsBot
         Description: >
             Name of the Lex bot created by the stack
-        Value: !GetAtt Bot.Outputs.BotName
+        Value: !GetAtt Bot.Outputs.BotId
+
+    QBusinessLambdaRoleARN:
+        Condition: NeedsBot
+        Value: !GetAtt Bot.Outputs.QBusinessLambdaRoleARN
+        Description: ARN of role created for executing the Q Business Lambda fulfillment function
 
     CodeBuildUrl:
         Description: >

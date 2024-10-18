@@ -80,32 +80,6 @@ messages to the user, set the ConnectWaitForAgentMessageIntervalInSeconds to 0.
 
 Once you have the parameters set, Create or update your stack.
 
-### Using the pipeline template
-
-The pipeline templates setup a new pipeline and code commit repo which deploys LexWebUi. The master-pipeline.yaml
-template can be used to create a new pipeline and kick off execution of the pipeline. For a new pipeline, the same
-parameters described above can be specified. When complete, the newly deployed Lex Web Ui
-will have an updated lex-web-ui-loader-config.json file containing all the values specified for Connect Live Chat. 
-Future modifications to connect live chat parameters should occur in the lex-web-ui-loader-config.json file and 
-then be committed to code commit repo for deployment.
-
-The new parameters configurable in lex-web-ui-loader-config.json are shown below. 
-
-```
-  "connect": {
-    "contactFlowId" : "YOUR CONTACT FLOW ID",
-    "instanceId" : "YOUR CONNECT INSTANCE ID",
-    "apiGatewayEndpoint" : "Your newly created Amazon API Gateway endpoint",
-    "promptForNameMessage": "Before starting a live chat, please tell me your name?",
-    "waitingForAgentMessage": "Thanks for waiting. An agent will be with you when available.",
-    "waitingForAgentMessageIntervalSeconds": 60,
-    "agentJoinedMessage": "{Agent} has joined.",
-    "agentLeftMessage": "{Agent} has left.", 
-    "chatEndedMessage": "Chat ended.",
-    "attachChatTranscript": true
-  },
-```
-
 ## Usage
 
 Once the stack creation has completed, you can open the parent page hosting the Lex Web UI on your browser.

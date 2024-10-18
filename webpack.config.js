@@ -35,12 +35,7 @@ module.exports = (env) => {
     },
     resolve: {
         fallback: {
-            util: require.resolve('util/'),
-            crypto: require.resolve('crypto-browserify'),
-            buffer: require.resolve('buffer/'),
-            stream: require.resolve('stream-browserify'),
             'process/browser': require.resolve('process/browser'),
-            "vm": require.resolve("vm-browserify"),
         },
     },
     module: {
@@ -121,7 +116,6 @@ module.exports = (env) => {
       }),
       new webpack.ProvidePlugin({
         process: "process/browser",
-        Buffer: ["buffer", "Buffer"],
       }),
       new HtmlWebpackPlugin({
         filename: 'index.html',
