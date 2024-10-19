@@ -51,7 +51,7 @@
     "eslint-formatter-friendly": "^7.0.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-webpack-plugin": "^4.0.1",
-    "express": "^4.17.1",
+    "express": "^4.21.0",
     "html-webpack-plugin": "^5.5.4",
     "mini-css-extract-plugin": "^2.7.6",
     "postcss": "^8.4.32",

@@ -16,6 +16,9 @@
 
 import { ConfigLoader } from './config-loader';
 import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin } from './loginutil';
+import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+const { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } = require("@aws-sdk/client-cognito-identity");
+
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -51,7 +54,6 @@ export class IframeComponentLoader {
    */
   load(configParam) {
     this.config = ConfigLoader.mergeConfig(this.config, configParam);
-
     // add iframe config if missing
     if (!(('iframe' in this.config))) {
       this.config.iframe = {};
@@ -167,32 +169,31 @@ export class IframeComponentLoader {
     const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
     let credentials;
     const idtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
+    let logins;
+    const self = this;
     if (idtoken) { // auth role since logged in
       try {
-        const logins = {};
+        logins = {};
         logins[poolName] = idtoken;
-        credentials = new AWS.CognitoIdentityCredentials(
-          { IdentityPoolId: cognitoPoolId, Logins: logins },
-          { region },
-        );
+        credentials = this.getCredentials(cognitoPoolId, region, logins)
+          .then((creds) => {
+            self.credentials = creds;
+            return creds;
+          });
       } catch (err) {
         console.error(new Error(`cognito auth credentials could not be created ${err}`));
       }
     } else { // noauth role
       try {
-        credentials = new AWS.CognitoIdentityCredentials(
-          { IdentityPoolId: cognitoPoolId },
-          { region },
-        );
+        credentials = this.getCredentials(cognitoPoolId, region)
+          .then((creds) => {
+            self.credentials = creds;
+            return creds;
+          });
       } catch (err) {
         console.error(new Error(`cognito noauth credentials could not be created ${err}`));
       }
     }
-    const self = this;
-    credentials.getPromise()
-      .then(() => {
-        self.credentials = credentials;
-      });
   }
 
   validateIdToken() {
@@ -250,27 +251,20 @@ export class IframeComponentLoader {
       if (!cognitoPoolId) {
         return reject(new Error('missing cognito poolId config'));
       }
-
-      if (!('AWS' in window) ||
-        !('CognitoIdentityCredentials' in window.AWS)
-      ) {
-        return reject(new Error('unable to find AWS SDK global object'));
-      }
-
+      localStorage.setItem('poolId', cognitoPoolId);
+      localStorage.setItem('appUserPoolClientId', this.config.cognito.appUserPoolClientId);
+      localStorage.setItem('appUserPoolName', this.config.cognito.appUserPoolName)
       let credentials;
       const token = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
+      let logins;
+      const self = this;
       if (token) { // auth role since logged in
         return this.validateIdToken().then((idToken) => {
-          const logins = {};
+          logins = {};
           logins[poolName] = idToken;
-          credentials = new AWS.CognitoIdentityCredentials(
-            { IdentityPoolId: cognitoPoolId, Logins: logins },
-            { region },
-          );
-          const self = this;
-          return credentials.getPromise()
-            .then(() => {
-              self.credentials = credentials;
+          credentials = this.getCredentials(cognitoPoolId, region, logins)
+            .then((creds) => {
+              self.credentials = creds;
               resolve();
             });
         }, (unable) => {
@@ -280,19 +274,10 @@ export class IframeComponentLoader {
           reject(unable);
         });
       }
-      credentials = new AWS.CognitoIdentityCredentials(
-        { IdentityPoolId: cognitoPoolId },
-        { region },
-      );
-      if (this.config.ui.enableLogin) {
-        credentials.clearCachedId();
-      }
-      const self = this;
-      return credentials.getPromise()
-        .then(() => {
-          self.credentials = credentials;
-          resolve();
-        });
+      credentials = this.getCredentials(cognitoPoolId, region).then((creds) => {
+        self.credentials = creds;
+        resolve();
+      });
     });
   }
 
@@ -534,13 +519,47 @@ export class IframeComponentLoader {
   /**
    * Get AWS credentials to pass to the chatbot UI
    */
-  getCredentials() {
-    if (!this.credentials || !('getPromise' in this.credentials)) {
-      return Promise.reject(new Error('invalid credentials'));
-    }
 
-    return this.credentials.getPromise()
-      .then(() => this.credentials);
+
+  async getCredentials(poolId, region, logins) {
+    if (logins) {
+      const client = new CognitoIdentityClient({ region });
+      const getIdentityId = new GetIdCommand({
+        IdentityPoolId: poolId,
+        Logins: logins
+      })
+      let identityId, getCreds;
+      try {
+        await client.send(getIdentityId)
+          .then((res) => {
+            identityId = res.IdentityId;
+            getCreds = new GetCredentialsForIdentityCommand({
+              IdentityId: identityId,
+              Logins: logins
+            })
+          })
+        const res = await client.send(getCreds);
+        const creds = res.Credentials;
+        const credentials = {
+          accessKeyId: creds.AccessKeyId,
+          identityId,
+          secretAccessKey: creds.SecretKey,
+          sessionToken: creds.SessionToken,
+          expiration: creds.Expiration,
+        };
+        return credentials;
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      const credentialProvider = fromCognitoIdentityPool({
+        identityPoolId: poolId,
+        logins: logins,
+        clientConfig: { region: region },
+      })
+      const credentials = credentialProvider();
+      return credentials;
+    }
   }
 
   /**
@@ -558,23 +577,12 @@ export class IframeComponentLoader {
 
       // requests credentials from the parent
       getCredentials(evt) {
-        return this.getCredentials()
-          .then((creds) => {
-            const tcreds = JSON.parse(JSON.stringify(creds));
-            evt.ports[0].postMessage({
-              event: 'resolve',
-              type: evt.data.event,
-              data: tcreds,
-            });
-          })
-          .catch((error) => {
-            console.error('failed to get credentials', error);
-            evt.ports[0].postMessage({
-              event: 'reject',
-              type: evt.data.event,
-              error: 'failed to get credentials',
-            });
-          });
+        const tcreds = JSON.parse(JSON.stringify(this.credentials));
+        return evt.ports[0].postMessage({
+          event: 'resolve',
+          type: evt.data.event,
+          data: tcreds,
+        });
       },
 
       // requests chatbot UI config
