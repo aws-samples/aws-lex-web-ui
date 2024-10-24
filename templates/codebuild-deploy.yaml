@@ -1211,6 +1211,8 @@ Resources:
     # custom resource to cleanup S3 buckets
     S3Cleanup:
         Type: Custom::S3Cleanup
+        DeletionPolicy: Retain
+        UpdateReplacePolicy: Retain
         Condition: ShouldCleanupBuckets
         Properties:
             ServiceToken: !GetAtt S3CleanupLambda.Arn
