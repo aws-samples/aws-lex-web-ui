@@ -242,6 +242,12 @@ Parameters:
         Delay to insert between each transcript message send to Connect in msec.
       Default: 150
 
+    ConnectTranscriptRedactRegex:
+      Type: String
+      Description: >
+        Optional regex used to redact entire lines in transcript sent to agent
+      Default: ''
+
     LexV2BotId:
       Description: >
         Bot ID (not bot name) of an existing Lex V2 Bot to be used by the web ui. NOTE: You must
@@ -849,6 +855,8 @@ Resources:
                       Value: !Ref ConnectEndLiveChatUtterance
                     - Name: CONNECT_TRANSCRIPT_MESSAGE_DELAY_IN_MSEC
                       Value: !Ref ConnectTranscriptMessageDelayInMsec
+                    - Name: CONNECT_TRANSCRIPT_REDACT_REGEX
+                      Value: !Ref ConnectTranscriptRedactRegex
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME
@@ -997,6 +1005,7 @@ Resources:
             ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
             ConnectEndLiveChatUtterance: !Ref ConnectEndLiveChatUtterance
             ConnectTranscriptMessageDelayInMsec: !Ref ConnectTranscriptMessageDelayInMsec
+            ConnectTranscriptRedactRegex: !Ref ConnectTranscriptRedactRegex
             WebAppBucket: !Ref WebAppBucket
             LexV2BotId: !Ref LexV2BotId
             LexV2BotAliasId: !Ref LexV2BotAliasId

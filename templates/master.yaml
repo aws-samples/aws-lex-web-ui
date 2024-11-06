@@ -492,6 +492,12 @@ Parameters:
             Optional utterance to send to bot after ending a live chat session
         Default: ''
 
+    ConnectTranscriptRedactRegex:
+        Type: String
+        Description: >
+            Optional regex used to redact entire lines in transcript sent to agent
+        Default: ''
+
     ## CSS Configuration Options
     MessageTextColor:
         Type: String
@@ -694,6 +700,7 @@ Metadata:
                   - ConnectEndLiveChatIcon
                   - ConnectEndLiveChatUtterance
                   - ConnectTranscriptMessageDelayInMsec
+                  - ConnectTranscriptRedactRegex
             - Label:
                 default: CSS Customization Parameters
               Parameters:
@@ -856,6 +863,7 @@ Resources:
                 ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
                 ConnectEndLiveChatUtterance: !Ref ConnectEndLiveChatUtterance
                 ConnectTranscriptMessageDelayInMsec: !Ref ConnectTranscriptMessageDelayInMsec
+                ConnectTranscriptRedactRegex: !Ref ConnectTranscriptRedactRegex
                 MessageTextColor: !Ref MessageTextColor
                 MessageFont: !Ref MessageFont
                 ChatBackgroundColor: !Ref ChatBackgroundColor
@@ -868,7 +876,7 @@ Resources:
                 AllowStreamingResponses: !Ref AllowStreamingResponses
                 ShouldEnableUpload: !Ref ShouldEnableUpload
                 UploadBucket: !Ref UploadBucket
-                Timestamp: 1724098094
+                Timestamp: 1730925847
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -882,7 +890,7 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1724098094
+                Timestamp: 1730925847
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment

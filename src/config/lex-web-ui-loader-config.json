@@ -11,6 +11,7 @@
     "chatEndedMessage": "",
     "attachChatTranscript": "",
     "endLiveChatUtterance": "",
-    "transcriptMessageDelayInMsec": ""
+    "transcriptMessageDelayInMsec": "",
+    "transcriptRedactRegex": ""
   }
 }
