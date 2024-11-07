@@ -519,7 +519,7 @@ Parameters:
         Description: >
          This is an optional parameter, when set to an image URL that is accessible by the application it will 
          display on the left of all bot messages
-    
+         
     AllowStreamingResponses:
         Type: String
         Default: false
@@ -529,7 +529,19 @@ Parameters:
         Description: >
             If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
             in addition to the Lex bot directly.
-    
+
+    StreamingWebSocketEndpoint:
+        Type: String
+        Default: ''
+        Description: >
+            If not using the Web socket endpoint created via AllowStreamingResponses, you can optionally specify an alternative streaming endpoint here
+
+    StreamingDynamoDbTable:
+        Type: String
+        Default: ''
+        Description: >
+            If not using the DynamoDB table through Lex Web UI, you can optionally specify an alternative table for streaming purposes here
+
     ShouldEnableUpload:
         Type: String
         Default: false
@@ -563,6 +575,8 @@ Conditions:
     UseDefaultCloudfrontUrl: !Or [ !Equals [!Ref WebAppConfCname, ''], !Equals [!Ref WebAppAcmCertificateArn, ''] ]
     ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
     EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
+    HasStreamingWebSocketEndpoint: !Not [!Equals [!Ref StreamingWebSocketEndpoint, ""]]
+    HasStreamingDynamoDbTable: !Not [!Equals [!Ref StreamingDynamoDbTable, ""]]
     EnableUpload: !Equals [!Ref ShouldEnableUpload, true]
     NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
 
@@ -950,9 +964,9 @@ Resources:
                     - Name: ALLOW_STREAMING_RESPONSES
                       Value: !Ref AllowStreamingResponses
                     - Name: STREAMING_WEB_SOCKET_ENDPOINT
-                      Value: !If [EnableStreaming, !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod", ""]
+                      Value: !If [EnableStreaming, !If [HasStreamingWebSocketEndpoint, !Ref StreamingWebSocketEndpoint, !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod"], ""]
                     - Name: STREAMING_DYNAMO_TABLE
-                      Value: !If [EnableStreaming, !Sub "${StreamingSupport.Outputs.DynamoTableName}", ""]                    
+                      Value: !If [EnableStreaming, !If [HasStreamingDynamoDbTable, !Ref StreamingDynamoDbTable, !Sub "${StreamingSupport.Outputs.DynamoTableName}"], ""]
                     - Name: ENABLE_UPLOAD
                       Value: !Ref ShouldEnableUpload
                     - Name: UPLOAD_BUCKET_NAME
@@ -1041,6 +1055,8 @@ Resources:
             TitleLogoImgUrl: !Ref TitleLogoImgUrl
             BotAvatarImgUrl: !Ref BotAvatarImgUrl
             AllowStreamingResponses: !Ref AllowStreamingResponses
+            StreamingWebSocketEndpoint: !Ref StreamingWebSocketEndpoint
+            StreamingDynamoDbTable: !Ref StreamingDynamoDbTable
             ShouldEnableUpload: !Ref ShouldEnableUpload
             UploadBucket: !Ref UploadBucket
             Timestamp: !Ref Timestamp
