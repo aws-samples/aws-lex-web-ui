@@ -23,7 +23,9 @@ module.exports = {
     chatEndedMessage: process.env.CONNECT_CHAT_ENDED_MESSAGE,
     attachChatTranscript: process.env.CONNECT_ATTACH_CHAT_TRANSCRIPT,
     liveChatTerms: process.env.CONNECT_LIVE_CHAT_TERMS,
+    endLiveChatUtterance: process.env.CONNECT_END_LIVE_CHAT_UTTERANCE,
     transcriptMessageDelayInMsec: process.env.CONNECT_TRANSCRIPT_MESSAGE_DELAY_IN_MSEC,
+    transcriptRedactRegex: process.env.CONNECT_TRANSCRIPT_REDACT_REGEX,
   },
   lex: {
     v2BotId: process.env.V2_BOT_ID,

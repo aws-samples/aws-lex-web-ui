@@ -59,26 +59,37 @@ export default {
     return v;
   },
   liveChatTextTranscriptArray: state => () => {
+    // Support redacting messages delivered to agent based on config.connect.transcriptRedactRegex.
+    // Use case is to support redacting post chat survey responses from being seen by agents if user
+    // reconnects with an agent.
     const messageTextArray = [];
-    var text = ""; 
+    var text = "";
+    let shouldRedactResponse = false; // indicates if the current message should be redacted
+    const regex = new RegExp(`${state.config.connect.transcriptRedactRegex}`, "g");
     state.messages.forEach((message) => {
       var nextMessage = message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + message.text + '\n';
+      if (shouldRedactResponse) {
+        nextMessage = message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + '###' + '\n';
+      }
       if((text + nextMessage).length > 400) {
         messageTextArray.push(text);
         //this is over 1k chars by itself, so we must break it up.
-        var subMessageArray = nextMessage.match(/(.|[\r\n]){1,400}/g); 
+        var subMessageArray = nextMessage.match(/(.|[\r\n]){1,400}/g);
         subMessageArray.forEach((subMsg) => {
           messageTextArray.push(subMsg);
         });
         text = "";
+        shouldRedactResponse= regex.test(nextMessage);
         nextMessage = "";
-      } 
-      text = text + nextMessage; 
+      } else {
+        shouldRedactResponse= regex.test(nextMessage);
+      }
+      text = text + nextMessage;
     });
     messageTextArray.push(text);
     return messageTextArray;
   },
-  liveChatTranscriptFile: state => () => { 
+  liveChatTranscriptFile: state => () => {
     var text = 'Bot Transcript: \n';
     state.messages.forEach((message) => text = text + message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + message.text + '\n');
     var blob = new Blob([text], { type: 'text/plain'});

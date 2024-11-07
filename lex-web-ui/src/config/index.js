@@ -76,6 +76,8 @@ const configDefault = {
     liveChatTerms: 'live chat',
     // The delay to use between sending transcript blocks to connect
     transcriptMessageDelayInMsec: 150,
+    // Utterance to send on end live chat
+    endLiveChatUtterance: ''
   },
   lex: {
     // Lex V2 fields

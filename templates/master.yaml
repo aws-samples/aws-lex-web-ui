@@ -486,6 +486,18 @@ Parameters:
             Icon to use in menu and toolbar to end connect live chat
         Default: "call_end"
 
+    ConnectEndLiveChatUtterance:
+        Type: String
+        Description: >
+            Optional utterance to send to bot after ending a live chat session
+        Default: ''
+
+    ConnectTranscriptRedactRegex:
+        Type: String
+        Description: >
+            Optional regex used to redact entire lines in transcript sent to agent
+        Default: ''
+
     ## CSS Configuration Options
     MessageTextColor:
         Type: String
@@ -711,7 +723,9 @@ Metadata:
                   - ConnectStartLiveChatIcon
                   - ConnectEndLiveChatLabel
                   - ConnectEndLiveChatIcon
+                  - ConnectEndLiveChatUtterance
                   - ConnectTranscriptMessageDelayInMsec
+                  - ConnectTranscriptRedactRegex
             - Label:
                 default: CSS Customization Parameters
               Parameters:
@@ -731,7 +745,7 @@ Metadata:
                 default: Q Business Parameters
               Parameters:
                   - AmazonQAppId
-                  - IDCApplicationARN                 
+                  - IDCApplicationARN
 
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
@@ -769,7 +783,7 @@ Resources:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
                 ForceCognitoLogin: !Ref ForceCognitoLogin
                 LexBotName: !Ref BotName
-                LexV2BotId: 
+                LexV2BotId:
                     !If
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotId
@@ -778,7 +792,7 @@ Resources:
                     !If
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotAlias
-                      - !Ref LexV2BotAliasId                    
+                      - !Ref LexV2BotAliasId
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
                 ShouldEnableUpload: !Ref ShouldEnableUpload
                 UploadBucket: !Ref UploadBucket
@@ -813,7 +827,7 @@ Resources:
                           - !GetAtt Bot.Outputs.BotId
                           - !Ref BotName
                 BotAlias: !Ref BotAlias
-                LexV2BotId: 
+                LexV2BotId:
                     !If
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotId
@@ -822,7 +836,7 @@ Resources:
                     !If
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotAlias
-                      - !Ref LexV2BotAliasId  
+                      - !Ref LexV2BotAliasId
                 LexV2BotLocaleId: !Ref LexV2BotLocaleId
                 CognitoIdentityPoolId:
                     !If
@@ -882,7 +896,9 @@ Resources:
                 ConnectStartLiveChatIcon: !Ref ConnectStartLiveChatIcon
                 ConnectEndLiveChatLabel: !Ref ConnectEndLiveChatLabel
                 ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
+                ConnectEndLiveChatUtterance: !Ref ConnectEndLiveChatUtterance
                 ConnectTranscriptMessageDelayInMsec: !Ref ConnectTranscriptMessageDelayInMsec
+                ConnectTranscriptRedactRegex: !Ref ConnectTranscriptRedactRegex
                 MessageTextColor: !Ref MessageTextColor
                 MessageFont: !Ref MessageFont
                 ChatBackgroundColor: !Ref ChatBackgroundColor

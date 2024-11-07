@@ -230,11 +230,23 @@ Parameters:
         Icon to use in menu and toolbar to end connect live chat
       Default: "call_end"
 
+    ConnectEndLiveChatUtterance:
+      Type: String
+      Description: >
+        Optional utterance to send to bot after ending a live chat session
+      Default: ''
+
     ConnectTranscriptMessageDelayInMsec:
       Type: Number
       Description: >
         Delay to insert between each transcript message send to Connect in msec.
       Default: 150
+
+    ConnectTranscriptRedactRegex:
+      Type: String
+      Description: >
+        Optional regex used to redact entire lines in transcript sent to agent
+      Default: ''
 
     LexV2BotId:
       Description: >
@@ -868,8 +880,12 @@ Resources:
                       Value: !Ref ConnectEndLiveChatLabel
                     - Name: CONNECT_END_LIVE_CHAT_ICON
                       Value: !Ref ConnectEndLiveChatIcon
+                    - Name: CONNECT_END_LIVE_CHAT_UTTERANCE
+                      Value: !Ref ConnectEndLiveChatUtterance
                     - Name: CONNECT_TRANSCRIPT_MESSAGE_DELAY_IN_MSEC
                       Value: !Ref ConnectTranscriptMessageDelayInMsec
+                    - Name: CONNECT_TRANSCRIPT_REDACT_REGEX
+                      Value: !Ref ConnectTranscriptRedactRegex
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME
@@ -1016,7 +1032,9 @@ Resources:
             ConnectStartLiveChatIcon: !Ref ConnectStartLiveChatIcon
             ConnectEndLiveChatLabel: !Ref ConnectEndLiveChatLabel
             ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
+            ConnectEndLiveChatUtterance: !Ref ConnectEndLiveChatUtterance
             ConnectTranscriptMessageDelayInMsec: !Ref ConnectTranscriptMessageDelayInMsec
+            ConnectTranscriptRedactRegex: !Ref ConnectTranscriptRedactRegex
             WebAppBucket: !Ref WebAppBucket
             LexV2BotId: !Ref LexV2BotId
             LexV2BotAliasId: !Ref LexV2BotAliasId
