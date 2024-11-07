@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.21.5)
+    Master Lex Web UI CloudFormation template (v0.21.6)
     The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
     Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
     version input parameters as defaulted.
@@ -569,6 +569,18 @@ Parameters:
             If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
             in addition to the Lex bot directly. More details on how to configure your bot for streaming intereactions
             can be found here: https://github.com/zhengjie28/lex-web-ui-websocket
+
+    StreamingWebSocketEndpoint:
+        Type: String
+        Default: ''
+        Description: >
+            If not using the Web socket endpoint created via AllowStreamingResponses, you can optionally specify an alternative streaming endpoint here
+            
+    StreamingDynamoDbTable:
+        Type: String
+        Default: ''
+        Description: >
+            If not using the DynamoDB table through Lex Web UI, you can optionally specify an alternative table for streaming purposes here
     
     ShouldEnableUpload:
         Type: String
@@ -601,6 +613,17 @@ Parameters:
             This process is not automated because in many use cases Identity Center will not be in the same account as the bot.
             Manual set-up instructions can be found here: https://github.com/aws-samples/aws-lex-web-ui/blob/master/README-qbusiness.md
 
+    VpcSubnetId:
+        Type: String
+        Default: ''
+        Description: ID of a VPC subnet where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+    VpcSecurityGroupId:
+        Type: String
+        Default: ''
+        Description: ID of a security group where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+    
 Rules:
   ValidateEitherV1orV2:
     RuleCondition: !Not 
@@ -651,6 +674,8 @@ Metadata:
                   - retryOnLexPostTextTimeout
                   - retryCountPostTextTimeout
                   - AllowStreamingResponses
+                  - StreamingWebSocketEndpoint
+                  - StreamingDynamoDbTable
                   - ShouldEnableUpload
                   - UploadBucket
             - Label:
@@ -712,6 +737,11 @@ Metadata:
                   - CustomerChatBubble
                   - MinimizedButtonColor
             - Label:
+                default: Lambda VPC Support
+              Parameters:
+                  - VpcSubnetId
+                  - VpcSecurityGroupId 
+            - Label:
                 default: Q Business Parameters
               Parameters:
                   - AmazonQAppId
@@ -720,6 +750,7 @@ Metadata:
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
     NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
+    NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
     ShouldForceCognitoLogin: !Equals [!Ref ForceCognitoLogin, true]
@@ -737,9 +768,11 @@ Resources:
                 ParentStackName: !Ref "AWS::StackName"
                 SourceBucket: !Ref BootstrapBucket
                 QBusinessLambdaLayerObject: !Sub "${BootstrapPrefix}/layers.zip"
-                QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-lambda-v0.21.5.zip"
+                QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-lambda-v0.21.6.zip"
                 AmazonQAppId: !Ref AmazonQAppId
                 IDCApplicationARN: !Ref IDCApplicationARN
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
 
     CognitoIdentityPool:
         Type: AWS::CloudFormation::Stack
@@ -778,10 +811,12 @@ Resources:
                 CodeBuildName: !Ref CodeBuildName
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.21.5.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.5.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.21.5.zip"
-                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.21.5.zip"
+                StreamingWebSocketEndpoint: !Ref StreamingWebSocketEndpoint
+                StreamingDynamoDbTable: !Ref StreamingDynamoDbTable
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.21.6.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.6.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.21.6.zip"
+                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.21.6.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
@@ -876,7 +911,9 @@ Resources:
                 AllowStreamingResponses: !Ref AllowStreamingResponses
                 ShouldEnableUpload: !Ref ShouldEnableUpload
                 UploadBucket: !Ref UploadBucket
-                Timestamp: 1730925847
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
+                Timestamp: 1726842081
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -890,14 +927,25 @@ Resources:
                 CodeBuildProjectName: !GetAtt CodeBuildDeploy.Outputs.CodeBuildProject
                 CognitoUserPool: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolId
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
-                Timestamp: 1730925847
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
+                Timestamp: 1726842081
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment
     ##########################################################################
     CSSValidationLambda:
-        Type: AWS::Lambda::Function
+        Type: AWS::Lambda::Function       
         Properties:
+            VpcConfig:
+                !If
+                - NeedsVpc
+                - 
+                    SecurityGroupIds:
+                        - !Ref VpcSecurityGroupId
+                    SubnetIds:
+                        - !Ref VpcSubnetId
+                - !Ref "AWS::NoValue"
             Description: 'Lambda invoke wrapper for Custom CFN actions'
             Code:
                 ZipFile: !Sub |
@@ -944,6 +992,12 @@ Resources:
         Type: AWS::IAM::Role
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:
@@ -973,6 +1027,7 @@ Resources:
         Version: "1.0"
         Properties:
             ServiceToken: !GetAtt CSSValidationLambda.Arn
+            ServiceTimeout: 60
             MessageTextColor: !Ref MessageTextColor
             ChatBackgroundColor: !Ref ChatBackgroundColor
             ToolbarColor: !Ref ToolbarColor

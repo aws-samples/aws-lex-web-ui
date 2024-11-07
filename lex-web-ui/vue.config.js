@@ -124,7 +124,9 @@ function chainWebpackLib(
   format = 'umd',
 ) {
   const baseFilename = `${destDir}/${entryName}`;
-
+  const filename = (buildType.isProd)
+    ? `${baseFilename}.min.js` : `${baseFilename}.js`;
+    
   config
     .entry(entryName)
     .add(entryFileName)
@@ -132,9 +134,7 @@ function chainWebpackLib(
     .output
     .libraryTarget(format)
     .library(libraryName)
-    .filename(
-      (buildType.isProd) ? 'bundle/[name].min.js' : 'bundle/[name].js',
-    );
+    .filename(filename);
 
   chainWebpackCommon(config, destDir);
   

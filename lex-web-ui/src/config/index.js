@@ -143,7 +143,7 @@ const configDefault = {
     allowStreamingResponses: false,
 
     // web socket endpoint for streaming
-     streamingWebSocketEndpoint: '',
+    streamingWebSocketEndpoint: '',
 
     // dynamo DB table for streaming
     streamingDynamoDbTable: '',

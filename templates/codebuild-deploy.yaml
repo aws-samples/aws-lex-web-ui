@@ -531,7 +531,7 @@ Parameters:
         Description: >
          This is an optional parameter, when set to an image URL that is accessible by the application it will 
          display on the left of all bot messages
-    
+         
     AllowStreamingResponses:
         Type: String
         Default: false
@@ -541,7 +541,19 @@ Parameters:
         Description: >
             If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
             in addition to the Lex bot directly.
-    
+
+    StreamingWebSocketEndpoint:
+        Type: String
+        Default: ''
+        Description: >
+            If not using the Web socket endpoint created via AllowStreamingResponses, you can optionally specify an alternative streaming endpoint here
+
+    StreamingDynamoDbTable:
+        Type: String
+        Default: ''
+        Description: >
+            If not using the DynamoDB table through Lex Web UI, you can optionally specify an alternative table for streaming purposes here
+
     ShouldEnableUpload:
         Type: String
         Default: false
@@ -557,6 +569,16 @@ Parameters:
         Default: ''
         Description: >
             If enabling upload, the name of the S3 bucket where uploaded documents should be stored
+
+    VpcSubnetId:
+        Type: String
+        Default: ''
+        Description: ID of a VPC subnet where all Lambda functions will run, only used if you need Lambda to run in a VPC
+
+    VpcSecurityGroupId:
+        Type: String
+        Default: ''
+        Description: ID of a security group where all Lambda functions will run, only used if you need Lambda to run in a VPC
              
 Conditions:
     NeedsParentOrigin: !Equals [!Ref ParentOrigin, '']
@@ -565,7 +587,10 @@ Conditions:
     UseDefaultCloudfrontUrl: !Or [ !Equals [!Ref WebAppConfCname, ''], !Equals [!Ref WebAppAcmCertificateArn, ''] ]
     ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
     EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
+    HasStreamingWebSocketEndpoint: !Not [!Equals [!Ref StreamingWebSocketEndpoint, ""]]
+    HasStreamingDynamoDbTable: !Not [!Equals [!Ref StreamingDynamoDbTable, ""]]
     EnableUpload: !Equals [!Ref ShouldEnableUpload, true]
+    NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
 
 Resources:
     # Bucket where S3 access logs are stored
@@ -781,6 +806,8 @@ Resources:
               InitiateChatLambdaCodeObject: !Ref InitiateChatLambdaCodeObject
               ConnectContactFlowId: !Ref ConnectContactFlowId
               ConnectInstanceId: !Ref ConnectInstanceId
+              VpcSubnetId: !Ref VpcSubnetId
+              VpcSecurityGroupId: !Ref VpcSecurityGroupId
               ParentOrigin:
                 !If
                   - UseDefaultCloudfrontUrl
@@ -798,6 +825,8 @@ Resources:
                 SourceBucket: !Ref SourceBucket
                 StreamingLambdaCodeObject: !Ref StreamingLambdaCodeObject
                 TableName: !Join ["-", [!Ref "AWS::StackName", "streaming"]]
+                VpcSubnetId: !Ref VpcSubnetId
+                VpcSecurityGroupId: !Ref VpcSecurityGroupId
                 ParentOrigin:
                   !If
                     - UseDefaultCloudfrontUrl
@@ -951,9 +980,9 @@ Resources:
                     - Name: ALLOW_STREAMING_RESPONSES
                       Value: !Ref AllowStreamingResponses
                     - Name: STREAMING_WEB_SOCKET_ENDPOINT
-                      Value: !If [EnableStreaming, !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod", ""]
+                      Value: !If [EnableStreaming, !If [HasStreamingWebSocketEndpoint, !Ref StreamingWebSocketEndpoint, !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod"], ""]
                     - Name: STREAMING_DYNAMO_TABLE
-                      Value: !If [EnableStreaming, !Sub "${StreamingSupport.Outputs.DynamoTableName}", ""]                    
+                      Value: !If [EnableStreaming, !If [HasStreamingDynamoDbTable, !Ref StreamingDynamoDbTable, !Sub "${StreamingSupport.Outputs.DynamoTableName}"], ""]
                     - Name: ENABLE_UPLOAD
                       Value: !Ref ShouldEnableUpload
                     - Name: UPLOAD_BUCKET_NAME
@@ -1044,14 +1073,25 @@ Resources:
             TitleLogoImgUrl: !Ref TitleLogoImgUrl
             BotAvatarImgUrl: !Ref BotAvatarImgUrl
             AllowStreamingResponses: !Ref AllowStreamingResponses
+            StreamingWebSocketEndpoint: !Ref StreamingWebSocketEndpoint
+            StreamingDynamoDbTable: !Ref StreamingDynamoDbTable
             ShouldEnableUpload: !Ref ShouldEnableUpload
             UploadBucket: !Ref UploadBucket
             Timestamp: !Ref Timestamp
 
     # Lambda function for custom resource
     CodeBuildStarterLambda:
-        Type: AWS::Lambda::Function
+        Type: AWS::Lambda::Function       
         Properties:
+            VpcConfig:
+              !If
+              - NeedsVpc
+              - 
+                  SecurityGroupIds:
+                      - !Ref VpcSecurityGroupId
+                  SubnetIds:
+                      - !Ref VpcSubnetId
+              - !Ref "AWS::NoValue"
             Code:
                 S3Bucket: !Ref SourceBucket
                 S3Key: !Ref CustomResourceCodeObject
@@ -1146,6 +1186,12 @@ Resources:
         Type: AWS::IAM::Role
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:
@@ -1199,17 +1245,29 @@ Resources:
     # custom resource to cleanup S3 buckets
     S3Cleanup:
         Type: Custom::S3Cleanup
+        DeletionPolicy: Retain
+        UpdateReplacePolicy: Retain
         Condition: ShouldCleanupBuckets
         Properties:
             ServiceToken: !GetAtt S3CleanupLambda.Arn
+            ServiceTimeout: 60
             Buckets:
                 - !Ref WebAppBucket
 
   # Lambda function for custom resource
     S3CleanupLambda:
         Type: AWS::Lambda::Function
-        Condition: ShouldCleanupBuckets
+        Condition: ShouldCleanupBuckets        
         Properties:
+            VpcConfig:
+              !If
+              - NeedsVpc
+              - 
+                  SecurityGroupIds:
+                      - !Ref VpcSecurityGroupId
+                  SubnetIds:
+                      - !Ref VpcSubnetId
+              - !Ref "AWS::NoValue"
             Code:
                 S3Bucket: !Ref SourceBucket
                 S3Key: !Ref CustomResourceCodeObject
@@ -1225,6 +1283,12 @@ Resources:
         Condition: ShouldCleanupBuckets
         Properties:
             Path: /
+            ManagedPolicyArns:
+                !If 
+                  - NeedsVpc
+                  -
+                    - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+                  - !Ref "AWS::NoValue"
             AssumeRolePolicyDocument:
                 Version: 2012-10-17
                 Statement:
