@@ -33,6 +33,8 @@ module.exports = function mergeConfig(baseConfig, srcConfig) {
             key=== 'initialText' ||
             key=== 'avatarImageUrl' ||
             key=== 'toolbarLogo' ||
+            key=== 'streamingWebSocketEndpoint' ||
+            key=== 'streamingDynamoDbTable' ||
             !isEmpty(srcConfig[key]) ) {
             value = (typeof (baseConfig[key]) === 'object') ?
                 // recursively merge sub-objects in both directions
