@@ -574,13 +574,7 @@ Parameters:
         Type: String
         Default: ''
         Description: >
-            If not using the Web socket endpoint created via AllowStreamingResponses, you can optionally specify an alternative streaming endpoint here
-            
-    StreamingDynamoDbTable:
-        Type: String
-        Default: ''
-        Description: >
-            If not using the DynamoDB table through Lex Web UI, you can optionally specify an alternative table for streaming purposes here
+            If you have an existing WebSocket API Gateway endpoint, you can specify it using this parameter. This requires parameter AllowStreamingResponses set to True.
     
     ShouldEnableUpload:
         Type: String
@@ -675,7 +669,6 @@ Metadata:
                   - retryCountPostTextTimeout
                   - AllowStreamingResponses
                   - StreamingWebSocketEndpoint
-                  - StreamingDynamoDbTable
                   - ShouldEnableUpload
                   - UploadBucket
             - Label:
@@ -812,7 +805,6 @@ Resources:
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
                 StreamingWebSocketEndpoint: !Ref StreamingWebSocketEndpoint
-                StreamingDynamoDbTable: !Ref StreamingDynamoDbTable
                 SourceObject: !Sub "${BootstrapPrefix}/src-v0.21.6.zip"
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.6.zip"
                 InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.21.6.zip"
