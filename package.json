@@ -51,7 +51,7 @@
     "eslint-formatter-friendly": "^7.0.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-webpack-plugin": "^4.0.1",
-    "express": "^4.21.0",
+    "express": "^4.21.1",
     "html-webpack-plugin": "^5.5.4",
     "mini-css-extract-plugin": "^2.7.6",
     "postcss": "^8.4.32",
@@ -61,6 +61,10 @@
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
+  },
+  "overrides": {
+    "cross-spawn": "^7.0.6",
+    "http-proxy-middleware": "^2.0.7"
   },
   "engines": {
     "node": ">=18.0.0",
