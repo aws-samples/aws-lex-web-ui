@@ -557,6 +557,12 @@ Parameters:
             If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
             in addition to the Lex bot directly. More details on how to configure your bot for streaming intereactions
             can be found here: https://github.com/zhengjie28/lex-web-ui-websocket
+
+    StreamingWebSocketEndpoint:
+        Type: String
+        Default: ''
+        Description: >
+            If you have an existing WebSocket API Gateway endpoint, you can specify it using this parameter. This requires parameter AllowStreamingResponses set to True.
     
     ShouldEnableUpload:
         Type: String
@@ -650,6 +656,7 @@ Metadata:
                   - retryOnLexPostTextTimeout
                   - retryCountPostTextTimeout
                   - AllowStreamingResponses
+                  - StreamingWebSocketEndpoint
                   - ShouldEnableUpload
                   - UploadBucket
             - Label:
@@ -783,6 +790,7 @@ Resources:
                 CodeBuildName: !Ref CodeBuildName
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
+                StreamingWebSocketEndpoint: !Ref StreamingWebSocketEndpoint
                 SourceObject: !Sub "${BootstrapPrefix}/src-v0.21.6.zip"
                 CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.6.zip"
                 InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.21.6.zip"
