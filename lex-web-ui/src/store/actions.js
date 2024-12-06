@@ -25,6 +25,7 @@ import { createLiveChatSession, connectLiveChatSession, initLiveChatHandlers, se
 import { initTalkDeskLiveChat, sendTalkDeskChatMessage, requestTalkDeskLiveChatEnd } from '@/store/talkdesk-live-chat-handlers.js';
 import silentOgg from '@/assets/silent.ogg';
 import silentMp3 from '@/assets/silent.mp3';
+import { Signer } from 'aws-amplify';
 
 import LexClient from '@/lib/lex/client';
 
@@ -1290,7 +1291,19 @@ export default {
  **********************************************************************/
   InitWebSocketConnect(context){
     const sessionId = lexClient.userId;
-    wsClient = new WebSocket(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId);
+    const serviceInfo = { 
+      region: context.state.config.region, 
+      service: 'execute-api' 
+    };
+
+    const accessInfo = {
+      access_key: awsCredentials.accessKeyId,
+      secret_key: awsCredentials.secretAccessKey,
+      session_token: awsCredentials.sessionToken,
+    }
+
+    const signedUrl = Signer.signUrl(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId, accessInfo, serviceInfo);
+    wsClient = new WebSocket(signedUrl);
   },
   typingWsMessages(context){
     if (context.getters.wsMessagesCurrentIndex()<context.getters.wsMessagesLength()-1){
