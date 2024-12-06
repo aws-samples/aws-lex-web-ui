@@ -568,7 +568,7 @@ Parameters:
         Description: >
             If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
             in addition to the Lex bot directly. More details on how to configure your bot for streaming intereactions
-            can be found here: https://github.com/zhengjie28/lex-web-ui-websocket
+            can be found here: https://github.com/aws-samples/aws-lex-web-ui/blob/master/README-streaming-responses.md
 
     StreamingWebSocketEndpoint:
         Type: String
