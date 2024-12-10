@@ -66,13 +66,12 @@ export default {
   initCredentials(context, credentials) {
     switch (context.state.awsCreds.provider) {
       case 'cognito':
+      case 'parentWindow':
         awsCredentials = credentials;
         if (lexClient) {
           lexClient.initCredentials(awsCredentials);
         }
-        return context.dispatch('getCredentials');
-      case 'parentWindow':
-        return context.dispatch('getCredentials');
+        break;
       default:
         return Promise.reject(new Error('unknown credential provider'));
     }
@@ -133,25 +132,21 @@ export default {
       context.state.config.lex.sessionAttributes,
     );
     // Initiate WebSocket after lexClient get credential, due to sessionId was assigned from identityId
-    return context.dispatch('getCredentials')
-      .then(() => {
-        lexClient.initCredentials(awsCredentials)
-        //Enable streaming response
-        if (String(context.state.config.lex.allowStreamingResponses) === "true") {
-          context.dispatch('InitWebSocketConnect')
-        }
-      });
+    lexClient.initCredentials(payload.credentials)
+    // Enable streaming response
+    if (String(context.state.config.lex.allowStreamingResponses) === "true") {
+      context.dispatch('InitWebSocketConnect')
+    }
+    return;
   },
-  initPollyClient(context, client) {
+  initPollyClient(context, client, credentials) {
     if (!context.state.recState.isRecorderEnabled) {
       return Promise.resolve();
     }
     pollyClient = client;
     context.commit('setPollyVoiceId', context.state.config.polly.voiceId);
-    return context.dispatch('getCredentials')
-      .then((creds) => {
-        pollyClient.config.credentials = creds;
-      });
+    pollyClient.config.credentials = credentials;
+    return;
   },
   initRecorder(context) {
     if (!context.state.config.recorder.enable) {
