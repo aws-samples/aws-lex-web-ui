@@ -143,7 +143,6 @@ function chainWebpackLib(
     {'vuex': 'Vuex'},
     'vue-router',
     {'vuetify': 'Vuetify'},
-    /^aws-sdk\/.+$/,
   ]);
 
   config.externalsType = 'window';
@@ -154,6 +153,9 @@ function chainWebpackLib(
     },
   });
   config.optimization.runtimeChunk(false);
+  config.optimization.delete('splitChunks');
+  config.plugin('limitSplitChunks')
+    .use(webpack.optimize.LimitChunkCountPlugin, [{ maxChunks: 1 }]);
 
   if (config.plugins.has('extract-css')) {
     config
