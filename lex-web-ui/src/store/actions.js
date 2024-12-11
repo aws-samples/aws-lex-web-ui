@@ -33,7 +33,7 @@ const AWS = require('aws-sdk');
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
 import { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } from '@aws-sdk/client-cognito-identity';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-
+import { Signer } from 'aws-amplify';
 
 
 // non-state variables that may be mutated outside of store
@@ -135,6 +135,12 @@ export default {
     // Enable streaming response
     if (String(context.state.config.lex.allowStreamingResponses) === "true") {
       context.dispatch('InitWebSocketConnect')
+        .then(() => {
+            console.log('WebSocket connected');
+        })
+        .catch(() => {
+            console.log('WebSocket connection failed');
+        });
     }
     return;
   },
@@ -1303,9 +1309,21 @@ export default {
  * WebSocket Actions
  *
  **********************************************************************/
-  InitWebSocketConnect(context){
+  async InitWebSocketConnect(context){
     const sessionId = lexClient.userId;
-    wsClient = new WebSocket(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId);
+    const serviceInfo = { 
+      region: context.state.config.region, 
+      service: 'execute-api' 
+    };
+    const resolvedCredentials = await awsCredentials;
+    const accessInfo = {
+      access_key: resolvedCredentials.accessKeyId,
+      secret_key: resolvedCredentials.secretAccessKey,
+      session_token: resolvedCredentials.sessionToken,
+    };
+
+    const signedUrl = Signer.signUrl(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId, accessInfo, serviceInfo);
+    wsClient = new WebSocket(signedUrl);
   },
   typingWsMessages(context){
     if (context.getters.wsMessagesCurrentIndex()<context.getters.wsMessagesLength()-1){
@@ -1321,7 +1339,7 @@ export default {
  *
  **********************************************************************/
   async uploadFile(context, file) {
-    const s3 = new S3Client({credentials: awsCredentials});
+    const s3 = new S3Client({ credentials: awsCredentials});
     //Create a key that is unique to the user & time of upload
     const documentKey = lexClient.userId + '/' + file.name.split('.').join('-' + Date.now() + '.')
     const s3Params = {
