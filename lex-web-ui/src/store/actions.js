@@ -36,7 +36,6 @@ import { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand }
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 
-
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
 let awsCredentials;
@@ -136,6 +135,12 @@ export default {
     // Enable streaming response
     if (String(context.state.config.lex.allowStreamingResponses) === "true") {
       context.dispatch('InitWebSocketConnect')
+        .then(() => {
+          console.log('WebSocket connected');
+        })
+        .catch(() => {
+            console.log('Connection to WebSocket failed');
+        });
     }
     return;
   },
@@ -1313,19 +1318,21 @@ export default {
  * WebSocket Actions
  *
  **********************************************************************/
-  InitWebSocketConnect(context){
+  async InitWebSocketConnect(context){
     const sessionId = lexClient.userId;
+    wsClient = new WebSocket(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId);
     const serviceInfo = { 
       region: context.state.config.region, 
       service: 'execute-api' 
     };
-
+    const resolvedCredentials = await awsCredentials;
+    console.log('sessionId', sessionId)
+    console.log('resolvedCredentials', resolvedCredentials)
     const accessInfo = {
-      access_key: awsCredentials.accessKeyId,
-      secret_key: awsCredentials.secretAccessKey,
-      session_token: awsCredentials.sessionToken,
-    }
-
+      access_key: resolvedCredentials.accessKeyId,
+      secret_key: resolvedCredentials.secretAccessKey,
+      session_token: resolvedCredentials.sessionToken,
+    };
     const signedUrl = Signer.signUrl(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId, accessInfo, serviceInfo);
     wsClient = new WebSocket(signedUrl);
   },

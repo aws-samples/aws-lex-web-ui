@@ -2557,7 +2557,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _config_loader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config-loader */ "./lib/config-loader.js");
 /* harmony import */ var _loginutil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loginutil */ "./lib/loginutil.js");
-/* harmony import */ var _aws_sdk_credential_providers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/credential-providers */ "../../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js");
+/* harmony import */ var _aws_sdk_credential_providers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/credential-providers */ "../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js");
 /*
  Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -2580,7 +2580,7 @@ const {
   CognitoIdentityClient,
   GetIdCommand,
   GetCredentialsForIdentityCommand
-} = __webpack_require__(/*! @aws-sdk/client-cognito-identity */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/index.js");
+} = __webpack_require__(/*! @aws-sdk/client-cognito-identity */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/index.js");
 
 /**
  * Instantiates and mounts the chatbot component
@@ -2979,7 +2979,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _config_loader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config-loader */ "./lib/config-loader.js");
 /* harmony import */ var _loginutil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loginutil */ "./lib/loginutil.js");
-/* harmony import */ var _aws_sdk_credential_providers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/credential-providers */ "../../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js");
+/* harmony import */ var _aws_sdk_credential_providers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/credential-providers */ "../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js");
 /*
  Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -3003,7 +3003,7 @@ const {
   CognitoIdentityClient,
   GetIdCommand,
   GetCredentialsForIdentityCommand
-} = __webpack_require__(/*! @aws-sdk/client-cognito-identity */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/index.js");
+} = __webpack_require__(/*! @aws-sdk/client-cognito-identity */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/index.js");
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -5085,10 +5085,10 @@ try {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/constants.js":
-/*!*******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/constants.js ***!
-  \*******************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/sha256-browser/build/module/constants.js":
+/*!****************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/sha256-browser/build/module/constants.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5141,10 +5141,10 @@ var EMPTY_DATA_SHA_256 = new Uint8Array([
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/crossPlatformSha256.js":
-/*!*****************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/crossPlatformSha256.js ***!
-  \*****************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/sha256-browser/build/module/crossPlatformSha256.js":
+/*!**************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/sha256-browser/build/module/crossPlatformSha256.js ***!
+  \**************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5152,11 +5152,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Sha256: () => (/* binding */ Sha256)
 /* harmony export */ });
-/* harmony import */ var _webCryptoSha256__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./webCryptoSha256 */ "../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/webCryptoSha256.js");
-/* harmony import */ var _aws_crypto_sha256_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @aws-crypto/sha256-js */ "../../../../../../node_modules/@aws-crypto/sha256-js/build/module/index.js");
-/* harmony import */ var _aws_crypto_supports_web_crypto__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-crypto/supports-web-crypto */ "../../../../../../node_modules/@aws-crypto/supports-web-crypto/build/module/index.js");
-/* harmony import */ var _aws_sdk_util_locate_window__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @aws-sdk/util-locate-window */ "../../../../../../node_modules/@aws-sdk/util-locate-window/dist-es/index.js");
-/* harmony import */ var _aws_crypto_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @aws-crypto/util */ "../../../../../../node_modules/@aws-crypto/util/build/module/index.js");
+/* harmony import */ var _webCryptoSha256__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./webCryptoSha256 */ "../../../../../node_modules/@aws-crypto/sha256-browser/build/module/webCryptoSha256.js");
+/* harmony import */ var _aws_crypto_sha256_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @aws-crypto/sha256-js */ "../../../../../node_modules/@aws-crypto/sha256-js/build/module/index.js");
+/* harmony import */ var _aws_crypto_supports_web_crypto__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-crypto/supports-web-crypto */ "../../../../../node_modules/@aws-crypto/supports-web-crypto/build/module/index.js");
+/* harmony import */ var _aws_sdk_util_locate_window__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @aws-sdk/util-locate-window */ "../../../../../node_modules/@aws-sdk/util-locate-window/dist-es/index.js");
+/* harmony import */ var _aws_crypto_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @aws-crypto/util */ "../../../../../node_modules/@aws-crypto/util/build/module/index.js");
 
 
 
@@ -5187,10 +5187,10 @@ var Sha256 = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/index.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/index.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/sha256-browser/build/module/index.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/sha256-browser/build/module/index.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5199,18 +5199,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Sha256: () => (/* reexport safe */ _crossPlatformSha256__WEBPACK_IMPORTED_MODULE_0__.Sha256),
 /* harmony export */   WebCryptoSha256: () => (/* reexport safe */ _webCryptoSha256__WEBPACK_IMPORTED_MODULE_1__.Sha256)
 /* harmony export */ });
-/* harmony import */ var _crossPlatformSha256__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./crossPlatformSha256 */ "../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/crossPlatformSha256.js");
-/* harmony import */ var _webCryptoSha256__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./webCryptoSha256 */ "../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/webCryptoSha256.js");
+/* harmony import */ var _crossPlatformSha256__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./crossPlatformSha256 */ "../../../../../node_modules/@aws-crypto/sha256-browser/build/module/crossPlatformSha256.js");
+/* harmony import */ var _webCryptoSha256__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./webCryptoSha256 */ "../../../../../node_modules/@aws-crypto/sha256-browser/build/module/webCryptoSha256.js");
 
 
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/webCryptoSha256.js":
-/*!*************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/webCryptoSha256.js ***!
-  \*************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/sha256-browser/build/module/webCryptoSha256.js":
+/*!**********************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/sha256-browser/build/module/webCryptoSha256.js ***!
+  \**********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5218,9 +5218,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Sha256: () => (/* binding */ Sha256)
 /* harmony export */ });
-/* harmony import */ var _aws_crypto_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-crypto/util */ "../../../../../../node_modules/@aws-crypto/util/build/module/index.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/constants.js");
-/* harmony import */ var _aws_sdk_util_locate_window__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/util-locate-window */ "../../../../../../node_modules/@aws-sdk/util-locate-window/dist-es/index.js");
+/* harmony import */ var _aws_crypto_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-crypto/util */ "../../../../../node_modules/@aws-crypto/util/build/module/index.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@aws-crypto/sha256-browser/build/module/constants.js");
+/* harmony import */ var _aws_sdk_util_locate_window__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/util-locate-window */ "../../../../../node_modules/@aws-sdk/util-locate-window/dist-es/index.js");
 
 
 
@@ -5277,10 +5277,10 @@ var Sha256 = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/sha256-js/build/module/RawSha256.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/sha256-js/build/module/RawSha256.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/sha256-js/build/module/RawSha256.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/sha256-js/build/module/RawSha256.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5288,7 +5288,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   RawSha256: () => (/* binding */ RawSha256)
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@aws-crypto/sha256-js/build/module/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@aws-crypto/sha256-js/build/module/constants.js");
 
 /**
  * @internal
@@ -5413,10 +5413,10 @@ var RawSha256 = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/sha256-js/build/module/constants.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/sha256-js/build/module/constants.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/sha256-js/build/module/constants.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/sha256-js/build/module/constants.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5526,10 +5526,10 @@ var MAX_HASHABLE_LENGTH = Math.pow(2, 53) - 1;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/sha256-js/build/module/index.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/sha256-js/build/module/index.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/sha256-js/build/module/index.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/sha256-js/build/module/index.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5537,16 +5537,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Sha256: () => (/* reexport safe */ _jsSha256__WEBPACK_IMPORTED_MODULE_0__.Sha256)
 /* harmony export */ });
-/* harmony import */ var _jsSha256__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./jsSha256 */ "../../../../../../node_modules/@aws-crypto/sha256-js/build/module/jsSha256.js");
+/* harmony import */ var _jsSha256__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./jsSha256 */ "../../../../../node_modules/@aws-crypto/sha256-js/build/module/jsSha256.js");
 
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/sha256-js/build/module/jsSha256.js":
-/*!*************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/sha256-js/build/module/jsSha256.js ***!
-  \*************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/sha256-js/build/module/jsSha256.js":
+/*!**********************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/sha256-js/build/module/jsSha256.js ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5554,10 +5554,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Sha256: () => (/* binding */ Sha256)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ "../../../../../../node_modules/tslib/tslib.es6.mjs");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@aws-crypto/sha256-js/build/module/constants.js");
-/* harmony import */ var _RawSha256__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RawSha256 */ "../../../../../../node_modules/@aws-crypto/sha256-js/build/module/RawSha256.js");
-/* harmony import */ var _aws_crypto_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-crypto/util */ "../../../../../../node_modules/@aws-crypto/util/build/module/index.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ "../../../../../node_modules/tslib/tslib.es6.mjs");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@aws-crypto/sha256-js/build/module/constants.js");
+/* harmony import */ var _RawSha256__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RawSha256 */ "../../../../../node_modules/@aws-crypto/sha256-js/build/module/RawSha256.js");
+/* harmony import */ var _aws_crypto_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-crypto/util */ "../../../../../node_modules/@aws-crypto/util/build/module/index.js");
 
 
 
@@ -5643,10 +5643,10 @@ function bufferFromSecret(secret) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/supports-web-crypto/build/module/index.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/supports-web-crypto/build/module/index.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/supports-web-crypto/build/module/index.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/supports-web-crypto/build/module/index.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5657,16 +5657,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   supportsWebCrypto: () => (/* reexport safe */ _supportsWebCrypto__WEBPACK_IMPORTED_MODULE_0__.supportsWebCrypto),
 /* harmony export */   supportsZeroByteGCM: () => (/* reexport safe */ _supportsWebCrypto__WEBPACK_IMPORTED_MODULE_0__.supportsZeroByteGCM)
 /* harmony export */ });
-/* harmony import */ var _supportsWebCrypto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./supportsWebCrypto */ "../../../../../../node_modules/@aws-crypto/supports-web-crypto/build/module/supportsWebCrypto.js");
+/* harmony import */ var _supportsWebCrypto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./supportsWebCrypto */ "../../../../../node_modules/@aws-crypto/supports-web-crypto/build/module/supportsWebCrypto.js");
 
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/supports-web-crypto/build/module/supportsWebCrypto.js":
-/*!********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/supports-web-crypto/build/module/supportsWebCrypto.js ***!
-  \********************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/supports-web-crypto/build/module/supportsWebCrypto.js":
+/*!*****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/supports-web-crypto/build/module/supportsWebCrypto.js ***!
+  \*****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5677,7 +5677,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   supportsWebCrypto: () => (/* binding */ supportsWebCrypto),
 /* harmony export */   supportsZeroByteGCM: () => (/* binding */ supportsZeroByteGCM)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../../../../../node_modules/tslib/tslib.es6.mjs");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../../../../node_modules/tslib/tslib.es6.mjs");
 
 var subtleCryptoMethods = [
     "decrypt",
@@ -5743,10 +5743,10 @@ function supportsZeroByteGCM(subtle) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/util/build/module/convertToBuffer.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/util/build/module/convertToBuffer.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/util/build/module/convertToBuffer.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/util/build/module/convertToBuffer.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5754,7 +5754,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   convertToBuffer: () => (/* binding */ convertToBuffer)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/index.js");
+/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/index.js");
 // Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -5778,10 +5778,10 @@ function convertToBuffer(data) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/util/build/module/index.js":
-/*!*****************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/util/build/module/index.js ***!
-  \*****************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/util/build/module/index.js":
+/*!**************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/util/build/module/index.js ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5792,10 +5792,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   numToUint8: () => (/* reexport safe */ _numToUint8__WEBPACK_IMPORTED_MODULE_2__.numToUint8),
 /* harmony export */   uint32ArrayFrom: () => (/* reexport safe */ _uint32ArrayFrom__WEBPACK_IMPORTED_MODULE_3__.uint32ArrayFrom)
 /* harmony export */ });
-/* harmony import */ var _convertToBuffer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./convertToBuffer */ "../../../../../../node_modules/@aws-crypto/util/build/module/convertToBuffer.js");
-/* harmony import */ var _isEmptyData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isEmptyData */ "../../../../../../node_modules/@aws-crypto/util/build/module/isEmptyData.js");
-/* harmony import */ var _numToUint8__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./numToUint8 */ "../../../../../../node_modules/@aws-crypto/util/build/module/numToUint8.js");
-/* harmony import */ var _uint32ArrayFrom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./uint32ArrayFrom */ "../../../../../../node_modules/@aws-crypto/util/build/module/uint32ArrayFrom.js");
+/* harmony import */ var _convertToBuffer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./convertToBuffer */ "../../../../../node_modules/@aws-crypto/util/build/module/convertToBuffer.js");
+/* harmony import */ var _isEmptyData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isEmptyData */ "../../../../../node_modules/@aws-crypto/util/build/module/isEmptyData.js");
+/* harmony import */ var _numToUint8__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./numToUint8 */ "../../../../../node_modules/@aws-crypto/util/build/module/numToUint8.js");
+/* harmony import */ var _uint32ArrayFrom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./uint32ArrayFrom */ "../../../../../node_modules/@aws-crypto/util/build/module/uint32ArrayFrom.js");
 // Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -5806,10 +5806,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/util/build/module/isEmptyData.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/util/build/module/isEmptyData.js ***!
-  \***********************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/util/build/module/isEmptyData.js":
+/*!********************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/util/build/module/isEmptyData.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5829,10 +5829,10 @@ function isEmptyData(data) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/util/build/module/numToUint8.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/util/build/module/numToUint8.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/util/build/module/numToUint8.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/util/build/module/numToUint8.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5854,10 +5854,10 @@ function numToUint8(num) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/util/build/module/uint32ArrayFrom.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/util/build/module/uint32ArrayFrom.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/util/build/module/uint32ArrayFrom.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/util/build/module/uint32ArrayFrom.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5884,10 +5884,10 @@ function uint32ArrayFrom(a_lookUpTable) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js":
-/*!******************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js ***!
-  \******************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js":
+/*!***************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js ***!
+  \***************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5900,10 +5900,10 @@ const fromUtf8 = (input) => new TextEncoder().encode(input);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/index.js":
-/*!*******************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/index.js ***!
-  \*******************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/index.js":
+/*!****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/index.js ***!
+  \****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5913,9 +5913,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   toUint8Array: () => (/* reexport safe */ _toUint8Array__WEBPACK_IMPORTED_MODULE_1__.toUint8Array),
 /* harmony export */   toUtf8: () => (/* reexport safe */ _toUtf8__WEBPACK_IMPORTED_MODULE_2__.toUtf8)
 /* harmony export */ });
-/* harmony import */ var _fromUtf8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fromUtf8 */ "../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js");
-/* harmony import */ var _toUint8Array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toUint8Array */ "../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/toUint8Array.js");
-/* harmony import */ var _toUtf8__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toUtf8 */ "../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/toUtf8.browser.js");
+/* harmony import */ var _fromUtf8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fromUtf8 */ "../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js");
+/* harmony import */ var _toUint8Array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toUint8Array */ "../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/toUint8Array.js");
+/* harmony import */ var _toUtf8__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toUtf8 */ "../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/toUtf8.browser.js");
 
 
 
@@ -5923,10 +5923,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/toUint8Array.js":
-/*!**************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/toUint8Array.js ***!
-  \**************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/toUint8Array.js":
+/*!***********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/toUint8Array.js ***!
+  \***********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5934,7 +5934,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   toUint8Array: () => (/* binding */ toUint8Array)
 /* harmony export */ });
-/* harmony import */ var _fromUtf8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fromUtf8 */ "../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js");
+/* harmony import */ var _fromUtf8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fromUtf8 */ "../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js");
 
 const toUint8Array = (data) => {
     if (typeof data === "string") {
@@ -5949,10 +5949,10 @@ const toUint8Array = (data) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/toUtf8.browser.js":
-/*!****************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/toUtf8.browser.js ***!
-  \****************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/toUtf8.browser.js":
+/*!*************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-es/toUtf8.browser.js ***!
+  \*************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5973,10 +5973,10 @@ const toUtf8 = (input) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentity.js":
-/*!**************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentity.js ***!
-  \**************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentity.js":
+/*!***********************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentity.js ***!
+  \***********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5984,31 +5984,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   CognitoIdentity: () => (/* binding */ CognitoIdentity)
 /* harmony export */ });
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _CognitoIdentityClient__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./CognitoIdentityClient */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js");
-/* harmony import */ var _commands_CreateIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./commands/CreateIdentityPoolCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/CreateIdentityPoolCommand.js");
-/* harmony import */ var _commands_DeleteIdentitiesCommand__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./commands/DeleteIdentitiesCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentitiesCommand.js");
-/* harmony import */ var _commands_DeleteIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./commands/DeleteIdentityPoolCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentityPoolCommand.js");
-/* harmony import */ var _commands_DescribeIdentityCommand__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./commands/DescribeIdentityCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityCommand.js");
-/* harmony import */ var _commands_DescribeIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./commands/DescribeIdentityPoolCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityPoolCommand.js");
-/* harmony import */ var _commands_GetCredentialsForIdentityCommand__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./commands/GetCredentialsForIdentityCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetCredentialsForIdentityCommand.js");
-/* harmony import */ var _commands_GetIdCommand__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./commands/GetIdCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdCommand.js");
-/* harmony import */ var _commands_GetIdentityPoolRolesCommand__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./commands/GetIdentityPoolRolesCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdentityPoolRolesCommand.js");
-/* harmony import */ var _commands_GetOpenIdTokenCommand__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./commands/GetOpenIdTokenCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenCommand.js");
-/* harmony import */ var _commands_GetOpenIdTokenForDeveloperIdentityCommand__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./commands/GetOpenIdTokenForDeveloperIdentityCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenForDeveloperIdentityCommand.js");
-/* harmony import */ var _commands_GetPrincipalTagAttributeMapCommand__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./commands/GetPrincipalTagAttributeMapCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetPrincipalTagAttributeMapCommand.js");
-/* harmony import */ var _commands_ListIdentitiesCommand__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./commands/ListIdentitiesCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentitiesCommand.js");
-/* harmony import */ var _commands_ListIdentityPoolsCommand__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./commands/ListIdentityPoolsCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentityPoolsCommand.js");
-/* harmony import */ var _commands_ListTagsForResourceCommand__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./commands/ListTagsForResourceCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListTagsForResourceCommand.js");
-/* harmony import */ var _commands_LookupDeveloperIdentityCommand__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./commands/LookupDeveloperIdentityCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/LookupDeveloperIdentityCommand.js");
-/* harmony import */ var _commands_MergeDeveloperIdentitiesCommand__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./commands/MergeDeveloperIdentitiesCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/MergeDeveloperIdentitiesCommand.js");
-/* harmony import */ var _commands_SetIdentityPoolRolesCommand__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./commands/SetIdentityPoolRolesCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetIdentityPoolRolesCommand.js");
-/* harmony import */ var _commands_SetPrincipalTagAttributeMapCommand__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./commands/SetPrincipalTagAttributeMapCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetPrincipalTagAttributeMapCommand.js");
-/* harmony import */ var _commands_TagResourceCommand__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./commands/TagResourceCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/TagResourceCommand.js");
-/* harmony import */ var _commands_UnlinkDeveloperIdentityCommand__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./commands/UnlinkDeveloperIdentityCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkDeveloperIdentityCommand.js");
-/* harmony import */ var _commands_UnlinkIdentityCommand__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./commands/UnlinkIdentityCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkIdentityCommand.js");
-/* harmony import */ var _commands_UntagResourceCommand__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./commands/UntagResourceCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UntagResourceCommand.js");
-/* harmony import */ var _commands_UpdateIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./commands/UpdateIdentityPoolCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UpdateIdentityPoolCommand.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _CognitoIdentityClient__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./CognitoIdentityClient */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js");
+/* harmony import */ var _commands_CreateIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./commands/CreateIdentityPoolCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/CreateIdentityPoolCommand.js");
+/* harmony import */ var _commands_DeleteIdentitiesCommand__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./commands/DeleteIdentitiesCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentitiesCommand.js");
+/* harmony import */ var _commands_DeleteIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./commands/DeleteIdentityPoolCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentityPoolCommand.js");
+/* harmony import */ var _commands_DescribeIdentityCommand__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./commands/DescribeIdentityCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityCommand.js");
+/* harmony import */ var _commands_DescribeIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./commands/DescribeIdentityPoolCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityPoolCommand.js");
+/* harmony import */ var _commands_GetCredentialsForIdentityCommand__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./commands/GetCredentialsForIdentityCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetCredentialsForIdentityCommand.js");
+/* harmony import */ var _commands_GetIdCommand__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./commands/GetIdCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdCommand.js");
+/* harmony import */ var _commands_GetIdentityPoolRolesCommand__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./commands/GetIdentityPoolRolesCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdentityPoolRolesCommand.js");
+/* harmony import */ var _commands_GetOpenIdTokenCommand__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./commands/GetOpenIdTokenCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenCommand.js");
+/* harmony import */ var _commands_GetOpenIdTokenForDeveloperIdentityCommand__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./commands/GetOpenIdTokenForDeveloperIdentityCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenForDeveloperIdentityCommand.js");
+/* harmony import */ var _commands_GetPrincipalTagAttributeMapCommand__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./commands/GetPrincipalTagAttributeMapCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetPrincipalTagAttributeMapCommand.js");
+/* harmony import */ var _commands_ListIdentitiesCommand__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./commands/ListIdentitiesCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentitiesCommand.js");
+/* harmony import */ var _commands_ListIdentityPoolsCommand__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./commands/ListIdentityPoolsCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentityPoolsCommand.js");
+/* harmony import */ var _commands_ListTagsForResourceCommand__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./commands/ListTagsForResourceCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListTagsForResourceCommand.js");
+/* harmony import */ var _commands_LookupDeveloperIdentityCommand__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./commands/LookupDeveloperIdentityCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/LookupDeveloperIdentityCommand.js");
+/* harmony import */ var _commands_MergeDeveloperIdentitiesCommand__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./commands/MergeDeveloperIdentitiesCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/MergeDeveloperIdentitiesCommand.js");
+/* harmony import */ var _commands_SetIdentityPoolRolesCommand__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./commands/SetIdentityPoolRolesCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetIdentityPoolRolesCommand.js");
+/* harmony import */ var _commands_SetPrincipalTagAttributeMapCommand__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./commands/SetPrincipalTagAttributeMapCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetPrincipalTagAttributeMapCommand.js");
+/* harmony import */ var _commands_TagResourceCommand__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./commands/TagResourceCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/TagResourceCommand.js");
+/* harmony import */ var _commands_UnlinkDeveloperIdentityCommand__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./commands/UnlinkDeveloperIdentityCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkDeveloperIdentityCommand.js");
+/* harmony import */ var _commands_UnlinkIdentityCommand__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./commands/UnlinkIdentityCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkIdentityCommand.js");
+/* harmony import */ var _commands_UntagResourceCommand__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./commands/UntagResourceCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UntagResourceCommand.js");
+/* harmony import */ var _commands_UpdateIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./commands/UpdateIdentityPoolCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UpdateIdentityPoolCommand.js");
 
 
 
@@ -6066,10 +6066,10 @@ class CognitoIdentity extends _CognitoIdentityClient__WEBPACK_IMPORTED_MODULE_24
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js":
-/*!********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js ***!
-  \********************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js":
+/*!*****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js ***!
+  \*****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6078,20 +6078,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   CognitoIdentityClient: () => (/* binding */ CognitoIdentityClient),
 /* harmony export */   __Client: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_9__.Client)
 /* harmony export */ });
-/* harmony import */ var _aws_sdk_middleware_host_header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/middleware-host-header */ "../../../../../../node_modules/@aws-sdk/middleware-host-header/dist-es/index.js");
-/* harmony import */ var _aws_sdk_middleware_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @aws-sdk/middleware-logger */ "../../../../../../node_modules/@aws-sdk/middleware-logger/dist-es/index.js");
-/* harmony import */ var _aws_sdk_middleware_recursion_detection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/middleware-recursion-detection */ "../../../../../../node_modules/@aws-sdk/middleware-recursion-detection/dist-es/index.js");
-/* harmony import */ var _aws_sdk_middleware_user_agent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @aws-sdk/middleware-user-agent */ "../../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/index.js");
-/* harmony import */ var _smithy_config_resolver__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @smithy/config-resolver */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/index.js");
-/* harmony import */ var _smithy_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @smithy/core */ "../../../../../../node_modules/@smithy/core/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_content_length__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @smithy/middleware-content-length */ "../../../../../../node_modules/@smithy/middleware-content-length/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_retry__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @smithy/middleware-retry */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _auth_httpAuthSchemeProvider__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./auth/httpAuthSchemeProvider */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthSchemeProvider.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _runtimeConfig__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./runtimeConfig */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.browser.js");
-/* harmony import */ var _runtimeExtensions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./runtimeExtensions */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeExtensions.js");
+/* harmony import */ var _aws_sdk_middleware_host_header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/middleware-host-header */ "../../../../../node_modules/@aws-sdk/middleware-host-header/dist-es/index.js");
+/* harmony import */ var _aws_sdk_middleware_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @aws-sdk/middleware-logger */ "../../../../../node_modules/@aws-sdk/middleware-logger/dist-es/index.js");
+/* harmony import */ var _aws_sdk_middleware_recursion_detection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/middleware-recursion-detection */ "../../../../../node_modules/@aws-sdk/middleware-recursion-detection/dist-es/index.js");
+/* harmony import */ var _aws_sdk_middleware_user_agent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @aws-sdk/middleware-user-agent */ "../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/index.js");
+/* harmony import */ var _smithy_config_resolver__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @smithy/config-resolver */ "../../../../../node_modules/@smithy/config-resolver/dist-es/index.js");
+/* harmony import */ var _smithy_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @smithy/core */ "../../../../../node_modules/@smithy/core/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_content_length__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @smithy/middleware-content-length */ "../../../../../node_modules/@smithy/middleware-content-length/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_retry__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @smithy/middleware-retry */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _auth_httpAuthSchemeProvider__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./auth/httpAuthSchemeProvider */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthSchemeProvider.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _runtimeConfig__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./runtimeConfig */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.browser.js");
+/* harmony import */ var _runtimeExtensions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./runtimeExtensions */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeExtensions.js");
 
 
 
@@ -6111,41 +6111,47 @@ class CognitoIdentityClient extends _smithy_smithy_client__WEBPACK_IMPORTED_MODU
     constructor(...[configuration]) {
         const _config_0 = (0,_runtimeConfig__WEBPACK_IMPORTED_MODULE_10__.getRuntimeConfig)(configuration || {});
         const _config_1 = (0,_endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_11__.resolveClientEndpointParameters)(_config_0);
-        const _config_2 = (0,_aws_sdk_middleware_user_agent__WEBPACK_IMPORTED_MODULE_3__.resolveUserAgentConfig)(_config_1);
-        const _config_3 = (0,_smithy_middleware_retry__WEBPACK_IMPORTED_MODULE_8__.resolveRetryConfig)(_config_2);
-        const _config_4 = (0,_smithy_config_resolver__WEBPACK_IMPORTED_MODULE_4__.resolveRegionConfig)(_config_3);
+        const _config_2 = (0,_smithy_config_resolver__WEBPACK_IMPORTED_MODULE_4__.resolveRegionConfig)(_config_1);
+        const _config_3 = (0,_smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_7__.resolveEndpointConfig)(_config_2);
+        const _config_4 = (0,_smithy_middleware_retry__WEBPACK_IMPORTED_MODULE_8__.resolveRetryConfig)(_config_3);
         const _config_5 = (0,_aws_sdk_middleware_host_header__WEBPACK_IMPORTED_MODULE_0__.resolveHostHeaderConfig)(_config_4);
-        const _config_6 = (0,_smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_7__.resolveEndpointConfig)(_config_5);
+        const _config_6 = (0,_aws_sdk_middleware_user_agent__WEBPACK_IMPORTED_MODULE_3__.resolveUserAgentConfig)(_config_5);
         const _config_7 = (0,_auth_httpAuthSchemeProvider__WEBPACK_IMPORTED_MODULE_12__.resolveHttpAuthSchemeConfig)(_config_6);
         const _config_8 = (0,_runtimeExtensions__WEBPACK_IMPORTED_MODULE_13__.resolveRuntimeExtensions)(_config_7, configuration?.extensions || []);
         super(_config_8);
         this.config = _config_8;
-        this.middlewareStack.use((0,_aws_sdk_middleware_user_agent__WEBPACK_IMPORTED_MODULE_3__.getUserAgentPlugin)(this.config));
         this.middlewareStack.use((0,_smithy_middleware_retry__WEBPACK_IMPORTED_MODULE_8__.getRetryPlugin)(this.config));
         this.middlewareStack.use((0,_smithy_middleware_content_length__WEBPACK_IMPORTED_MODULE_6__.getContentLengthPlugin)(this.config));
         this.middlewareStack.use((0,_aws_sdk_middleware_host_header__WEBPACK_IMPORTED_MODULE_0__.getHostHeaderPlugin)(this.config));
         this.middlewareStack.use((0,_aws_sdk_middleware_logger__WEBPACK_IMPORTED_MODULE_1__.getLoggerPlugin)(this.config));
         this.middlewareStack.use((0,_aws_sdk_middleware_recursion_detection__WEBPACK_IMPORTED_MODULE_2__.getRecursionDetectionPlugin)(this.config));
+        this.middlewareStack.use((0,_aws_sdk_middleware_user_agent__WEBPACK_IMPORTED_MODULE_3__.getUserAgentPlugin)(this.config));
         this.middlewareStack.use((0,_smithy_core__WEBPACK_IMPORTED_MODULE_5__.getHttpAuthSchemeEndpointRuleSetPlugin)(this.config, {
-            httpAuthSchemeParametersProvider: _auth_httpAuthSchemeProvider__WEBPACK_IMPORTED_MODULE_12__.defaultCognitoIdentityHttpAuthSchemeParametersProvider,
-            identityProviderConfigProvider: async (config) => new _smithy_core__WEBPACK_IMPORTED_MODULE_5__.DefaultIdentityProviderConfig({
-                "aws.auth#sigv4": config.credentials,
-            }),
+            httpAuthSchemeParametersProvider: this.getDefaultHttpAuthSchemeParametersProvider(),
+            identityProviderConfigProvider: this.getIdentityProviderConfigProvider(),
         }));
         this.middlewareStack.use((0,_smithy_core__WEBPACK_IMPORTED_MODULE_5__.getHttpSigningPlugin)(this.config));
     }
     destroy() {
         super.destroy();
     }
+    getDefaultHttpAuthSchemeParametersProvider() {
+        return _auth_httpAuthSchemeProvider__WEBPACK_IMPORTED_MODULE_12__.defaultCognitoIdentityHttpAuthSchemeParametersProvider;
+    }
+    getIdentityProviderConfigProvider() {
+        return async (config) => new _smithy_core__WEBPACK_IMPORTED_MODULE_5__.DefaultIdentityProviderConfig({
+            "aws.auth#sigv4": config.credentials,
+        });
+    }
 }
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthExtensionConfiguration.js":
-/*!**********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthExtensionConfiguration.js ***!
-  \**********************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthExtensionConfiguration.js":
+/*!*******************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthExtensionConfiguration.js ***!
+  \*******************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6196,10 +6202,10 @@ const resolveHttpAuthRuntimeConfig = (config) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthSchemeProvider.js":
-/*!**************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthSchemeProvider.js ***!
-  \**************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthSchemeProvider.js":
+/*!***********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthSchemeProvider.js ***!
+  \***********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6209,8 +6215,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   defaultCognitoIdentityHttpAuthSchemeProvider: () => (/* binding */ defaultCognitoIdentityHttpAuthSchemeProvider),
 /* harmony export */   resolveHttpAuthSchemeConfig: () => (/* binding */ resolveHttpAuthSchemeConfig)
 /* harmony export */ });
-/* harmony import */ var _aws_sdk_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @aws-sdk/core */ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js");
-/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
+/* harmony import */ var _aws_sdk_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @aws-sdk/core */ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js");
+/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
 
 
 const defaultCognitoIdentityHttpAuthSchemeParametersProvider = async (config, context, input) => {
@@ -6277,10 +6283,10 @@ const resolveHttpAuthSchemeConfig = (config) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/CreateIdentityPoolCommand.js":
-/*!*********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/CreateIdentityPoolCommand.js ***!
-  \*********************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/CreateIdentityPoolCommand.js":
+/*!******************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/CreateIdentityPoolCommand.js ***!
+  \******************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6289,11 +6295,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   CreateIdentityPoolCommand: () => (/* binding */ CreateIdentityPoolCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6322,10 +6328,10 @@ class CreateIdentityPoolCommand extends _smithy_smithy_client__WEBPACK_IMPORTED_
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentitiesCommand.js":
-/*!*******************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentitiesCommand.js ***!
-  \*******************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentitiesCommand.js":
+/*!****************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentitiesCommand.js ***!
+  \****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6334,11 +6340,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   DeleteIdentitiesCommand: () => (/* binding */ DeleteIdentitiesCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6367,10 +6373,10 @@ class DeleteIdentitiesCommand extends _smithy_smithy_client__WEBPACK_IMPORTED_MO
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentityPoolCommand.js":
-/*!*********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentityPoolCommand.js ***!
-  \*********************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentityPoolCommand.js":
+/*!******************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentityPoolCommand.js ***!
+  \******************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6379,11 +6385,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   DeleteIdentityPoolCommand: () => (/* binding */ DeleteIdentityPoolCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6412,10 +6418,10 @@ class DeleteIdentityPoolCommand extends _smithy_smithy_client__WEBPACK_IMPORTED_
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityCommand.js":
-/*!*******************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityCommand.js ***!
-  \*******************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityCommand.js":
+/*!****************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityCommand.js ***!
+  \****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6424,11 +6430,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   DescribeIdentityCommand: () => (/* binding */ DescribeIdentityCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6457,10 +6463,10 @@ class DescribeIdentityCommand extends _smithy_smithy_client__WEBPACK_IMPORTED_MO
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityPoolCommand.js":
-/*!***********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityPoolCommand.js ***!
-  \***********************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityPoolCommand.js":
+/*!********************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityPoolCommand.js ***!
+  \********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6469,11 +6475,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   DescribeIdentityPoolCommand: () => (/* binding */ DescribeIdentityPoolCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6502,10 +6508,10 @@ class DescribeIdentityPoolCommand extends _smithy_smithy_client__WEBPACK_IMPORTE
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetCredentialsForIdentityCommand.js":
-/*!****************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetCredentialsForIdentityCommand.js ***!
-  \****************************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetCredentialsForIdentityCommand.js":
+/*!*************************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetCredentialsForIdentityCommand.js ***!
+  \*************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6514,11 +6520,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   GetCredentialsForIdentityCommand: () => (/* binding */ GetCredentialsForIdentityCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6547,10 +6553,10 @@ class GetCredentialsForIdentityCommand extends _smithy_smithy_client__WEBPACK_IM
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdCommand.js":
-/*!********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdCommand.js ***!
-  \********************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdCommand.js":
+/*!*****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdCommand.js ***!
+  \*****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6559,11 +6565,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   GetIdCommand: () => (/* binding */ GetIdCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6592,10 +6598,10 @@ class GetIdCommand extends _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Co
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdentityPoolRolesCommand.js":
-/*!***********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdentityPoolRolesCommand.js ***!
-  \***********************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdentityPoolRolesCommand.js":
+/*!********************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdentityPoolRolesCommand.js ***!
+  \********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6604,11 +6610,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   GetIdentityPoolRolesCommand: () => (/* binding */ GetIdentityPoolRolesCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6637,10 +6643,10 @@ class GetIdentityPoolRolesCommand extends _smithy_smithy_client__WEBPACK_IMPORTE
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenCommand.js":
-/*!*****************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenCommand.js ***!
-  \*****************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenCommand.js":
+/*!**************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenCommand.js ***!
+  \**************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6649,11 +6655,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   GetOpenIdTokenCommand: () => (/* binding */ GetOpenIdTokenCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6682,10 +6688,10 @@ class GetOpenIdTokenCommand extends _smithy_smithy_client__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenForDeveloperIdentityCommand.js":
-/*!*************************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenForDeveloperIdentityCommand.js ***!
-  \*************************************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenForDeveloperIdentityCommand.js":
+/*!**********************************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenForDeveloperIdentityCommand.js ***!
+  \**********************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6694,11 +6700,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   GetOpenIdTokenForDeveloperIdentityCommand: () => (/* binding */ GetOpenIdTokenForDeveloperIdentityCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6727,10 +6733,10 @@ class GetOpenIdTokenForDeveloperIdentityCommand extends _smithy_smithy_client__W
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetPrincipalTagAttributeMapCommand.js":
-/*!******************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetPrincipalTagAttributeMapCommand.js ***!
-  \******************************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetPrincipalTagAttributeMapCommand.js":
+/*!***************************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetPrincipalTagAttributeMapCommand.js ***!
+  \***************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6739,11 +6745,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   GetPrincipalTagAttributeMapCommand: () => (/* binding */ GetPrincipalTagAttributeMapCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6772,10 +6778,10 @@ class GetPrincipalTagAttributeMapCommand extends _smithy_smithy_client__WEBPACK_
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentitiesCommand.js":
-/*!*****************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentitiesCommand.js ***!
-  \*****************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentitiesCommand.js":
+/*!**************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentitiesCommand.js ***!
+  \**************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6784,11 +6790,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   ListIdentitiesCommand: () => (/* binding */ ListIdentitiesCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6817,10 +6823,10 @@ class ListIdentitiesCommand extends _smithy_smithy_client__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentityPoolsCommand.js":
-/*!********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentityPoolsCommand.js ***!
-  \********************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentityPoolsCommand.js":
+/*!*****************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentityPoolsCommand.js ***!
+  \*****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6829,11 +6835,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   ListIdentityPoolsCommand: () => (/* binding */ ListIdentityPoolsCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6862,10 +6868,10 @@ class ListIdentityPoolsCommand extends _smithy_smithy_client__WEBPACK_IMPORTED_M
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListTagsForResourceCommand.js":
-/*!**********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListTagsForResourceCommand.js ***!
-  \**********************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListTagsForResourceCommand.js":
+/*!*******************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListTagsForResourceCommand.js ***!
+  \*******************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6874,11 +6880,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   ListTagsForResourceCommand: () => (/* binding */ ListTagsForResourceCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6907,10 +6913,10 @@ class ListTagsForResourceCommand extends _smithy_smithy_client__WEBPACK_IMPORTED
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/LookupDeveloperIdentityCommand.js":
-/*!**************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/LookupDeveloperIdentityCommand.js ***!
-  \**************************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/LookupDeveloperIdentityCommand.js":
+/*!***********************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/LookupDeveloperIdentityCommand.js ***!
+  \***********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6919,11 +6925,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   LookupDeveloperIdentityCommand: () => (/* binding */ LookupDeveloperIdentityCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6952,10 +6958,10 @@ class LookupDeveloperIdentityCommand extends _smithy_smithy_client__WEBPACK_IMPO
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/MergeDeveloperIdentitiesCommand.js":
-/*!***************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/MergeDeveloperIdentitiesCommand.js ***!
-  \***************************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/MergeDeveloperIdentitiesCommand.js":
+/*!************************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/MergeDeveloperIdentitiesCommand.js ***!
+  \************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6964,11 +6970,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   MergeDeveloperIdentitiesCommand: () => (/* binding */ MergeDeveloperIdentitiesCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -6997,10 +7003,10 @@ class MergeDeveloperIdentitiesCommand extends _smithy_smithy_client__WEBPACK_IMP
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetIdentityPoolRolesCommand.js":
-/*!***********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetIdentityPoolRolesCommand.js ***!
-  \***********************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetIdentityPoolRolesCommand.js":
+/*!********************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetIdentityPoolRolesCommand.js ***!
+  \********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7009,11 +7015,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   SetIdentityPoolRolesCommand: () => (/* binding */ SetIdentityPoolRolesCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -7042,10 +7048,10 @@ class SetIdentityPoolRolesCommand extends _smithy_smithy_client__WEBPACK_IMPORTE
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetPrincipalTagAttributeMapCommand.js":
-/*!******************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetPrincipalTagAttributeMapCommand.js ***!
-  \******************************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetPrincipalTagAttributeMapCommand.js":
+/*!***************************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetPrincipalTagAttributeMapCommand.js ***!
+  \***************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7054,11 +7060,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   SetPrincipalTagAttributeMapCommand: () => (/* binding */ SetPrincipalTagAttributeMapCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -7087,10 +7093,10 @@ class SetPrincipalTagAttributeMapCommand extends _smithy_smithy_client__WEBPACK_
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/TagResourceCommand.js":
-/*!**************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/TagResourceCommand.js ***!
-  \**************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/TagResourceCommand.js":
+/*!***********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/TagResourceCommand.js ***!
+  \***********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7099,11 +7105,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   TagResourceCommand: () => (/* binding */ TagResourceCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -7132,10 +7138,10 @@ class TagResourceCommand extends _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkDeveloperIdentityCommand.js":
-/*!**************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkDeveloperIdentityCommand.js ***!
-  \**************************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkDeveloperIdentityCommand.js":
+/*!***********************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkDeveloperIdentityCommand.js ***!
+  \***********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7144,11 +7150,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   UnlinkDeveloperIdentityCommand: () => (/* binding */ UnlinkDeveloperIdentityCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -7177,10 +7183,10 @@ class UnlinkDeveloperIdentityCommand extends _smithy_smithy_client__WEBPACK_IMPO
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkIdentityCommand.js":
-/*!*****************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkIdentityCommand.js ***!
-  \*****************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkIdentityCommand.js":
+/*!**************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkIdentityCommand.js ***!
+  \**************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7189,11 +7195,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   UnlinkIdentityCommand: () => (/* binding */ UnlinkIdentityCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -7222,10 +7228,10 @@ class UnlinkIdentityCommand extends _smithy_smithy_client__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UntagResourceCommand.js":
-/*!****************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UntagResourceCommand.js ***!
-  \****************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UntagResourceCommand.js":
+/*!*************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UntagResourceCommand.js ***!
+  \*************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7234,11 +7240,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   UntagResourceCommand: () => (/* binding */ UntagResourceCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -7267,10 +7273,10 @@ class UntagResourceCommand extends _smithy_smithy_client__WEBPACK_IMPORTED_MODUL
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UpdateIdentityPoolCommand.js":
-/*!*********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UpdateIdentityPoolCommand.js ***!
-  \*********************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UpdateIdentityPoolCommand.js":
+/*!******************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UpdateIdentityPoolCommand.js ***!
+  \******************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7279,11 +7285,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   $Command: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__.Command),
 /* harmony export */   UpdateIdentityPoolCommand: () => (/* binding */ UpdateIdentityPoolCommand)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
-/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _endpoint_EndpointParameters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../endpoint/EndpointParameters */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js");
+/* harmony import */ var _protocols_Aws_json1_1__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../protocols/Aws_json1_1 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js");
 
 
 
@@ -7312,10 +7318,10 @@ class UpdateIdentityPoolCommand extends _smithy_smithy_client__WEBPACK_IMPORTED_
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/index.js":
-/*!*************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/index.js ***!
-  \*************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/index.js":
+/*!**********************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/index.js ***!
+  \**********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7346,29 +7352,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   UntagResourceCommand: () => (/* reexport safe */ _UntagResourceCommand__WEBPACK_IMPORTED_MODULE_21__.UntagResourceCommand),
 /* harmony export */   UpdateIdentityPoolCommand: () => (/* reexport safe */ _UpdateIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_22__.UpdateIdentityPoolCommand)
 /* harmony export */ });
-/* harmony import */ var _CreateIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateIdentityPoolCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/CreateIdentityPoolCommand.js");
-/* harmony import */ var _DeleteIdentitiesCommand__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DeleteIdentitiesCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentitiesCommand.js");
-/* harmony import */ var _DeleteIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DeleteIdentityPoolCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentityPoolCommand.js");
-/* harmony import */ var _DescribeIdentityCommand__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DescribeIdentityCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityCommand.js");
-/* harmony import */ var _DescribeIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DescribeIdentityPoolCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityPoolCommand.js");
-/* harmony import */ var _GetCredentialsForIdentityCommand__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./GetCredentialsForIdentityCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetCredentialsForIdentityCommand.js");
-/* harmony import */ var _GetIdCommand__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./GetIdCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdCommand.js");
-/* harmony import */ var _GetIdentityPoolRolesCommand__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./GetIdentityPoolRolesCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdentityPoolRolesCommand.js");
-/* harmony import */ var _GetOpenIdTokenCommand__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./GetOpenIdTokenCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenCommand.js");
-/* harmony import */ var _GetOpenIdTokenForDeveloperIdentityCommand__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./GetOpenIdTokenForDeveloperIdentityCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenForDeveloperIdentityCommand.js");
-/* harmony import */ var _GetPrincipalTagAttributeMapCommand__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./GetPrincipalTagAttributeMapCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetPrincipalTagAttributeMapCommand.js");
-/* harmony import */ var _ListIdentitiesCommand__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ListIdentitiesCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentitiesCommand.js");
-/* harmony import */ var _ListIdentityPoolsCommand__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ListIdentityPoolsCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentityPoolsCommand.js");
-/* harmony import */ var _ListTagsForResourceCommand__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ListTagsForResourceCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListTagsForResourceCommand.js");
-/* harmony import */ var _LookupDeveloperIdentityCommand__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./LookupDeveloperIdentityCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/LookupDeveloperIdentityCommand.js");
-/* harmony import */ var _MergeDeveloperIdentitiesCommand__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./MergeDeveloperIdentitiesCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/MergeDeveloperIdentitiesCommand.js");
-/* harmony import */ var _SetIdentityPoolRolesCommand__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./SetIdentityPoolRolesCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetIdentityPoolRolesCommand.js");
-/* harmony import */ var _SetPrincipalTagAttributeMapCommand__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./SetPrincipalTagAttributeMapCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetPrincipalTagAttributeMapCommand.js");
-/* harmony import */ var _TagResourceCommand__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./TagResourceCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/TagResourceCommand.js");
-/* harmony import */ var _UnlinkDeveloperIdentityCommand__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./UnlinkDeveloperIdentityCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkDeveloperIdentityCommand.js");
-/* harmony import */ var _UnlinkIdentityCommand__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./UnlinkIdentityCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkIdentityCommand.js");
-/* harmony import */ var _UntagResourceCommand__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./UntagResourceCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UntagResourceCommand.js");
-/* harmony import */ var _UpdateIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./UpdateIdentityPoolCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UpdateIdentityPoolCommand.js");
+/* harmony import */ var _CreateIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateIdentityPoolCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/CreateIdentityPoolCommand.js");
+/* harmony import */ var _DeleteIdentitiesCommand__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DeleteIdentitiesCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentitiesCommand.js");
+/* harmony import */ var _DeleteIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DeleteIdentityPoolCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DeleteIdentityPoolCommand.js");
+/* harmony import */ var _DescribeIdentityCommand__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DescribeIdentityCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityCommand.js");
+/* harmony import */ var _DescribeIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DescribeIdentityPoolCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/DescribeIdentityPoolCommand.js");
+/* harmony import */ var _GetCredentialsForIdentityCommand__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./GetCredentialsForIdentityCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetCredentialsForIdentityCommand.js");
+/* harmony import */ var _GetIdCommand__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./GetIdCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdCommand.js");
+/* harmony import */ var _GetIdentityPoolRolesCommand__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./GetIdentityPoolRolesCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdentityPoolRolesCommand.js");
+/* harmony import */ var _GetOpenIdTokenCommand__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./GetOpenIdTokenCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenCommand.js");
+/* harmony import */ var _GetOpenIdTokenForDeveloperIdentityCommand__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./GetOpenIdTokenForDeveloperIdentityCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetOpenIdTokenForDeveloperIdentityCommand.js");
+/* harmony import */ var _GetPrincipalTagAttributeMapCommand__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./GetPrincipalTagAttributeMapCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetPrincipalTagAttributeMapCommand.js");
+/* harmony import */ var _ListIdentitiesCommand__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ListIdentitiesCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentitiesCommand.js");
+/* harmony import */ var _ListIdentityPoolsCommand__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ListIdentityPoolsCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentityPoolsCommand.js");
+/* harmony import */ var _ListTagsForResourceCommand__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ListTagsForResourceCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListTagsForResourceCommand.js");
+/* harmony import */ var _LookupDeveloperIdentityCommand__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./LookupDeveloperIdentityCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/LookupDeveloperIdentityCommand.js");
+/* harmony import */ var _MergeDeveloperIdentitiesCommand__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./MergeDeveloperIdentitiesCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/MergeDeveloperIdentitiesCommand.js");
+/* harmony import */ var _SetIdentityPoolRolesCommand__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./SetIdentityPoolRolesCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetIdentityPoolRolesCommand.js");
+/* harmony import */ var _SetPrincipalTagAttributeMapCommand__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./SetPrincipalTagAttributeMapCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/SetPrincipalTagAttributeMapCommand.js");
+/* harmony import */ var _TagResourceCommand__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./TagResourceCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/TagResourceCommand.js");
+/* harmony import */ var _UnlinkDeveloperIdentityCommand__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./UnlinkDeveloperIdentityCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkDeveloperIdentityCommand.js");
+/* harmony import */ var _UnlinkIdentityCommand__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./UnlinkIdentityCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UnlinkIdentityCommand.js");
+/* harmony import */ var _UntagResourceCommand__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./UntagResourceCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UntagResourceCommand.js");
+/* harmony import */ var _UpdateIdentityPoolCommand__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./UpdateIdentityPoolCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/UpdateIdentityPoolCommand.js");
 
 
 
@@ -7396,10 +7402,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js":
-/*!**************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js ***!
-  \**************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js":
+/*!***********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js ***!
+  \***********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7426,10 +7432,10 @@ const commonParams = {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/endpointResolver.js":
-/*!************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/endpointResolver.js ***!
-  \************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/endpointResolver.js":
+/*!*********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/endpointResolver.js ***!
+  \*********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7437,9 +7443,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   defaultEndpointResolver: () => (/* binding */ defaultEndpointResolver)
 /* harmony export */ });
-/* harmony import */ var _aws_sdk_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/util-endpoints */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/index.js");
-/* harmony import */ var _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-endpoints */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js");
-/* harmony import */ var _ruleset__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ruleset */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/ruleset.js");
+/* harmony import */ var _aws_sdk_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/util-endpoints */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/index.js");
+/* harmony import */ var _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-endpoints */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js");
+/* harmony import */ var _ruleset__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ruleset */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/ruleset.js");
 
 
 
@@ -7454,10 +7460,10 @@ _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_1__.customEndpointFunctions.aws 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/ruleset.js":
-/*!***************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/ruleset.js ***!
-  \***************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/ruleset.js":
+/*!************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/ruleset.js ***!
+  \************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7473,10 +7479,10 @@ const ruleSet = _data;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/index.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/index.js ***!
-  \****************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/index.js":
+/*!*************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/index.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7527,12 +7533,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   __Client: () => (/* reexport safe */ _CognitoIdentityClient__WEBPACK_IMPORTED_MODULE_0__.__Client),
 /* harmony export */   paginateListIdentityPools: () => (/* reexport safe */ _pagination__WEBPACK_IMPORTED_MODULE_3__.paginateListIdentityPools)
 /* harmony export */ });
-/* harmony import */ var _CognitoIdentityClient__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CognitoIdentityClient */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js");
-/* harmony import */ var _CognitoIdentity__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CognitoIdentity */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentity.js");
-/* harmony import */ var _commands__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./commands */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/index.js");
-/* harmony import */ var _pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pagination */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/pagination/index.js");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./models */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/index.js");
-/* harmony import */ var _models_CognitoIdentityServiceException__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./models/CognitoIdentityServiceException */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/CognitoIdentityServiceException.js");
+/* harmony import */ var _CognitoIdentityClient__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CognitoIdentityClient */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js");
+/* harmony import */ var _CognitoIdentity__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CognitoIdentity */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentity.js");
+/* harmony import */ var _commands__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./commands */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/index.js");
+/* harmony import */ var _pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pagination */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/pagination/index.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./models */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/index.js");
+/* harmony import */ var _models_CognitoIdentityServiceException__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./models/CognitoIdentityServiceException */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/CognitoIdentityServiceException.js");
 
 
 
@@ -7543,10 +7549,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/CognitoIdentityServiceException.js":
-/*!*************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/CognitoIdentityServiceException.js ***!
-  \*************************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/CognitoIdentityServiceException.js":
+/*!**********************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/CognitoIdentityServiceException.js ***!
+  \**********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7555,7 +7561,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   CognitoIdentityServiceException: () => (/* binding */ CognitoIdentityServiceException),
 /* harmony export */   __ServiceException: () => (/* reexport safe */ _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_0__.ServiceException)
 /* harmony export */ });
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
 
 
 class CognitoIdentityServiceException extends _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_0__.ServiceException {
@@ -7568,10 +7574,10 @@ class CognitoIdentityServiceException extends _smithy_smithy_client__WEBPACK_IMP
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/index.js":
-/*!***********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/index.js ***!
-  \***********************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/index.js":
+/*!********************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/index.js ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7593,16 +7599,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   RoleMappingType: () => (/* reexport safe */ _models_0__WEBPACK_IMPORTED_MODULE_0__.RoleMappingType),
 /* harmony export */   TooManyRequestsException: () => (/* reexport safe */ _models_0__WEBPACK_IMPORTED_MODULE_0__.TooManyRequestsException)
 /* harmony export */ });
-/* harmony import */ var _models_0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./models_0 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/models_0.js");
+/* harmony import */ var _models_0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./models_0 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/models_0.js");
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/models_0.js":
-/*!**************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/models_0.js ***!
-  \**************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/models_0.js":
+/*!***********************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/models_0.js ***!
+  \***********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7624,7 +7630,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   RoleMappingType: () => (/* binding */ RoleMappingType),
 /* harmony export */   TooManyRequestsException: () => (/* binding */ TooManyRequestsException)
 /* harmony export */ });
-/* harmony import */ var _CognitoIdentityServiceException__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CognitoIdentityServiceException */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/CognitoIdentityServiceException.js");
+/* harmony import */ var _CognitoIdentityServiceException__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CognitoIdentityServiceException */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/CognitoIdentityServiceException.js");
 
 const AmbiguousRoleResolutionType = {
     AUTHENTICATED_ROLE: "AuthenticatedRole",
@@ -7780,10 +7786,10 @@ class ConcurrentModificationException extends _CognitoIdentityServiceException__
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/pagination/ListIdentityPoolsPaginator.js":
-/*!************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/pagination/ListIdentityPoolsPaginator.js ***!
-  \************************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/pagination/ListIdentityPoolsPaginator.js":
+/*!*********************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/pagination/ListIdentityPoolsPaginator.js ***!
+  \*********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7791,9 +7797,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   paginateListIdentityPools: () => (/* binding */ paginateListIdentityPools)
 /* harmony export */ });
-/* harmony import */ var _smithy_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/core */ "../../../../../../node_modules/@smithy/core/dist-es/index.js");
-/* harmony import */ var _CognitoIdentityClient__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../CognitoIdentityClient */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js");
-/* harmony import */ var _commands_ListIdentityPoolsCommand__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../commands/ListIdentityPoolsCommand */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentityPoolsCommand.js");
+/* harmony import */ var _smithy_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/core */ "../../../../../node_modules/@smithy/core/dist-es/index.js");
+/* harmony import */ var _CognitoIdentityClient__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../CognitoIdentityClient */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js");
+/* harmony import */ var _commands_ListIdentityPoolsCommand__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../commands/ListIdentityPoolsCommand */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/ListIdentityPoolsCommand.js");
 
 
 
@@ -7802,10 +7808,10 @@ const paginateListIdentityPools = (0,_smithy_core__WEBPACK_IMPORTED_MODULE_0__.c
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/pagination/index.js":
-/*!***************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/pagination/index.js ***!
-  \***************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/pagination/index.js":
+/*!************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/pagination/index.js ***!
+  \************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7813,17 +7819,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   paginateListIdentityPools: () => (/* reexport safe */ _ListIdentityPoolsPaginator__WEBPACK_IMPORTED_MODULE_0__.paginateListIdentityPools)
 /* harmony export */ });
-/* harmony import */ var _ListIdentityPoolsPaginator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListIdentityPoolsPaginator */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/pagination/ListIdentityPoolsPaginator.js");
+/* harmony import */ var _ListIdentityPoolsPaginator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListIdentityPoolsPaginator */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/pagination/ListIdentityPoolsPaginator.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js":
-/*!********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js ***!
-  \********************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js":
+/*!*****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/protocols/Aws_json1_1.js ***!
+  \*****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7876,11 +7882,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   se_UntagResourceCommand: () => (/* binding */ se_UntagResourceCommand),
 /* harmony export */   se_UpdateIdentityPoolCommand: () => (/* binding */ se_UpdateIdentityPoolCommand)
 /* harmony export */ });
-/* harmony import */ var _aws_sdk_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/core */ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/parseJsonBody.js");
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _models_CognitoIdentityServiceException__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../models/CognitoIdentityServiceException */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/CognitoIdentityServiceException.js");
-/* harmony import */ var _models_models_0__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models/models_0 */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/models_0.js");
+/* harmony import */ var _aws_sdk_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/core */ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/parseJsonBody.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _models_CognitoIdentityServiceException__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../models/CognitoIdentityServiceException */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/CognitoIdentityServiceException.js");
+/* harmony import */ var _models_models_0__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models/models_0 */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/models/models_0.js");
 
 
 
@@ -8532,10 +8538,10 @@ function sharedHeaders(operation) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.browser.js":
-/*!********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.browser.js ***!
-  \********************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.browser.js":
+/*!*****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.browser.js ***!
+  \*****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8543,17 +8549,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getRuntimeConfig: () => (/* binding */ getRuntimeConfig)
 /* harmony export */ });
-/* harmony import */ var _package_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../package.json */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/package.json");
-/* harmony import */ var _aws_crypto_sha256_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-crypto/sha256-browser */ "../../../../../../node_modules/@aws-crypto/sha256-browser/build/module/index.js");
-/* harmony import */ var _aws_sdk_util_user_agent_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @aws-sdk/util-user-agent-browser */ "../../../../../../node_modules/@aws-sdk/util-user-agent-browser/dist-es/index.js");
-/* harmony import */ var _smithy_config_resolver__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/config-resolver */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/index.js");
-/* harmony import */ var _smithy_fetch_http_handler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @smithy/fetch-http-handler */ "../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/index.js");
-/* harmony import */ var _smithy_invalid_dependency__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @smithy/invalid-dependency */ "../../../../../../node_modules/@smithy/invalid-dependency/dist-es/index.js");
-/* harmony import */ var _smithy_util_body_length_browser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @smithy/util-body-length-browser */ "../../../../../../node_modules/@smithy/util-body-length-browser/dist-es/index.js");
-/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
-/* harmony import */ var _runtimeConfig_shared__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./runtimeConfig.shared */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.shared.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _smithy_util_defaults_mode_browser__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @smithy/util-defaults-mode-browser */ "../../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/index.js");
+/* harmony import */ var _package_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../package.json */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/package.json");
+/* harmony import */ var _aws_crypto_sha256_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-crypto/sha256-browser */ "../../../../../node_modules/@aws-crypto/sha256-browser/build/module/index.js");
+/* harmony import */ var _aws_sdk_util_user_agent_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @aws-sdk/util-user-agent-browser */ "../../../../../node_modules/@aws-sdk/util-user-agent-browser/dist-es/index.js");
+/* harmony import */ var _smithy_config_resolver__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/config-resolver */ "../../../../../node_modules/@smithy/config-resolver/dist-es/index.js");
+/* harmony import */ var _smithy_fetch_http_handler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @smithy/fetch-http-handler */ "../../../../../node_modules/@smithy/fetch-http-handler/dist-es/index.js");
+/* harmony import */ var _smithy_invalid_dependency__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @smithy/invalid-dependency */ "../../../../../node_modules/@smithy/invalid-dependency/dist-es/index.js");
+/* harmony import */ var _smithy_util_body_length_browser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @smithy/util-body-length-browser */ "../../../../../node_modules/@smithy/util-body-length-browser/dist-es/index.js");
+/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
+/* harmony import */ var _runtimeConfig_shared__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./runtimeConfig.shared */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.shared.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _smithy_util_defaults_mode_browser__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @smithy/util-defaults-mode-browser */ "../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/index.js");
 
 
 
@@ -8592,10 +8598,10 @@ const getRuntimeConfig = (config) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.shared.js":
-/*!*******************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.shared.js ***!
-  \*******************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.shared.js":
+/*!****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.shared.js ***!
+  \****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8603,14 +8609,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getRuntimeConfig: () => (/* binding */ getRuntimeConfig)
 /* harmony export */ });
-/* harmony import */ var _aws_sdk_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @aws-sdk/core */ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js");
-/* harmony import */ var _smithy_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/core */ "../../../../../../node_modules/@smithy/core/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _smithy_url_parser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/url-parser */ "../../../../../../node_modules/@smithy/url-parser/dist-es/index.js");
-/* harmony import */ var _smithy_util_base64__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @smithy/util-base64 */ "../../../../../../node_modules/@smithy/util-base64/dist-es/index.js");
-/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
-/* harmony import */ var _auth_httpAuthSchemeProvider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./auth/httpAuthSchemeProvider */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthSchemeProvider.js");
-/* harmony import */ var _endpoint_endpointResolver__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./endpoint/endpointResolver */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/endpointResolver.js");
+/* harmony import */ var _aws_sdk_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @aws-sdk/core */ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js");
+/* harmony import */ var _smithy_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/core */ "../../../../../node_modules/@smithy/core/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _smithy_url_parser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/url-parser */ "../../../../../node_modules/@smithy/url-parser/dist-es/index.js");
+/* harmony import */ var _smithy_util_base64__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @smithy/util-base64 */ "../../../../../node_modules/@smithy/util-base64/dist-es/index.js");
+/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
+/* harmony import */ var _auth_httpAuthSchemeProvider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./auth/httpAuthSchemeProvider */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthSchemeProvider.js");
+/* harmony import */ var _endpoint_endpointResolver__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./endpoint/endpointResolver */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/endpointResolver.js");
 
 
 
@@ -8651,10 +8657,10 @@ const getRuntimeConfig = (config) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeExtensions.js":
-/*!****************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeExtensions.js ***!
-  \****************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeExtensions.js":
+/*!*************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeExtensions.js ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8662,10 +8668,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   resolveRuntimeExtensions: () => (/* binding */ resolveRuntimeExtensions)
 /* harmony export */ });
-/* harmony import */ var _aws_sdk_region_config_resolver__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/region-config-resolver */ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/index.js");
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _auth_httpAuthExtensionConfiguration__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./auth/httpAuthExtensionConfiguration */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthExtensionConfiguration.js");
+/* harmony import */ var _aws_sdk_region_config_resolver__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/region-config-resolver */ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/index.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _auth_httpAuthExtensionConfiguration__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./auth/httpAuthExtensionConfiguration */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthExtensionConfiguration.js");
 
 
 
@@ -8691,23 +8697,22 @@ const resolveRuntimeExtensions = (runtimeConfig, extensions) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js":
-/*!********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js ***!
-  \********************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js":
+/*!*****************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js ***!
+  \*****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   AWSSDKSigV4Signer: () => (/* binding */ AWSSDKSigV4Signer),
-/* harmony export */   AwsSdkSigV4Signer: () => (/* binding */ AwsSdkSigV4Signer),
-/* harmony export */   validateSigningProperties: () => (/* binding */ validateSigningProperties)
+/* harmony export */   AwsSdkSigV4Signer: () => (/* binding */ AwsSdkSigV4Signer)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils */ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils */ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils */ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getUpdatedSystemClockOffset.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils */ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils */ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils */ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getUpdatedSystemClockOffset.js");
 
 
 const throwSigningPropertyError = (name, property) => {
@@ -8723,13 +8728,11 @@ const validateSigningProperties = async (signingProperties) => {
     const signerFunction = throwSigningPropertyError("signer", config.signer);
     const signer = await signerFunction(authScheme);
     const signingRegion = signingProperties?.signingRegion;
-    const signingRegionSet = signingProperties?.signingRegionSet;
     const signingName = signingProperties?.signingName;
     return {
         config,
         signer,
         signingRegion,
-        signingRegionSet,
         signingName,
     };
 };
@@ -8738,17 +8741,7 @@ class AwsSdkSigV4Signer {
         if (!_smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__.HttpRequest.isInstance(httpRequest)) {
             throw new Error("The request is not an instance of `HttpRequest` and cannot be signed");
         }
-        const validatedProps = await validateSigningProperties(signingProperties);
-        const { config, signer } = validatedProps;
-        let { signingRegion, signingName } = validatedProps;
-        const handlerExecutionContext = signingProperties.context;
-        if (handlerExecutionContext?.authSchemes?.length ?? 0 > 1) {
-            const [first, second] = handlerExecutionContext.authSchemes;
-            if (first?.name === "sigv4a" && second?.name === "sigv4") {
-                signingRegion = second?.signingRegion ?? signingRegion;
-                signingName = second?.signingName ?? signingName;
-            }
-        }
+        const { config, signer, signingRegion, signingName } = await validateSigningProperties(signingProperties);
         const signedRequest = await signer.sign(httpRequest, {
             signingDate: (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getSkewCorrectedDate)(config.systemClockOffset),
             signingRegion: signingRegion,
@@ -8784,10 +8777,10 @@ const AWSSDKSigV4Signer = AwsSdkSigV4Signer;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js":
-/*!***************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js ***!
-  \***************************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js":
+/*!************************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js ***!
+  \************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8796,8 +8789,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   resolveAWSSDKSigV4Config: () => (/* binding */ resolveAWSSDKSigV4Config),
 /* harmony export */   resolveAwsSdkSigV4Config: () => (/* binding */ resolveAwsSdkSigV4Config)
 /* harmony export */ });
-/* harmony import */ var _smithy_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/core */ "../../../../../../node_modules/@smithy/core/dist-es/index.js");
-/* harmony import */ var _smithy_signature_v4__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/signature-v4 */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/index.js");
+/* harmony import */ var _smithy_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/core */ "../../../../../node_modules/@smithy/core/dist-es/index.js");
+/* harmony import */ var _smithy_signature_v4__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/signature-v4 */ "../../../../../node_modules/@smithy/signature-v4/dist-es/index.js");
 
 
 const resolveAwsSdkSigV4Config = (config) => {
@@ -8884,10 +8877,10 @@ const resolveAWSSDKSigV4Config = resolveAwsSdkSigV4Config;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js":
-/*!**************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js ***!
-  \**************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js":
+/*!***********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js ***!
+  \***********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8895,17 +8888,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getDateHeader: () => (/* binding */ getDateHeader)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
 
 const getDateHeader = (response) => _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__.HttpResponse.isInstance(response) ? response.headers?.date ?? response.headers?.Date : undefined;
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js":
-/*!*********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js ***!
-  \*********************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js":
+/*!******************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js ***!
+  \******************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8918,10 +8911,10 @@ const getSkewCorrectedDate = (systemClockOffset) => new Date(Date.now() + system
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getUpdatedSystemClockOffset.js":
-/*!****************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getUpdatedSystemClockOffset.js ***!
-  \****************************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getUpdatedSystemClockOffset.js":
+/*!*************************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getUpdatedSystemClockOffset.js ***!
+  \*************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8929,7 +8922,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getUpdatedSystemClockOffset: () => (/* binding */ getUpdatedSystemClockOffset)
 /* harmony export */ });
-/* harmony import */ var _isClockSkewed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isClockSkewed */ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/isClockSkewed.js");
+/* harmony import */ var _isClockSkewed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isClockSkewed */ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/isClockSkewed.js");
 
 const getUpdatedSystemClockOffset = (clockTime, currentSystemClockOffset) => {
     const clockTimeInMs = Date.parse(clockTime);
@@ -8942,10 +8935,10 @@ const getUpdatedSystemClockOffset = (clockTime, currentSystemClockOffset) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/isClockSkewed.js":
-/*!**************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/isClockSkewed.js ***!
-  \**************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/isClockSkewed.js":
+/*!***********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/isClockSkewed.js ***!
+  \***********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8953,17 +8946,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   isClockSkewed: () => (/* binding */ isClockSkewed)
 /* harmony export */ });
-/* harmony import */ var _getSkewCorrectedDate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getSkewCorrectedDate */ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js");
+/* harmony import */ var _getSkewCorrectedDate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getSkewCorrectedDate */ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js");
 
 const isClockSkewed = (clockTime, systemClockOffset) => Math.abs((0,_getSkewCorrectedDate__WEBPACK_IMPORTED_MODULE_0__.getSkewCorrectedDate)(systemClockOffset).getTime() - clockTime) >= 300000;
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js":
-/*!*******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js ***!
-  \*******************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js":
+/*!****************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8971,17 +8964,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   collectBodyString: () => (/* binding */ collectBodyString)
 /* harmony export */ });
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
 
 const collectBodyString = (streamBody, context) => (0,_smithy_smithy_client__WEBPACK_IMPORTED_MODULE_0__.collectBody)(streamBody, context).then((body) => context.utf8Encoder(body));
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/parseJsonBody.js":
-/*!*******************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/parseJsonBody.js ***!
-  \*******************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/parseJsonBody.js":
+/*!****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/parseJsonBody.js ***!
+  \****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8991,7 +8984,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   parseJsonBody: () => (/* binding */ parseJsonBody),
 /* harmony export */   parseJsonErrorBody: () => (/* binding */ parseJsonErrorBody)
 /* harmony export */ });
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common */ "../../../../../../node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common */ "../../../../../node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js");
 
 const parseJsonBody = (streamBody, context) => (0,_common__WEBPACK_IMPORTED_MODULE_0__.collectBodyString)(streamBody, context).then((encoded) => {
     if (encoded.length) {
@@ -9047,10 +9040,10 @@ const loadRestJsonErrorCode = (output, data) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/InMemoryStorage.js":
-/*!***************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/InMemoryStorage.js ***!
-  \***************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/InMemoryStorage.js":
+/*!************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/InMemoryStorage.js ***!
+  \************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9079,10 +9072,10 @@ class InMemoryStorage {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/IndexedDbStorage.js":
-/*!****************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/IndexedDbStorage.js ***!
-  \****************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/IndexedDbStorage.js":
+/*!*************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/IndexedDbStorage.js ***!
+  \*************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9161,10 +9154,10 @@ class IndexedDbStorage {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentity.js":
-/*!*******************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentity.js ***!
-  \*******************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentity.js":
+/*!****************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentity.js ***!
+  \****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9172,14 +9165,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   fromCognitoIdentity: () => (/* binding */ fromCognitoIdentity)
 /* harmony export */ });
-/* harmony import */ var _smithy_property_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/property-provider */ "../../../../../../node_modules/@smithy/property-provider/dist-es/index.js");
-/* harmony import */ var _resolveLogins__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolveLogins */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js");
+/* harmony import */ var _smithy_property_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/property-provider */ "../../../../../node_modules/@smithy/property-provider/dist-es/index.js");
+/* harmony import */ var _resolveLogins__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolveLogins */ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js");
 
 
 function fromCognitoIdentity(parameters) {
     return async () => {
         parameters.logger?.debug("@aws-sdk/credential-provider-cognito-identity - fromCognitoIdentity");
-        const { GetCredentialsForIdentityCommand, CognitoIdentityClient } = await Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./loadCognitoIdentity */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/loadCognitoIdentity.js"));
+        const { GetCredentialsForIdentityCommand, CognitoIdentityClient } = await Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./loadCognitoIdentity */ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/loadCognitoIdentity.js"));
         const { Credentials: { AccessKeyId = throwOnMissingAccessKeyId(parameters.logger), Expiration, SecretKey = throwOnMissingSecretKey(parameters.logger), SessionToken, } = throwOnMissingCredentials(parameters.logger), } = await (parameters.client ??
             new CognitoIdentityClient(Object.assign({}, parameters.clientConfig ?? {}, {
                 region: parameters.clientConfig?.region ?? parameters.parentClientConfig?.region,
@@ -9210,10 +9203,10 @@ function throwOnMissingSecretKey(logger) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentityPool.js":
-/*!***********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentityPool.js ***!
-  \***********************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentityPool.js":
+/*!********************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentityPool.js ***!
+  \********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9221,10 +9214,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   fromCognitoIdentityPool: () => (/* binding */ fromCognitoIdentityPool)
 /* harmony export */ });
-/* harmony import */ var _smithy_property_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/property-provider */ "../../../../../../node_modules/@smithy/property-provider/dist-es/index.js");
-/* harmony import */ var _fromCognitoIdentity__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fromCognitoIdentity */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentity.js");
-/* harmony import */ var _localStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./localStorage */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/localStorage.js");
-/* harmony import */ var _resolveLogins__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./resolveLogins */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js");
+/* harmony import */ var _smithy_property_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/property-provider */ "../../../../../node_modules/@smithy/property-provider/dist-es/index.js");
+/* harmony import */ var _fromCognitoIdentity__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fromCognitoIdentity */ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentity.js");
+/* harmony import */ var _localStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./localStorage */ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/localStorage.js");
+/* harmony import */ var _resolveLogins__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./resolveLogins */ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js");
 
 
 
@@ -9235,7 +9228,7 @@ function fromCognitoIdentityPool({ accountId, cache = (0,_localStorage__WEBPACK_
         ? `aws:cognito-identity-credentials:${identityPoolId}:${userIdentifier}`
         : undefined;
     let provider = async () => {
-        const { GetIdCommand, CognitoIdentityClient } = await Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./loadCognitoIdentity */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/loadCognitoIdentity.js"));
+        const { GetIdCommand, CognitoIdentityClient } = await Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./loadCognitoIdentity */ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/loadCognitoIdentity.js"));
         const _client = client ??
             new CognitoIdentityClient(Object.assign({}, clientConfig ?? {}, { region: clientConfig?.region ?? parentClientConfig?.region }));
         let identityId = (cacheKey && (await cache.getItem(cacheKey)));
@@ -9272,10 +9265,10 @@ function throwOnMissingId(logger) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/loadCognitoIdentity.js":
-/*!*******************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/loadCognitoIdentity.js ***!
-  \*******************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/loadCognitoIdentity.js":
+/*!****************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/loadCognitoIdentity.js ***!
+  \****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9285,19 +9278,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   GetCredentialsForIdentityCommand: () => (/* reexport safe */ _aws_sdk_client_cognito_identity__WEBPACK_IMPORTED_MODULE_1__.GetCredentialsForIdentityCommand),
 /* harmony export */   GetIdCommand: () => (/* reexport safe */ _aws_sdk_client_cognito_identity__WEBPACK_IMPORTED_MODULE_2__.GetIdCommand)
 /* harmony export */ });
-/* harmony import */ var _aws_sdk_client_cognito_identity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/client-cognito-identity */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js");
-/* harmony import */ var _aws_sdk_client_cognito_identity__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @aws-sdk/client-cognito-identity */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetCredentialsForIdentityCommand.js");
-/* harmony import */ var _aws_sdk_client_cognito_identity__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/client-cognito-identity */ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdCommand.js");
+/* harmony import */ var _aws_sdk_client_cognito_identity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/client-cognito-identity */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js");
+/* harmony import */ var _aws_sdk_client_cognito_identity__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @aws-sdk/client-cognito-identity */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetCredentialsForIdentityCommand.js");
+/* harmony import */ var _aws_sdk_client_cognito_identity__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @aws-sdk/client-cognito-identity */ "../../../../../node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdCommand.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/localStorage.js":
-/*!************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/localStorage.js ***!
-  \************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/localStorage.js":
+/*!*********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/localStorage.js ***!
+  \*********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9305,8 +9298,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   localStorage: () => (/* binding */ localStorage)
 /* harmony export */ });
-/* harmony import */ var _IndexedDbStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndexedDbStorage */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/IndexedDbStorage.js");
-/* harmony import */ var _InMemoryStorage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InMemoryStorage */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/InMemoryStorage.js");
+/* harmony import */ var _IndexedDbStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndexedDbStorage */ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/IndexedDbStorage.js");
+/* harmony import */ var _InMemoryStorage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InMemoryStorage */ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/InMemoryStorage.js");
 
 
 const inMemoryStorage = new _InMemoryStorage__WEBPACK_IMPORTED_MODULE_0__.InMemoryStorage();
@@ -9323,10 +9316,10 @@ function localStorage() {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js":
-/*!*************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js ***!
-  \*************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js":
+/*!**********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js ***!
+  \**********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9353,10 +9346,10 @@ function resolveLogins(logins) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js":
-/*!*******************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js ***!
-  \*******************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js":
+/*!****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js ***!
+  \****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9364,7 +9357,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   fromCognitoIdentityPool: () => (/* binding */ fromCognitoIdentityPool)
 /* harmony export */ });
-/* harmony import */ var _aws_sdk_credential_provider_cognito_identity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/credential-provider-cognito-identity */ "../../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentityPool.js");
+/* harmony import */ var _aws_sdk_credential_provider_cognito_identity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/credential-provider-cognito-identity */ "../../../../../node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentityPool.js");
 
 const fromCognitoIdentityPool = (options) => (0,_aws_sdk_credential_provider_cognito_identity__WEBPACK_IMPORTED_MODULE_0__.fromCognitoIdentityPool)({
     ...options,
@@ -9373,10 +9366,10 @@ const fromCognitoIdentityPool = (options) => (0,_aws_sdk_credential_provider_cog
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/middleware-host-header/dist-es/index.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/middleware-host-header/dist-es/index.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/middleware-host-header/dist-es/index.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/middleware-host-header/dist-es/index.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9387,7 +9380,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   hostHeaderMiddlewareOptions: () => (/* binding */ hostHeaderMiddlewareOptions),
 /* harmony export */   resolveHostHeaderConfig: () => (/* binding */ resolveHostHeaderConfig)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
 
 function resolveHostHeaderConfig(input) {
     return input;
@@ -9425,10 +9418,10 @@ const getHostHeaderPlugin = (options) => ({
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/middleware-logger/dist-es/index.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/middleware-logger/dist-es/index.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/middleware-logger/dist-es/index.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/middleware-logger/dist-es/index.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9438,16 +9431,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   loggerMiddleware: () => (/* reexport safe */ _loggerMiddleware__WEBPACK_IMPORTED_MODULE_0__.loggerMiddleware),
 /* harmony export */   loggerMiddlewareOptions: () => (/* reexport safe */ _loggerMiddleware__WEBPACK_IMPORTED_MODULE_0__.loggerMiddlewareOptions)
 /* harmony export */ });
-/* harmony import */ var _loggerMiddleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./loggerMiddleware */ "../../../../../../node_modules/@aws-sdk/middleware-logger/dist-es/loggerMiddleware.js");
+/* harmony import */ var _loggerMiddleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./loggerMiddleware */ "../../../../../node_modules/@aws-sdk/middleware-logger/dist-es/loggerMiddleware.js");
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/middleware-logger/dist-es/loggerMiddleware.js":
-/*!*********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/middleware-logger/dist-es/loggerMiddleware.js ***!
-  \*********************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/middleware-logger/dist-es/loggerMiddleware.js":
+/*!******************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/middleware-logger/dist-es/loggerMiddleware.js ***!
+  \******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9503,10 +9496,10 @@ const getLoggerPlugin = (options) => ({
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/middleware-recursion-detection/dist-es/index.js":
-/*!***********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/middleware-recursion-detection/dist-es/index.js ***!
-  \***********************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/middleware-recursion-detection/dist-es/index.js":
+/*!********************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/middleware-recursion-detection/dist-es/index.js ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9516,7 +9509,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getRecursionDetectionPlugin: () => (/* binding */ getRecursionDetectionPlugin),
 /* harmony export */   recursionDetectionMiddleware: () => (/* binding */ recursionDetectionMiddleware)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
 /* provided dependency */ var process = __webpack_require__(/*! process/browser */ "../../../node_modules/process/browser.js");
 
 const TRACE_ID_HEADER_NAME = "X-Amzn-Trace-Id";
@@ -9556,10 +9549,10 @@ const getRecursionDetectionPlugin = (options) => ({
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/configurations.js":
-/*!***********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/configurations.js ***!
-  \***********************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/configurations.js":
+/*!********************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/configurations.js ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9577,10 +9570,10 @@ function resolveUserAgentConfig(input) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/constants.js":
-/*!******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/constants.js ***!
-  \******************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/constants.js":
+/*!***************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/constants.js ***!
+  \***************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9605,10 +9598,10 @@ const UA_ESCAPE_CHAR = "-";
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/index.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/index.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/index.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/index.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9619,18 +9612,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   resolveUserAgentConfig: () => (/* reexport safe */ _configurations__WEBPACK_IMPORTED_MODULE_0__.resolveUserAgentConfig),
 /* harmony export */   userAgentMiddleware: () => (/* reexport safe */ _user_agent_middleware__WEBPACK_IMPORTED_MODULE_1__.userAgentMiddleware)
 /* harmony export */ });
-/* harmony import */ var _configurations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./configurations */ "../../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/configurations.js");
-/* harmony import */ var _user_agent_middleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user-agent-middleware */ "../../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/user-agent-middleware.js");
+/* harmony import */ var _configurations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./configurations */ "../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/configurations.js");
+/* harmony import */ var _user_agent_middleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user-agent-middleware */ "../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/user-agent-middleware.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/user-agent-middleware.js":
-/*!******************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/user-agent-middleware.js ***!
-  \******************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/user-agent-middleware.js":
+/*!***************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/user-agent-middleware.js ***!
+  \***************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9640,9 +9633,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getUserAgentPlugin: () => (/* binding */ getUserAgentPlugin),
 /* harmony export */   userAgentMiddleware: () => (/* binding */ userAgentMiddleware)
 /* harmony export */ });
-/* harmony import */ var _aws_sdk_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/util-endpoints */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/index.js");
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/constants.js");
+/* harmony import */ var _aws_sdk_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aws-sdk/util-endpoints */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/index.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@aws-sdk/middleware-user-agent/dist-es/constants.js");
 
 
 
@@ -9719,10 +9712,10 @@ const getUserAgentPlugin = (config) => ({
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/extensions/index.js":
-/*!**************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/extensions/index.js ***!
-  \**************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/extensions/index.js":
+/*!***********************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/extensions/index.js ***!
+  \***********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9760,10 +9753,10 @@ const resolveAwsRegionExtensionConfiguration = (awsRegionExtensionConfiguration)
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/index.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/index.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/index.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/index.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9777,18 +9770,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   resolveAwsRegionExtensionConfiguration: () => (/* reexport safe */ _extensions__WEBPACK_IMPORTED_MODULE_0__.resolveAwsRegionExtensionConfiguration),
 /* harmony export */   resolveRegionConfig: () => (/* reexport safe */ _regionConfig__WEBPACK_IMPORTED_MODULE_1__.resolveRegionConfig)
 /* harmony export */ });
-/* harmony import */ var _extensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./extensions */ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/extensions/index.js");
-/* harmony import */ var _regionConfig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./regionConfig */ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/index.js");
+/* harmony import */ var _extensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./extensions */ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/extensions/index.js");
+/* harmony import */ var _regionConfig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./regionConfig */ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/index.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/config.js":
-/*!*****************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/config.js ***!
-  \*****************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/config.js":
+/*!**************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/config.js ***!
+  \**************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9815,10 +9808,10 @@ const NODE_REGION_CONFIG_FILE_OPTIONS = {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/getRealRegion.js":
-/*!************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/getRealRegion.js ***!
-  \************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/getRealRegion.js":
+/*!*********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/getRealRegion.js ***!
+  \*********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9826,7 +9819,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getRealRegion: () => (/* binding */ getRealRegion)
 /* harmony export */ });
-/* harmony import */ var _isFipsRegion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isFipsRegion */ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/isFipsRegion.js");
+/* harmony import */ var _isFipsRegion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isFipsRegion */ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/isFipsRegion.js");
 
 const getRealRegion = (region) => (0,_isFipsRegion__WEBPACK_IMPORTED_MODULE_0__.isFipsRegion)(region)
     ? ["fips-aws-global", "aws-fips"].includes(region)
@@ -9837,10 +9830,10 @@ const getRealRegion = (region) => (0,_isFipsRegion__WEBPACK_IMPORTED_MODULE_0__.
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/index.js":
-/*!****************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/index.js ***!
-  \****************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/index.js":
+/*!*************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/index.js ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9852,18 +9845,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   REGION_INI_NAME: () => (/* reexport safe */ _config__WEBPACK_IMPORTED_MODULE_0__.REGION_INI_NAME),
 /* harmony export */   resolveRegionConfig: () => (/* reexport safe */ _resolveRegionConfig__WEBPACK_IMPORTED_MODULE_1__.resolveRegionConfig)
 /* harmony export */ });
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/config.js");
-/* harmony import */ var _resolveRegionConfig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolveRegionConfig */ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/resolveRegionConfig.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/config.js");
+/* harmony import */ var _resolveRegionConfig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolveRegionConfig */ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/resolveRegionConfig.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/isFipsRegion.js":
-/*!***********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/isFipsRegion.js ***!
-  \***********************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/isFipsRegion.js":
+/*!********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/isFipsRegion.js ***!
+  \********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9876,10 +9869,10 @@ const isFipsRegion = (region) => typeof region === "string" && (region.startsWit
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/resolveRegionConfig.js":
-/*!******************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/resolveRegionConfig.js ***!
-  \******************************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/resolveRegionConfig.js":
+/*!***************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/resolveRegionConfig.js ***!
+  \***************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9887,8 +9880,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   resolveRegionConfig: () => (/* binding */ resolveRegionConfig)
 /* harmony export */ });
-/* harmony import */ var _getRealRegion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getRealRegion */ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/getRealRegion.js");
-/* harmony import */ var _isFipsRegion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isFipsRegion */ "../../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/isFipsRegion.js");
+/* harmony import */ var _getRealRegion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getRealRegion */ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/getRealRegion.js");
+/* harmony import */ var _isFipsRegion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isFipsRegion */ "../../../../../node_modules/@aws-sdk/region-config-resolver/dist-es/regionConfig/isFipsRegion.js");
 
 
 const resolveRegionConfig = (input) => {
@@ -9918,10 +9911,10 @@ const resolveRegionConfig = (input) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/aws.js":
-/*!*****************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/aws.js ***!
-  \*****************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/aws.js":
+/*!**************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/aws.js ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9929,10 +9922,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   awsEndpointFunctions: () => (/* binding */ awsEndpointFunctions)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-endpoints */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js");
-/* harmony import */ var _lib_aws_isVirtualHostableS3Bucket__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/aws/isVirtualHostableS3Bucket */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/isVirtualHostableS3Bucket.js");
-/* harmony import */ var _lib_aws_parseArn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/aws/parseArn */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/parseArn.js");
-/* harmony import */ var _lib_aws_partition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/aws/partition */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partition.js");
+/* harmony import */ var _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-endpoints */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js");
+/* harmony import */ var _lib_aws_isVirtualHostableS3Bucket__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/aws/isVirtualHostableS3Bucket */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/isVirtualHostableS3Bucket.js");
+/* harmony import */ var _lib_aws_parseArn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/aws/parseArn */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/parseArn.js");
+/* harmony import */ var _lib_aws_partition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/aws/partition */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partition.js");
 
 
 
@@ -9947,10 +9940,10 @@ _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__.customEndpointFunctions.aws 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/index.js":
-/*!*******************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/index.js ***!
-  \*******************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/index.js":
+/*!****************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/index.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9965,11 +9958,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   setPartitionInfo: () => (/* reexport safe */ _lib_aws_partition__WEBPACK_IMPORTED_MODULE_1__.setPartitionInfo),
 /* harmony export */   useDefaultPartitionInfo: () => (/* reexport safe */ _lib_aws_partition__WEBPACK_IMPORTED_MODULE_1__.useDefaultPartitionInfo)
 /* harmony export */ });
-/* harmony import */ var _aws__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./aws */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/aws.js");
-/* harmony import */ var _lib_aws_partition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/aws/partition */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partition.js");
-/* harmony import */ var _lib_isIpAddress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/isIpAddress */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/isIpAddress.js");
-/* harmony import */ var _resolveEndpoint__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./resolveEndpoint */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/resolveEndpoint.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./types */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/index.js");
+/* harmony import */ var _aws__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./aws */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/aws.js");
+/* harmony import */ var _lib_aws_partition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/aws/partition */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partition.js");
+/* harmony import */ var _lib_isIpAddress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/isIpAddress */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/isIpAddress.js");
+/* harmony import */ var _resolveEndpoint__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./resolveEndpoint */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/resolveEndpoint.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./types */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/index.js");
 
 
 
@@ -9979,10 +9972,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/isVirtualHostableS3Bucket.js":
-/*!***********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/isVirtualHostableS3Bucket.js ***!
-  \***********************************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/isVirtualHostableS3Bucket.js":
+/*!********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/isVirtualHostableS3Bucket.js ***!
+  \********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9990,8 +9983,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   isVirtualHostableS3Bucket: () => (/* binding */ isVirtualHostableS3Bucket)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-endpoints */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js");
-/* harmony import */ var _isIpAddress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../isIpAddress */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/isIpAddress.js");
+/* harmony import */ var _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-endpoints */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js");
+/* harmony import */ var _isIpAddress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../isIpAddress */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/isIpAddress.js");
 
 
 const isVirtualHostableS3Bucket = (value, allowSubDomains = false) => {
@@ -10021,10 +10014,10 @@ const isVirtualHostableS3Bucket = (value, allowSubDomains = false) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/parseArn.js":
-/*!******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/parseArn.js ***!
-  \******************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/parseArn.js":
+/*!***************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/parseArn.js ***!
+  \***************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10051,10 +10044,10 @@ const parseArn = (value) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partition.js":
-/*!*******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partition.js ***!
-  \*******************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partition.js":
+/*!****************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partition.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10065,7 +10058,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   setPartitionInfo: () => (/* binding */ setPartitionInfo),
 /* harmony export */   useDefaultPartitionInfo: () => (/* binding */ useDefaultPartitionInfo)
 /* harmony export */ });
-/* harmony import */ var _partitions_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partitions.json */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partitions.json");
+/* harmony import */ var _partitions_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partitions.json */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partitions.json");
 
 let selectedPartitionsInfo = _partitions_json__WEBPACK_IMPORTED_MODULE_0__;
 let selectedUserAgentPrefix = "";
@@ -10111,10 +10104,10 @@ const getUserAgentPrefix = () => selectedUserAgentPrefix;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/isIpAddress.js":
-/*!*****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/isIpAddress.js ***!
-  \*****************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/isIpAddress.js":
+/*!**************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/isIpAddress.js ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10122,16 +10115,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   isIpAddress: () => (/* reexport safe */ _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__.isIpAddress)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-endpoints */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js");
+/* harmony import */ var _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-endpoints */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js");
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/resolveEndpoint.js":
-/*!*****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/resolveEndpoint.js ***!
-  \*****************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/resolveEndpoint.js":
+/*!**************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/resolveEndpoint.js ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10139,16 +10132,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   resolveEndpoint: () => (/* reexport safe */ _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__.resolveEndpoint)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-endpoints */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js");
+/* harmony import */ var _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-endpoints */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js");
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/EndpointError.js":
-/*!*********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/EndpointError.js ***!
-  \*********************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/EndpointError.js":
+/*!******************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/EndpointError.js ***!
+  \******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10156,28 +10149,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   EndpointError: () => (/* reexport safe */ _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__.EndpointError)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-endpoints */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js");
+/* harmony import */ var _smithy_util_endpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-endpoints */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js");
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/EndpointRuleObject.js":
-/*!**************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/EndpointRuleObject.js ***!
-  \**************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/ErrorRuleObject.js":
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/EndpointRuleObject.js":
 /*!***********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/ErrorRuleObject.js ***!
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/EndpointRuleObject.js ***!
   \***********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -10188,10 +10168,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/RuleSetObject.js":
-/*!*********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/RuleSetObject.js ***!
-  \*********************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/ErrorRuleObject.js":
+/*!********************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/ErrorRuleObject.js ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10201,10 +10181,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/TreeRuleObject.js":
-/*!**********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/TreeRuleObject.js ***!
-  \**********************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/RuleSetObject.js":
+/*!******************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/RuleSetObject.js ***!
+  \******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10214,10 +10194,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/index.js":
-/*!*************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/index.js ***!
-  \*************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/TreeRuleObject.js":
+/*!*******************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/TreeRuleObject.js ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/index.js":
+/*!**********************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/index.js ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10225,12 +10218,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   EndpointError: () => (/* reexport safe */ _EndpointError__WEBPACK_IMPORTED_MODULE_0__.EndpointError)
 /* harmony export */ });
-/* harmony import */ var _EndpointError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EndpointError */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/EndpointError.js");
-/* harmony import */ var _EndpointRuleObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EndpointRuleObject */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/EndpointRuleObject.js");
-/* harmony import */ var _ErrorRuleObject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ErrorRuleObject */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/ErrorRuleObject.js");
-/* harmony import */ var _RuleSetObject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RuleSetObject */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/RuleSetObject.js");
-/* harmony import */ var _TreeRuleObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TreeRuleObject */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/TreeRuleObject.js");
-/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./shared */ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/shared.js");
+/* harmony import */ var _EndpointError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EndpointError */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/EndpointError.js");
+/* harmony import */ var _EndpointRuleObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EndpointRuleObject */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/EndpointRuleObject.js");
+/* harmony import */ var _ErrorRuleObject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ErrorRuleObject */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/ErrorRuleObject.js");
+/* harmony import */ var _RuleSetObject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RuleSetObject */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/RuleSetObject.js");
+/* harmony import */ var _TreeRuleObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TreeRuleObject */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/TreeRuleObject.js");
+/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./shared */ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/shared.js");
 
 
 
@@ -10241,10 +10234,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/shared.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/shared.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/shared.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/types/shared.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10254,10 +10247,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-locate-window/dist-es/index.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-locate-window/dist-es/index.js ***!
-  \***********************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-locate-window/dist-es/index.js":
+/*!********************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-locate-window/dist-es/index.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10279,10 +10272,10 @@ function locateWindow() {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-user-agent-browser/dist-es/index.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-user-agent-browser/dist-es/index.js ***!
-  \****************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-user-agent-browser/dist-es/index.js":
+/*!*************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-user-agent-browser/dist-es/index.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10290,7 +10283,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   defaultUserAgent: () => (/* binding */ defaultUserAgent)
 /* harmony export */ });
-/* harmony import */ var bowser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bowser */ "../../../../../../node_modules/bowser/es5.js");
+/* harmony import */ var bowser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bowser */ "../../../../../node_modules/bowser/es5.js");
 /* harmony import */ var bowser__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bowser__WEBPACK_IMPORTED_MODULE_0__);
 
 const defaultUserAgent = ({ serviceId, clientVersion }) => async () => {
@@ -10313,10 +10306,10 @@ const defaultUserAgent = ({ serviceId, clientVersion }) => async () => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/NodeUseDualstackEndpointConfigOptions.js":
-/*!*******************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/NodeUseDualstackEndpointConfigOptions.js ***!
-  \*******************************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/NodeUseDualstackEndpointConfigOptions.js":
+/*!****************************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/NodeUseDualstackEndpointConfigOptions.js ***!
+  \****************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10327,7 +10320,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ENV_USE_DUALSTACK_ENDPOINT: () => (/* binding */ ENV_USE_DUALSTACK_ENDPOINT),
 /* harmony export */   NODE_USE_DUALSTACK_ENDPOINT_CONFIG_OPTIONS: () => (/* binding */ NODE_USE_DUALSTACK_ENDPOINT_CONFIG_OPTIONS)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_config_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-config-provider */ "../../../../../../node_modules/@smithy/util-config-provider/dist-es/index.js");
+/* harmony import */ var _smithy_util_config_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-config-provider */ "../../../../../node_modules/@smithy/util-config-provider/dist-es/index.js");
 
 const ENV_USE_DUALSTACK_ENDPOINT = "AWS_USE_DUALSTACK_ENDPOINT";
 const CONFIG_USE_DUALSTACK_ENDPOINT = "use_dualstack_endpoint";
@@ -10341,10 +10334,10 @@ const NODE_USE_DUALSTACK_ENDPOINT_CONFIG_OPTIONS = {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/NodeUseFipsEndpointConfigOptions.js":
-/*!**************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/NodeUseFipsEndpointConfigOptions.js ***!
-  \**************************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/NodeUseFipsEndpointConfigOptions.js":
+/*!***********************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/NodeUseFipsEndpointConfigOptions.js ***!
+  \***********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10355,7 +10348,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ENV_USE_FIPS_ENDPOINT: () => (/* binding */ ENV_USE_FIPS_ENDPOINT),
 /* harmony export */   NODE_USE_FIPS_ENDPOINT_CONFIG_OPTIONS: () => (/* binding */ NODE_USE_FIPS_ENDPOINT_CONFIG_OPTIONS)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_config_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-config-provider */ "../../../../../../node_modules/@smithy/util-config-provider/dist-es/index.js");
+/* harmony import */ var _smithy_util_config_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-config-provider */ "../../../../../node_modules/@smithy/util-config-provider/dist-es/index.js");
 
 const ENV_USE_FIPS_ENDPOINT = "AWS_USE_FIPS_ENDPOINT";
 const CONFIG_USE_FIPS_ENDPOINT = "use_fips_endpoint";
@@ -10369,10 +10362,10 @@ const NODE_USE_FIPS_ENDPOINT_CONFIG_OPTIONS = {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/index.js":
-/*!***********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/index.js ***!
-  \***********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/index.js":
+/*!********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/index.js ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10389,10 +10382,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   resolveCustomEndpointsConfig: () => (/* reexport safe */ _resolveCustomEndpointsConfig__WEBPACK_IMPORTED_MODULE_2__.resolveCustomEndpointsConfig),
 /* harmony export */   resolveEndpointsConfig: () => (/* reexport safe */ _resolveEndpointsConfig__WEBPACK_IMPORTED_MODULE_3__.resolveEndpointsConfig)
 /* harmony export */ });
-/* harmony import */ var _NodeUseDualstackEndpointConfigOptions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NodeUseDualstackEndpointConfigOptions */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/NodeUseDualstackEndpointConfigOptions.js");
-/* harmony import */ var _NodeUseFipsEndpointConfigOptions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NodeUseFipsEndpointConfigOptions */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/NodeUseFipsEndpointConfigOptions.js");
-/* harmony import */ var _resolveCustomEndpointsConfig__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./resolveCustomEndpointsConfig */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/resolveCustomEndpointsConfig.js");
-/* harmony import */ var _resolveEndpointsConfig__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./resolveEndpointsConfig */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/resolveEndpointsConfig.js");
+/* harmony import */ var _NodeUseDualstackEndpointConfigOptions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NodeUseDualstackEndpointConfigOptions */ "../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/NodeUseDualstackEndpointConfigOptions.js");
+/* harmony import */ var _NodeUseFipsEndpointConfigOptions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NodeUseFipsEndpointConfigOptions */ "../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/NodeUseFipsEndpointConfigOptions.js");
+/* harmony import */ var _resolveCustomEndpointsConfig__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./resolveCustomEndpointsConfig */ "../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/resolveCustomEndpointsConfig.js");
+/* harmony import */ var _resolveEndpointsConfig__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./resolveEndpointsConfig */ "../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/resolveEndpointsConfig.js");
 
 
 
@@ -10401,10 +10394,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/resolveCustomEndpointsConfig.js":
-/*!**********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/resolveCustomEndpointsConfig.js ***!
-  \**********************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/resolveCustomEndpointsConfig.js":
+/*!*******************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/resolveCustomEndpointsConfig.js ***!
+  \*******************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10412,7 +10405,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   resolveCustomEndpointsConfig: () => (/* binding */ resolveCustomEndpointsConfig)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
+/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
 
 const resolveCustomEndpointsConfig = (input) => {
     const { endpoint, urlParser } = input;
@@ -10428,10 +10421,10 @@ const resolveCustomEndpointsConfig = (input) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/resolveEndpointsConfig.js":
-/*!****************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/resolveEndpointsConfig.js ***!
-  \****************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/resolveEndpointsConfig.js":
+/*!*************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/resolveEndpointsConfig.js ***!
+  \*************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10439,8 +10432,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   resolveEndpointsConfig: () => (/* binding */ resolveEndpointsConfig)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
-/* harmony import */ var _utils_getEndpointFromRegion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/getEndpointFromRegion */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/utils/getEndpointFromRegion.js");
+/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
+/* harmony import */ var _utils_getEndpointFromRegion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/getEndpointFromRegion */ "../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/utils/getEndpointFromRegion.js");
 
 
 const resolveEndpointsConfig = (input) => {
@@ -10460,10 +10453,10 @@ const resolveEndpointsConfig = (input) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/utils/getEndpointFromRegion.js":
-/*!*********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/utils/getEndpointFromRegion.js ***!
-  \*********************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/utils/getEndpointFromRegion.js":
+/*!******************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/utils/getEndpointFromRegion.js ***!
+  \******************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10490,10 +10483,10 @@ const getEndpointFromRegion = async (input) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/index.js":
-/*!*******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/index.js ***!
-  \*******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/index.js":
+/*!****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/index.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10516,9 +10509,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   resolveEndpointsConfig: () => (/* reexport safe */ _endpointsConfig__WEBPACK_IMPORTED_MODULE_0__.resolveEndpointsConfig),
 /* harmony export */   resolveRegionConfig: () => (/* reexport safe */ _regionConfig__WEBPACK_IMPORTED_MODULE_1__.resolveRegionConfig)
 /* harmony export */ });
-/* harmony import */ var _endpointsConfig__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./endpointsConfig */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/index.js");
-/* harmony import */ var _regionConfig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./regionConfig */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/index.js");
-/* harmony import */ var _regionInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./regionInfo */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/index.js");
+/* harmony import */ var _endpointsConfig__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./endpointsConfig */ "../../../../../node_modules/@smithy/config-resolver/dist-es/endpointsConfig/index.js");
+/* harmony import */ var _regionConfig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./regionConfig */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/index.js");
+/* harmony import */ var _regionInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./regionInfo */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/index.js");
 
 
 
@@ -10526,10 +10519,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/config.js":
-/*!*********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/config.js ***!
-  \*********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/config.js":
+/*!******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/config.js ***!
+  \******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10556,10 +10549,10 @@ const NODE_REGION_CONFIG_FILE_OPTIONS = {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/getRealRegion.js":
-/*!****************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/getRealRegion.js ***!
-  \****************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/getRealRegion.js":
+/*!*************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/getRealRegion.js ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10567,7 +10560,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getRealRegion: () => (/* binding */ getRealRegion)
 /* harmony export */ });
-/* harmony import */ var _isFipsRegion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isFipsRegion */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/isFipsRegion.js");
+/* harmony import */ var _isFipsRegion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isFipsRegion */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/isFipsRegion.js");
 
 const getRealRegion = (region) => (0,_isFipsRegion__WEBPACK_IMPORTED_MODULE_0__.isFipsRegion)(region)
     ? ["fips-aws-global", "aws-fips"].includes(region)
@@ -10578,10 +10571,10 @@ const getRealRegion = (region) => (0,_isFipsRegion__WEBPACK_IMPORTED_MODULE_0__.
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/index.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/index.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/index.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/index.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10593,18 +10586,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   REGION_INI_NAME: () => (/* reexport safe */ _config__WEBPACK_IMPORTED_MODULE_0__.REGION_INI_NAME),
 /* harmony export */   resolveRegionConfig: () => (/* reexport safe */ _resolveRegionConfig__WEBPACK_IMPORTED_MODULE_1__.resolveRegionConfig)
 /* harmony export */ });
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/config.js");
-/* harmony import */ var _resolveRegionConfig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolveRegionConfig */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/resolveRegionConfig.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/config.js");
+/* harmony import */ var _resolveRegionConfig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolveRegionConfig */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/resolveRegionConfig.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/isFipsRegion.js":
-/*!***************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/isFipsRegion.js ***!
-  \***************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/isFipsRegion.js":
+/*!************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/isFipsRegion.js ***!
+  \************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10617,10 +10610,10 @@ const isFipsRegion = (region) => typeof region === "string" && (region.startsWit
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/resolveRegionConfig.js":
-/*!**********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/resolveRegionConfig.js ***!
-  \**********************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/resolveRegionConfig.js":
+/*!*******************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/resolveRegionConfig.js ***!
+  \*******************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10628,8 +10621,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   resolveRegionConfig: () => (/* binding */ resolveRegionConfig)
 /* harmony export */ });
-/* harmony import */ var _getRealRegion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getRealRegion */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/getRealRegion.js");
-/* harmony import */ var _isFipsRegion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isFipsRegion */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/isFipsRegion.js");
+/* harmony import */ var _getRealRegion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getRealRegion */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/getRealRegion.js");
+/* harmony import */ var _isFipsRegion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isFipsRegion */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionConfig/isFipsRegion.js");
 
 
 const resolveRegionConfig = (input) => {
@@ -10659,22 +10652,9 @@ const resolveRegionConfig = (input) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/PartitionHash.js":
-/*!**************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/PartitionHash.js ***!
-  \**************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/RegionHash.js":
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/PartitionHash.js":
 /*!***********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/RegionHash.js ***!
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/PartitionHash.js ***!
   \***********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -10685,10 +10665,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getHostnameFromVariants.js":
-/*!************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getHostnameFromVariants.js ***!
-  \************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/RegionHash.js":
+/*!********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/RegionHash.js ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getHostnameFromVariants.js":
+/*!*********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getHostnameFromVariants.js ***!
+  \*********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10701,10 +10694,10 @@ const getHostnameFromVariants = (variants = [], { useFipsEndpoint, useDualstackE
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getRegionInfo.js":
-/*!**************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getRegionInfo.js ***!
-  \**************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getRegionInfo.js":
+/*!***********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getRegionInfo.js ***!
+  \***********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10712,10 +10705,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getRegionInfo: () => (/* binding */ getRegionInfo)
 /* harmony export */ });
-/* harmony import */ var _getHostnameFromVariants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getHostnameFromVariants */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getHostnameFromVariants.js");
-/* harmony import */ var _getResolvedHostname__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getResolvedHostname */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedHostname.js");
-/* harmony import */ var _getResolvedPartition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getResolvedPartition */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedPartition.js");
-/* harmony import */ var _getResolvedSigningRegion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getResolvedSigningRegion */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedSigningRegion.js");
+/* harmony import */ var _getHostnameFromVariants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getHostnameFromVariants */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getHostnameFromVariants.js");
+/* harmony import */ var _getResolvedHostname__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getResolvedHostname */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedHostname.js");
+/* harmony import */ var _getResolvedPartition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getResolvedPartition */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedPartition.js");
+/* harmony import */ var _getResolvedSigningRegion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getResolvedSigningRegion */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedSigningRegion.js");
 
 
 
@@ -10749,10 +10742,10 @@ const getRegionInfo = (region, { useFipsEndpoint = false, useDualstackEndpoint =
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedHostname.js":
-/*!********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedHostname.js ***!
-  \********************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedHostname.js":
+/*!*****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedHostname.js ***!
+  \*****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10769,10 +10762,10 @@ const getResolvedHostname = (resolvedRegion, { regionHostname, partitionHostname
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedPartition.js":
-/*!*********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedPartition.js ***!
-  \*********************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedPartition.js":
+/*!******************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedPartition.js ***!
+  \******************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10785,10 +10778,10 @@ const getResolvedPartition = (region, { partitionHash }) => Object.keys(partitio
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedSigningRegion.js":
-/*!*************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedSigningRegion.js ***!
-  \*************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedSigningRegion.js":
+/*!**********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getResolvedSigningRegion.js ***!
+  \**********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10812,10 +10805,10 @@ const getResolvedSigningRegion = (hostname, { signingRegion, regionRegex, useFip
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/index.js":
-/*!******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/index.js ***!
-  \******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/index.js":
+/*!***************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/index.js ***!
+  \***************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10823,9 +10816,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getRegionInfo: () => (/* reexport safe */ _getRegionInfo__WEBPACK_IMPORTED_MODULE_2__.getRegionInfo)
 /* harmony export */ });
-/* harmony import */ var _PartitionHash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartitionHash */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/PartitionHash.js");
-/* harmony import */ var _RegionHash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegionHash */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/RegionHash.js");
-/* harmony import */ var _getRegionInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getRegionInfo */ "../../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getRegionInfo.js");
+/* harmony import */ var _PartitionHash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartitionHash */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/PartitionHash.js");
+/* harmony import */ var _RegionHash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegionHash */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/RegionHash.js");
+/* harmony import */ var _getRegionInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getRegionInfo */ "../../../../../node_modules/@smithy/config-resolver/dist-es/regionInfo/getRegionInfo.js");
 
 
 
@@ -10833,10 +10826,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/getSmithyContext.js":
-/*!*******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/getSmithyContext.js ***!
-  \*******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/getSmithyContext.js":
+/*!****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/getSmithyContext.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10844,17 +10837,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getSmithyContext: () => (/* binding */ getSmithyContext)
 /* harmony export */ });
-/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../../node_modules/@smithy/types/dist-es/index.js");
+/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../node_modules/@smithy/types/dist-es/index.js");
 
 const getSmithyContext = (context) => context[_smithy_types__WEBPACK_IMPORTED_MODULE_0__.SMITHY_CONTEXT_KEY] || (context[_smithy_types__WEBPACK_IMPORTED_MODULE_0__.SMITHY_CONTEXT_KEY] = {});
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/index.js":
-/*!********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/index.js ***!
-  \********************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/index.js":
+/*!*****************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/index.js ***!
+  \*****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10883,13 +10876,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   normalizeProvider: () => (/* reexport safe */ _normalizeProvider__WEBPACK_IMPORTED_MODULE_4__.normalizeProvider),
 /* harmony export */   requestBuilder: () => (/* reexport safe */ _protocols_requestBuilder__WEBPACK_IMPORTED_MODULE_5__.requestBuilder)
 /* harmony export */ });
-/* harmony import */ var _middleware_http_auth_scheme__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./middleware-http-auth-scheme */ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/index.js");
-/* harmony import */ var _middleware_http_signing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./middleware-http-signing */ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/index.js");
-/* harmony import */ var _util_identity_and_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util-identity-and-auth */ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/index.js");
-/* harmony import */ var _getSmithyContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getSmithyContext */ "../../../../../../node_modules/@smithy/core/dist-es/getSmithyContext.js");
-/* harmony import */ var _normalizeProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./normalizeProvider */ "../../../../../../node_modules/@smithy/core/dist-es/normalizeProvider.js");
-/* harmony import */ var _protocols_requestBuilder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./protocols/requestBuilder */ "../../../../../../node_modules/@smithy/core/dist-es/protocols/requestBuilder.js");
-/* harmony import */ var _pagination_createPaginator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pagination/createPaginator */ "../../../../../../node_modules/@smithy/core/dist-es/pagination/createPaginator.js");
+/* harmony import */ var _middleware_http_auth_scheme__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./middleware-http-auth-scheme */ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/index.js");
+/* harmony import */ var _middleware_http_signing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./middleware-http-signing */ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/index.js");
+/* harmony import */ var _util_identity_and_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util-identity-and-auth */ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/index.js");
+/* harmony import */ var _getSmithyContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getSmithyContext */ "../../../../../node_modules/@smithy/core/dist-es/getSmithyContext.js");
+/* harmony import */ var _normalizeProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./normalizeProvider */ "../../../../../node_modules/@smithy/core/dist-es/normalizeProvider.js");
+/* harmony import */ var _protocols_requestBuilder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./protocols/requestBuilder */ "../../../../../node_modules/@smithy/core/dist-es/protocols/requestBuilder.js");
+/* harmony import */ var _pagination_createPaginator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pagination/createPaginator */ "../../../../../node_modules/@smithy/core/dist-es/pagination/createPaginator.js");
 
 
 
@@ -10901,10 +10894,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemeEndpointRuleSetPlugin.js":
-/*!*********************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemeEndpointRuleSetPlugin.js ***!
-  \*********************************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemeEndpointRuleSetPlugin.js":
+/*!******************************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemeEndpointRuleSetPlugin.js ***!
+  \******************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10913,8 +10906,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getHttpAuthSchemeEndpointRuleSetPlugin: () => (/* binding */ getHttpAuthSchemeEndpointRuleSetPlugin),
 /* harmony export */   httpAuthSchemeEndpointRuleSetMiddlewareOptions: () => (/* binding */ httpAuthSchemeEndpointRuleSetMiddlewareOptions)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
-/* harmony import */ var _httpAuthSchemeMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./httpAuthSchemeMiddleware */ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js");
+/* harmony import */ var _smithy_middleware_endpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-endpoint */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js");
+/* harmony import */ var _httpAuthSchemeMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./httpAuthSchemeMiddleware */ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js");
 
 
 const httpAuthSchemeEndpointRuleSetMiddlewareOptions = {
@@ -10937,10 +10930,10 @@ const getHttpAuthSchemeEndpointRuleSetPlugin = (config, { httpAuthSchemeParamete
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemePlugin.js":
-/*!******************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemePlugin.js ***!
-  \******************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemePlugin.js":
+/*!***************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemePlugin.js ***!
+  \***************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10949,8 +10942,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getHttpAuthSchemePlugin: () => (/* binding */ getHttpAuthSchemePlugin),
 /* harmony export */   httpAuthSchemeMiddlewareOptions: () => (/* binding */ httpAuthSchemeMiddlewareOptions)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _httpAuthSchemeMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./httpAuthSchemeMiddleware */ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _httpAuthSchemeMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./httpAuthSchemeMiddleware */ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js");
 
 
 const httpAuthSchemeMiddlewareOptions = {
@@ -10973,10 +10966,10 @@ const getHttpAuthSchemePlugin = (config, { httpAuthSchemeParametersProvider, ide
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js":
-/*!*******************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js ***!
-  \*******************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js":
+/*!****************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js ***!
+  \****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10984,8 +10977,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   httpAuthSchemeMiddleware: () => (/* binding */ httpAuthSchemeMiddleware)
 /* harmony export */ });
-/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../../node_modules/@smithy/types/dist-es/index.js");
-/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
+/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../node_modules/@smithy/types/dist-es/index.js");
+/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
 
 
 function convertHttpAuthSchemesToMap(httpAuthSchemes) {
@@ -11030,10 +11023,10 @@ const httpAuthSchemeMiddleware = (config, mwOptions) => (next, context) => async
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/index.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/index.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/index.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/index.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11045,9 +11038,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   httpAuthSchemeMiddleware: () => (/* reexport safe */ _httpAuthSchemeMiddleware__WEBPACK_IMPORTED_MODULE_0__.httpAuthSchemeMiddleware),
 /* harmony export */   httpAuthSchemeMiddlewareOptions: () => (/* reexport safe */ _getHttpAuthSchemePlugin__WEBPACK_IMPORTED_MODULE_2__.httpAuthSchemeMiddlewareOptions)
 /* harmony export */ });
-/* harmony import */ var _httpAuthSchemeMiddleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./httpAuthSchemeMiddleware */ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js");
-/* harmony import */ var _getHttpAuthSchemeEndpointRuleSetPlugin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getHttpAuthSchemeEndpointRuleSetPlugin */ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemeEndpointRuleSetPlugin.js");
-/* harmony import */ var _getHttpAuthSchemePlugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getHttpAuthSchemePlugin */ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemePlugin.js");
+/* harmony import */ var _httpAuthSchemeMiddleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./httpAuthSchemeMiddleware */ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js");
+/* harmony import */ var _getHttpAuthSchemeEndpointRuleSetPlugin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getHttpAuthSchemeEndpointRuleSetPlugin */ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemeEndpointRuleSetPlugin.js");
+/* harmony import */ var _getHttpAuthSchemePlugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getHttpAuthSchemePlugin */ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemePlugin.js");
 
 
 
@@ -11055,10 +11048,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/getHttpSigningMiddleware.js":
-/*!***************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/getHttpSigningMiddleware.js ***!
-  \***************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/getHttpSigningMiddleware.js":
+/*!************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/getHttpSigningMiddleware.js ***!
+  \************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11067,8 +11060,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getHttpSigningPlugin: () => (/* binding */ getHttpSigningPlugin),
 /* harmony export */   httpSigningMiddlewareOptions: () => (/* binding */ httpSigningMiddlewareOptions)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_retry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-retry */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/index.js");
-/* harmony import */ var _httpSigningMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./httpSigningMiddleware */ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/httpSigningMiddleware.js");
+/* harmony import */ var _smithy_middleware_retry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-retry */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/index.js");
+/* harmony import */ var _httpSigningMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./httpSigningMiddleware */ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/httpSigningMiddleware.js");
 
 
 const httpSigningMiddlewareOptions = {
@@ -11089,10 +11082,10 @@ const getHttpSigningPlugin = (config) => ({
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/httpSigningMiddleware.js":
-/*!************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/httpSigningMiddleware.js ***!
-  \************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/httpSigningMiddleware.js":
+/*!*********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/httpSigningMiddleware.js ***!
+  \*********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11100,9 +11093,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   httpSigningMiddleware: () => (/* binding */ httpSigningMiddleware)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/types */ "../../../../../../node_modules/@smithy/types/dist-es/index.js");
-/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/types */ "../../../../../node_modules/@smithy/types/dist-es/index.js");
+/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
 
 
 
@@ -11131,10 +11124,10 @@ const httpSigningMiddleware = (config) => (next, context) => async (args) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/index.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/index.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/index.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/index.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11144,18 +11137,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   httpSigningMiddleware: () => (/* reexport safe */ _httpSigningMiddleware__WEBPACK_IMPORTED_MODULE_0__.httpSigningMiddleware),
 /* harmony export */   httpSigningMiddlewareOptions: () => (/* reexport safe */ _getHttpSigningMiddleware__WEBPACK_IMPORTED_MODULE_1__.httpSigningMiddlewareOptions)
 /* harmony export */ });
-/* harmony import */ var _httpSigningMiddleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./httpSigningMiddleware */ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/httpSigningMiddleware.js");
-/* harmony import */ var _getHttpSigningMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getHttpSigningMiddleware */ "../../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/getHttpSigningMiddleware.js");
+/* harmony import */ var _httpSigningMiddleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./httpSigningMiddleware */ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/httpSigningMiddleware.js");
+/* harmony import */ var _getHttpSigningMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getHttpSigningMiddleware */ "../../../../../node_modules/@smithy/core/dist-es/middleware-http-signing/getHttpSigningMiddleware.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/normalizeProvider.js":
-/*!********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/normalizeProvider.js ***!
-  \********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/normalizeProvider.js":
+/*!*****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/normalizeProvider.js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11173,10 +11166,10 @@ const normalizeProvider = (input) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/pagination/createPaginator.js":
-/*!*****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/pagination/createPaginator.js ***!
-  \*****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/pagination/createPaginator.js":
+/*!**************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/pagination/createPaginator.js ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11226,10 +11219,10 @@ const get = (fromObject, path) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/protocols/requestBuilder.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/protocols/requestBuilder.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/protocols/requestBuilder.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/protocols/requestBuilder.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11238,8 +11231,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   RequestBuilder: () => (/* binding */ RequestBuilder),
 /* harmony export */   requestBuilder: () => (/* binding */ requestBuilder)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
 
 
 function requestBuilder(input, context) {
@@ -11311,10 +11304,10 @@ class RequestBuilder {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/DefaultIdentityProviderConfig.js":
-/*!*******************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/DefaultIdentityProviderConfig.js ***!
-  \*******************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/DefaultIdentityProviderConfig.js":
+/*!****************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/DefaultIdentityProviderConfig.js ***!
+  \****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11339,10 +11332,10 @@ class DefaultIdentityProviderConfig {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpApiKeyAuth.js":
-/*!********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpApiKeyAuth.js ***!
-  \********************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpApiKeyAuth.js":
+/*!*****************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpApiKeyAuth.js ***!
+  \*****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11350,9 +11343,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   HttpApiKeyAuthSigner: () => (/* binding */ HttpApiKeyAuthSigner)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/types */ "../../../../../../node_modules/@smithy/types/dist-es/index.js");
-
+/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../node_modules/@smithy/types/dist-es/index.js");
 
 class HttpApiKeyAuthSigner {
     async sign(httpRequest, identity, signingProperties) {
@@ -11368,11 +11359,11 @@ class HttpApiKeyAuthSigner {
         if (!identity.apiKey) {
             throw new Error("request could not be signed with `apiKey` since the `apiKey` is not defined");
         }
-        const clonedRequest = _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__.HttpRequest.clone(httpRequest);
-        if (signingProperties.in === _smithy_types__WEBPACK_IMPORTED_MODULE_1__.HttpApiKeyAuthLocation.QUERY) {
+        const clonedRequest = httpRequest.clone();
+        if (signingProperties.in === _smithy_types__WEBPACK_IMPORTED_MODULE_0__.HttpApiKeyAuthLocation.QUERY) {
             clonedRequest.query[signingProperties.name] = identity.apiKey;
         }
-        else if (signingProperties.in === _smithy_types__WEBPACK_IMPORTED_MODULE_1__.HttpApiKeyAuthLocation.HEADER) {
+        else if (signingProperties.in === _smithy_types__WEBPACK_IMPORTED_MODULE_0__.HttpApiKeyAuthLocation.HEADER) {
             clonedRequest.headers[signingProperties.name] = signingProperties.scheme
                 ? `${signingProperties.scheme} ${identity.apiKey}`
                 : identity.apiKey;
@@ -11390,10 +11381,10 @@ class HttpApiKeyAuthSigner {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpBearerAuth.js":
-/*!********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpBearerAuth.js ***!
-  \********************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpBearerAuth.js":
+/*!*****************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpBearerAuth.js ***!
+  \*****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11401,11 +11392,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   HttpBearerAuthSigner: () => (/* binding */ HttpBearerAuthSigner)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-
 class HttpBearerAuthSigner {
     async sign(httpRequest, identity, signingProperties) {
-        const clonedRequest = _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__.HttpRequest.clone(httpRequest);
+        const clonedRequest = httpRequest.clone();
         if (!identity.token) {
             throw new Error("request could not be signed with `token` since the `token` is not defined");
         }
@@ -11417,10 +11406,10 @@ class HttpBearerAuthSigner {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/index.js":
-/*!***********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/index.js ***!
-  \***********************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/index.js":
+/*!********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/index.js ***!
+  \********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11430,9 +11419,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   HttpBearerAuthSigner: () => (/* reexport safe */ _httpBearerAuth__WEBPACK_IMPORTED_MODULE_1__.HttpBearerAuthSigner),
 /* harmony export */   NoAuthSigner: () => (/* reexport safe */ _noAuth__WEBPACK_IMPORTED_MODULE_2__.NoAuthSigner)
 /* harmony export */ });
-/* harmony import */ var _httpApiKeyAuth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./httpApiKeyAuth */ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpApiKeyAuth.js");
-/* harmony import */ var _httpBearerAuth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./httpBearerAuth */ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpBearerAuth.js");
-/* harmony import */ var _noAuth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./noAuth */ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/noAuth.js");
+/* harmony import */ var _httpApiKeyAuth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./httpApiKeyAuth */ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpApiKeyAuth.js");
+/* harmony import */ var _httpBearerAuth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./httpBearerAuth */ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpBearerAuth.js");
+/* harmony import */ var _noAuth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./noAuth */ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/noAuth.js");
 
 
 
@@ -11440,10 +11429,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/noAuth.js":
-/*!************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/noAuth.js ***!
-  \************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/noAuth.js":
+/*!*********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/noAuth.js ***!
+  \*********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11460,10 +11449,10 @@ class NoAuthSigner {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/index.js":
-/*!*******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/index.js ***!
-  \*******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/index.js":
+/*!****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/index.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11479,9 +11468,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   isIdentityExpired: () => (/* reexport safe */ _memoizeIdentityProvider__WEBPACK_IMPORTED_MODULE_2__.isIdentityExpired),
 /* harmony export */   memoizeIdentityProvider: () => (/* reexport safe */ _memoizeIdentityProvider__WEBPACK_IMPORTED_MODULE_2__.memoizeIdentityProvider)
 /* harmony export */ });
-/* harmony import */ var _DefaultIdentityProviderConfig__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DefaultIdentityProviderConfig */ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/DefaultIdentityProviderConfig.js");
-/* harmony import */ var _httpAuthSchemes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./httpAuthSchemes */ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/index.js");
-/* harmony import */ var _memoizeIdentityProvider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./memoizeIdentityProvider */ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/memoizeIdentityProvider.js");
+/* harmony import */ var _DefaultIdentityProviderConfig__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DefaultIdentityProviderConfig */ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/DefaultIdentityProviderConfig.js");
+/* harmony import */ var _httpAuthSchemes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./httpAuthSchemes */ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/index.js");
+/* harmony import */ var _memoizeIdentityProvider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./memoizeIdentityProvider */ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/memoizeIdentityProvider.js");
 
 
 
@@ -11489,10 +11478,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/memoizeIdentityProvider.js":
-/*!*************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/memoizeIdentityProvider.js ***!
-  \*************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/memoizeIdentityProvider.js":
+/*!**********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/core/dist-es/util-identity-and-auth/memoizeIdentityProvider.js ***!
+  \**********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11561,10 +11550,10 @@ const memoizeIdentityProvider = (provider, isExpired, requiresRefresh) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/fetch-http-handler.js":
-/*!***********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/fetch-http-handler.js ***!
-  \***********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/fetch-http-handler/dist-es/fetch-http-handler.js":
+/*!********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/fetch-http-handler/dist-es/fetch-http-handler.js ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11573,9 +11562,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   FetchHttpHandler: () => (/* binding */ FetchHttpHandler),
 /* harmony export */   keepAliveSupport: () => (/* binding */ keepAliveSupport)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-/* harmony import */ var _smithy_querystring_builder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/querystring-builder */ "../../../../../../node_modules/@smithy/querystring-builder/dist-es/index.js");
-/* harmony import */ var _request_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./request-timeout */ "../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/request-timeout.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _smithy_querystring_builder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/querystring-builder */ "../../../../../node_modules/@smithy/querystring-builder/dist-es/index.js");
+/* harmony import */ var _request_timeout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./request-timeout */ "../../../../../node_modules/@smithy/fetch-http-handler/dist-es/request-timeout.js");
 
 
 
@@ -11647,7 +11636,6 @@ class FetchHttpHandler {
         if (keepAliveSupport.supported) {
             requestOptions.keepalive = keepAlive;
         }
-        let removeSignalEventListener = () => { };
         const fetchRequest = new Request(url, requestOptions);
         const raceOfPromises = [
             fetch(fetchRequest).then((response) => {
@@ -11686,16 +11674,14 @@ class FetchHttpHandler {
                     reject(abortError);
                 };
                 if (typeof abortSignal.addEventListener === "function") {
-                    const signal = abortSignal;
-                    signal.addEventListener("abort", onAbort, { once: true });
-                    removeSignalEventListener = () => signal.removeEventListener("abort", onAbort);
+                    abortSignal.addEventListener("abort", onAbort);
                 }
                 else {
                     abortSignal.onabort = onAbort;
                 }
             }));
         }
-        return Promise.race(raceOfPromises).finally(removeSignalEventListener);
+        return Promise.race(raceOfPromises);
     }
     updateHttpClientConfig(key, value) {
         this.config = undefined;
@@ -11712,10 +11698,10 @@ class FetchHttpHandler {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/index.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/index.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/fetch-http-handler/dist-es/index.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/fetch-http-handler/dist-es/index.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11725,18 +11711,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   keepAliveSupport: () => (/* reexport safe */ _fetch_http_handler__WEBPACK_IMPORTED_MODULE_0__.keepAliveSupport),
 /* harmony export */   streamCollector: () => (/* reexport safe */ _stream_collector__WEBPACK_IMPORTED_MODULE_1__.streamCollector)
 /* harmony export */ });
-/* harmony import */ var _fetch_http_handler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fetch-http-handler */ "../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/fetch-http-handler.js");
-/* harmony import */ var _stream_collector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stream-collector */ "../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/stream-collector.js");
+/* harmony import */ var _fetch_http_handler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fetch-http-handler */ "../../../../../node_modules/@smithy/fetch-http-handler/dist-es/fetch-http-handler.js");
+/* harmony import */ var _stream_collector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stream-collector */ "../../../../../node_modules/@smithy/fetch-http-handler/dist-es/stream-collector.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/request-timeout.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/request-timeout.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/fetch-http-handler/dist-es/request-timeout.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/fetch-http-handler/dist-es/request-timeout.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11759,10 +11745,10 @@ function requestTimeout(timeoutInMs = 0) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/stream-collector.js":
-/*!*********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/stream-collector.js ***!
-  \*********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/fetch-http-handler/dist-es/stream-collector.js":
+/*!******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/fetch-http-handler/dist-es/stream-collector.js ***!
+  \******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11770,7 +11756,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   streamCollector: () => (/* binding */ streamCollector)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_base64__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-base64 */ "../../../../../../node_modules/@smithy/util-base64/dist-es/index.js");
+/* harmony import */ var _smithy_util_base64__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-base64 */ "../../../../../node_modules/@smithy/util-base64/dist-es/index.js");
 
 const streamCollector = (stream) => {
     if (typeof Blob === "function" && stream instanceof Blob) {
@@ -11825,10 +11811,10 @@ function readToBase64(blob) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/invalid-dependency/dist-es/index.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/invalid-dependency/dist-es/index.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/invalid-dependency/dist-es/index.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/invalid-dependency/dist-es/index.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11837,18 +11823,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   invalidFunction: () => (/* reexport safe */ _invalidFunction__WEBPACK_IMPORTED_MODULE_0__.invalidFunction),
 /* harmony export */   invalidProvider: () => (/* reexport safe */ _invalidProvider__WEBPACK_IMPORTED_MODULE_1__.invalidProvider)
 /* harmony export */ });
-/* harmony import */ var _invalidFunction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./invalidFunction */ "../../../../../../node_modules/@smithy/invalid-dependency/dist-es/invalidFunction.js");
-/* harmony import */ var _invalidProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./invalidProvider */ "../../../../../../node_modules/@smithy/invalid-dependency/dist-es/invalidProvider.js");
+/* harmony import */ var _invalidFunction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./invalidFunction */ "../../../../../node_modules/@smithy/invalid-dependency/dist-es/invalidFunction.js");
+/* harmony import */ var _invalidProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./invalidProvider */ "../../../../../node_modules/@smithy/invalid-dependency/dist-es/invalidProvider.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/invalid-dependency/dist-es/invalidFunction.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/invalid-dependency/dist-es/invalidFunction.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/invalid-dependency/dist-es/invalidFunction.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/invalid-dependency/dist-es/invalidFunction.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11863,10 +11849,10 @@ const invalidFunction = (message) => () => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/invalid-dependency/dist-es/invalidProvider.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/invalid-dependency/dist-es/invalidProvider.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/invalid-dependency/dist-es/invalidProvider.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/invalid-dependency/dist-es/invalidProvider.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11879,10 +11865,10 @@ const invalidProvider = (message) => () => Promise.reject(message);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/is-array-buffer/dist-es/index.js":
-/*!*******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/is-array-buffer/dist-es/index.js ***!
-  \*******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/is-array-buffer/dist-es/index.js":
+/*!****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/is-array-buffer/dist-es/index.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11896,10 +11882,10 @@ const isArrayBuffer = (arg) => (typeof ArrayBuffer === "function" && arg instanc
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-content-length/dist-es/index.js":
-/*!*****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-content-length/dist-es/index.js ***!
-  \*****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-content-length/dist-es/index.js":
+/*!**************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-content-length/dist-es/index.js ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11909,7 +11895,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   contentLengthMiddlewareOptions: () => (/* binding */ contentLengthMiddlewareOptions),
 /* harmony export */   getContentLengthPlugin: () => (/* binding */ getContentLengthPlugin)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
 
 const CONTENT_LENGTH_HEADER = "content-length";
 function contentLengthMiddleware(bodyLengthChecker) {
@@ -11953,10 +11939,10 @@ const getContentLengthPlugin = (options) => ({
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/createConfigValueProvider.js":
-/*!****************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/createConfigValueProvider.js ***!
-  \****************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/createConfigValueProvider.js":
+/*!*************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/createConfigValueProvider.js ***!
+  \*************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11976,13 +11962,6 @@ const createConfigValueProvider = (configKey, canonicalEndpointParamKey, config)
         return async () => {
             const credentials = typeof config.credentials === "function" ? await config.credentials() : config.credentials;
             const configValue = credentials?.credentialScope ?? credentials?.CredentialScope;
-            return configValue;
-        };
-    }
-    if (configKey === "accountId" || canonicalEndpointParamKey === "AccountId") {
-        return async () => {
-            const credentials = typeof config.credentials === "function" ? await config.credentials() : config.credentials;
-            const configValue = credentials?.accountId ?? credentials?.AccountId;
             return configValue;
         };
     }
@@ -12007,10 +11986,10 @@ const createConfigValueProvider = (configKey, canonicalEndpointParamKey, config)
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromConfig.browser.js":
-/*!********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromConfig.browser.js ***!
-  \********************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromConfig.browser.js":
+/*!*****************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromConfig.browser.js ***!
+  \*****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12023,10 +12002,10 @@ const getEndpointFromConfig = async (serviceId) => undefined;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromInstructions.js":
-/*!******************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromInstructions.js ***!
-  \******************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromInstructions.js":
+/*!***************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromInstructions.js ***!
+  \***************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12035,10 +12014,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getEndpointFromInstructions: () => (/* binding */ getEndpointFromInstructions),
 /* harmony export */   resolveParams: () => (/* binding */ resolveParams)
 /* harmony export */ });
-/* harmony import */ var _service_customizations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../service-customizations */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/service-customizations/index.js");
-/* harmony import */ var _createConfigValueProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createConfigValueProvider */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/createConfigValueProvider.js");
-/* harmony import */ var _getEndpointFromConfig__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getEndpointFromConfig */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromConfig.browser.js");
-/* harmony import */ var _toEndpointV1__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toEndpointV1 */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/toEndpointV1.js");
+/* harmony import */ var _service_customizations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../service-customizations */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/service-customizations/index.js");
+/* harmony import */ var _createConfigValueProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createConfigValueProvider */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/createConfigValueProvider.js");
+/* harmony import */ var _getEndpointFromConfig__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getEndpointFromConfig */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromConfig.browser.js");
+/* harmony import */ var _toEndpointV1__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toEndpointV1 */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/toEndpointV1.js");
 
 
 
@@ -12088,10 +12067,10 @@ const resolveParams = async (commandInput, instructionsSupplier, clientConfig) =
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/index.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/index.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/index.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/index.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12101,18 +12080,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   resolveParams: () => (/* reexport safe */ _getEndpointFromInstructions__WEBPACK_IMPORTED_MODULE_0__.resolveParams),
 /* harmony export */   toEndpointV1: () => (/* reexport safe */ _toEndpointV1__WEBPACK_IMPORTED_MODULE_1__.toEndpointV1)
 /* harmony export */ });
-/* harmony import */ var _getEndpointFromInstructions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getEndpointFromInstructions */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromInstructions.js");
-/* harmony import */ var _toEndpointV1__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toEndpointV1 */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/toEndpointV1.js");
+/* harmony import */ var _getEndpointFromInstructions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getEndpointFromInstructions */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromInstructions.js");
+/* harmony import */ var _toEndpointV1__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toEndpointV1 */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/toEndpointV1.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/toEndpointV1.js":
-/*!***************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/toEndpointV1.js ***!
-  \***************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/toEndpointV1.js":
+/*!************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/toEndpointV1.js ***!
+  \************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12120,7 +12099,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   toEndpointV1: () => (/* binding */ toEndpointV1)
 /* harmony export */ });
-/* harmony import */ var _smithy_url_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/url-parser */ "../../../../../../node_modules/@smithy/url-parser/dist-es/index.js");
+/* harmony import */ var _smithy_url_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/url-parser */ "../../../../../node_modules/@smithy/url-parser/dist-es/index.js");
 
 const toEndpointV1 = (endpoint) => {
     if (typeof endpoint === "object") {
@@ -12135,10 +12114,10 @@ const toEndpointV1 = (endpoint) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/endpointMiddleware.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/endpointMiddleware.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/endpointMiddleware.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-endpoint/dist-es/endpointMiddleware.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12146,8 +12125,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   endpointMiddleware: () => (/* binding */ endpointMiddleware)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
-/* harmony import */ var _adaptors_getEndpointFromInstructions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./adaptors/getEndpointFromInstructions */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromInstructions.js");
+/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
+/* harmony import */ var _adaptors_getEndpointFromInstructions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./adaptors/getEndpointFromInstructions */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/getEndpointFromInstructions.js");
 
 
 const endpointMiddleware = ({ config, instructions, }) => {
@@ -12184,10 +12163,10 @@ const endpointMiddleware = ({ config, instructions, }) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/getEndpointPlugin.js":
-/*!***********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/getEndpointPlugin.js ***!
-  \***********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/getEndpointPlugin.js":
+/*!********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-endpoint/dist-es/getEndpointPlugin.js ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12196,8 +12175,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   endpointMiddlewareOptions: () => (/* binding */ endpointMiddlewareOptions),
 /* harmony export */   getEndpointPlugin: () => (/* binding */ getEndpointPlugin)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
-/* harmony import */ var _endpointMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./endpointMiddleware */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/endpointMiddleware.js");
+/* harmony import */ var _smithy_middleware_serde__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-serde */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js");
+/* harmony import */ var _endpointMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./endpointMiddleware */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/endpointMiddleware.js");
 
 
 const endpointMiddlewareOptions = {
@@ -12220,10 +12199,10 @@ const getEndpointPlugin = (config, instructions) => ({
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js ***!
-  \***********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js":
+/*!********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-endpoint/dist-es/index.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12237,11 +12216,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   resolveParams: () => (/* reexport safe */ _adaptors__WEBPACK_IMPORTED_MODULE_0__.resolveParams),
 /* harmony export */   toEndpointV1: () => (/* reexport safe */ _adaptors__WEBPACK_IMPORTED_MODULE_0__.toEndpointV1)
 /* harmony export */ });
-/* harmony import */ var _adaptors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./adaptors */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/index.js");
-/* harmony import */ var _endpointMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./endpointMiddleware */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/endpointMiddleware.js");
-/* harmony import */ var _getEndpointPlugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getEndpointPlugin */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/getEndpointPlugin.js");
-/* harmony import */ var _resolveEndpointConfig__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./resolveEndpointConfig */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/resolveEndpointConfig.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./types */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/types.js");
+/* harmony import */ var _adaptors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./adaptors */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/index.js");
+/* harmony import */ var _endpointMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./endpointMiddleware */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/endpointMiddleware.js");
+/* harmony import */ var _getEndpointPlugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getEndpointPlugin */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/getEndpointPlugin.js");
+/* harmony import */ var _resolveEndpointConfig__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./resolveEndpointConfig */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/resolveEndpointConfig.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./types */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/types.js");
 
 
 
@@ -12251,10 +12230,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/resolveEndpointConfig.js":
-/*!***************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/resolveEndpointConfig.js ***!
-  \***************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/resolveEndpointConfig.js":
+/*!************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-endpoint/dist-es/resolveEndpointConfig.js ***!
+  \************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12262,8 +12241,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   resolveEndpointConfig: () => (/* binding */ resolveEndpointConfig)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
-/* harmony import */ var _adaptors_toEndpointV1__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./adaptors/toEndpointV1 */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/toEndpointV1.js");
+/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
+/* harmony import */ var _adaptors_toEndpointV1__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./adaptors/toEndpointV1 */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/adaptors/toEndpointV1.js");
 
 
 const resolveEndpointConfig = (input) => {
@@ -12284,10 +12263,10 @@ const resolveEndpointConfig = (input) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/service-customizations/index.js":
-/*!**********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/service-customizations/index.js ***!
-  \**********************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/service-customizations/index.js":
+/*!*******************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-endpoint/dist-es/service-customizations/index.js ***!
+  \*******************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12299,16 +12278,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   isDnsCompatibleBucketName: () => (/* reexport safe */ _s3__WEBPACK_IMPORTED_MODULE_0__.isDnsCompatibleBucketName),
 /* harmony export */   resolveParamsForS3: () => (/* reexport safe */ _s3__WEBPACK_IMPORTED_MODULE_0__.resolveParamsForS3)
 /* harmony export */ });
-/* harmony import */ var _s3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./s3 */ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/service-customizations/s3.js");
+/* harmony import */ var _s3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./s3 */ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/service-customizations/s3.js");
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/service-customizations/s3.js":
-/*!*******************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/service-customizations/s3.js ***!
-  \*******************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/service-customizations/s3.js":
+/*!****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-endpoint/dist-es/service-customizations/s3.js ***!
+  \****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12361,10 +12340,10 @@ const isArnBucketName = (bucketName) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/types.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-endpoint/dist-es/types.js ***!
-  \***********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-endpoint/dist-es/types.js":
+/*!********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-endpoint/dist-es/types.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12374,10 +12353,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/AdaptiveRetryStrategy.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-retry/dist-es/AdaptiveRetryStrategy.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-retry/dist-es/AdaptiveRetryStrategy.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-retry/dist-es/AdaptiveRetryStrategy.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12385,8 +12364,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   AdaptiveRetryStrategy: () => (/* binding */ AdaptiveRetryStrategy)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
-/* harmony import */ var _StandardRetryStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StandardRetryStrategy */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/StandardRetryStrategy.js");
+/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
+/* harmony import */ var _StandardRetryStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StandardRetryStrategy */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/StandardRetryStrategy.js");
 
 
 class AdaptiveRetryStrategy extends _StandardRetryStrategy__WEBPACK_IMPORTED_MODULE_1__.StandardRetryStrategy {
@@ -12411,10 +12390,10 @@ class AdaptiveRetryStrategy extends _StandardRetryStrategy__WEBPACK_IMPORTED_MOD
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/StandardRetryStrategy.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-retry/dist-es/StandardRetryStrategy.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-retry/dist-es/StandardRetryStrategy.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-retry/dist-es/StandardRetryStrategy.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12422,14 +12401,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   StandardRetryStrategy: () => (/* binding */ StandardRetryStrategy)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-/* harmony import */ var _smithy_service_error_classification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/service-error-classification */ "../../../../../../node_modules/@smithy/service-error-classification/dist-es/index.js");
-/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! uuid */ "../../../../../../node_modules/uuid/dist/esm-browser/v4.js");
-/* harmony import */ var _defaultRetryQuota__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./defaultRetryQuota */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/defaultRetryQuota.js");
-/* harmony import */ var _delayDecider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./delayDecider */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/delayDecider.js");
-/* harmony import */ var _retryDecider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./retryDecider */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/retryDecider.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/util.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _smithy_service_error_classification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/service-error-classification */ "../../../../../node_modules/@smithy/service-error-classification/dist-es/index.js");
+/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! uuid */ "../../../../../node_modules/uuid/dist/esm-browser/v4.js");
+/* harmony import */ var _defaultRetryQuota__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./defaultRetryQuota */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/defaultRetryQuota.js");
+/* harmony import */ var _delayDecider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./delayDecider */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/delayDecider.js");
+/* harmony import */ var _retryDecider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./retryDecider */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/retryDecider.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/util.js");
 
 
 
@@ -12524,10 +12503,10 @@ const getDelayFromRetryAfterHeader = (response) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/configurations.js":
-/*!*****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-retry/dist-es/configurations.js ***!
-  \*****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-retry/dist-es/configurations.js":
+/*!**************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-retry/dist-es/configurations.js ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12541,8 +12520,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   NODE_RETRY_MODE_CONFIG_OPTIONS: () => (/* binding */ NODE_RETRY_MODE_CONFIG_OPTIONS),
 /* harmony export */   resolveRetryConfig: () => (/* binding */ resolveRetryConfig)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
-/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
+/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
+/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
 
 
 const ENV_MAX_ATTEMPTS = "AWS_MAX_ATTEMPTS";
@@ -12599,10 +12578,10 @@ const NODE_RETRY_MODE_CONFIG_OPTIONS = {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/defaultRetryQuota.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-retry/dist-es/defaultRetryQuota.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-retry/dist-es/defaultRetryQuota.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-retry/dist-es/defaultRetryQuota.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12610,7 +12589,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getDefaultRetryQuota: () => (/* binding */ getDefaultRetryQuota)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
+/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
 
 const getDefaultRetryQuota = (initialRetryTokens, options) => {
     const MAX_CAPACITY = initialRetryTokens;
@@ -12642,10 +12621,10 @@ const getDefaultRetryQuota = (initialRetryTokens, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/delayDecider.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-retry/dist-es/delayDecider.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-retry/dist-es/delayDecider.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-retry/dist-es/delayDecider.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12653,17 +12632,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   defaultDelayDecider: () => (/* binding */ defaultDelayDecider)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
+/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
 
 const defaultDelayDecider = (delayBase, attempts) => Math.floor(Math.min(_smithy_util_retry__WEBPACK_IMPORTED_MODULE_0__.MAXIMUM_RETRY_DELAY, Math.random() * 2 ** attempts * delayBase));
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/index.js":
-/*!********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-retry/dist-es/index.js ***!
-  \********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-retry/dist-es/index.js":
+/*!*****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-retry/dist-es/index.js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12688,13 +12667,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   retryMiddleware: () => (/* reexport safe */ _retryMiddleware__WEBPACK_IMPORTED_MODULE_6__.retryMiddleware),
 /* harmony export */   retryMiddlewareOptions: () => (/* reexport safe */ _retryMiddleware__WEBPACK_IMPORTED_MODULE_6__.retryMiddlewareOptions)
 /* harmony export */ });
-/* harmony import */ var _AdaptiveRetryStrategy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdaptiveRetryStrategy */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/AdaptiveRetryStrategy.js");
-/* harmony import */ var _StandardRetryStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StandardRetryStrategy */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/StandardRetryStrategy.js");
-/* harmony import */ var _configurations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./configurations */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/configurations.js");
-/* harmony import */ var _delayDecider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./delayDecider */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/delayDecider.js");
-/* harmony import */ var _omitRetryHeadersMiddleware__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./omitRetryHeadersMiddleware */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/omitRetryHeadersMiddleware.js");
-/* harmony import */ var _retryDecider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./retryDecider */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/retryDecider.js");
-/* harmony import */ var _retryMiddleware__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./retryMiddleware */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/retryMiddleware.js");
+/* harmony import */ var _AdaptiveRetryStrategy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdaptiveRetryStrategy */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/AdaptiveRetryStrategy.js");
+/* harmony import */ var _StandardRetryStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StandardRetryStrategy */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/StandardRetryStrategy.js");
+/* harmony import */ var _configurations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./configurations */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/configurations.js");
+/* harmony import */ var _delayDecider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./delayDecider */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/delayDecider.js");
+/* harmony import */ var _omitRetryHeadersMiddleware__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./omitRetryHeadersMiddleware */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/omitRetryHeadersMiddleware.js");
+/* harmony import */ var _retryDecider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./retryDecider */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/retryDecider.js");
+/* harmony import */ var _retryMiddleware__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./retryMiddleware */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/retryMiddleware.js");
 
 
 
@@ -12706,10 +12685,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/isStreamingPayload/isStreamingPayload.browser.js":
-/*!************************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-retry/dist-es/isStreamingPayload/isStreamingPayload.browser.js ***!
-  \************************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-retry/dist-es/isStreamingPayload/isStreamingPayload.browser.js":
+/*!*********************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-retry/dist-es/isStreamingPayload/isStreamingPayload.browser.js ***!
+  \*********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12722,10 +12701,10 @@ const isStreamingPayload = (request) => request?.body instanceof ReadableStream;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/omitRetryHeadersMiddleware.js":
-/*!*****************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-retry/dist-es/omitRetryHeadersMiddleware.js ***!
-  \*****************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-retry/dist-es/omitRetryHeadersMiddleware.js":
+/*!**************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-retry/dist-es/omitRetryHeadersMiddleware.js ***!
+  \**************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12735,8 +12714,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   omitRetryHeadersMiddleware: () => (/* binding */ omitRetryHeadersMiddleware),
 /* harmony export */   omitRetryHeadersMiddlewareOptions: () => (/* binding */ omitRetryHeadersMiddlewareOptions)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
 
 
 const omitRetryHeadersMiddleware = () => (next) => async (args) => {
@@ -12763,10 +12742,10 @@ const getOmitRetryHeadersPlugin = (options) => ({
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/retryDecider.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-retry/dist-es/retryDecider.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-retry/dist-es/retryDecider.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-retry/dist-es/retryDecider.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12774,7 +12753,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   defaultRetryDecider: () => (/* binding */ defaultRetryDecider)
 /* harmony export */ });
-/* harmony import */ var _smithy_service_error_classification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/service-error-classification */ "../../../../../../node_modules/@smithy/service-error-classification/dist-es/index.js");
+/* harmony import */ var _smithy_service_error_classification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/service-error-classification */ "../../../../../node_modules/@smithy/service-error-classification/dist-es/index.js");
 
 const defaultRetryDecider = (error) => {
     if (!error) {
@@ -12786,10 +12765,10 @@ const defaultRetryDecider = (error) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/retryMiddleware.js":
-/*!******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-retry/dist-es/retryMiddleware.js ***!
-  \******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-retry/dist-es/retryMiddleware.js":
+/*!***************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-retry/dist-es/retryMiddleware.js ***!
+  \***************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12800,13 +12779,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   retryMiddleware: () => (/* binding */ retryMiddleware),
 /* harmony export */   retryMiddlewareOptions: () => (/* binding */ retryMiddlewareOptions)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-/* harmony import */ var _smithy_service_error_classification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/service-error-classification */ "../../../../../../node_modules/@smithy/service-error-classification/dist-es/index.js");
-/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
-/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! uuid */ "../../../../../../node_modules/uuid/dist/esm-browser/v4.js");
-/* harmony import */ var _isStreamingPayload_isStreamingPayload__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./isStreamingPayload/isStreamingPayload */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/isStreamingPayload/isStreamingPayload.browser.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util */ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/util.js");
+/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _smithy_service_error_classification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/service-error-classification */ "../../../../../node_modules/@smithy/service-error-classification/dist-es/index.js");
+/* harmony import */ var _smithy_smithy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/smithy-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js");
+/* harmony import */ var _smithy_util_retry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @smithy/util-retry */ "../../../../../node_modules/@smithy/util-retry/dist-es/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! uuid */ "../../../../../node_modules/uuid/dist/esm-browser/v4.js");
+/* harmony import */ var _isStreamingPayload_isStreamingPayload__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./isStreamingPayload/isStreamingPayload */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/isStreamingPayload/isStreamingPayload.browser.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util */ "../../../../../node_modules/@smithy/middleware-retry/dist-es/util.js");
 
 
 
@@ -12923,10 +12902,10 @@ const getRetryAfterHint = (response) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-retry/dist-es/util.js":
-/*!*******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-retry/dist-es/util.js ***!
-  \*******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-retry/dist-es/util.js":
+/*!****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-retry/dist-es/util.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12947,10 +12926,10 @@ const asSdkError = (error) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/deserializerMiddleware.js":
-/*!*************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-serde/dist-es/deserializerMiddleware.js ***!
-  \*************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-serde/dist-es/deserializerMiddleware.js":
+/*!**********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-serde/dist-es/deserializerMiddleware.js ***!
+  \**********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12987,10 +12966,10 @@ const deserializerMiddleware = (options, deserializer) => (next) => async (args)
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js":
-/*!********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js ***!
-  \********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js":
+/*!*****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-serde/dist-es/index.js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13002,9 +12981,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   serializerMiddleware: () => (/* reexport safe */ _serializerMiddleware__WEBPACK_IMPORTED_MODULE_2__.serializerMiddleware),
 /* harmony export */   serializerMiddlewareOption: () => (/* reexport safe */ _serdePlugin__WEBPACK_IMPORTED_MODULE_1__.serializerMiddlewareOption)
 /* harmony export */ });
-/* harmony import */ var _deserializerMiddleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./deserializerMiddleware */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/deserializerMiddleware.js");
-/* harmony import */ var _serdePlugin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./serdePlugin */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/serdePlugin.js");
-/* harmony import */ var _serializerMiddleware__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./serializerMiddleware */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/serializerMiddleware.js");
+/* harmony import */ var _deserializerMiddleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./deserializerMiddleware */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/deserializerMiddleware.js");
+/* harmony import */ var _serdePlugin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./serdePlugin */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/serdePlugin.js");
+/* harmony import */ var _serializerMiddleware__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./serializerMiddleware */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/serializerMiddleware.js");
 
 
 
@@ -13012,10 +12991,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/serdePlugin.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-serde/dist-es/serdePlugin.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-serde/dist-es/serdePlugin.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-serde/dist-es/serdePlugin.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13025,8 +13004,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getSerdePlugin: () => (/* binding */ getSerdePlugin),
 /* harmony export */   serializerMiddlewareOption: () => (/* binding */ serializerMiddlewareOption)
 /* harmony export */ });
-/* harmony import */ var _deserializerMiddleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./deserializerMiddleware */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/deserializerMiddleware.js");
-/* harmony import */ var _serializerMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./serializerMiddleware */ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/serializerMiddleware.js");
+/* harmony import */ var _deserializerMiddleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./deserializerMiddleware */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/deserializerMiddleware.js");
+/* harmony import */ var _serializerMiddleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./serializerMiddleware */ "../../../../../node_modules/@smithy/middleware-serde/dist-es/serializerMiddleware.js");
 
 
 const deserializerMiddlewareOption = {
@@ -13053,10 +13032,10 @@ function getSerdePlugin(config, serializer, deserializer) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-serde/dist-es/serializerMiddleware.js":
-/*!***********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-serde/dist-es/serializerMiddleware.js ***!
-  \***********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-serde/dist-es/serializerMiddleware.js":
+/*!********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-serde/dist-es/serializerMiddleware.js ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13081,10 +13060,10 @@ const serializerMiddleware = (options, serializer) => (next, context) => async (
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-stack/dist-es/MiddlewareStack.js":
-/*!******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-stack/dist-es/MiddlewareStack.js ***!
-  \******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-stack/dist-es/MiddlewareStack.js":
+/*!***************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-stack/dist-es/MiddlewareStack.js ***!
+  \***************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13377,10 +13356,10 @@ const priorityWeights = {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/middleware-stack/dist-es/index.js":
-/*!********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/middleware-stack/dist-es/index.js ***!
-  \********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/middleware-stack/dist-es/index.js":
+/*!*****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/middleware-stack/dist-es/index.js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13388,16 +13367,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   constructStack: () => (/* reexport safe */ _MiddlewareStack__WEBPACK_IMPORTED_MODULE_0__.constructStack)
 /* harmony export */ });
-/* harmony import */ var _MiddlewareStack__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MiddlewareStack */ "../../../../../../node_modules/@smithy/middleware-stack/dist-es/MiddlewareStack.js");
+/* harmony import */ var _MiddlewareStack__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MiddlewareStack */ "../../../../../node_modules/@smithy/middleware-stack/dist-es/MiddlewareStack.js");
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/CredentialsProviderError.js":
-/*!****************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/CredentialsProviderError.js ***!
-  \****************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/property-provider/dist-es/CredentialsProviderError.js":
+/*!*************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/property-provider/dist-es/CredentialsProviderError.js ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13405,7 +13384,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   CredentialsProviderError: () => (/* binding */ CredentialsProviderError)
 /* harmony export */ });
-/* harmony import */ var _ProviderError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProviderError */ "../../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js");
+/* harmony import */ var _ProviderError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProviderError */ "../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js");
 
 class CredentialsProviderError extends _ProviderError__WEBPACK_IMPORTED_MODULE_0__.ProviderError {
     constructor(message, options = true) {
@@ -13418,10 +13397,10 @@ class CredentialsProviderError extends _ProviderError__WEBPACK_IMPORTED_MODULE_0
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js":
-/*!*****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js ***!
-  \*****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js":
+/*!**************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13455,10 +13434,10 @@ class ProviderError extends Error {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/TokenProviderError.js":
-/*!**********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/TokenProviderError.js ***!
-  \**********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/property-provider/dist-es/TokenProviderError.js":
+/*!*******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/property-provider/dist-es/TokenProviderError.js ***!
+  \*******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13466,7 +13445,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   TokenProviderError: () => (/* binding */ TokenProviderError)
 /* harmony export */ });
-/* harmony import */ var _ProviderError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProviderError */ "../../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js");
+/* harmony import */ var _ProviderError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProviderError */ "../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js");
 
 class TokenProviderError extends _ProviderError__WEBPACK_IMPORTED_MODULE_0__.ProviderError {
     constructor(message, options = true) {
@@ -13479,10 +13458,10 @@ class TokenProviderError extends _ProviderError__WEBPACK_IMPORTED_MODULE_0__.Pro
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/chain.js":
-/*!*********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/chain.js ***!
-  \*********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/property-provider/dist-es/chain.js":
+/*!******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/property-provider/dist-es/chain.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13490,7 +13469,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   chain: () => (/* binding */ chain)
 /* harmony export */ });
-/* harmony import */ var _ProviderError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProviderError */ "../../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js");
+/* harmony import */ var _ProviderError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProviderError */ "../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js");
 
 const chain = (...providers) => async () => {
     if (providers.length === 0) {
@@ -13516,10 +13495,10 @@ const chain = (...providers) => async () => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/fromStatic.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/fromStatic.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/property-provider/dist-es/fromStatic.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/property-provider/dist-es/fromStatic.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13532,10 +13511,10 @@ const fromStatic = (staticValue) => () => Promise.resolve(staticValue);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/index.js":
-/*!*********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/index.js ***!
-  \*********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/property-provider/dist-es/index.js":
+/*!******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/property-provider/dist-es/index.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13548,12 +13527,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   fromStatic: () => (/* reexport safe */ _fromStatic__WEBPACK_IMPORTED_MODULE_4__.fromStatic),
 /* harmony export */   memoize: () => (/* reexport safe */ _memoize__WEBPACK_IMPORTED_MODULE_5__.memoize)
 /* harmony export */ });
-/* harmony import */ var _CredentialsProviderError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CredentialsProviderError */ "../../../../../../node_modules/@smithy/property-provider/dist-es/CredentialsProviderError.js");
-/* harmony import */ var _ProviderError__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProviderError */ "../../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js");
-/* harmony import */ var _TokenProviderError__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TokenProviderError */ "../../../../../../node_modules/@smithy/property-provider/dist-es/TokenProviderError.js");
-/* harmony import */ var _chain__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chain */ "../../../../../../node_modules/@smithy/property-provider/dist-es/chain.js");
-/* harmony import */ var _fromStatic__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fromStatic */ "../../../../../../node_modules/@smithy/property-provider/dist-es/fromStatic.js");
-/* harmony import */ var _memoize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./memoize */ "../../../../../../node_modules/@smithy/property-provider/dist-es/memoize.js");
+/* harmony import */ var _CredentialsProviderError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CredentialsProviderError */ "../../../../../node_modules/@smithy/property-provider/dist-es/CredentialsProviderError.js");
+/* harmony import */ var _ProviderError__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProviderError */ "../../../../../node_modules/@smithy/property-provider/dist-es/ProviderError.js");
+/* harmony import */ var _TokenProviderError__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TokenProviderError */ "../../../../../node_modules/@smithy/property-provider/dist-es/TokenProviderError.js");
+/* harmony import */ var _chain__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chain */ "../../../../../node_modules/@smithy/property-provider/dist-es/chain.js");
+/* harmony import */ var _fromStatic__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fromStatic */ "../../../../../node_modules/@smithy/property-provider/dist-es/fromStatic.js");
+/* harmony import */ var _memoize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./memoize */ "../../../../../node_modules/@smithy/property-provider/dist-es/memoize.js");
 
 
 
@@ -13564,10 +13543,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/property-provider/dist-es/memoize.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/property-provider/dist-es/memoize.js ***!
-  \***********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/property-provider/dist-es/memoize.js":
+/*!********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/property-provider/dist-es/memoize.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13624,10 +13603,10 @@ const memoize = (provider, isExpired, requiresRefresh) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/protocol-http/dist-es/Field.js":
-/*!*****************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/protocol-http/dist-es/Field.js ***!
-  \*****************************************************************************/
+/***/ "../../../../../node_modules/@smithy/protocol-http/dist-es/Field.js":
+/*!**************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/protocol-http/dist-es/Field.js ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13635,7 +13614,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Field: () => (/* binding */ Field)
 /* harmony export */ });
-/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../../node_modules/@smithy/types/dist-es/index.js");
+/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../node_modules/@smithy/types/dist-es/index.js");
 
 class Field {
     constructor({ name, kind = _smithy_types__WEBPACK_IMPORTED_MODULE_0__.FieldPosition.HEADER, values = [] }) {
@@ -13663,10 +13642,10 @@ class Field {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/protocol-http/dist-es/Fields.js":
-/*!******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/protocol-http/dist-es/Fields.js ***!
-  \******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/protocol-http/dist-es/Fields.js":
+/*!***************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/protocol-http/dist-es/Fields.js ***!
+  \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13697,10 +13676,10 @@ class Fields {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/protocol-http/dist-es/extensions/httpExtensionConfiguration.js":
-/*!*************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/protocol-http/dist-es/extensions/httpExtensionConfiguration.js ***!
-  \*************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/protocol-http/dist-es/extensions/httpExtensionConfiguration.js":
+/*!**********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/protocol-http/dist-es/extensions/httpExtensionConfiguration.js ***!
+  \**********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13735,10 +13714,10 @@ const resolveHttpHandlerRuntimeConfig = (httpHandlerExtensionConfiguration) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/protocol-http/dist-es/extensions/index.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/protocol-http/dist-es/extensions/index.js ***!
-  \****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/protocol-http/dist-es/extensions/index.js":
+/*!*************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/protocol-http/dist-es/extensions/index.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13747,16 +13726,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getHttpHandlerExtensionConfiguration: () => (/* reexport safe */ _httpExtensionConfiguration__WEBPACK_IMPORTED_MODULE_0__.getHttpHandlerExtensionConfiguration),
 /* harmony export */   resolveHttpHandlerRuntimeConfig: () => (/* reexport safe */ _httpExtensionConfiguration__WEBPACK_IMPORTED_MODULE_0__.resolveHttpHandlerRuntimeConfig)
 /* harmony export */ });
-/* harmony import */ var _httpExtensionConfiguration__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./httpExtensionConfiguration */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/extensions/httpExtensionConfiguration.js");
+/* harmony import */ var _httpExtensionConfiguration__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./httpExtensionConfiguration */ "../../../../../node_modules/@smithy/protocol-http/dist-es/extensions/httpExtensionConfiguration.js");
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/protocol-http/dist-es/httpHandler.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/protocol-http/dist-es/httpHandler.js ***!
-  \***********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/protocol-http/dist-es/httpHandler.js":
+/*!********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/protocol-http/dist-es/httpHandler.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13766,10 +13745,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/protocol-http/dist-es/httpRequest.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/protocol-http/dist-es/httpRequest.js ***!
-  \***********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/protocol-http/dist-es/httpRequest.js":
+/*!********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/protocol-http/dist-es/httpRequest.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13795,20 +13774,9 @@ class HttpRequest {
         this.password = options.password;
         this.fragment = options.fragment;
     }
-    static clone(request) {
-        const cloned = new HttpRequest({
-            ...request,
-            headers: { ...request.headers },
-        });
-        if (cloned.query) {
-            cloned.query = cloneQuery(cloned.query);
-        }
-        return cloned;
-    }
     static isInstance(request) {
-        if (!request) {
+        if (!request)
             return false;
-        }
         const req = request;
         return ("method" in req &&
             "protocol" in req &&
@@ -13818,7 +13786,13 @@ class HttpRequest {
             typeof req["headers"] === "object");
     }
     clone() {
-        return HttpRequest.clone(this);
+        const cloned = new HttpRequest({
+            ...this,
+            headers: { ...this.headers },
+        });
+        if (cloned.query)
+            cloned.query = cloneQuery(cloned.query);
+        return cloned;
     }
 }
 function cloneQuery(query) {
@@ -13834,10 +13808,10 @@ function cloneQuery(query) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/protocol-http/dist-es/httpResponse.js":
-/*!************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/protocol-http/dist-es/httpResponse.js ***!
-  \************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/protocol-http/dist-es/httpResponse.js":
+/*!*********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/protocol-http/dist-es/httpResponse.js ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13863,10 +13837,10 @@ class HttpResponse {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js":
-/*!*****************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js ***!
-  \*****************************************************************************/
+/***/ "../../../../../node_modules/@smithy/protocol-http/dist-es/index.js":
+/*!**************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/protocol-http/dist-es/index.js ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13880,14 +13854,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   isValidHostname: () => (/* reexport safe */ _isValidHostname__WEBPACK_IMPORTED_MODULE_6__.isValidHostname),
 /* harmony export */   resolveHttpHandlerRuntimeConfig: () => (/* reexport safe */ _extensions__WEBPACK_IMPORTED_MODULE_0__.resolveHttpHandlerRuntimeConfig)
 /* harmony export */ });
-/* harmony import */ var _extensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./extensions */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/extensions/index.js");
-/* harmony import */ var _Field__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Field */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/Field.js");
-/* harmony import */ var _Fields__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Fields */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/Fields.js");
-/* harmony import */ var _httpHandler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./httpHandler */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/httpHandler.js");
-/* harmony import */ var _httpRequest__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./httpRequest */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/httpRequest.js");
-/* harmony import */ var _httpResponse__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./httpResponse */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/httpResponse.js");
-/* harmony import */ var _isValidHostname__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./isValidHostname */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/isValidHostname.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./types */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/types.js");
+/* harmony import */ var _extensions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./extensions */ "../../../../../node_modules/@smithy/protocol-http/dist-es/extensions/index.js");
+/* harmony import */ var _Field__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Field */ "../../../../../node_modules/@smithy/protocol-http/dist-es/Field.js");
+/* harmony import */ var _Fields__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Fields */ "../../../../../node_modules/@smithy/protocol-http/dist-es/Fields.js");
+/* harmony import */ var _httpHandler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./httpHandler */ "../../../../../node_modules/@smithy/protocol-http/dist-es/httpHandler.js");
+/* harmony import */ var _httpRequest__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./httpRequest */ "../../../../../node_modules/@smithy/protocol-http/dist-es/httpRequest.js");
+/* harmony import */ var _httpResponse__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./httpResponse */ "../../../../../node_modules/@smithy/protocol-http/dist-es/httpResponse.js");
+/* harmony import */ var _isValidHostname__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./isValidHostname */ "../../../../../node_modules/@smithy/protocol-http/dist-es/isValidHostname.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./types */ "../../../../../node_modules/@smithy/protocol-http/dist-es/types.js");
 
 
 
@@ -13900,10 +13874,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/protocol-http/dist-es/isValidHostname.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/protocol-http/dist-es/isValidHostname.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/protocol-http/dist-es/isValidHostname.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/protocol-http/dist-es/isValidHostname.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13919,10 +13893,10 @@ function isValidHostname(hostname) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/protocol-http/dist-es/types.js":
-/*!*****************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/protocol-http/dist-es/types.js ***!
-  \*****************************************************************************/
+/***/ "../../../../../node_modules/@smithy/protocol-http/dist-es/types.js":
+/*!**************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/protocol-http/dist-es/types.js ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13932,10 +13906,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/querystring-builder/dist-es/index.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/querystring-builder/dist-es/index.js ***!
-  \***********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/querystring-builder/dist-es/index.js":
+/*!********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/querystring-builder/dist-es/index.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13943,7 +13917,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   buildQueryString: () => (/* binding */ buildQueryString)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_uri_escape__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-uri-escape */ "../../../../../../node_modules/@smithy/util-uri-escape/dist-es/index.js");
+/* harmony import */ var _smithy_util_uri_escape__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-uri-escape */ "../../../../../node_modules/@smithy/util-uri-escape/dist-es/index.js");
 
 function buildQueryString(query) {
     const parts = [];
@@ -13969,10 +13943,10 @@ function buildQueryString(query) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/querystring-parser/dist-es/index.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/querystring-parser/dist-es/index.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/querystring-parser/dist-es/index.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/querystring-parser/dist-es/index.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14007,10 +13981,10 @@ function parseQueryString(querystring) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/service-error-classification/dist-es/constants.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/service-error-classification/dist-es/constants.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/service-error-classification/dist-es/constants.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/service-error-classification/dist-es/constants.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14053,10 +14027,10 @@ const NODEJS_TIMEOUT_ERROR_CODES = ["ECONNRESET", "ECONNREFUSED", "EPIPE", "ETIM
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/service-error-classification/dist-es/index.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/service-error-classification/dist-es/index.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/service-error-classification/dist-es/index.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/service-error-classification/dist-es/index.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14069,7 +14043,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   isThrottlingError: () => (/* binding */ isThrottlingError),
 /* harmony export */   isTransientError: () => (/* binding */ isTransientError)
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/service-error-classification/dist-es/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/service-error-classification/dist-es/constants.js");
 
 const isRetryableByTrait = (error) => error.$retryable !== undefined;
 const isClockSkewError = (error) => _constants__WEBPACK_IMPORTED_MODULE_0__.CLOCK_SKEW_ERROR_CODES.includes(error.name);
@@ -14095,10 +14069,10 @@ const isServerError = (error) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/signature-v4/dist-es/HeaderFormatter.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/signature-v4/dist-es/HeaderFormatter.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/HeaderFormatter.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/HeaderFormatter.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14107,8 +14081,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   HeaderFormatter: () => (/* binding */ HeaderFormatter),
 /* harmony export */   Int64: () => (/* binding */ Int64)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_hex_encoding__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-hex-encoding */ "../../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js");
-/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
+/* harmony import */ var _smithy_util_hex_encoding__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-hex-encoding */ "../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js");
+/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
 
 
 class HeaderFormatter {
@@ -14238,10 +14212,10 @@ function negate(bytes) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/signature-v4/dist-es/SignatureV4.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/signature-v4/dist-es/SignatureV4.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/SignatureV4.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/SignatureV4.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14249,20 +14223,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   SignatureV4: () => (/* binding */ SignatureV4)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_hex_encoding__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-hex-encoding */ "../../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js");
-/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
-/* harmony import */ var _smithy_util_uri_escape__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/util-uri-escape */ "../../../../../../node_modules/@smithy/util-uri-escape/dist-es/index.js");
-/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js");
-/* harmony import */ var _credentialDerivation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./credentialDerivation */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/credentialDerivation.js");
-/* harmony import */ var _getCanonicalHeaders__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./getCanonicalHeaders */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalHeaders.js");
-/* harmony import */ var _getCanonicalQuery__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./getCanonicalQuery */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalQuery.js");
-/* harmony import */ var _getPayloadHash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./getPayloadHash */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/getPayloadHash.js");
-/* harmony import */ var _HeaderFormatter__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./HeaderFormatter */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/HeaderFormatter.js");
-/* harmony import */ var _headerUtil__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./headerUtil */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/headerUtil.js");
-/* harmony import */ var _moveHeadersToQuery__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./moveHeadersToQuery */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/moveHeadersToQuery.js");
-/* harmony import */ var _prepareRequest__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./prepareRequest */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/prepareRequest.js");
-/* harmony import */ var _utilDate__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./utilDate */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/utilDate.js");
+/* harmony import */ var _smithy_util_hex_encoding__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-hex-encoding */ "../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js");
+/* harmony import */ var _smithy_util_middleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-middleware */ "../../../../../node_modules/@smithy/util-middleware/dist-es/index.js");
+/* harmony import */ var _smithy_util_uri_escape__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/util-uri-escape */ "../../../../../node_modules/@smithy/util-uri-escape/dist-es/index.js");
+/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js");
+/* harmony import */ var _credentialDerivation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./credentialDerivation */ "../../../../../node_modules/@smithy/signature-v4/dist-es/credentialDerivation.js");
+/* harmony import */ var _getCanonicalHeaders__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./getCanonicalHeaders */ "../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalHeaders.js");
+/* harmony import */ var _getCanonicalQuery__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./getCanonicalQuery */ "../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalQuery.js");
+/* harmony import */ var _getPayloadHash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./getPayloadHash */ "../../../../../node_modules/@smithy/signature-v4/dist-es/getPayloadHash.js");
+/* harmony import */ var _HeaderFormatter__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./HeaderFormatter */ "../../../../../node_modules/@smithy/signature-v4/dist-es/HeaderFormatter.js");
+/* harmony import */ var _headerUtil__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./headerUtil */ "../../../../../node_modules/@smithy/signature-v4/dist-es/headerUtil.js");
+/* harmony import */ var _moveHeadersToQuery__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./moveHeadersToQuery */ "../../../../../node_modules/@smithy/signature-v4/dist-es/moveHeadersToQuery.js");
+/* harmony import */ var _prepareRequest__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./prepareRequest */ "../../../../../node_modules/@smithy/signature-v4/dist-es/prepareRequest.js");
+/* harmony import */ var _utilDate__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./utilDate */ "../../../../../node_modules/@smithy/signature-v4/dist-es/utilDate.js");
 
 
 
@@ -14458,10 +14432,38 @@ const getCanonicalHeaderList = (headers) => Object.keys(headers).sort().join(";"
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js":
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/cloneRequest.js":
 /*!********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js ***!
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/cloneRequest.js ***!
   \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   cloneQuery: () => (/* binding */ cloneQuery),
+/* harmony export */   cloneRequest: () => (/* binding */ cloneRequest)
+/* harmony export */ });
+const cloneRequest = ({ headers, query, ...rest }) => ({
+    ...rest,
+    headers: { ...headers },
+    query: query ? cloneQuery(query) : undefined,
+});
+const cloneQuery = (query) => Object.keys(query).reduce((carry, paramName) => {
+    const param = query[paramName];
+    return {
+        ...carry,
+        [paramName]: Array.isArray(param) ? [...param] : param,
+    };
+}, {});
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js":
+/*!*****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14542,10 +14544,10 @@ const MAX_PRESIGNED_TTL = 60 * 60 * 24 * 7;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/signature-v4/dist-es/credentialDerivation.js":
-/*!*******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/signature-v4/dist-es/credentialDerivation.js ***!
-  \*******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/credentialDerivation.js":
+/*!****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/credentialDerivation.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14555,9 +14557,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   createScope: () => (/* binding */ createScope),
 /* harmony export */   getSigningKey: () => (/* binding */ getSigningKey)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_hex_encoding__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-hex-encoding */ "../../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js");
-/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js");
+/* harmony import */ var _smithy_util_hex_encoding__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-hex-encoding */ "../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js");
+/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js");
 
 
 
@@ -14595,10 +14597,10 @@ const hmac = (ctor, secret, data) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalHeaders.js":
-/*!******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalHeaders.js ***!
-  \******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalHeaders.js":
+/*!***************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalHeaders.js ***!
+  \***************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14606,7 +14608,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getCanonicalHeaders: () => (/* binding */ getCanonicalHeaders)
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js");
 
 const getCanonicalHeaders = ({ headers }, unsignableHeaders, signableHeaders) => {
     const canonical = {};
@@ -14631,10 +14633,10 @@ const getCanonicalHeaders = ({ headers }, unsignableHeaders, signableHeaders) =>
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalQuery.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalQuery.js ***!
-  \****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalQuery.js":
+/*!*************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalQuery.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14642,8 +14644,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getCanonicalQuery: () => (/* binding */ getCanonicalQuery)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_uri_escape__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-uri-escape */ "../../../../../../node_modules/@smithy/util-uri-escape/dist-es/index.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js");
+/* harmony import */ var _smithy_util_uri_escape__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-uri-escape */ "../../../../../node_modules/@smithy/util-uri-escape/dist-es/index.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js");
 
 
 const getCanonicalQuery = ({ query = {} }) => {
@@ -14675,10 +14677,10 @@ const getCanonicalQuery = ({ query = {} }) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/signature-v4/dist-es/getPayloadHash.js":
-/*!*************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/signature-v4/dist-es/getPayloadHash.js ***!
-  \*************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/getPayloadHash.js":
+/*!**********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/getPayloadHash.js ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14686,10 +14688,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getPayloadHash: () => (/* binding */ getPayloadHash)
 /* harmony export */ });
-/* harmony import */ var _smithy_is_array_buffer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/is-array-buffer */ "../../../../../../node_modules/@smithy/is-array-buffer/dist-es/index.js");
-/* harmony import */ var _smithy_util_hex_encoding__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-hex-encoding */ "../../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js");
-/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js");
+/* harmony import */ var _smithy_is_array_buffer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/is-array-buffer */ "../../../../../node_modules/@smithy/is-array-buffer/dist-es/index.js");
+/* harmony import */ var _smithy_util_hex_encoding__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-hex-encoding */ "../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js");
+/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js");
 
 
 
@@ -14714,10 +14716,10 @@ const getPayloadHash = async ({ headers, body }, hashConstructor) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/signature-v4/dist-es/headerUtil.js":
-/*!*********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/signature-v4/dist-es/headerUtil.js ***!
-  \*********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/headerUtil.js":
+/*!******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/headerUtil.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14757,10 +14759,10 @@ const deleteHeader = (soughtHeader, headers) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/signature-v4/dist-es/index.js":
-/*!****************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/signature-v4/dist-es/index.js ***!
-  \****************************************************************************/
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/index.js":
+/*!*************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/index.js ***!
+  \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14776,13 +14778,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   moveHeadersToQuery: () => (/* reexport safe */ _moveHeadersToQuery__WEBPACK_IMPORTED_MODULE_4__.moveHeadersToQuery),
 /* harmony export */   prepareRequest: () => (/* reexport safe */ _prepareRequest__WEBPACK_IMPORTED_MODULE_5__.prepareRequest)
 /* harmony export */ });
-/* harmony import */ var _SignatureV4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SignatureV4 */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/SignatureV4.js");
-/* harmony import */ var _getCanonicalHeaders__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getCanonicalHeaders */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalHeaders.js");
-/* harmony import */ var _getCanonicalQuery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getCanonicalQuery */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalQuery.js");
-/* harmony import */ var _getPayloadHash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getPayloadHash */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/getPayloadHash.js");
-/* harmony import */ var _moveHeadersToQuery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./moveHeadersToQuery */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/moveHeadersToQuery.js");
-/* harmony import */ var _prepareRequest__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./prepareRequest */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/prepareRequest.js");
-/* harmony import */ var _credentialDerivation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./credentialDerivation */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/credentialDerivation.js");
+/* harmony import */ var _SignatureV4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SignatureV4 */ "../../../../../node_modules/@smithy/signature-v4/dist-es/SignatureV4.js");
+/* harmony import */ var _getCanonicalHeaders__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getCanonicalHeaders */ "../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalHeaders.js");
+/* harmony import */ var _getCanonicalQuery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getCanonicalQuery */ "../../../../../node_modules/@smithy/signature-v4/dist-es/getCanonicalQuery.js");
+/* harmony import */ var _getPayloadHash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getPayloadHash */ "../../../../../node_modules/@smithy/signature-v4/dist-es/getPayloadHash.js");
+/* harmony import */ var _moveHeadersToQuery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./moveHeadersToQuery */ "../../../../../node_modules/@smithy/signature-v4/dist-es/moveHeadersToQuery.js");
+/* harmony import */ var _prepareRequest__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./prepareRequest */ "../../../../../node_modules/@smithy/signature-v4/dist-es/prepareRequest.js");
+/* harmony import */ var _credentialDerivation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./credentialDerivation */ "../../../../../node_modules/@smithy/signature-v4/dist-es/credentialDerivation.js");
 
 
 
@@ -14794,10 +14796,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/signature-v4/dist-es/moveHeadersToQuery.js":
-/*!*****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/signature-v4/dist-es/moveHeadersToQuery.js ***!
-  \*****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/moveHeadersToQuery.js":
+/*!**************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/moveHeadersToQuery.js ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14805,10 +14807,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   moveHeadersToQuery: () => (/* binding */ moveHeadersToQuery)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
+/* harmony import */ var _cloneRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cloneRequest */ "../../../../../node_modules/@smithy/signature-v4/dist-es/cloneRequest.js");
 
 const moveHeadersToQuery = (request, options = {}) => {
-    const { headers, query = {} } = _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__.HttpRequest.clone(request);
+    const { headers, query = {} } = typeof request.clone === "function" ? request.clone() : (0,_cloneRequest__WEBPACK_IMPORTED_MODULE_0__.cloneRequest)(request);
     for (const name of Object.keys(headers)) {
         const lname = name.toLowerCase();
         if (lname.slice(0, 6) === "x-amz-" && !options.unhoistableHeaders?.has(lname)) {
@@ -14826,10 +14828,10 @@ const moveHeadersToQuery = (request, options = {}) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/signature-v4/dist-es/prepareRequest.js":
-/*!*************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/signature-v4/dist-es/prepareRequest.js ***!
-  \*************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/prepareRequest.js":
+/*!**********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/prepareRequest.js ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14837,12 +14839,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   prepareRequest: () => (/* binding */ prepareRequest)
 /* harmony export */ });
-/* harmony import */ var _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/protocol-http */ "../../../../../../node_modules/@smithy/protocol-http/dist-es/index.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js");
+/* harmony import */ var _cloneRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cloneRequest */ "../../../../../node_modules/@smithy/signature-v4/dist-es/cloneRequest.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/signature-v4/dist-es/constants.js");
 
 
 const prepareRequest = (request) => {
-    request = _smithy_protocol_http__WEBPACK_IMPORTED_MODULE_0__.HttpRequest.clone(request);
+    request = typeof request.clone === "function" ? request.clone() : (0,_cloneRequest__WEBPACK_IMPORTED_MODULE_0__.cloneRequest)(request);
     for (const headerName of Object.keys(request.headers)) {
         if (_constants__WEBPACK_IMPORTED_MODULE_1__.GENERATED_HEADERS.indexOf(headerName.toLowerCase()) > -1) {
             delete request.headers[headerName];
@@ -14854,10 +14856,10 @@ const prepareRequest = (request) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/signature-v4/dist-es/utilDate.js":
-/*!*******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/signature-v4/dist-es/utilDate.js ***!
-  \*******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/signature-v4/dist-es/utilDate.js":
+/*!****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/signature-v4/dist-es/utilDate.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14885,10 +14887,10 @@ const toDate = (time) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/NoOpLogger.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/NoOpLogger.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/NoOpLogger.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/NoOpLogger.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14907,10 +14909,10 @@ class NoOpLogger {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/client.js":
-/*!******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/client.js ***!
-  \******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/client.js":
+/*!***************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/client.js ***!
+  \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14918,7 +14920,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Client: () => (/* binding */ Client)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_stack__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-stack */ "../../../../../../node_modules/@smithy/middleware-stack/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_stack__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-stack */ "../../../../../node_modules/@smithy/middleware-stack/dist-es/index.js");
 
 class Client {
     constructor(config) {
@@ -14947,10 +14949,10 @@ class Client {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/collect-stream-body.js":
-/*!*******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/collect-stream-body.js ***!
-  \*******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/collect-stream-body.js":
+/*!****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/collect-stream-body.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14958,7 +14960,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   collectBody: () => (/* binding */ collectBody)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_stream__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-stream */ "../../../../../../node_modules/@smithy/util-stream/dist-es/index.js");
+/* harmony import */ var _smithy_util_stream__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-stream */ "../../../../../node_modules/@smithy/util-stream/dist-es/index.js");
 
 const collectBody = async (streamBody = new Uint8Array(), context) => {
     if (streamBody instanceof Uint8Array) {
@@ -14974,10 +14976,10 @@ const collectBody = async (streamBody = new Uint8Array(), context) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/command.js":
-/*!*******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/command.js ***!
-  \*******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/command.js":
+/*!****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/command.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14985,8 +14987,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Command: () => (/* binding */ Command)
 /* harmony export */ });
-/* harmony import */ var _smithy_middleware_stack__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-stack */ "../../../../../../node_modules/@smithy/middleware-stack/dist-es/index.js");
-/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/types */ "../../../../../../node_modules/@smithy/types/dist-es/index.js");
+/* harmony import */ var _smithy_middleware_stack__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/middleware-stack */ "../../../../../node_modules/@smithy/middleware-stack/dist-es/index.js");
+/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/types */ "../../../../../node_modules/@smithy/types/dist-es/index.js");
 
 
 class Command {
@@ -15009,7 +15011,6 @@ class Command {
             inputFilterSensitiveLog,
             outputFilterSensitiveLog,
             [_smithy_types__WEBPACK_IMPORTED_MODULE_1__.SMITHY_CONTEXT_KEY]: {
-                commandInstance: this,
                 ...smithyContext,
             },
             ...additionalContext,
@@ -15106,10 +15107,10 @@ class ClassBuilder {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/constants.js":
-/*!*********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/constants.js ***!
-  \*********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/constants.js":
+/*!******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/constants.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15122,10 +15123,10 @@ const SENSITIVE_STRING = "***SensitiveInformation***";
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/create-aggregated-client.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/create-aggregated-client.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/create-aggregated-client.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/create-aggregated-client.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15158,10 +15159,10 @@ const createAggregatedClient = (commands, Client) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/date-utils.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/date-utils.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/date-utils.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/date-utils.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15173,7 +15174,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   parseRfc3339DateTimeWithOffset: () => (/* binding */ parseRfc3339DateTimeWithOffset),
 /* harmony export */   parseRfc7231DateTime: () => (/* binding */ parseRfc7231DateTime)
 /* harmony export */ });
-/* harmony import */ var _parse_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parse-utils */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/parse-utils.js");
+/* harmony import */ var _parse_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parse-utils */ "../../../../../node_modules/@smithy/smithy-client/dist-es/parse-utils.js");
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -15365,10 +15366,10 @@ const stripLeadingZeroes = (value) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/default-error-handler.js":
-/*!*********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/default-error-handler.js ***!
-  \*********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/default-error-handler.js":
+/*!******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/default-error-handler.js ***!
+  \******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15377,7 +15378,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   throwDefaultError: () => (/* binding */ throwDefaultError),
 /* harmony export */   withBaseException: () => (/* binding */ withBaseException)
 /* harmony export */ });
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./exceptions */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/exceptions.js");
+/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./exceptions */ "../../../../../node_modules/@smithy/smithy-client/dist-es/exceptions.js");
 
 const throwDefaultError = ({ output, parsedBody, exceptionCtor, errorCode }) => {
     const $metadata = deserializeMetadata(output);
@@ -15404,10 +15405,10 @@ const deserializeMetadata = (output) => ({
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/defaults-mode.js":
-/*!*************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/defaults-mode.js ***!
-  \*************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/defaults-mode.js":
+/*!**********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/defaults-mode.js ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15445,10 +15446,10 @@ const loadConfigsForDefaultMode = (mode) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/emitWarningIfUnsupportedVersion.js":
-/*!*******************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/emitWarningIfUnsupportedVersion.js ***!
-  \*******************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/emitWarningIfUnsupportedVersion.js":
+/*!****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/emitWarningIfUnsupportedVersion.js ***!
+  \****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15466,10 +15467,10 @@ const emitWarningIfUnsupportedVersion = (version) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/exceptions.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/exceptions.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/exceptions.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/exceptions.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15504,10 +15505,10 @@ const decorateServiceException = (exception, additions = {}) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/extended-encode-uri-component.js":
-/*!*****************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/extended-encode-uri-component.js ***!
-  \*****************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/extended-encode-uri-component.js":
+/*!**************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/extended-encode-uri-component.js ***!
+  \**************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15524,10 +15525,10 @@ function extendedEncodeURIComponent(str) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/checksum.js":
-/*!*******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/checksum.js ***!
-  \*******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/checksum.js":
+/*!****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/checksum.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15537,7 +15538,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getChecksumConfiguration: () => (/* binding */ getChecksumConfiguration),
 /* harmony export */   resolveChecksumRuntimeConfig: () => (/* binding */ resolveChecksumRuntimeConfig)
 /* harmony export */ });
-/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../../node_modules/@smithy/types/dist-es/index.js");
+/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../node_modules/@smithy/types/dist-es/index.js");
 
 
 const getChecksumConfiguration = (runtimeConfig) => {
@@ -15573,10 +15574,10 @@ const resolveChecksumRuntimeConfig = (clientConfig) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/defaultExtensionConfiguration.js":
-/*!****************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/defaultExtensionConfiguration.js ***!
-  \****************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/defaultExtensionConfiguration.js":
+/*!*************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/defaultExtensionConfiguration.js ***!
+  \*************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15586,8 +15587,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getDefaultExtensionConfiguration: () => (/* binding */ getDefaultExtensionConfiguration),
 /* harmony export */   resolveDefaultRuntimeConfig: () => (/* binding */ resolveDefaultRuntimeConfig)
 /* harmony export */ });
-/* harmony import */ var _checksum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./checksum */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/checksum.js");
-/* harmony import */ var _retry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./retry */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/retry.js");
+/* harmony import */ var _checksum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./checksum */ "../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/checksum.js");
+/* harmony import */ var _retry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./retry */ "../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/retry.js");
 
 
 const getDefaultExtensionConfiguration = (runtimeConfig) => {
@@ -15607,10 +15608,10 @@ const resolveDefaultRuntimeConfig = (config) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/index.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/index.js ***!
-  \****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/index.js":
+/*!*************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/index.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15620,16 +15621,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getDefaultExtensionConfiguration: () => (/* reexport safe */ _defaultExtensionConfiguration__WEBPACK_IMPORTED_MODULE_0__.getDefaultExtensionConfiguration),
 /* harmony export */   resolveDefaultRuntimeConfig: () => (/* reexport safe */ _defaultExtensionConfiguration__WEBPACK_IMPORTED_MODULE_0__.resolveDefaultRuntimeConfig)
 /* harmony export */ });
-/* harmony import */ var _defaultExtensionConfiguration__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./defaultExtensionConfiguration */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/defaultExtensionConfiguration.js");
+/* harmony import */ var _defaultExtensionConfiguration__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./defaultExtensionConfiguration */ "../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/defaultExtensionConfiguration.js");
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/retry.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/retry.js ***!
-  \****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/retry.js":
+/*!*************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/retry.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15658,10 +15659,10 @@ const resolveRetryRuntimeConfig = (retryStrategyConfiguration) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/get-array-if-single-item.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/get-array-if-single-item.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/get-array-if-single-item.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/get-array-if-single-item.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15674,10 +15675,10 @@ const getArrayIfSingleItem = (mayBeArray) => Array.isArray(mayBeArray) ? mayBeAr
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/get-value-from-text-node.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/get-value-from-text-node.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/get-value-from-text-node.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/get-value-from-text-node.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15701,10 +15702,10 @@ const getValueFromTextNode = (obj) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js":
-/*!*****************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/index.js ***!
-  \*****************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/index.js":
+/*!**************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/index.js ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15770,28 +15771,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   throwDefaultError: () => (/* reexport safe */ _default_error_handler__WEBPACK_IMPORTED_MODULE_7__.throwDefaultError),
 /* harmony export */   withBaseException: () => (/* reexport safe */ _default_error_handler__WEBPACK_IMPORTED_MODULE_7__.withBaseException)
 /* harmony export */ });
-/* harmony import */ var _NoOpLogger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NoOpLogger */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/NoOpLogger.js");
-/* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/client.js");
-/* harmony import */ var _collect_stream_body__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./collect-stream-body */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/collect-stream-body.js");
-/* harmony import */ var _command__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./command */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/command.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/constants.js");
-/* harmony import */ var _create_aggregated_client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./create-aggregated-client */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/create-aggregated-client.js");
-/* harmony import */ var _date_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./date-utils */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/date-utils.js");
-/* harmony import */ var _default_error_handler__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./default-error-handler */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/default-error-handler.js");
-/* harmony import */ var _defaults_mode__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./defaults-mode */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/defaults-mode.js");
-/* harmony import */ var _emitWarningIfUnsupportedVersion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./emitWarningIfUnsupportedVersion */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/emitWarningIfUnsupportedVersion.js");
-/* harmony import */ var _extensions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./extensions */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/index.js");
-/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./exceptions */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/exceptions.js");
-/* harmony import */ var _extended_encode_uri_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./extended-encode-uri-component */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/extended-encode-uri-component.js");
-/* harmony import */ var _get_array_if_single_item__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./get-array-if-single-item */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/get-array-if-single-item.js");
-/* harmony import */ var _get_value_from_text_node__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./get-value-from-text-node */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/get-value-from-text-node.js");
-/* harmony import */ var _lazy_json__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./lazy-json */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/lazy-json.js");
-/* harmony import */ var _object_mapping__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./object-mapping */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/object-mapping.js");
-/* harmony import */ var _parse_utils__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./parse-utils */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/parse-utils.js");
-/* harmony import */ var _resolve_path__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./resolve-path */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/resolve-path.js");
-/* harmony import */ var _ser_utils__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./ser-utils */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/ser-utils.js");
-/* harmony import */ var _serde_json__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./serde-json */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/serde-json.js");
-/* harmony import */ var _split_every__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./split-every */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/split-every.js");
+/* harmony import */ var _NoOpLogger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NoOpLogger */ "../../../../../node_modules/@smithy/smithy-client/dist-es/NoOpLogger.js");
+/* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/client.js");
+/* harmony import */ var _collect_stream_body__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./collect-stream-body */ "../../../../../node_modules/@smithy/smithy-client/dist-es/collect-stream-body.js");
+/* harmony import */ var _command__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./command */ "../../../../../node_modules/@smithy/smithy-client/dist-es/command.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/smithy-client/dist-es/constants.js");
+/* harmony import */ var _create_aggregated_client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./create-aggregated-client */ "../../../../../node_modules/@smithy/smithy-client/dist-es/create-aggregated-client.js");
+/* harmony import */ var _date_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./date-utils */ "../../../../../node_modules/@smithy/smithy-client/dist-es/date-utils.js");
+/* harmony import */ var _default_error_handler__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./default-error-handler */ "../../../../../node_modules/@smithy/smithy-client/dist-es/default-error-handler.js");
+/* harmony import */ var _defaults_mode__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./defaults-mode */ "../../../../../node_modules/@smithy/smithy-client/dist-es/defaults-mode.js");
+/* harmony import */ var _emitWarningIfUnsupportedVersion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./emitWarningIfUnsupportedVersion */ "../../../../../node_modules/@smithy/smithy-client/dist-es/emitWarningIfUnsupportedVersion.js");
+/* harmony import */ var _extensions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./extensions */ "../../../../../node_modules/@smithy/smithy-client/dist-es/extensions/index.js");
+/* harmony import */ var _exceptions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./exceptions */ "../../../../../node_modules/@smithy/smithy-client/dist-es/exceptions.js");
+/* harmony import */ var _extended_encode_uri_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./extended-encode-uri-component */ "../../../../../node_modules/@smithy/smithy-client/dist-es/extended-encode-uri-component.js");
+/* harmony import */ var _get_array_if_single_item__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./get-array-if-single-item */ "../../../../../node_modules/@smithy/smithy-client/dist-es/get-array-if-single-item.js");
+/* harmony import */ var _get_value_from_text_node__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./get-value-from-text-node */ "../../../../../node_modules/@smithy/smithy-client/dist-es/get-value-from-text-node.js");
+/* harmony import */ var _lazy_json__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./lazy-json */ "../../../../../node_modules/@smithy/smithy-client/dist-es/lazy-json.js");
+/* harmony import */ var _object_mapping__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./object-mapping */ "../../../../../node_modules/@smithy/smithy-client/dist-es/object-mapping.js");
+/* harmony import */ var _parse_utils__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./parse-utils */ "../../../../../node_modules/@smithy/smithy-client/dist-es/parse-utils.js");
+/* harmony import */ var _resolve_path__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./resolve-path */ "../../../../../node_modules/@smithy/smithy-client/dist-es/resolve-path.js");
+/* harmony import */ var _ser_utils__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./ser-utils */ "../../../../../node_modules/@smithy/smithy-client/dist-es/ser-utils.js");
+/* harmony import */ var _serde_json__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./serde-json */ "../../../../../node_modules/@smithy/smithy-client/dist-es/serde-json.js");
+/* harmony import */ var _split_every__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./split-every */ "../../../../../node_modules/@smithy/smithy-client/dist-es/split-every.js");
 
 
 
@@ -15818,10 +15819,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/lazy-json.js":
-/*!*********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/lazy-json.js ***!
-  \*********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/lazy-json.js":
+/*!******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/lazy-json.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15867,10 +15868,10 @@ class LazyJsonString extends StringWrapper {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/object-mapping.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/object-mapping.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/object-mapping.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/object-mapping.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15976,10 +15977,10 @@ const pass = (_) => _;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/parse-utils.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/parse-utils.js ***!
-  \***********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/parse-utils.js":
+/*!********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/parse-utils.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16246,10 +16247,10 @@ const logger = {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/resolve-path.js":
-/*!************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/resolve-path.js ***!
-  \************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/resolve-path.js":
+/*!*********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/resolve-path.js ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16257,7 +16258,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   resolvedPath: () => (/* binding */ resolvedPath)
 /* harmony export */ });
-/* harmony import */ var _extended_encode_uri_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./extended-encode-uri-component */ "../../../../../../node_modules/@smithy/smithy-client/dist-es/extended-encode-uri-component.js");
+/* harmony import */ var _extended_encode_uri_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./extended-encode-uri-component */ "../../../../../node_modules/@smithy/smithy-client/dist-es/extended-encode-uri-component.js");
 
 const resolvedPath = (resolvedPath, input, memberName, labelValueProvider, uriLabel, isGreedyLabel) => {
     if (input != null && input[memberName] !== undefined) {
@@ -16281,10 +16282,10 @@ const resolvedPath = (resolvedPath, input, memberName, labelValueProvider, uriLa
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/ser-utils.js":
-/*!*********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/ser-utils.js ***!
-  \*********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/ser-utils.js":
+/*!******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/ser-utils.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16311,10 +16312,10 @@ const serializeDateTime = (date) => date.toISOString().replace(".000Z", "Z");
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/serde-json.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/serde-json.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/serde-json.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/serde-json.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16345,10 +16346,10 @@ const _json = (obj) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/smithy-client/dist-es/split-every.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/smithy-client/dist-es/split-every.js ***!
-  \***********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/smithy-client/dist-es/split-every.js":
+/*!********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/smithy-client/dist-es/split-every.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16387,10 +16388,10 @@ function splitEvery(value, delimiter, numDelimiters) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/abort.js":
-/*!*********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/abort.js ***!
-  \*********************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/abort.js":
+/*!******************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/abort.js ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16400,10 +16401,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/auth/HttpApiKeyAuth.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/auth/HttpApiKeyAuth.js ***!
-  \***********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/auth/HttpApiKeyAuth.js":
+/*!********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/auth/HttpApiKeyAuth.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16420,10 +16421,10 @@ var HttpApiKeyAuthLocation;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/auth/HttpAuthScheme.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/auth/HttpAuthScheme.js ***!
-  \***********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/auth/HttpAuthScheme.js":
+/*!********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/auth/HttpAuthScheme.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16433,10 +16434,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/auth/HttpAuthSchemeProvider.js":
-/*!*******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/auth/HttpAuthSchemeProvider.js ***!
-  \*******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/auth/HttpAuthSchemeProvider.js":
+/*!****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/auth/HttpAuthSchemeProvider.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16446,10 +16447,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/auth/HttpSigner.js":
-/*!*******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/auth/HttpSigner.js ***!
-  \*******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/auth/HttpSigner.js":
+/*!****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/auth/HttpSigner.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16459,10 +16460,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/auth/IdentityProviderConfig.js":
-/*!*******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/auth/IdentityProviderConfig.js ***!
-  \*******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/auth/IdentityProviderConfig.js":
+/*!****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/auth/IdentityProviderConfig.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16472,10 +16473,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/auth/auth.js":
-/*!*************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/auth/auth.js ***!
-  \*************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/auth/auth.js":
+/*!**********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/auth/auth.js ***!
+  \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16492,10 +16493,10 @@ var HttpAuthLocation;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/auth/index.js":
-/*!**************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/auth/index.js ***!
-  \**************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/auth/index.js":
+/*!***********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/auth/index.js ***!
+  \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16504,12 +16505,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   HttpApiKeyAuthLocation: () => (/* reexport safe */ _HttpApiKeyAuth__WEBPACK_IMPORTED_MODULE_1__.HttpApiKeyAuthLocation),
 /* harmony export */   HttpAuthLocation: () => (/* reexport safe */ _auth__WEBPACK_IMPORTED_MODULE_0__.HttpAuthLocation)
 /* harmony export */ });
-/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth */ "../../../../../../node_modules/@smithy/types/dist-es/auth/auth.js");
-/* harmony import */ var _HttpApiKeyAuth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HttpApiKeyAuth */ "../../../../../../node_modules/@smithy/types/dist-es/auth/HttpApiKeyAuth.js");
-/* harmony import */ var _HttpAuthScheme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./HttpAuthScheme */ "../../../../../../node_modules/@smithy/types/dist-es/auth/HttpAuthScheme.js");
-/* harmony import */ var _HttpAuthSchemeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HttpAuthSchemeProvider */ "../../../../../../node_modules/@smithy/types/dist-es/auth/HttpAuthSchemeProvider.js");
-/* harmony import */ var _HttpSigner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./HttpSigner */ "../../../../../../node_modules/@smithy/types/dist-es/auth/HttpSigner.js");
-/* harmony import */ var _IdentityProviderConfig__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./IdentityProviderConfig */ "../../../../../../node_modules/@smithy/types/dist-es/auth/IdentityProviderConfig.js");
+/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth */ "../../../../../node_modules/@smithy/types/dist-es/auth/auth.js");
+/* harmony import */ var _HttpApiKeyAuth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HttpApiKeyAuth */ "../../../../../node_modules/@smithy/types/dist-es/auth/HttpApiKeyAuth.js");
+/* harmony import */ var _HttpAuthScheme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./HttpAuthScheme */ "../../../../../node_modules/@smithy/types/dist-es/auth/HttpAuthScheme.js");
+/* harmony import */ var _HttpAuthSchemeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HttpAuthSchemeProvider */ "../../../../../node_modules/@smithy/types/dist-es/auth/HttpAuthSchemeProvider.js");
+/* harmony import */ var _HttpSigner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./HttpSigner */ "../../../../../node_modules/@smithy/types/dist-es/auth/HttpSigner.js");
+/* harmony import */ var _IdentityProviderConfig__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./IdentityProviderConfig */ "../../../../../node_modules/@smithy/types/dist-es/auth/IdentityProviderConfig.js");
 
 
 
@@ -16520,10 +16521,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/blob/blob-payload-input-types.js":
-/*!*********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/blob/blob-payload-input-types.js ***!
-  \*********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/blob/blob-payload-input-types.js":
+/*!******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/blob/blob-payload-input-types.js ***!
+  \******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16533,10 +16534,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/checksum.js":
-/*!************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/checksum.js ***!
-  \************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/checksum.js":
+/*!*********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/checksum.js ***!
+  \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16546,10 +16547,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/client.js":
-/*!**********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/client.js ***!
-  \**********************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/client.js":
+/*!*******************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/client.js ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16559,10 +16560,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/command.js":
-/*!***********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/command.js ***!
-  \***********************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/command.js":
+/*!********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/command.js ***!
+  \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16572,10 +16573,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/connection/config.js":
-/*!*********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/connection/config.js ***!
-  \*********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/connection/config.js":
+/*!******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/connection/config.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16585,17 +16586,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/connection/index.js":
-/*!********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/connection/index.js ***!
-  \********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/connection/index.js":
+/*!*****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/connection/index.js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ "../../../../../../node_modules/@smithy/types/dist-es/connection/config.js");
-/* harmony import */ var _manager__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./manager */ "../../../../../../node_modules/@smithy/types/dist-es/connection/manager.js");
-/* harmony import */ var _pool__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pool */ "../../../../../../node_modules/@smithy/types/dist-es/connection/pool.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ "../../../../../node_modules/@smithy/types/dist-es/connection/config.js");
+/* harmony import */ var _manager__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./manager */ "../../../../../node_modules/@smithy/types/dist-es/connection/manager.js");
+/* harmony import */ var _pool__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pool */ "../../../../../node_modules/@smithy/types/dist-es/connection/pool.js");
 
 
 
@@ -16603,22 +16604,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/connection/manager.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/connection/manager.js ***!
-  \**********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/connection/pool.js":
+/***/ "../../../../../node_modules/@smithy/types/dist-es/connection/manager.js":
 /*!*******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/connection/pool.js ***!
+  !*** ../../../../../node_modules/@smithy/types/dist-es/connection/manager.js ***!
   \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -16629,10 +16617,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/crypto.js":
-/*!**********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/crypto.js ***!
-  \**********************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/connection/pool.js":
+/*!****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/connection/pool.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16642,10 +16630,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/encode.js":
-/*!**********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/encode.js ***!
-  \**********************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/crypto.js":
+/*!*******************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/crypto.js ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16655,10 +16643,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/endpoint.js":
-/*!************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/endpoint.js ***!
-  \************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/encode.js":
+/*!*******************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/encode.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/endpoint.js":
+/*!*********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/endpoint.js ***!
+  \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16675,22 +16676,9 @@ var EndpointURLScheme;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/endpoints/EndpointRuleObject.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/endpoints/EndpointRuleObject.js ***!
-  \********************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/endpoints/ErrorRuleObject.js":
+/***/ "../../../../../node_modules/@smithy/types/dist-es/endpoints/EndpointRuleObject.js":
 /*!*****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/endpoints/ErrorRuleObject.js ***!
+  !*** ../../../../../node_modules/@smithy/types/dist-es/endpoints/EndpointRuleObject.js ***!
   \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -16701,10 +16689,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/endpoints/RuleSetObject.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/endpoints/RuleSetObject.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/endpoints/ErrorRuleObject.js":
+/*!**************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/endpoints/ErrorRuleObject.js ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16714,10 +16702,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/endpoints/TreeRuleObject.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/endpoints/TreeRuleObject.js ***!
-  \****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/endpoints/RuleSetObject.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/endpoints/RuleSetObject.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16727,19 +16715,32 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/endpoints/index.js":
-/*!*******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/endpoints/index.js ***!
-  \*******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/endpoints/TreeRuleObject.js":
+/*!*************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/endpoints/TreeRuleObject.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _EndpointRuleObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EndpointRuleObject */ "../../../../../../node_modules/@smithy/types/dist-es/endpoints/EndpointRuleObject.js");
-/* harmony import */ var _ErrorRuleObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ErrorRuleObject */ "../../../../../../node_modules/@smithy/types/dist-es/endpoints/ErrorRuleObject.js");
-/* harmony import */ var _RuleSetObject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RuleSetObject */ "../../../../../../node_modules/@smithy/types/dist-es/endpoints/RuleSetObject.js");
-/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shared */ "../../../../../../node_modules/@smithy/types/dist-es/endpoints/shared.js");
-/* harmony import */ var _TreeRuleObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TreeRuleObject */ "../../../../../../node_modules/@smithy/types/dist-es/endpoints/TreeRuleObject.js");
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/endpoints/index.js":
+/*!****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/endpoints/index.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EndpointRuleObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EndpointRuleObject */ "../../../../../node_modules/@smithy/types/dist-es/endpoints/EndpointRuleObject.js");
+/* harmony import */ var _ErrorRuleObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ErrorRuleObject */ "../../../../../node_modules/@smithy/types/dist-es/endpoints/ErrorRuleObject.js");
+/* harmony import */ var _RuleSetObject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RuleSetObject */ "../../../../../node_modules/@smithy/types/dist-es/endpoints/RuleSetObject.js");
+/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shared */ "../../../../../node_modules/@smithy/types/dist-es/endpoints/shared.js");
+/* harmony import */ var _TreeRuleObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TreeRuleObject */ "../../../../../node_modules/@smithy/types/dist-es/endpoints/TreeRuleObject.js");
 
 
 
@@ -16749,36 +16750,36 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/endpoints/shared.js":
+/***/ "../../../../../node_modules/@smithy/types/dist-es/endpoints/shared.js":
+/*!*****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/endpoints/shared.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/eventStream.js":
+/*!************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/eventStream.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/extensions/checksum.js":
 /*!********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/endpoints/shared.js ***!
+  !*** ../../../../../node_modules/@smithy/types/dist-es/extensions/checksum.js ***!
   \********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/eventStream.js":
-/*!***************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/eventStream.js ***!
-  \***************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/extensions/checksum.js":
-/*!***********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/extensions/checksum.js ***!
-  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16831,10 +16832,10 @@ const resolveChecksumRuntimeConfig = (clientConfig) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/extensions/defaultClientConfiguration.js":
-/*!*****************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/extensions/defaultClientConfiguration.js ***!
-  \*****************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/extensions/defaultClientConfiguration.js":
+/*!**************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/extensions/defaultClientConfiguration.js ***!
+  \**************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16843,7 +16844,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getDefaultClientConfiguration: () => (/* binding */ getDefaultClientConfiguration),
 /* harmony export */   resolveDefaultRuntimeConfig: () => (/* binding */ resolveDefaultRuntimeConfig)
 /* harmony export */ });
-/* harmony import */ var _checksum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./checksum */ "../../../../../../node_modules/@smithy/types/dist-es/extensions/checksum.js");
+/* harmony import */ var _checksum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./checksum */ "../../../../../node_modules/@smithy/types/dist-es/extensions/checksum.js");
 
 const getDefaultClientConfiguration = (runtimeConfig) => {
     return {
@@ -16859,10 +16860,10 @@ const resolveDefaultRuntimeConfig = (config) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/extensions/defaultExtensionConfiguration.js":
-/*!********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/extensions/defaultExtensionConfiguration.js ***!
-  \********************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/extensions/defaultExtensionConfiguration.js":
+/*!*****************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/extensions/defaultExtensionConfiguration.js ***!
+  \*****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16872,10 +16873,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/extensions/index.js":
-/*!********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/extensions/index.js ***!
-  \********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/extensions/index.js":
+/*!*****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/extensions/index.js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16885,9 +16886,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getDefaultClientConfiguration: () => (/* reexport safe */ _defaultClientConfiguration__WEBPACK_IMPORTED_MODULE_0__.getDefaultClientConfiguration),
 /* harmony export */   resolveDefaultRuntimeConfig: () => (/* reexport safe */ _defaultClientConfiguration__WEBPACK_IMPORTED_MODULE_0__.resolveDefaultRuntimeConfig)
 /* harmony export */ });
-/* harmony import */ var _defaultClientConfiguration__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./defaultClientConfiguration */ "../../../../../../node_modules/@smithy/types/dist-es/extensions/defaultClientConfiguration.js");
-/* harmony import */ var _defaultExtensionConfiguration__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./defaultExtensionConfiguration */ "../../../../../../node_modules/@smithy/types/dist-es/extensions/defaultExtensionConfiguration.js");
-/* harmony import */ var _checksum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./checksum */ "../../../../../../node_modules/@smithy/types/dist-es/extensions/checksum.js");
+/* harmony import */ var _defaultClientConfiguration__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./defaultClientConfiguration */ "../../../../../node_modules/@smithy/types/dist-es/extensions/defaultClientConfiguration.js");
+/* harmony import */ var _defaultExtensionConfiguration__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./defaultExtensionConfiguration */ "../../../../../node_modules/@smithy/types/dist-es/extensions/defaultExtensionConfiguration.js");
+/* harmony import */ var _checksum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./checksum */ "../../../../../node_modules/@smithy/types/dist-es/extensions/checksum.js");
 
 
 
@@ -16895,10 +16896,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/http.js":
-/*!********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/http.js ***!
-  \********************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/http.js":
+/*!*****************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/http.js ***!
+  \*****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16915,10 +16916,10 @@ var FieldPosition;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/http/httpHandlerInitialization.js":
-/*!**********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/http/httpHandlerInitialization.js ***!
-  \**********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/http/httpHandlerInitialization.js":
+/*!*******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/http/httpHandlerInitialization.js ***!
+  \*******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16928,10 +16929,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/identity/apiKeyIdentity.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/identity/apiKeyIdentity.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/identity/apiKeyIdentity.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/identity/apiKeyIdentity.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16941,10 +16942,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/identity/awsCredentialIdentity.js":
-/*!**********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/identity/awsCredentialIdentity.js ***!
-  \**********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/identity/awsCredentialIdentity.js":
+/*!*******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/identity/awsCredentialIdentity.js ***!
+  \*******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16954,31 +16955,31 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/identity/identity.js":
-/*!*********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/identity/identity.js ***!
-  \*********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/identity/index.js":
+/***/ "../../../../../node_modules/@smithy/types/dist-es/identity/identity.js":
 /*!******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/identity/index.js ***!
+  !*** ../../../../../node_modules/@smithy/types/dist-es/identity/identity.js ***!
   \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _apiKeyIdentity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apiKeyIdentity */ "../../../../../../node_modules/@smithy/types/dist-es/identity/apiKeyIdentity.js");
-/* harmony import */ var _awsCredentialIdentity__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./awsCredentialIdentity */ "../../../../../../node_modules/@smithy/types/dist-es/identity/awsCredentialIdentity.js");
-/* harmony import */ var _identity__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./identity */ "../../../../../../node_modules/@smithy/types/dist-es/identity/identity.js");
-/* harmony import */ var _tokenIdentity__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tokenIdentity */ "../../../../../../node_modules/@smithy/types/dist-es/identity/tokenIdentity.js");
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/identity/index.js":
+/*!***************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/identity/index.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _apiKeyIdentity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./apiKeyIdentity */ "../../../../../node_modules/@smithy/types/dist-es/identity/apiKeyIdentity.js");
+/* harmony import */ var _awsCredentialIdentity__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./awsCredentialIdentity */ "../../../../../node_modules/@smithy/types/dist-es/identity/awsCredentialIdentity.js");
+/* harmony import */ var _identity__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./identity */ "../../../../../node_modules/@smithy/types/dist-es/identity/identity.js");
+/* harmony import */ var _tokenIdentity__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tokenIdentity */ "../../../../../node_modules/@smithy/types/dist-es/identity/tokenIdentity.js");
 
 
 
@@ -16987,10 +16988,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/identity/tokenIdentity.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/identity/tokenIdentity.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/identity/tokenIdentity.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/identity/tokenIdentity.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17000,10 +17001,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/index.js":
-/*!*********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/index.js ***!
-  \*********************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/index.js":
+/*!******************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/index.js ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17020,42 +17021,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getDefaultClientConfiguration: () => (/* reexport safe */ _extensions__WEBPACK_IMPORTED_MODULE_12__.getDefaultClientConfiguration),
 /* harmony export */   resolveDefaultRuntimeConfig: () => (/* reexport safe */ _extensions__WEBPACK_IMPORTED_MODULE_12__.resolveDefaultRuntimeConfig)
 /* harmony export */ });
-/* harmony import */ var _abort__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./abort */ "../../../../../../node_modules/@smithy/types/dist-es/abort.js");
-/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth */ "../../../../../../node_modules/@smithy/types/dist-es/auth/index.js");
-/* harmony import */ var _blob_blob_payload_input_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./blob/blob-payload-input-types */ "../../../../../../node_modules/@smithy/types/dist-es/blob/blob-payload-input-types.js");
-/* harmony import */ var _checksum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./checksum */ "../../../../../../node_modules/@smithy/types/dist-es/checksum.js");
-/* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./client */ "../../../../../../node_modules/@smithy/types/dist-es/client.js");
-/* harmony import */ var _command__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./command */ "../../../../../../node_modules/@smithy/types/dist-es/command.js");
-/* harmony import */ var _connection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./connection */ "../../../../../../node_modules/@smithy/types/dist-es/connection/index.js");
-/* harmony import */ var _crypto__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./crypto */ "../../../../../../node_modules/@smithy/types/dist-es/crypto.js");
-/* harmony import */ var _encode__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./encode */ "../../../../../../node_modules/@smithy/types/dist-es/encode.js");
-/* harmony import */ var _endpoint__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./endpoint */ "../../../../../../node_modules/@smithy/types/dist-es/endpoint.js");
-/* harmony import */ var _endpoints__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./endpoints */ "../../../../../../node_modules/@smithy/types/dist-es/endpoints/index.js");
-/* harmony import */ var _eventStream__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./eventStream */ "../../../../../../node_modules/@smithy/types/dist-es/eventStream.js");
-/* harmony import */ var _extensions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./extensions */ "../../../../../../node_modules/@smithy/types/dist-es/extensions/index.js");
-/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./http */ "../../../../../../node_modules/@smithy/types/dist-es/http.js");
-/* harmony import */ var _http_httpHandlerInitialization__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./http/httpHandlerInitialization */ "../../../../../../node_modules/@smithy/types/dist-es/http/httpHandlerInitialization.js");
-/* harmony import */ var _identity__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./identity */ "../../../../../../node_modules/@smithy/types/dist-es/identity/index.js");
-/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./logger */ "../../../../../../node_modules/@smithy/types/dist-es/logger.js");
-/* harmony import */ var _middleware__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./middleware */ "../../../../../../node_modules/@smithy/types/dist-es/middleware.js");
-/* harmony import */ var _pagination__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./pagination */ "../../../../../../node_modules/@smithy/types/dist-es/pagination.js");
-/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./profile */ "../../../../../../node_modules/@smithy/types/dist-es/profile.js");
-/* harmony import */ var _response__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./response */ "../../../../../../node_modules/@smithy/types/dist-es/response.js");
-/* harmony import */ var _retry__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./retry */ "../../../../../../node_modules/@smithy/types/dist-es/retry.js");
-/* harmony import */ var _serde__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./serde */ "../../../../../../node_modules/@smithy/types/dist-es/serde.js");
-/* harmony import */ var _shapes__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./shapes */ "../../../../../../node_modules/@smithy/types/dist-es/shapes.js");
-/* harmony import */ var _signature__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./signature */ "../../../../../../node_modules/@smithy/types/dist-es/signature.js");
-/* harmony import */ var _stream__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./stream */ "../../../../../../node_modules/@smithy/types/dist-es/stream.js");
-/* harmony import */ var _streaming_payload_streaming_blob_common_types__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./streaming-payload/streaming-blob-common-types */ "../../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-common-types.js");
-/* harmony import */ var _streaming_payload_streaming_blob_payload_input_types__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./streaming-payload/streaming-blob-payload-input-types */ "../../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-payload-input-types.js");
-/* harmony import */ var _streaming_payload_streaming_blob_payload_output_types__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./streaming-payload/streaming-blob-payload-output-types */ "../../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-payload-output-types.js");
-/* harmony import */ var _transfer__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./transfer */ "../../../../../../node_modules/@smithy/types/dist-es/transfer.js");
-/* harmony import */ var _transform_client_payload_blob_type_narrow__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./transform/client-payload-blob-type-narrow */ "../../../../../../node_modules/@smithy/types/dist-es/transform/client-payload-blob-type-narrow.js");
-/* harmony import */ var _transform_no_undefined__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./transform/no-undefined */ "../../../../../../node_modules/@smithy/types/dist-es/transform/no-undefined.js");
-/* harmony import */ var _transform_type_transform__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./transform/type-transform */ "../../../../../../node_modules/@smithy/types/dist-es/transform/type-transform.js");
-/* harmony import */ var _uri__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./uri */ "../../../../../../node_modules/@smithy/types/dist-es/uri.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./util */ "../../../../../../node_modules/@smithy/types/dist-es/util.js");
-/* harmony import */ var _waiter__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./waiter */ "../../../../../../node_modules/@smithy/types/dist-es/waiter.js");
+/* harmony import */ var _abort__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./abort */ "../../../../../node_modules/@smithy/types/dist-es/abort.js");
+/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth */ "../../../../../node_modules/@smithy/types/dist-es/auth/index.js");
+/* harmony import */ var _blob_blob_payload_input_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./blob/blob-payload-input-types */ "../../../../../node_modules/@smithy/types/dist-es/blob/blob-payload-input-types.js");
+/* harmony import */ var _checksum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./checksum */ "../../../../../node_modules/@smithy/types/dist-es/checksum.js");
+/* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./client */ "../../../../../node_modules/@smithy/types/dist-es/client.js");
+/* harmony import */ var _command__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./command */ "../../../../../node_modules/@smithy/types/dist-es/command.js");
+/* harmony import */ var _connection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./connection */ "../../../../../node_modules/@smithy/types/dist-es/connection/index.js");
+/* harmony import */ var _crypto__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./crypto */ "../../../../../node_modules/@smithy/types/dist-es/crypto.js");
+/* harmony import */ var _encode__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./encode */ "../../../../../node_modules/@smithy/types/dist-es/encode.js");
+/* harmony import */ var _endpoint__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./endpoint */ "../../../../../node_modules/@smithy/types/dist-es/endpoint.js");
+/* harmony import */ var _endpoints__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./endpoints */ "../../../../../node_modules/@smithy/types/dist-es/endpoints/index.js");
+/* harmony import */ var _eventStream__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./eventStream */ "../../../../../node_modules/@smithy/types/dist-es/eventStream.js");
+/* harmony import */ var _extensions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./extensions */ "../../../../../node_modules/@smithy/types/dist-es/extensions/index.js");
+/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./http */ "../../../../../node_modules/@smithy/types/dist-es/http.js");
+/* harmony import */ var _http_httpHandlerInitialization__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./http/httpHandlerInitialization */ "../../../../../node_modules/@smithy/types/dist-es/http/httpHandlerInitialization.js");
+/* harmony import */ var _identity__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./identity */ "../../../../../node_modules/@smithy/types/dist-es/identity/index.js");
+/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./logger */ "../../../../../node_modules/@smithy/types/dist-es/logger.js");
+/* harmony import */ var _middleware__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./middleware */ "../../../../../node_modules/@smithy/types/dist-es/middleware.js");
+/* harmony import */ var _pagination__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./pagination */ "../../../../../node_modules/@smithy/types/dist-es/pagination.js");
+/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./profile */ "../../../../../node_modules/@smithy/types/dist-es/profile.js");
+/* harmony import */ var _response__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./response */ "../../../../../node_modules/@smithy/types/dist-es/response.js");
+/* harmony import */ var _retry__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./retry */ "../../../../../node_modules/@smithy/types/dist-es/retry.js");
+/* harmony import */ var _serde__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./serde */ "../../../../../node_modules/@smithy/types/dist-es/serde.js");
+/* harmony import */ var _shapes__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./shapes */ "../../../../../node_modules/@smithy/types/dist-es/shapes.js");
+/* harmony import */ var _signature__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./signature */ "../../../../../node_modules/@smithy/types/dist-es/signature.js");
+/* harmony import */ var _stream__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./stream */ "../../../../../node_modules/@smithy/types/dist-es/stream.js");
+/* harmony import */ var _streaming_payload_streaming_blob_common_types__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./streaming-payload/streaming-blob-common-types */ "../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-common-types.js");
+/* harmony import */ var _streaming_payload_streaming_blob_payload_input_types__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./streaming-payload/streaming-blob-payload-input-types */ "../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-payload-input-types.js");
+/* harmony import */ var _streaming_payload_streaming_blob_payload_output_types__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./streaming-payload/streaming-blob-payload-output-types */ "../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-payload-output-types.js");
+/* harmony import */ var _transfer__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./transfer */ "../../../../../node_modules/@smithy/types/dist-es/transfer.js");
+/* harmony import */ var _transform_client_payload_blob_type_narrow__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./transform/client-payload-blob-type-narrow */ "../../../../../node_modules/@smithy/types/dist-es/transform/client-payload-blob-type-narrow.js");
+/* harmony import */ var _transform_no_undefined__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./transform/no-undefined */ "../../../../../node_modules/@smithy/types/dist-es/transform/no-undefined.js");
+/* harmony import */ var _transform_type_transform__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./transform/type-transform */ "../../../../../node_modules/@smithy/types/dist-es/transform/type-transform.js");
+/* harmony import */ var _uri__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./uri */ "../../../../../node_modules/@smithy/types/dist-es/uri.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./util */ "../../../../../node_modules/@smithy/types/dist-es/util.js");
+/* harmony import */ var _waiter__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./waiter */ "../../../../../node_modules/@smithy/types/dist-es/waiter.js");
 
 
 
@@ -17096,10 +17097,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/logger.js":
-/*!**********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/logger.js ***!
-  \**********************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/logger.js":
+/*!*******************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/logger.js ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17109,10 +17110,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/middleware.js":
-/*!**************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/middleware.js ***!
-  \**************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/middleware.js":
+/*!***********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/middleware.js ***!
+  \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17125,10 +17126,10 @@ const SMITHY_CONTEXT_KEY = "__smithy_context";
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/pagination.js":
-/*!**************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/pagination.js ***!
-  \**************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/pagination.js":
+/*!***********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/pagination.js ***!
+  \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17138,10 +17139,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/profile.js":
-/*!***********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/profile.js ***!
-  \***********************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/profile.js":
+/*!********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/profile.js ***!
+  \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17159,22 +17160,9 @@ var IniSectionType;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/response.js":
-/*!************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/response.js ***!
-  \************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/retry.js":
+/***/ "../../../../../node_modules/@smithy/types/dist-es/response.js":
 /*!*********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/retry.js ***!
+  !*** ../../../../../node_modules/@smithy/types/dist-es/response.js ***!
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -17185,101 +17173,114 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/serde.js":
+/***/ "../../../../../node_modules/@smithy/types/dist-es/retry.js":
+/*!******************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/retry.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/serde.js":
+/*!******************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/serde.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/shapes.js":
+/*!*******************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/shapes.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/signature.js":
+/*!**********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/signature.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/stream.js":
+/*!*******************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/stream.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-common-types.js":
+/*!**********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-common-types.js ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-payload-input-types.js":
+/*!*****************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-payload-input-types.js ***!
+  \*****************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-payload-output-types.js":
+/*!******************************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-payload-output-types.js ***!
+  \******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/transfer.js":
 /*!*********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/serde.js ***!
+  !*** ../../../../../node_modules/@smithy/types/dist-es/transfer.js ***!
   \*********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/shapes.js":
-/*!**********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/shapes.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/signature.js":
-/*!*************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/signature.js ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/stream.js":
-/*!**********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/stream.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-common-types.js":
-/*!*************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-common-types.js ***!
-  \*************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-payload-input-types.js":
-/*!********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-payload-input-types.js ***!
-  \********************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-payload-output-types.js":
-/*!*********************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/streaming-payload/streaming-blob-payload-output-types.js ***!
-  \*********************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/transfer.js":
-/*!************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/transfer.js ***!
-  \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17297,10 +17298,10 @@ var RequestHandlerProtocol;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/transform/client-payload-blob-type-narrow.js":
-/*!*********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/transform/client-payload-blob-type-narrow.js ***!
-  \*********************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/transform/client-payload-blob-type-narrow.js":
+/*!******************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/transform/client-payload-blob-type-narrow.js ***!
+  \******************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17310,10 +17311,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/transform/no-undefined.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/transform/no-undefined.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/transform/no-undefined.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/transform/no-undefined.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17323,10 +17324,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/transform/type-transform.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/transform/type-transform.js ***!
-  \****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/types/dist-es/transform/type-transform.js":
+/*!*************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/transform/type-transform.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17336,9 +17337,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/uri.js":
+/***/ "../../../../../node_modules/@smithy/types/dist-es/uri.js":
+/*!****************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/uri.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/util.js":
+/*!*****************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/types/dist-es/util.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/types/dist-es/waiter.js":
 /*!*******************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/uri.js ***!
+  !*** ../../../../../node_modules/@smithy/types/dist-es/waiter.js ***!
   \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -17349,36 +17376,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/util.js":
-/*!********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/util.js ***!
-  \********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/types/dist-es/waiter.js":
-/*!**********************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/types/dist-es/waiter.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/url-parser/dist-es/index.js":
-/*!**************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/url-parser/dist-es/index.js ***!
-  \**************************************************************************/
+/***/ "../../../../../node_modules/@smithy/url-parser/dist-es/index.js":
+/*!***********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/url-parser/dist-es/index.js ***!
+  \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17386,7 +17387,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   parseUrl: () => (/* binding */ parseUrl)
 /* harmony export */ });
-/* harmony import */ var _smithy_querystring_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/querystring-parser */ "../../../../../../node_modules/@smithy/querystring-parser/dist-es/index.js");
+/* harmony import */ var _smithy_querystring_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/querystring-parser */ "../../../../../node_modules/@smithy/querystring-parser/dist-es/index.js");
 
 const parseUrl = (url) => {
     if (typeof url === "string") {
@@ -17409,10 +17410,10 @@ const parseUrl = (url) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-base64/dist-es/constants.browser.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-base64/dist-es/constants.browser.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-base64/dist-es/constants.browser.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-base64/dist-es/constants.browser.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17456,10 +17457,10 @@ const maxLetterValue = 0b111111;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-base64/dist-es/fromBase64.browser.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-base64/dist-es/fromBase64.browser.js ***!
-  \****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-base64/dist-es/fromBase64.browser.js":
+/*!*************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-base64/dist-es/fromBase64.browser.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17467,7 +17468,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   fromBase64: () => (/* binding */ fromBase64)
 /* harmony export */ });
-/* harmony import */ var _constants_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.browser */ "../../../../../../node_modules/@smithy/util-base64/dist-es/constants.browser.js");
+/* harmony import */ var _constants_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants.browser */ "../../../../../node_modules/@smithy/util-base64/dist-es/constants.browser.js");
 
 const fromBase64 = (input) => {
     let totalByteLength = (input.length / 4) * 3;
@@ -17508,10 +17509,10 @@ const fromBase64 = (input) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-base64/dist-es/index.js":
-/*!***************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-base64/dist-es/index.js ***!
-  \***************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-base64/dist-es/index.js":
+/*!************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-base64/dist-es/index.js ***!
+  \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17520,18 +17521,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   fromBase64: () => (/* reexport safe */ _fromBase64__WEBPACK_IMPORTED_MODULE_0__.fromBase64),
 /* harmony export */   toBase64: () => (/* reexport safe */ _toBase64__WEBPACK_IMPORTED_MODULE_1__.toBase64)
 /* harmony export */ });
-/* harmony import */ var _fromBase64__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fromBase64 */ "../../../../../../node_modules/@smithy/util-base64/dist-es/fromBase64.browser.js");
-/* harmony import */ var _toBase64__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toBase64 */ "../../../../../../node_modules/@smithy/util-base64/dist-es/toBase64.browser.js");
+/* harmony import */ var _fromBase64__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fromBase64 */ "../../../../../node_modules/@smithy/util-base64/dist-es/fromBase64.browser.js");
+/* harmony import */ var _toBase64__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toBase64 */ "../../../../../node_modules/@smithy/util-base64/dist-es/toBase64.browser.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-base64/dist-es/toBase64.browser.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-base64/dist-es/toBase64.browser.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-base64/dist-es/toBase64.browser.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-base64/dist-es/toBase64.browser.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17539,8 +17540,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   toBase64: () => (/* binding */ toBase64)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
-/* harmony import */ var _constants_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants.browser */ "../../../../../../node_modules/@smithy/util-base64/dist-es/constants.browser.js");
+/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
+/* harmony import */ var _constants_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants.browser */ "../../../../../node_modules/@smithy/util-base64/dist-es/constants.browser.js");
 
 
 function toBase64(_input) {
@@ -17580,10 +17581,10 @@ function toBase64(_input) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-body-length-browser/dist-es/calculateBodyLength.js":
-/*!******************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-body-length-browser/dist-es/calculateBodyLength.js ***!
-  \******************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-body-length-browser/dist-es/calculateBodyLength.js":
+/*!***************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-body-length-browser/dist-es/calculateBodyLength.js ***!
+  \***************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17621,10 +17622,10 @@ const calculateBodyLength = (body) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-body-length-browser/dist-es/index.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-body-length-browser/dist-es/index.js ***!
-  \****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-body-length-browser/dist-es/index.js":
+/*!*************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-body-length-browser/dist-es/index.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17632,16 +17633,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   calculateBodyLength: () => (/* reexport safe */ _calculateBodyLength__WEBPACK_IMPORTED_MODULE_0__.calculateBodyLength)
 /* harmony export */ });
-/* harmony import */ var _calculateBodyLength__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./calculateBodyLength */ "../../../../../../node_modules/@smithy/util-body-length-browser/dist-es/calculateBodyLength.js");
+/* harmony import */ var _calculateBodyLength__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./calculateBodyLength */ "../../../../../node_modules/@smithy/util-body-length-browser/dist-es/calculateBodyLength.js");
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-config-provider/dist-es/booleanSelector.js":
-/*!**********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-config-provider/dist-es/booleanSelector.js ***!
-  \**********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-config-provider/dist-es/booleanSelector.js":
+/*!*******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-config-provider/dist-es/booleanSelector.js ***!
+  \*******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17662,10 +17663,10 @@ const booleanSelector = (obj, key, type) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-config-provider/dist-es/index.js":
-/*!************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-config-provider/dist-es/index.js ***!
-  \************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-config-provider/dist-es/index.js":
+/*!*********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-config-provider/dist-es/index.js ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17675,9 +17676,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   booleanSelector: () => (/* reexport safe */ _booleanSelector__WEBPACK_IMPORTED_MODULE_0__.booleanSelector),
 /* harmony export */   numberSelector: () => (/* reexport safe */ _numberSelector__WEBPACK_IMPORTED_MODULE_1__.numberSelector)
 /* harmony export */ });
-/* harmony import */ var _booleanSelector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./booleanSelector */ "../../../../../../node_modules/@smithy/util-config-provider/dist-es/booleanSelector.js");
-/* harmony import */ var _numberSelector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./numberSelector */ "../../../../../../node_modules/@smithy/util-config-provider/dist-es/numberSelector.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "../../../../../../node_modules/@smithy/util-config-provider/dist-es/types.js");
+/* harmony import */ var _booleanSelector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./booleanSelector */ "../../../../../node_modules/@smithy/util-config-provider/dist-es/booleanSelector.js");
+/* harmony import */ var _numberSelector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./numberSelector */ "../../../../../node_modules/@smithy/util-config-provider/dist-es/numberSelector.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "../../../../../node_modules/@smithy/util-config-provider/dist-es/types.js");
 
 
 
@@ -17685,10 +17686,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-config-provider/dist-es/numberSelector.js":
-/*!*********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-config-provider/dist-es/numberSelector.js ***!
-  \*********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-config-provider/dist-es/numberSelector.js":
+/*!******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-config-provider/dist-es/numberSelector.js ***!
+  \******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17709,10 +17710,10 @@ const numberSelector = (obj, key, type) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-config-provider/dist-es/types.js":
-/*!************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-config-provider/dist-es/types.js ***!
-  \************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-config-provider/dist-es/types.js":
+/*!*********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-config-provider/dist-es/types.js ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17729,10 +17730,10 @@ var SelectorType;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/constants.js":
-/*!**********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/constants.js ***!
-  \**********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/constants.js":
+/*!*******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/constants.js ***!
+  \*******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17745,10 +17746,10 @@ const DEFAULTS_MODE_OPTIONS = ["in-region", "cross-region", "mobile", "standard"
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/index.js":
-/*!******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/index.js ***!
-  \******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/index.js":
+/*!***************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/index.js ***!
+  \***************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17756,16 +17757,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   resolveDefaultsModeConfig: () => (/* reexport safe */ _resolveDefaultsModeConfig__WEBPACK_IMPORTED_MODULE_0__.resolveDefaultsModeConfig)
 /* harmony export */ });
-/* harmony import */ var _resolveDefaultsModeConfig__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./resolveDefaultsModeConfig */ "../../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/resolveDefaultsModeConfig.js");
+/* harmony import */ var _resolveDefaultsModeConfig__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./resolveDefaultsModeConfig */ "../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/resolveDefaultsModeConfig.js");
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/resolveDefaultsModeConfig.js":
-/*!**************************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/resolveDefaultsModeConfig.js ***!
-  \**************************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/resolveDefaultsModeConfig.js":
+/*!***********************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/resolveDefaultsModeConfig.js ***!
+  \***********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17773,10 +17774,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   resolveDefaultsModeConfig: () => (/* binding */ resolveDefaultsModeConfig)
 /* harmony export */ });
-/* harmony import */ var _smithy_property_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/property-provider */ "../../../../../../node_modules/@smithy/property-provider/dist-es/index.js");
-/* harmony import */ var bowser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bowser */ "../../../../../../node_modules/bowser/es5.js");
+/* harmony import */ var _smithy_property_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/property-provider */ "../../../../../node_modules/@smithy/property-provider/dist-es/index.js");
+/* harmony import */ var bowser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bowser */ "../../../../../node_modules/bowser/es5.js");
 /* harmony import */ var bowser__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(bowser__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/util-defaults-mode-browser/dist-es/constants.js");
 
 
 
@@ -17808,10 +17809,10 @@ const isMobileBrowser = () => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/debugId.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/debugId.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/debugId.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/debugId.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17824,10 +17825,10 @@ const debugId = "endpoints";
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/index.js":
-/*!************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/index.js ***!
-  \************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/index.js":
+/*!*********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/index.js ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17836,18 +17837,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   debugId: () => (/* reexport safe */ _debugId__WEBPACK_IMPORTED_MODULE_0__.debugId),
 /* harmony export */   toDebugString: () => (/* reexport safe */ _toDebugString__WEBPACK_IMPORTED_MODULE_1__.toDebugString)
 /* harmony export */ });
-/* harmony import */ var _debugId__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./debugId */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/debugId.js");
-/* harmony import */ var _toDebugString__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDebugString */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/toDebugString.js");
+/* harmony import */ var _debugId__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./debugId */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/debugId.js");
+/* harmony import */ var _toDebugString__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDebugString */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/toDebugString.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/toDebugString.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/toDebugString.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/toDebugString.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/toDebugString.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17871,10 +17872,10 @@ function toDebugString(input) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js":
-/*!******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js ***!
-  \******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js":
+/*!***************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/index.js ***!
+  \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17886,11 +17887,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   isValidHostLabel: () => (/* reexport safe */ _lib_isValidHostLabel__WEBPACK_IMPORTED_MODULE_1__.isValidHostLabel),
 /* harmony export */   resolveEndpoint: () => (/* reexport safe */ _resolveEndpoint__WEBPACK_IMPORTED_MODULE_3__.resolveEndpoint)
 /* harmony export */ });
-/* harmony import */ var _lib_isIpAddress__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/isIpAddress */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isIpAddress.js");
-/* harmony import */ var _lib_isValidHostLabel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/isValidHostLabel */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isValidHostLabel.js");
-/* harmony import */ var _utils_customEndpointFunctions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/customEndpointFunctions */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/customEndpointFunctions.js");
-/* harmony import */ var _resolveEndpoint__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./resolveEndpoint */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/resolveEndpoint.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./types */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
+/* harmony import */ var _lib_isIpAddress__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/isIpAddress */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isIpAddress.js");
+/* harmony import */ var _lib_isValidHostLabel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/isValidHostLabel */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isValidHostLabel.js");
+/* harmony import */ var _utils_customEndpointFunctions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/customEndpointFunctions */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/customEndpointFunctions.js");
+/* harmony import */ var _resolveEndpoint__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./resolveEndpoint */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/resolveEndpoint.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./types */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
 
 
 
@@ -17900,10 +17901,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/booleanEquals.js":
-/*!******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/booleanEquals.js ***!
-  \******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/booleanEquals.js":
+/*!***************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/booleanEquals.js ***!
+  \***************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17916,10 +17917,10 @@ const booleanEquals = (value1, value2) => value1 === value2;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/getAttr.js":
-/*!************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/getAttr.js ***!
-  \************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/getAttr.js":
+/*!*********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/getAttr.js ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17927,8 +17928,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getAttr: () => (/* binding */ getAttr)
 /* harmony export */ });
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
-/* harmony import */ var _getAttrPathList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getAttrPathList */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/getAttrPathList.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
+/* harmony import */ var _getAttrPathList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getAttrPathList */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/getAttrPathList.js");
 
 
 const getAttr = (value, path) => (0,_getAttrPathList__WEBPACK_IMPORTED_MODULE_1__.getAttrPathList)(path).reduce((acc, index) => {
@@ -17944,10 +17945,10 @@ const getAttr = (value, path) => (0,_getAttrPathList__WEBPACK_IMPORTED_MODULE_1_
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/getAttrPathList.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/getAttrPathList.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/getAttrPathList.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/getAttrPathList.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17955,7 +17956,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getAttrPathList: () => (/* binding */ getAttrPathList)
 /* harmony export */ });
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
 
 const getAttrPathList = (path) => {
     const parts = path.split(".");
@@ -17985,10 +17986,10 @@ const getAttrPathList = (path) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/index.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/index.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/index.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/index.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18004,15 +18005,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   substring: () => (/* reexport safe */ _substring__WEBPACK_IMPORTED_MODULE_7__.substring),
 /* harmony export */   uriEncode: () => (/* reexport safe */ _uriEncode__WEBPACK_IMPORTED_MODULE_8__.uriEncode)
 /* harmony export */ });
-/* harmony import */ var _booleanEquals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./booleanEquals */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/booleanEquals.js");
-/* harmony import */ var _getAttr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getAttr */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/getAttr.js");
-/* harmony import */ var _isSet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./isSet */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isSet.js");
-/* harmony import */ var _isValidHostLabel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./isValidHostLabel */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isValidHostLabel.js");
-/* harmony import */ var _not__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./not */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/not.js");
-/* harmony import */ var _parseURL__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./parseURL */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/parseURL.js");
-/* harmony import */ var _stringEquals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./stringEquals */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/stringEquals.js");
-/* harmony import */ var _substring__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./substring */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/substring.js");
-/* harmony import */ var _uriEncode__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./uriEncode */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/uriEncode.js");
+/* harmony import */ var _booleanEquals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./booleanEquals */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/booleanEquals.js");
+/* harmony import */ var _getAttr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getAttr */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/getAttr.js");
+/* harmony import */ var _isSet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./isSet */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isSet.js");
+/* harmony import */ var _isValidHostLabel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./isValidHostLabel */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isValidHostLabel.js");
+/* harmony import */ var _not__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./not */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/not.js");
+/* harmony import */ var _parseURL__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./parseURL */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/parseURL.js");
+/* harmony import */ var _stringEquals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./stringEquals */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/stringEquals.js");
+/* harmony import */ var _substring__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./substring */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/substring.js");
+/* harmony import */ var _uriEncode__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./uriEncode */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/uriEncode.js");
 
 
 
@@ -18026,10 +18027,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isIpAddress.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isIpAddress.js ***!
-  \****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isIpAddress.js":
+/*!*************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isIpAddress.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18043,10 +18044,10 @@ const isIpAddress = (value) => IP_V4_REGEX.test(value) || (value.startsWith("[")
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isSet.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isSet.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isSet.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isSet.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18059,10 +18060,10 @@ const isSet = (value) => value != null;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isValidHostLabel.js":
-/*!*********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isValidHostLabel.js ***!
-  \*********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isValidHostLabel.js":
+/*!******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isValidHostLabel.js ***!
+  \******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18087,10 +18088,10 @@ const isValidHostLabel = (value, allowSubDomains = false) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/not.js":
-/*!********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/not.js ***!
-  \********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/not.js":
+/*!*****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/not.js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18103,10 +18104,10 @@ const not = (value) => !value;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/parseURL.js":
-/*!*************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/parseURL.js ***!
-  \*************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/parseURL.js":
+/*!**********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/parseURL.js ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18114,8 +18115,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   parseURL: () => (/* binding */ parseURL)
 /* harmony export */ });
-/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../../node_modules/@smithy/types/dist-es/index.js");
-/* harmony import */ var _isIpAddress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isIpAddress */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isIpAddress.js");
+/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../node_modules/@smithy/types/dist-es/index.js");
+/* harmony import */ var _isIpAddress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isIpAddress */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/isIpAddress.js");
 
 
 const DEFAULT_PORTS = {
@@ -18171,10 +18172,10 @@ const parseURL = (value) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/stringEquals.js":
-/*!*****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/stringEquals.js ***!
-  \*****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/stringEquals.js":
+/*!**************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/stringEquals.js ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18187,10 +18188,10 @@ const stringEquals = (value1, value2) => value1 === value2;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/substring.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/substring.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/substring.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/substring.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18211,10 +18212,10 @@ const substring = (input, start, stop, reverse) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/uriEncode.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/uriEncode.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/uriEncode.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/uriEncode.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18227,10 +18228,10 @@ const uriEncode = (value) => encodeURIComponent(value).replace(/[!*'()]/g, (c) =
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/resolveEndpoint.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/resolveEndpoint.js ***!
-  \****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/resolveEndpoint.js":
+/*!*************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/resolveEndpoint.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18238,9 +18239,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   resolveEndpoint: () => (/* binding */ resolveEndpoint)
 /* harmony export */ });
-/* harmony import */ var _debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./debug */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/index.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/index.js");
+/* harmony import */ var _debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./debug */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/index.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/index.js");
 
 
 
@@ -18282,10 +18283,10 @@ const resolveEndpoint = (ruleSetObject, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointError.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointError.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointError.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointError.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18303,61 +18304,9 @@ class EndpointError extends Error {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointFunctions.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointFunctions.js ***!
-  \************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointRuleObject.js":
-/*!*************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointRuleObject.js ***!
-  \*************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/ErrorRuleObject.js":
-/*!**********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/ErrorRuleObject.js ***!
-  \**********************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/RuleSetObject.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/RuleSetObject.js ***!
-  \********************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/TreeRuleObject.js":
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointFunctions.js":
 /*!*********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/TreeRuleObject.js ***!
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointFunctions.js ***!
   \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -18368,10 +18317,62 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js":
-/*!************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js ***!
-  \************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointRuleObject.js":
+/*!**********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointRuleObject.js ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/ErrorRuleObject.js":
+/*!*******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/types/ErrorRuleObject.js ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/RuleSetObject.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/types/RuleSetObject.js ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/TreeRuleObject.js":
+/*!******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/types/TreeRuleObject.js ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+/***/ }),
+
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js":
+/*!*********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18379,13 +18380,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   EndpointError: () => (/* reexport safe */ _EndpointError__WEBPACK_IMPORTED_MODULE_0__.EndpointError)
 /* harmony export */ });
-/* harmony import */ var _EndpointError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EndpointError */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointError.js");
-/* harmony import */ var _EndpointFunctions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EndpointFunctions */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointFunctions.js");
-/* harmony import */ var _EndpointRuleObject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EndpointRuleObject */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointRuleObject.js");
-/* harmony import */ var _ErrorRuleObject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ErrorRuleObject */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/ErrorRuleObject.js");
-/* harmony import */ var _RuleSetObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RuleSetObject */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/RuleSetObject.js");
-/* harmony import */ var _TreeRuleObject__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TreeRuleObject */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/TreeRuleObject.js");
-/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./shared */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/shared.js");
+/* harmony import */ var _EndpointError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EndpointError */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointError.js");
+/* harmony import */ var _EndpointFunctions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EndpointFunctions */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointFunctions.js");
+/* harmony import */ var _EndpointRuleObject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EndpointRuleObject */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/EndpointRuleObject.js");
+/* harmony import */ var _ErrorRuleObject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ErrorRuleObject */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/ErrorRuleObject.js");
+/* harmony import */ var _RuleSetObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RuleSetObject */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/RuleSetObject.js");
+/* harmony import */ var _TreeRuleObject__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TreeRuleObject */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/TreeRuleObject.js");
+/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./shared */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/shared.js");
 
 
 
@@ -18397,10 +18398,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/shared.js":
-/*!*************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/shared.js ***!
-  \*************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/shared.js":
+/*!**********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/types/shared.js ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18410,10 +18411,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/callFunction.js":
-/*!*******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/callFunction.js ***!
-  \*******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/callFunction.js":
+/*!****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/callFunction.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18421,9 +18422,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   callFunction: () => (/* binding */ callFunction)
 /* harmony export */ });
-/* harmony import */ var _customEndpointFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./customEndpointFunctions */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/customEndpointFunctions.js");
-/* harmony import */ var _endpointFunctions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./endpointFunctions */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/endpointFunctions.js");
-/* harmony import */ var _evaluateExpression__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./evaluateExpression */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateExpression.js");
+/* harmony import */ var _customEndpointFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./customEndpointFunctions */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/customEndpointFunctions.js");
+/* harmony import */ var _endpointFunctions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./endpointFunctions */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/endpointFunctions.js");
+/* harmony import */ var _evaluateExpression__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./evaluateExpression */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateExpression.js");
 
 
 
@@ -18439,10 +18440,10 @@ const callFunction = ({ fn, argv }, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/customEndpointFunctions.js":
-/*!******************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/customEndpointFunctions.js ***!
-  \******************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/customEndpointFunctions.js":
+/*!***************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/customEndpointFunctions.js ***!
+  \***************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18455,10 +18456,10 @@ const customEndpointFunctions = {};
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/endpointFunctions.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/endpointFunctions.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/endpointFunctions.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/endpointFunctions.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18466,7 +18467,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   endpointFunctions: () => (/* binding */ endpointFunctions)
 /* harmony export */ });
-/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/index.js");
 
 const endpointFunctions = {
     booleanEquals: _lib__WEBPACK_IMPORTED_MODULE_0__.booleanEquals,
@@ -18483,10 +18484,10 @@ const endpointFunctions = {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateCondition.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateCondition.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateCondition.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateCondition.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18494,9 +18495,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   evaluateCondition: () => (/* binding */ evaluateCondition)
 /* harmony export */ });
-/* harmony import */ var _debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../debug */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/index.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
-/* harmony import */ var _callFunction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./callFunction */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/callFunction.js");
+/* harmony import */ var _debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../debug */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/index.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
+/* harmony import */ var _callFunction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./callFunction */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/callFunction.js");
 
 
 
@@ -18515,10 +18516,10 @@ const evaluateCondition = ({ assign, ...fnArgs }, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateConditions.js":
-/*!*************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateConditions.js ***!
-  \*************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateConditions.js":
+/*!**********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateConditions.js ***!
+  \**********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18526,8 +18527,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   evaluateConditions: () => (/* binding */ evaluateConditions)
 /* harmony export */ });
-/* harmony import */ var _debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../debug */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/index.js");
-/* harmony import */ var _evaluateCondition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateCondition */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateCondition.js");
+/* harmony import */ var _debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../debug */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/index.js");
+/* harmony import */ var _evaluateCondition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateCondition */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateCondition.js");
 
 
 const evaluateConditions = (conditions = [], options) => {
@@ -18554,10 +18555,10 @@ const evaluateConditions = (conditions = [], options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateEndpointRule.js":
-/*!***************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateEndpointRule.js ***!
-  \***************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateEndpointRule.js":
+/*!************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateEndpointRule.js ***!
+  \************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18565,11 +18566,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   evaluateEndpointRule: () => (/* binding */ evaluateEndpointRule)
 /* harmony export */ });
-/* harmony import */ var _debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../debug */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/index.js");
-/* harmony import */ var _evaluateConditions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateConditions */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateConditions.js");
-/* harmony import */ var _getEndpointHeaders__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getEndpointHeaders */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointHeaders.js");
-/* harmony import */ var _getEndpointProperties__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getEndpointProperties */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperties.js");
-/* harmony import */ var _getEndpointUrl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getEndpointUrl */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointUrl.js");
+/* harmony import */ var _debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../debug */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/debug/index.js");
+/* harmony import */ var _evaluateConditions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateConditions */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateConditions.js");
+/* harmony import */ var _getEndpointHeaders__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getEndpointHeaders */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointHeaders.js");
+/* harmony import */ var _getEndpointProperties__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getEndpointProperties */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperties.js");
+/* harmony import */ var _getEndpointUrl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getEndpointUrl */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointUrl.js");
 
 
 
@@ -18601,10 +18602,10 @@ const evaluateEndpointRule = (endpointRule, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateErrorRule.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateErrorRule.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateErrorRule.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateErrorRule.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18612,9 +18613,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   evaluateErrorRule: () => (/* binding */ evaluateErrorRule)
 /* harmony export */ });
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
-/* harmony import */ var _evaluateConditions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateConditions */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateConditions.js");
-/* harmony import */ var _evaluateExpression__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./evaluateExpression */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateExpression.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
+/* harmony import */ var _evaluateConditions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateConditions */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateConditions.js");
+/* harmony import */ var _evaluateExpression__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./evaluateExpression */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateExpression.js");
 
 
 
@@ -18633,10 +18634,10 @@ const evaluateErrorRule = (errorRule, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateExpression.js":
-/*!*************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateExpression.js ***!
-  \*************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateExpression.js":
+/*!**********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateExpression.js ***!
+  \**********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18644,10 +18645,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   evaluateExpression: () => (/* binding */ evaluateExpression)
 /* harmony export */ });
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
-/* harmony import */ var _callFunction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./callFunction */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/callFunction.js");
-/* harmony import */ var _evaluateTemplate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./evaluateTemplate */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTemplate.js");
-/* harmony import */ var _getReferenceValue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getReferenceValue */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getReferenceValue.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
+/* harmony import */ var _callFunction__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./callFunction */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/callFunction.js");
+/* harmony import */ var _evaluateTemplate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./evaluateTemplate */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTemplate.js");
+/* harmony import */ var _getReferenceValue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getReferenceValue */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getReferenceValue.js");
 
 
 
@@ -18668,10 +18669,10 @@ const evaluateExpression = (obj, keyName, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateRules.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateRules.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateRules.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateRules.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18679,10 +18680,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   evaluateRules: () => (/* binding */ evaluateRules)
 /* harmony export */ });
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
-/* harmony import */ var _evaluateEndpointRule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateEndpointRule */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateEndpointRule.js");
-/* harmony import */ var _evaluateErrorRule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./evaluateErrorRule */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateErrorRule.js");
-/* harmony import */ var _evaluateTreeRule__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./evaluateTreeRule */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTreeRule.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
+/* harmony import */ var _evaluateEndpointRule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateEndpointRule */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateEndpointRule.js");
+/* harmony import */ var _evaluateErrorRule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./evaluateErrorRule */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateErrorRule.js");
+/* harmony import */ var _evaluateTreeRule__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./evaluateTreeRule */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTreeRule.js");
 
 
 
@@ -18714,10 +18715,10 @@ const evaluateRules = (rules, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTemplate.js":
-/*!***********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTemplate.js ***!
-  \***********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTemplate.js":
+/*!********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTemplate.js ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18725,7 +18726,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   evaluateTemplate: () => (/* binding */ evaluateTemplate)
 /* harmony export */ });
-/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/lib/index.js");
 
 const evaluateTemplate = (template, options) => {
     const evaluatedTemplateArr = [];
@@ -18766,10 +18767,10 @@ const evaluateTemplate = (template, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTreeRule.js":
-/*!***********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTreeRule.js ***!
-  \***********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTreeRule.js":
+/*!********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTreeRule.js ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18777,8 +18778,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   evaluateTreeRule: () => (/* binding */ evaluateTreeRule)
 /* harmony export */ });
-/* harmony import */ var _evaluateConditions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./evaluateConditions */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateConditions.js");
-/* harmony import */ var _evaluateRules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateRules */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateRules.js");
+/* harmony import */ var _evaluateConditions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./evaluateConditions */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateConditions.js");
+/* harmony import */ var _evaluateRules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateRules */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateRules.js");
 
 
 const evaluateTreeRule = (treeRule, options) => {
@@ -18796,10 +18797,10 @@ const evaluateTreeRule = (treeRule, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointHeaders.js":
-/*!*************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointHeaders.js ***!
-  \*************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointHeaders.js":
+/*!**********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointHeaders.js ***!
+  \**********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18807,8 +18808,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getEndpointHeaders: () => (/* binding */ getEndpointHeaders)
 /* harmony export */ });
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
-/* harmony import */ var _evaluateExpression__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateExpression */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateExpression.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
+/* harmony import */ var _evaluateExpression__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateExpression */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateExpression.js");
 
 
 const getEndpointHeaders = (headers, options) => Object.entries(headers).reduce((acc, [headerKey, headerVal]) => ({
@@ -18825,10 +18826,10 @@ const getEndpointHeaders = (headers, options) => Object.entries(headers).reduce(
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperties.js":
-/*!****************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperties.js ***!
-  \****************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperties.js":
+/*!*************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperties.js ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18836,7 +18837,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getEndpointProperties: () => (/* binding */ getEndpointProperties)
 /* harmony export */ });
-/* harmony import */ var _getEndpointProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getEndpointProperty */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperty.js");
+/* harmony import */ var _getEndpointProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getEndpointProperty */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperty.js");
 
 const getEndpointProperties = (properties, options) => Object.entries(properties).reduce((acc, [propertyKey, propertyVal]) => ({
     ...acc,
@@ -18846,10 +18847,10 @@ const getEndpointProperties = (properties, options) => Object.entries(properties
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperty.js":
-/*!**************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperty.js ***!
-  \**************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperty.js":
+/*!***********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperty.js ***!
+  \***********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18857,9 +18858,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getEndpointProperty: () => (/* binding */ getEndpointProperty)
 /* harmony export */ });
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
-/* harmony import */ var _evaluateTemplate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateTemplate */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTemplate.js");
-/* harmony import */ var _getEndpointProperties__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getEndpointProperties */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperties.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
+/* harmony import */ var _evaluateTemplate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateTemplate */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateTemplate.js");
+/* harmony import */ var _getEndpointProperties__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getEndpointProperties */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointProperties.js");
 
 
 
@@ -18885,10 +18886,10 @@ const getEndpointProperty = (property, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointUrl.js":
-/*!*********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointUrl.js ***!
-  \*********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointUrl.js":
+/*!******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getEndpointUrl.js ***!
+  \******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18896,8 +18897,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getEndpointUrl: () => (/* binding */ getEndpointUrl)
 /* harmony export */ });
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
-/* harmony import */ var _evaluateExpression__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateExpression */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateExpression.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/types/index.js");
+/* harmony import */ var _evaluateExpression__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateExpression */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateExpression.js");
 
 
 const getEndpointUrl = (endpointUrl, options) => {
@@ -18917,10 +18918,10 @@ const getEndpointUrl = (endpointUrl, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getReferenceValue.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getReferenceValue.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getReferenceValue.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/getReferenceValue.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18939,10 +18940,10 @@ const getReferenceValue = ({ ref }, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/index.js":
-/*!************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/index.js ***!
-  \************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/index.js":
+/*!*********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/index.js ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -18951,18 +18952,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   customEndpointFunctions: () => (/* reexport safe */ _customEndpointFunctions__WEBPACK_IMPORTED_MODULE_0__.customEndpointFunctions),
 /* harmony export */   evaluateRules: () => (/* reexport safe */ _evaluateRules__WEBPACK_IMPORTED_MODULE_1__.evaluateRules)
 /* harmony export */ });
-/* harmony import */ var _customEndpointFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./customEndpointFunctions */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/customEndpointFunctions.js");
-/* harmony import */ var _evaluateRules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateRules */ "../../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateRules.js");
+/* harmony import */ var _customEndpointFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./customEndpointFunctions */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/customEndpointFunctions.js");
+/* harmony import */ var _evaluateRules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./evaluateRules */ "../../../../../node_modules/@smithy/util-endpoints/dist-es/utils/evaluateRules.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js":
-/*!*********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js ***!
-  \*********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js":
+/*!******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19008,10 +19009,10 @@ function toHex(bytes) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-middleware/dist-es/getSmithyContext.js":
-/*!******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-middleware/dist-es/getSmithyContext.js ***!
-  \******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-middleware/dist-es/getSmithyContext.js":
+/*!***************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-middleware/dist-es/getSmithyContext.js ***!
+  \***************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19019,17 +19020,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getSmithyContext: () => (/* binding */ getSmithyContext)
 /* harmony export */ });
-/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../../node_modules/@smithy/types/dist-es/index.js");
+/* harmony import */ var _smithy_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/types */ "../../../../../node_modules/@smithy/types/dist-es/index.js");
 
 const getSmithyContext = (context) => context[_smithy_types__WEBPACK_IMPORTED_MODULE_0__.SMITHY_CONTEXT_KEY] || (context[_smithy_types__WEBPACK_IMPORTED_MODULE_0__.SMITHY_CONTEXT_KEY] = {});
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-middleware/dist-es/index.js":
-/*!*******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-middleware/dist-es/index.js ***!
-  \*******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-middleware/dist-es/index.js":
+/*!****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-middleware/dist-es/index.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19038,18 +19039,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getSmithyContext: () => (/* reexport safe */ _getSmithyContext__WEBPACK_IMPORTED_MODULE_0__.getSmithyContext),
 /* harmony export */   normalizeProvider: () => (/* reexport safe */ _normalizeProvider__WEBPACK_IMPORTED_MODULE_1__.normalizeProvider)
 /* harmony export */ });
-/* harmony import */ var _getSmithyContext__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getSmithyContext */ "../../../../../../node_modules/@smithy/util-middleware/dist-es/getSmithyContext.js");
-/* harmony import */ var _normalizeProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./normalizeProvider */ "../../../../../../node_modules/@smithy/util-middleware/dist-es/normalizeProvider.js");
+/* harmony import */ var _getSmithyContext__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getSmithyContext */ "../../../../../node_modules/@smithy/util-middleware/dist-es/getSmithyContext.js");
+/* harmony import */ var _normalizeProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./normalizeProvider */ "../../../../../node_modules/@smithy/util-middleware/dist-es/normalizeProvider.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-middleware/dist-es/normalizeProvider.js":
-/*!*******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-middleware/dist-es/normalizeProvider.js ***!
-  \*******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-middleware/dist-es/normalizeProvider.js":
+/*!****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-middleware/dist-es/normalizeProvider.js ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19067,10 +19068,10 @@ const normalizeProvider = (input) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-retry/dist-es/AdaptiveRetryStrategy.js":
-/*!******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-retry/dist-es/AdaptiveRetryStrategy.js ***!
-  \******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-retry/dist-es/AdaptiveRetryStrategy.js":
+/*!***************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-retry/dist-es/AdaptiveRetryStrategy.js ***!
+  \***************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19078,9 +19079,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   AdaptiveRetryStrategy: () => (/* binding */ AdaptiveRetryStrategy)
 /* harmony export */ });
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ "../../../../../../node_modules/@smithy/util-retry/dist-es/config.js");
-/* harmony import */ var _DefaultRateLimiter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DefaultRateLimiter */ "../../../../../../node_modules/@smithy/util-retry/dist-es/DefaultRateLimiter.js");
-/* harmony import */ var _StandardRetryStrategy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StandardRetryStrategy */ "../../../../../../node_modules/@smithy/util-retry/dist-es/StandardRetryStrategy.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ "../../../../../node_modules/@smithy/util-retry/dist-es/config.js");
+/* harmony import */ var _DefaultRateLimiter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DefaultRateLimiter */ "../../../../../node_modules/@smithy/util-retry/dist-es/DefaultRateLimiter.js");
+/* harmony import */ var _StandardRetryStrategy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StandardRetryStrategy */ "../../../../../node_modules/@smithy/util-retry/dist-es/StandardRetryStrategy.js");
 
 
 
@@ -19109,10 +19110,10 @@ class AdaptiveRetryStrategy {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-retry/dist-es/ConfiguredRetryStrategy.js":
-/*!********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-retry/dist-es/ConfiguredRetryStrategy.js ***!
-  \********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-retry/dist-es/ConfiguredRetryStrategy.js":
+/*!*****************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-retry/dist-es/ConfiguredRetryStrategy.js ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19120,8 +19121,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ConfiguredRetryStrategy: () => (/* binding */ ConfiguredRetryStrategy)
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/util-retry/dist-es/constants.js");
-/* harmony import */ var _StandardRetryStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StandardRetryStrategy */ "../../../../../../node_modules/@smithy/util-retry/dist-es/StandardRetryStrategy.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/util-retry/dist-es/constants.js");
+/* harmony import */ var _StandardRetryStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StandardRetryStrategy */ "../../../../../node_modules/@smithy/util-retry/dist-es/StandardRetryStrategy.js");
 
 
 class ConfiguredRetryStrategy extends _StandardRetryStrategy__WEBPACK_IMPORTED_MODULE_1__.StandardRetryStrategy {
@@ -19144,10 +19145,10 @@ class ConfiguredRetryStrategy extends _StandardRetryStrategy__WEBPACK_IMPORTED_M
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-retry/dist-es/DefaultRateLimiter.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-retry/dist-es/DefaultRateLimiter.js ***!
-  \***************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-retry/dist-es/DefaultRateLimiter.js":
+/*!************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-retry/dist-es/DefaultRateLimiter.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19155,7 +19156,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   DefaultRateLimiter: () => (/* binding */ DefaultRateLimiter)
 /* harmony export */ });
-/* harmony import */ var _smithy_service_error_classification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/service-error-classification */ "../../../../../../node_modules/@smithy/service-error-classification/dist-es/index.js");
+/* harmony import */ var _smithy_service_error_classification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/service-error-classification */ "../../../../../node_modules/@smithy/service-error-classification/dist-es/index.js");
 
 class DefaultRateLimiter {
     constructor(options) {
@@ -19259,10 +19260,10 @@ class DefaultRateLimiter {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-retry/dist-es/StandardRetryStrategy.js":
-/*!******************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-retry/dist-es/StandardRetryStrategy.js ***!
-  \******************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-retry/dist-es/StandardRetryStrategy.js":
+/*!***************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-retry/dist-es/StandardRetryStrategy.js ***!
+  \***************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19270,10 +19271,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   StandardRetryStrategy: () => (/* binding */ StandardRetryStrategy)
 /* harmony export */ });
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ "../../../../../../node_modules/@smithy/util-retry/dist-es/config.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/util-retry/dist-es/constants.js");
-/* harmony import */ var _defaultRetryBackoffStrategy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./defaultRetryBackoffStrategy */ "../../../../../../node_modules/@smithy/util-retry/dist-es/defaultRetryBackoffStrategy.js");
-/* harmony import */ var _defaultRetryToken__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./defaultRetryToken */ "../../../../../../node_modules/@smithy/util-retry/dist-es/defaultRetryToken.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config */ "../../../../../node_modules/@smithy/util-retry/dist-es/config.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/util-retry/dist-es/constants.js");
+/* harmony import */ var _defaultRetryBackoffStrategy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./defaultRetryBackoffStrategy */ "../../../../../node_modules/@smithy/util-retry/dist-es/defaultRetryBackoffStrategy.js");
+/* harmony import */ var _defaultRetryToken__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./defaultRetryToken */ "../../../../../node_modules/@smithy/util-retry/dist-es/defaultRetryToken.js");
 
 
 
@@ -19343,10 +19344,10 @@ class StandardRetryStrategy {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-retry/dist-es/config.js":
-/*!***************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-retry/dist-es/config.js ***!
-  \***************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-retry/dist-es/config.js":
+/*!************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-retry/dist-es/config.js ***!
+  \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19367,10 +19368,10 @@ const DEFAULT_RETRY_MODE = RETRY_MODES.STANDARD;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-retry/dist-es/constants.js":
-/*!******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-retry/dist-es/constants.js ***!
-  \******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-retry/dist-es/constants.js":
+/*!***************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-retry/dist-es/constants.js ***!
+  \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19399,10 +19400,10 @@ const REQUEST_HEADER = "amz-sdk-request";
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-retry/dist-es/defaultRetryBackoffStrategy.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-retry/dist-es/defaultRetryBackoffStrategy.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-retry/dist-es/defaultRetryBackoffStrategy.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-retry/dist-es/defaultRetryBackoffStrategy.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19410,7 +19411,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getDefaultRetryBackoffStrategy: () => (/* binding */ getDefaultRetryBackoffStrategy)
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/util-retry/dist-es/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/util-retry/dist-es/constants.js");
 
 const getDefaultRetryBackoffStrategy = () => {
     let delayBase = _constants__WEBPACK_IMPORTED_MODULE_0__.DEFAULT_RETRY_DELAY_BASE;
@@ -19429,10 +19430,10 @@ const getDefaultRetryBackoffStrategy = () => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-retry/dist-es/defaultRetryToken.js":
-/*!**************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-retry/dist-es/defaultRetryToken.js ***!
-  \**************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-retry/dist-es/defaultRetryToken.js":
+/*!***********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-retry/dist-es/defaultRetryToken.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19440,7 +19441,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   createDefaultRetryToken: () => (/* binding */ createDefaultRetryToken)
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/util-retry/dist-es/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/util-retry/dist-es/constants.js");
 
 const createDefaultRetryToken = ({ retryDelay, retryCount, retryCost, }) => {
     const getRetryCount = () => retryCount;
@@ -19456,10 +19457,10 @@ const createDefaultRetryToken = ({ retryDelay, retryCount, retryCost, }) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-retry/dist-es/index.js":
-/*!**************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-retry/dist-es/index.js ***!
-  \**************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-retry/dist-es/index.js":
+/*!***********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-retry/dist-es/index.js ***!
+  \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19482,13 +19483,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   THROTTLING_RETRY_DELAY_BASE: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_5__.THROTTLING_RETRY_DELAY_BASE),
 /* harmony export */   TIMEOUT_RETRY_COST: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_5__.TIMEOUT_RETRY_COST)
 /* harmony export */ });
-/* harmony import */ var _AdaptiveRetryStrategy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdaptiveRetryStrategy */ "../../../../../../node_modules/@smithy/util-retry/dist-es/AdaptiveRetryStrategy.js");
-/* harmony import */ var _ConfiguredRetryStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ConfiguredRetryStrategy */ "../../../../../../node_modules/@smithy/util-retry/dist-es/ConfiguredRetryStrategy.js");
-/* harmony import */ var _DefaultRateLimiter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DefaultRateLimiter */ "../../../../../../node_modules/@smithy/util-retry/dist-es/DefaultRateLimiter.js");
-/* harmony import */ var _StandardRetryStrategy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./StandardRetryStrategy */ "../../../../../../node_modules/@smithy/util-retry/dist-es/StandardRetryStrategy.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./config */ "../../../../../../node_modules/@smithy/util-retry/dist-es/config.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./constants */ "../../../../../../node_modules/@smithy/util-retry/dist-es/constants.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./types */ "../../../../../../node_modules/@smithy/util-retry/dist-es/types.js");
+/* harmony import */ var _AdaptiveRetryStrategy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdaptiveRetryStrategy */ "../../../../../node_modules/@smithy/util-retry/dist-es/AdaptiveRetryStrategy.js");
+/* harmony import */ var _ConfiguredRetryStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ConfiguredRetryStrategy */ "../../../../../node_modules/@smithy/util-retry/dist-es/ConfiguredRetryStrategy.js");
+/* harmony import */ var _DefaultRateLimiter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DefaultRateLimiter */ "../../../../../node_modules/@smithy/util-retry/dist-es/DefaultRateLimiter.js");
+/* harmony import */ var _StandardRetryStrategy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./StandardRetryStrategy */ "../../../../../node_modules/@smithy/util-retry/dist-es/StandardRetryStrategy.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./config */ "../../../../../node_modules/@smithy/util-retry/dist-es/config.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./constants */ "../../../../../node_modules/@smithy/util-retry/dist-es/constants.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./types */ "../../../../../node_modules/@smithy/util-retry/dist-es/types.js");
 
 
 
@@ -19500,10 +19501,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-retry/dist-es/types.js":
-/*!**************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-retry/dist-es/types.js ***!
-  \**************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-retry/dist-es/types.js":
+/*!***********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-retry/dist-es/types.js ***!
+  \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19513,10 +19514,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-stream/dist-es/blob/Uint8ArrayBlobAdapter.js":
-/*!************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-stream/dist-es/blob/Uint8ArrayBlobAdapter.js ***!
-  \************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-stream/dist-es/blob/Uint8ArrayBlobAdapter.js":
+/*!*********************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-stream/dist-es/blob/Uint8ArrayBlobAdapter.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19524,7 +19525,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Uint8ArrayBlobAdapter: () => (/* binding */ Uint8ArrayBlobAdapter)
 /* harmony export */ });
-/* harmony import */ var _transforms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./transforms */ "../../../../../../node_modules/@smithy/util-stream/dist-es/blob/transforms.js");
+/* harmony import */ var _transforms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./transforms */ "../../../../../node_modules/@smithy/util-stream/dist-es/blob/transforms.js");
 
 class Uint8ArrayBlobAdapter extends Uint8Array {
     static fromString(source, encoding = "utf-8") {
@@ -19547,10 +19548,10 @@ class Uint8ArrayBlobAdapter extends Uint8Array {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-stream/dist-es/blob/transforms.js":
-/*!*************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-stream/dist-es/blob/transforms.js ***!
-  \*************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-stream/dist-es/blob/transforms.js":
+/*!**********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-stream/dist-es/blob/transforms.js ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19559,9 +19560,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   transformFromString: () => (/* binding */ transformFromString),
 /* harmony export */   transformToString: () => (/* binding */ transformToString)
 /* harmony export */ });
-/* harmony import */ var _smithy_util_base64__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-base64 */ "../../../../../../node_modules/@smithy/util-base64/dist-es/index.js");
-/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
-/* harmony import */ var _Uint8ArrayBlobAdapter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Uint8ArrayBlobAdapter */ "../../../../../../node_modules/@smithy/util-stream/dist-es/blob/Uint8ArrayBlobAdapter.js");
+/* harmony import */ var _smithy_util_base64__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/util-base64 */ "../../../../../node_modules/@smithy/util-base64/dist-es/index.js");
+/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
+/* harmony import */ var _Uint8ArrayBlobAdapter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Uint8ArrayBlobAdapter */ "../../../../../node_modules/@smithy/util-stream/dist-es/blob/Uint8ArrayBlobAdapter.js");
 
 
 
@@ -19581,10 +19582,10 @@ function transformFromString(str, encoding) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-stream/dist-es/getAwsChunkedEncodingStream.browser.js":
-/*!*********************************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-stream/dist-es/getAwsChunkedEncodingStream.browser.js ***!
-  \*********************************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-stream/dist-es/getAwsChunkedEncodingStream.browser.js":
+/*!******************************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-stream/dist-es/getAwsChunkedEncodingStream.browser.js ***!
+  \******************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19623,56 +19624,10 @@ const getAwsChunkedEncodingStream = (readableStream, options) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-stream/dist-es/headStream.browser.js":
-/*!****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-stream/dist-es/headStream.browser.js ***!
-  \****************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   headStream: () => (/* binding */ headStream)
-/* harmony export */ });
-async function headStream(stream, bytes) {
-    let byteLengthCounter = 0;
-    const chunks = [];
-    const reader = stream.getReader();
-    let isDone = false;
-    while (!isDone) {
-        const { done, value } = await reader.read();
-        if (value) {
-            chunks.push(value);
-            byteLengthCounter += value?.byteLength ?? 0;
-        }
-        if (byteLengthCounter >= bytes) {
-            break;
-        }
-        isDone = done;
-    }
-    reader.releaseLock();
-    const collected = new Uint8Array(Math.min(bytes, byteLengthCounter));
-    let offset = 0;
-    for (const chunk of chunks) {
-        if (chunk.byteLength > collected.byteLength - offset) {
-            collected.set(chunk.subarray(0, collected.byteLength - offset), offset);
-            break;
-        }
-        else {
-            collected.set(chunk, offset);
-        }
-        offset += chunk.length;
-    }
-    return collected;
-}
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/util-stream/dist-es/index.js":
-/*!***************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-stream/dist-es/index.js ***!
-  \***************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-stream/dist-es/index.js":
+/*!************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-stream/dist-es/index.js ***!
+  \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19680,20 +19635,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Uint8ArrayBlobAdapter: () => (/* reexport safe */ _blob_Uint8ArrayBlobAdapter__WEBPACK_IMPORTED_MODULE_0__.Uint8ArrayBlobAdapter),
 /* harmony export */   getAwsChunkedEncodingStream: () => (/* reexport safe */ _getAwsChunkedEncodingStream__WEBPACK_IMPORTED_MODULE_1__.getAwsChunkedEncodingStream),
-/* harmony export */   headStream: () => (/* reexport safe */ _headStream__WEBPACK_IMPORTED_MODULE_4__.headStream),
-/* harmony export */   isReadableStream: () => (/* reexport safe */ _stream_type_check__WEBPACK_IMPORTED_MODULE_5__.isReadableStream),
-/* harmony export */   sdkStreamMixin: () => (/* reexport safe */ _sdk_stream_mixin__WEBPACK_IMPORTED_MODULE_2__.sdkStreamMixin),
-/* harmony export */   splitStream: () => (/* reexport safe */ _splitStream__WEBPACK_IMPORTED_MODULE_3__.splitStream)
+/* harmony export */   sdkStreamMixin: () => (/* reexport safe */ _sdk_stream_mixin__WEBPACK_IMPORTED_MODULE_2__.sdkStreamMixin)
 /* harmony export */ });
-/* harmony import */ var _blob_Uint8ArrayBlobAdapter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./blob/Uint8ArrayBlobAdapter */ "../../../../../../node_modules/@smithy/util-stream/dist-es/blob/Uint8ArrayBlobAdapter.js");
-/* harmony import */ var _getAwsChunkedEncodingStream__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getAwsChunkedEncodingStream */ "../../../../../../node_modules/@smithy/util-stream/dist-es/getAwsChunkedEncodingStream.browser.js");
-/* harmony import */ var _sdk_stream_mixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sdk-stream-mixin */ "../../../../../../node_modules/@smithy/util-stream/dist-es/sdk-stream-mixin.browser.js");
-/* harmony import */ var _splitStream__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./splitStream */ "../../../../../../node_modules/@smithy/util-stream/dist-es/splitStream.browser.js");
-/* harmony import */ var _headStream__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./headStream */ "../../../../../../node_modules/@smithy/util-stream/dist-es/headStream.browser.js");
-/* harmony import */ var _stream_type_check__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./stream-type-check */ "../../../../../../node_modules/@smithy/util-stream/dist-es/stream-type-check.js");
-
-
-
+/* harmony import */ var _blob_Uint8ArrayBlobAdapter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./blob/Uint8ArrayBlobAdapter */ "../../../../../node_modules/@smithy/util-stream/dist-es/blob/Uint8ArrayBlobAdapter.js");
+/* harmony import */ var _getAwsChunkedEncodingStream__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getAwsChunkedEncodingStream */ "../../../../../node_modules/@smithy/util-stream/dist-es/getAwsChunkedEncodingStream.browser.js");
+/* harmony import */ var _sdk_stream_mixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sdk-stream-mixin */ "../../../../../node_modules/@smithy/util-stream/dist-es/sdk-stream-mixin.browser.js");
 
 
 
@@ -19701,10 +19647,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-stream/dist-es/sdk-stream-mixin.browser.js":
-/*!**********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-stream/dist-es/sdk-stream-mixin.browser.js ***!
-  \**********************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-stream/dist-es/sdk-stream-mixin.browser.js":
+/*!*******************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-stream/dist-es/sdk-stream-mixin.browser.js ***!
+  \*******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19712,19 +19658,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   sdkStreamMixin: () => (/* binding */ sdkStreamMixin)
 /* harmony export */ });
-/* harmony import */ var _smithy_fetch_http_handler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/fetch-http-handler */ "../../../../../../node_modules/@smithy/fetch-http-handler/dist-es/index.js");
-/* harmony import */ var _smithy_util_base64__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-base64 */ "../../../../../../node_modules/@smithy/util-base64/dist-es/index.js");
-/* harmony import */ var _smithy_util_hex_encoding__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/util-hex-encoding */ "../../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js");
-/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
-/* harmony import */ var _stream_type_check__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./stream-type-check */ "../../../../../../node_modules/@smithy/util-stream/dist-es/stream-type-check.js");
-
+/* harmony import */ var _smithy_fetch_http_handler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @smithy/fetch-http-handler */ "../../../../../node_modules/@smithy/fetch-http-handler/dist-es/index.js");
+/* harmony import */ var _smithy_util_base64__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @smithy/util-base64 */ "../../../../../node_modules/@smithy/util-base64/dist-es/index.js");
+/* harmony import */ var _smithy_util_hex_encoding__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @smithy/util-hex-encoding */ "../../../../../node_modules/@smithy/util-hex-encoding/dist-es/index.js");
+/* harmony import */ var _smithy_util_utf8__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @smithy/util-utf8 */ "../../../../../node_modules/@smithy/util-utf8/dist-es/index.js");
 
 
 
 
 const ERR_MSG_STREAM_HAS_BEEN_TRANSFORMED = "The stream has already been transformed.";
 const sdkStreamMixin = (stream) => {
-    if (!isBlobInstance(stream) && !(0,_stream_type_check__WEBPACK_IMPORTED_MODULE_4__.isReadableStream)(stream)) {
+    if (!isBlobInstance(stream) && !isReadableStreamInstance(stream)) {
         const name = stream?.__proto__?.constructor?.name || stream;
         throw new Error(`Unexpected stream implementation, expect Blob or ReadableStream, got ${name}`);
     }
@@ -19771,7 +19715,7 @@ const sdkStreamMixin = (stream) => {
             if (isBlobInstance(stream)) {
                 return blobToWebStream(stream);
             }
-            else if ((0,_stream_type_check__WEBPACK_IMPORTED_MODULE_4__.isReadableStream)(stream)) {
+            else if (isReadableStreamInstance(stream)) {
                 return stream;
             }
             else {
@@ -19781,53 +19725,15 @@ const sdkStreamMixin = (stream) => {
     });
 };
 const isBlobInstance = (stream) => typeof Blob === "function" && stream instanceof Blob;
+const isReadableStreamInstance = (stream) => typeof ReadableStream === "function" && stream instanceof ReadableStream;
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-stream/dist-es/splitStream.browser.js":
-/*!*****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-stream/dist-es/splitStream.browser.js ***!
-  \*****************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   splitStream: () => (/* binding */ splitStream)
-/* harmony export */ });
-async function splitStream(stream) {
-    if (typeof stream.stream === "function") {
-        stream = stream.stream();
-    }
-    const readableStream = stream;
-    return readableStream.tee();
-}
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/util-stream/dist-es/stream-type-check.js":
-/*!***************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-stream/dist-es/stream-type-check.js ***!
-  \***************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   isReadableStream: () => (/* binding */ isReadableStream)
-/* harmony export */ });
-const isReadableStream = (stream) => typeof ReadableStream === "function" &&
-    (stream?.constructor?.name === ReadableStream.name || stream instanceof ReadableStream);
-
-
-/***/ }),
-
-/***/ "../../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri-path.js":
-/*!*****************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri-path.js ***!
-  \*****************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri-path.js":
+/*!**************************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri-path.js ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19835,17 +19741,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   escapeUriPath: () => (/* binding */ escapeUriPath)
 /* harmony export */ });
-/* harmony import */ var _escape_uri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./escape-uri */ "../../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri.js");
+/* harmony import */ var _escape_uri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./escape-uri */ "../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri.js");
 
 const escapeUriPath = (uri) => uri.split("/").map(_escape_uri__WEBPACK_IMPORTED_MODULE_0__.escapeUri).join("/");
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri.js":
-/*!************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri.js ***!
-  \************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri.js":
+/*!*********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri.js ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19859,10 +19765,10 @@ const hexEncode = (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`;
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-uri-escape/dist-es/index.js":
-/*!*******************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-uri-escape/dist-es/index.js ***!
-  \*******************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-uri-escape/dist-es/index.js":
+/*!****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-uri-escape/dist-es/index.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19871,18 +19777,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   escapeUri: () => (/* reexport safe */ _escape_uri__WEBPACK_IMPORTED_MODULE_0__.escapeUri),
 /* harmony export */   escapeUriPath: () => (/* reexport safe */ _escape_uri_path__WEBPACK_IMPORTED_MODULE_1__.escapeUriPath)
 /* harmony export */ });
-/* harmony import */ var _escape_uri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./escape-uri */ "../../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri.js");
-/* harmony import */ var _escape_uri_path__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./escape-uri-path */ "../../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri-path.js");
+/* harmony import */ var _escape_uri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./escape-uri */ "../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri.js");
+/* harmony import */ var _escape_uri_path__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./escape-uri-path */ "../../../../../node_modules/@smithy/util-uri-escape/dist-es/escape-uri-path.js");
 
 
 
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js":
-/*!************************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js ***!
-  \************************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js":
+/*!*********************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19895,10 +19801,10 @@ const fromUtf8 = (input) => new TextEncoder().encode(input);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-utf8/dist-es/index.js":
-/*!*************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-utf8/dist-es/index.js ***!
-  \*************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-utf8/dist-es/index.js":
+/*!**********************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-utf8/dist-es/index.js ***!
+  \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19908,9 +19814,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   toUint8Array: () => (/* reexport safe */ _toUint8Array__WEBPACK_IMPORTED_MODULE_1__.toUint8Array),
 /* harmony export */   toUtf8: () => (/* reexport safe */ _toUtf8__WEBPACK_IMPORTED_MODULE_2__.toUtf8)
 /* harmony export */ });
-/* harmony import */ var _fromUtf8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fromUtf8 */ "../../../../../../node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js");
-/* harmony import */ var _toUint8Array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toUint8Array */ "../../../../../../node_modules/@smithy/util-utf8/dist-es/toUint8Array.js");
-/* harmony import */ var _toUtf8__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toUtf8 */ "../../../../../../node_modules/@smithy/util-utf8/dist-es/toUtf8.browser.js");
+/* harmony import */ var _fromUtf8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fromUtf8 */ "../../../../../node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js");
+/* harmony import */ var _toUint8Array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toUint8Array */ "../../../../../node_modules/@smithy/util-utf8/dist-es/toUint8Array.js");
+/* harmony import */ var _toUtf8__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toUtf8 */ "../../../../../node_modules/@smithy/util-utf8/dist-es/toUtf8.browser.js");
 
 
 
@@ -19918,10 +19824,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-utf8/dist-es/toUint8Array.js":
-/*!********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-utf8/dist-es/toUint8Array.js ***!
-  \********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-utf8/dist-es/toUint8Array.js":
+/*!*****************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-utf8/dist-es/toUint8Array.js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19929,7 +19835,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   toUint8Array: () => (/* binding */ toUint8Array)
 /* harmony export */ });
-/* harmony import */ var _fromUtf8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fromUtf8 */ "../../../../../../node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js");
+/* harmony import */ var _fromUtf8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fromUtf8 */ "../../../../../node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js");
 
 const toUint8Array = (data) => {
     if (typeof data === "string") {
@@ -19944,10 +19850,10 @@ const toUint8Array = (data) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@smithy/util-utf8/dist-es/toUtf8.browser.js":
-/*!**********************************************************************************!*\
-  !*** ../../../../../../node_modules/@smithy/util-utf8/dist-es/toUtf8.browser.js ***!
-  \**********************************************************************************/
+/***/ "../../../../../node_modules/@smithy/util-utf8/dist-es/toUtf8.browser.js":
+/*!*******************************************************************************!*\
+  !*** ../../../../../node_modules/@smithy/util-utf8/dist-es/toUtf8.browser.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19968,20 +19874,20 @@ const toUtf8 = (input) => {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/bowser/es5.js":
-/*!****************************************************!*\
-  !*** ../../../../../../node_modules/bowser/es5.js ***!
-  \****************************************************/
+/***/ "../../../../../node_modules/bowser/es5.js":
+/*!*************************************************!*\
+  !*** ../../../../../node_modules/bowser/es5.js ***!
+  \*************************************************/
 /***/ (function(module) {
 
 !function(e,t){ true?module.exports=t():0}(this,(function(){return function(e){var t={};function r(n){if(t[n])return t[n].exports;var i=t[n]={i:n,l:!1,exports:{}};return e[n].call(i.exports,i,i.exports,r),i.l=!0,i.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var i in e)r.d(n,i,function(t){return e[t]}.bind(null,i));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="",r(r.s=90)}({17:function(e,t,r){"use strict";t.__esModule=!0,t.default=void 0;var n=r(18),i=function(){function e(){}return e.getFirstMatch=function(e,t){var r=t.match(e);return r&&r.length>0&&r[1]||""},e.getSecondMatch=function(e,t){var r=t.match(e);return r&&r.length>1&&r[2]||""},e.matchAndReturnConst=function(e,t,r){if(e.test(t))return r},e.getWindowsVersionName=function(e){switch(e){case"NT":return"NT";case"XP":return"XP";case"NT 5.0":return"2000";case"NT 5.1":return"XP";case"NT 5.2":return"2003";case"NT 6.0":return"Vista";case"NT 6.1":return"7";case"NT 6.2":return"8";case"NT 6.3":return"8.1";case"NT 10.0":return"10";default:return}},e.getMacOSVersionName=function(e){var t=e.split(".").splice(0,2).map((function(e){return parseInt(e,10)||0}));if(t.push(0),10===t[0])switch(t[1]){case 5:return"Leopard";case 6:return"Snow Leopard";case 7:return"Lion";case 8:return"Mountain Lion";case 9:return"Mavericks";case 10:return"Yosemite";case 11:return"El Capitan";case 12:return"Sierra";case 13:return"High Sierra";case 14:return"Mojave";case 15:return"Catalina";default:return}},e.getAndroidVersionName=function(e){var t=e.split(".").splice(0,2).map((function(e){return parseInt(e,10)||0}));if(t.push(0),!(1===t[0]&&t[1]<5))return 1===t[0]&&t[1]<6?"Cupcake":1===t[0]&&t[1]>=6?"Donut":2===t[0]&&t[1]<2?"Eclair":2===t[0]&&2===t[1]?"Froyo":2===t[0]&&t[1]>2?"Gingerbread":3===t[0]?"Honeycomb":4===t[0]&&t[1]<1?"Ice Cream Sandwich":4===t[0]&&t[1]<4?"Jelly Bean":4===t[0]&&t[1]>=4?"KitKat":5===t[0]?"Lollipop":6===t[0]?"Marshmallow":7===t[0]?"Nougat":8===t[0]?"Oreo":9===t[0]?"Pie":void 0},e.getVersionPrecision=function(e){return e.split(".").length},e.compareVersions=function(t,r,n){void 0===n&&(n=!1);var i=e.getVersionPrecision(t),s=e.getVersionPrecision(r),a=Math.max(i,s),o=0,u=e.map([t,r],(function(t){var r=a-e.getVersionPrecision(t),n=t+new Array(r+1).join(".0");return e.map(n.split("."),(function(e){return new Array(20-e.length).join("0")+e})).reverse()}));for(n&&(o=a-Math.min(i,s)),a-=1;a>=o;){if(u[0][a]>u[1][a])return 1;if(u[0][a]===u[1][a]){if(a===o)return 0;a-=1}else if(u[0][a]<u[1][a])return-1}},e.map=function(e,t){var r,n=[];if(Array.prototype.map)return Array.prototype.map.call(e,t);for(r=0;r<e.length;r+=1)n.push(t(e[r]));return n},e.find=function(e,t){var r,n;if(Array.prototype.find)return Array.prototype.find.call(e,t);for(r=0,n=e.length;r<n;r+=1){var i=e[r];if(t(i,r))return i}},e.assign=function(e){for(var t,r,n=e,i=arguments.length,s=new Array(i>1?i-1:0),a=1;a<i;a++)s[a-1]=arguments[a];if(Object.assign)return Object.assign.apply(Object,[e].concat(s));var o=function(){var e=s[t];"object"==typeof e&&null!==e&&Object.keys(e).forEach((function(t){n[t]=e[t]}))};for(t=0,r=s.length;t<r;t+=1)o();return e},e.getBrowserAlias=function(e){return n.BROWSER_ALIASES_MAP[e]},e.getBrowserTypeByAlias=function(e){return n.BROWSER_MAP[e]||""},e}();t.default=i,e.exports=t.default},18:function(e,t,r){"use strict";t.__esModule=!0,t.ENGINE_MAP=t.OS_MAP=t.PLATFORMS_MAP=t.BROWSER_MAP=t.BROWSER_ALIASES_MAP=void 0;t.BROWSER_ALIASES_MAP={"Amazon Silk":"amazon_silk","Android Browser":"android",Bada:"bada",BlackBerry:"blackberry",Chrome:"chrome",Chromium:"chromium",Electron:"electron",Epiphany:"epiphany",Firefox:"firefox",Focus:"focus",Generic:"generic","Google Search":"google_search",Googlebot:"googlebot","Internet Explorer":"ie","K-Meleon":"k_meleon",Maxthon:"maxthon","Microsoft Edge":"edge","MZ Browser":"mz","NAVER Whale Browser":"naver",Opera:"opera","Opera Coast":"opera_coast",PhantomJS:"phantomjs",Puffin:"puffin",QupZilla:"qupzilla",QQ:"qq",QQLite:"qqlite",Safari:"safari",Sailfish:"sailfish","Samsung Internet for Android":"samsung_internet",SeaMonkey:"seamonkey",Sleipnir:"sleipnir",Swing:"swing",Tizen:"tizen","UC Browser":"uc",Vivaldi:"vivaldi","WebOS Browser":"webos",WeChat:"wechat","Yandex Browser":"yandex",Roku:"roku"};t.BROWSER_MAP={amazon_silk:"Amazon Silk",android:"Android Browser",bada:"Bada",blackberry:"BlackBerry",chrome:"Chrome",chromium:"Chromium",electron:"Electron",epiphany:"Epiphany",firefox:"Firefox",focus:"Focus",generic:"Generic",googlebot:"Googlebot",google_search:"Google Search",ie:"Internet Explorer",k_meleon:"K-Meleon",maxthon:"Maxthon",edge:"Microsoft Edge",mz:"MZ Browser",naver:"NAVER Whale Browser",opera:"Opera",opera_coast:"Opera Coast",phantomjs:"PhantomJS",puffin:"Puffin",qupzilla:"QupZilla",qq:"QQ Browser",qqlite:"QQ Browser Lite",safari:"Safari",sailfish:"Sailfish",samsung_internet:"Samsung Internet for Android",seamonkey:"SeaMonkey",sleipnir:"Sleipnir",swing:"Swing",tizen:"Tizen",uc:"UC Browser",vivaldi:"Vivaldi",webos:"WebOS Browser",wechat:"WeChat",yandex:"Yandex Browser"};t.PLATFORMS_MAP={tablet:"tablet",mobile:"mobile",desktop:"desktop",tv:"tv"};t.OS_MAP={WindowsPhone:"Windows Phone",Windows:"Windows",MacOS:"macOS",iOS:"iOS",Android:"Android",WebOS:"WebOS",BlackBerry:"BlackBerry",Bada:"Bada",Tizen:"Tizen",Linux:"Linux",ChromeOS:"Chrome OS",PlayStation4:"PlayStation 4",Roku:"Roku"};t.ENGINE_MAP={EdgeHTML:"EdgeHTML",Blink:"Blink",Trident:"Trident",Presto:"Presto",Gecko:"Gecko",WebKit:"WebKit"}},90:function(e,t,r){"use strict";t.__esModule=!0,t.default=void 0;var n,i=(n=r(91))&&n.__esModule?n:{default:n},s=r(18);function a(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}var o=function(){function e(){}var t,r,n;return e.getParser=function(e,t){if(void 0===t&&(t=!1),"string"!=typeof e)throw new Error("UserAgent should be a string");return new i.default(e,t)},e.parse=function(e){return new i.default(e).getResult()},t=e,n=[{key:"BROWSER_MAP",get:function(){return s.BROWSER_MAP}},{key:"ENGINE_MAP",get:function(){return s.ENGINE_MAP}},{key:"OS_MAP",get:function(){return s.OS_MAP}},{key:"PLATFORMS_MAP",get:function(){return s.PLATFORMS_MAP}}],(r=null)&&a(t.prototype,r),n&&a(t,n),e}();t.default=o,e.exports=t.default},91:function(e,t,r){"use strict";t.__esModule=!0,t.default=void 0;var n=u(r(92)),i=u(r(93)),s=u(r(94)),a=u(r(95)),o=u(r(17));function u(e){return e&&e.__esModule?e:{default:e}}var d=function(){function e(e,t){if(void 0===t&&(t=!1),null==e||""===e)throw new Error("UserAgent parameter can't be empty");this._ua=e,this.parsedResult={},!0!==t&&this.parse()}var t=e.prototype;return t.getUA=function(){return this._ua},t.test=function(e){return e.test(this._ua)},t.parseBrowser=function(){var e=this;this.parsedResult.browser={};var t=o.default.find(n.default,(function(t){if("function"==typeof t.test)return t.test(e);if(t.test instanceof Array)return t.test.some((function(t){return e.test(t)}));throw new Error("Browser's test function is not valid")}));return t&&(this.parsedResult.browser=t.describe(this.getUA())),this.parsedResult.browser},t.getBrowser=function(){return this.parsedResult.browser?this.parsedResult.browser:this.parseBrowser()},t.getBrowserName=function(e){return e?String(this.getBrowser().name).toLowerCase()||"":this.getBrowser().name||""},t.getBrowserVersion=function(){return this.getBrowser().version},t.getOS=function(){return this.parsedResult.os?this.parsedResult.os:this.parseOS()},t.parseOS=function(){var e=this;this.parsedResult.os={};var t=o.default.find(i.default,(function(t){if("function"==typeof t.test)return t.test(e);if(t.test instanceof Array)return t.test.some((function(t){return e.test(t)}));throw new Error("Browser's test function is not valid")}));return t&&(this.parsedResult.os=t.describe(this.getUA())),this.parsedResult.os},t.getOSName=function(e){var t=this.getOS().name;return e?String(t).toLowerCase()||"":t||""},t.getOSVersion=function(){return this.getOS().version},t.getPlatform=function(){return this.parsedResult.platform?this.parsedResult.platform:this.parsePlatform()},t.getPlatformType=function(e){void 0===e&&(e=!1);var t=this.getPlatform().type;return e?String(t).toLowerCase()||"":t||""},t.parsePlatform=function(){var e=this;this.parsedResult.platform={};var t=o.default.find(s.default,(function(t){if("function"==typeof t.test)return t.test(e);if(t.test instanceof Array)return t.test.some((function(t){return e.test(t)}));throw new Error("Browser's test function is not valid")}));return t&&(this.parsedResult.platform=t.describe(this.getUA())),this.parsedResult.platform},t.getEngine=function(){return this.parsedResult.engine?this.parsedResult.engine:this.parseEngine()},t.getEngineName=function(e){return e?String(this.getEngine().name).toLowerCase()||"":this.getEngine().name||""},t.parseEngine=function(){var e=this;this.parsedResult.engine={};var t=o.default.find(a.default,(function(t){if("function"==typeof t.test)return t.test(e);if(t.test instanceof Array)return t.test.some((function(t){return e.test(t)}));throw new Error("Browser's test function is not valid")}));return t&&(this.parsedResult.engine=t.describe(this.getUA())),this.parsedResult.engine},t.parse=function(){return this.parseBrowser(),this.parseOS(),this.parsePlatform(),this.parseEngine(),this},t.getResult=function(){return o.default.assign({},this.parsedResult)},t.satisfies=function(e){var t=this,r={},n=0,i={},s=0;if(Object.keys(e).forEach((function(t){var a=e[t];"string"==typeof a?(i[t]=a,s+=1):"object"==typeof a&&(r[t]=a,n+=1)})),n>0){var a=Object.keys(r),u=o.default.find(a,(function(e){return t.isOS(e)}));if(u){var d=this.satisfies(r[u]);if(void 0!==d)return d}var c=o.default.find(a,(function(e){return t.isPlatform(e)}));if(c){var f=this.satisfies(r[c]);if(void 0!==f)return f}}if(s>0){var l=Object.keys(i),h=o.default.find(l,(function(e){return t.isBrowser(e,!0)}));if(void 0!==h)return this.compareVersion(i[h])}},t.isBrowser=function(e,t){void 0===t&&(t=!1);var r=this.getBrowserName().toLowerCase(),n=e.toLowerCase(),i=o.default.getBrowserTypeByAlias(n);return t&&i&&(n=i.toLowerCase()),n===r},t.compareVersion=function(e){var t=[0],r=e,n=!1,i=this.getBrowserVersion();if("string"==typeof i)return">"===e[0]||"<"===e[0]?(r=e.substr(1),"="===e[1]?(n=!0,r=e.substr(2)):t=[],">"===e[0]?t.push(1):t.push(-1)):"="===e[0]?r=e.substr(1):"~"===e[0]&&(n=!0,r=e.substr(1)),t.indexOf(o.default.compareVersions(i,r,n))>-1},t.isOS=function(e){return this.getOSName(!0)===String(e).toLowerCase()},t.isPlatform=function(e){return this.getPlatformType(!0)===String(e).toLowerCase()},t.isEngine=function(e){return this.getEngineName(!0)===String(e).toLowerCase()},t.is=function(e,t){return void 0===t&&(t=!1),this.isBrowser(e,t)||this.isOS(e)||this.isPlatform(e)},t.some=function(e){var t=this;return void 0===e&&(e=[]),e.some((function(e){return t.is(e)}))},e}();t.default=d,e.exports=t.default},92:function(e,t,r){"use strict";t.__esModule=!0,t.default=void 0;var n,i=(n=r(17))&&n.__esModule?n:{default:n};var s=/version\/(\d+(\.?_?\d+)+)/i,a=[{test:[/googlebot/i],describe:function(e){var t={name:"Googlebot"},r=i.default.getFirstMatch(/googlebot\/(\d+(\.\d+))/i,e)||i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/opera/i],describe:function(e){var t={name:"Opera"},r=i.default.getFirstMatch(s,e)||i.default.getFirstMatch(/(?:opera)[\s/](\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/opr\/|opios/i],describe:function(e){var t={name:"Opera"},r=i.default.getFirstMatch(/(?:opr|opios)[\s/](\S+)/i,e)||i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/SamsungBrowser/i],describe:function(e){var t={name:"Samsung Internet for Android"},r=i.default.getFirstMatch(s,e)||i.default.getFirstMatch(/(?:SamsungBrowser)[\s/](\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/Whale/i],describe:function(e){var t={name:"NAVER Whale Browser"},r=i.default.getFirstMatch(s,e)||i.default.getFirstMatch(/(?:whale)[\s/](\d+(?:\.\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/MZBrowser/i],describe:function(e){var t={name:"MZ Browser"},r=i.default.getFirstMatch(/(?:MZBrowser)[\s/](\d+(?:\.\d+)+)/i,e)||i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/focus/i],describe:function(e){var t={name:"Focus"},r=i.default.getFirstMatch(/(?:focus)[\s/](\d+(?:\.\d+)+)/i,e)||i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/swing/i],describe:function(e){var t={name:"Swing"},r=i.default.getFirstMatch(/(?:swing)[\s/](\d+(?:\.\d+)+)/i,e)||i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/coast/i],describe:function(e){var t={name:"Opera Coast"},r=i.default.getFirstMatch(s,e)||i.default.getFirstMatch(/(?:coast)[\s/](\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/opt\/\d+(?:.?_?\d+)+/i],describe:function(e){var t={name:"Opera Touch"},r=i.default.getFirstMatch(/(?:opt)[\s/](\d+(\.?_?\d+)+)/i,e)||i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/yabrowser/i],describe:function(e){var t={name:"Yandex Browser"},r=i.default.getFirstMatch(/(?:yabrowser)[\s/](\d+(\.?_?\d+)+)/i,e)||i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/ucbrowser/i],describe:function(e){var t={name:"UC Browser"},r=i.default.getFirstMatch(s,e)||i.default.getFirstMatch(/(?:ucbrowser)[\s/](\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/Maxthon|mxios/i],describe:function(e){var t={name:"Maxthon"},r=i.default.getFirstMatch(s,e)||i.default.getFirstMatch(/(?:Maxthon|mxios)[\s/](\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/epiphany/i],describe:function(e){var t={name:"Epiphany"},r=i.default.getFirstMatch(s,e)||i.default.getFirstMatch(/(?:epiphany)[\s/](\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/puffin/i],describe:function(e){var t={name:"Puffin"},r=i.default.getFirstMatch(s,e)||i.default.getFirstMatch(/(?:puffin)[\s/](\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/sleipnir/i],describe:function(e){var t={name:"Sleipnir"},r=i.default.getFirstMatch(s,e)||i.default.getFirstMatch(/(?:sleipnir)[\s/](\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/k-meleon/i],describe:function(e){var t={name:"K-Meleon"},r=i.default.getFirstMatch(s,e)||i.default.getFirstMatch(/(?:k-meleon)[\s/](\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/micromessenger/i],describe:function(e){var t={name:"WeChat"},r=i.default.getFirstMatch(/(?:micromessenger)[\s/](\d+(\.?_?\d+)+)/i,e)||i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/qqbrowser/i],describe:function(e){var t={name:/qqbrowserlite/i.test(e)?"QQ Browser Lite":"QQ Browser"},r=i.default.getFirstMatch(/(?:qqbrowserlite|qqbrowser)[/](\d+(\.?_?\d+)+)/i,e)||i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/msie|trident/i],describe:function(e){var t={name:"Internet Explorer"},r=i.default.getFirstMatch(/(?:msie |rv:)(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/\sedg\//i],describe:function(e){var t={name:"Microsoft Edge"},r=i.default.getFirstMatch(/\sedg\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/edg([ea]|ios)/i],describe:function(e){var t={name:"Microsoft Edge"},r=i.default.getSecondMatch(/edg([ea]|ios)\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/vivaldi/i],describe:function(e){var t={name:"Vivaldi"},r=i.default.getFirstMatch(/vivaldi\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/seamonkey/i],describe:function(e){var t={name:"SeaMonkey"},r=i.default.getFirstMatch(/seamonkey\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/sailfish/i],describe:function(e){var t={name:"Sailfish"},r=i.default.getFirstMatch(/sailfish\s?browser\/(\d+(\.\d+)?)/i,e);return r&&(t.version=r),t}},{test:[/silk/i],describe:function(e){var t={name:"Amazon Silk"},r=i.default.getFirstMatch(/silk\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/phantom/i],describe:function(e){var t={name:"PhantomJS"},r=i.default.getFirstMatch(/phantomjs\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/slimerjs/i],describe:function(e){var t={name:"SlimerJS"},r=i.default.getFirstMatch(/slimerjs\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/blackberry|\bbb\d+/i,/rim\stablet/i],describe:function(e){var t={name:"BlackBerry"},r=i.default.getFirstMatch(s,e)||i.default.getFirstMatch(/blackberry[\d]+\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/(web|hpw)[o0]s/i],describe:function(e){var t={name:"WebOS Browser"},r=i.default.getFirstMatch(s,e)||i.default.getFirstMatch(/w(?:eb)?[o0]sbrowser\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/bada/i],describe:function(e){var t={name:"Bada"},r=i.default.getFirstMatch(/dolfin\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/tizen/i],describe:function(e){var t={name:"Tizen"},r=i.default.getFirstMatch(/(?:tizen\s?)?browser\/(\d+(\.?_?\d+)+)/i,e)||i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/qupzilla/i],describe:function(e){var t={name:"QupZilla"},r=i.default.getFirstMatch(/(?:qupzilla)[\s/](\d+(\.?_?\d+)+)/i,e)||i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/firefox|iceweasel|fxios/i],describe:function(e){var t={name:"Firefox"},r=i.default.getFirstMatch(/(?:firefox|iceweasel|fxios)[\s/](\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/electron/i],describe:function(e){var t={name:"Electron"},r=i.default.getFirstMatch(/(?:electron)\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/MiuiBrowser/i],describe:function(e){var t={name:"Miui"},r=i.default.getFirstMatch(/(?:MiuiBrowser)[\s/](\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/chromium/i],describe:function(e){var t={name:"Chromium"},r=i.default.getFirstMatch(/(?:chromium)[\s/](\d+(\.?_?\d+)+)/i,e)||i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/chrome|crios|crmo/i],describe:function(e){var t={name:"Chrome"},r=i.default.getFirstMatch(/(?:chrome|crios|crmo)\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/GSA/i],describe:function(e){var t={name:"Google Search"},r=i.default.getFirstMatch(/(?:GSA)\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:function(e){var t=!e.test(/like android/i),r=e.test(/android/i);return t&&r},describe:function(e){var t={name:"Android Browser"},r=i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/playstation 4/i],describe:function(e){var t={name:"PlayStation 4"},r=i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/safari|applewebkit/i],describe:function(e){var t={name:"Safari"},r=i.default.getFirstMatch(s,e);return r&&(t.version=r),t}},{test:[/.*/i],describe:function(e){var t=-1!==e.search("\\(")?/^(.*)\/(.*)[ \t]\((.*)/:/^(.*)\/(.*) /;return{name:i.default.getFirstMatch(t,e),version:i.default.getSecondMatch(t,e)}}}];t.default=a,e.exports=t.default},93:function(e,t,r){"use strict";t.__esModule=!0,t.default=void 0;var n,i=(n=r(17))&&n.__esModule?n:{default:n},s=r(18);var a=[{test:[/Roku\/DVP/],describe:function(e){var t=i.default.getFirstMatch(/Roku\/DVP-(\d+\.\d+)/i,e);return{name:s.OS_MAP.Roku,version:t}}},{test:[/windows phone/i],describe:function(e){var t=i.default.getFirstMatch(/windows phone (?:os)?\s?(\d+(\.\d+)*)/i,e);return{name:s.OS_MAP.WindowsPhone,version:t}}},{test:[/windows /i],describe:function(e){var t=i.default.getFirstMatch(/Windows ((NT|XP)( \d\d?.\d)?)/i,e),r=i.default.getWindowsVersionName(t);return{name:s.OS_MAP.Windows,version:t,versionName:r}}},{test:[/Macintosh(.*?) FxiOS(.*?)\//],describe:function(e){var t={name:s.OS_MAP.iOS},r=i.default.getSecondMatch(/(Version\/)(\d[\d.]+)/,e);return r&&(t.version=r),t}},{test:[/macintosh/i],describe:function(e){var t=i.default.getFirstMatch(/mac os x (\d+(\.?_?\d+)+)/i,e).replace(/[_\s]/g,"."),r=i.default.getMacOSVersionName(t),n={name:s.OS_MAP.MacOS,version:t};return r&&(n.versionName=r),n}},{test:[/(ipod|iphone|ipad)/i],describe:function(e){var t=i.default.getFirstMatch(/os (\d+([_\s]\d+)*) like mac os x/i,e).replace(/[_\s]/g,".");return{name:s.OS_MAP.iOS,version:t}}},{test:function(e){var t=!e.test(/like android/i),r=e.test(/android/i);return t&&r},describe:function(e){var t=i.default.getFirstMatch(/android[\s/-](\d+(\.\d+)*)/i,e),r=i.default.getAndroidVersionName(t),n={name:s.OS_MAP.Android,version:t};return r&&(n.versionName=r),n}},{test:[/(web|hpw)[o0]s/i],describe:function(e){var t=i.default.getFirstMatch(/(?:web|hpw)[o0]s\/(\d+(\.\d+)*)/i,e),r={name:s.OS_MAP.WebOS};return t&&t.length&&(r.version=t),r}},{test:[/blackberry|\bbb\d+/i,/rim\stablet/i],describe:function(e){var t=i.default.getFirstMatch(/rim\stablet\sos\s(\d+(\.\d+)*)/i,e)||i.default.getFirstMatch(/blackberry\d+\/(\d+([_\s]\d+)*)/i,e)||i.default.getFirstMatch(/\bbb(\d+)/i,e);return{name:s.OS_MAP.BlackBerry,version:t}}},{test:[/bada/i],describe:function(e){var t=i.default.getFirstMatch(/bada\/(\d+(\.\d+)*)/i,e);return{name:s.OS_MAP.Bada,version:t}}},{test:[/tizen/i],describe:function(e){var t=i.default.getFirstMatch(/tizen[/\s](\d+(\.\d+)*)/i,e);return{name:s.OS_MAP.Tizen,version:t}}},{test:[/linux/i],describe:function(){return{name:s.OS_MAP.Linux}}},{test:[/CrOS/],describe:function(){return{name:s.OS_MAP.ChromeOS}}},{test:[/PlayStation 4/],describe:function(e){var t=i.default.getFirstMatch(/PlayStation 4[/\s](\d+(\.\d+)*)/i,e);return{name:s.OS_MAP.PlayStation4,version:t}}}];t.default=a,e.exports=t.default},94:function(e,t,r){"use strict";t.__esModule=!0,t.default=void 0;var n,i=(n=r(17))&&n.__esModule?n:{default:n},s=r(18);var a=[{test:[/googlebot/i],describe:function(){return{type:"bot",vendor:"Google"}}},{test:[/huawei/i],describe:function(e){var t=i.default.getFirstMatch(/(can-l01)/i,e)&&"Nova",r={type:s.PLATFORMS_MAP.mobile,vendor:"Huawei"};return t&&(r.model=t),r}},{test:[/nexus\s*(?:7|8|9|10).*/i],describe:function(){return{type:s.PLATFORMS_MAP.tablet,vendor:"Nexus"}}},{test:[/ipad/i],describe:function(){return{type:s.PLATFORMS_MAP.tablet,vendor:"Apple",model:"iPad"}}},{test:[/Macintosh(.*?) FxiOS(.*?)\//],describe:function(){return{type:s.PLATFORMS_MAP.tablet,vendor:"Apple",model:"iPad"}}},{test:[/kftt build/i],describe:function(){return{type:s.PLATFORMS_MAP.tablet,vendor:"Amazon",model:"Kindle Fire HD 7"}}},{test:[/silk/i],describe:function(){return{type:s.PLATFORMS_MAP.tablet,vendor:"Amazon"}}},{test:[/tablet(?! pc)/i],describe:function(){return{type:s.PLATFORMS_MAP.tablet}}},{test:function(e){var t=e.test(/ipod|iphone/i),r=e.test(/like (ipod|iphone)/i);return t&&!r},describe:function(e){var t=i.default.getFirstMatch(/(ipod|iphone)/i,e);return{type:s.PLATFORMS_MAP.mobile,vendor:"Apple",model:t}}},{test:[/nexus\s*[0-6].*/i,/galaxy nexus/i],describe:function(){return{type:s.PLATFORMS_MAP.mobile,vendor:"Nexus"}}},{test:[/[^-]mobi/i],describe:function(){return{type:s.PLATFORMS_MAP.mobile}}},{test:function(e){return"blackberry"===e.getBrowserName(!0)},describe:function(){return{type:s.PLATFORMS_MAP.mobile,vendor:"BlackBerry"}}},{test:function(e){return"bada"===e.getBrowserName(!0)},describe:function(){return{type:s.PLATFORMS_MAP.mobile}}},{test:function(e){return"windows phone"===e.getBrowserName()},describe:function(){return{type:s.PLATFORMS_MAP.mobile,vendor:"Microsoft"}}},{test:function(e){var t=Number(String(e.getOSVersion()).split(".")[0]);return"android"===e.getOSName(!0)&&t>=3},describe:function(){return{type:s.PLATFORMS_MAP.tablet}}},{test:function(e){return"android"===e.getOSName(!0)},describe:function(){return{type:s.PLATFORMS_MAP.mobile}}},{test:function(e){return"macos"===e.getOSName(!0)},describe:function(){return{type:s.PLATFORMS_MAP.desktop,vendor:"Apple"}}},{test:function(e){return"windows"===e.getOSName(!0)},describe:function(){return{type:s.PLATFORMS_MAP.desktop}}},{test:function(e){return"linux"===e.getOSName(!0)},describe:function(){return{type:s.PLATFORMS_MAP.desktop}}},{test:function(e){return"playstation 4"===e.getOSName(!0)},describe:function(){return{type:s.PLATFORMS_MAP.tv}}},{test:function(e){return"roku"===e.getOSName(!0)},describe:function(){return{type:s.PLATFORMS_MAP.tv}}}];t.default=a,e.exports=t.default},95:function(e,t,r){"use strict";t.__esModule=!0,t.default=void 0;var n,i=(n=r(17))&&n.__esModule?n:{default:n},s=r(18);var a=[{test:function(e){return"microsoft edge"===e.getBrowserName(!0)},describe:function(e){if(/\sedg\//i.test(e))return{name:s.ENGINE_MAP.Blink};var t=i.default.getFirstMatch(/edge\/(\d+(\.?_?\d+)+)/i,e);return{name:s.ENGINE_MAP.EdgeHTML,version:t}}},{test:[/trident/i],describe:function(e){var t={name:s.ENGINE_MAP.Trident},r=i.default.getFirstMatch(/trident\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:function(e){return e.test(/presto/i)},describe:function(e){var t={name:s.ENGINE_MAP.Presto},r=i.default.getFirstMatch(/presto\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:function(e){var t=e.test(/gecko/i),r=e.test(/like gecko/i);return t&&!r},describe:function(e){var t={name:s.ENGINE_MAP.Gecko},r=i.default.getFirstMatch(/gecko\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}},{test:[/(apple)?webkit\/537\.36/i],describe:function(){return{name:s.ENGINE_MAP.Blink}}},{test:[/(apple)?webkit/i],describe:function(e){var t={name:s.ENGINE_MAP.WebKit},r=i.default.getFirstMatch(/webkit\/(\d+(\.?_?\d+)+)/i,e);return r&&(t.version=r),t}}];t.default=a,e.exports=t.default}})}));
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/uuid/dist/esm-browser/native.js":
-/*!**********************************************************************!*\
-  !*** ../../../../../../node_modules/uuid/dist/esm-browser/native.js ***!
-  \**********************************************************************/
+/***/ "../../../../../node_modules/uuid/dist/esm-browser/native.js":
+/*!*******************************************************************!*\
+  !*** ../../../../../node_modules/uuid/dist/esm-browser/native.js ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19996,10 +19902,10 @@ const randomUUID = typeof crypto !== 'undefined' && crypto.randomUUID && crypto.
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/uuid/dist/esm-browser/regex.js":
-/*!*********************************************************************!*\
-  !*** ../../../../../../node_modules/uuid/dist/esm-browser/regex.js ***!
-  \*********************************************************************/
+/***/ "../../../../../node_modules/uuid/dist/esm-browser/regex.js":
+/*!******************************************************************!*\
+  !*** ../../../../../node_modules/uuid/dist/esm-browser/regex.js ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -20011,10 +19917,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/uuid/dist/esm-browser/rng.js":
-/*!*******************************************************************!*\
-  !*** ../../../../../../node_modules/uuid/dist/esm-browser/rng.js ***!
-  \*******************************************************************/
+/***/ "../../../../../node_modules/uuid/dist/esm-browser/rng.js":
+/*!****************************************************************!*\
+  !*** ../../../../../node_modules/uuid/dist/esm-browser/rng.js ***!
+  \****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -20043,10 +19949,10 @@ function rng() {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/uuid/dist/esm-browser/stringify.js":
-/*!*************************************************************************!*\
-  !*** ../../../../../../node_modules/uuid/dist/esm-browser/stringify.js ***!
-  \*************************************************************************/
+/***/ "../../../../../node_modules/uuid/dist/esm-browser/stringify.js":
+/*!**********************************************************************!*\
+  !*** ../../../../../node_modules/uuid/dist/esm-browser/stringify.js ***!
+  \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -20055,7 +19961,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   unsafeStringify: () => (/* binding */ unsafeStringify)
 /* harmony export */ });
-/* harmony import */ var _validate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validate.js */ "../../../../../../node_modules/uuid/dist/esm-browser/validate.js");
+/* harmony import */ var _validate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validate.js */ "../../../../../node_modules/uuid/dist/esm-browser/validate.js");
 
 /**
  * Convert array of 16 byte values to UUID string format of the form:
@@ -20092,10 +19998,10 @@ function stringify(arr, offset = 0) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/uuid/dist/esm-browser/v4.js":
-/*!******************************************************************!*\
-  !*** ../../../../../../node_modules/uuid/dist/esm-browser/v4.js ***!
-  \******************************************************************/
+/***/ "../../../../../node_modules/uuid/dist/esm-browser/v4.js":
+/*!***************************************************************!*\
+  !*** ../../../../../node_modules/uuid/dist/esm-browser/v4.js ***!
+  \***************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -20103,9 +20009,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _native_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./native.js */ "../../../../../../node_modules/uuid/dist/esm-browser/native.js");
-/* harmony import */ var _rng_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rng.js */ "../../../../../../node_modules/uuid/dist/esm-browser/rng.js");
-/* harmony import */ var _stringify_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stringify.js */ "../../../../../../node_modules/uuid/dist/esm-browser/stringify.js");
+/* harmony import */ var _native_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./native.js */ "../../../../../node_modules/uuid/dist/esm-browser/native.js");
+/* harmony import */ var _rng_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rng.js */ "../../../../../node_modules/uuid/dist/esm-browser/rng.js");
+/* harmony import */ var _stringify_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stringify.js */ "../../../../../node_modules/uuid/dist/esm-browser/stringify.js");
 
 
 
@@ -20138,10 +20044,10 @@ function v4(options, buf, offset) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/uuid/dist/esm-browser/validate.js":
-/*!************************************************************************!*\
-  !*** ../../../../../../node_modules/uuid/dist/esm-browser/validate.js ***!
-  \************************************************************************/
+/***/ "../../../../../node_modules/uuid/dist/esm-browser/validate.js":
+/*!*********************************************************************!*\
+  !*** ../../../../../node_modules/uuid/dist/esm-browser/validate.js ***!
+  \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -20149,7 +20055,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _regex_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./regex.js */ "../../../../../../node_modules/uuid/dist/esm-browser/regex.js");
+/* harmony import */ var _regex_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./regex.js */ "../../../../../node_modules/uuid/dist/esm-browser/regex.js");
 
 
 function validate(uuid) {
@@ -20923,7 +20829,7 @@ if (!NATIVE_ARRAY_BUFFER) {
   });
 } else {
   var INCORRECT_ARRAY_BUFFER_NAME = PROPER_FUNCTION_NAME && NativeArrayBuffer.name !== ARRAY_BUFFER;
-  /* eslint-disable no-new, sonar/inconsistent-function-call -- required for testing */
+  /* eslint-disable no-new, sonarjs/inconsistent-function-call -- required for testing */
   if (!fails(function () {
     NativeArrayBuffer(1);
   }) || !fails(function () {
@@ -20934,7 +20840,7 @@ if (!NATIVE_ARRAY_BUFFER) {
     new NativeArrayBuffer(NaN);
     return NativeArrayBuffer.length !== 1 || INCORRECT_ARRAY_BUFFER_NAME && !CONFIGURABLE_FUNCTION_NAME;
   })) {
-    /* eslint-enable no-new, sonar/inconsistent-function-call -- required for testing */
+    /* eslint-enable no-new, sonarjs/inconsistent-function-call -- required for testing */
     $ArrayBuffer = function ArrayBuffer(length) {
       anInstance(this, ArrayBufferPrototype);
       return inheritIfRequired(new NativeArrayBuffer(toIndex(length)), this, $ArrayBuffer);
@@ -23154,7 +23060,7 @@ var $Error = Error;
 var replace = uncurryThis(''.replace);
 
 var TEST = (function (arg) { return String(new $Error(arg).stack); })('zxcasd');
-// eslint-disable-next-line redos/no-vulnerable -- safe
+// eslint-disable-next-line redos/no-vulnerable, sonarjs/slow-regex -- safe
 var V8_OR_CHAKRA_STACK_ENTRY = /\n\s*at [^:]*:[^\n]*/;
 var IS_V8_OR_CHAKRA_STACK = V8_OR_CHAKRA_STACK_ENTRY.test(TEST);
 
@@ -23799,6 +23705,28 @@ module.exports = function (obj) {
     next: obj.next,
     done: false
   };
+};
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/internals/get-iterator-flattenable.js":
+/*!***************************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/get-iterator-flattenable.js ***!
+  \***************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var getIteratorDirect = __webpack_require__(/*! ../internals/get-iterator-direct */ "../../../node_modules/core-js/internals/get-iterator-direct.js");
+var getIteratorMethod = __webpack_require__(/*! ../internals/get-iterator-method */ "../../../node_modules/core-js/internals/get-iterator-method.js");
+
+module.exports = function (obj, stringHandling) {
+  if (!stringHandling || typeof obj !== 'string') anObject(obj);
+  var method = getIteratorMethod(obj);
+  return getIteratorDirect(anObject(method !== undefined ? call(method, obj) : obj));
 };
 
 
@@ -25042,6 +24970,93 @@ module.exports = function (IteratorConstructor, NAME, next, ENUMERABLE_NEXT) {
 
 /***/ }),
 
+/***/ "../../../node_modules/core-js/internals/iterator-create-proxy.js":
+/*!************************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/iterator-create-proxy.js ***!
+  \************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
+var create = __webpack_require__(/*! ../internals/object-create */ "../../../node_modules/core-js/internals/object-create.js");
+var createNonEnumerableProperty = __webpack_require__(/*! ../internals/create-non-enumerable-property */ "../../../node_modules/core-js/internals/create-non-enumerable-property.js");
+var defineBuiltIns = __webpack_require__(/*! ../internals/define-built-ins */ "../../../node_modules/core-js/internals/define-built-ins.js");
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../node_modules/core-js/internals/well-known-symbol.js");
+var InternalStateModule = __webpack_require__(/*! ../internals/internal-state */ "../../../node_modules/core-js/internals/internal-state.js");
+var getMethod = __webpack_require__(/*! ../internals/get-method */ "../../../node_modules/core-js/internals/get-method.js");
+var IteratorPrototype = (__webpack_require__(/*! ../internals/iterators-core */ "../../../node_modules/core-js/internals/iterators-core.js").IteratorPrototype);
+var createIterResultObject = __webpack_require__(/*! ../internals/create-iter-result-object */ "../../../node_modules/core-js/internals/create-iter-result-object.js");
+var iteratorClose = __webpack_require__(/*! ../internals/iterator-close */ "../../../node_modules/core-js/internals/iterator-close.js");
+
+var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+var ITERATOR_HELPER = 'IteratorHelper';
+var WRAP_FOR_VALID_ITERATOR = 'WrapForValidIterator';
+var setInternalState = InternalStateModule.set;
+
+var createIteratorProxyPrototype = function (IS_ITERATOR) {
+  var getInternalState = InternalStateModule.getterFor(IS_ITERATOR ? WRAP_FOR_VALID_ITERATOR : ITERATOR_HELPER);
+
+  return defineBuiltIns(create(IteratorPrototype), {
+    next: function next() {
+      var state = getInternalState(this);
+      // for simplification:
+      //   for `%WrapForValidIteratorPrototype%.next` our `nextHandler` returns `IterResultObject`
+      //   for `%IteratorHelperPrototype%.next` - just a value
+      if (IS_ITERATOR) return state.nextHandler();
+      try {
+        var result = state.done ? undefined : state.nextHandler();
+        return createIterResultObject(result, state.done);
+      } catch (error) {
+        state.done = true;
+        throw error;
+      }
+    },
+    'return': function () {
+      var state = getInternalState(this);
+      var iterator = state.iterator;
+      state.done = true;
+      if (IS_ITERATOR) {
+        var returnMethod = getMethod(iterator, 'return');
+        return returnMethod ? call(returnMethod, iterator) : createIterResultObject(undefined, true);
+      }
+      if (state.inner) try {
+        iteratorClose(state.inner.iterator, 'normal');
+      } catch (error) {
+        return iteratorClose(iterator, 'throw', error);
+      }
+      if (iterator) iteratorClose(iterator, 'normal');
+      return createIterResultObject(undefined, true);
+    }
+  });
+};
+
+var WrapForValidIteratorPrototype = createIteratorProxyPrototype(true);
+var IteratorHelperPrototype = createIteratorProxyPrototype(false);
+
+createNonEnumerableProperty(IteratorHelperPrototype, TO_STRING_TAG, 'Iterator Helper');
+
+module.exports = function (nextHandler, IS_ITERATOR) {
+  var IteratorProxy = function Iterator(record, state) {
+    if (state) {
+      state.iterator = record.iterator;
+      state.next = record.next;
+    } else state = record;
+    state.type = IS_ITERATOR ? WRAP_FOR_VALID_ITERATOR : ITERATOR_HELPER;
+    state.nextHandler = nextHandler;
+    state.counter = 0;
+    state.done = false;
+    setInternalState(this, state);
+  };
+
+  IteratorProxy.prototype = IS_ITERATOR ? WrapForValidIteratorPrototype : IteratorHelperPrototype;
+
+  return IteratorProxy;
+};
+
+
+/***/ }),
+
 /***/ "../../../node_modules/core-js/internals/iterator-define.js":
 /*!******************************************************************!*\
   !*** ../../../node_modules/core-js/internals/iterator-define.js ***!
@@ -25150,6 +25165,41 @@ module.exports = function (Iterable, NAME, IteratorConstructor, next, DEFAULT, I
   Iterators[NAME] = defaultIterator;
 
   return methods;
+};
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/internals/iterator-map.js":
+/*!***************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/iterator-map.js ***!
+  \***************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
+var aCallable = __webpack_require__(/*! ../internals/a-callable */ "../../../node_modules/core-js/internals/a-callable.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var getIteratorDirect = __webpack_require__(/*! ../internals/get-iterator-direct */ "../../../node_modules/core-js/internals/get-iterator-direct.js");
+var createIteratorProxy = __webpack_require__(/*! ../internals/iterator-create-proxy */ "../../../node_modules/core-js/internals/iterator-create-proxy.js");
+var callWithSafeIterationClosing = __webpack_require__(/*! ../internals/call-with-safe-iteration-closing */ "../../../node_modules/core-js/internals/call-with-safe-iteration-closing.js");
+
+var IteratorProxy = createIteratorProxy(function () {
+  var iterator = this.iterator;
+  var result = anObject(call(this.next, iterator));
+  var done = this.done = !!result.done;
+  if (!done) return callWithSafeIterationClosing(iterator, this.mapper, [result.value, this.counter++], true);
+});
+
+// `Iterator.prototype.map` method
+// https://github.com/tc39/proposal-iterator-helpers
+module.exports = function map(mapper) {
+  anObject(this);
+  aCallable(mapper);
+  return new IteratorProxy(getIteratorDirect(this), {
+    mapper: mapper
+  });
 };
 
 
@@ -25641,6 +25691,25 @@ var toString = __webpack_require__(/*! ../internals/to-string */ "../../../node_
 
 module.exports = function (argument, $default) {
   return argument === undefined ? arguments.length < 2 ? '' : $default : toString(argument);
+};
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/internals/not-a-nan.js":
+/*!************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/not-a-nan.js ***!
+  \************************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+var $RangeError = RangeError;
+
+module.exports = function (it) {
+  // eslint-disable-next-line no-self-compare -- NaN check
+  if (it === it) return it;
+  throw new $RangeError('NaN is not allowed');
 };
 
 
@@ -26276,7 +26345,7 @@ exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
 
 "use strict";
 
-/* eslint-disable no-undef, no-useless-call, sonar/no-reference-error -- required for testing */
+/* eslint-disable no-undef, no-useless-call, sonarjs/no-reference-error -- required for testing */
 /* eslint-disable es/no-legacy-object-prototype-accessor-methods -- required for testing */
 var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
 var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
@@ -27544,10 +27613,10 @@ var SHARED = '__core-js_shared__';
 var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 (store.versions || (store.versions = [])).push({
-  version: '3.38.1',
+  version: '3.39.0',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -28904,7 +28973,7 @@ if (DESCRIPTORS) {
 
 "use strict";
 
-/* eslint-disable no-new, sonar/inconsistent-function-call -- required for testing */
+/* eslint-disable no-new, sonarjs/inconsistent-function-call -- required for testing */
 var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 var checkCorrectnessOfIteration = __webpack_require__(/*! ../internals/check-correctness-of-iteration */ "../../../node_modules/core-js/internals/check-correctness-of-iteration.js");
@@ -28930,19 +28999,19 @@ module.exports = !NATIVE_ARRAY_BUFFER_VIEWS || !fails(function () {
 
 /***/ }),
 
-/***/ "../../../node_modules/core-js/internals/typed-array-from-species-and-list.js":
-/*!************************************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/typed-array-from-species-and-list.js ***!
-  \************************************************************************************/
+/***/ "../../../node_modules/core-js/internals/typed-array-from-same-type-and-list.js":
+/*!**************************************************************************************!*\
+  !*** ../../../node_modules/core-js/internals/typed-array-from-same-type-and-list.js ***!
+  \**************************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 var arrayFromConstructorAndList = __webpack_require__(/*! ../internals/array-from-constructor-and-list */ "../../../node_modules/core-js/internals/array-from-constructor-and-list.js");
-var typedArraySpeciesConstructor = __webpack_require__(/*! ../internals/typed-array-species-constructor */ "../../../node_modules/core-js/internals/typed-array-species-constructor.js");
+var getTypedArrayConstructor = (__webpack_require__(/*! ../internals/array-buffer-view-core */ "../../../node_modules/core-js/internals/array-buffer-view-core.js").getTypedArrayConstructor);
 
 module.exports = function (instance, list) {
-  return arrayFromConstructorAndList(typedArraySpeciesConstructor(instance), list);
+  return arrayFromConstructorAndList(getTypedArrayConstructor(instance), list);
 };
 
 
@@ -28996,29 +29065,6 @@ module.exports = function from(source /* , mapfn, thisArg */) {
     result[i] = thisIsBigIntArray ? toBigInt(value) : +value;
   }
   return result;
-};
-
-
-/***/ }),
-
-/***/ "../../../node_modules/core-js/internals/typed-array-species-constructor.js":
-/*!**********************************************************************************!*\
-  !*** ../../../node_modules/core-js/internals/typed-array-species-constructor.js ***!
-  \**********************************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "../../../node_modules/core-js/internals/array-buffer-view-core.js");
-var speciesConstructor = __webpack_require__(/*! ../internals/species-constructor */ "../../../node_modules/core-js/internals/species-constructor.js");
-
-var aTypedArrayConstructor = ArrayBufferViewCore.aTypedArrayConstructor;
-var getTypedArrayConstructor = ArrayBufferViewCore.getTypedArrayConstructor;
-
-// a part of `TypedArraySpeciesCreate` abstract operation
-// https://tc39.es/ecma262/#typedarray-species-create
-module.exports = function (originalArray) {
-  return aTypedArrayConstructor(speciesConstructor(originalArray, getTypedArrayConstructor(originalArray)));
 };
 
 
@@ -29109,9 +29155,9 @@ module.exports = !fails(function () {
 /* eslint-disable es/no-symbol -- required for testing */
 var NATIVE_SYMBOL = __webpack_require__(/*! ../internals/symbol-constructor-detection */ "../../../node_modules/core-js/internals/symbol-constructor-detection.js");
 
-module.exports = NATIVE_SYMBOL
-  && !Symbol.sham
-  && typeof Symbol.iterator == 'symbol';
+module.exports = NATIVE_SYMBOL &&
+  !Symbol.sham &&
+  typeof Symbol.iterator == 'symbol';
 
 
 /***/ }),
@@ -29487,6 +29533,8 @@ var isDetached = __webpack_require__(/*! ../internals/array-buffer-is-detached *
 
 var ArrayBufferPrototype = ArrayBuffer.prototype;
 
+// `ArrayBuffer.prototype.detached` getter
+// https://tc39.es/ecma262/#sec-get-arraybuffer.prototype.detached
 if (DESCRIPTORS && !('detached' in ArrayBufferPrototype)) {
   defineBuiltInAccessor(ArrayBufferPrototype, 'detached', {
     configurable: true,
@@ -29536,7 +29584,6 @@ var ArrayBufferModule = __webpack_require__(/*! ../internals/array-buffer */ "..
 var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
 var toAbsoluteIndex = __webpack_require__(/*! ../internals/to-absolute-index */ "../../../node_modules/core-js/internals/to-absolute-index.js");
 var toLength = __webpack_require__(/*! ../internals/to-length */ "../../../node_modules/core-js/internals/to-length.js");
-var speciesConstructor = __webpack_require__(/*! ../internals/species-constructor */ "../../../node_modules/core-js/internals/species-constructor.js");
 
 var ArrayBuffer = ArrayBufferModule.ArrayBuffer;
 var DataView = ArrayBufferModule.DataView;
@@ -29559,7 +29606,7 @@ $({ target: 'ArrayBuffer', proto: true, unsafe: true, forced: INCORRECT_SLICE },
     var length = anObject(this).byteLength;
     var first = toAbsoluteIndex(start, length);
     var fin = toAbsoluteIndex(end === undefined ? length : end, length);
-    var result = new (speciesConstructor(this, ArrayBuffer))(toLength(fin - first));
+    var result = new ArrayBuffer(toLength(fin - first));
     var viewSource = new DataView(this);
     var viewTarget = new DataView(result);
     var index = 0;
@@ -31498,6 +31545,526 @@ $({ global: true, forced: globalThis.globalThis !== globalThis }, {
 
 /***/ }),
 
+/***/ "../../../node_modules/core-js/modules/es.iterator.constructor.js":
+/*!************************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.constructor.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
+var anInstance = __webpack_require__(/*! ../internals/an-instance */ "../../../node_modules/core-js/internals/an-instance.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var isCallable = __webpack_require__(/*! ../internals/is-callable */ "../../../node_modules/core-js/internals/is-callable.js");
+var getPrototypeOf = __webpack_require__(/*! ../internals/object-get-prototype-of */ "../../../node_modules/core-js/internals/object-get-prototype-of.js");
+var defineBuiltInAccessor = __webpack_require__(/*! ../internals/define-built-in-accessor */ "../../../node_modules/core-js/internals/define-built-in-accessor.js");
+var createProperty = __webpack_require__(/*! ../internals/create-property */ "../../../node_modules/core-js/internals/create-property.js");
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
+var hasOwn = __webpack_require__(/*! ../internals/has-own-property */ "../../../node_modules/core-js/internals/has-own-property.js");
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../node_modules/core-js/internals/well-known-symbol.js");
+var IteratorPrototype = (__webpack_require__(/*! ../internals/iterators-core */ "../../../node_modules/core-js/internals/iterators-core.js").IteratorPrototype);
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../node_modules/core-js/internals/descriptors.js");
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
+
+var CONSTRUCTOR = 'constructor';
+var ITERATOR = 'Iterator';
+var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+
+var $TypeError = TypeError;
+var NativeIterator = globalThis[ITERATOR];
+
+// FF56- have non-standard global helper `Iterator`
+var FORCED = IS_PURE
+  || !isCallable(NativeIterator)
+  || NativeIterator.prototype !== IteratorPrototype
+  // FF44- non-standard `Iterator` passes previous tests
+  || !fails(function () { NativeIterator({}); });
+
+var IteratorConstructor = function Iterator() {
+  anInstance(this, IteratorPrototype);
+  if (getPrototypeOf(this) === IteratorPrototype) throw new $TypeError('Abstract class Iterator not directly constructable');
+};
+
+var defineIteratorPrototypeAccessor = function (key, value) {
+  if (DESCRIPTORS) {
+    defineBuiltInAccessor(IteratorPrototype, key, {
+      configurable: true,
+      get: function () {
+        return value;
+      },
+      set: function (replacement) {
+        anObject(this);
+        if (this === IteratorPrototype) throw new $TypeError("You can't redefine this property");
+        if (hasOwn(this, key)) this[key] = replacement;
+        else createProperty(this, key, replacement);
+      }
+    });
+  } else IteratorPrototype[key] = value;
+};
+
+if (!hasOwn(IteratorPrototype, TO_STRING_TAG)) defineIteratorPrototypeAccessor(TO_STRING_TAG, ITERATOR);
+
+if (FORCED || !hasOwn(IteratorPrototype, CONSTRUCTOR) || IteratorPrototype[CONSTRUCTOR] === Object) {
+  defineIteratorPrototypeAccessor(CONSTRUCTOR, IteratorConstructor);
+}
+
+IteratorConstructor.prototype = IteratorPrototype;
+
+// `Iterator` constructor
+// https://tc39.es/ecma262/#sec-iterator
+$({ global: true, constructor: true, forced: FORCED }, {
+  Iterator: IteratorConstructor
+});
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/modules/es.iterator.drop.js":
+/*!*****************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.drop.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var getIteratorDirect = __webpack_require__(/*! ../internals/get-iterator-direct */ "../../../node_modules/core-js/internals/get-iterator-direct.js");
+var notANaN = __webpack_require__(/*! ../internals/not-a-nan */ "../../../node_modules/core-js/internals/not-a-nan.js");
+var toPositiveInteger = __webpack_require__(/*! ../internals/to-positive-integer */ "../../../node_modules/core-js/internals/to-positive-integer.js");
+var createIteratorProxy = __webpack_require__(/*! ../internals/iterator-create-proxy */ "../../../node_modules/core-js/internals/iterator-create-proxy.js");
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
+
+var IteratorProxy = createIteratorProxy(function () {
+  var iterator = this.iterator;
+  var next = this.next;
+  var result, done;
+  while (this.remaining) {
+    this.remaining--;
+    result = anObject(call(next, iterator));
+    done = this.done = !!result.done;
+    if (done) return;
+  }
+  result = anObject(call(next, iterator));
+  done = this.done = !!result.done;
+  if (!done) return result.value;
+});
+
+// `Iterator.prototype.drop` method
+// https://tc39.es/ecma262/#sec-iterator.prototype.drop
+$({ target: 'Iterator', proto: true, real: true, forced: IS_PURE }, {
+  drop: function drop(limit) {
+    anObject(this);
+    var remaining = toPositiveInteger(notANaN(+limit));
+    return new IteratorProxy(getIteratorDirect(this), {
+      remaining: remaining
+    });
+  }
+});
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/modules/es.iterator.every.js":
+/*!******************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.every.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var iterate = __webpack_require__(/*! ../internals/iterate */ "../../../node_modules/core-js/internals/iterate.js");
+var aCallable = __webpack_require__(/*! ../internals/a-callable */ "../../../node_modules/core-js/internals/a-callable.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var getIteratorDirect = __webpack_require__(/*! ../internals/get-iterator-direct */ "../../../node_modules/core-js/internals/get-iterator-direct.js");
+
+// `Iterator.prototype.every` method
+// https://tc39.es/ecma262/#sec-iterator.prototype.every
+$({ target: 'Iterator', proto: true, real: true }, {
+  every: function every(predicate) {
+    anObject(this);
+    aCallable(predicate);
+    var record = getIteratorDirect(this);
+    var counter = 0;
+    return !iterate(record, function (value, stop) {
+      if (!predicate(value, counter++)) return stop();
+    }, { IS_RECORD: true, INTERRUPTED: true }).stopped;
+  }
+});
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/modules/es.iterator.filter.js":
+/*!*******************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.filter.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
+var aCallable = __webpack_require__(/*! ../internals/a-callable */ "../../../node_modules/core-js/internals/a-callable.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var getIteratorDirect = __webpack_require__(/*! ../internals/get-iterator-direct */ "../../../node_modules/core-js/internals/get-iterator-direct.js");
+var createIteratorProxy = __webpack_require__(/*! ../internals/iterator-create-proxy */ "../../../node_modules/core-js/internals/iterator-create-proxy.js");
+var callWithSafeIterationClosing = __webpack_require__(/*! ../internals/call-with-safe-iteration-closing */ "../../../node_modules/core-js/internals/call-with-safe-iteration-closing.js");
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
+
+var IteratorProxy = createIteratorProxy(function () {
+  var iterator = this.iterator;
+  var predicate = this.predicate;
+  var next = this.next;
+  var result, done, value;
+  while (true) {
+    result = anObject(call(next, iterator));
+    done = this.done = !!result.done;
+    if (done) return;
+    value = result.value;
+    if (callWithSafeIterationClosing(iterator, predicate, [value, this.counter++], true)) return value;
+  }
+});
+
+// `Iterator.prototype.filter` method
+// https://tc39.es/ecma262/#sec-iterator.prototype.filter
+$({ target: 'Iterator', proto: true, real: true, forced: IS_PURE }, {
+  filter: function filter(predicate) {
+    anObject(this);
+    aCallable(predicate);
+    return new IteratorProxy(getIteratorDirect(this), {
+      predicate: predicate
+    });
+  }
+});
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/modules/es.iterator.find.js":
+/*!*****************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.find.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var iterate = __webpack_require__(/*! ../internals/iterate */ "../../../node_modules/core-js/internals/iterate.js");
+var aCallable = __webpack_require__(/*! ../internals/a-callable */ "../../../node_modules/core-js/internals/a-callable.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var getIteratorDirect = __webpack_require__(/*! ../internals/get-iterator-direct */ "../../../node_modules/core-js/internals/get-iterator-direct.js");
+
+// `Iterator.prototype.find` method
+// https://tc39.es/ecma262/#sec-iterator.prototype.find
+$({ target: 'Iterator', proto: true, real: true }, {
+  find: function find(predicate) {
+    anObject(this);
+    aCallable(predicate);
+    var record = getIteratorDirect(this);
+    var counter = 0;
+    return iterate(record, function (value, stop) {
+      if (predicate(value, counter++)) return stop(value);
+    }, { IS_RECORD: true, INTERRUPTED: true }).result;
+  }
+});
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/modules/es.iterator.flat-map.js":
+/*!*********************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.flat-map.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
+var aCallable = __webpack_require__(/*! ../internals/a-callable */ "../../../node_modules/core-js/internals/a-callable.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var getIteratorDirect = __webpack_require__(/*! ../internals/get-iterator-direct */ "../../../node_modules/core-js/internals/get-iterator-direct.js");
+var getIteratorFlattenable = __webpack_require__(/*! ../internals/get-iterator-flattenable */ "../../../node_modules/core-js/internals/get-iterator-flattenable.js");
+var createIteratorProxy = __webpack_require__(/*! ../internals/iterator-create-proxy */ "../../../node_modules/core-js/internals/iterator-create-proxy.js");
+var iteratorClose = __webpack_require__(/*! ../internals/iterator-close */ "../../../node_modules/core-js/internals/iterator-close.js");
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
+
+var IteratorProxy = createIteratorProxy(function () {
+  var iterator = this.iterator;
+  var mapper = this.mapper;
+  var result, inner;
+
+  while (true) {
+    if (inner = this.inner) try {
+      result = anObject(call(inner.next, inner.iterator));
+      if (!result.done) return result.value;
+      this.inner = null;
+    } catch (error) { iteratorClose(iterator, 'throw', error); }
+
+    result = anObject(call(this.next, iterator));
+
+    if (this.done = !!result.done) return;
+
+    try {
+      this.inner = getIteratorFlattenable(mapper(result.value, this.counter++), false);
+    } catch (error) { iteratorClose(iterator, 'throw', error); }
+  }
+});
+
+// `Iterator.prototype.flatMap` method
+// https://tc39.es/ecma262/#sec-iterator.prototype.flatmap
+$({ target: 'Iterator', proto: true, real: true, forced: IS_PURE }, {
+  flatMap: function flatMap(mapper) {
+    anObject(this);
+    aCallable(mapper);
+    return new IteratorProxy(getIteratorDirect(this), {
+      mapper: mapper,
+      inner: null
+    });
+  }
+});
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/modules/es.iterator.for-each.js":
+/*!*********************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.for-each.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var iterate = __webpack_require__(/*! ../internals/iterate */ "../../../node_modules/core-js/internals/iterate.js");
+var aCallable = __webpack_require__(/*! ../internals/a-callable */ "../../../node_modules/core-js/internals/a-callable.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var getIteratorDirect = __webpack_require__(/*! ../internals/get-iterator-direct */ "../../../node_modules/core-js/internals/get-iterator-direct.js");
+
+// `Iterator.prototype.forEach` method
+// https://tc39.es/ecma262/#sec-iterator.prototype.foreach
+$({ target: 'Iterator', proto: true, real: true }, {
+  forEach: function forEach(fn) {
+    anObject(this);
+    aCallable(fn);
+    var record = getIteratorDirect(this);
+    var counter = 0;
+    iterate(record, function (value) {
+      fn(value, counter++);
+    }, { IS_RECORD: true });
+  }
+});
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/modules/es.iterator.from.js":
+/*!*****************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.from.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
+var toObject = __webpack_require__(/*! ../internals/to-object */ "../../../node_modules/core-js/internals/to-object.js");
+var isPrototypeOf = __webpack_require__(/*! ../internals/object-is-prototype-of */ "../../../node_modules/core-js/internals/object-is-prototype-of.js");
+var IteratorPrototype = (__webpack_require__(/*! ../internals/iterators-core */ "../../../node_modules/core-js/internals/iterators-core.js").IteratorPrototype);
+var createIteratorProxy = __webpack_require__(/*! ../internals/iterator-create-proxy */ "../../../node_modules/core-js/internals/iterator-create-proxy.js");
+var getIteratorFlattenable = __webpack_require__(/*! ../internals/get-iterator-flattenable */ "../../../node_modules/core-js/internals/get-iterator-flattenable.js");
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
+
+var IteratorProxy = createIteratorProxy(function () {
+  return call(this.next, this.iterator);
+}, true);
+
+// `Iterator.from` method
+// https://tc39.es/ecma262/#sec-iterator.from
+$({ target: 'Iterator', stat: true, forced: IS_PURE }, {
+  from: function from(O) {
+    var iteratorRecord = getIteratorFlattenable(typeof O == 'string' ? toObject(O) : O, true);
+    return isPrototypeOf(IteratorPrototype, iteratorRecord.iterator)
+      ? iteratorRecord.iterator
+      : new IteratorProxy(iteratorRecord);
+  }
+});
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/modules/es.iterator.map.js":
+/*!****************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.map.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var map = __webpack_require__(/*! ../internals/iterator-map */ "../../../node_modules/core-js/internals/iterator-map.js");
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
+
+// `Iterator.prototype.map` method
+// https://tc39.es/ecma262/#sec-iterator.prototype.map
+$({ target: 'Iterator', proto: true, real: true, forced: IS_PURE }, {
+  map: map
+});
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/modules/es.iterator.reduce.js":
+/*!*******************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.reduce.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var iterate = __webpack_require__(/*! ../internals/iterate */ "../../../node_modules/core-js/internals/iterate.js");
+var aCallable = __webpack_require__(/*! ../internals/a-callable */ "../../../node_modules/core-js/internals/a-callable.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var getIteratorDirect = __webpack_require__(/*! ../internals/get-iterator-direct */ "../../../node_modules/core-js/internals/get-iterator-direct.js");
+
+var $TypeError = TypeError;
+
+// `Iterator.prototype.reduce` method
+// https://tc39.es/ecma262/#sec-iterator.prototype.reduce
+$({ target: 'Iterator', proto: true, real: true }, {
+  reduce: function reduce(reducer /* , initialValue */) {
+    anObject(this);
+    aCallable(reducer);
+    var record = getIteratorDirect(this);
+    var noInitial = arguments.length < 2;
+    var accumulator = noInitial ? undefined : arguments[1];
+    var counter = 0;
+    iterate(record, function (value) {
+      if (noInitial) {
+        noInitial = false;
+        accumulator = value;
+      } else {
+        accumulator = reducer(accumulator, value, counter);
+      }
+      counter++;
+    }, { IS_RECORD: true });
+    if (noInitial) throw new $TypeError('Reduce of empty iterator with no initial value');
+    return accumulator;
+  }
+});
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/modules/es.iterator.some.js":
+/*!*****************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.some.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var iterate = __webpack_require__(/*! ../internals/iterate */ "../../../node_modules/core-js/internals/iterate.js");
+var aCallable = __webpack_require__(/*! ../internals/a-callable */ "../../../node_modules/core-js/internals/a-callable.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var getIteratorDirect = __webpack_require__(/*! ../internals/get-iterator-direct */ "../../../node_modules/core-js/internals/get-iterator-direct.js");
+
+// `Iterator.prototype.some` method
+// https://tc39.es/ecma262/#sec-iterator.prototype.some
+$({ target: 'Iterator', proto: true, real: true }, {
+  some: function some(predicate) {
+    anObject(this);
+    aCallable(predicate);
+    var record = getIteratorDirect(this);
+    var counter = 0;
+    return iterate(record, function (value, stop) {
+      if (predicate(value, counter++)) return stop();
+    }, { IS_RECORD: true, INTERRUPTED: true }).stopped;
+  }
+});
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/modules/es.iterator.take.js":
+/*!*****************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.take.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var call = __webpack_require__(/*! ../internals/function-call */ "../../../node_modules/core-js/internals/function-call.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var getIteratorDirect = __webpack_require__(/*! ../internals/get-iterator-direct */ "../../../node_modules/core-js/internals/get-iterator-direct.js");
+var notANaN = __webpack_require__(/*! ../internals/not-a-nan */ "../../../node_modules/core-js/internals/not-a-nan.js");
+var toPositiveInteger = __webpack_require__(/*! ../internals/to-positive-integer */ "../../../node_modules/core-js/internals/to-positive-integer.js");
+var createIteratorProxy = __webpack_require__(/*! ../internals/iterator-create-proxy */ "../../../node_modules/core-js/internals/iterator-create-proxy.js");
+var iteratorClose = __webpack_require__(/*! ../internals/iterator-close */ "../../../node_modules/core-js/internals/iterator-close.js");
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../node_modules/core-js/internals/is-pure.js");
+
+var IteratorProxy = createIteratorProxy(function () {
+  var iterator = this.iterator;
+  if (!this.remaining--) {
+    this.done = true;
+    return iteratorClose(iterator, 'normal', undefined);
+  }
+  var result = anObject(call(this.next, iterator));
+  var done = this.done = !!result.done;
+  if (!done) return result.value;
+});
+
+// `Iterator.prototype.take` method
+// https://tc39.es/ecma262/#sec-iterator.prototype.take
+$({ target: 'Iterator', proto: true, real: true, forced: IS_PURE }, {
+  take: function take(limit) {
+    anObject(this);
+    var remaining = toPositiveInteger(notANaN(+limit));
+    return new IteratorProxy(getIteratorDirect(this), {
+      remaining: remaining
+    });
+  }
+});
+
+
+/***/ }),
+
+/***/ "../../../node_modules/core-js/modules/es.iterator.to-array.js":
+/*!*********************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.iterator.to-array.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../node_modules/core-js/internals/an-object.js");
+var iterate = __webpack_require__(/*! ../internals/iterate */ "../../../node_modules/core-js/internals/iterate.js");
+var getIteratorDirect = __webpack_require__(/*! ../internals/get-iterator-direct */ "../../../node_modules/core-js/internals/get-iterator-direct.js");
+
+var push = [].push;
+
+// `Iterator.prototype.toArray` method
+// https://tc39.es/ecma262/#sec-iterator.prototype.toarray
+$({ target: 'Iterator', proto: true, real: true }, {
+  toArray: function toArray() {
+    var result = [];
+    iterate(getIteratorDirect(anObject(this)), push, { that: result, IS_RECORD: true });
+    return result;
+  }
+});
+
+
+/***/ }),
+
 /***/ "../../../node_modules/core-js/modules/es.json.stringify.js":
 /*!******************************************************************!*\
   !*** ../../../node_modules/core-js/modules/es.json.stringify.js ***!
@@ -31650,7 +32217,7 @@ var DOES_NOT_WORK_WITH_PRIMITIVES = IS_PURE || fails(function () {
 });
 
 // `Map.groupBy` method
-// https://github.com/tc39/proposal-array-grouping
+// https://tc39.es/ecma262/#sec-map.groupby
 $({ target: 'Map', stat: true, forced: IS_PURE || DOES_NOT_WORK_WITH_PRIMITIVES }, {
   groupBy: function groupBy(items, callbackfn) {
     requireObjectCoercible(items);
@@ -32965,7 +33532,7 @@ var iterate = __webpack_require__(/*! ../internals/iterate */ "../../../node_mod
 var createProperty = __webpack_require__(/*! ../internals/create-property */ "../../../node_modules/core-js/internals/create-property.js");
 
 // `Object.fromEntries` method
-// https://github.com/tc39/proposal-object-from-entries
+// https://tc39.es/ecma262/#sec-object.fromentries
 $({ target: 'Object', stat: true }, {
   fromEntries: function fromEntries(iterable) {
     var obj = {};
@@ -33153,7 +33720,7 @@ var DOES_NOT_WORK_WITH_PRIMITIVES = !nativeGroupBy || fails(function () {
 });
 
 // `Object.groupBy` method
-// https://github.com/tc39/proposal-array-grouping
+// https://tc39.es/ecma262/#sec-object.groupby
 $({ target: 'Object', stat: true, forced: DOES_NOT_WORK_WITH_PRIMITIVES }, {
   groupBy: function groupBy(items, callbackfn) {
     requireObjectCoercible(items);
@@ -34086,6 +34653,8 @@ if (FORCED_PROMISE_CONSTRUCTOR) {
   }
 }
 
+// `Promise` constructor
+// https://tc39.es/ecma262/#sec-promise-executor
 $({ global: true, constructor: true, wrap: true, forced: FORCED_PROMISE_CONSTRUCTOR }, {
   Promise: PromiseConstructor
 });
@@ -34261,6 +34830,50 @@ $({ target: 'Promise', stat: true, forced: IS_PURE || FORCED_PROMISE_CONSTRUCTOR
 
 /***/ }),
 
+/***/ "../../../node_modules/core-js/modules/es.promise.try.js":
+/*!***************************************************************!*\
+  !*** ../../../node_modules/core-js/modules/es.promise.try.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/core-js/internals/export.js");
+var globalThis = __webpack_require__(/*! ../internals/global-this */ "../../../node_modules/core-js/internals/global-this.js");
+var apply = __webpack_require__(/*! ../internals/function-apply */ "../../../node_modules/core-js/internals/function-apply.js");
+var slice = __webpack_require__(/*! ../internals/array-slice */ "../../../node_modules/core-js/internals/array-slice.js");
+var newPromiseCapabilityModule = __webpack_require__(/*! ../internals/new-promise-capability */ "../../../node_modules/core-js/internals/new-promise-capability.js");
+var aCallable = __webpack_require__(/*! ../internals/a-callable */ "../../../node_modules/core-js/internals/a-callable.js");
+var perform = __webpack_require__(/*! ../internals/perform */ "../../../node_modules/core-js/internals/perform.js");
+
+var Promise = globalThis.Promise;
+
+var ACCEPT_ARGUMENTS = false;
+// Avoiding the use of polyfills of the previous iteration of this proposal
+// that does not accept arguments of the callback
+var FORCED = !Promise || !Promise['try'] || perform(function () {
+  Promise['try'](function (argument) {
+    ACCEPT_ARGUMENTS = argument === 8;
+  }, 8);
+}).error || !ACCEPT_ARGUMENTS;
+
+// `Promise.try` method
+// https://tc39.es/ecma262/#sec-promise.try
+$({ target: 'Promise', stat: true, forced: FORCED }, {
+  'try': function (callbackfn /* , ...args */) {
+    var args = arguments.length > 1 ? slice(arguments, 1) : [];
+    var promiseCapability = newPromiseCapabilityModule.f(this);
+    var result = perform(function () {
+      return apply(aCallable(callbackfn), undefined, args);
+    });
+    (result.error ? promiseCapability.reject : promiseCapability.resolve)(result.value);
+    return promiseCapability.promise;
+  }
+});
+
+
+/***/ }),
+
 /***/ "../../../node_modules/core-js/modules/es.promise.with-resolvers.js":
 /*!**************************************************************************!*\
   !*** ../../../node_modules/core-js/modules/es.promise.with-resolvers.js ***!
@@ -34273,7 +34886,7 @@ var $ = __webpack_require__(/*! ../internals/export */ "../../../node_modules/co
 var newPromiseCapabilityModule = __webpack_require__(/*! ../internals/new-promise-capability */ "../../../node_modules/core-js/internals/new-promise-capability.js");
 
 // `Promise.withResolvers` method
-// https://github.com/tc39/proposal-promise-with-resolvers
+// https://tc39.es/ecma262/#sec-promise.withResolvers
 $({ target: 'Promise', stat: true }, {
   withResolvers: function withResolvers() {
     var promiseCapability = newPromiseCapabilityModule.f(this);
@@ -34799,7 +35412,7 @@ var BASE_FORCED = DESCRIPTORS &&
   (!CORRECT_NEW || MISSED_STICKY || UNSUPPORTED_DOT_ALL || UNSUPPORTED_NCG || fails(function () {
     re2[MATCH] = false;
     // RegExp constructor can alter flags and IsRegExp works correct with @@match
-    // eslint-disable-next-line sonar/inconsistent-function-call -- required for testing
+    // eslint-disable-next-line sonarjs/inconsistent-function-call -- required for testing
     return NativeRegExp(re1) !== re1 || NativeRegExp(re2) === re2 || String(NativeRegExp(re1, 'i')) !== '/a/i';
   }));
 
@@ -35229,7 +35842,7 @@ var difference = __webpack_require__(/*! ../internals/set-difference */ "../../.
 var setMethodAcceptSetLike = __webpack_require__(/*! ../internals/set-method-accept-set-like */ "../../../node_modules/core-js/internals/set-method-accept-set-like.js");
 
 // `Set.prototype.difference` method
-// https://github.com/tc39/proposal-set-methods
+// https://tc39.es/ecma262/#sec-set.prototype.difference
 $({ target: 'Set', proto: true, real: true, forced: !setMethodAcceptSetLike('difference') }, {
   difference: difference
 });
@@ -35256,7 +35869,7 @@ var INCORRECT = !setMethodAcceptSetLike('intersection') || fails(function () {
 });
 
 // `Set.prototype.intersection` method
-// https://github.com/tc39/proposal-set-methods
+// https://tc39.es/ecma262/#sec-set.prototype.intersection
 $({ target: 'Set', proto: true, real: true, forced: INCORRECT }, {
   intersection: intersection
 });
@@ -35277,7 +35890,7 @@ var isDisjointFrom = __webpack_require__(/*! ../internals/set-is-disjoint-from *
 var setMethodAcceptSetLike = __webpack_require__(/*! ../internals/set-method-accept-set-like */ "../../../node_modules/core-js/internals/set-method-accept-set-like.js");
 
 // `Set.prototype.isDisjointFrom` method
-// https://github.com/tc39/proposal-set-methods
+// https://tc39.es/ecma262/#sec-set.prototype.isdisjointfrom
 $({ target: 'Set', proto: true, real: true, forced: !setMethodAcceptSetLike('isDisjointFrom') }, {
   isDisjointFrom: isDisjointFrom
 });
@@ -35298,7 +35911,7 @@ var isSubsetOf = __webpack_require__(/*! ../internals/set-is-subset-of */ "../..
 var setMethodAcceptSetLike = __webpack_require__(/*! ../internals/set-method-accept-set-like */ "../../../node_modules/core-js/internals/set-method-accept-set-like.js");
 
 // `Set.prototype.isSubsetOf` method
-// https://github.com/tc39/proposal-set-methods
+// https://tc39.es/ecma262/#sec-set.prototype.issubsetof
 $({ target: 'Set', proto: true, real: true, forced: !setMethodAcceptSetLike('isSubsetOf') }, {
   isSubsetOf: isSubsetOf
 });
@@ -35319,7 +35932,7 @@ var isSupersetOf = __webpack_require__(/*! ../internals/set-is-superset-of */ ".
 var setMethodAcceptSetLike = __webpack_require__(/*! ../internals/set-method-accept-set-like */ "../../../node_modules/core-js/internals/set-method-accept-set-like.js");
 
 // `Set.prototype.isSupersetOf` method
-// https://github.com/tc39/proposal-set-methods
+// https://tc39.es/ecma262/#sec-set.prototype.issupersetof
 $({ target: 'Set', proto: true, real: true, forced: !setMethodAcceptSetLike('isSupersetOf') }, {
   isSupersetOf: isSupersetOf
 });
@@ -35354,7 +35967,7 @@ var symmetricDifference = __webpack_require__(/*! ../internals/set-symmetric-dif
 var setMethodAcceptSetLike = __webpack_require__(/*! ../internals/set-method-accept-set-like */ "../../../node_modules/core-js/internals/set-method-accept-set-like.js");
 
 // `Set.prototype.symmetricDifference` method
-// https://github.com/tc39/proposal-set-methods
+// https://tc39.es/ecma262/#sec-set.prototype.symmetricdifference
 $({ target: 'Set', proto: true, real: true, forced: !setMethodAcceptSetLike('symmetricDifference') }, {
   symmetricDifference: symmetricDifference
 });
@@ -35375,7 +35988,7 @@ var union = __webpack_require__(/*! ../internals/set-union */ "../../../node_mod
 var setMethodAcceptSetLike = __webpack_require__(/*! ../internals/set-method-accept-set-like */ "../../../node_modules/core-js/internals/set-method-accept-set-like.js");
 
 // `Set.prototype.union` method
-// https://github.com/tc39/proposal-set-methods
+// https://tc39.es/ecma262/#sec-set.prototype.union
 $({ target: 'Set', proto: true, real: true, forced: !setMethodAcceptSetLike('union') }, {
   union: union
 });
@@ -35739,7 +36352,7 @@ var toString = __webpack_require__(/*! ../internals/to-string */ "../../../node_
 var charCodeAt = uncurryThis(''.charCodeAt);
 
 // `String.prototype.isWellFormed` method
-// https://github.com/tc39/proposal-is-usv-string
+// https://tc39.es/ecma262/#sec-string.prototype.iswellformed
 $({ target: 'String', proto: true }, {
   isWellFormed: function isWellFormed() {
     var S = toString(requireObjectCoercible(this));
@@ -36723,7 +37336,7 @@ var TO_STRING_CONVERSION_BUG = $toWellFormed && fails(function () {
 });
 
 // `String.prototype.toWellFormed` method
-// https://github.com/tc39/proposal-is-usv-string
+// https://tc39.es/ecma262/#sec-string.prototype.towellformed
 $({ target: 'String', proto: true, forced: TO_STRING_CONVERSION_BUG }, {
   toWellFormed: function toWellFormed() {
     var S = toString(requireObjectCoercible(this));
@@ -37183,7 +37796,7 @@ if (DESCRIPTORS && isCallable(NativeSymbol) && (!('description' in SymbolPrototy
   var SymbolWrapper = function Symbol() {
     var description = arguments.length < 1 || arguments[0] === undefined ? undefined : toString(arguments[0]);
     var result = isPrototypeOf(SymbolPrototype, this)
-      // eslint-disable-next-line sonar/inconsistent-function-call -- ok
+      // eslint-disable-next-line sonarjs/inconsistent-function-call -- ok
       ? new NativeSymbol(description)
       // in Edge 13, String(Symbol(undefined)) === 'Symbol(undefined)'
       : description === undefined ? NativeSymbol() : NativeSymbol(description);
@@ -37643,7 +38256,7 @@ exportTypedArrayMethod('fill', function fill(value /* , start, end */) {
 
 var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "../../../node_modules/core-js/internals/array-buffer-view-core.js");
 var $filter = (__webpack_require__(/*! ../internals/array-iteration */ "../../../node_modules/core-js/internals/array-iteration.js").filter);
-var fromSpeciesAndList = __webpack_require__(/*! ../internals/typed-array-from-species-and-list */ "../../../node_modules/core-js/internals/typed-array-from-species-and-list.js");
+var fromSameTypeAndList = __webpack_require__(/*! ../internals/typed-array-from-same-type-and-list */ "../../../node_modules/core-js/internals/typed-array-from-same-type-and-list.js");
 
 var aTypedArray = ArrayBufferViewCore.aTypedArray;
 var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
@@ -37652,7 +38265,7 @@ var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
 // https://tc39.es/ecma262/#sec-%typedarray%.prototype.filter
 exportTypedArrayMethod('filter', function filter(callbackfn /* , thisArg */) {
   var list = $filter(aTypedArray(this), callbackfn, arguments.length > 1 ? arguments[1] : undefined);
-  return fromSpeciesAndList(this, list);
+  return fromSameTypeAndList(this, list);
 });
 
 
@@ -38059,16 +38672,16 @@ exportTypedArrayMethod('lastIndexOf', function lastIndexOf(searchElement /* , fr
 
 var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "../../../node_modules/core-js/internals/array-buffer-view-core.js");
 var $map = (__webpack_require__(/*! ../internals/array-iteration */ "../../../node_modules/core-js/internals/array-iteration.js").map);
-var typedArraySpeciesConstructor = __webpack_require__(/*! ../internals/typed-array-species-constructor */ "../../../node_modules/core-js/internals/typed-array-species-constructor.js");
 
 var aTypedArray = ArrayBufferViewCore.aTypedArray;
+var getTypedArrayConstructor = ArrayBufferViewCore.getTypedArrayConstructor;
 var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
 
 // `%TypedArray%.prototype.map` method
 // https://tc39.es/ecma262/#sec-%typedarray%.prototype.map
 exportTypedArrayMethod('map', function map(mapfn /* , thisArg */) {
   return $map(aTypedArray(this), mapfn, arguments.length > 1 ? arguments[1] : undefined, function (O, length) {
-    return new (typedArraySpeciesConstructor(O))(length);
+    return new (getTypedArrayConstructor(O))(length);
   });
 });
 
@@ -38246,11 +38859,11 @@ exportTypedArrayMethod('set', function set(arrayLike /* , offset */) {
 "use strict";
 
 var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "../../../node_modules/core-js/internals/array-buffer-view-core.js");
-var typedArraySpeciesConstructor = __webpack_require__(/*! ../internals/typed-array-species-constructor */ "../../../node_modules/core-js/internals/typed-array-species-constructor.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "../../../node_modules/core-js/internals/fails.js");
 var arraySlice = __webpack_require__(/*! ../internals/array-slice */ "../../../node_modules/core-js/internals/array-slice.js");
 
 var aTypedArray = ArrayBufferViewCore.aTypedArray;
+var getTypedArrayConstructor = ArrayBufferViewCore.getTypedArrayConstructor;
 var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
 
 var FORCED = fails(function () {
@@ -38262,7 +38875,7 @@ var FORCED = fails(function () {
 // https://tc39.es/ecma262/#sec-%typedarray%.prototype.slice
 exportTypedArrayMethod('slice', function slice(start, end) {
   var list = arraySlice(aTypedArray(this), start, end);
-  var C = typedArraySpeciesConstructor(this);
+  var C = getTypedArrayConstructor(this);
   var index = 0;
   var length = list.length;
   var result = new C(length);
@@ -38388,9 +39001,9 @@ exportTypedArrayMethod('sort', function sort(comparefn) {
 var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "../../../node_modules/core-js/internals/array-buffer-view-core.js");
 var toLength = __webpack_require__(/*! ../internals/to-length */ "../../../node_modules/core-js/internals/to-length.js");
 var toAbsoluteIndex = __webpack_require__(/*! ../internals/to-absolute-index */ "../../../node_modules/core-js/internals/to-absolute-index.js");
-var typedArraySpeciesConstructor = __webpack_require__(/*! ../internals/typed-array-species-constructor */ "../../../node_modules/core-js/internals/typed-array-species-constructor.js");
 
 var aTypedArray = ArrayBufferViewCore.aTypedArray;
+var getTypedArrayConstructor = ArrayBufferViewCore.getTypedArrayConstructor;
 var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
 
 // `%TypedArray%.prototype.subarray` method
@@ -38399,7 +39012,7 @@ exportTypedArrayMethod('subarray', function subarray(begin, end) {
   var O = aTypedArray(this);
   var length = O.length;
   var beginIndex = toAbsoluteIndex(begin, length);
-  var C = typedArraySpeciesConstructor(O);
+  var C = getTypedArrayConstructor(O);
   return new C(
     O.buffer,
     O.byteOffset + beginIndex * O.BYTES_PER_ELEMENT,
@@ -40044,9 +40657,13 @@ var tryToTransfer = function (rawTransfer, map) {
         break;
       case 'MediaSourceHandle':
       case 'MessagePort':
+      case 'MIDIAccess':
       case 'OffscreenCanvas':
       case 'ReadableStream':
+      case 'RTCDataChannel':
       case 'TransformStream':
+      case 'WebTransportReceiveStream':
+      case 'WebTransportSendStream':
       case 'WritableStream':
         throwUnpolyfillable(type, TRANSFERRING);
     }
@@ -42044,6 +42661,19 @@ __webpack_require__(/*! ../modules/es.function.bind */ "../../../node_modules/co
 __webpack_require__(/*! ../modules/es.function.has-instance */ "../../../node_modules/core-js/modules/es.function.has-instance.js");
 __webpack_require__(/*! ../modules/es.function.name */ "../../../node_modules/core-js/modules/es.function.name.js");
 __webpack_require__(/*! ../modules/es.global-this */ "../../../node_modules/core-js/modules/es.global-this.js");
+__webpack_require__(/*! ../modules/es.iterator.constructor */ "../../../node_modules/core-js/modules/es.iterator.constructor.js");
+__webpack_require__(/*! ../modules/es.iterator.drop */ "../../../node_modules/core-js/modules/es.iterator.drop.js");
+__webpack_require__(/*! ../modules/es.iterator.every */ "../../../node_modules/core-js/modules/es.iterator.every.js");
+__webpack_require__(/*! ../modules/es.iterator.filter */ "../../../node_modules/core-js/modules/es.iterator.filter.js");
+__webpack_require__(/*! ../modules/es.iterator.find */ "../../../node_modules/core-js/modules/es.iterator.find.js");
+__webpack_require__(/*! ../modules/es.iterator.flat-map */ "../../../node_modules/core-js/modules/es.iterator.flat-map.js");
+__webpack_require__(/*! ../modules/es.iterator.for-each */ "../../../node_modules/core-js/modules/es.iterator.for-each.js");
+__webpack_require__(/*! ../modules/es.iterator.from */ "../../../node_modules/core-js/modules/es.iterator.from.js");
+__webpack_require__(/*! ../modules/es.iterator.map */ "../../../node_modules/core-js/modules/es.iterator.map.js");
+__webpack_require__(/*! ../modules/es.iterator.reduce */ "../../../node_modules/core-js/modules/es.iterator.reduce.js");
+__webpack_require__(/*! ../modules/es.iterator.some */ "../../../node_modules/core-js/modules/es.iterator.some.js");
+__webpack_require__(/*! ../modules/es.iterator.take */ "../../../node_modules/core-js/modules/es.iterator.take.js");
+__webpack_require__(/*! ../modules/es.iterator.to-array */ "../../../node_modules/core-js/modules/es.iterator.to-array.js");
 __webpack_require__(/*! ../modules/es.json.stringify */ "../../../node_modules/core-js/modules/es.json.stringify.js");
 __webpack_require__(/*! ../modules/es.json.to-string-tag */ "../../../node_modules/core-js/modules/es.json.to-string-tag.js");
 __webpack_require__(/*! ../modules/es.map */ "../../../node_modules/core-js/modules/es.map.js");
@@ -42113,6 +42743,7 @@ __webpack_require__(/*! ../modules/es.promise */ "../../../node_modules/core-js/
 __webpack_require__(/*! ../modules/es.promise.all-settled */ "../../../node_modules/core-js/modules/es.promise.all-settled.js");
 __webpack_require__(/*! ../modules/es.promise.any */ "../../../node_modules/core-js/modules/es.promise.any.js");
 __webpack_require__(/*! ../modules/es.promise.finally */ "../../../node_modules/core-js/modules/es.promise.finally.js");
+__webpack_require__(/*! ../modules/es.promise.try */ "../../../node_modules/core-js/modules/es.promise.try.js");
 __webpack_require__(/*! ../modules/es.promise.with-resolvers */ "../../../node_modules/core-js/modules/es.promise.with-resolvers.js");
 __webpack_require__(/*! ../modules/es.reflect.apply */ "../../../node_modules/core-js/modules/es.reflect.apply.js");
 __webpack_require__(/*! ../modules/es.reflect.construct */ "../../../node_modules/core-js/modules/es.reflect.construct.js");
@@ -42321,10 +42952,10 @@ function jwtDecode(token, options) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/tslib/tslib.es6.mjs":
-/*!**********************************************************!*\
-  !*** ../../../../../../node_modules/tslib/tslib.es6.mjs ***!
-  \**********************************************************/
+/***/ "../../../../../node_modules/tslib/tslib.es6.mjs":
+/*!*******************************************************!*\
+  !*** ../../../../../node_modules/tslib/tslib.es6.mjs ***!
+  \*******************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -42740,21 +43371,21 @@ function __disposeResources(env) {
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/client-cognito-identity/package.json":
-/*!************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/client-cognito-identity/package.json ***!
-  \************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/client-cognito-identity/package.json":
+/*!*********************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/client-cognito-identity/package.json ***!
+  \*********************************************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-cognito-identity","description":"AWS SDK for JavaScript Cognito Identity Client for Node.js, Browser and React Native","version":"3.624.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-cognito-identity","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo cognito-identity","test:e2e":"ts-mocha test/**/*.ispec.ts && karma start karma.conf.js"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"5.2.0","@aws-crypto/sha256-js":"5.2.0","@aws-sdk/client-sso-oidc":"3.624.0","@aws-sdk/client-sts":"3.624.0","@aws-sdk/core":"3.624.0","@aws-sdk/credential-provider-node":"3.624.0","@aws-sdk/middleware-host-header":"3.620.0","@aws-sdk/middleware-logger":"3.609.0","@aws-sdk/middleware-recursion-detection":"3.620.0","@aws-sdk/middleware-user-agent":"3.620.0","@aws-sdk/region-config-resolver":"3.614.0","@aws-sdk/types":"3.609.0","@aws-sdk/util-endpoints":"3.614.0","@aws-sdk/util-user-agent-browser":"3.609.0","@aws-sdk/util-user-agent-node":"3.614.0","@smithy/config-resolver":"^3.0.5","@smithy/core":"^2.3.2","@smithy/fetch-http-handler":"^3.2.4","@smithy/hash-node":"^3.0.3","@smithy/invalid-dependency":"^3.0.3","@smithy/middleware-content-length":"^3.0.5","@smithy/middleware-endpoint":"^3.1.0","@smithy/middleware-retry":"^3.0.14","@smithy/middleware-serde":"^3.0.3","@smithy/middleware-stack":"^3.0.3","@smithy/node-config-provider":"^3.1.4","@smithy/node-http-handler":"^3.1.4","@smithy/protocol-http":"^4.1.0","@smithy/smithy-client":"^3.1.12","@smithy/types":"^3.3.0","@smithy/url-parser":"^3.0.3","@smithy/util-base64":"^3.0.0","@smithy/util-body-length-browser":"^3.0.0","@smithy/util-body-length-node":"^3.0.0","@smithy/util-defaults-mode-browser":"^3.0.14","@smithy/util-defaults-mode-node":"^3.0.14","@smithy/util-endpoints":"^2.0.5","@smithy/util-middleware":"^3.0.3","@smithy/util-retry":"^3.0.3","@smithy/util-utf8":"^3.0.0","tslib":"^2.6.2"},"devDependencies":{"@aws-sdk/client-iam":"3.624.0","@tsconfig/node16":"16.1.3","@types/chai":"^4.2.11","@types/mocha":"^8.0.4","@types/node":"^16.18.96","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=16.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-cognito-identity","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-cognito-identity"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"@aws-sdk/client-cognito-identity","description":"AWS SDK for JavaScript Cognito Identity Client for Node.js, Browser and React Native","version":"3.609.0","scripts":{"build":"concurrently \'yarn:build:cjs\' \'yarn:build:es\' \'yarn:build:types\'","build:cjs":"node ../../scripts/compilation/inline client-cognito-identity","build:es":"tsc -p tsconfig.es.json","build:include:deps":"lerna run --scope $npm_package_name --include-dependencies build","build:types":"tsc -p tsconfig.types.json","build:types:downlevel":"downlevel-dts dist-types dist-types/ts3.4","clean":"rimraf ./dist-* && rimraf *.tsbuildinfo","extract:docs":"api-extractor run --local","generate:client":"node ../../scripts/generate-clients/single-service --solo cognito-identity","test:e2e":"ts-mocha test/**/*.ispec.ts && karma start karma.conf.js"},"main":"./dist-cjs/index.js","types":"./dist-types/index.d.ts","module":"./dist-es/index.js","sideEffects":false,"dependencies":{"@aws-crypto/sha256-browser":"5.2.0","@aws-crypto/sha256-js":"5.2.0","@aws-sdk/client-sso-oidc":"3.609.0","@aws-sdk/client-sts":"3.609.0","@aws-sdk/core":"3.609.0","@aws-sdk/credential-provider-node":"3.609.0","@aws-sdk/middleware-host-header":"3.609.0","@aws-sdk/middleware-logger":"3.609.0","@aws-sdk/middleware-recursion-detection":"3.609.0","@aws-sdk/middleware-user-agent":"3.609.0","@aws-sdk/region-config-resolver":"3.609.0","@aws-sdk/types":"3.609.0","@aws-sdk/util-endpoints":"3.609.0","@aws-sdk/util-user-agent-browser":"3.609.0","@aws-sdk/util-user-agent-node":"3.609.0","@smithy/config-resolver":"^3.0.4","@smithy/core":"^2.2.4","@smithy/fetch-http-handler":"^3.2.0","@smithy/hash-node":"^3.0.3","@smithy/invalid-dependency":"^3.0.3","@smithy/middleware-content-length":"^3.0.3","@smithy/middleware-endpoint":"^3.0.4","@smithy/middleware-retry":"^3.0.7","@smithy/middleware-serde":"^3.0.3","@smithy/middleware-stack":"^3.0.3","@smithy/node-config-provider":"^3.1.3","@smithy/node-http-handler":"^3.1.1","@smithy/protocol-http":"^4.0.3","@smithy/smithy-client":"^3.1.5","@smithy/types":"^3.3.0","@smithy/url-parser":"^3.0.3","@smithy/util-base64":"^3.0.0","@smithy/util-body-length-browser":"^3.0.0","@smithy/util-body-length-node":"^3.0.0","@smithy/util-defaults-mode-browser":"^3.0.7","@smithy/util-defaults-mode-node":"^3.0.7","@smithy/util-endpoints":"^2.0.4","@smithy/util-middleware":"^3.0.3","@smithy/util-retry":"^3.0.3","@smithy/util-utf8":"^3.0.0","tslib":"^2.6.2"},"devDependencies":{"@aws-sdk/client-iam":"3.609.0","@tsconfig/node16":"16.1.3","@types/chai":"^4.2.11","@types/mocha":"^8.0.4","@types/node":"^16.18.96","concurrently":"7.0.0","downlevel-dts":"0.10.1","rimraf":"3.0.2","typescript":"~4.9.5"},"engines":{"node":">=16.0.0"},"typesVersions":{"<4.0":{"dist-types/*":["dist-types/ts3.4/*"]}},"files":["dist-*/**"],"author":{"name":"AWS SDK for JavaScript Team","url":"https://aws.amazon.com/javascript/"},"license":"Apache-2.0","browser":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.browser"},"react-native":{"./dist-es/runtimeConfig":"./dist-es/runtimeConfig.native"},"homepage":"https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-cognito-identity","repository":{"type":"git","url":"https://github.com/aws/aws-sdk-js-v3.git","directory":"clients/client-cognito-identity"}}');
 
 /***/ }),
 
-/***/ "../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partitions.json":
-/*!**********************************************************************************************!*\
-  !*** ../../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partitions.json ***!
-  \**********************************************************************************************/
+/***/ "../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partitions.json":
+/*!*******************************************************************************************!*\
+  !*** ../../../../../node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partitions.json ***!
+  \*******************************************************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -42843,7 +43474,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"partitions":[{"id":"aws","outputs":{
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 /*!******************!*\
