@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "amazon-cognito-auth-js": "^1.2.4",
+    "@aws-sdk/client-cognito-identity": "^3.511.0",
+    "@aws-sdk/credential-providers": "^3.511.0",
     "core-js": "^3.6.5",
     "jsdom": "^22.0.0",
     "jwt-decode": "^4.0.0",

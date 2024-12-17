@@ -30,7 +30,9 @@ import { Signer } from 'aws-amplify';
 import LexClient from '@/lib/lex/client';
 
 import { jwtDecode } from "jwt-decode";
-const AWS = require('aws-sdk');
+import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+import { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } from '@aws-sdk/client-cognito-identity';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
@@ -44,6 +46,12 @@ let wsClient;
 let pollyInitialSpeechBlob = {};
 let pollyAllDoneBlob = {};
 let pollyThereWasAnErrorBlob = {};
+let poolId;
+let identityId;
+let poolName;
+let idToken;
+let logins;
+let region;
 
 export default {
   /***********************************************************************
@@ -55,13 +63,12 @@ export default {
   initCredentials(context, credentials) {
     switch (context.state.awsCreds.provider) {
       case 'cognito':
+      case 'parentWindow':
         awsCredentials = credentials;
         if (lexClient) {
           lexClient.initCredentials(awsCredentials);
         }
-        return context.dispatch('getCredentials');
-      case 'parentWindow':
-        return context.dispatch('getCredentials');
+        break;
       default:
         return Promise.reject(new Error('unknown credential provider'));
     }
@@ -122,25 +129,21 @@ export default {
       context.state.config.lex.sessionAttributes,
     );
     // Initiate WebSocket after lexClient get credential, due to sessionId was assigned from identityId
-    return context.dispatch('getCredentials')
-      .then(() => {
-        lexClient.initCredentials(awsCredentials)
-        //Enable streaming response
-        if (String(context.state.config.lex.allowStreamingResponses) === "true") {
-          context.dispatch('InitWebSocketConnect')
-        }
-      });
+    lexClient.initCredentials(payload.credentials)
+    // Enable streaming response
+    if (String(context.state.config.lex.allowStreamingResponses) === "true") {
+      context.dispatch('InitWebSocketConnect')
+    }
+    return;
   },
-  initPollyClient(context, client) {
+  initPollyClient(context, client, credentials) {
     if (!context.state.recState.isRecorderEnabled) {
       return Promise.resolve();
     }
     pollyClient = client;
     context.commit('setPollyVoiceId', context.state.config.polly.voiceId);
-    return context.dispatch('getCredentials')
-      .then((creds) => {
-        pollyClient.config.credentials = creds;
-      });
+    pollyClient.config.credentials = credentials;
+    return;
   },
   initRecorder(context) {
     if (!context.state.config.recorder.enable) {
@@ -921,29 +924,32 @@ export default {
         InstanceId: context.state.config.connect.instanceId,
       };
 
-      const uri = new URL(context.state.config.connect.apiGatewayEndpoint);
-      const endpoint = new AWS.Endpoint(uri.hostname);
-      const req = new AWS.HttpRequest(endpoint, context.state.config.region);
-      req.method = 'POST';
-      req.path = uri.pathname;
-      req.headers['Content-Type'] = 'application/json';
-      req.body = JSON.stringify(initiateChatRequest);
-      req.headers.Host = endpoint.host;
-      req.headers['Content-Length'] = Buffer.byteLength(req.body);
+      const bodyText = JSON.stringify(initiateChatRequest);
+      const reqHeaders = new Headers();
+      reqHeaders.append("Content-Type", "application/json");
+      reqHeaders.append("Content-Length", Buffer.byteLength(bodyText));
 
-      const signer = new AWS.Signers.V4(req, 'execute-api');
-      signer.addAuthorization(awsCredentials, new Date());
-
-      const reqInit = {
+      const serviceInfo = { 
+        region: context.state.config.region, 
+        service: 'execute-api' 
+      };
+  
+      const accessInfo = {
+        access_key: awsCredentials.accessKeyId,
+        secret_key: awsCredentials.secretAccessKey,
+        session_token: awsCredentials.sessionToken,
+      }
+      
+      const reqInit = new Request(context.state.config.connect.apiGatewayEndpoint, {
         method: 'POST',
         mode: 'cors',
         headers: req.headers,
-        body: req.body,
-      };
+        body: JSON.stringify(initiateChatRequest),
+      });
 
-      return fetch(
-        context.state.config.connect.apiGatewayEndpoint,
-        reqInit)
+      req = Signer.sign(reqInit, accessInfo, serviceInfo);
+
+      return fetch(req)
       .then(response => response.json())
       .then(json => json.data)
       .then((result) => {
@@ -1110,27 +1116,68 @@ export default {
         return Promise.reject(error);
       })
       .then((creds) => {
-        const { AccessKeyId, SecretKey, SessionToken } = creds.data.Credentials;
-        const { IdentityId } = creds.data;
+        const { accessKeyId, identityId, secretAccessKey, sessionToken } = creds;
         // recreate as a static credential
         awsCredentials = {
-          accessKeyId: AccessKeyId,
-          secretAccessKey: SecretKey,
-          sessionToken: SessionToken,
-          identityId: IdentityId,
+          accessKeyId: accessKeyId,
+          secretAccessKey: secretAccessKey,
+          sessionToken: sessionToken,
+          identityId: identityId,
           expired: false,
-          getPromise() { return Promise.resolve(awsCredentials); },
         };
 
         return awsCredentials;
       });
   },
-  getCredentials(context) {
+  async getCredentials(context) {
     if (context.state.awsCreds.provider === 'parentWindow') {
       return context.dispatch('getCredentialsFromParent');
     }
-    return awsCredentials.getPromise()
-      .then(() => awsCredentials);
+    region = context.state.config.cognito.region || context.state.config.region || 'us-east-1';
+    poolId = context.state.config.cognito.poolId;
+    const appUserPoolName = context.state.config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
+    poolName = `cognito-idp.${region}.amazonaws.com/${appUserPoolName}`;
+    const appUserPoolClientId = context.state.config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId')
+    idToken = context.state.config.lex.sessionAttributes.idtokenjwt || localStorage.getItem(`${appUserPoolClientId}idtokenjwt`)
+    if (idToken) {
+      logins = {};
+      logins[poolName] = idToken;
+      const client = new CognitoIdentityClient({ region });
+      const getIdentityId = new GetIdCommand({
+        IdentityPoolId: poolId,
+        Logins: logins ? logins : {}
+      })
+      let getCreds;
+      try {
+        await client.send(getIdentityId)
+          .then((res) => {
+            identityId = res.IdentityId;
+            getCreds = new GetCredentialsForIdentityCommand({
+              IdentityId: identityId,
+              Logins: logins ? logins : {}
+            })
+          })
+        const res = await client.send(getCreds);
+        const creds = res.Credentials;
+        const credentials = {
+          accessKeyId: creds.AccessKeyId,
+          identityId,
+          secretAccessKey: creds.SecretKey,
+          sessionToken: creds.SessionToken,
+          expiration: creds.Expiration,
+        };
+        return credentials;
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      const credentialProvider = fromCognitoIdentityPool({
+        identityPoolId: poolId,
+        clientConfig: { region },
+      })
+      const credentials = credentialProvider();
+      return credentials;
+    }
   },
 
   /***********************************************************************
@@ -1318,10 +1365,8 @@ export default {
  * File Upload Actions
  *
  **********************************************************************/
-  uploadFile(context, file) {
-    const s3 = new AWS.S3({
-      credentials: awsCredentials
-    });
+  async uploadFile(context, file) {
+    const s3 = new S3Client({credentials: awsCredentials});
     //Create a key that is unique to the user & time of upload
     const documentKey = lexClient.userId + '/' + file.name.split('.').join('-' + Date.now() + '.')
     const s3Params = {
@@ -1329,35 +1374,31 @@ export default {
       Bucket: context.state.config.ui.uploadS3BucketName,
       Key: documentKey,
     };
-
-    s3.putObject(s3Params, function(err, data) {
-      if (err) {
-        console.log(err, err.stack); // an error occurred
+    const command = new PutObjectCommand(s3Params);
+    try {
+      const res = await s3.send(command);
+      const documentObject = {
+        s3Path: 's3://' + context.state.config.ui.uploadS3BucketName + '/' + documentKey,
+        fileName: file.name
+      };
+      var documentsValue = [documentObject];
+      if (context.state.lex.sessionAttributes.userFilesUploaded) {
+        documentsValue = JSON.parse(context.state.lex.sessionAttributes.userFilesUploaded)
+        documentsValue.push(documentObject);
+      }
+      context.commit("setLexSessionAttributeValue",  { key: 'userFilesUploaded', value: JSON.stringify(documentsValue) });
+      if (context.state.config.ui.uploadSuccessMessage.length > 0) {
         context.commit('pushMessage', {
           type: 'bot',
-          text: context.state.config.ui.uploadFailureMessage,
+          text: context.state.config.ui.uploadSuccessMessage,
         });
       }
-      else {
-        console.log(data);           // successful response
-        const documentObject = {
-          s3Path: 's3://' + context.state.config.ui.uploadS3BucketName + '/' + documentKey,
-          fileName: file.name
-        };
-        var documentsValue = [documentObject];
-        if (context.state.lex.sessionAttributes.userFilesUploaded) {
-          documentsValue = JSON.parse(context.state.lex.sessionAttributes.userFilesUploaded)
-          documentsValue.push(documentObject);
-        }
-        context.commit("setLexSessionAttributeValue",  { key: 'userFilesUploaded', value: JSON.stringify(documentsValue) });
-        if (context.state.config.ui.uploadSuccessMessage.length > 0) {
-          context.commit('pushMessage', {
-            type: 'bot',
-            text: context.state.config.ui.uploadSuccessMessage,
-          });
-        }
-        return Promise.resolve();
-      }
-    });
+    } catch (err) {
+      console.log(err);
+      context.commit('pushMessage', {
+        type: 'bot',
+        text: context.state.config.ui.uploadFailureMessage,
+      });
+    }
   },
 };
