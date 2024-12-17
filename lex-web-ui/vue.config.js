@@ -154,9 +154,6 @@ function chainWebpackLib(
     },
   });
   config.optimization.runtimeChunk(false);
-  config.optimization.delete('splitChunks');
-  config.plugin('limitSplitChunks')
-    .use(webpack.optimize.LimitChunkCountPlugin, [{ maxChunks: 1 }]);
 
   if (config.plugins.has('extract-css')) {
     config
@@ -233,5 +230,5 @@ function chainWebpackApp(
 }
 
 module.exports = {
-  chainWebpack: chainWebpackApp,
+  chainWebpack: (buildType.isLib) ? chainWebpackLib : chainWebpackApp,
 };

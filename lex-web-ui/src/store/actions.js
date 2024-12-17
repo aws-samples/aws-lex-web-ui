@@ -1133,6 +1133,9 @@ export default {
     if (context.state.awsCreds.provider === 'parentWindow') {
       return context.dispatch('getCredentialsFromParent');
     }
+    if (awsCredentials) {
+      return awsCredentials;
+    }
     region = context.state.config.cognito.region || context.state.config.region || 'us-east-1';
     poolId = context.state.config.cognito.poolId;
     const appUserPoolName = context.state.config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');

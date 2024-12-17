@@ -166,7 +166,6 @@ export class Loader {
       });
     }
 
-
     const awsConfig = {
       region: mergedConfig.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1',
       credentials,
