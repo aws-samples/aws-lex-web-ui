@@ -25,6 +25,7 @@ import { createLiveChatSession, connectLiveChatSession, initLiveChatHandlers, se
 import { initTalkDeskLiveChat, sendTalkDeskChatMessage, requestTalkDeskLiveChatEnd } from '@/store/talkdesk-live-chat-handlers.js';
 import silentOgg from '@/assets/silent.ogg';
 import silentMp3 from '@/assets/silent.mp3';
+import { Signer } from 'aws-amplify';
 
 import LexClient from '@/lib/lex/client';
 
@@ -982,7 +983,7 @@ export default {
         return Promise.resolve();
       });
     }
-    // If TalkDesk endpoint is available use 
+    // If TalkDesk endpoint is available use
     else if (context.state.config.connect.talkDeskWebsocketEndpoint) {
       liveChatSession = initTalkDeskLiveChat(context);
       return Promise.resolve();
@@ -1020,7 +1021,7 @@ export default {
       if (context.state.config.connect.apiGatewayEndpoint) {
         sendChatMessage(liveChatSession, message);
       }
-      // If TalkDesk endpoint is available use 
+      // If TalkDesk endpoint is available use
       else if (context.state.config.connect.talkDeskWebsocketEndpoint) {
         sendTalkDeskChatMessage(context, liveChatSession, message);
 
@@ -1032,22 +1033,22 @@ export default {
             dialogState: context.state.lex.dialogState
           },
         );
-      }    
+      }
     }
   },
   requestLiveChatEnd(context) {
     console.info('actions: endLiveChat');
     context.commit('clearLiveChatIntervalId');
     if (context.state.chatMode === chatMode.LIVECHAT && liveChatSession) {
-      
+
       // If Connect API Gateway Endpoint is set, use Connect
       if (context.state.config.connect.apiGatewayEndpoint) {
         requestLiveChatEnd(liveChatSession);
       }
-      // If TalkDesk endpoint is available use 
+      // If TalkDesk endpoint is available use
       else if (context.state.config.connect.talkDeskWebsocketEndpoint) {
         requestTalkDeskLiveChatEnd(context, liveChatSession, "agent");
-      }   
+      }
 
       context.dispatch('pushLiveChatMessage', {
         type: 'agent',
@@ -1068,6 +1069,15 @@ export default {
   },
   liveChatSessionEnded(context) {
     console.info('actions: liveChatSessionEnded');
+    console.info(`connect config is : ${context.state.config.connect}`);
+    if (context.state.config.connect.endLiveChatUtterance && context.state.config.connect.endLiveChatUtterance.length > 0) {
+        const message = {
+          type: context.state.config.ui.hideButtonMessageBubble ? 'button' : 'human',
+          text: context.state.config.connect.endLiveChatUtterance,
+        };
+        context.dispatch('postTextMessage', message);
+        console.info("dispatching request to send message");
+    }
     liveChatSession = null;
     context.commit('setLiveChatStatus', liveChatStatus.ENDED);
     context.commit('setChatMode', chatMode.BOT);
@@ -1281,7 +1291,19 @@ export default {
  **********************************************************************/
   InitWebSocketConnect(context){
     const sessionId = lexClient.userId;
-    wsClient = new WebSocket(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId);
+    const serviceInfo = { 
+      region: context.state.config.region, 
+      service: 'execute-api' 
+    };
+
+    const accessInfo = {
+      access_key: awsCredentials.accessKeyId,
+      secret_key: awsCredentials.secretAccessKey,
+      session_token: awsCredentials.sessionToken,
+    }
+
+    const signedUrl = Signer.signUrl(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId, accessInfo, serviceInfo);
+    wsClient = new WebSocket(signedUrl);
   },
   typingWsMessages(context){
     if (context.getters.wsMessagesCurrentIndex()<context.getters.wsMessagesLength()-1){
@@ -1307,7 +1329,7 @@ export default {
       Bucket: context.state.config.ui.uploadS3BucketName,
       Key: documentKey,
     };
-  
+
     s3.putObject(s3Params, function(err, data) {
       if (err) {
         console.log(err, err.stack); // an error occurred
@@ -1315,7 +1337,7 @@ export default {
           type: 'bot',
           text: context.state.config.ui.uploadFailureMessage,
         });
-      } 
+      }
       else {
         console.log(data);           // successful response
         const documentObject = {

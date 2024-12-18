@@ -9,15 +9,16 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "dev": "vue-cli-service serve",
-    "start": "vue-cli-service serve --skip-plugins @vue/cli-plugin-eslint",
-    "build": "vue-cli-service build --skip-plugins @vue/cli-plugin-eslint",
+    "start": "vue-cli-service serve",
+    "build": "vue-cli-service build",
     "build:dev": "vue-cli-service build --mode development",
     "build-dist": "npm run build:lib-dev && npm run build:lib-prod",
-    "build:lib-dev": "BUILD_TARGET=lib vue-cli-service build --skip-plugins @vue/cli-plugin-eslint ---no-clean --mode development src/lex-web-ui.js",
-    "build:lib-prod": "BUILD_TARGET=lib vue-cli-service build --skip-plugins @vue/cli-plugin-eslint --no-clean ---mode production src/lex-web-ui.js",
+    "build:lib-dev": "BUILD_TARGET=lib vue-cli-service build ---no-clean --mode development src/lex-web-ui.js",
+    "build:lib-prod": "BUILD_TARGET=lib vue-cli-service build --no-clean ---mode production src/lex-web-ui.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "aws-amplify": "^5.3.26",
     "amazon-connect-chatjs": "^2.3.0",
     "aws-sdk": "^2.1354.0",
     "browserify-zlib": "^0.2.0",
@@ -39,7 +40,6 @@
     "@babel/eslint-parser": "^7.23.3",
     "@mdi/font": "^7.4.47",
     "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-plugin-router": "^5.0.8",
     "@vue/cli-plugin-vuex": "~5.0.8",
     "@vue/cli-service": "^5.0.8",

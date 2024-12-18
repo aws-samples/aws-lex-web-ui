@@ -2226,10 +2226,10 @@ var SHARED = '__core-js_shared__';
 var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 (store.versions || (store.versions = [])).push({
-  version: '3.38.1',
+  version: '3.39.0',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -2598,9 +2598,9 @@ module.exports = function (key) {
 /* eslint-disable es/no-symbol -- required for testing */
 var NATIVE_SYMBOL = __webpack_require__(/*! ../internals/symbol-constructor-detection */ "./node_modules/core-js/internals/symbol-constructor-detection.js");
 
-module.exports = NATIVE_SYMBOL
-  && !Symbol.sham
-  && typeof Symbol.iterator == 'symbol';
+module.exports = NATIVE_SYMBOL &&
+  !Symbol.sham &&
+  typeof Symbol.iterator == 'symbol';
 
 
 /***/ }),
@@ -2691,6 +2691,8 @@ var isDetached = __webpack_require__(/*! ../internals/array-buffer-is-detached *
 
 var ArrayBufferPrototype = ArrayBuffer.prototype;
 
+// `ArrayBuffer.prototype.detached` getter
+// https://tc39.es/ecma262/#sec-get-arraybuffer.prototype.detached
 if (DESCRIPTORS && !('detached' in ArrayBufferPrototype)) {
   defineBuiltInAccessor(ArrayBufferPrototype, 'detached', {
     configurable: true,
@@ -2936,6 +2938,8 @@ exportTypedArrayMethod('with', { 'with': function (index, value) {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
 /*!****************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js!./src/lib/lex/wav-worker.js ***!
   \****************************************************************************/
@@ -3158,6 +3162,8 @@ function downsampleTrimBuffer(buffer, rate) {
   // slice based on quiet threshold and put slack back into the buffer
   result.slice(Math.max(0, firstNonQuiet - options.quietTrimSlackBack), Math.min(newLength, lastNonQuiet + options.quietTrimSlackBack)) : result;
 }
+})();
+
 /******/ })()
 ;
 //# sourceMappingURL=wav-worker.js.map

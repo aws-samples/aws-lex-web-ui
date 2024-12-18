@@ -35,9 +35,24 @@ export const connectLiveChatSession = session =>
     return Promise.reject(error);
   }));
 
+function recordSessionAttributes(context, chatDetails) {
+  if (chatDetails && chatDetails.initialContactId) {
+    context.commit("setLexSessionAttributeValue", { key: 'connect_initial_contact_id', value: chatDetails.initialContactId });
+  }
+  if (chatDetails && chatDetails.contactId) {
+    context.commit("setLexSessionAttributeValue", { key: 'connect_contact_id', value: chatDetails.contactId });
+  }
+  if (chatDetails && chatDetails.participantId) {
+    context.commit("setLexSessionAttributeValue", { key: 'connect_participant_id', value: chatDetails.participantId });
+  }
+}
+
 export const initLiveChatHandlers = (context, session) => {
   session.onConnectionEstablished((data) => {
     console.info('Established!', data);
+    if (data && data.chatDetails) {
+      recordSessionAttributes(context, data.chatDetails);
+    }
     // context.dispatch('pushLiveChatMessage', {
     //   type: 'agent',
     //   text: 'Live Chat Connection Established',
@@ -48,6 +63,9 @@ export const initLiveChatHandlers = (context, session) => {
     const { chatDetails, data } = event;
     console.info(`Received message: ${JSON.stringify(event)}`);
     console.info('Received message chatDetails:', chatDetails);
+    if (chatDetails) {
+      recordSessionAttributes(context, chatDetails);
+    }
     let type = '';
     switch (data.ContentType) {
       case 'application/vnd.amazonaws.connect.event.participant.joined':
