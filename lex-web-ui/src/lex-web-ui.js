@@ -18,8 +18,6 @@ License for the specific language governing permissions and limitations under th
  * Exports Loader as the plugin constructor
  * and Store as store that can be used with Vuex.Store()
  */
-import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
-import { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } from '@aws-sdk/client-cognito-identity';
 import { LexRuntimeServiceClient } from '@aws-sdk/client-lex-runtime-service';
 import { LexRuntimeV2Client } from '@aws-sdk/client-lex-runtime-v2';
 import { PollyClient } from '@aws-sdk/client-polly';
@@ -161,7 +159,8 @@ export class Loader {
     const mergedConfig = mergeConfig(defaultConfig, config);
     let credentials;
     if (mergedConfig.cognito.poolId != '' || localStorage.getItem('poolId')) {
-      credentials = this.getCredentials(mergedConfig).then((creds) => {
+      credentials = this.store.dispatch('getCredentials', mergeConfig).then((creds) => {
+      //credentials = this.getCredentials(mergedConfig).then((creds) => {
         return creds;
       });
     }
@@ -184,56 +183,6 @@ export class Loader {
         pollyClient
     });
     this.app = app;
-  }
-
-  async getCredentials(context) {
-    const region = context.region || context.cognito.poolId.split(':')[0] || 'us-east-1';
-    const poolId = context.cognito.poolId || localStorage.getItem('poolId');
-    const appUserPoolName = context.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
-    const poolName = `cognito-idp.${region}.amazonaws.com/${appUserPoolName}`;
-    const appUserPoolClientId = context.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId')
-    const idtoken = localStorage.getItem(`${appUserPoolClientId}idtokenjwt`);
-    let logins;
-    if (idtoken) {
-      logins = {};
-      logins[poolName] = idtoken;
-      const client = new CognitoIdentityClient({ region });
-      const getIdentityId = new GetIdCommand({
-        IdentityPoolId: poolId,
-        Logins: logins ? logins : {}
-      })
-      let identityId, getCreds;
-      
-      try {
-        await client.send(getIdentityId)
-          .then((res) => {
-            identityId = res.IdentityId;
-            getCreds = new GetCredentialsForIdentityCommand({
-              IdentityId: identityId,
-              Logins: logins ? logins : {}
-            })
-          })
-        const res = await client.send(getCreds);
-        const creds = res.Credentials;
-        const credentials = {
-          accessKeyId: creds.AccessKeyId,
-          identityId,
-          secretAccessKey: creds.SecretKey,
-          sessionToken: creds.SessionToken,
-          expiration: creds.Expiration,
-        };
-        return credentials;
-      } catch (err) {
-        console.log(err)
-      }
-    } else {
-      const credentialProvider = fromCognitoIdentityPool({
-        identityPoolId: poolId,
-        clientConfig: { region },
-      })
-      const credentials = credentialProvider()
-      return credentials
-    }   
   }
 }
 

@@ -25,11 +25,6 @@ export const dependenciesFullPage = {
       url: './initiate-loader.js',
     },
     {
-      name: 'AWS',
-      url: './aws-sdk-2.903.0.js',
-      canUseMin: true,
-    },
-    {
       name: 'Vue',
       url: './3.3.10_dist_vue.global.prod.js',
       canUseMin: false,
@@ -79,4 +74,5 @@ export const dependenciesIframe = {
       url: './lex-web-ui-loader.css',
     },
   ],
+  script: []
 };
