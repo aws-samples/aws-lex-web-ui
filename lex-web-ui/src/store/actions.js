@@ -1137,7 +1137,7 @@ export default {
       return awsCredentials;
     }
     region = context.state.config.cognito.region || context.state.config.region || 'us-east-1';
-    poolId = context.state.config.cognito.poolId;
+    const poolId = context.state.config.cognito.poolId || localStorage.getItem('poolId');
     const appUserPoolName = context.state.config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
     poolName = `cognito-idp.${region}.amazonaws.com/${appUserPoolName}`;
     const appUserPoolClientId = context.state.config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId')
