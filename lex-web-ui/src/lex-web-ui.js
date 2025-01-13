@@ -159,8 +159,7 @@ export class Loader {
     const mergedConfig = mergeConfig(defaultConfig, config);
     let credentials;
     if (mergedConfig.cognito.poolId != '' || localStorage.getItem('poolId')) {
-      credentials = this.store.dispatch('getCredentials', mergeConfig).then((creds) => {
-      //credentials = this.getCredentials(mergedConfig).then((creds) => {
+      credentials = this.store.dispatch('getCredentials', mergedConfig).then((creds) => {
         return creds;
       });
     }

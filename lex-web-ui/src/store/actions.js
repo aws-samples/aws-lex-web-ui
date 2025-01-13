@@ -422,7 +422,7 @@ export default {
 
   pollyGetBlob(context, text, format = 'text') {
     return context.dispatch('refreshAuthTokens')
-      .then(() => context.dispatch('getCredentials'))
+      .then(() => context.dispatch('getCredentials', context.state.config))
       .then((creds) => {
         pollyClient.config.credentials = creds;
         const synthReq = pollyClient.synthesizeSpeech({
@@ -668,7 +668,7 @@ export default {
   deleteSession(context) {
     context.commit('setIsLexProcessing', true);
     return context.dispatch('refreshAuthTokens')
-      .then(() => context.dispatch('getCredentials'))
+      .then(() => context.dispatch('getCredentials', context.state.config))
       .then(() => lexClient.deleteSession())
       .then((data) => {
         context.commit('setIsLexProcessing', false);
@@ -683,7 +683,7 @@ export default {
   startNewSession(context) {
     context.commit('setIsLexProcessing', true);
     return context.dispatch('refreshAuthTokens')
-      .then(() => context.dispatch('getCredentials'))
+      .then(() => context.dispatch('getCredentials', context.state.config))
       .then(() => lexClient.startNewSession())
       .then((data) => {
         context.commit('setIsLexProcessing', false);
@@ -705,7 +705,7 @@ export default {
       : undefined;
     const sessionId = lexClient.userId;
     return context.dispatch('refreshAuthTokens')
-      .then(() => context.dispatch('getCredentials'))
+      .then(() => context.dispatch('getCredentials', context.state.config))
       .then(() => {
         // TODO: Need to handle if the error occurred. typing would be broke since lexClient.postText throw error
         if (String(context.state.config.lex.allowStreamingResponses) === "true") {
@@ -755,7 +755,7 @@ export default {
     let timeStart;
 
     return context.dispatch('refreshAuthTokens')
-      .then(() => context.dispatch('getCredentials'))
+      .then(() => context.dispatch('getCredentials', context.state.config))
       .then(() => {
         const localeId = context.state.config.lex.v2BotLocaleId
           ? context.state.config.lex.v2BotLocaleId.split(',')[0]
@@ -924,70 +924,70 @@ export default {
         InstanceId: context.state.config.connect.instanceId,
       };
 
-      const bodyText = JSON.stringify(initiateChatRequest);
-      const reqHeaders = new Headers();
-      reqHeaders.append("Content-Type", "application/json");
-      reqHeaders.append("Content-Length", Buffer.byteLength(bodyText));
-
-      const serviceInfo = { 
-        region: context.state.config.region, 
-        service: 'execute-api' 
-      };
-  
-      const accessInfo = {
-        access_key: awsCredentials.accessKeyId,
-        secret_key: awsCredentials.secretAccessKey,
-        session_token: awsCredentials.sessionToken,
-      }
+      context.dispatch('refreshAuthTokens')
+        .then(() => context.dispatch('getCredentials', context.state.config))
+        .then((credentials) => {
+          const bodyText = JSON.stringify(initiateChatRequest);
+          const serviceInfo = { 
+            region: context.state.config.region, 
+            service: 'execute-api' 
+          };
       
-      const reqInit = new Request(context.state.config.connect.apiGatewayEndpoint, {
-        method: 'POST',
-        mode: 'cors',
-        headers: req.headers,
-        body: JSON.stringify(initiateChatRequest),
-      });
+          const accessInfo = {
+            access_key: credentials.accessKeyId,
+            secret_key: credentials.secretAccessKey,
+            session_token: credentials.sessionToken,
+          }
 
-      req = Signer.sign(reqInit, accessInfo, serviceInfo);
+          var request = {
+            url: context.state.config.connect.apiGatewayEndpoint,
+            method: 'POST',
+            mode: 'cors',
+            data: bodyText
+          }
 
-      return fetch(req)
-      .then(response => response.json())
-      .then(json => json.data)
-      .then((result) => {
-        console.info('Live Chat Config Success:', result);
-        context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
-        function waitMessage(context, type, message) {
-          context.commit('pushLiveChatMessage', {
-            type,
-            text: message,
+          const signedRequest = Signer.sign(request, accessInfo, serviceInfo);
+
+          return fetch(signedRequest.url, signedRequest)
+          .then(response => response.json())
+          .then(json => json.data)
+          .then((result) => {
+            console.info('Live Chat Config Success:', result);
+            context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
+            function waitMessage(context, type, message) {
+              context.commit('pushLiveChatMessage', {
+                type,
+                text: message,
+              });
+            };
+            if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
+              const intervalID = setInterval(waitMessage,
+                1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
+                context,
+                'bot',
+                context.state.config.connect.waitingForAgentMessage);
+              console.info(`interval now set: ${intervalID}`);
+              context.commit('setLiveChatIntervalId', intervalID);
+            }
+            liveChatSession = createLiveChatSession(result);
+            console.info('Live Chat Session Created:', liveChatSession);
+            initLiveChatHandlers(context, liveChatSession);
+            console.info('Live Chat Handlers initialised:');
+            return connectLiveChatSession(liveChatSession);
+          })
+          .then((response) => {
+            console.info('live Chat session connection response', response);
+            console.info('Live Chat Session CONNECTED:', liveChatSession);
+            context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
+            // context.commit('setLiveChatbotSession', liveChatSession);
+            return Promise.resolve();
+          })
+          .catch((error) => {
+            console.error("Error esablishing live chat");
+            context.commit('setLiveChatStatus', liveChatStatus.ENDED);
+            return Promise.resolve();
           });
-        };
-        if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
-          const intervalID = setInterval(waitMessage,
-            1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
-            context,
-            'bot',
-            context.state.config.connect.waitingForAgentMessage);
-          console.info(`interval now set: ${intervalID}`);
-          context.commit('setLiveChatIntervalId', intervalID);
-        }
-        liveChatSession = createLiveChatSession(result);
-        console.info('Live Chat Session Created:', liveChatSession);
-        initLiveChatHandlers(context, liveChatSession);
-        console.info('Live Chat Handlers initialised:');
-        return connectLiveChatSession(liveChatSession);
-      })
-      .then((response) => {
-        console.info('live Chat session connection response', response);
-        console.info('Live Chat Session CONNECTED:', liveChatSession);
-        context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
-        // context.commit('setLiveChatbotSession', liveChatSession);
-        return Promise.resolve();
-      })
-      .catch((error) => {
-        console.error("Error esablishing live chat");
-        context.commit('setLiveChatStatus', liveChatStatus.ENDED);
-        return Promise.resolve();
-      });
+        });
     }
     // If TalkDesk endpoint is available use
     else if (context.state.config.connect.talkDeskWebsocketEndpoint) {
@@ -1129,22 +1129,24 @@ export default {
         return awsCredentials;
       });
   },
-  async getCredentials(context) {
+  async getCredentials(context, config) {
     if (context.state.awsCreds.provider === 'parentWindow') {
       return context.dispatch('getCredentialsFromParent');
     }
+
     if (awsCredentials) {
       return awsCredentials;
     }
-    region = context.state.config.cognito.region || context.state.config.region || 'us-east-1';
-    const poolId = context.state.config.cognito.poolId || localStorage.getItem('poolId');
-    const appUserPoolName = context.state.config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
-    poolName = `cognito-idp.${region}.amazonaws.com/${appUserPoolName}`;
-    const appUserPoolClientId = context.state.config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId')
-    idToken = context.state.config.lex.sessionAttributes.idtokenjwt || localStorage.getItem(`${appUserPoolClientId}idtokenjwt`)
+
+    const region = config.cognito.region || config.region || 'us-east-1';
+    const poolId = config.cognito.poolId || localStorage.getItem('poolId');
+    const appUserPoolName = config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
+    const appUserPoolClientId = config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId');
+    const idToken = config.lex.sessionAttributes.idtokenjwt || localStorage.getItem(`${appUserPoolClientId}idtokenjwt`);
+
     if (idToken) {
       logins = {};
-      logins[poolName] = idToken;
+      logins[`cognito-idp.${region}.amazonaws.com/${appUserPoolName}`] = idToken;
       const client = new CognitoIdentityClient({ region });
       const getIdentityId = new GetIdCommand({
         IdentityPoolId: poolId,
