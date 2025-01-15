@@ -19,16 +19,16 @@
  */
 
 export const configBase = {
-  region: '',
-  lex: { botName: '' },
-  cognito: { poolId: '' },
-  ui: { parentOrigin: '' },
+  region: 'us-east-1',
+  lex: { botName: 'LZIKP1FQS6' },
+  cognito: { poolId: 'us-east-1:18f07213-af0d-4d54-b677-c1c40a7ef92c' },
+  ui: { parentOrigin: 'https://dwnjd0qi3xz2k.cloudfront.net' },
   polly: {},
   connect: {},
   recorder: {},
   iframe: {
-    iframeOrigin: '',
-    iframeSrcPath: '',
+    iframeOrigin: 'https://dwnjd0qi3xz2k.cloudfront.net',
+    iframeSrcPath: '/index.html#/?lexWebUiEmbed=true',
   },
 };
 

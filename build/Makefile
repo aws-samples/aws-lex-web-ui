@@ -56,16 +56,16 @@ CUSTOM_RESOURCES_ZIP := custom-resources-$(VERSION).zip
 CUSTOM_RESOURCES_FILES := $(wildcard $(CUSTOM_RESOURCES_DIR)/*.py)
 CUSTOM_RESOURCES_FILES += $(PY_MODULES)
 $(PY_MODULES):
-	pushd $(CUSTOM_RESOURCES_DIR) ; \
+	cd $(CUSTOM_RESOURCES_DIR) && \
 	[ -f requirements.txt ] && \
-    	python3 -m pip install --upgrade -r requirements.txt -t ./py_modules || true ; \
-    popd ;
+    	python3 -m pip install --upgrade -r requirements.txt -t ./py_modules || true && \
+    cd - ;
 $(CUSTOM_RESOURCES_ZIP): $(CUSTOM_RESOURCES_FILES) | $(OUT)
 	@echo "[INFO] Creating custom resource Lambda zip file"
 	zip -u -j "$(OUT)/$(@)" $(?) ; \
-	pushd $(CUSTOM_RESOURCES_DIR)/py_modules ; \
-	zip -r -q "../../../build/$(OUT)/$(@)" . ; \
-	popd ;
+	cd $(CUSTOM_RESOURCES_DIR)/py_modules && \
+	zip -r -q "../../../build/$(OUT)/$(@)" . && \
+	cd - ;
 upload-custom-resources-zip: $(CUSTOM_RESOURCES_ZIP) | $(OUT)
 	@echo "[INFO] Uploading custom resources Lambda zip file"
 	aws s3 cp --acl public-read \

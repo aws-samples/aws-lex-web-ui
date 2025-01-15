@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample HTML Page</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Sample Page</h1>
+    </header>
+    <main>
+        <section>
+            <h2>About</h2>
+            <p>This is a sample HTML page created to demonstrate basic HTML structure.</p>
+        </section>
+        <section>
+            <h2>Contact</h2>
+            <p>You can contact us at <a href="mailto:info@example.com">info@example.com</a>.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Sample Page. All rights reserved.</p>
+    </footer>
+    <script src="https://dwnjd0qi3xz2k.cloudfront.net/lex-web-ui-loader.min.js"></script>
+<script>
+  var loaderOpts = {
+    baseUrl: 'https://dwnjd0qi3xz2k.cloudfront.net',
+    shouldLoadMinDeps: true
+  };
+  var loader = new ChatBotUiLoader.IframeLoader(loaderOpts);
+  var chatbotUiConfig = {
+          /* Example of setting session attributes on parent page
+          lex: {
+            sessionAttributes: {
+              userAgent: navigator.userAgent,
+              QNAClientFilter: ''
+            }
+          }
+          */
+        };
+  loader.load(chatbotUiConfig)
+    .catch(function (error) { console.error(error); });
+</script>
+</body>
+</html>

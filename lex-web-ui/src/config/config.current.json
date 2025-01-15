@@ -1,1 +1,84 @@
-{}
+{
+    "region": "us-east-1",
+    "cognito": {
+      "poolId": "us-east-1:18f07213-af0d-4d54-b677-c1c40a7ef92c",
+      "appUserPoolClientId": "1k6qdm2p5iqpoj2t7dquhb22vq",
+      "appUserPoolName": "us-east-1_9DQqALi7c",
+      "appDomainName": "lexkwebkuikidentitypoolconfigkfeqgfccacwcd705783062285.auth.us-east-1.amazoncognito.com",
+      "aws_cognito_region": "us-east-1",
+      "region": "us-east-1"
+    },
+    "connect": {
+      "contactFlowId": "arn:aws:connect:us-east-1:705783062285:instance/afbdc034-1889-40e9-aef3-f88fdce24bd9/contact-flow/9b9be5ff-2fe7-4895-ab15-a58dada2cba7",
+      "instanceId": "arn:aws:connect:us-east-1:705783062285:instance/afbdc034-1889-40e9-aef3-f88fdce24bd9",
+      "apiGatewayEndpoint": "https://t435vhbgii.execute-api.us-east-1.amazonaws.com/Prod/livechat",
+      "promptForNameMessage": "Before starting a live chat, please tell me your name?",
+      "waitingForAgentMessage": "Thanks for waiting. An agent will be with you when available.",
+      "waitingForAgentMessageIntervalSeconds": "60",
+      "agentJoinedMessage": "{Agent} has joined.",
+      "agentLeftMessage": "{Agent} has left.",
+      "chatEndedMessage": "Chat ended.",
+      "attachChatTranscript": "false",
+      "liveChatTerms": "live chat",
+      "transcriptMessageDelayInMsec": "150"
+    },
+    "lex": {
+      "v2BotId": "LZIKP1FQS6",
+      "v2BotAliasId": "NW6IBU7KVN",
+      "v2BotLocaleId": "en_US",
+      "botName": "LZIKP1FQS6",
+      "botAlias": "$LATEST",
+      "initialText": "How can I help you?",
+      "initialSpeechInstruction": "How can I help you?",
+      "initialUtterance": "",
+      "reInitSessionAttributesOnRestart": false,
+      "region": "us-east-1",
+      "retryOnLexPostTextTimeout": "false",
+      "retryCountPostTextTimeout": "1",
+      "allowStreamingResponses": false,
+      "streamingWebSocketEndpoint": "",
+      "streamingDynamoDbTable": ""
+    },
+    "ui": {
+      "parentOrigin": "https://pcointelligence.com",
+      "toolbarTitle": "PCOIntelligence",
+      "toolbarLogo": "https://pcointelligence.com/wp-content/uploads/2024/12/header-image-350x100-green.png",
+      "toolbarStartLiveChatLabel": "Start Live Chat",
+      "toolbarEndLiveChatLabel": "End Live Chat",
+      "toolbarStartLiveChatIcon": "people_alt",
+      "toolbarEndLiveChatIcon": "call_end",
+      "positiveFeedbackIntent": "",
+      "negativeFeedbackIntent": "",
+      "helpIntent": "",
+      "minButtonContent": "",
+      "avatarImageUrl": "",
+      "backButton": false,
+      "messageMenu": false,
+      "hideButtonMessageBubble": false,
+      "enableLogin": false,
+      "enableLiveChat": true,
+      "forceLogin": false,
+      "enableUpload": false,
+      "uploadS3BucketName": "",
+      "AllowSuperDangerousHTMLInMessage": true,
+      "shouldDisplayResponseCardTitle": false,
+      "saveHistory": false,
+      "helpContent": {},
+      "enableSFX": false,
+      "hideInputFieldsForButtonResponse": false,
+      "pushInitialTextOnRestart": false,
+      "directFocusToBotInput": false,
+      "showDialogStateIcon": false
+    },
+    "polly": {
+      "voiceId": "Salli"
+    },
+    "recorder": {
+      "preset": "speech_recognition"
+    },
+    "iframe": {
+      "iframeOrigin": "https://d1245c9fu3zjg5.cloudfront.net",
+      "shouldLoadIframeMinimized": false,
+      "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true"
+    }
+  }

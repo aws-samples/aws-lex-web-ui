@@ -19,10 +19,10 @@ fi
 rm -f out/src-$version.zip
 # no longer removes custom-resources.zip - this is created in build using ./release.sh as a required step
 
-pushd .
+cd .
 cd ..
 git ls-files | xargs zip -u build/out/src-$version.zip
-popd
+cd
 aws s3 cp out/src-$version.zip \
   "s3://${BOOTSTRAP_BUCKET_PATH}/src-$version.zip"
 

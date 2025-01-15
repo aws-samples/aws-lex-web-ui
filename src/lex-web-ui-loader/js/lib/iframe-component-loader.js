@@ -467,67 +467,98 @@ export class IframeComponentLoader {
       intervalId: null,
       checkIsChtBotReady: null,
       onConfigEventTimeout: null,
+      retries: 0,
+      maxRetries: 10,
     };
 
     return new Promise((resolve, reject) => {
-      const timeoutInMs = 15000;
+      // Increase timeout and add retry mechanism
+      const timeoutInMs = 60000; // 60 seconds total timeout
+      const checkInterval = 1000; // Check every second
 
-      readyManager.checkIsChatBotReady =  () => {
-        // isChatBotReady set by event received from iframe
-        if (this.isChatBotReady) {
-          clearTimeout(readyManager.timeoutId);
-          clearInterval(readyManager.intervalId);
+      readyManager.checkIsChatBotReady = () => {
+        try {
+          readyManager.retries++;
+          
+          if (this.isChatBotReady) {
+            console.debug('[ChatBot] Bot UI ready after', readyManager.retries, 'retries');
+            clearTimeout(readyManager.timeoutId);
+            clearInterval(readyManager.intervalId);
+            
+            // Ensure iframe is fully loaded before proceeding
+            if (!this.iframeElement || !this.iframeElement.contentWindow) {
+              throw new Error('Iframe not properly initialized');
+            }
 
-          if (this.config.ui.enableLogin && this.config.ui.enableLogin === true) {
-            const auth = getAuth(this.generateConfigObj());
-            const session = auth.getSignInUserSession();
-            const tokens = {};
-            if (session.isValid()) {
-              tokens.idtokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-              tokens.accesstokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}accesstokenjwt`);
-              tokens.refreshtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
-              this.sendMessageToIframe({
-                event: 'confirmLogin',
-                data: tokens,
-              });
-            } else if (this.config.ui.enableLogin && this.config.ui.forceLogin){
-                forceLogin(this.generateConfigObj())
+            // Rest of the login handling code
+            if (this.config.ui.enableLogin && this.config.ui.enableLogin === true) {
+              const auth = getAuth(this.generateConfigObj());
+              const session = auth.getSignInUserSession();
+              const tokens = {};
+              if (session.isValid()) {
+                tokens.idtokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
+                tokens.accesstokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}accesstokenjwt`);
+                tokens.refreshtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
                 this.sendMessageToIframe({
                   event: 'confirmLogin',
                   data: tokens,
                 });
-            }
-            else {
-              const refToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
-              if (refToken) {
-                refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
-                  if (refSession.isValid()) {
-                    tokens.idtokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-                    tokens.accesstokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}accesstokenjwt`);
-                    tokens.refreshtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
-                    this.sendMessageToIframe({
-                      event: 'confirmLogin',
-                      data: tokens,
-                    });
-                  }
-                });
+              } else if (this.config.ui.enableLogin && this.config.ui.forceLogin){
+                  forceLogin(this.generateConfigObj())
+                  this.sendMessageToIframe({
+                    event: 'confirmLogin',
+                    data: tokens,
+                  });
+              }
+              else {
+                const refToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
+                if (refToken) {
+                  refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
+                    if (refSession.isValid()) {
+                      tokens.idtokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
+                      tokens.accesstokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}accesstokenjwt`);
+                      tokens.refreshtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
+                      this.sendMessageToIframe({
+                        event: 'confirmLogin',
+                        data: tokens,
+                      });
+                    }
+                  });
+                }
               }
             }
+            resolve();
+          } else if (readyManager.retries >= readyManager.maxRetries) {
+            throw new Error('Max retries reached waiting for chatbot UI');
+          } else {
+            console.debug('[ChatBot] Waiting for bot UI...', readyManager.retries);
           }
-          resolve();
+        } catch (err) {
+          console.error('[ChatBot] Error in ready check:', err);
+          clearTimeout(readyManager.timeoutId);
+          clearInterval(readyManager.intervalId);
+          reject(err);
         }
       };
 
       readyManager.onConfigEventTimeout = () => {
+        console.error('[ChatBot] Loading timeout after', timeoutInMs, 'ms');
         clearInterval(readyManager.intervalId);
-        return reject(new Error('chatbot loading time out'));
+        
+        // Try to get more diagnostic information
+        const iframeStatus = this.iframeElement ? 
+          'iframe exists' : 'no iframe';
+        const iframeWindowStatus = this.iframeElement && this.iframeElement.contentWindow ?
+          'contentWindow exists' : 'no contentWindow';
+          
+        reject(new Error(`Chatbot UI initialization timeout. Status: ${iframeStatus}, ${iframeWindowStatus}`));
       };
 
-      readyManager.timeoutId =
-        setTimeout(readyManager.onConfigEventTimeout, timeoutInMs);
+      readyManager.timeoutId = setTimeout(readyManager.onConfigEventTimeout, timeoutInMs);
+      readyManager.intervalId = setInterval(readyManager.checkIsChatBotReady, checkInterval);
 
-      readyManager.intervalId =
-        setInterval(readyManager.checkIsChatBotReady, 500);
+      // Do an initial check immediately
+      readyManager.checkIsChatBotReady();
     });
   }
 

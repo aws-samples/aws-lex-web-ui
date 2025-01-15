@@ -1,0 +1,70 @@
+{
+  "region": "us-east-1",
+  "cognito": {
+    "poolId": "",
+    "aws_cognito_region": "us-east-1",
+    "region": "us-east-1"
+  },
+  "connect": {
+    "contactFlowId" : "",
+    "instanceId" : "",
+    "apiGatewayEndpoint" : "",
+    "promptForNameMessage": "Before starting a live chat, please tell me your name?",
+    "waitingForAgentMessage": "Thanks for waiting. An agent will be with you when available.",
+    "waitingForAgentMessageIntervalSeconds": 60
+  },
+  "lex": {
+    "botName": "OrderFlowers",
+    "initialText": "You can ask me for help ordering flowers. Just type \"order flowers\" or click on the mic and say it.",
+    "initialSpeechInstruction": "Say 'Order Flowers' to get started.",
+    "initialUtterance": "",
+    "region": "us-east-1",
+    "retryOnLexPostTextTimeout": false,
+    "retryCountPostTextTimeout": 1,
+    "v2BotId": "",
+    "v2BotAliasId": "",
+    "v2BotLocaleId": "",
+    "allowStreamingResponses": false,
+    "streamingWebSocketEndpoint": "",
+    "streamingDynamoDbTable": ""
+  },
+  "ui": {
+    "parentOrigin": "https://dwnjd0qi3xz2k.cloudfront.net",
+    "toolbarTitle": "Order Flowers",
+    "toolbarLogo": "",
+    "positiveFeedbackIntent": "Thumbs up",
+    "negativeFeedbackIntent": "Thumbs down",
+    "helpIntent": "Help",
+    "helpContent": {},
+    "enableLogin": false,
+    "enableSFX": false,
+    "forceLogin": false,
+    "AllowSuperDangerousHTMLInMessage": true,
+    "shouldDisplayResponseCardTitle": false,
+    "minButtonContent": "",
+    "hideInputFieldsForButtonResponse": false,
+    "pushInitialTextOnRestart": false,
+    "directFocusToBotInput": false,
+    "showDialogStateIcon": false,
+    "backButton": false,
+    "messageMenu": true,
+    "hideButtonMessageBubble": false,
+    "saveHistory": false,
+    "enableLiveChat": false,
+    "toolbarStartLiveChatLabel": "Start Live Chat",
+    "toolbarEndLiveChatLabel": "End Live Chat",
+    "toolbarStartLiveChatIcon": "people_alt",
+    "toolbarEndLiveChatIcon": "call_end"
+  },
+  "polly": {
+    "voiceId": "Salli"
+  },
+  "recorder": {
+    "preset": "speech_recognition"
+  },
+  "iframe": {
+    "iframeOrigin": "",
+    "shouldLoadIframeMinimized": false,
+    "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true"
+  }
+}
