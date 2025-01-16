@@ -169,11 +169,34 @@ Resources:
       IntegrationUri: 
         Fn::Sub:
             arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StreamingLambda.Arn}/invocations    
+  
+  PingRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref StreamingWebSocket
+      RouteKey: ping
+      OperationName: PingRoute
+      Target: !Join
+        - '/'
+        - - 'integrations'
+          - !Ref PingIntegration
+
+  PingIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref StreamingWebSocket
+      Description: Ping Integration
+      IntegrationType: MOCK
+      PassthroughBehavior: WHEN_NO_MATCH
+      RequestTemplates:
+        application/json: '{"statusCode":200}'
+
 
   Deployment:
     Type: AWS::ApiGatewayV2::Deployment
     DependsOn:
     - ConnectRoute
+    - PingRoute
     Properties:
       ApiId: !Ref StreamingWebSocket
 
