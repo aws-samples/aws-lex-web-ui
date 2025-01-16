@@ -889,7 +889,7 @@ Resources:
                 UploadBucket: !Ref UploadBucket
                 VpcSubnetId: !Ref VpcSubnetId
                 VpcSecurityGroupId: !Ref VpcSecurityGroupId
-                Timestamp: 1733929706
+                Timestamp: 1737046451
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -905,7 +905,7 @@ Resources:
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
                 VpcSubnetId: !Ref VpcSubnetId
                 VpcSecurityGroupId: !Ref VpcSecurityGroupId
-                Timestamp: 1733929706
+                Timestamp: 1737046451
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment
