@@ -13,10 +13,10 @@
   z-index: 2147483637; /* max z-index (2147483647) - 10 */
 }
 
-.lex-web-ui-iframe iframe {
+/* .lex-web-ui-iframe iframe {
   box-shadow: 0 15px 50px 0 rgba(0, 0, 0, 0.4);
   border-radius: 10px;
-}
+} */
 
 .lex-web-ui-iframe--show {
   display: flex;

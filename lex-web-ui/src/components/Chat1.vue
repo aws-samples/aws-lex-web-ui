@@ -27,6 +27,7 @@
         <!-- System Message -->
 
         <v-main v-if="!isUiMinimized">
+          
           <message-list v-if="!isUiMinimized" />
         </v-main>
       </div>
@@ -630,12 +631,7 @@ export default {
   font-size: 10px;
   cursor: pointer;
   color: white;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.2
-  ); /* Semi-transparent white background */
+  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
   padding: 2px 2px 3px 3px; /* Space around the icon */
   border-radius: 50%; /* Rounded background */
   transition: background-color 0.3s ease; /* Smooth hover effect */
@@ -646,10 +642,11 @@ export default {
 }
 
 .message-area {
-  height: calc(100vh - 270px);
+  /* max-height: 70vh; */
+  height: 60vh;
   overflow-y: auto;
   padding: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 70px;
 }
 
 .system-message {
@@ -683,8 +680,7 @@ export default {
 .input-container {
   /* display: flex;
   justify-content: end; */
-  position: relative;
-  /* margin-bottom: 75px; */
+  margin-bottom: 75px;
 }
 
 .input-wrapper {
@@ -740,16 +736,4 @@ input {
   margin-bottom: 4px;
   font-size: 20px;
 }
-
-/* @media (max-width: 768px) {
-  .message-area {
-    height: 50vh;
-  }
-}
-
-@media (min-width: 1200px) {
-  .message-area {
-    height: 65vh;
-  }
-} */
 </style>

@@ -165,8 +165,6 @@ export default {
   position: relative;
   margin-bottom: 10px;
   background-color: #f9f9f9;
-  max-height: 90vh;
-  height: 90vh;
 }
 
 .form-header {

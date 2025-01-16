@@ -85,7 +85,7 @@ export default {
   /* display: flex;
   flex-direction: column;
   align-items: center; */
-  /* position: fixed; */
+  position: fixed;
   bottom: 10px;
   width: 100%;
 }

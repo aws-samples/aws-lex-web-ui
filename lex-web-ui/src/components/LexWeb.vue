@@ -62,8 +62,6 @@ NOTE: not using var() for different heights due to IE11 compatibility
     box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.4) !important;
     border-radius: 0px !important;
 }
-.v-application__wrap {
-  min-height: unset !important;
-}
+
 
 </style>

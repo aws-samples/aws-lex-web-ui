@@ -686,8 +686,4 @@ export default {
   pointer-events: none;
 }
 
-.v-application__wrap {
-  display: none;
-}
-
 </style>
