@@ -13,6 +13,7 @@
 
 import { createRouter, createWebHashHistory } from 'vue-router'
 import LexWeb from '@/components/LexWeb';
+//import TabContainer from '@/components/TabContainer';
 
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
@@ -22,6 +23,11 @@ const router = createRouter({
       name: 'LexWeb',
       component: LexWeb,
     },
+    // {
+    //   path: '/',
+    //   name: 'TabContainer',
+    //   component: TabContainer,
+    // },
   ],
 })
 

@@ -86,10 +86,13 @@ export default {
 <style scoped>
 .message-list {
   padding-top: 1rem;
-  overflow-y: auto;
-  overflow-x: hidden;
+  /* overflow-y: auto;
+  overflow-x: hidden; */
 }
 
+.message-agent .message-bubble[data-v-61d2d687], .message-bot .message-bubble[data-v-61d2d687] {
+  background-color: red !important;
+}
 .message-bot {
   align-self: flex-start;
 }

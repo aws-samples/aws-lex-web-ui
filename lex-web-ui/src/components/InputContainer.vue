@@ -1,36 +1,39 @@
 <template>
-  <v-toolbar elevation="3" color="white" :dense="this.$store.state.isRunningEmbedded" class="toolbar-content">
+  <v-toolbar
+    elevation="3"
+    color="white"
+    :dense="this.$store.state.isRunningEmbedded"
+    class="toolbar-content"
+  >
     <!--
       using v-show instead of v-if to make recorder-status transition work
     -->
-      <!--
+    <!--
         using v-show instead of v-if to make recorder-status transition work
       -->
-      <v-text-field
-        :label="textInputPlaceholder"
-        v-show="shouldShowTextInput"
-        :disabled="isLexProcessing"
-        v-model="textInput"
-        @keyup.enter.stop="postTextMessage"
-        @focus="onTextFieldFocus"
-        @blur="onTextFieldBlur"
-        @update:model-value="onKeyUp"
-        ref="textInput"
-        id="text-input"
-        name="text-input"
-        single-line
-        hide-details
-        density="compact"
-        variant="underlined"
-        class="toolbar-text"
-      >
+    <v-text-field
+      :label="textInputPlaceholder"
+      v-show="shouldShowTextInput"
+      :disabled="isLexProcessing"
+      v-model="textInput"
+      @keyup.enter.stop="postTextMessage"
+      @focus="onTextFieldFocus"
+      @blur="onTextFieldBlur"
+      @update:model-value="onKeyUp"
+      ref="textInput"
+      id="text-input"
+      name="text-input"
+      single-line
+      hide-details
+      density="compact"
+      variant="underlined"
+      class="toolbar-text"
+    >
     </v-text-field>
 
-      <recorder-status
-        v-show="!shouldShowTextInput"
-      ></recorder-status>
+    <recorder-status v-show="!shouldShowTextInput"></recorder-status>
 
-            <!-- separate tooltip as a workaround to support mobile touch events -->
+    <!-- separate tooltip as a workaround to support mobile touch events -->
     <!-- tooltip should be before btn to avoid right margin issue in mobile -->
     <v-btn
       v-if="shouldShowSendButton"
@@ -54,7 +57,11 @@
       class="icon-color input-button"
       icon
     >
-      <v-tooltip activator="parent" v-model="shouldShowTooltip" location="start">
+      <v-tooltip
+        activator="parent"
+        v-model="shouldShowTooltip"
+        location="start"
+      >
         <span id="input-button-tooltip">{{ inputButtonTooltip }}</span>
       </v-tooltip>
       <v-icon size="x-large">{{ micButtonIcon }}</v-icon>
@@ -72,7 +79,8 @@
         type="file"
         style="display: none"
         ref="fileInput"
-        @change="onFilePicked">
+        @change="onFilePicked"
+      />
     </v-btn>
     <v-btn
       v-if="shouldShowAttachmentClear"
@@ -102,13 +110,13 @@ License for the specific language governing permissions and limitations under th
 */
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
-import RecorderStatus from '@/components/RecorderStatus';
+import RecorderStatus from "@/components/RecorderStatus";
 
 export default {
-  name: 'input-container',
+  name: "input-container",
   data() {
     return {
-      textInput: '',
+      textInput: "",
       isTextFieldFocused: false,
       shouldShowTooltip: false,
       shouldShowAttachmentClear: false,
@@ -122,7 +130,7 @@ export default {
       },
     };
   },
-  props: ['textInputPlaceholder', 'initialSpeechInstruction'],
+  props: ["textInputPlaceholder", "initialSpeechInstruction"],
   components: {
     RecorderStatus,
   },
@@ -152,34 +160,35 @@ export default {
       return this.textInput.length < 1;
     },
     isModeLiveChat() {
-      return this.$store.state.chatMode === 'livechat';
+      return this.$store.state.chatMode === "livechat";
     },
     micButtonIcon() {
       if (this.isMicMuted) {
-        return 'mic_off';
+        return "mic_off";
       }
       if (this.isBotSpeaking || this.isSpeechConversationGoing) {
-        return 'stop';
+        return "stop";
       }
-      return 'mic';
+      return "mic";
     },
     inputButtonTooltip() {
       if (this.shouldShowSendButton) {
-        return 'send';
+        return "send";
       }
       if (this.isMicMuted) {
-        return 'mic seems to be muted';
+        return "mic seems to be muted";
       }
       if (this.isBotSpeaking || this.isSpeechConversationGoing) {
-        return 'interrupt';
+        return "interrupt";
       }
-      return 'click to use voice';
+      return "click to use voice";
     },
     shouldShowSendButton() {
       return (
         (this.textInput.length && this.isTextFieldFocused) ||
-        (!this.isRecorderSupported || !this.isRecorderEnabled) ||
-        (this.isModeLiveChat)
+        !this.isRecorderSupported ||
+        !this.isRecorderEnabled ||
+        this.isModeLiveChat
       );
     },
     shouldShowTextInput() {
@@ -187,9 +196,12 @@ export default {
     },
     shouldShowUpload() {
       return (
-        (this.$store.state.isLoggedIn && this.$store.state.config.ui.uploadRequireLogin && this.$store.state.config.ui.enableUpload) ||
-        (!this.$store.state.config.ui.uploadRequireLogin && this.$store.state.config.ui.enableUpload)
-      )
+        (this.$store.state.isLoggedIn &&
+          this.$store.state.config.ui.uploadRequireLogin &&
+          this.$store.state.config.ui.enableUpload) ||
+        (!this.$store.state.config.ui.uploadRequireLogin &&
+          this.$store.state.config.ui.enableUpload)
+      );
     },
   },
   methods: {
@@ -202,7 +214,7 @@ export default {
     onMicClick() {
       this.onInputButtonHoverLeave();
       if (this.isBotSpeaking || this.isSpeechConversationGoing) {
-        return this.$store.dispatch('interruptSpeechConversation');
+        return this.$store.dispatch("interruptSpeechConversation");
       }
       if (!this.isSpeechConversationGoing) {
         return this.startSpeechConversation();
@@ -219,7 +231,7 @@ export default {
       }
     },
     onKeyUp() {
-      this.$store.dispatch('sendTypingEvent');
+      this.$store.dispatch("sendTypingEvent");
     },
     setInputTextFieldFocus() {
       // focus() needs to be wrapped in setTimeout for IE11
@@ -230,16 +242,13 @@ export default {
       }, 10);
     },
     playInitialInstruction() {
-      const isInitialState = ['', 'Fulfilled', 'Failed']
-        .some(initialState => (
-          this.$store.state.lex.dialogState === initialState
-        ));
+      const isInitialState = ["", "Fulfilled", "Failed"].some(
+        (initialState) => this.$store.state.lex.dialogState === initialState
+      );
 
-      return (isInitialState && this.initialSpeechInstruction.length > 0) ?
-        this.$store.dispatch(
-          'pollySynthesizeInitialSpeech'
-        ) :
-        Promise.resolve();
+      return isInitialState && this.initialSpeechInstruction.length > 0
+        ? this.$store.dispatch("pollySynthesizeInitialSpeech")
+        : Promise.resolve();
     },
     postTextMessage() {
       this.onInputButtonHoverLeave();
@@ -250,37 +259,47 @@ export default {
       }
 
       const message = {
-        type: 'human',
+        type: "human",
         text: this.textInput,
       };
 
       // Add attachment filename to message
       if (this.$store.state.lex.sessionAttributes.userFilesUploaded) {
-        const documents = JSON.parse(this.$store.state.lex.sessionAttributes.userFilesUploaded)
+        const documents = JSON.parse(
+          this.$store.state.lex.sessionAttributes.userFilesUploaded
+        );
 
         message.attachements = documents
-          .map(function(att) {
+          .map(function (att) {
             return att.fileName;
-          }).toString();
+          })
+          .toString();
       }
 
       // If streaming, send session attributes for streaming
-      if(this.$store.state.config.lex.allowStreamingResponses){
+      if (this.$store.state.config.lex.allowStreamingResponses) {
         // Replace with an HTTP endpoint for the fullfilment Lambda
-        const streamingEndpoint = this.$store.state.config.lex.streamingWebSocketEndpoint.replace('wss://', 'https://');
-        this.$store.dispatch('setSessionAttribute', 
-          { key: 'streamingEndpoint', value: streamingEndpoint });
-        this.$store.dispatch('setSessionAttribute', 
-          { key: 'streamingDynamoDbTable', value: this.$store.state.config.lex.streamingDynamoDbTable });
+        const streamingEndpoint =
+          this.$store.state.config.lex.streamingWebSocketEndpoint.replace(
+            "wss://",
+            "https://"
+          );
+        this.$store.dispatch("setSessionAttribute", {
+          key: "streamingEndpoint",
+          value: streamingEndpoint,
+        });
+        this.$store.dispatch("setSessionAttribute", {
+          key: "streamingDynamoDbTable",
+          value: this.$store.state.config.lex.streamingDynamoDbTable,
+        });
       }
 
-      return this.$store.dispatch('postTextMessage', message)
-        .then(() => {
-          this.textInput = '';
-          if (this.shouldShowTextInput) {
-            this.setInputTextFieldFocus();
-          }
-        });
+      return this.$store.dispatch("postTextMessage", message).then(() => {
+        this.textInput = "";
+        if (this.shouldShowTextInput) {
+          this.setInputTextFieldFocus();
+        }
+      });
     },
     startSpeechConversation() {
       if (this.isMicMuted) {
@@ -289,22 +308,23 @@ export default {
       return this.setAutoPlay()
         .then(() => this.playInitialInstruction())
         .then(() => {
-            return new Promise(function(resolve, reject) {
-              setTimeout(() => {
-                resolve();
-              }, 100)
-            });
-          })
-        .then(() => this.$store.dispatch('startConversation'))
+          return new Promise(function (resolve, reject) {
+            setTimeout(() => {
+              resolve();
+            }, 100);
+          });
+        })
+        .then(() => this.$store.dispatch("startConversation"))
         .catch((error) => {
-          console.error('error in startSpeechConversation', error);
-          const errorMessage = (this.$store.state.config.ui.showErrorDetails) ?
-            ` ${error}` : '';
+          console.error("error in startSpeechConversation", error);
+          const errorMessage = this.$store.state.config.ui.showErrorDetails
+            ? ` ${error}`
+            : "";
 
           this.$store.dispatch(
-            'pushErrorMessage',
+            "pushErrorMessage",
             "Sorry, I couldn't start the conversation. Please try again." +
-            `${errorMessage}`,
+              `${errorMessage}`
           );
         });
     },
@@ -320,29 +340,29 @@ export default {
       if (this.$store.state.botAudio.autoPlay) {
         return Promise.resolve();
       }
-      return this.$store.dispatch('setAudioAutoPlay');
+      return this.$store.dispatch("setAudioAutoPlay");
     },
-    onPickFile () {
-      this.$refs.fileInput.click()
+    onPickFile() {
+      this.$refs.fileInput.click();
     },
-    onFilePicked (event) {
-      const files = event.target.files
+    onFilePicked(event) {
+      const files = event.target.files;
       if (files[0] !== undefined) {
-        this.fileName = files[0].name
+        this.fileName = files[0].name;
         // Check validity of file
-        if (this.fileName.lastIndexOf('.') <= 0) {
-          return
+        if (this.fileName.lastIndexOf(".") <= 0) {
+          return;
         }
         // If valid, continue
-        const fr = new FileReader()
-        fr.readAsDataURL(files[0])
-        fr.addEventListener('load', () => {
-          this.fileObject = files[0] // this is an file that can be sent to server...
-          this.$store.dispatch('uploadFile', this.fileObject);
+        const fr = new FileReader();
+        fr.readAsDataURL(files[0]);
+        fr.addEventListener("load", () => {
+          this.fileObject = files[0]; // this is an file that can be sent to server...
+          this.$store.dispatch("uploadFile", this.fileObject);
           this.shouldShowAttachmentClear = true;
-        })
+        });
       } else {
-        this.fileName = '';
+        this.fileName = "";
         this.fileObject = null;
       }
     },
@@ -369,10 +389,12 @@ export default {
 .toolbar-content {
   padding-left: 16px;
   font-size: 16px !important;
+  border-radius: 28px !important;
+  border-color: #4caf50 !important;
+  border-width: 2px !important;
 }
 
 .v-input {
   margin-bottom: 10px;
 }
-
 </style>

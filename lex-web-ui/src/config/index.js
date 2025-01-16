@@ -56,7 +56,7 @@ const configDefault = {
   cognito: {
     // Cognito pool id used to obtain credentials
     // e.g. poolId: 'us-east-1:deadbeef-cac0-babe-abcd-abcdef01234',
-    poolId: '',
+    poolId: 'us-east-1:76c7761c-bdc7-42eb-ab2c-22080ee8d359',
   },
   connect: {
     // The Connect contact flow id - user configured via CF template
@@ -81,9 +81,9 @@ const configDefault = {
   },
   lex: {
     // Lex V2 fields
-    v2BotId: '',
-    v2BotAliasId: '',
-    v2BotLocaleId: '',
+    v2BotId: 'VDNQB8DCYW',
+    v2BotAliasId: 'JKUKGLQURR',
+    v2BotLocaleId: 'en_US',
 
     // Lex bot name
     botName: 'WebUiOrderFlowers',
@@ -155,7 +155,7 @@ const configDefault = {
 
   ui: {
     // this dynamicall changes the pageTitle injected at build time
-    pageTitle: 'Order Flowers Bot',
+    pageTitle: 'PCO Intelligence',
 
     // when running as an embedded iframe, this will be used as the
     // be the parent origin used to send/receive messages
@@ -181,7 +181,7 @@ const configDefault = {
     toolbarColor: 'red',
 
     // chat window title
-    toolbarTitle: 'Order Flowers',
+    toolbarTitle: 'PCO Intelligence',
 
     // toolbar menu start live chat label
     toolbarStartLiveChatLabel: "Start Live Chat",
