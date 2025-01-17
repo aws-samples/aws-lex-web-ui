@@ -29,7 +29,7 @@
     "streamingDynamoDbTable": ""
   },
   "ui": {
-    "parentOrigin": "https://dwnjd0qi3xz2k.cloudfront.net",
+    "parentOrigin": "http://localhost:8000",
     "toolbarTitle": "Order Flowers",
     "toolbarLogo": "",
     "positiveFeedbackIntent": "Thumbs up",

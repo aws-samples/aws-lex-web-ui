@@ -25,14 +25,14 @@
 export const options = {
   // base URL to be prepended to relative URLs of dependencies
   // if left empty, a relative path will still be used
-  baseUrl: 'https://dwnjd0qi3xz2k.cloudfront.net/',
+  baseUrl: 'http://localhost:8000/',
 
   // time to wait for config event
   configEventTimeoutInMs: 10000,
 
   // URL to download config JSON file
   // uses baseUrl if set as a relative URL (not starting with http)
-  configUrl: 'https://dwnjd0qi3xz2k.cloudfront.net/lex-web-ui-loader-config.json',
+  configUrl: 'http://localhost:8000/lex-web-ui-loader-config.json',
 
   // controls whether the local config should be ignored when running
   // embedded (e.g. iframe) in which case the parent page will pass the config

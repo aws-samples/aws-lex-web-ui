@@ -1,9 +1,6 @@
 <template>
-  <v-app
-    id="lex-web"
-    class="main-container"
-  >
-    <tab-container /> 
+  <v-app id="lex-web" class="main-container">
+    <tab-container />
     <!-- <chat /> -->
   </v-app>
 </template>
@@ -24,11 +21,11 @@ License for the specific language governing permissions and limitations under th
 
 /* eslint no-console: ["error", { allow: ["warn", "error", "info"] }] */
 
-import TabContainer from '@/components/TabContainer';
-import Chat from '@/components/Chat';
+import TabContainer from "@/components/TabContainer";
+import Chat from "@/components/Chat";
 
 export default {
-  name: 'LexWeb',
+  name: "LexWeb",
   components: {
     TabContainer,
     Chat,
@@ -53,15 +50,17 @@ of the message list to make it fit between the toolbar and input container
 
 NOTE: not using var() for different heights due to IE11 compatibility
 */
-.main-container{
-  
+.main-container {
   background-color: transparent !important;
   border: none !important;
 }
-.lex-web-ui-iframe iframe {
-    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.4) !important;
-    border-radius: 0px !important;
+
+.v-application__wrap {
+  min-height: 100vh !important;
 }
 
-
+.lex-web-ui-iframe iframe {
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.4) !important;
+  border-radius: 0px !important;
+}
 </style>

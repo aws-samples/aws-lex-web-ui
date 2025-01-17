@@ -76,7 +76,7 @@
     "preset": "speech_recognition"
   },
   "iframe": {
-    "iframeOrigin": "https://d1245c9fu3zjg5.cloudfront.net",
+    "iframeOrigin": "http://localhost:8000",
     "shouldLoadIframeMinimized": false,
     "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true"
   }

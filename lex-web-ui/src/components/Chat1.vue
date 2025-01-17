@@ -5,13 +5,13 @@
       <!-- Header -->
       <div class="chat-header">
         <div class="header-content">
-          <img
-            src="https://pcointelligence.com/wp-content/uploads/2024/12/header-image-350x100-green.png"
-            width="100"
-            height="60"
-            alt="EnSec Logo"
-            class="header-logo"
-          />
+          <div class="image-container">
+            <img
+              src="https://pcointelligence.com/wp-content/uploads/2024/12/header-image-350x100-green.png"
+              alt="EnSec Logo"
+              class="header-logo"
+            />
+          </div>
 
           <button class="connect-button" @click="toggleDropdown">
             Connect <span class="dropdown-arrow">▼</span>
@@ -611,9 +611,9 @@ export default {
 
 .chat-header {
   position: relative;
-  background-color: #4caf50;
+  background-color: #50a357;
   color: white;
-  padding: 8px 16px;
+  padding: 20px 20px 16px;
   border-radius: 6px 6px 0px 0px;
 }
 
@@ -623,27 +623,45 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
+.image-container {
+  height: 60px;
+  width: 230px;
+}
+
+.image-container img {
+  width: auto;
+  height: 100%;
+}
+
 .close-btn {
-  position: absolute;
-  top: 30px;
-  right: 10px;
-  transform: translateY(-50%);
-  font-size: 10px;
-  cursor: pointer;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
-  padding: 2px 2px 3px 3px; /* Space around the icon */
-  border-radius: 50%; /* Rounded background */
-  transition: background-color 0.3s ease; /* Smooth hover effect */
+  background-color: #fff3;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    font-size: 10px;
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    transform: translateY(-50%);
+    transition: background-color .3s ease;
+    height: 24px;
+    width: 24px;
+    line-height: 1;
+}
+
+.close-btn .material-icons {
+  font-size: 16px;
 }
 .connect-button {
   font-size: 20px;
-  margin-top: 8px;
+  padding-top: 18px;
+  line-height: 1;
 }
 
 .message-area {
   /* max-height: 70vh; */
-  height: 60vh;
+  height: calc(100vh - 290px);
   overflow-y: auto;
   padding: 16px;
   margin-bottom: 70px;
@@ -680,7 +698,7 @@ export default {
 .input-container {
   /* display: flex;
   justify-content: end; */
-  margin-bottom: 75px;
+  margin-bottom: 70px;
 }
 
 .input-wrapper {

@@ -88,11 +88,29 @@ export default {
   position: fixed;
   bottom: 10px;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.lex-web-ui-iframe {
+  .tab-container {
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .tab-container + div {
+    height: 100%;
+  }
+  .tab-container + div + div {
+    height: 100%;
+  } 
 }
 
 .tabs {
   display: flex;
-  background-color: #4caf50;
+  background-color: #50a357;
   border-radius: 20px;
   padding: 5px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
@@ -104,7 +122,7 @@ export default {
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 10px 20px;
+  padding: 10px 16px 10px 10px;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -120,7 +138,7 @@ export default {
 }
 
 .tab-icon {
-  font-size: 20px;
+  font-size: 18px;
   margin-right: 8px;
 }
 

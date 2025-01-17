@@ -157,6 +157,11 @@ export default {
 </script>
 
 <style scoped>
+.lex-web-ui-iframe { 
+  .form-container {
+    height: 100%;
+  }  
+}
 .form-container {
   padding: 20px;
   border-radius: 8px;

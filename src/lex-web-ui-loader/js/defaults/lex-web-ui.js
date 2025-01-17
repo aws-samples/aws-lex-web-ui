@@ -22,12 +22,12 @@ export const configBase = {
   region: 'us-east-1',
   lex: { botName: 'LZIKP1FQS6' },
   cognito: { poolId: 'us-east-1:18f07213-af0d-4d54-b677-c1c40a7ef92c' },
-  ui: { parentOrigin: 'https://dwnjd0qi3xz2k.cloudfront.net' },
+  ui: { parentOrigin: 'http://localhost:8000' },
   polly: {},
   connect: {},
   recorder: {},
   iframe: {
-    iframeOrigin: 'https://dwnjd0qi3xz2k.cloudfront.net',
+    iframeOrigin: 'http://localhost:8000',
     iframeSrcPath: '/index.html#/?lexWebUiEmbed=true',
   },
 };

@@ -31,25 +31,7 @@
 
 .lex-web-ui-iframe--show {
   display: flex;
-  min-width: 30vw !important;
-}
-
-@media screen and (max-width: 1600px) {
-  .lex-web-ui-iframe--show {
-    min-width: 40vw !important;
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .lex-web-ui-iframe--show {
-    min-width: 40vw !important;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .lex-web-ui-iframe--show {
-    min-width: 55vw !important;
-  }
+  min-width: 380px !important;
 }
 
 .lex-web-ui-iframe--minimize {
