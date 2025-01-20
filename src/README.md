@@ -59,7 +59,7 @@ npm install
 
 ## Run Test Server
 Once you have the right config, you can run the test HTTP server on:
-`http://localhost:8000` by executing the following command under the
+`https://lexweb.woycedemo.com` by executing the following command under the
 root directory of this repo:
 ```shell
 npm start

@@ -1993,22 +1993,22 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 const configBase = {
-  region: 'us-east-1',
+  region: '',
   lex: {
-    botName: 'LZIKP1FQS6'
+    botName: ''
   },
   cognito: {
-    poolId: 'us-east-1:18f07213-af0d-4d54-b677-c1c40a7ef92c'
+    poolId: ''
   },
   ui: {
-    parentOrigin: 'http://localhost:8000'
+    parentOrigin: ''
   },
   polly: {},
   connect: {},
   recorder: {},
   iframe: {
-    iframeOrigin: 'http://localhost:8000',
-    iframeSrcPath: '/index.html#/?lexWebUiEmbed=true'
+    iframeOrigin: '',
+    iframeSrcPath: ''
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (configBase);
@@ -2055,12 +2055,12 @@ __webpack_require__.r(__webpack_exports__);
 const options = {
   // base URL to be prepended to relative URLs of dependencies
   // if left empty, a relative path will still be used
-  baseUrl: 'http://localhost:8000/',
+  baseUrl: '/',
   // time to wait for config event
   configEventTimeoutInMs: 10000,
   // URL to download config JSON file
   // uses baseUrl if set as a relative URL (not starting with http)
-  configUrl: 'http://localhost:8000/lex-web-ui-loader-config.json',
+  configUrl: './lex-web-ui-loader-config.json',
   // controls whether the local config should be ignored when running
   // embedded (e.g. iframe) in which case the parent page will pass the config
   // Only the parentOrigin config field is kept when set to true

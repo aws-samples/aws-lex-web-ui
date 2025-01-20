@@ -475,8 +475,8 @@ npm install
 ```
 To start the HTTP server web on port `8000`, issue the command:
 ```shell
-# serves http://localhost:8000/index.html
-# and http://localhost:8000/parent.html
+# serves https://lexweb.woycedemo.com/index.html
+# and https://lexweb.woycedemo.com/parent.html
 npm start
 ```
 
