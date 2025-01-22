@@ -57,7 +57,7 @@ export default {
       activeTab: 0,
       isMenuModalOpen: false, // Default: no tab is active
       tabs: [
-        { label: "Connect", icon: "connect_without_contact" },
+        { label: "Chat", icon: "connect_without_contact" },
         { label: "Call", icon: "call" },
         { label: "Text", icon: "chat" },
         { label: "Email", icon: "email" },
@@ -86,7 +86,7 @@ export default {
   flex-direction: column;
   align-items: center; */
   position: fixed;
-  bottom: 10px;
+  bottom: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -111,10 +111,11 @@ export default {
 .tabs {
   display: flex;
   background-color: #50a357;
-  border-radius: 20px;
-  padding: 5px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
   width: 100%;
+  height: 60px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .tab-item {
@@ -126,7 +127,19 @@ export default {
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
-  border-radius: 20px;
+  border-radius: 0;
+}
+
+.tab-item:first-child {
+  border-top-left-radius: 10px;
+}
+
+.tab-item:last-child {
+  border-top-right-radius: 10px;
+}
+
+.tab-item:not(:last-child) {
+  border-right: 1px solid #e0e0e0;
 }
 
 .tab-item:not(.active):hover {
@@ -138,12 +151,12 @@ export default {
 }
 
 .tab-icon {
-  font-size: 18px;
+  font-size: 20px;
   margin-right: 8px;
 }
 
 .tab-label {
-  font-size: 14px;
+  font-size: 16px;
   text-transform: capitalize;
 }
 </style>

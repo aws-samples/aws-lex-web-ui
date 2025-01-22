@@ -3,7 +3,7 @@
     <div class="modal-content">
       <!-- Header -->
       <div class="modal-header">
-        <h2>Connect</h2>
+        <h2>Chat</h2>
         <button @click="closeModal" class="close-button">×</button>
       </div>
 

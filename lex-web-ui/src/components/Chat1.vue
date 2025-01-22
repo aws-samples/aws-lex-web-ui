@@ -661,8 +661,8 @@ export default {
 
 .message-area {
   /* max-height: 70vh; */
-  height: calc(100vh - 290px);
-  overflow-y: auto;
+  height: calc(100vh - 275px);
+  /* overflow-y: auto; */
   padding: 16px;
   margin-bottom: 70px;
 }
@@ -698,6 +698,7 @@ export default {
 .input-container {
   /* display: flex;
   justify-content: end; */
+  margin: 10px;
   margin-bottom: 70px;
 }
 

@@ -35,36 +35,17 @@
 
     <!-- separate tooltip as a workaround to support mobile touch events -->
     <!-- tooltip should be before btn to avoid right margin issue in mobile -->
-    <v-btn
-      v-if="shouldShowSendButton"
+    <v-btn      
       @click="postTextMessage"
       :disabled="isLexProcessing || isSendButtonDisabled"
       ref="send"
-      class="icon-color input-button"
+      class="icon-color input-button send-icon"
       aria-label="Send Message"
     >
       <v-tooltip activator="parent" location="start">
         <span id="input-button-tooltip">{{ inputButtonTooltip }}</span>
       </v-tooltip>
       <v-icon size="x-large">send</v-icon>
-    </v-btn>
-    <v-btn
-      v-if="!shouldShowSendButton && !isModeLiveChat"
-      @click="onMicClick"
-      v-on="tooltipEventHandlers"
-      :disabled="isMicButtonDisabled"
-      ref="mic"
-      class="icon-color input-button"
-      icon
-    >
-      <v-tooltip
-        activator="parent"
-        v-model="shouldShowTooltip"
-        location="start"
-      >
-        <span id="input-button-tooltip">{{ inputButtonTooltip }}</span>
-      </v-tooltip>
-      <v-icon size="x-large">{{ micButtonIcon }}</v-icon>
     </v-btn>
     <v-btn
       v-if="shouldShowUpload"
@@ -172,16 +153,7 @@ export default {
       return "mic";
     },
     inputButtonTooltip() {
-      if (this.shouldShowSendButton) {
-        return "send";
-      }
-      if (this.isMicMuted) {
-        return "mic seems to be muted";
-      }
-      if (this.isBotSpeaking || this.isSpeechConversationGoing) {
-        return "interrupt";
-      }
-      return "click to use voice";
+      return "Send";
     },
     shouldShowSendButton() {
       return (
@@ -389,12 +361,27 @@ export default {
 .toolbar-content {
   padding-left: 16px;
   font-size: 16px !important;
-  border-radius: 28px !important;
+  border-radius: 10px !important;
   border-color: #4caf50 !important;
   border-width: 2px !important;
 }
 
 .v-input {
   margin-bottom: 10px;
+}
+
+.send-icon {
+  color: #50a357 !important;
+}
+.v-btn, .v-btn__overlay, .v-btn__underlay {
+  max-width: 45px !important;
+  padding: 0 !important;
+  width: 45px;
+  min-width: 45px !important;
+}
+.send-icon:disabled {
+  opacity: 0.8;
+  cursor: not-allowed !important;
+  pointer-events: none;
 }
 </style>
