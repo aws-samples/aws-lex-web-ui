@@ -40,9 +40,9 @@
       "streamingDynamoDbTable": ""
     },
     "ui": {
-      "parentOrigin": "http://localhost:8000",
+      "parentOrigin": "https://pcointelligence.com",
       "toolbarTitle": "PCOIntelligence",
-      "toolbarLogo": "http://localhost:8000/wp-content/uploads/2024/12/header-image-350x100-green.png",
+      "toolbarLogo": "https://pcointelligence.com/wp-content/uploads/2024/12/header-image-350x100-green.png",
       "toolbarStartLiveChatLabel": "Start Live Chat",
       "toolbarEndLiveChatLabel": "End Live Chat",
       "toolbarStartLiveChatIcon": "people_alt",
@@ -77,7 +77,7 @@
       "preset": "speech_recognition"
     },
     "iframe": {
-      "iframeOrigin": "http://localhost:8000",
+      "iframeOrigin": "https://d1245c9fu3zjg5.cloudfront.net",
       "shouldLoadIframeMinimized": false,
       "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true"
     }

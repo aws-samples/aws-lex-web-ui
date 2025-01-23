@@ -7,7 +7,7 @@
         <div class="header-content">
           <div class="image-container">
             <img
-              src="http://localhost:8000/wp-content/uploads/2024/12/header-image-350x100-green.png"
+              src="https://pcointelligence.com/wp-content/uploads/2024/12/header-image-350x100-green.png"
               alt="EnSec Logo"
               class="header-logo"
             />
