@@ -7,7 +7,7 @@
         <div class="header-content">
           <div class="image-container">
             <img
-              src="https://pcointelligence.com/wp-content/uploads/2024/12/header-image-350x100-green.png"
+              src="http://localhost:8000/wp-content/uploads/2024/12/header-image-350x100-green.png"
               alt="EnSec Logo"
               class="header-logo"
             />
@@ -601,11 +601,10 @@ export default {
   /* height: 50vh; */
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: 0 auto 12px;
   /* background: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-  border-radius: 6px;
-  margin-bottom: 10px;
+  border-radius: 1rem;
   background-color: #f9f9f9;
 }
 
@@ -614,7 +613,7 @@ export default {
   background-color: #50a357;
   color: white;
   padding: 20px 20px 16px;
-  border-radius: 6px 6px 0px 0px;
+  border-radius: 1rem 1rem 0px 0px;
 }
 
 .header-content {
@@ -696,10 +695,11 @@ export default {
 }
 
 .input-container {
-  /* display: flex;
-  justify-content: end; */
-  margin: 10px;
-  margin-bottom: 70px;
+  margin: 10px 10px 80px;
+}
+
+.v-toolbar__content {
+  max-height: 56px !important;
 }
 
 .input-wrapper {
