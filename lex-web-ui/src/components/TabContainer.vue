@@ -53,6 +53,9 @@ export default {
     MenuList,
   },
   data() {
+    setTimeout(() => {
+      this.activeTab = '';
+    }, 500);
     return {
       activeTab: 0,
       isMenuModalOpen: false, // Default: no tab is active
