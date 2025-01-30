@@ -232,6 +232,7 @@ export default {
 
       const message = {
         type: "human",
+        template:'form',
         text: this.textInput,
       };
 

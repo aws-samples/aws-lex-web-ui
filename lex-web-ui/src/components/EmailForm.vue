@@ -144,9 +144,21 @@ export default {
     handleSubmit() {
       if (this.validateForm()) {
         // Handle form submission
+        const message = {
+          type: "human",
+          template:'from',
+          fromType:'mail',
+          text: JSON.stringify(this.formData),
+        };
+
+        this.$store.dispatch("postTextMessage", message).then(() => {
+          console.log('from-submission done')
+        });
+
         console.log('Form submitted:', this.formData)
         // You would typically make an API call here
         this.$emit('form-submitted', this.formData)
+        this.$emit('closeForm');
       }
     },
     closeForm() {

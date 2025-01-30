@@ -27,8 +27,29 @@
               >
                 <message-text
                   :message="message"
-                  v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayInteractiveMessage"
-                ></message-text>                
+                  v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayInteractiveMessage &&  message.template !== 'from'"
+                ></message-text>
+                <!-- <p>{{ JSON.stringify(message) }}</p> -->
+                <div v-if="message.type === 'human' && message.template === 'from'">
+                  <div v-if="message.fromType === 'call'" class="form-template-message">
+                    <v-icon class="template-icon" size="x-large">call</v-icon>
+                  <h4>Request sent!</h4>
+                  <p>We've been alerted to call you! Look forward to our call as soon as we can.</p>
+                  </div>
+
+                  <div v-if="message.fromType === 'mail'" class="form-template-message">
+                    <v-icon class="template-icon" size="x-large">email</v-icon>
+                  <h4>Email sent!</h4>
+                  <p>You've successfully sent us an email. We'll be responding to your request shortly.</p>
+                  </div>
+
+                  <div v-if="message.fromType === 'sms'" class="form-template-message">
+                    <v-icon class="template-icon" size="x-large">sms</v-icon>
+                  <h4>Text Success!</h4>
+                  <p>We've been alerted to text you! We'll be responding to your request shortly.</p>
+                  </div>
+                  </div>
+                    
                 <div
                   v-if="shouldDisplayInteractiveMessage && interactiveMessage?.templateType == 'ListPicker'">
                   <v-card-title primary-title>
@@ -684,6 +705,28 @@ export default {
 
 .no-point {
   pointer-events: none;
+}
+
+.form-template-message{
+  padding: 15px 10px;
+  width: 250px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap:10px;
+}
+
+.form-template-message p{
+  text-align: center;
+}
+
+.template-icon{
+  background-color: #50A357;
+  padding: 10px;
+  box-sizing: content-box;
+  border-radius: 10px;
+  color: white;
 }
 
 </style>

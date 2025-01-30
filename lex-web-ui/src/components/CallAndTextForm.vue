@@ -30,7 +30,7 @@
       <div class="form-group">
         <input
           v-model="formData.phone"
-          type="tel"
+          type="text"
           placeholder="Cell Phone *"
           :class="{ error: errors.phone }"
           required
@@ -80,23 +80,24 @@ export default {
       formData: {
         firstName: "",
         lastName: "",
-        email: "",
+        // email: "",
         phone: "",
-        subject: "",
+        // subject: "",
         message: "",
       },
       errors: {
         firstName: false,
         lastName: false,
-        email: false,
+        // email: false,
         phone: false,
-        subject: false,
+        // subject: false,
         message: false,
       },
     };
   },
   methods: {
     validateForm() {
+      console.log('------------this.formData', this.formData)
       let isValid = true;
 
       // Reset errors
@@ -105,11 +106,11 @@ export default {
       });
 
       // Email validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(this.formData.email)) {
-        this.errors.email = true;
-        isValid = false;
-      }
+      // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      // if (!emailRegex.test(this.formData.email)) {
+      //   this.errors.email = true;
+      //   isValid = false;
+      // }
 
       // Phone validation
       const phoneRegex = /^\d{10}$/;
@@ -119,10 +120,10 @@ export default {
       }
 
       // Required fields validation
-      if (!this.formData.subject.trim()) {
-        this.errors.subject = true;
-        isValid = false;
-      }
+      // if (!this.formData.subject.trim()) {
+      //   this.errors.subject = true;
+      //   isValid = false;
+      // }
 
       if (!this.formData.message.trim()) {
         this.errors.message = true;
@@ -134,9 +135,20 @@ export default {
     handleSubmit() {
       if (this.validateForm()) {
         // Handle form submission
-        console.log("Form submitted:", this.formData);
+        console.log("Form submitted asdf asdf asdf:", this.formData, this.activeTab);
+        const message = {
+          type: "human",
+          template:'from',
+          fromType:this.activeTab === 2 ? 'sms' : 'call',
+          text: JSON.stringify(this.formData),
+        };
+
+        this.$store.dispatch("postTextMessage", message).then(() => {
+          console.log('from-submission done')
+        });
         // You would typically make an API call here
         this.$emit("form-submitted", this.formData);
+        this.$emit("closeForm");
       }
     },
     closeForm() {
