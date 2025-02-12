@@ -31,7 +31,7 @@
         ></v-btn>
       </template>
 
-      <v-list>
+      <v-list role="list">
         <v-list-item v-if="isEnableLogin">
           <v-list-item-title v-if="isLoggedIn" @click="requestLogout" aria-label="logout">
             <v-icon>
@@ -86,15 +86,10 @@
             {{ toolbarEndLiveChatLabel }}
           </v-list-item-title>
         </v-list-item>
-        <v-list-item
-          v-if="isLocaleSelectable"
-          :disabled="restrictLocaleChanges"
-        >
-          <v-list-item v-for="(locale, index) in locales" :key="index">
-            <v-list-item-title @click="setLocale(locale)">
-              {{ locale }}
-            </v-list-item-title>
-          </v-list-item>
+        <v-list-item v-if="isLocaleSelectable" :disabled="restrictLocaleChanges" v-for="(locale, index) in locales" role="listitem" :key="index">
+          <v-btn :aria-label="locale" :key="index" class="menu-item" elevation="0" @click="setLocale(locale)">
+            {{ locale }}
+          </v-btn>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -129,7 +124,7 @@
       v-show="!isUiMinimized"
     >
       <h2>{{ toolbarTitle }} {{ userName }}</h2>
-    </v-toolbar-title> 
+    </v-toolbar-title>
 
     <!-- tooltip should be before btn to avoid right margin issue in mobile -->
     <v-tooltip
@@ -166,6 +161,7 @@
     </v-tooltip>
     <span v-if="isLocaleSelectable" class="localeInfo">{{currentLocale}}</span>
     <v-btn
+      aria-label="Help"
       v-if="shouldRenderHelpButton && !isLiveChat && !isUiMinimized"
       v-on:click="sendHelp"
       v-on="tooltipHelpEventHandlers"
@@ -358,9 +354,9 @@ export default {
       return this.$store.state.isSFXOn;
     },
     density() {
-      if (this.$store.state.isRunningEmbedded && !this.isUiMinimized) 
+      if (this.$store.state.isRunningEmbedded && !this.isUiMinimized)
         return "compact"
-      else 
+      else
         return "default"
     },
     showToolbarMenu() {
@@ -592,4 +588,13 @@ export default {
   width: max-content;
 }
 
+.menu-item {
+
+}
+
+.menu-item:focus {
+  box-shadow: 0 1.25px 3.75px rgba(0,0,0,0.25), 0 1.25px 2.5px rgba(0,0,0,0.22) !important;
+}
+
 </style>
+
