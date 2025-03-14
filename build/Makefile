@@ -21,7 +21,7 @@ VPATH := $(OUT)
 
 # upload files to bootstrap bucket
 # NOTE: files uploaded with public read permissions
-upload: upload-templates upload-custom-resources-zip upload-src-zip upload-layers \
+upload: upload-templates upload-custom-resources-zip upload-src-zip \
 	upload-response-card-image upload-initiate-chat-lambda upload-streaming-lambda upload-qbusiness-lambda
 .PHONY: upload
 
@@ -37,15 +37,8 @@ upload-templates: $(TEMPLATES) | $(OUT)
 	aws s3 sync --acl public-read --exclude "*" --include "*.yaml" \
 		"$(TEMPLATES_DIR)" "s3://$(BOOTSTRAP_BUCKET_PATH)/templates/" \
 		| tee "$(OUT)/$(@)"
-	aws s3 cp "$(TEMPLATES_DIR)"/layers.zip \
-		"s3://${BOOTSTRAP_BUCKET_PATH}/layers.zip"
 	@echo "[INFO] master template: https://s3.amazonaws.com/$(BOOTSTRAP_BUCKET_PATH)/templates/master.yaml"
 
-LAMBDA_LAYER_ZIP := $(TEMPLATES_DIR)/layers.zip
-
-upload-layers:
-	@echo "[INFO] Uploading lambda layer"
-	aws s3 cp --acl public-read "$(LAMBDA_LAYER_ZIP)" "s3://${BOOTSTRAP_BUCKET_PATH}/layers.zip"
 
 # cfn custom resource lambda files are found under this directory
 CUSTOM_RESOURCES_DIR := $(TEMPLATES_DIR)/custom-resources
