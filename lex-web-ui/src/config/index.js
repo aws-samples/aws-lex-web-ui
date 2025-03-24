@@ -76,6 +76,8 @@ const configDefault = {
     liveChatTerms: 'live chat',
     // The delay to use between sending transcript blocks to connect
     transcriptMessageDelayInMsec: 150,
+    // Utterance to send on end live chat
+    endLiveChatUtterance: ''
   },
   lex: {
     // Lex V2 fields
@@ -141,7 +143,7 @@ const configDefault = {
     allowStreamingResponses: false,
 
     // web socket endpoint for streaming
-     streamingWebSocketEndpoint: '',
+    streamingWebSocketEndpoint: '',
 
     // dynamo DB table for streaming
     streamingDynamoDbTable: '',

@@ -230,11 +230,23 @@ Parameters:
         Icon to use in menu and toolbar to end connect live chat
       Default: "call_end"
 
+    ConnectEndLiveChatUtterance:
+      Type: String
+      Description: >
+        Optional utterance to send to bot after ending a live chat session
+      Default: ''
+
     ConnectTranscriptMessageDelayInMsec:
       Type: Number
       Description: >
         Delay to insert between each transcript message send to Connect in msec.
       Default: 150
+
+    ConnectTranscriptRedactRegex:
+      Type: String
+      Description: >
+        Optional regex used to redact entire lines in transcript sent to agent
+      Default: ''
 
     LexV2BotId:
       Description: >
@@ -519,7 +531,7 @@ Parameters:
         Description: >
          This is an optional parameter, when set to an image URL that is accessible by the application it will 
          display on the left of all bot messages
-    
+         
     AllowStreamingResponses:
         Type: String
         Default: false
@@ -529,7 +541,13 @@ Parameters:
         Description: >
             If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
             in addition to the Lex bot directly.
-    
+
+    StreamingWebSocketEndpoint:
+        Type: String
+        Default: ''
+        Description: >
+            If you have an existing WebSocket API Gateway endpoint, you can specify it using this parameter. This requires parameter AllowStreamingResponses set to True.
+
     ShouldEnableUpload:
         Type: String
         Default: false
@@ -563,6 +581,7 @@ Conditions:
     UseDefaultCloudfrontUrl: !Or [ !Equals [!Ref WebAppConfCname, ''], !Equals [!Ref WebAppAcmCertificateArn, ''] ]
     ShouldNotSpecifyWafAcl: !Equals [!Ref WebAppWafAclArn, '']
     EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
+    DeployStreamingStack: !And [!Equals [!Ref AllowStreamingResponses, true], !Equals [!Ref StreamingWebSocketEndpoint, ""]]
     EnableUpload: !Equals [!Ref ShouldEnableUpload, true]
     NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
 
@@ -790,7 +809,7 @@ Resources:
     
     StreamingSupport:
         Type: AWS::CloudFormation::Stack
-        Condition: EnableStreaming
+        Condition: DeployStreamingStack
         Properties:
             TimeoutInMinutes: 15
             TemplateURL: !Sub "https://${SourceBucket}.s3.${AWS::Region}.amazonaws.com/${SourcePrefix}/templates/streaming-support.yaml"
@@ -854,8 +873,12 @@ Resources:
                       Value: !Ref ConnectEndLiveChatLabel
                     - Name: CONNECT_END_LIVE_CHAT_ICON
                       Value: !Ref ConnectEndLiveChatIcon
+                    - Name: CONNECT_END_LIVE_CHAT_UTTERANCE
+                      Value: !Ref ConnectEndLiveChatUtterance
                     - Name: CONNECT_TRANSCRIPT_MESSAGE_DELAY_IN_MSEC
                       Value: !Ref ConnectTranscriptMessageDelayInMsec
+                    - Name: CONNECT_TRANSCRIPT_REDACT_REGEX
+                      Value: !Ref ConnectTranscriptRedactRegex
                     - Name: APP_USER_POOL_CLIENT_ID
                       Value: !Ref CognitoAppUserPoolClientId
                     - Name: APP_USER_POOL_NAME
@@ -950,9 +973,9 @@ Resources:
                     - Name: ALLOW_STREAMING_RESPONSES
                       Value: !Ref AllowStreamingResponses
                     - Name: STREAMING_WEB_SOCKET_ENDPOINT
-                      Value: !If [EnableStreaming, !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod", ""]
+                      Value: !If [DeployStreamingStack, !Sub "wss://${StreamingSupport.Outputs.WebSocketId}.execute-api.${AWS::Region}.amazonaws.com/Prod", !If [EnableStreaming, !Ref StreamingWebSocketEndpoint, ""]]
                     - Name: STREAMING_DYNAMO_TABLE
-                      Value: !If [EnableStreaming, !Sub "${StreamingSupport.Outputs.DynamoTableName}", ""]                    
+                      Value: !If [DeployStreamingStack, !Sub "${StreamingSupport.Outputs.DynamoTableName}", ""]
                     - Name: ENABLE_UPLOAD
                       Value: !Ref ShouldEnableUpload
                     - Name: UPLOAD_BUCKET_NAME
@@ -1002,7 +1025,9 @@ Resources:
             ConnectStartLiveChatIcon: !Ref ConnectStartLiveChatIcon
             ConnectEndLiveChatLabel: !Ref ConnectEndLiveChatLabel
             ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
+            ConnectEndLiveChatUtterance: !Ref ConnectEndLiveChatUtterance
             ConnectTranscriptMessageDelayInMsec: !Ref ConnectTranscriptMessageDelayInMsec
+            ConnectTranscriptRedactRegex: !Ref ConnectTranscriptRedactRegex
             WebAppBucket: !Ref WebAppBucket
             LexV2BotId: !Ref LexV2BotId
             LexV2BotAliasId: !Ref LexV2BotAliasId
@@ -1041,6 +1066,7 @@ Resources:
             TitleLogoImgUrl: !Ref TitleLogoImgUrl
             BotAvatarImgUrl: !Ref BotAvatarImgUrl
             AllowStreamingResponses: !Ref AllowStreamingResponses
+            StreamingWebSocketEndpoint: !Ref StreamingWebSocketEndpoint
             ShouldEnableUpload: !Ref ShouldEnableUpload
             UploadBucket: !Ref UploadBucket
             Timestamp: !Ref Timestamp
@@ -1211,27 +1237,19 @@ Resources:
     # custom resource to cleanup S3 buckets
     S3Cleanup:
         Type: Custom::S3Cleanup
+        DeletionPolicy: Retain
+        UpdateReplacePolicy: Retain
         Condition: ShouldCleanupBuckets
         Properties:
             ServiceToken: !GetAtt S3CleanupLambda.Arn
-            ServiceTimeout: 60
             Buckets:
                 - !Ref WebAppBucket
 
   # Lambda function for custom resource
     S3CleanupLambda:
         Type: AWS::Lambda::Function
-        Condition: ShouldCleanupBuckets        
+        Condition: ShouldCleanupBuckets
         Properties:
-            VpcConfig:
-              !If
-              - NeedsVpc
-              - 
-                  SecurityGroupIds:
-                      - !Ref VpcSecurityGroupId
-                  SubnetIds:
-                      - !Ref VpcSubnetId
-              - !Ref "AWS::NoValue"
             Code:
                 S3Bucket: !Ref SourceBucket
                 S3Key: !Ref CustomResourceCodeObject

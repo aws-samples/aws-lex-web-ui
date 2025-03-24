@@ -59,26 +59,46 @@ export default {
     return v;
   },
   liveChatTextTranscriptArray: state => () => {
+    // Support redacting messages delivered to agent based on config.connect.transcriptRedactRegex.
+    // Use case is to support redacting post chat survey responses from being seen by agents if user
+    // reconnects with an agent.
     const messageTextArray = [];
-    var text = ""; 
+    var text = "";
+    let redactionEnabled = false;
+    if (state.config.connect.transcriptRedactRegex && state.config.connect.transcriptRedactRegex.length > 0) {
+      redactionEnabled = true;
+    }
+    let shouldRedactNextMessage = false; // indicates if the next message to append should be redacted
+    const regex = redactionEnabled ? new RegExp(`${state.config.connect.transcriptRedactRegex}`, "g") : undefined;
     state.messages.forEach((message) => {
       var nextMessage = message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + message.text + '\n';
+      if (redactionEnabled && shouldRedactNextMessage) {
+        nextMessage = message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + '###' + '\n';
+      }
       if((text + nextMessage).length > 400) {
         messageTextArray.push(text);
         //this is over 1k chars by itself, so we must break it up.
-        var subMessageArray = nextMessage.match(/(.|[\r\n]){1,400}/g); 
+        var subMessageArray = nextMessage.match(/(.|[\r\n]){1,400}/g);
         subMessageArray.forEach((subMsg) => {
           messageTextArray.push(subMsg);
         });
         text = "";
+        if (redactionEnabled && regex) {
+          shouldRedactNextMessage = regex.test(nextMessage);
+        }
         nextMessage = "";
-      } 
-      text = text + nextMessage; 
+      } else {
+        if (redactionEnabled && regex) {
+          // if we are redacting, check if the next message should be redacted
+          shouldRedactNextMessage = regex.test(nextMessage);
+        }
+      }
+      text = text + nextMessage;
     });
     messageTextArray.push(text);
     return messageTextArray;
   },
-  liveChatTranscriptFile: state => () => { 
+  liveChatTranscriptFile: state => () => {
     var text = 'Bot Transcript: \n';
     state.messages.forEach((message) => text = text + message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + message.text + '\n');
     var blob = new Blob([text], { type: 'text/plain'});

@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.21.6)
+    Master Lex Web UI CloudFormation template (v0.21.7)
     The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
     Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
     version input parameters as defaulted.
@@ -486,6 +486,18 @@ Parameters:
             Icon to use in menu and toolbar to end connect live chat
         Default: "call_end"
 
+    ConnectEndLiveChatUtterance:
+        Type: String
+        Description: >
+            Optional utterance to send to bot after ending a live chat session
+        Default: ''
+
+    ConnectTranscriptRedactRegex:
+        Type: String
+        Description: >
+            Optional regex used to redact entire lines in transcript sent to agent
+        Default: ''
+
     ## CSS Configuration Options
     MessageTextColor:
         Type: String
@@ -556,7 +568,13 @@ Parameters:
         Description: >
             If set to True, a websocket API Gateway will be established and messages will be sent to this web socket
             in addition to the Lex bot directly. More details on how to configure your bot for streaming intereactions
-            can be found here: https://github.com/zhengjie28/lex-web-ui-websocket
+            can be found here: https://github.com/aws-samples/aws-lex-web-ui/blob/master/README-streaming-responses.md
+
+    StreamingWebSocketEndpoint:
+        Type: String
+        Default: ''
+        Description: >
+            If you have an existing WebSocket API Gateway endpoint, you can specify it using this parameter. This requires parameter AllowStreamingResponses set to True.
     
     ShouldEnableUpload:
         Type: String
@@ -650,6 +668,7 @@ Metadata:
                   - retryOnLexPostTextTimeout
                   - retryCountPostTextTimeout
                   - AllowStreamingResponses
+                  - StreamingWebSocketEndpoint
                   - ShouldEnableUpload
                   - UploadBucket
             - Label:
@@ -697,7 +716,9 @@ Metadata:
                   - ConnectStartLiveChatIcon
                   - ConnectEndLiveChatLabel
                   - ConnectEndLiveChatIcon
+                  - ConnectEndLiveChatUtterance
                   - ConnectTranscriptMessageDelayInMsec
+                  - ConnectTranscriptRedactRegex
             - Label:
                 default: CSS Customization Parameters
               Parameters:
@@ -717,7 +738,7 @@ Metadata:
                 default: Q Business Parameters
               Parameters:
                   - AmazonQAppId
-                  - IDCApplicationARN                 
+                  - IDCApplicationARN
 
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
@@ -739,8 +760,7 @@ Resources:
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 ParentStackName: !Ref "AWS::StackName"
                 SourceBucket: !Ref BootstrapBucket
-                QBusinessLambdaLayerObject: !Sub "${BootstrapPrefix}/layers.zip"
-                QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-lambda-v0.21.6.zip"
+                QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-lambda-v0.21.7.zip"
                 AmazonQAppId: !Ref AmazonQAppId
                 IDCApplicationARN: !Ref IDCApplicationARN
                 VpcSubnetId: !Ref VpcSubnetId
@@ -755,7 +775,7 @@ Resources:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
                 ForceCognitoLogin: !Ref ForceCognitoLogin
                 LexBotName: !Ref BotName
-                LexV2BotId: 
+                LexV2BotId:
                     !If
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotId
@@ -764,7 +784,7 @@ Resources:
                     !If
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotAlias
-                      - !Ref LexV2BotAliasId                    
+                      - !Ref LexV2BotAliasId
                 ShouldEnableLiveChat: !Ref ShouldEnableLiveChat
                 ShouldEnableUpload: !Ref ShouldEnableUpload
                 UploadBucket: !Ref UploadBucket
@@ -783,10 +803,11 @@ Resources:
                 CodeBuildName: !Ref CodeBuildName
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.21.6.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.6.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.21.6.zip"
-                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.21.6.zip"
+                StreamingWebSocketEndpoint: !Ref StreamingWebSocketEndpoint
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.21.7.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.7.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.21.7.zip"
+                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.21.7.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
                     !If
@@ -797,7 +818,7 @@ Resources:
                           - !GetAtt Bot.Outputs.BotId
                           - !Ref BotName
                 BotAlias: !Ref BotAlias
-                LexV2BotId: 
+                LexV2BotId:
                     !If
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotId
@@ -806,7 +827,7 @@ Resources:
                     !If
                       - NeedsBot
                       - !GetAtt Bot.Outputs.BotAlias
-                      - !Ref LexV2BotAliasId  
+                      - !Ref LexV2BotAliasId
                 LexV2BotLocaleId: !Ref LexV2BotLocaleId
                 CognitoIdentityPoolId:
                     !If
@@ -866,7 +887,9 @@ Resources:
                 ConnectStartLiveChatIcon: !Ref ConnectStartLiveChatIcon
                 ConnectEndLiveChatLabel: !Ref ConnectEndLiveChatLabel
                 ConnectEndLiveChatIcon: !Ref ConnectEndLiveChatIcon
+                ConnectEndLiveChatUtterance: !Ref ConnectEndLiveChatUtterance
                 ConnectTranscriptMessageDelayInMsec: !Ref ConnectTranscriptMessageDelayInMsec
+                ConnectTranscriptRedactRegex: !Ref ConnectTranscriptRedactRegex
                 MessageTextColor: !Ref MessageTextColor
                 MessageFont: !Ref MessageFont
                 ChatBackgroundColor: !Ref ChatBackgroundColor
@@ -881,7 +904,7 @@ Resources:
                 UploadBucket: !Ref UploadBucket
                 VpcSubnetId: !Ref VpcSubnetId
                 VpcSecurityGroupId: !Ref VpcSecurityGroupId
-                Timestamp: 1726842081
+                Timestamp: 1737634514
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -897,7 +920,7 @@ Resources:
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
                 VpcSubnetId: !Ref VpcSubnetId
                 VpcSecurityGroupId: !Ref VpcSecurityGroupId
-                Timestamp: 1726842081
+                Timestamp: 1737634514
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment

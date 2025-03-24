@@ -10,6 +10,8 @@
     "agentLeftMessage": "",
     "chatEndedMessage": "",
     "attachChatTranscript": "",
-    "transcriptMessageDelayInMsec": ""
+    "endLiveChatUtterance": "",
+    "transcriptMessageDelayInMsec": "",
+    "transcriptRedactRegex": ""
   }
 }
