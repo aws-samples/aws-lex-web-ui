@@ -25,7 +25,7 @@ import { createLiveChatSession, connectLiveChatSession, initLiveChatHandlers, se
 import { initTalkDeskLiveChat, sendTalkDeskChatMessage, requestTalkDeskLiveChatEnd } from '@/store/talkdesk-live-chat-handlers.js';
 import silentOgg from '@/assets/silent.ogg';
 import silentMp3 from '@/assets/silent.mp3';
-import { Signer } from 'aws-amplify';
+import { Signer } from '@aws-amplify/core';
 
 import LexClient from '@/lib/lex/client';
 
