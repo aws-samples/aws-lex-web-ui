@@ -21,7 +21,7 @@ VPATH := $(OUT)
 
 # upload files to bootstrap bucket
 # NOTE: files uploaded with public read permissions
-upload: upload-templates upload-custom-resources-zip upload-src-zip upload-layers \
+upload: upload-templates upload-custom-resources-zip upload-src-zip \
 	upload-response-card-image upload-initiate-chat-lambda upload-streaming-lambda upload-qbusiness-lambda
 .PHONY: upload
 
@@ -38,6 +38,7 @@ upload-templates: $(TEMPLATES) | $(OUT)
 		"$(TEMPLATES_DIR)" "s3://$(BOOTSTRAP_BUCKET_PATH)/templates/" \
 		| tee "$(OUT)/$(@)"
 	@echo "[INFO] master template: https://s3.amazonaws.com/$(BOOTSTRAP_BUCKET_PATH)/templates/master.yaml"
+
 
 # cfn custom resource lambda files are found under this directory
 CUSTOM_RESOURCES_DIR := $(TEMPLATES_DIR)/custom-resources

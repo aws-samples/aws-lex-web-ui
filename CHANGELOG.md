@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.21.6] - 2024-09-20
+## [0.21.6] - 2025-01-23
+- Add heartbeat for streaming responses to prevent idle timeout of 10 mins
+
+## [0.21.6] - 2024-12-18
 - Updatae the Web UI to allow VPC integration with all Lambda functions. This requires your VPC to at a minimum be able to access S3, and additional optional functionality will require additional VPC endpoints to services.
 - Package updates to address vulnerabilities. 
 
