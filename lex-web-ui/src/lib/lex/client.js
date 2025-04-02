@@ -12,6 +12,19 @@
  */
 
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+import {
+  PostTextCommand,
+  DeleteSessionCommand as DeleteSessionCommandV1,
+  PutSessionCommand as PutSessionCommandV2,
+  PostContentCommand
+} from "@aws-sdk/client-lex-runtime-service";
+import {
+  RecognizeTextCommand,
+  DeleteSessionCommand as DeleteSessionCommandV2,
+  PutSessionCommand as PutSessionCommandV1,
+  RecognizeUtteranceCommand
+} from "@aws-sdk/client-lex-runtime-v2";
+
 const zlib = require('zlib');
 
 function b64CompressedToObject(src) {
@@ -77,31 +90,34 @@ export default class {
       this.userId;
   }
 
-  deleteSession() {
-    let deleteSessionReq;
+  async deleteSession() {
+    let command;
     if (this.isV2Bot) {
-      deleteSessionReq = this.lexRuntimeClient.deleteSession({
+      command = new DeleteSessionCommandV2({
         botAliasId: this.botV2AliasId,
         botId: this.botV2Id,
         localeId: this.botV2LocaleId,
         sessionId: this.userId,
       });
     } else {
-      deleteSessionReq = this.lexRuntimeClient.deleteSession({
+      command = new DeleteSessionCommandV1({
         botAlias: this.botAlias,
         botName: this.botName,
         userId: this.userId,
       });
     }
-    return this.credentials.getPromise()
-      .then(creds => creds && this.initCredentials(creds))
-      .then(() => deleteSessionReq.promise());
+    try {
+      const res = await this.lexRuntimeClient.send(command);
+      return res;
+    } catch(err) {
+      console.log(err)
+    }
   }
 
-  startNewSession() {
-    let putSessionReq;
+  async startNewSession() {
+    let command;
     if (this.isV2Bot) {
-      putSessionReq = this.lexRuntimeClient.putSession({
+      command = new PutSessionCommandV2({
         botAliasId: this.botV2AliasId,
         botId: this.botV2Id,
         localeId: this.botV2LocaleId,
@@ -113,7 +129,7 @@ export default class {
         },
       });
     } else {
-      putSessionReq = this.lexRuntimeClient.putSession({
+      command = new PutSessionCommandV1({
         botAlias: this.botAlias,
         botName: this.botName,
         userId: this.userId,
@@ -122,15 +138,19 @@ export default class {
         },
       });
     }
-    return this.credentials.getPromise()
-      .then(creds => creds && this.initCredentials(creds))
-      .then(() => putSessionReq.promise());
+
+    try {
+      const res = await this.lexRuntimeClient.send(command);
+      return res;
+    } catch(err) {
+      console.log(err)
+    }
   }
 
-  postText(inputText, localeId, sessionAttributes = {}) {
-    let postTextReq;
+  async postText(inputText, localeId, sessionAttributes = {}) {
+    let command;
     if (this.isV2Bot) {
-      postTextReq = this.lexRuntimeClient.recognizeText({
+      command = new RecognizeTextCommand({
         botAliasId: this.botV2AliasId,
         botId: this.botV2Id,
         localeId: localeId ? localeId : 'en_US',
@@ -139,9 +159,9 @@ export default class {
         sessionState: {
           sessionAttributes,
         },
-      });
+      })
     } else {
-      postTextReq = this.lexRuntimeClient.postText({
+      command = new PostTextCommand({
         botAlias: this.botAlias,
         botName: this.botName,
         userId: this.userId,
@@ -149,10 +169,9 @@ export default class {
         sessionAttributes,
       });
     }
-    return this.credentials.getPromise()
-      .then(creds => creds && this.initCredentials(creds))
-      .then(async () => {
-        const res = await postTextReq.promise();
+
+    try {
+      const res = await this.lexRuntimeClient.send(command);
         if (res.sessionState) { // this is v2 response
           res.sessionAttributes = res.sessionState.sessionAttributes;
           if (res.sessionState.intent) {
@@ -204,9 +223,11 @@ export default class {
           }
         }
         return res;
-      });
+    } catch (err) {
+      console.log(err)
+    }
   }
-  postContent(
+  async postContent(
     blob,
     localeId,
     sessionAttributes = {},
@@ -225,10 +246,10 @@ export default class {
     } else {
       console.warn('unknown media type in lex client');
     }
-    let postContentReq;
+    let command;
     if (this.isV2Bot) {
       const sessionState = { sessionAttributes };
-      postContentReq = this.lexRuntimeClient.recognizeUtterance({
+      command = new RecognizeUtteranceCommand({
         botAliasId: this.botV2AliasId,
         botId: this.botV2Id,
         localeId: localeId ? localeId : 'en_US',
@@ -239,7 +260,7 @@ export default class {
         sessionState: compressAndB64Encode(sessionState),
       });
     } else {
-      postContentReq = this.lexRuntimeClient.postContent({
+      command = new PostContentCommand({
         accept: acceptFormat,
         botAlias: this.botAlias,
         botName: this.botName,
@@ -249,63 +270,66 @@ export default class {
         sessionAttributes,
       });
     }
-    return this.credentials.getPromise()
-      .then(creds => creds && this.initCredentials(creds))
-      .then(async () => {
-        const res = await postContentReq.promise();
-        if (res.sessionState) {
-          const oState = b64CompressedToObject(res.sessionState);
-          res.sessionAttributes = oState.sessionAttributes ? oState.sessionAttributes : {};
-          if (oState.intent) {
-            res.intentName = oState.intent.name;
-            res.slots = oState.intent.slots;
-            res.dialogState = oState.intent.state;
-            res.slotToElicit = oState.dialogAction.slotToElicit;
-          }
-          else {  // Fallback for some responses that do not have an intent (ElicitIntent, etc)
-            if ("interpretations" in oState) {
-              res.intentName = oState.interpretations[0].intent.name;
-              res.slots = oState.interpretations[0].intent.slots;
-            } else {
-              res.intentName = '';
-              res.slots = '';
-            }
-            res.dialogState = '';
-            res.slotToElicit = '';
-          }
-          res.inputTranscript = res.inputTranscript
-            && b64CompressedToString(res.inputTranscript);
-          res.interpretations = res.interpretations
-            && b64CompressedToObject(res.interpretations);
-          res.sessionState = oState;
-          const finalMessages = [];
-          if (res.messages && res.messages.length > 0) {
-            res.messages = b64CompressedToObject(res.messages);
-            res.responseCardLexV2 = [];
-            res.messages.forEach((mes) => {
-              if (mes.contentType === 'ImageResponseCard') {
-                res.responseCardLexV2 = res.responseCardLexV2 ? res.responseCardLexV2 : [];
-                const newCard = {};
-                newCard.version = '1';
-                newCard.contentType = 'application/vnd.amazonaws.card.generic';
-                newCard.genericAttachments = [];
-                newCard.genericAttachments.push(mes.imageResponseCard);
-                res.responseCardLexV2.push(newCard);
-              } else {
-                /* eslint-disable no-lonely-if */
-                if (mes.contentType) { // push v1 style messages for use in the UI
-                  const v1Format = { type: mes.contentType, value: mes.content };
-                  finalMessages.push(v1Format);
-                }
-              }
-            });
-          }
-          if (finalMessages.length > 0) {
-            const msg = `{"messages": ${JSON.stringify(finalMessages)} }`;
-            res.message = msg;
-          }
+    
+    try {
+      const res = await this.lexRuntimeClient.send(command);
+      const byteArray = await res.audioStream.transformToByteArray();
+      res.audioStream = Buffer.from(byteArray);
+      if (res.sessionState) {
+        const oState = b64CompressedToObject(res.sessionState);
+        res.sessionAttributes = oState.sessionAttributes ? oState.sessionAttributes : {};
+        if (oState.intent) {
+          res.intentName = oState.intent.name;
+          res.slots = oState.intent.slots;
+          res.dialogState = oState.intent.state;
+          res.slotToElicit = oState.dialogAction.slotToElicit;
         }
-        return res;
-      });
+        else {  // Fallback for some responses that do not have an intent (ElicitIntent, etc)
+          if ("interpretations" in oState) {
+            res.intentName = oState.interpretations[0].intent.name;
+            res.slots = oState.interpretations[0].intent.slots;
+          } else {
+            res.intentName = '';
+            res.slots = '';
+          }
+          res.dialogState = '';
+          res.slotToElicit = '';
+        }
+        res.inputTranscript = res.inputTranscript
+          && b64CompressedToString(res.inputTranscript);
+        res.interpretations = res.interpretations
+          && b64CompressedToObject(res.interpretations);
+        res.sessionState = oState;
+        const finalMessages = [];
+        if (res.messages && res.messages.length > 0) {
+          res.messages = b64CompressedToObject(res.messages);
+          res.responseCardLexV2 = [];
+          res.messages.forEach((mes) => {
+            if (mes.contentType === 'ImageResponseCard') {
+              res.responseCardLexV2 = res.responseCardLexV2 ? res.responseCardLexV2 : [];
+              const newCard = {};
+              newCard.version = '1';
+              newCard.contentType = 'application/vnd.amazonaws.card.generic';
+              newCard.genericAttachments = [];
+              newCard.genericAttachments.push(mes.imageResponseCard);
+              res.responseCardLexV2.push(newCard);
+            } else {
+              /* eslint-disable no-lonely-if */
+              if (mes.contentType) { // push v1 style messages for use in the UI
+                const v1Format = { type: mes.contentType, value: mes.content };
+                finalMessages.push(v1Format);
+              }
+            }
+          });
+        }
+        if (finalMessages.length > 0) {
+          const msg = `{"messages": ${JSON.stringify(finalMessages)} }`;
+          res.message = msg;
+        }
+      }
+      return res;
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
