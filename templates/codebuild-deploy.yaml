@@ -1242,24 +1242,14 @@ Resources:
         Condition: ShouldCleanupBuckets
         Properties:
             ServiceToken: !GetAtt S3CleanupLambda.Arn
-            ServiceTimeout: 60
             Buckets:
                 - !Ref WebAppBucket
 
   # Lambda function for custom resource
     S3CleanupLambda:
         Type: AWS::Lambda::Function
-        Condition: ShouldCleanupBuckets        
+        Condition: ShouldCleanupBuckets
         Properties:
-            VpcConfig:
-              !If
-              - NeedsVpc
-              - 
-                  SecurityGroupIds:
-                      - !Ref VpcSecurityGroupId
-                  SubnetIds:
-                      - !Ref VpcSubnetId
-              - !Ref "AWS::NoValue"
             Code:
                 S3Bucket: !Ref SourceBucket
                 S3Key: !Ref CustomResourceCodeObject
