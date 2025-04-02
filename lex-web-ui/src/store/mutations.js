@@ -580,4 +580,9 @@ setIsStartingTypingWsMessages(state, bool){
     state.streaming.wsMessagesCurrentIndex=0;
   }
 }, 
+
+removeAttachments(state){
+  delete state.lex.sessionAttributes.userFilesUploaded;
+},
+
 };

@@ -1406,7 +1406,10 @@ export default {
  *
  **********************************************************************/
   async uploadFile(context, file) {
-    const s3 = new S3Client({credentials: awsCredentials});
+    const s3 = new S3Client({
+      credentials: awsCredentials,
+      region: context.state.config.region
+    });
     //Create a key that is unique to the user & time of upload
     const documentKey = lexClient.userId + '/' + file.name.split('.').join('-' + Date.now() + '.')
     const s3Params = {
@@ -1441,4 +1444,7 @@ export default {
       });
     }
   },
+  removeAttachments(context) {
+    context.commit('removeAttachments');
+  }
 };
