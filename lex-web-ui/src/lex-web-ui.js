@@ -148,7 +148,7 @@ export class Loader {
     
     const app = createAppInstance({
       template: '<div id="lex-web-ui"><lex-web-ui/></div>',
-    })
+    })    
 
     app.use(vuetify)
     const store = vuexCreateStore(VuexStore)
@@ -157,6 +157,7 @@ export class Loader {
     this.app = app;
 
     const mergedConfig = mergeConfig(defaultConfig, config);
+    
     let credentials;
     if (mergedConfig.cognito.poolId != '' || localStorage.getItem('poolId')) {
       credentials = this.store.dispatch('getCredentials', mergedConfig).then((creds) => {

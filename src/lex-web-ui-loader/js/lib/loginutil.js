@@ -12,75 +12,52 @@ License for the specific language governing permissions and limitations under th
 */
 
 /* eslint-disable prefer-template, no-console */
+import { Amplify } from 'aws-amplify'
+import { signOut, fetchAuthSession, signInWithRedirect } from '@aws-amplify/auth';
+import { Hub } from "aws-amplify/utils";
 
-import { CognitoAuth } from 'amazon-cognito-auth-js';
-import { jwtDecode } from "jwt-decode";
+const getCurrentUser = async () => {
+  return await fetchAuthSession();
+};
 
-const loopKey = `login_util_loop_count`;
-const maxLoopCount = 5;
-
-function getLoopCount(config) {
-  let loopCount = localStorage.getItem(`${config.appUserPoolClientId}${loopKey}`);
-  if (loopCount === undefined || loopCount === null) {
-    console.warn(`setting loopcount to string 0`);
-    loopCount = "0";
+Hub.listen("auth", ({ payload }) => {
+  switch (payload.event) {
+    case "signInWithRedirect":
+      const session = getCurrentUser();
+      console.log("id token", session.credentials.accessKeyId)
+      break;
+    case "signInWithRedirect_failure":
+      // handle sign in failure
+      break;
+    case "customOAuthState":
+      const state = payload.data; // this will be customState provided on signInWithRedirect function
+      console.log(state);
+      break;
   }
-  loopCount = Number.parseInt(loopCount);
-  return loopCount;
-}
-
-function incrementLoopCount(config) {
-  let loopCount = getLoopCount(config)
-  localStorage.setItem(`${config.appUserPoolClientId}${loopKey}`, (loopCount + 1).toString());
-  console.warn(`loopCount is now ${loopCount + 1}`);
-}
+});
 
 function getAuth(config) {
-  const rd1 = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?loggedin=yes';
-  const rd2 = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?loggedout=yes';
-  const authData = {
-    ClientId: config.appUserPoolClientId, // Your client id here
-    AppWebDomain: config.appDomainName,
-    TokenScopesArray: ['email', 'openid', 'profile'],
-    RedirectUriSignIn: rd1,
-    RedirectUriSignOut: rd2,
+  const amplifyAuthConfig = {
+    auth: {
+      user_pool_id:  config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName'),
+      aws_region: config.cognito.region || config.region || 'us-east-1',
+      user_pool_client_id: config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId'),
+      identity_pool_id: config.cognito.poolId || localStorage.getItem('poolId'),
+      unauthenticated_identities_enabled: config.ui.forceLogin ? false : true
+    },
+    version: "1.3"
   };
 
-  if (config.appUserPoolIdentityProvider && config.appUserPoolIdentityProvider.length > 0) {
-    authData.IdentityProvider = config.appUserPoolIdentityProvider;
-  }
-
-  const auth = new CognitoAuth(authData);
-  auth.useCodeGrantFlow();
-  auth.userhandler = {
-    onSuccess(session) {
-      console.debug('Sign in success');
-      localStorage.setItem(`${config.appUserPoolClientId}idtokenjwt`, session.getIdToken().getJwtToken());
-      localStorage.setItem(`${config.appUserPoolClientId}accesstokenjwt`, session.getAccessToken().getJwtToken());
-      localStorage.setItem(`${config.appUserPoolClientId}refreshtoken`, session.getRefreshToken().getToken());
-      const myEvent = new CustomEvent('tokensavailable', { detail: 'initialLogin' });
-      document.dispatchEvent(myEvent);
-      localStorage.setItem(`${config.appUserPoolClientId}${loopKey}`, "0");
-    },
-    onFailure(err) {
-      console.debug('Sign in failure: ' + JSON.stringify(err, null, 2));
-      incrementLoopCount(config);
-    },
-  };
-  return auth;
+  Amplify.configure(amplifyAuthConfig);
+  return amplifyAuthConfig;
 }
 
-function completeLogin(config) {
-  const auth = getAuth(config);
-  const curUrl = window.location.href;
-  const values = curUrl.split('?');
-  const minurl = '/' + values[1];
+async function completeLogin(config) {
   try {
-    auth.parseCognitoWebResponse(curUrl);
+    await fetchAuthSession();
     return true;
   } catch (reason) {
     console.debug('failed to parse response: ' + reason);
-    console.debug('url was: ' + minurl);
     return false;
   }
 }
@@ -94,70 +71,24 @@ function completeLogout(config) {
   return true;
 }
 
-function logout(config) {
-/* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
-  const auth = getAuth(config);
-  auth.signOut();
-  localStorage.setItem(`${config.appUserPoolClientId}${loopKey}`, "0");
+async function logout() {
+  await signOut();
 }
 
 const forceLogin = (config) => {
   login(config);
 }
 
-function login(config) {
-  /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
-  if (getLoopCount(config) < maxLoopCount) {
-    const auth = getAuth(config);
-    const session = auth.getSignInUserSession();
-     setTimeout(function () {
-      if ( !session.isValid()) {
-        auth.getSession();
-      }
-    }, 500);
-  } else {
-    alert("max login tries exceeded");
-    localStorage.setItem(`${config.appUserPoolClientId}${loopKey}`, "0");
+async function login(config) {
+  getAuth(config);
+  const session = await fetchAuthSession();
+  if (session.credentials) {
+    console.log("id token", session.credentials.accessKeyId);
+  }
+  else {
+    console.log("no valid user");
+    signInWithRedirect();
   }
 }
 
-function refreshLogin(config, token, callback) {
-  /* eslint-disable prefer-template, object-shorthand, prefer-arrow-callback */
-  if (getLoopCount(config) < maxLoopCount) {
-    const auth = getAuth(config);
-    auth.userhandler = {
-      onSuccess(session) {
-        console.debug('Sign in success');
-        localStorage.setItem(`${config.appUserPoolClientId}idtokenjwt`, session.getIdToken().getJwtToken());
-        localStorage.setItem(`${config.appUserPoolClientId}accesstokenjwt`, session.getAccessToken().getJwtToken());
-        localStorage.setItem(`${config.appUserPoolClientId}refreshtoken`, session.getRefreshToken().getToken());
-        const myEvent = new CustomEvent('tokensavailable', {detail: 'refreshLogin'});
-        document.dispatchEvent(myEvent);
-        callback(session);
-      },
-      onFailure(err) {
-        console.debug('Sign in failure: ' + JSON.stringify(err, null, 2));
-        callback(err);
-      },
-    };
-    auth.refreshSession(token);
-  } else {
-    alert("max login tries exceeded");
-    localStorage.setItem(loopKey, "0");
-  }
-}
-
-// return true if a valid token and has expired. return false in all other cases
-function isTokenExpired(token) {
-  const decoded = jwtDecode(token);
-  if (decoded) {
-    const now = Date.now();
-    const expiration = decoded.exp * 1000;
-    if (now > expiration) {
-      return true;
-    }
-  }
-  return false;
-}
-
-export { logout, login, forceLogin, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired };
+export { logout, login, forceLogin, completeLogin, completeLogout, getAuth, };

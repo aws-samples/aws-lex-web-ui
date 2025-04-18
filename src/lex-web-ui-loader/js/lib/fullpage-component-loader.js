@@ -14,10 +14,6 @@
 /* eslint no-console: ["error", { allow: ["warn", "error", "debug", "info"] }] */
 /* global AWS LexWebUi Vue */
 import { ConfigLoader } from './config-loader';
-import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin } from './loginutil';
-import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
-const { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } = require("@aws-sdk/client-cognito-identity");
-
 
 /**
  * Instantiates and mounts the chatbot component
@@ -46,152 +42,10 @@ export class FullPageComponentLoader {
   }
 
   async requestTokens() {
-    const existingAuth = getAuth(this.generateConfigObj());
-    const existingSession = existingAuth.getSignInUserSession();
-    if (existingSession.isValid()) {
-      const tokens = {};
-      tokens.idtokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-      tokens.accesstokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}accesstokenjwt`);
-      tokens.refreshtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
-      FullPageComponentLoader.sendMessageToComponent({
-        event: 'confirmLogin',
-        data: tokens,
-      });
-    }
-  }
-
-  async getCredentials(poolId, region, logins) {
-    if (logins) {
-      const client = new CognitoIdentityClient({ region });
-      const getIdentityId = new GetIdCommand({
-        IdentityPoolId: poolId,
-        Logins: logins
-      })
-      let identityId, getCreds;
-      try {
-        await client.send(getIdentityId)
-          .then((res) => {
-            identityId = res.IdentityId;
-            getCreds = new GetCredentialsForIdentityCommand({
-              IdentityId: identityId,
-              Logins: logins
-            })
-          })
-        const res = await client.send(getCreds);
-        const creds = res.Credentials;
-        const credentials = {
-          accessKeyId: creds.AccessKeyId,
-          identityId,
-          secretAccessKey: creds.SecretKey,
-          sessionToken: creds.SessionToken,
-          expiration: creds.Expiration,
-        };
-        return credentials;
-      } catch (err) {
-        console.log(err)
-      }
-    } else {
-      const credentialProvider = fromCognitoIdentityPool({
-        identityPoolId: poolId,
-        clientConfig: { region: region },
-      })
-      const credentials = credentialProvider();
-      return credentials;
-    }
-    
-
-
-}
-
-  /**
-   * Send tokens to the Vue component and update the Vue component
-   * with the latest AWS credentials to use to make calls to AWS
-   * services.
-   */
-  propagateTokensUpdateCredentials() {
-    const idtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-    const tokens = {};
-    tokens.idtokenjwt = idtoken;
-    tokens.accesstokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}accesstokenjwt`);
-    tokens.refreshtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
+    const tokens = getAuth(this.generateConfigObj());
     FullPageComponentLoader.sendMessageToComponent({
       event: 'confirmLogin',
       data: tokens,
-    });
-    const { poolId: cognitoPoolId } =
-      this.config.cognito;
-    const region =
-        this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
-    const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
-    let logins;
-    let credentials;
-    const self = this;
-    if (idtoken) { // auth role since logged in
-      try {
-        logins = {};
-        logins[poolName] = idtoken;
-        this.getCredentials(cognitoPoolId, region, logins).then((creds) => {
-          self.credentials = creds;
-          const message = {
-            event: 'replaceCreds',
-            creds: creds,
-          };
-          FullPageComponentLoader.sendMessageToComponent(message);
-        });
-      } catch (err) {
-        console.error(new Error(`cognito auth credentials could not be created ${err}`));
-      }
-    } else { // noauth role
-      try {
-        this.getCredentials(cognitoPoolId, region).then((creds) => {
-          self.credentials = creds;
-          const message = {
-            event: 'replaceCreds',
-            creds: creds,
-          };
-          FullPageComponentLoader.sendMessageToComponent(message);
-        });
-      } catch (err) {
-        console.error(new Error(`cognito noauth credentials could not be created ${err}`));
-      }
-    }
-  }
-
-  async refreshAuthTokens() {
-    const refToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
-    if (refToken) {
-      refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
-        if (refSession.isValid()) {
-          this.propagateTokensUpdateCredentials();
-        } else {
-          console.error('failed to refresh credentials');
-        }
-      });
-    } else {
-      console.error('no refreshtoken from which to refresh auth from');
-    }
-  }
-
-  validateIdToken() {
-    return new Promise((resolve, reject) => {
-      let idToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-      if (isTokenExpired(idToken)) {
-        const refToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
-        if (refToken && !isTokenExpired(refToken)) {
-          refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
-            if (refSession.isValid()) {
-              idToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-              resolve(idToken);
-            } else {
-              reject(new Error('failed to refresh tokens'));
-            }
-          });
-        } else {
-          reject(new Error('token could not be refreshed'));
-        }
-      } else {
-        resolve(idToken);
-      }
     });
   }
 
@@ -204,58 +58,9 @@ export class FullPageComponentLoader {
    */
   /* eslint-disable no-restricted-globals */
   initCognitoCredentials() {
-    document.addEventListener('tokensavailable', this.propagateTokensUpdateCredentials.bind(this), false);
     return new Promise((resolve, reject) => {
-      if (this.config.ui.enableLogin && this.config.ui.forceLogin) {
-        forceLogin(this.generateConfigObj())
-      }
-      const curUrl = window.location.href;
-      if (curUrl.indexOf('loggedin') >= 0) {
-        if (completeLogin(this.generateConfigObj())) {
-          history.replaceState(null, '', window.location.pathname);
-        }
-      } else if (curUrl.indexOf('loggedout') >= 0) {
-        if (completeLogout(this.generateConfigObj())) {
-          history.replaceState(null, '', window.location.pathname);
-          FullPageComponentLoader.sendMessageToComponent({ event: 'confirmLogout' });
-        }
-      }
-      const { poolId: cognitoPoolId } =
-        this.config.cognito;
-      const region =
-          this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
-      const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
-
-      if (!cognitoPoolId) {
-        return reject(new Error('missing cognito poolId config'));
-      }
-      let logins;
-      let credentials;
-      const self = this;
-      const token = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-      if (token) { // auth role since logged in
-        return this.validateIdToken().then((idToken) => {
-          logins = {};
-          logins[poolName] = idToken;
-          const self = this;
-          return this.getCredentials(cognitoPoolId, region, logins)
-            .then((creds) => {
-              self.credentials = creds;
-              self.propagateTokensUpdateCredentials();
-              resolve();
-            });
-        }, (unable) => {
-          console.error(`No longer able to use refresh tokens to login: ${unable}`);
-          // attempt logout as unable to login again
-          logout(this.generateConfigObj());
-          reject(unable);
-        });
-      }
-      return this.getCredentials(cognitoPoolId, region, logins)
-        .then((creds) => {
-          self.credentials = creds;
-          resolve();
-        });
+      login(this.config);
+      resolve();
     });
   }
 
@@ -271,8 +76,6 @@ export class FullPageComponentLoader {
         logout(this.generateConfigObj());
       } else if (evt.detail.event === 'requestTokens') {
         await this.requestTokens();
-      } else if (evt.detail.event === 'refreshAuthTokens') {
-        await this.refreshAuthTokens();
       } else if (evt.detail.event === 'pong') {
         console.info('pong received');
       }
