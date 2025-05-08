@@ -35,6 +35,29 @@ Hub.listen("auth", ({ payload }) => {
       break;
   }
 });
+import { Amplify } from 'aws-amplify'
+import { signOut, fetchAuthSession, signInWithRedirect } from '@aws-amplify/auth';
+import { Hub } from "aws-amplify/utils";
+
+const getCurrentUser = async () => {
+  return await fetchAuthSession();
+};
+
+Hub.listen("auth", ({ payload }) => {
+  switch (payload.event) {
+    case "signInWithRedirect":
+      const session = getCurrentUser();
+      console.log("id token", session.credentials.accessKeyId)
+      break;
+    case "signInWithRedirect_failure":
+      // handle sign in failure
+      break;
+    case "customOAuthState":
+      const state = payload.data; // this will be customState provided on signInWithRedirect function
+      console.log(state);
+      break;
+  }
+});
 
 function getAuth(config) {
   const amplifyAuthConfig = {
