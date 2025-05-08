@@ -23,6 +23,7 @@ import { LexRuntimeV2Client } from '@aws-sdk/client-lex-runtime-v2';
 import { PollyClient } from '@aws-sdk/client-polly';
 import LexWeb from '@/components/LexWeb';
 import VuexStore from '@/store';
+import { Amplify } from 'aws-amplify'
 
 import { config as defaultConfig, mergeConfig } from '@/config';
 import { createApp, defineAsyncComponent } from 'vue';
@@ -148,7 +149,7 @@ export class Loader {
     
     const app = createAppInstance({
       template: '<div id="lex-web-ui"><lex-web-ui/></div>',
-    })
+    })    
 
     app.use(vuetify)
     const store = vuexCreateStore(VuexStore)
@@ -157,6 +158,20 @@ export class Loader {
     this.app = app;
 
     const mergedConfig = mergeConfig(defaultConfig, config);
+    
+    const amplifyAuthConfig = {
+      auth: {
+        user_pool_id:  config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName'),
+        aws_region: config.cognito.region || config.region || 'us-east-1',
+        user_pool_client_id: config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId'),
+        identity_pool_id: config.cognito.poolId || localStorage.getItem('poolId'),
+        unauthenticated_identities_enabled: config.ui.forceLogin ? false : true
+      },
+      version: "1.3"
+    };
+
+    Amplify.configure(amplifyAuthConfig);
+    
     let credentials;
     if (mergedConfig.cognito.poolId != '' || localStorage.getItem('poolId')) {
       credentials = this.store.dispatch('getCredentials', mergedConfig).then((creds) => {

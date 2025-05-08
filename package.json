@@ -30,6 +30,7 @@
     "lint": "eslint --format node_modules/eslint-formatter-friendly src/lex-web-ui-loader"
   },
   "dependencies": {
+    "aws-amplify": "^6.6.0",
     "amazon-cognito-auth-js": "^1.2.4",
     "@aws-sdk/client-cognito-identity": "3.470.0",
     "@aws-sdk/credential-providers": "3.470.0",

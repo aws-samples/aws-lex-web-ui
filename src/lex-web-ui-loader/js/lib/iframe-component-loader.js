@@ -15,9 +15,7 @@
 /* global AWS */
 
 import { ConfigLoader } from './config-loader';
-import { logout, login, completeLogin, completeLogout, getAuth, refreshLogin, isTokenExpired, forceLogin } from './loginutil';
-import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
-const { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } = require("@aws-sdk/client-cognito-identity");
+import { logout, login, getAuth, refreshLogin, forceLogin } from './loginutil';
 
 
 /**
@@ -157,125 +155,11 @@ export class IframeComponentLoader {
   }
 
   /**
-   * Updates AWS credentials used to call AWS services based on login having completed. This is
-   * event driven from loginuti.js. Credentials are obtained from the parent page on each
-   * request in the Vue component.
+   * Call out to login utility which leverages Amplify to do sign-in
    */
-  updateCredentials() {
-    const { poolId: cognitoPoolId } =
-      this.config.cognito;
-    const region =
-      this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
-    const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
-    let credentials;
-    const idtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-    let logins;
-    const self = this;
-    if (idtoken) { // auth role since logged in
-      try {
-        logins = {};
-        logins[poolName] = idtoken;
-        credentials = this.getCredentials(cognitoPoolId, region, logins)
-          .then((creds) => {
-            self.credentials = creds;
-            return creds;
-          });
-      } catch (err) {
-        console.error(new Error(`cognito auth credentials could not be created ${err}`));
-      }
-    } else { // noauth role
-      try {
-        credentials = this.getCredentials(cognitoPoolId, region)
-          .then((creds) => {
-            self.credentials = creds;
-            return creds;
-          });
-      } catch (err) {
-        console.error(new Error(`cognito noauth credentials could not be created ${err}`));
-      }
-    }
-  }
-
-  validateIdToken() {
-    return new Promise((resolve, reject) => {
-      let idToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-      if (isTokenExpired(idToken)) {
-        const refToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
-        if (refToken && !isTokenExpired(refToken)) {
-          refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
-            if (refSession.isValid()) {
-              idToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-              resolve(idToken);
-            } else {
-              reject(new Error('failed to refresh tokens'));
-            }
-          });
-        } else {
-          reject(new Error('token could not be refreshed'));
-        }
-      } else {
-        resolve(idToken);
-      }
-    });
-  }
-
-  /**
-   * Creates Cognito credentials and processes Cognito login if complete
-   * Inits AWS credentials. Note that this function calls history.replaceState
-   * to remove code grants that appear on the url returned from cognito
-   * hosted login. The site does not want to allow the user to attempt to
-   * refresh the page using old code grants.
-   */
-  /* eslint-disable no-restricted-globals */
   initCognitoCredentials() {
-    document.addEventListener('tokensavailable', this.updateCredentials.bind(this), false);
-
     return new Promise((resolve, reject) => {
-
-      const curUrl = window.location.href;
-      if (curUrl.indexOf('loggedin') >= 0) {
-        if (completeLogin(this.generateConfigObj())) {
-          history.replaceState(null, '', window.location.pathname);
-          console.debug('completeLogin successful');
-        }
-      } else if (curUrl.indexOf('loggedout') >= 0) {
-        if (completeLogout(this.generateConfigObj())) {
-          history.replaceState(null, '', window.location.pathname);
-          console.debug('completeLogout successful');
-        }
-      }
-      const { poolId: cognitoPoolId } = this.config.cognito;
-      const region =
-          this.config.cognito.region || this.config.region || this.config.cognito.poolId.split(':')[0] || 'us-east-1';
-      const poolName = `cognito-idp.${region}.amazonaws.com/${this.config.cognito.appUserPoolName}`;
-      if (!cognitoPoolId) {
-        return reject(new Error('missing cognito poolId config'));
-      }
-      localStorage.setItem('poolId', cognitoPoolId);
-      localStorage.setItem('appUserPoolClientId', this.config.cognito.appUserPoolClientId);
-      localStorage.setItem('appUserPoolName', this.config.cognito.appUserPoolName)
-      let credentials;
-      const token = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-      let logins;
-      const self = this;
-      if (token) { // auth role since logged in
-        return this.validateIdToken().then((idToken) => {
-          logins = {};
-          logins[poolName] = idToken;
-          credentials = this.getCredentials(cognitoPoolId, region, logins)
-            .then((creds) => {
-              self.credentials = creds;
-              resolve();
-            });
-        }, (unable) => {
-          console.error(`No longer able to use refresh tokens to login: ${unable}`);
-          // attempt logout as unable to login again
-          logout(this.generateConfigObj());
-          reject(unable);
-        });
-      }
-      credentials = this.getCredentials(cognitoPoolId, region).then((creds) => {
-        self.credentials = creds;
+      login(this.config).then(() => {
         resolve();
       });
     });
@@ -464,42 +348,13 @@ export class IframeComponentLoader {
           clearInterval(readyManager.intervalId);
 
           if (this.config.ui.enableLogin && this.config.ui.enableLogin === true) {
-            const auth = getAuth(this.generateConfigObj());
-            const session = auth.getSignInUserSession();
-            const tokens = {};
-            if (session.isValid()) {
-              tokens.idtokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-              tokens.accesstokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}accesstokenjwt`);
-              tokens.refreshtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
-              this.sendMessageToIframe({
-                event: 'confirmLogin',
-                data: tokens,
-              });
-            } else if (this.config.ui.enableLogin && this.config.ui.forceLogin){
-                forceLogin(this.generateConfigObj())
-                this.sendMessageToIframe({
-                  event: 'confirmLogin',
-                  data: tokens,
-                });
-            }
-            else {
-              const refToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
-              if (refToken) {
-                refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
-                  if (refSession.isValid()) {
-                    tokens.idtokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-                    tokens.accesstokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}accesstokenjwt`);
-                    tokens.refreshtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
-                    this.sendMessageToIframe({
-                      event: 'confirmLogin',
-                      data: tokens,
-                    });
-                  }
-                });
-              }
-            }
+            login(this.config).then(() => {
+              resolve();
+            });
           }
-          resolve();
+          else {
+            resolve();
+          }
         }
       };
 
@@ -517,52 +372,6 @@ export class IframeComponentLoader {
   }
 
   /**
-   * Get AWS credentials to pass to the chatbot UI
-   */
-
-
-  async getCredentials(poolId, region, logins) {
-    if (logins) {
-      const client = new CognitoIdentityClient({ region });
-      const getIdentityId = new GetIdCommand({
-        IdentityPoolId: poolId,
-        Logins: logins
-      })
-      let identityId, getCreds;
-      try {
-        await client.send(getIdentityId)
-          .then((res) => {
-            identityId = res.IdentityId;
-            getCreds = new GetCredentialsForIdentityCommand({
-              IdentityId: identityId,
-              Logins: logins
-            })
-          })
-        const res = await client.send(getCreds);
-        const creds = res.Credentials;
-        const credentials = {
-          accessKeyId: creds.AccessKeyId,
-          identityId,
-          secretAccessKey: creds.SecretKey,
-          sessionToken: creds.SessionToken,
-          expiration: creds.Expiration,
-        };
-        return credentials;
-      } catch (err) {
-        console.log(err)
-      }
-    } else {
-      const credentialProvider = fromCognitoIdentityPool({
-        identityPoolId: poolId,
-        logins: logins,
-        clientConfig: { region: region },
-      })
-      const credentials = credentialProvider();
-      return credentials;
-    }
-  }
-
-  /**
    * Event handler functions for messages from iframe
    * Used by onMessageFromIframe - "this" object is bound dynamically
    */
@@ -573,16 +382,6 @@ export class IframeComponentLoader {
       ready(evt) {
         this.isChatBotReady = true;
         evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
-      },
-
-      // requests credentials from the parent
-      getCredentials(evt) {
-        const tcreds = JSON.parse(JSON.stringify(this.credentials));
-        return evt.ports[0].postMessage({
-          event: 'resolve',
-          type: evt.data.event,
-          data: tcreds,
-        });
       },
 
       // requests chatbot UI config
@@ -613,48 +412,16 @@ export class IframeComponentLoader {
       // sent when login is requested from iframe
       requestLogin(evt) {
         evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
-        login(this.generateConfigObj());
+        login(this.config);
       },
 
       // sent when logout is requested from iframe
       requestLogout(evt) {
-        logout(this.generateConfigObj());
+        logout();
         evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
         this.sendMessageToIframe({ event: 'confirmLogout' });
       },
 
-      // sent to refresh auth tokens as requested by iframe
-      refreshAuthTokens(evt) {
-        const refToken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
-        if (refToken) {
-          refreshLogin(this.generateConfigObj(), refToken, (refSession) => {
-            if (refSession.isValid()) {
-              const tokens = {};
-              tokens.idtokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}idtokenjwt`);
-              tokens.accesstokenjwt = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}accesstokenjwt`);
-              tokens.refreshtoken = localStorage.getItem(`${this.config.cognito.appUserPoolClientId}refreshtoken`);
-              evt.ports[0].postMessage({
-                event: 'resolve',
-                type: evt.data.event,
-                data: tokens,
-              });
-            } else {
-              console.error('failed to refresh credentials');
-              evt.ports[0].postMessage({
-                event: 'reject',
-                type: evt.data.event,
-                error: 'failed to refresh tokens',
-              });
-            }
-          });
-        } else {
-          evt.ports[0].postMessage({
-            event: 'reject',
-            type: evt.data.event,
-            error: 'no refresh token available for use',
-          });
-        }
-      },
       // iframe sends Lex updates based on Lex API responses
       updateLexState(evt) {
         // evt.data will contain the Lex state
