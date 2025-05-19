@@ -64,9 +64,20 @@ export default {
     switch (context.state.awsCreds.provider) {
       case 'cognito':
       case 'parentWindow':
-        awsCredentials = credentials;
-        if (lexClient) {
-          lexClient.initCredentials(awsCredentials);
+        if (!credentials) {
+          context.dispatch('getCredentials', context.state.config)
+            .then((creds) => {
+              awsCredentials = creds;
+              if (lexClient) {
+                lexClient.initCredentials(awsCredentials);
+              }
+            });
+        }
+        else {
+          awsCredentials = credentials;
+          if (lexClient) {
+            lexClient.initCredentials(awsCredentials);
+          }
         }
         break;
       default:

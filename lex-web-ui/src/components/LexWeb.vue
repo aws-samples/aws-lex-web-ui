@@ -193,7 +193,11 @@ export default {
           return Promise.reject(new Error('no cognito.poolId found in config'))
         }
         
-
+        if (!this.$lexWebUi.awsConfig.credentials) {
+          this.$lexWebUi.awsConfig.credentials = this.$store.dispatch('getCredentials', this.$store.state.config).then((creds) => {
+            return creds;
+          });
+        };
         const awsConfig = {
           region: region,
           credentials: this.$lexWebUi.awsConfig.credentials,

@@ -44365,7 +44365,6 @@ class IframeComponentLoader {
 
     // SECURITY: origin check
     if (evt.origin !== iframeOrigin) {
-      console.warn('postMessage from invalid origin', evt.origin);
       return;
     }
     // ignore events not produced by the lex web ui
