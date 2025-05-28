@@ -18,7 +18,6 @@
         ref="textInput"
         id="text-input"
         name="text-input"
-        single-line
         hide-details
         density="compact"
         variant="underlined"
@@ -52,6 +51,9 @@
       :disabled="isMicButtonDisabled"
       ref="mic"
       class="icon-color input-button"
+      aria-label="Use Voice"
+      :aria-disabled="isMicButtonDisabled"
+      :aria-describedby="isMicButtonDisabled ? 'input-button-tooltip' : ''"
       icon
     >
       <v-tooltip activator="parent" v-model="shouldShowTooltip" location="start">
@@ -162,7 +164,7 @@ export default {
         return 'stop';
       }
       return 'mic';
-    },
+  },
     inputButtonTooltip() {
       if (this.shouldShowSendButton) {
         return 'send';
@@ -268,9 +270,9 @@ export default {
       if(this.$store.state.config.lex.allowStreamingResponses){
         // Replace with an HTTP endpoint for the fullfilment Lambda
         const streamingEndpoint = this.$store.state.config.lex.streamingWebSocketEndpoint.replace('wss://', 'https://');
-        this.$store.dispatch('setSessionAttribute', 
+        this.$store.dispatch('setSessionAttribute',
           { key: 'streamingEndpoint', value: streamingEndpoint });
-        this.$store.dispatch('setSessionAttribute', 
+        this.$store.dispatch('setSessionAttribute',
           { key: 'streamingDynamoDbTable', value: this.$store.state.config.lex.streamingDynamoDbTable });
       }
 

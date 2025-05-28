@@ -64,11 +64,15 @@ export default {
     // reconnects with an agent.
     const messageTextArray = [];
     var text = "";
-    let shouldRedactResponse = false; // indicates if the current message should be redacted
-    const regex = new RegExp(`${state.config.connect.transcriptRedactRegex}`, "g");
+    let redactionEnabled = false;
+    if (state.config.connect.transcriptRedactRegex && state.config.connect.transcriptRedactRegex.length > 0) {
+      redactionEnabled = true;
+    }
+    let shouldRedactNextMessage = false; // indicates if the next message to append should be redacted
+    const regex = redactionEnabled ? new RegExp(`${state.config.connect.transcriptRedactRegex}`, "g") : undefined;
     state.messages.forEach((message) => {
       var nextMessage = message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + message.text + '\n';
-      if (shouldRedactResponse) {
+      if (redactionEnabled && shouldRedactNextMessage) {
         nextMessage = message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + '###' + '\n';
       }
       if((text + nextMessage).length > 400) {
@@ -79,10 +83,15 @@ export default {
           messageTextArray.push(subMsg);
         });
         text = "";
-        shouldRedactResponse= regex.test(nextMessage);
+        if (redactionEnabled && regex) {
+          shouldRedactNextMessage = regex.test(nextMessage);
+        }
         nextMessage = "";
       } else {
-        shouldRedactResponse= regex.test(nextMessage);
+        if (redactionEnabled && regex) {
+          // if we are redacting, check if the next message should be redacted
+          shouldRedactNextMessage = regex.test(nextMessage);
+        }
       }
       text = text + nextMessage;
     });

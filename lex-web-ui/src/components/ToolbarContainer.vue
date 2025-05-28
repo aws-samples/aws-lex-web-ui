@@ -7,7 +7,6 @@
     @click="toolbarClickHandler"
     :density="density"
     :class="{ minimized: isUiMinimized }"
-    aria-label="Toolbar with sound FX mute button, minimise chat window button and option chat back a step button"
   >
   <!-- eslint-enable max-len -->
     <img
@@ -32,59 +31,59 @@
       </template>
 
       <v-list role="list">
-        <v-list-item v-if="isEnableLogin">
-          <v-list-item-title v-if="isLoggedIn" @click="requestLogout" aria-label="logout">
+        <v-list-item role="listitem" v-if="isEnableLogin">
+          <v-btn v-if="isLoggedIn" @click="requestLogout" aria-label="logout">
             <v-icon>
               {{ items[1].icon }}
             </v-icon>
             {{ items[1].title }}
-          </v-list-item-title>
-          <v-list-item-title v-if="!isLoggedIn" @click="requestLogin" aria-label="login">
+          </v-btn>
+          <v-btn v-if="!isLoggedIn" @click="requestLogin" aria-label="login">
             <v-icon>
               {{ items[0].icon }}
             </v-icon>
             {{ items[0].title }}
-          </v-list-item-title>
+          </v-btn>
         </v-list-item>
-        <v-list-item v-if="isSaveHistory">
-          <v-list-item-title @click="requestResetHistory" aria-label="clear chat history">
+        <v-list-item role="listitem" v-if="isSaveHistory">
+          <v-btn @click="requestResetHistory" aria-label="clear chat history">
             <v-icon>
               {{ items[2].icon }}
             </v-icon>
             {{ items[2].title }}
-          </v-list-item-title>
+          </v-btn>
         </v-list-item>
-        <v-list-item v-if="shouldRenderSfxButton && isSFXOn">
-          <v-list-item-title @click="toggleSFXMute" aria-label="mute sound effects">
+        <v-list-item role="listitem" v-if="shouldRenderSfxButton && isSFXOn">
+          <v-btn @click="toggleSFXMute" aria-label="mute sound effects">
             <v-icon>
               {{ items[3].icon }}
             </v-icon>
             {{ items[3].title }}
-          </v-list-item-title>
+          </v-btn>
         </v-list-item>
-        <v-list-item v-if="shouldRenderSfxButton && !isSFXOn">
-          <v-list-item-title @click="toggleSFXMute" aria-label="unmute sound effects">
+        <v-list-item role="listitem" v-if="shouldRenderSfxButton && !isSFXOn">
+          <v-btn @click="toggleSFXMute" aria-label="unmute sound effects">
             <v-icon>
               {{ items[4].icon }}
             </v-icon>
             {{ items[4].title }}
-          </v-list-item-title>
+          </v-btn>
         </v-list-item>
-        <v-list-item v-if="canLiveChat">
-          <v-list-item-title @click="requestLiveChat" aria-label="request live chat">
+        <v-list-item role="listitem" v-if="canLiveChat">
+          <v-btn @click="requestLiveChat" :aria-label="toolbarStartLiveChatLabel">
             <v-icon>
               {{ toolbarStartLiveChatIcon }}
             </v-icon>
             {{ toolbarStartLiveChatLabel }}
-          </v-list-item-title>
+          </v-btn>
         </v-list-item>
-        <v-list-item v-if="isLiveChat">
-          <v-list-item-title @click="endLiveChat" aria-label="end live chat">
+        <v-list-item role="listitem" v-if="isLiveChat">
+          <v-btn @click="endLiveChat" aria-label="end live chat">
             <v-icon>
               {{ toolbarEndLiveChatIcon }}
             </v-icon>
             {{ toolbarEndLiveChatLabel }}
-          </v-list-item-title>
+          </v-btn>
         </v-list-item>
         <v-list-item v-if="isLocaleSelectable" :disabled="restrictLocaleChanges" v-for="(locale, index) in locales" role="listitem" :key="index">
           <v-btn :aria-label="locale" :key="index" class="menu-item" elevation="0" @click="setLocale(locale)">
