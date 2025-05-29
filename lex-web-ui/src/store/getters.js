@@ -72,9 +72,15 @@ export default {
     const regex = redactionEnabled ? new RegExp(`${state.config.connect.transcriptRedactRegex}`, "g") : undefined;
     state.messages.forEach((message) => {
       var nextMessage = message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + message.text + '\n';
+
+      if (redactionEnabled && regex) {
+        shouldRedactNextMessage = regex.test(nextMessage);
+      }
+
       if (redactionEnabled && shouldRedactNextMessage) {
         nextMessage = message.date.toLocaleTimeString() + ' ' + (message.type === 'bot' ? 'Bot' : 'Human') + ': ' + '###' + '\n';
       }
+
       if((text + nextMessage).length > 400) {
         messageTextArray.push(text);
         //this is over 1k chars by itself, so we must break it up.
@@ -83,15 +89,7 @@ export default {
           messageTextArray.push(subMsg);
         });
         text = "";
-        if (redactionEnabled && regex) {
-          shouldRedactNextMessage = regex.test(nextMessage);
-        }
         nextMessage = "";
-      } else {
-        if (redactionEnabled && regex) {
-          // if we are redacting, check if the next message should be redacted
-          shouldRedactNextMessage = regex.test(nextMessage);
-        }
       }
       text = text + nextMessage;
     });
