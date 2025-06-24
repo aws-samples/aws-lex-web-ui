@@ -74,7 +74,7 @@ of the various methods:
 | --- | --- | --- | --- |
 | 1 | [CloudFormation Deployment](#cloudformation-deployment) using the CloudFormation [templates](templates) provided by this project | Fully automated deployment of a hosted web application to an S3 bucket with an optional CI/CD pipeline. By default, it also creates a Cognito Identity Pool and a sample Lex bot | Use when you want to have a infrastructure as code approach that automatically builds and configures the chatbot UI resources |
 | 2 | Use the pre-built [libraries](#libraries) from the [dist](dist) directory of this repo | We provide a pre-built version of the chatbot UI component and a loader library that you can use on your web site as a [stand alone page](#stand-alone-page) or as an embeddable [iframe](#iframe) | Use when you have an existing site and want to add the chatbot UI to it by simply copying or referencing the library files |
-| 3 | Use npm to install and use the chatbot UI as a Vue component | Enables developers to consume this project as an [npm](https://www.npmjs.com/) package that provides a [Vue](https://vuejs.org/) component. See the [Npm Install and Vue Component Use](#npm-install-and-vue-component-use) section for details | Use when developing front-end based web applications built using JavaScript and bundled with tools such as [webpack](https://webpack.github.io) |
+
 
 See the [Usage](#usage) and [Deployment](#deployment) sections below for details.
 
@@ -394,38 +394,6 @@ For more examples showing how to include the chatbot UI as an iframe,
 see the source of the [parent.html](src/website/parent.html) page and the
 [Iframe Embedding](src/README.md#iframe-embedding) documentation of the
 loader library.
-
-### Npm Install and Vue Component Use
-You can use the [npm](https://docs.npmjs.com/) package manager to
-install this project. The npm installation provides a library that you
-can import as a module into your JavaScript code. The component is built
-as a reusable [Vue](https://vuejs.org/) plugin. This approach is geared
-to be used in a [webpack](https://webpack.github.io) based project.
-
-Package installation using `npm`:
-
-```shell
-# install npm package from github repo
-npm install --save awslabs/aws-lex-web-ui
-# you may need to install co-dependencies:
-npm install --save vue vuex vuetify material-design-icons roboto-fontface
-```
-
-This is a quick example showing how to import the library in your project:
-
-```JavaScript
-// assumes that a bundler like webpack will handle import/require
-// using es6 module
-import LexWebUi from 'aws-lex-web-ui';
-// or using require
-var LexWebUi = require('aws-lex-web-ui');
-// import the debug non-minimized version
-import LexWebUi from 'aws-lex-web-ui/dist/lex-web-ui';
-```
-
-The source of the chatbot UI component resides under the
-[lex-web-ui](lex-web-ui) directory. For further details about the chatbot
-UI component see its [README](lex-web-ui/README.md) file.
 
 ### Sample Site
 This repository provides a sample site that you can use as a base

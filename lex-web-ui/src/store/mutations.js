@@ -447,15 +447,12 @@ export default {
   reapplyTokensToSessionAttributes(state) {
     if (state) {
       if (state.tokens.idtokenjwt) {
-        console.error('found idtokenjwt');
         state.lex.sessionAttributes.idtokenjwt = state.tokens.idtokenjwt;
       }
       if (state.tokens.accesstokenjwt) {
-        console.error('found accesstokenjwt');
         state.lex.sessionAttributes.accesstokenjwt = state.tokens.accesstokenjwt;
       }
       if (state.tokens.refreshtoken) {
-        console.error('found refreshtoken');
         state.lex.sessionAttributes.refreshtoken = state.tokens.refreshtoken;
       }
     }
@@ -583,4 +580,9 @@ setIsStartingTypingWsMessages(state, bool){
     state.streaming.wsMessagesCurrentIndex=0;
   }
 }, 
+
+removeAttachments(state){
+  delete state.lex.sessionAttributes.userFilesUploaded;
+},
+
 };

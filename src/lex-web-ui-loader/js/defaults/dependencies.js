@@ -25,13 +25,8 @@ export const dependenciesFullPage = {
       url: './initiate-loader.js',
     },
     {
-      name: 'AWS',
-      url: './aws-sdk-2.903.0.js',
-      canUseMin: true,
-    },
-    {
       name: 'Vue',
-      url: './3.3.10_dist_vue.global.prod.js',
+      url: './3.5.13_dist_vue.global.prod.js',
       canUseMin: false,
     },
     {
@@ -41,7 +36,7 @@ export const dependenciesFullPage = {
     },
     {
       name: 'Vuetify',
-      url: './3.4.6_dist_vuetify.js',
+      url: './3.8.3_dist_vuetify.js',
       canUseMin: true,
     },
     {
@@ -57,7 +52,7 @@ export const dependenciesFullPage = {
     },
     {
       name: 'vuetify',
-      url: './3.4.6_dist_vuetify.css',
+      url: './3.8.3_dist_vuetify.css',
       canUseMin: true,
     },
     {
@@ -73,17 +68,11 @@ export const dependenciesFullPage = {
 };
 
 export const dependenciesIframe = {
-  script: [
-    {
-      name: 'AWS',
-      url: './aws-sdk-2.903.0.js',
-      canUseMin: true,
-    },
-  ],
   css: [
     {
       name: 'lex-web-ui-loader',
       url: './lex-web-ui-loader.css',
     },
   ],
+  script: []
 };

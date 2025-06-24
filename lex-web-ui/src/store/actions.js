@@ -25,12 +25,14 @@ import { createLiveChatSession, connectLiveChatSession, initLiveChatHandlers, se
 import { initTalkDeskLiveChat, sendTalkDeskChatMessage, requestTalkDeskLiveChatEnd } from '@/store/talkdesk-live-chat-handlers.js';
 import silentOgg from '@/assets/silent.ogg';
 import silentMp3 from '@/assets/silent.mp3';
-import { Signer } from 'aws-amplify';
+import { Signer } from '@aws-amplify/core';
 
 import LexClient from '@/lib/lex/client';
 
 import { jwtDecode } from "jwt-decode";
-const AWS = require('aws-sdk');
+import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
+import { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } from '@aws-sdk/client-cognito-identity';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
@@ -44,6 +46,12 @@ let wsClient;
 let pollyInitialSpeechBlob = {};
 let pollyAllDoneBlob = {};
 let pollyThereWasAnErrorBlob = {};
+let poolId;
+let identityId;
+let poolName;
+let idToken;
+let logins;
+let region;
 
 export default {
   /***********************************************************************
@@ -55,13 +63,23 @@ export default {
   initCredentials(context, credentials) {
     switch (context.state.awsCreds.provider) {
       case 'cognito':
-        awsCredentials = credentials;
-        if (lexClient) {
-          lexClient.initCredentials(awsCredentials);
-        }
-        return context.dispatch('getCredentials');
       case 'parentWindow':
-        return context.dispatch('getCredentials');
+        if (!credentials) {
+          context.dispatch('getCredentials', context.state.config)
+            .then((creds) => {
+              awsCredentials = creds;
+              if (lexClient) {
+                lexClient.initCredentials(awsCredentials);
+              }
+            });
+        }
+        else {
+          awsCredentials = credentials;
+          if (lexClient) {
+            lexClient.initCredentials(awsCredentials);
+          }
+        }
+        break;
       default:
         return Promise.reject(new Error('unknown credential provider'));
     }
@@ -122,25 +140,21 @@ export default {
       context.state.config.lex.sessionAttributes,
     );
     // Initiate WebSocket after lexClient get credential, due to sessionId was assigned from identityId
-    return context.dispatch('getCredentials')
-      .then(() => {
-        lexClient.initCredentials(awsCredentials)
-        //Enable streaming response
-        if (String(context.state.config.lex.allowStreamingResponses) === "true") {
-          context.dispatch('InitWebSocketConnect')
-        }
-      });
+    lexClient.initCredentials(payload.credentials)
+    // Enable streaming response
+    if (String(context.state.config.lex.allowStreamingResponses) === "true") {
+      context.dispatch('InitWebSocketConnect')
+    }
+    return;
   },
-  initPollyClient(context, client) {
+  initPollyClient(context, client, credentials) {
     if (!context.state.recState.isRecorderEnabled) {
       return Promise.resolve();
     }
     pollyClient = client;
     context.commit('setPollyVoiceId', context.state.config.polly.voiceId);
-    return context.dispatch('getCredentials')
-      .then((creds) => {
-        pollyClient.config.credentials = creds;
-      });
+    pollyClient.config.credentials = credentials;
+    return;
   },
   initRecorder(context) {
     if (!context.state.config.recorder.enable) {
@@ -419,7 +433,7 @@ export default {
 
   pollyGetBlob(context, text, format = 'text') {
     return context.dispatch('refreshAuthTokens')
-      .then(() => context.dispatch('getCredentials'))
+      .then(() => context.dispatch('getCredentials', context.state.config))
       .then((creds) => {
         pollyClient.config.credentials = creds;
         const synthReq = pollyClient.synthesizeSpeech({
@@ -665,7 +679,7 @@ export default {
   deleteSession(context) {
     context.commit('setIsLexProcessing', true);
     return context.dispatch('refreshAuthTokens')
-      .then(() => context.dispatch('getCredentials'))
+      .then(() => context.dispatch('getCredentials', context.state.config))
       .then(() => lexClient.deleteSession())
       .then((data) => {
         context.commit('setIsLexProcessing', false);
@@ -680,7 +694,7 @@ export default {
   startNewSession(context) {
     context.commit('setIsLexProcessing', true);
     return context.dispatch('refreshAuthTokens')
-      .then(() => context.dispatch('getCredentials'))
+      .then(() => context.dispatch('getCredentials', context.state.config))
       .then(() => lexClient.startNewSession())
       .then((data) => {
         context.commit('setIsLexProcessing', false);
@@ -702,7 +716,7 @@ export default {
       : undefined;
     const sessionId = lexClient.userId;
     return context.dispatch('refreshAuthTokens')
-      .then(() => context.dispatch('getCredentials'))
+      .then(() => context.dispatch('getCredentials', context.state.config))
       .then(() => {
         // TODO: Need to handle if the error occurred. typing would be broke since lexClient.postText throw error
         if (String(context.state.config.lex.allowStreamingResponses) === "true") {
@@ -752,7 +766,7 @@ export default {
     let timeStart;
 
     return context.dispatch('refreshAuthTokens')
-      .then(() => context.dispatch('getCredentials'))
+      .then(() => context.dispatch('getCredentials', context.state.config))
       .then(() => {
         const localeId = context.state.config.lex.v2BotLocaleId
           ? context.state.config.lex.v2BotLocaleId.split(',')[0]
@@ -921,67 +935,70 @@ export default {
         InstanceId: context.state.config.connect.instanceId,
       };
 
-      const uri = new URL(context.state.config.connect.apiGatewayEndpoint);
-      const endpoint = new AWS.Endpoint(uri.hostname);
-      const req = new AWS.HttpRequest(endpoint, context.state.config.region);
-      req.method = 'POST';
-      req.path = uri.pathname;
-      req.headers['Content-Type'] = 'application/json';
-      req.body = JSON.stringify(initiateChatRequest);
-      req.headers.Host = endpoint.host;
-      req.headers['Content-Length'] = Buffer.byteLength(req.body);
+      context.dispatch('refreshAuthTokens')
+        .then(() => context.dispatch('getCredentials', context.state.config))
+        .then((credentials) => {
+          const bodyText = JSON.stringify(initiateChatRequest);
+          const serviceInfo = { 
+            region: context.state.config.region, 
+            service: 'execute-api' 
+          };
+      
+          const accessInfo = {
+            access_key: credentials.accessKeyId,
+            secret_key: credentials.secretAccessKey,
+            session_token: credentials.sessionToken,
+          }
 
-      const signer = new AWS.Signers.V4(req, 'execute-api');
-      signer.addAuthorization(awsCredentials, new Date());
+          var request = {
+            url: context.state.config.connect.apiGatewayEndpoint,
+            method: 'POST',
+            mode: 'cors',
+            data: bodyText
+          }
 
-      const reqInit = {
-        method: 'POST',
-        mode: 'cors',
-        headers: req.headers,
-        body: req.body,
-      };
+          const signedRequest = Signer.sign(request, accessInfo, serviceInfo);
 
-      return fetch(
-        context.state.config.connect.apiGatewayEndpoint,
-        reqInit)
-      .then(response => response.json())
-      .then(json => json.data)
-      .then((result) => {
-        console.info('Live Chat Config Success:', result);
-        context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
-        function waitMessage(context, type, message) {
-          context.commit('pushLiveChatMessage', {
-            type,
-            text: message,
+          return fetch(signedRequest.url, signedRequest)
+          .then(response => response.json())
+          .then(json => json.data)
+          .then((result) => {
+            console.info('Live Chat Config Success:', result);
+            context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
+            function waitMessage(context, type, message) {
+              context.commit('pushLiveChatMessage', {
+                type,
+                text: message,
+              });
+            };
+            if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
+              const intervalID = setInterval(waitMessage,
+                1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
+                context,
+                'bot',
+                context.state.config.connect.waitingForAgentMessage);
+              console.info(`interval now set: ${intervalID}`);
+              context.commit('setLiveChatIntervalId', intervalID);
+            }
+            liveChatSession = createLiveChatSession(result);
+            console.info('Live Chat Session Created:', liveChatSession);
+            initLiveChatHandlers(context, liveChatSession);
+            console.info('Live Chat Handlers initialised:');
+            return connectLiveChatSession(liveChatSession);
+          })
+          .then((response) => {
+            console.info('live Chat session connection response', response);
+            console.info('Live Chat Session CONNECTED:', liveChatSession);
+            context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
+            // context.commit('setLiveChatbotSession', liveChatSession);
+            return Promise.resolve();
+          })
+          .catch((error) => {
+            console.error("Error esablishing live chat");
+            context.commit('setLiveChatStatus', liveChatStatus.ENDED);
+            return Promise.resolve();
           });
-        };
-        if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
-          const intervalID = setInterval(waitMessage,
-            1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
-            context,
-            'bot',
-            context.state.config.connect.waitingForAgentMessage);
-          console.info(`interval now set: ${intervalID}`);
-          context.commit('setLiveChatIntervalId', intervalID);
-        }
-        liveChatSession = createLiveChatSession(result);
-        console.info('Live Chat Session Created:', liveChatSession);
-        initLiveChatHandlers(context, liveChatSession);
-        console.info('Live Chat Handlers initialised:');
-        return connectLiveChatSession(liveChatSession);
-      })
-      .then((response) => {
-        console.info('live Chat session connection response', response);
-        console.info('Live Chat Session CONNECTED:', liveChatSession);
-        context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
-        // context.commit('setLiveChatbotSession', liveChatSession);
-        return Promise.resolve();
-      })
-      .catch((error) => {
-        console.error("Error esablishing live chat");
-        context.commit('setLiveChatStatus', liveChatStatus.ENDED);
-        return Promise.resolve();
-      });
+        });
     }
     // If TalkDesk endpoint is available use
     else if (context.state.config.connect.talkDeskWebsocketEndpoint) {
@@ -1110,27 +1127,73 @@ export default {
         return Promise.reject(error);
       })
       .then((creds) => {
-        const { AccessKeyId, SecretKey, SessionToken } = creds.data.Credentials;
-        const { IdentityId } = creds.data;
+        const { accessKeyId, identityId, secretAccessKey, sessionToken } = creds;
         // recreate as a static credential
         awsCredentials = {
-          accessKeyId: AccessKeyId,
-          secretAccessKey: SecretKey,
-          sessionToken: SessionToken,
-          identityId: IdentityId,
+          accessKeyId: accessKeyId,
+          secretAccessKey: secretAccessKey,
+          sessionToken: sessionToken,
+          identityId: identityId,
           expired: false,
-          getPromise() { return Promise.resolve(awsCredentials); },
         };
 
         return awsCredentials;
       });
   },
-  getCredentials(context) {
+  async getCredentials(context, config) {
     if (context.state.awsCreds.provider === 'parentWindow') {
       return context.dispatch('getCredentialsFromParent');
     }
-    return awsCredentials.getPromise()
-      .then(() => awsCredentials);
+
+    if (awsCredentials) {
+      return awsCredentials;
+    }
+
+    const region = config.cognito.region || config.region || 'us-east-1';
+    const poolId = config.cognito.poolId || localStorage.getItem('poolId');
+    const appUserPoolName = config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
+    const appUserPoolClientId = config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId');
+    const idToken = config.lex.sessionAttributes.idtokenjwt || localStorage.getItem(`${appUserPoolClientId}idtokenjwt`);
+
+    if (idToken) {
+      logins = {};
+      logins[`cognito-idp.${region}.amazonaws.com/${appUserPoolName}`] = idToken;
+      const client = new CognitoIdentityClient({ region });
+      const getIdentityId = new GetIdCommand({
+        IdentityPoolId: poolId,
+        Logins: logins ? logins : {}
+      })
+      let getCreds;
+      try {
+        await client.send(getIdentityId)
+          .then((res) => {
+            identityId = res.IdentityId;
+            getCreds = new GetCredentialsForIdentityCommand({
+              IdentityId: identityId,
+              Logins: logins ? logins : {}
+            })
+          })
+        const res = await client.send(getCreds);
+        const creds = res.Credentials;
+        const credentials = {
+          accessKeyId: creds.AccessKeyId,
+          identityId,
+          secretAccessKey: creds.SecretKey,
+          sessionToken: creds.SessionToken,
+          expiration: creds.Expiration,
+        };
+        return credentials;
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      const credentialProvider = fromCognitoIdentityPool({
+        identityPoolId: poolId,
+        clientConfig: { region },
+      })
+      const credentials = credentialProvider();
+      return credentials;
+    }
   },
 
   /***********************************************************************
@@ -1353,9 +1416,10 @@ export default {
  * File Upload Actions
  *
  **********************************************************************/
-  uploadFile(context, file) {
-    const s3 = new AWS.S3({
-      credentials: awsCredentials
+  async uploadFile(context, file) {
+    const s3 = new S3Client({
+      credentials: awsCredentials,
+      region: context.state.config.region
     });
     //Create a key that is unique to the user & time of upload
     const documentKey = lexClient.userId + '/' + file.name.split('.').join('-' + Date.now() + '.')
@@ -1364,35 +1428,34 @@ export default {
       Bucket: context.state.config.ui.uploadS3BucketName,
       Key: documentKey,
     };
-
-    s3.putObject(s3Params, function(err, data) {
-      if (err) {
-        console.log(err, err.stack); // an error occurred
+    const command = new PutObjectCommand(s3Params);
+    try {
+      const res = await s3.send(command);
+      const documentObject = {
+        s3Path: 's3://' + context.state.config.ui.uploadS3BucketName + '/' + documentKey,
+        fileName: file.name
+      };
+      var documentsValue = [documentObject];
+      if (context.state.lex.sessionAttributes.userFilesUploaded) {
+        documentsValue = JSON.parse(context.state.lex.sessionAttributes.userFilesUploaded)
+        documentsValue.push(documentObject);
+      }
+      context.commit("setLexSessionAttributeValue",  { key: 'userFilesUploaded', value: JSON.stringify(documentsValue) });
+      if (context.state.config.ui.uploadSuccessMessage.length > 0) {
         context.commit('pushMessage', {
           type: 'bot',
-          text: context.state.config.ui.uploadFailureMessage,
+          text: context.state.config.ui.uploadSuccessMessage,
         });
       }
-      else {
-        console.log(data);           // successful response
-        const documentObject = {
-          s3Path: 's3://' + context.state.config.ui.uploadS3BucketName + '/' + documentKey,
-          fileName: file.name
-        };
-        var documentsValue = [documentObject];
-        if (context.state.lex.sessionAttributes.userFilesUploaded) {
-          documentsValue = JSON.parse(context.state.lex.sessionAttributes.userFilesUploaded)
-          documentsValue.push(documentObject);
-        }
-        context.commit("setLexSessionAttributeValue",  { key: 'userFilesUploaded', value: JSON.stringify(documentsValue) });
-        if (context.state.config.ui.uploadSuccessMessage.length > 0) {
-          context.commit('pushMessage', {
-            type: 'bot',
-            text: context.state.config.ui.uploadSuccessMessage,
-          });
-        }
-        return Promise.resolve();
-      }
-    });
+    } catch (err) {
+      console.log(err);
+      context.commit('pushMessage', {
+        type: 'bot',
+        text: context.state.config.ui.uploadFailureMessage,
+      });
+    }
   },
+  removeAttachments(context) {
+    context.commit('removeAttachments');
+  }
 };

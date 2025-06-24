@@ -4,7 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.21.6] - 2025-01-23
+## [0.22.0] - 2025-05-10
+- Upgrade to latest versions of Vue/Vuetify
+- 
+## [0.22.0] - 2025-04-15
+- Upgrade to AWS SDK v3
+- Fix for Connect transcription redaction
+- Fix for issue with iframe incompatibility with Firebase login
+
+## [0.21.7] - 2025-01-23
 - Add heartbeat for streaming responses to prevent idle timeout of 10 mins
 
 ## [0.21.6] - 2024-12-18

@@ -342,15 +342,16 @@ export default {
           this.fileObject = files[0] // this is an file that can be sent to server...
           this.$store.dispatch('uploadFile', this.fileObject);
           this.shouldShowAttachmentClear = true;
+          event.target.value = '';
         })
       } else {
         this.fileName = '';
         this.fileObject = null;
       }
     },
-    onRemoveAttachments() {
-      delete this.$store.state.lex.sessionAttributes.userFilesUploaded;
+    onRemoveAttachments() {    
       this.shouldShowAttachmentClear = false;
+      return this.$store.dispatch('removeAttachments');
     },
   },
 };
