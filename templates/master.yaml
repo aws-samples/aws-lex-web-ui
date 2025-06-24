@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.21.7)
+    Master Lex Web UI CloudFormation template (v0.21.9)
     The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
     Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
     version input parameters as defaulted.
@@ -804,9 +804,9 @@ Resources:
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
                 StreamingWebSocketEndpoint: !Ref StreamingWebSocketEndpoint
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.21.7.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.7.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.21.7.zip"
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.21.9.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.21.9.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.21.9.zip"
                 StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.21.7.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 BotName:
@@ -904,7 +904,7 @@ Resources:
                 UploadBucket: !Ref UploadBucket
                 VpcSubnetId: !Ref VpcSubnetId
                 VpcSecurityGroupId: !Ref VpcSecurityGroupId
-                Timestamp: 1737634514
+                Timestamp: 1749076788
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -920,7 +920,7 @@ Resources:
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
                 VpcSubnetId: !Ref VpcSubnetId
                 VpcSecurityGroupId: !Ref VpcSecurityGroupId
-                Timestamp: 1737634514
+                Timestamp: 1749076788
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment
