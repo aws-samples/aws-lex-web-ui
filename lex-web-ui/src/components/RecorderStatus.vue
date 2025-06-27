@@ -1,6 +1,6 @@
 <template>
   <v-row class="recorder-status bg-white">
-    <div class="status-text">
+    <div class="status-text" aria-live="polite">
       <span>{{statusText}}</span>
     </div>
 

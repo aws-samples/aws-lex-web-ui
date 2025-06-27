@@ -4,9 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.22.0] - 2025-05-10
+## [0.22.3] - 2025-06-26
+- Fix issue where credentials were not available on web socket initiation in some instances of streaming
+- Accessibility improvements
+
+## [0.22.1] - 2025-05-19
+- Fix scenarios where cross origin requests did not have credentials passed before iframe loads
+
+## [0.22.1] - 2025-05-10
 - Upgrade to latest versions of Vue/Vuetify
-- 
+
 ## [0.22.0] - 2025-04-15
 - Upgrade to AWS SDK v3
 - Fix for Connect transcription redaction

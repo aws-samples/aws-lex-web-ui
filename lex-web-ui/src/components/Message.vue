@@ -28,7 +28,7 @@
                 <message-text
                   :message="message"
                   v-if="'text' in message && message.text !== null && message.text.length && !shouldDisplayInteractiveMessage"
-                ></message-text>                
+                ></message-text>
                 <div
                   v-if="shouldDisplayInteractiveMessage && interactiveMessage?.templateType == 'ListPicker'">
                   <v-card-title primary-title>
@@ -39,8 +39,8 @@
                     </div>
                   </v-card-title>
                   <v-list density="compact" lines="two" class="message-bubble interactive-row">
-                    <v-list-item v-for="(item, index) in interactiveMessage?.data.content.elements" 
-                      :key="index"  
+                    <v-list-item v-for="(item, index) in interactiveMessage?.data.content.elements"
+                      :key="index"
                       :subtitle="item.subtitle"
                       :title="item.title"
                       @click="resendMessage(item.title)">
@@ -64,8 +64,8 @@
                         </div>
                       </v-card-title>
                       <v-list density="compact" lines="two" class="message-bubble interactive-row">
-                        <v-list-item v-for="(panelItem, index) in item.data.content.elements" 
-                          :key="index"  
+                        <v-list-item v-for="(panelItem, index) in item.data.content.elements"
+                          :key="index"
                           :subtitle="panelItem.subtitle"
                           :title="panelItem.title"
                           @click="resendMessage(panelItem.title)">
@@ -107,7 +107,7 @@
                 <div v-if="shouldDisplayInteractiveMessage && interactiveMessage.templateType == 'QuickReply'">
                   <message-text
                     :message="{ text: interactiveMessage?.data.content.title, type: 'bot'}"
-                  ></message-text>  
+                  ></message-text>
                 </div>
                 <v-icon
                   v-if="message.type === 'bot' &&  message.id !== $store.state.messages[0].id && showCopyIcon"
@@ -154,6 +154,7 @@
                     tabindex="0"
                     icon
                     v-show="!showMessageMenu"
+                    aria-label="replay request"
                     class="icon-color ml-0 mr-0"
                   >
                     <v-icon class="play-icon">play_circle_outline</v-icon>
@@ -192,7 +193,7 @@
                     <v-list-item
                       v-if="message.type === 'human' && message.audio"
                       class="message-audio">
-                      <v-list-item-title @click="playAudio">
+                      <v-list-item-title aria-label="replay request" @click="playAudio">
                         <v-icon>play_circle_outline</v-icon>
                       </v-list-item-title>
                     </v-list-item>
@@ -204,7 +205,6 @@
           <v-col
             v-if="shouldShowMessageDate && isMessageFocused"
             :class="`text-xs-center message-date-${message.type}`"
-            aria-hidden="true"
           >
            {{messageHumanDate}}
           </v-col>
@@ -217,7 +217,7 @@
           :key="index"
         />
       </v-row>
-      <v-row v-if="shouldDisplayInteractiveMessage && interactiveMessage?.templateType == 'QuickReply'" 
+      <v-row v-if="shouldDisplayInteractiveMessage && interactiveMessage?.templateType == 'QuickReply'"
         class="response-card" d-flex mt-2 mr-2 ml-3>
         <response-card
           :response-card="quickReplyResponseCard"
@@ -238,7 +238,7 @@
         >
         </response-card>
         </v-row>
-      </v-row>      
+      </v-row>
     </v-col>
   </v-row>
 </template>
@@ -394,7 +394,7 @@ export default {
     quickReplyResponseCard() {
       if (this.interactiveMessage?.templateType == 'QuickReply') {
         //Create a response card format so we can leverage existing ResponseCard display template
-        var responseCard = { 
+        var responseCard = {
           buttons: []
         };
         this.interactiveMessage.data.content.elements.forEach(function (button, index) {

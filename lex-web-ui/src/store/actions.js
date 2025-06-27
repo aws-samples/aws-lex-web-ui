@@ -1224,9 +1224,9 @@ export default {
       sha256: Sha256,
     });
 
-  signer.sign(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId)
+    signer.sign(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId)
     .then((signedUrl) => {
-      wsClient = new WebSocket(signedUrl);
+        wsClient = new WebSocket(signedUrl);
 
       // Add heartbeat logic
       const HEARTBEAT_INTERVAL = 540000; // 9 minutes
@@ -1234,25 +1234,25 @@ export default {
       const startTime = Date.now();
       let heartbeatTimer = null;
 
-      function startHeartbeat() {
+        function startHeartbeat() {
           if (wsClient.readyState === WebSocket.OPEN) {
-              const elapsedTime = Date.now() - startTime;
-              if (elapsedTime < MAX_DURATION) {
-                  const pingMessage = JSON.stringify({ action: 'ping' });
-                  wsClient.send(pingMessage);
-                  console.log('Sending Ping:', new Date().toISOString());
-                  heartbeatTimer = setTimeout(startHeartbeat, HEARTBEAT_INTERVAL);
-              } else {
-                  console.log('Stopped sending pings after reaching 2-hour limit.');
-                  clearTimeout(heartbeatTimer);
-              }
+            const elapsedTime = Date.now() - startTime;
+            if (elapsedTime < MAX_DURATION) {
+              const pingMessage = JSON.stringify({ action: 'ping' });
+              wsClient.send(pingMessage);
+              console.log('Sending Ping:', new Date().toISOString());
+              heartbeatTimer = setTimeout(startHeartbeat, HEARTBEAT_INTERVAL);
+            } else {
+              console.log('Stopped sending pings after reaching 2-hour limit.');
+              clearTimeout(heartbeatTimer);
+            }
           }
-      }
+        }
 
-      wsClient.onopen = () => {
-        console.log('WebSocket Connected');
-        startHeartbeat();
-      };
+        wsClient.onopen = () => {
+          console.log('WebSocket Connected');
+          startHeartbeat();
+        };
 
       wsClient.onclose = () => {
           console.log('WebSocket Closed');

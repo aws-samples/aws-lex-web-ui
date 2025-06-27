@@ -36,6 +36,7 @@ or in the "license" file accompanying this file. This file is distributed on an 
 BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the
 License for the specific language governing permissions and limitations under the License.
 */
+import { chatMode } from '@/store/state';
 const marked = require('marked');
 const renderer = {};
 renderer.link = function link(href, title, text) {
@@ -140,8 +141,16 @@ export default {
       doc.innerHTML = messageText;
       return doc.textContent || doc.innerText || '';
     },
+    isLiveChat() {
+      return (this.$store.state.config.ui.enableLiveChat &&
+        this.$store.state.chatMode === chatMode.LIVECHAT);
+    },
     prependBotScreenReader(messageText) {
-      return `<span class="sr-only">bot says: </span>${messageText}`;
+      if (this.isLiveChat()) {
+        return `<span class="sr-only">agent says: </span>${messageText}`;
+      } else {
+        return `<span class="sr-only">bot says: </span>${messageText}`;
+      }
     },
   },
 };

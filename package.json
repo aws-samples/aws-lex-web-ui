@@ -1,6 +1,6 @@
 {
   "name": "aws-lex-web-ui",
-  "version": "0.22.2",
+  "version": "0.22.3",
   "description": "Sample Amazon Lex Web Interface",
   "main": "dist/lex-web-ui.min.js",
   "repository": {
@@ -63,7 +63,7 @@
     "postcss-preset-env": "^9.3.0",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^5.2.1"
   },
   "engines": {
     "node": ">=18.0.0",
