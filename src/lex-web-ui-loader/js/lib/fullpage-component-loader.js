@@ -14,7 +14,7 @@
 /* eslint no-console: ["error", { allow: ["warn", "error", "debug", "info"] }] */
 /* global AWS LexWebUi Vue */
 import { ConfigLoader } from './config-loader';
-import { logout, login, getAuth, getTokens } from './loginutil';
+import { logout, login, signInRedirect } from './loginutil';
 
 /**
  * Instantiates and mounts the chatbot component
@@ -31,23 +31,6 @@ export class FullPageComponentLoader {
   constructor({ elementId = 'lex-web-ui', config = {} }) {
     this.elementId = elementId;
     this.config = config;
-  }
-
-  generateConfigObj() {
-    const config = {
-      appUserPoolClientId: this.config.cognito.appUserPoolClientId,
-      appDomainName: this.config.cognito.appDomainName,
-      appUserPoolIdentityProvider: this.config.cognito.appUserPoolIdentityProvider,
-    };
-    return config;
-  }
-
-  async requestTokens() {
-    const tokens = getTokens();
-    FullPageComponentLoader.sendMessageToComponent({
-      event: 'confirmLogin',
-      data: tokens,
-    });
   }
 
   /**
@@ -73,11 +56,9 @@ export class FullPageComponentLoader {
   initBotMessageHandlers() {
     document.addEventListener('fullpagecomponent', async (evt) => {
       if (evt.detail.event === 'requestLogin') {
-        login(this.generateConfigObj());
+        signInRedirect(this.config);
       } else if (evt.detail.event === 'requestLogout') {
-        logout(this.generateConfigObj());
-      } else if (evt.detail.event === 'requestTokens') {
-        //await this.requestTokens();
+        logout(this.config);
       } else if (evt.detail.event === 'pong') {
         console.info('pong received');
       }

@@ -161,11 +161,11 @@ export class Loader {
     
     const amplifyAuthConfig = {
       auth: {
-        user_pool_id:  config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName'),
-        aws_region: config.cognito.region || config.region || 'us-east-1',
-        user_pool_client_id: config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId'),
-        identity_pool_id: config.cognito.poolId || localStorage.getItem('poolId'),
-        unauthenticated_identities_enabled: config.ui.forceLogin ? false : true
+        user_pool_id:  mergedConfig.cognito.appUserPoolName || localStorage.getItem('appUserPoolName'),
+        aws_region: mergedConfig.cognito.region || config.region || 'us-east-1',
+        user_pool_client_id: mergedConfig.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId'),
+        identity_pool_id: mergedConfig.cognito.poolId || localStorage.getItem('poolId'),
+        unauthenticated_identities_enabled: mergedConfig.ui.forceLogin ? false : true
       },
       version: "1.3"
     };

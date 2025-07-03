@@ -196,13 +196,21 @@ export default {
         if (!this.$lexWebUi.awsConfig.credentials) {
           this.$lexWebUi.awsConfig.credentials = this.$store.dispatch('getCredentials', this.$store.state.config).then((creds) => {
             return creds;
-          });
+          });        
         };
+
+        this.$store.dispatch('getUserName', this.$store.state.config).then((userName) => {
+          if (userName) {
+            this.$store.commit('setIsLoggedIn', true);
+            this.userNameValue = user;
+          }
+        });
+
         const awsConfig = {
           region: region,
           credentials: this.$lexWebUi.awsConfig.credentials,
         };
-
+        
         this.$lexWebUi.lexRuntimeClient = new LexRuntimeServiceClient(awsConfig);
         this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeV2Client(awsConfig);
         this.$lexWebUi.pollyClient = new PollyClient(awsConfig)
@@ -265,10 +273,6 @@ export default {
   },
   mounted() {
     if (!this.$store.state.isRunningEmbedded) {
-      this.$store.dispatch(
-        'sendMessageToParentWindow',
-        { event: 'requestTokens' },
-      );
       this.setFocusIfEnabled();
     }
     this.onResize();

@@ -15,8 +15,7 @@
 /* global AWS */
 
 import { ConfigLoader } from './config-loader';
-import { logout, login, getAuth, refreshLogin, forceLogin } from './loginutil';
-
+import { logout, login, signInRedirect } from './loginutil';
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -159,6 +158,15 @@ export class IframeComponentLoader {
    */
   initCognitoCredentials() {
     return new Promise((resolve, reject) => {
+      const { poolId: cognitoPoolId } = this.config.cognito;
+      if (!cognitoPoolId) {
+        return reject(new Error('missing cognito poolId config'));
+      }
+
+      localStorage.setItem('poolId', cognitoPoolId);
+      localStorage.setItem('appUserPoolClientId', this.config.cognito.appUserPoolClientId);
+      localStorage.setItem('appUserPoolName', this.config.cognito.appUserPoolName);
+
       login(this.config).then(() => {
         resolve();
       });
@@ -411,7 +419,7 @@ export class IframeComponentLoader {
       // sent when login is requested from iframe
       requestLogin(evt) {
         evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
-        login(this.config);
+        signInRedirect(this.config);
       },
 
       // sent when logout is requested from iframe

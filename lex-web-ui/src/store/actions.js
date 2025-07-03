@@ -28,7 +28,7 @@ import silentMp3 from '@/assets/silent.mp3';
 import LexClient from '@/lib/lex/client';
 
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-import { fetchAuthSession } from '@aws-amplify/auth';
+import { fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
 const { SignatureV4 } = require('@smithy/signature-v4');
 const { Sha256 } = require('@aws-crypto/sha256-js');
 
@@ -1110,6 +1110,19 @@ export default {
     return credentials;
   },
 
+  async getUserName() {
+    try {
+      // getCurrentUser will throw an error for unathenticated identities
+      const { username } = await getCurrentUser();
+      if (username) 
+        return '[' + username + ']';
+      else 
+        return null;
+    }
+    catch (e) {
+      return null;
+    }
+  },
   /***********************************************************************
    *
    * UI and Parent Communication Actions
