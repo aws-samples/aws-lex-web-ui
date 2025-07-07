@@ -15,13 +15,13 @@
 import {
   PostTextCommand,
   DeleteSessionCommand as DeleteSessionCommandV1,
-  PutSessionCommand as PutSessionCommandV2,
+  PutSessionCommand as PutSessionCommandV1,
   PostContentCommand
 } from "@aws-sdk/client-lex-runtime-service";
 import {
   RecognizeTextCommand,
   DeleteSessionCommand as DeleteSessionCommandV2,
-  PutSessionCommand as PutSessionCommandV1,
+  PutSessionCommand as PutSessionCommandV2,
   RecognizeUtteranceCommand
 } from "@aws-sdk/client-lex-runtime-v2";
 
