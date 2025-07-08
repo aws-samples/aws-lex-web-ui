@@ -81,7 +81,7 @@ function buildSuccessfulResponse(result) {
             "Access-Control-Allow-Origin": parentOrigin,
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': true,
-            'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'
+            'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,x-amz-content-sha256'
         },
         body: JSON.stringify({
             data: { startChatResult: result }
@@ -98,7 +98,7 @@ function buildResponseFailed(err) {
             "Access-Control-Allow-Origin": parentOrigin,
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': true,
-            'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+            'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-amz-content-sha256'
         },
         body: JSON.stringify({
             data: {

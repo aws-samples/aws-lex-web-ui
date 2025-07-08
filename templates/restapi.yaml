@@ -225,7 +225,7 @@ Resources:
           IntegrationResponses:
             - ResponseParameters:
                 method.response.header.Access-Control-Allow-Headers: >-
-                  'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'
+                  'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,x-amz-content-sha256'
                 method.response.header.Access-Control-Allow-Methods: '''POST,OPTIONS'''
                 method.response.header.Access-Control-Allow-Origin: !Sub '''${ParentOrigin}'''
               ResponseTemplates:

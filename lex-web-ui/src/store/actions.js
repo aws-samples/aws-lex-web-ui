@@ -29,6 +29,7 @@ import LexClient from '@/lib/lex/client';
 
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
+const { HttpRequest } = require('@smithy/protocol-http');
 const { SignatureV4 } = require('@smithy/signature-v4');
 const { Sha256 } = require('@aws-crypto/sha256-js');
 
@@ -941,13 +942,13 @@ export default {
 
           const signer = new SignatureV4({
             credentials,
-            region,
+            region: context.state.config.region,
             service: 'execute-api',
             sha256: Sha256,
           });
 
           signer.sign(request).then((signedRequest) => {
-            return fetch(signedRequest.url, signedRequest)
+            return fetch(context.state.config.connect.apiGatewayEndpoint, signedRequest)
               .then(response => response.json())
               .then(json => json.data)
               .then((result) => {
@@ -1232,7 +1233,7 @@ export default {
 
     const signer = new SignatureV4({
       awsCredentials,
-      region,
+      region: context.state.config.region,
       service: 'execute-api',
       sha256: Sha256,
     });
