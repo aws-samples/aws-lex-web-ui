@@ -1229,54 +1229,56 @@ export default {
  *
  **********************************************************************/
   InitWebSocketConnect(context){
-    const sessionId = lexClient.userId;
+    context.dispatch('getCredentials', context.state.config).then((credentials) => {
+      const sessionId = lexClient.userId;
 
-    const signer = new SignatureV4({
-      awsCredentials,
-      region: context.state.config.region,
-      service: 'execute-api',
-      sha256: Sha256,
-    });
+      const signer = new SignatureV4({
+        credentials,
+        region: context.state.config.region,
+        service: 'execute-api',
+        sha256: Sha256,
+      });
 
-    signer.sign(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId)
-    .then((signedUrl) => {
-        wsClient = new WebSocket(signedUrl);
+      signer.sign(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId)
+        .then((signedUrl) => {
+            wsClient = new WebSocket(signedUrl);
 
-      // Add heartbeat logic
-      const HEARTBEAT_INTERVAL = 540000; // 9 minutes
-      const MAX_DURATION = 7200000; // 2 hours
-      const startTime = Date.now();
-      let heartbeatTimer = null;
+          // Add heartbeat logic
+          const HEARTBEAT_INTERVAL = 540000; // 9 minutes
+          const MAX_DURATION = 7200000; // 2 hours
+          const startTime = Date.now();
+          let heartbeatTimer = null;
 
-        function startHeartbeat() {
-          if (wsClient.readyState === WebSocket.OPEN) {
-            const elapsedTime = Date.now() - startTime;
-            if (elapsedTime < MAX_DURATION) {
-              const pingMessage = JSON.stringify({ action: 'ping' });
-              wsClient.send(pingMessage);
-              console.log('Sending Ping:', new Date().toISOString());
-              heartbeatTimer = setTimeout(startHeartbeat, HEARTBEAT_INTERVAL);
-            } else {
-              console.log('Stopped sending pings after reaching 2-hour limit.');
-              clearTimeout(heartbeatTimer);
+            function startHeartbeat() {
+              if (wsClient.readyState === WebSocket.OPEN) {
+                const elapsedTime = Date.now() - startTime;
+                if (elapsedTime < MAX_DURATION) {
+                  const pingMessage = JSON.stringify({ action: 'ping' });
+                  wsClient.send(pingMessage);
+                  console.log('Sending Ping:', new Date().toISOString());
+                  heartbeatTimer = setTimeout(startHeartbeat, HEARTBEAT_INTERVAL);
+                } else {
+                  console.log('Stopped sending pings after reaching 2-hour limit.');
+                  clearTimeout(heartbeatTimer);
+                }
+              }
             }
-          }
-        }
 
-        wsClient.onopen = () => {
-          console.log('WebSocket Connected');
-          startHeartbeat();
-        };
+          wsClient.onopen = () => {
+            console.log('WebSocket Connected');
+            startHeartbeat();
+          };
 
-      wsClient.onclose = () => {
-          console.log('WebSocket Closed');
-          clearTimeout(heartbeatTimer);
-      };
+          wsClient.onclose = () => {
+              console.log('WebSocket Closed');
+              clearTimeout(heartbeatTimer);
+          };
 
-      wsClient.onerror = (error) => {
-          console.log('WebSocket Error', error.message);
-          clearTimeout(heartbeatTimer);
-      };
+          wsClient.onerror = (error) => {
+              console.log('WebSocket Error', error.message);
+              clearTimeout(heartbeatTimer);
+          };
+        });
     });
   },
   typingWsMessages(context){
