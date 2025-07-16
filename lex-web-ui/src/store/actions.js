@@ -32,6 +32,7 @@ import { fetchAuthSession, getCurrentUser } from '@aws-amplify/auth';
 const { HttpRequest } = require('@smithy/protocol-http');
 const { SignatureV4 } = require('@smithy/signature-v4');
 const { Sha256 } = require('@aws-crypto/sha256-js');
+import aws4 from 'aws4';
 
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
@@ -1231,17 +1232,19 @@ export default {
   InitWebSocketConnect(context){
     context.dispatch('getCredentials', context.state.config).then((credentials) => {
       const sessionId = lexClient.userId;
+      const url = new URL(context.state.config.lex.streamingWebSocketEndpoint);
 
-      const signer = new SignatureV4({
-        credentials,
-        region: context.state.config.region,
-        service: 'execute-api',
-        sha256: Sha256,
+      var signedUrl = aws4.sign({
+        host: url.host,
+        path: `${url.pathname}?sesssionId=${sessionId}`,
+        signQuery: true,
+      }, {
+        accessKeyId: credentials.accessKeyId,
+        secretAccessKey: credentials.secretAccessKey,
+        sessionToken: credentials.sessionToken,
       });
 
-      signer.sign(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId)
-        .then((signedUrl) => {
-            wsClient = new WebSocket(signedUrl);
+          wsClient = new WebSocket("wss://" + signedUrl.host + signedUrl.path)
 
           // Add heartbeat logic
           const HEARTBEAT_INTERVAL = 540000; // 9 minutes
@@ -1249,20 +1252,20 @@ export default {
           const startTime = Date.now();
           let heartbeatTimer = null;
 
-            function startHeartbeat() {
-              if (wsClient.readyState === WebSocket.OPEN) {
-                const elapsedTime = Date.now() - startTime;
-                if (elapsedTime < MAX_DURATION) {
-                  const pingMessage = JSON.stringify({ action: 'ping' });
-                  wsClient.send(pingMessage);
-                  console.log('Sending Ping:', new Date().toISOString());
-                  heartbeatTimer = setTimeout(startHeartbeat, HEARTBEAT_INTERVAL);
-                } else {
-                  console.log('Stopped sending pings after reaching 2-hour limit.');
-                  clearTimeout(heartbeatTimer);
-                }
+          function startHeartbeat() {
+            if (wsClient.readyState === WebSocket.OPEN) {
+              const elapsedTime = Date.now() - startTime;
+              if (elapsedTime < MAX_DURATION) {
+                const pingMessage = JSON.stringify({ action: 'ping' });
+                wsClient.send(pingMessage);
+                console.log('Sending Ping:', new Date().toISOString());
+                heartbeatTimer = setTimeout(startHeartbeat, HEARTBEAT_INTERVAL);
+              } else {
+                console.log('Stopped sending pings after reaching 2-hour limit.');
+                clearTimeout(heartbeatTimer);
               }
             }
+          }
 
           wsClient.onopen = () => {
             console.log('WebSocket Connected');
@@ -1279,7 +1282,6 @@ export default {
               clearTimeout(heartbeatTimer);
           };
         });
-    });
   },
   typingWsMessages(context){
     if (context.getters.wsMessagesCurrentIndex()<context.getters.wsMessagesLength()-1){
