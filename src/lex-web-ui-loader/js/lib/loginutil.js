@@ -61,6 +61,7 @@ async function login(config) {
   else {
     getAuth(config);
     const session = await fetchAuthSession();
+    return session;
   }
 }
 
@@ -69,4 +70,9 @@ async function signInRedirect(config) {
   signInWithRedirect();
 }
 
-export { logout, login, signInRedirect };
+async function getExistingCredentials() {
+  const session = await fetchAuthSession();
+  return session;
+}
+
+export { logout, login, signInRedirect, getExistingCredentials };

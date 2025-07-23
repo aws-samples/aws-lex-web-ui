@@ -37,6 +37,7 @@ import aws4 from 'aws4';
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
 let awsCredentials;
+let userName;
 let pollyClient;
 let lexClient;
 let audio;
@@ -1099,31 +1100,59 @@ export default {
    * Credentials Actions
    *
    **********************************************************************/
+  async getCredentialsFromParent(context) {
+    return context.dispatch('sendMessageToParentWindow', { event: 'getCredentials' })
+      .then((credsResponse) => {
+        if (credsResponse.event === 'resolve' && credsResponse.type === 'getCredentials') {
+          awsCredentials = credsResponse.data.credentials;
+          awsCredentials.identityId =  credsResponse.data.identityId;
+          if (credsResponse.data.tokens) {
+            try {
+              userName = '[' + credsResponse.data.tokens.accessToken.payload.username + ']';
+            }
+            catch (error) {
+              userName = ''; //Could not fetch user name but treat user as logged in
+            }
+          }
+          return awsCredentials;
+        }
+        const error = new Error('invalid credential event from parent');
+        return Promise.reject(error);
+      });
+  },
   async getCredentials(context, config) {
     // If we already have creds don't go get them again
     if (awsCredentials) {
       return awsCredentials;
+    }
+
+    if (context.state.awsCreds.provider === 'parentWindow') {
+      return context.dispatch('getCredentialsFromParent');
     }
     
     const session = await fetchAuthSession();
 
     var credentials = session.credentials;
     credentials.identityId = session.identityId;
+    if (credentialsa.tokens) {
+      try {
+        userName = '[' + credentials.accessToken.payload.username + ']';
+      }
+      catch (error) {
+        // User has authenticated but we cannot get the username from the payload
+        userName = ''; 
+      }
+    }
     return credentials;
   },
 
-  async getUserName() {
+  async getUserName(context) {
     try {
-      // getCurrentUser will throw an error for unathenticated identities
-      const { username } = await getCurrentUser();
-      if (username) 
-        return '[' + username + ']';
-      else 
-        return null;
+      if (userName)
+        return userName;      
     }
-    catch (e) {
-      return null;
-    }
+    catch (e) {}
+    return null;
   },
   /***********************************************************************
    *

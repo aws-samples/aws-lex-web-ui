@@ -12,7 +12,7 @@ exports.handler = async event => {
         TableName: process.env.TABLE_NAME,
         Item: {
             connectionId: event.requestContext.connectionId,
-            sessionId: event.queryStringParameters.sessionId,
+            sessionId: event.queryStringParameters['sesssionId'],
             ttl: ttlTime
         }
     });

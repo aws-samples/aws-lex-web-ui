@@ -15,7 +15,7 @@
 /* global AWS */
 
 import { ConfigLoader } from './config-loader';
-import { logout, login, signInRedirect } from './loginutil';
+import { logout, login, signInRedirect, getExistingCredentials } from './loginutil';
 
 /**
  * Instantiates and mounts the chatbot component in an iframe
@@ -167,7 +167,8 @@ export class IframeComponentLoader {
       localStorage.setItem('appUserPoolClientId', this.config.cognito.appUserPoolClientId);
       localStorage.setItem('appUserPoolName', this.config.cognito.appUserPoolName);
 
-      login(this.config).then(() => {
+      login(this.config).then((creds) => {
+        this.credentials = JSON.parse(JSON.stringify(creds));
         resolve();
       });
     });
@@ -355,7 +356,8 @@ export class IframeComponentLoader {
           clearInterval(readyManager.intervalId);
 
           if (this.config.ui.enableLogin && this.config.ui.enableLogin === true) {
-            login(this.config).then(() => {
+            login(this.config).then((creds) => {
+              this.credentials = JSON.parse(JSON.stringify(creds));
               resolve();
             });
           }
@@ -389,6 +391,20 @@ export class IframeComponentLoader {
       ready(evt) {
         this.isChatBotReady = true;
         evt.ports[0].postMessage({ event: 'resolve', type: evt.data.event });
+      },
+
+      // requests credentials from the parent
+      getCredentials(evt) {
+        if (this.credentials == null) {
+          getExistingCredentials().then((creds) => {
+            this.credentials = JSON.parse(JSON.stringify(creds));
+          });
+        }
+        return evt.ports[0].postMessage({
+          event: 'resolve',
+          type: evt.data.event,
+          data: this.credentials,
+        });
       },
 
       // requests chatbot UI config

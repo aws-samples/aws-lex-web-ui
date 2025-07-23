@@ -195,14 +195,20 @@ export default {
         
         if (!this.$lexWebUi.awsConfig.credentials) {
           this.$lexWebUi.awsConfig.credentials = this.$store.dispatch('getCredentials', this.$store.state.config).then((creds) => {
-            return creds;
+            this.$store.dispatch('getUserName', this.$store.state.config).then((userName) => {
+              if (userName) {
+                this.$store.commit('setIsLoggedIn', true);
+                this.userNameValue = userName;
+              }
+              return creds;
+            });          
           });        
         };
 
         this.$store.dispatch('getUserName', this.$store.state.config).then((userName) => {
           if (userName) {
             this.$store.commit('setIsLoggedIn', true);
-            this.userNameValue = user;
+            this.userNameValue = userName;
           }
         });
 
