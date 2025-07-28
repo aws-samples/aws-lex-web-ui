@@ -22,7 +22,8 @@ import {
   RecognizeTextCommand,
   DeleteSessionCommand as DeleteSessionCommandV2,
   PutSessionCommand as PutSessionCommandV2,
-  RecognizeUtteranceCommand
+  RecognizeUtteranceCommand,
+  LexRuntimeV2Client
 } from "@aws-sdk/client-lex-runtime-v2";
 
 const zlib = require('zlib');
@@ -88,6 +89,15 @@ export default class {
     this.userId = (credentials.identityId) ?
       credentials.identityId :
       this.userId;
+  }
+
+  refreshClient(region, credentials) {
+    const awsConfig = {
+      region: region,
+      credentials,
+    };
+
+    this.lexRuntimeClient = new LexRuntimeV2Client(awsConfig);
   }
 
   async deleteSession() {
