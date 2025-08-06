@@ -63,7 +63,7 @@ Resources:
       Description:  AWS Lambda Function to initiate web socket connection for streaming
       Handler: "index.handler"
       Role: !GetAtt StreamingLambdaExecutionRole.Arn
-      Runtime: "nodejs18.x"
+      Runtime: "nodejs22.x"
       MemorySize: 128
       Timeout: 30
       Environment:
