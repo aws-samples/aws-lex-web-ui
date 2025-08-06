@@ -53,8 +53,7 @@ You can import the library as a module and use it in your code:
     },
     lex: {
       initialText: 'How can I help you?',
-      botName: 'helpBot',
-      botAlias: '$LATEST',
+      v2BotId: 'XYZ123',
     },
     ui: {
       toolbarTitle: 'Help Bot',
@@ -125,7 +124,7 @@ Mixing regions is not supported.
   // see the configuration section for details about the config fields
   const config = {
     cognito: { poolId },
-    lex: { botName: 'MyBot', initialText: 'How can I help you?' },
+    lex: { v2BotId: 'XYZ123', initialText: 'How can I help you?' },
     ui: { toolbarLogo: '', toolbarTitle: 'My Bot' },
   };
 
@@ -534,7 +533,7 @@ Here's an example of the `config.dev.json` file:
     "poolId": "us-east-1:deadbeef-cac0-babe-abcd-abcdef01234",
   },
   "lex": {
-    "bot": "MyLexBotName",
+    "v2BotId": "XYZ123",
     ...
   },
   "ui": {

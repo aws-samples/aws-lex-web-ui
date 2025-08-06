@@ -85,12 +85,6 @@ const configDefault = {
     v2BotAliasId: '',
     v2BotLocaleId: '',
 
-    // Lex bot name
-    botName: 'WebUiOrderFlowers',
-
-    // Lex bot alias/version
-    botAlias: '$LATEST',
-
     // instruction message shown in the UI
     initialText: 'You can ask me for help ordering flowers. ' +
       'Just type "order flowers" or click on the mic and say it.',

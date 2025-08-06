@@ -126,9 +126,6 @@ export default {
   },
   initLexClient(context, payload) {
     lexClient = new LexClient({
-      botName: context.state.config.lex.botName,
-      botAlias: context.state.config.lex.botAlias,
-      lexRuntimeClient: payload.v1client,
       botV2Id: context.state.config.lex.v2BotId,
       botV2AliasId: context.state.config.lex.v2BotAliasId,
       botV2LocaleId: context.state.config.lex.v2BotLocaleId,

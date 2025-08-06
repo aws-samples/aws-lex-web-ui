@@ -278,7 +278,7 @@ to the latest supported versions.
         },
         lex: {
           // Lex Bot Name in your account
-          botName: '<your lex bot name>'
+          v2BotId: '<your lex bot id>'
         }
       };
       // load the LexWebUi component
@@ -373,7 +373,7 @@ page](#stand-alone-page) section.
         },
         lex: {
           // Lex Bot Name in your account
-          botName: '<your lex bot name>'
+          v2BotId: '<your lex bot id>'
         }
       };
 
@@ -431,7 +431,7 @@ and Lex Bot name. For example, set the appropriate values in the
     "poolId": "us-east-1:deadbeef-fade-babe-cafe-0123456789ab"
   },
   lex: {
-    "botName": "myHelpBot"
+    "v2BotId": "ABC123"
   }
   ...
 ```

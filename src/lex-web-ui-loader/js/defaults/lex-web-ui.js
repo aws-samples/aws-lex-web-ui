@@ -20,7 +20,7 @@
 
 export const configBase = {
   region: '',
-  lex: { botName: '' },
+  lex: { },
   cognito: { poolId: '' },
   ui: { parentOrigin: '' },
   polly: {},
