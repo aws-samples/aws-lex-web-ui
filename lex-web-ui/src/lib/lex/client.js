@@ -15,13 +15,13 @@
 import {
   PostTextCommand,
   DeleteSessionCommand as DeleteSessionCommandV1,
-  PutSessionCommand as PutSessionCommandV2,
+  PutSessionCommand as PutSessionCommandV1,
   PostContentCommand
 } from "@aws-sdk/client-lex-runtime-service";
 import {
   RecognizeTextCommand,
   DeleteSessionCommand as DeleteSessionCommandV2,
-  PutSessionCommand as PutSessionCommandV1,
+  PutSessionCommand as PutSessionCommandV2,
   RecognizeUtteranceCommand
 } from "@aws-sdk/client-lex-runtime-v2";
 
@@ -115,33 +115,34 @@ export default class {
   }
 
   async startNewSession() {
-    let command;
-    if (this.isV2Bot) {
-      command = new PutSessionCommandV2({
-        botAliasId: this.botV2AliasId,
-        botId: this.botV2Id,
-        localeId: this.botV2LocaleId,
-        sessionId: this.userId,
-        sessionState: {
+    let command, res;
+    try {
+      if (this.isV2Bot) {
+        command = new PutSessionCommandV2({
+          botAliasId: this.botV2AliasId,
+          botId: this.botV2Id,
+          localeId: this.botV2LocaleId,
+          sessionId: this.userId,
+          sessionState: {
+            dialogAction: {
+              type: 'ElicitIntent',
+            },
+          },
+        });
+        const res = await this.lexRuntimeV2Client.send(command);
+        return res;
+      } else {
+        command = new PutSessionCommandV1({
+          botAlias: this.botAlias,
+          botName: this.botName,
+          userId: this.userId,
           dialogAction: {
             type: 'ElicitIntent',
           },
-        },
-      });
-    } else {
-      command = new PutSessionCommandV1({
-        botAlias: this.botAlias,
-        botName: this.botName,
-        userId: this.userId,
-        dialogAction: {
-          type: 'ElicitIntent',
-        },
-      });
-    }
-
-    try {
-      const res = await this.lexRuntimeClient.send(command);
-      return res;
+        });
+        const res = await this.lexRuntimeClient.send(command);
+        return res;
+      }
     } catch(err) {
       console.log(err)
     }

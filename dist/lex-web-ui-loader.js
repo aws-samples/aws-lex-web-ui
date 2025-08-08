@@ -44190,9 +44190,6 @@ __webpack_require__.r(__webpack_exports__);
  */
 const dependenciesFullPage = {
   script: [{
-    name: 'Loader',
-    url: './initiate-loader.js'
-  }, {
     name: 'Vue',
     url: './3.5.13_dist_vue.global.prod.js',
     canUseMin: false
