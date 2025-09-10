@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.22.5] - 2025-09-10
+- Update live chat text transcription applying redaction when required.
+- Fix issue with live chat not closing on browser or window closing.
+
 ## [0.22.4] - 2025-08-09
 - Fix issue where full page loader was pulling iniitate-loader as a dependency improperly
 - Allow empty promptForNameMessage to skip prompting for a name (for Talkdesk integration only). This must be manually updated on the config file.
