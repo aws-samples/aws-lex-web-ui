@@ -1001,7 +1001,7 @@ export default {
 
   requestLiveChat(context) {
     console.info('requestLiveChat');
-    if (!context.getters.liveChatUserName()) {
+    if (!context.getters.liveChatUserName() && context.state.config.connect.promptForNameMessage.length > 0) {
       context.commit('setLiveChatStatus', liveChatStatus.REQUEST_USERNAME);
       context.commit(
         'pushMessage',

@@ -4,11 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.22.5] - 2025-09-10
+- Update live chat text transcription applying redaction when required.
+- Fix issue with live chat not closing on browser or window closing.
+
+## [0.22.4] - 2025-08-09
+- Fix issue where full page loader was pulling iniitate-loader as a dependency improperly
+- Allow empty promptForNameMessage to skip prompting for a name (for Talkdesk integration only). This must be manually updated on the config file.
+- Upgrade NodeJS Lambda function to v22 as v18 will be deprecated in the near future.
+
 ## [0.22.3] - 2025-06-26
 - Fix issue where credentials were not available on web socket initiation in some instances of streaming
 - Accessibility improvements
 
-## [0.22.1] - 2025-05-19
+## [0.22.2] - 2025-05-19
 - Fix scenarios where cross origin requests did not have credentials passed before iframe loads
 
 ## [0.22.1] - 2025-05-10

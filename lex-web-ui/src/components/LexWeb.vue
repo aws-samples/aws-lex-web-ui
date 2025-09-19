@@ -157,7 +157,7 @@ export default {
     if (!this.isMobile) {
       document.documentElement.style.overflowY = 'hidden';
     }
-    
+
     this.initConfig()
       .then(() => Promise.all([
         this.$store.dispatch(
@@ -192,7 +192,7 @@ export default {
         if (!poolId) {
           return Promise.reject(new Error('no cognito.poolId found in config'))
         }
-        
+
         if (!this.$lexWebUi.awsConfig.credentials) {
           this.$lexWebUi.awsConfig.credentials = this.$store.dispatch('getCredentials', this.$store.state.config).then((creds) => {
             this.$store.dispatch('getUserName', this.$store.state.config).then((userName) => {
@@ -283,6 +283,7 @@ export default {
     }
     this.onResize();
     window.addEventListener('resize', this.onResize, { passive: true });
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
   },
   methods: {
     onResize() {
@@ -357,6 +358,13 @@ export default {
     handleRequestLiveChat() {
       console.info('handleRequestLiveChat');
       this.$store.dispatch('requestLiveChat');
+    },
+    handleBeforeUnload() {
+      console.info('handleBeforeUnload'); //state.chatMode === chatMode.LIVECHAT
+      if (this.$store.state.chatMode === 'livechat') {
+        console.info('disconnecting from livechat');
+        this.handleEndLiveChat();
+      }
     },
     handleEndLiveChat() {
       console.info('LexWeb: handleEndLiveChat');
@@ -583,6 +591,6 @@ NOTE: not using var() for different heights due to IE11 compatibility
   background: transparent;
 }
 
-html { font-size: 14px !important; } 
+html { font-size: 14px !important; }
 
 </style>
