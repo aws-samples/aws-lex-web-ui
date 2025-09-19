@@ -210,7 +210,7 @@ export default {
           this.$store.dispatch('initMessageList'),
           this.$store.dispatch('initPollyClient', this.$lexWebUi.pollyClient, this.$lexWebUi.awsConfig.credentials),
           this.$store.dispatch('initLexClient', {
-            v1client: this.$lexWebUi.lexRuntimeClient, v2client: this.$lexWebUi.lexRuntimeV2Client, credentials: this.$lexWebUi.awsConfig.credentials
+            v2client: this.$lexWebUi.lexRuntimeV2Client, credentials: this.$lexWebUi.awsConfig.credentials
           }),
         ];
         console.info('CONFIG : ', this.$store.state.config);

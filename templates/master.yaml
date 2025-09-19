@@ -1,10 +1,7 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
     Master Lex Web UI CloudFormation template (v0.22.5)
-    The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
-    Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
-    version input parameters as defaulted.
-    A deployment of Lex Web Ui can not be switched between V2 and V1 by updating the stack with different parameters.
+    The Lex Web Ui can be deployed to operate against a Lex V2 Bot
     It deploys:
         - S3 buckets to host the web application
         - CodeBuild project to build the configuration and deploy to S3
@@ -566,7 +563,7 @@ Parameters:
     AmazonQAppId:
         Type: String
         Default: ''
-        Description: Amazon Q Application ID. This option will automatically create a bot and the V1/V2 bot fields should be left blank.
+        Description: Amazon Q Application ID. This option will automatically create a bot and the V2 bot fields should be left blank.
 
     IDCApplicationARN:
         Type: String
