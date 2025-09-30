@@ -76,6 +76,15 @@ export default class {
       this.userId;
   }
 
+  refreshClient(region, credentials) {
+    const awsConfig = {
+      region: region,
+      credentials,
+    };
+
+    this.lexRuntimeClient = new LexRuntimeV2Client(awsConfig);
+  }
+
   async deleteSession() {
     const command = new DeleteSessionCommand({
       botAliasId: this.botV2AliasId,
