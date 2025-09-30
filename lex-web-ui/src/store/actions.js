@@ -37,6 +37,7 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 // non-state variables that may be mutated outside of store
 // set via initializers at run time
 let awsCredentials;
+let refreshCredentials = true;
 let pollyClient;
 let lexClient;
 let audio;
@@ -678,7 +679,7 @@ export default {
   },
   deleteSession(context) {
     context.commit('setIsLexProcessing', true);
-    return context.dispatch('refreshAuthTokens')
+    return context.dispatch('checkCredentialsForRefresh')
       .then(() => context.dispatch('getCredentials', context.state.config))
       .then(() => lexClient.deleteSession())
       .then((data) => {
@@ -693,7 +694,7 @@ export default {
   },
   startNewSession(context) {
     context.commit('setIsLexProcessing', true);
-    return context.dispatch('refreshAuthTokens')
+    return context.dispatch('checkCredentialsForRefresh')
       .then(() => context.dispatch('getCredentials', context.state.config))
       .then(() => lexClient.startNewSession())
       .then((data) => {
@@ -715,7 +716,7 @@ export default {
       ? context.state.config.lex.v2BotLocaleId.split(',')[0]
       : undefined;
     const sessionId = lexClient.userId;
-    return context.dispatch('refreshAuthTokens')
+    return context.dispatch('checkCredentialsForRefresh')
       .then(() => context.dispatch('getCredentials', context.state.config))
       .then(() => {
         // TODO: Need to handle if the error occurred. typing would be broke since lexClient.postText throw error
@@ -765,7 +766,7 @@ export default {
     console.info('audio blob size:', audioBlob.size);
     let timeStart;
 
-    return context.dispatch('refreshAuthTokens')
+    return context.dispatch('checkCredentialsForRefresh')
       .then(() => context.dispatch('getCredentials', context.state.config))
       .then(() => {
         const localeId = context.state.config.lex.v2BotLocaleId
@@ -1109,7 +1110,7 @@ export default {
    *
    **********************************************************************/
 
-  getCredentialsFromParent(context) {
+  getCredentialsFromParent(context, region) {
     const expireTime = (awsCredentials && awsCredentials.expireTime) ?
       awsCredentials.expireTime : 0;
     const credsExpirationDate = new Date(expireTime).getTime();
@@ -1127,75 +1128,102 @@ export default {
         return Promise.reject(error);
       })
       .then((creds) => {
-        const { accessKeyId, identityId, secretAccessKey, sessionToken } = creds;
+        const { accessKeyId, identityId, secretAccessKey, sessionToken, expiration } = creds;
         // recreate as a static credential
-        awsCredentials = {
+        awsCredentials = Promise.resolve({
           accessKeyId: accessKeyId,
           secretAccessKey: secretAccessKey,
           sessionToken: sessionToken,
           identityId: identityId,
-          expired: false,
-        };
+          expiration: expiration,
+        });
+        
+        if (lexClient) {
+          lexClient.refreshClient(region, awsCredentials);
+        }
 
         return awsCredentials;
       });
   },
   async getCredentials(context, config) {
-    if (context.state.awsCreds.provider === 'parentWindow') {
-      return context.dispatch('getCredentialsFromParent');
-    }
-
-    if (awsCredentials) {
-      return awsCredentials;
-    }
-
-    const region = config.cognito.region || config.region || 'us-east-1';
-    const poolId = config.cognito.poolId || localStorage.getItem('poolId');
-    const appUserPoolName = config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
-    const appUserPoolClientId = config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId');
-    const idToken = config.lex.sessionAttributes.idtokenjwt || localStorage.getItem(`${appUserPoolClientId}idtokenjwt`);
-
-    if (idToken) {
-      logins = {};
-      logins[`cognito-idp.${region}.amazonaws.com/${appUserPoolName}`] = idToken;
-      const client = new CognitoIdentityClient({ region });
-      const getIdentityId = new GetIdCommand({
-        IdentityPoolId: poolId,
-        Logins: logins ? logins : {}
-      })
-      let getCreds;
-      try {
-        await client.send(getIdentityId)
-          .then((res) => {
-            identityId = res.IdentityId;
-            getCreds = new GetCredentialsForIdentityCommand({
-              IdentityId: identityId,
-              Logins: logins ? logins : {}
-            })
-          })
-        const res = await client.send(getCreds);
-        const creds = res.Credentials;
-        const credentials = {
-          accessKeyId: creds.AccessKeyId,
-          identityId,
-          secretAccessKey: creds.SecretKey,
-          sessionToken: creds.SessionToken,
-          expiration: creds.Expiration,
-        };
-        return credentials;
-      } catch (err) {
-        console.log(err)
+    if (refreshCredentials) {
+      const region = config.cognito.region || config.region || 'us-east-1';
+      
+      if (context.state.awsCreds.provider === 'parentWindow') {
+        return context.dispatch('getCredentialsFromParent', region);
       }
-    } else {
-      const credentialProvider = fromCognitoIdentityPool({
-        identityPoolId: poolId,
-        clientConfig: { region },
-      })
-      const credentials = credentialProvider();
-      return credentials;
+      
+      const poolId = config.cognito.poolId || localStorage.getItem('poolId');
+      const appUserPoolName = config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
+      const appUserPoolClientId = config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId');
+      const idToken = config.lex.sessionAttributes.idtokenjwt || localStorage.getItem(`${appUserPoolClientId}idtokenjwt`);
+
+      if (idToken) {
+        logins = {};
+        logins[`cognito-idp.${region}.amazonaws.com/${appUserPoolName}`] = idToken;
+        const client = new CognitoIdentityClient({ region });
+        const getIdentityId = new GetIdCommand({
+          IdentityPoolId: poolId,
+          Logins: logins ? logins : {}
+        })
+        let getCreds;
+        try {
+          await client.send(getIdentityId)
+            .then((res) => {
+              identityId = res.IdentityId;
+              getCreds = new GetCredentialsForIdentityCommand({
+                IdentityId: identityId,
+                Logins: logins ? logins : {}
+              })
+            })
+          const res = await client.send(getCreds);
+          const creds = res.Credentials;
+          const credentials = {
+            accessKeyId: creds.AccessKeyId,
+            identityId,
+            secretAccessKey: creds.SecretKey,
+            sessionToken: creds.SessionToken,
+            expiration: creds.Expiration,
+          };
+          if (lexClient) {
+            lexClient.refreshClient(region, credentials);
+          }
+          return credentials;
+        } catch (err) {
+          console.log(err)
+        }
+      } else {
+        const credentialProvider = fromCognitoIdentityPool({
+          identityPoolId: poolId,
+          clientConfig: { region },
+        })
+        awsCredentials = credentialProvider();
+        if (lexClient) {
+          lexClient.refreshClient(region, awsCredentials);
+        }
+        return awsCredentials;
+      }
     }
   },
-
+  checkCredentialsForRefresh() {
+    if (awsCredentials) {
+      awsCredentials.then((res) => {
+        if (res.expiration) {
+          const expiration = new Date(res.expiration).getTime();
+          const now = Date.now();
+          // calculate and expiration time 5 minutes sooner and adjust to milliseconds
+          // to compare with now.
+          const expirationTime = (expiration - (5 * 60 * 1000));
+          if (now > expirationTime) {
+            refreshCredentials = true;
+            return Promise.resolve();
+          }
+        }
+      });
+    }
+    refreshCredentials = false;
+    return Promise.resolve();
+  },
   /***********************************************************************
    *
    * Auth Token Actions
@@ -1222,7 +1250,7 @@ export default {
         return Promise.resolve();
       });
   },
-  refreshAuthTokens(context) {
+  async refreshAuthTokens(context) {
     function isExpired(token) {
       if (token) {
         const decoded = jwtDecode(token);
@@ -1245,6 +1273,7 @@ export default {
       console.info('starting auth token refresh');
       return context.dispatch('refreshAuthTokensFromParent');
     }
+
     return Promise.resolve();
   },
 
