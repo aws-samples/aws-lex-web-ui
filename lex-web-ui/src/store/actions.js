@@ -1110,7 +1110,7 @@ export default {
    *
    **********************************************************************/
 
-  getCredentialsFromParent(context) {
+  getCredentialsFromParent(context, region) {
     const expireTime = (awsCredentials && awsCredentials.expireTime) ?
       awsCredentials.expireTime : 0;
     const credsExpirationDate = new Date(expireTime).getTime();
@@ -1128,26 +1128,31 @@ export default {
         return Promise.reject(error);
       })
       .then((creds) => {
-        const { accessKeyId, identityId, secretAccessKey, sessionToken } = creds;
+        const { accessKeyId, identityId, secretAccessKey, sessionToken, expiration } = creds;
         // recreate as a static credential
-        awsCredentials = {
+        awsCredentials = Promise.resolve({
           accessKeyId: accessKeyId,
           secretAccessKey: secretAccessKey,
           sessionToken: sessionToken,
           identityId: identityId,
-          expired: false,
-        };
+          expiration: expiration,
+        });
+        
+        if (lexClient) {
+          lexClient.refreshClient(region, awsCredentials);
+        }
 
         return awsCredentials;
       });
   },
   async getCredentials(context, config) {
-    if (context.state.awsCreds.provider === 'parentWindow') {
-      return context.dispatch('getCredentialsFromParent');
-    }
-
     if (refreshCredentials) {
       const region = config.cognito.region || config.region || 'us-east-1';
+      
+      if (context.state.awsCreds.provider === 'parentWindow') {
+        return context.dispatch('getCredentialsFromParent', region);
+      }
+      
       const poolId = config.cognito.poolId || localStorage.getItem('poolId');
       const appUserPoolName = config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
       const appUserPoolClientId = config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId');
