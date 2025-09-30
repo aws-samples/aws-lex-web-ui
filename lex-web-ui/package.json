@@ -22,7 +22,6 @@
     "amazon-connect-chatjs": "^2.3.0",
     "@aws-sdk/client-cognito-identity": "3.470.0",
     "@aws-sdk/client-connect": "3.470.0",
-    "@aws-sdk/client-lex-runtime-service": "3.470.0",
     "@aws-sdk/client-lex-runtime-v2": "3.470.0",
     "@aws-sdk/client-polly": "3.470.0",
     "@aws-sdk/client-s3": "3.470.0",

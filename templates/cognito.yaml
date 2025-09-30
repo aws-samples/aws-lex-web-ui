@@ -13,11 +13,6 @@ Parameters:
     AllowedPattern: '^[\w ]+$'
     ConstraintDescription: Alphanumeric and spaces.
 
-  LexBotName:
-    Type: String
-    Description: Lex bot name used to build IAM policy
-    Default: OrderFlowers
-
   LexV2BotId:
     Description: >
       Name of an existing Lex V2 Bot to be used by the web ui.
@@ -81,8 +76,6 @@ Parameters:
 Conditions:
   ShouldAllowSignUpEmailDomain: !Not [!Equals [!Ref AllowedSignUpEmailDomain, ""]]
   NeedsForceCognitoLogin: !Equals [ !Ref ForceCognitoLogin, 'true' ]
-  IsLexV1: !Not [ !Equals [!Ref LexBotName, ''] ]
-  IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
   EnableLiveChat: !Equals [!Ref ShouldEnableLiveChat, true]
   EnableStreaming: !Equals [!Ref AllowStreamingResponses, true]
   EnableUpload: !Equals [!Ref ShouldEnableUpload, true]
@@ -102,8 +95,8 @@ Resources:
     Properties:
       IdentityPoolId: !Ref CognitoIdentityPool
       Roles:
-        authenticated: !If [ IsLexV1, !GetAtt CognitoAuthRoleV1.Arn, !GetAtt CognitoAuthRoleV2.Arn ]
-        unauthenticated: !If [ IsLexV1, !GetAtt CognitoUnauthRoleV1.Arn, !GetAtt CognitoUnauthRoleV2.Arn ]
+        authenticated: !GetAtt CognitoAuthRoleV2.Arn
+        unauthenticated: !GetAtt CognitoUnauthRoleV2.Arn
 
   CognitoUserPool:
     Type: AWS::Cognito::UserPool
@@ -147,65 +140,8 @@ Resources:
     Properties:
       GenerateSecret: false
       UserPoolId: !Ref CognitoUserPool
-
-  CognitoUnauthRoleV1:
-    Condition: IsLexV1
-    Type: AWS::IAM::Role
-    Properties:
-      Path: /
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Principal:
-              Federated: cognito-identity.amazonaws.com
-            Effect: Allow
-            Action:
-              - sts:AssumeRoleWithWebIdentity
-            Condition:
-              StringEquals:
-                cognito-identity.amazonaws.com:aud: !Ref CognitoIdentityPool
-              ForAnyValue:StringLike:
-                cognito-identity.amazonaws.com:amr: unauthenticated
-      Policies:
-        - PolicyName: LexPost
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: !If [ NeedsForceCognitoLogin, Deny, Allow ]
-                Action:
-                  - lex:PostText
-                  - lex:PostContent
-                  - lex:DeleteSession
-                  - lex:PutSession
-                Resource:
-                  - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
-        - !If 
-          - EnableLiveChat
-          - PolicyName: APIPost
-            PolicyDocument:
-              Version: 2012-10-17
-              Statement:
-                - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
-                  Action:
-                    - execute-api:Invoke
-                  Resource:
-                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/POST/livechat"
-          - !Ref AWS::NoValue
-        - !If 
-          - EnableStreaming
-          - PolicyName: WebsocketConnect
-            PolicyDocument:
-              Version: 2012-10-17
-              Statement:
-                - Effect: !If [NeedsForceCognitoLogin, Deny, Allow]
-                  Action:
-                    - execute-api:Invoke
-                  Resource:
-                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/$connect"
-          - !Ref AWS::NoValue
                 
   CognitoUnauthRoleV2:
-    Condition: IsLexV2
     Type: AWS::IAM::Role
     Properties:
       Path: /
@@ -260,84 +196,7 @@ Resources:
                     - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/$connect"
           - !Ref AWS::NoValue
 
-  CognitoAuthRoleV1:
-    Condition: IsLexV1
-    Type: AWS::IAM::Role
-    Properties:
-      Path: /
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Principal:
-              Federated: cognito-identity.amazonaws.com
-            Effect: Allow
-            Action:
-              - sts:AssumeRoleWithWebIdentity
-            Condition:
-              StringEquals:
-                cognito-identity.amazonaws.com:aud: !Ref CognitoIdentityPool
-              ForAnyValue:StringLike:
-                cognito-identity.amazonaws.com:amr: authenticated
-      Policies:
-        - PolicyName: PollySynth
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - polly:SynthesizeSpeech
-                Resource: '*'
-        - PolicyName: LexPost
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - lex:PostText
-                  - lex:PostContent
-                  - lex:DeleteSession
-                  - lex:PutSession
-                Resource:
-                  - !Sub "arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${LexBotName}:*"
-        - !If 
-          - EnableLiveChat
-          - PolicyName: APIPost
-            PolicyDocument:
-              Version: 2012-10-17
-              Statement:
-                - Effect: Allow
-                  Action:
-                    - execute-api:Invoke
-                  Resource:
-                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/POST/livechat"
-          - !Ref AWS::NoValue
-        - !If 
-          - EnableStreaming
-          - PolicyName: WebsocketConnect
-            PolicyDocument:
-              Version: 2012-10-17
-              Statement:
-                - Effect: Allow
-                  Action:
-                    - execute-api:Invoke
-                  Resource:
-                    - !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/Prod/$connect"
-          - !Ref AWS::NoValue
-        - !If 
-          - EnableUpload
-          - PolicyName: S3Upload
-            PolicyDocument:
-              Version: 2012-10-17
-              Statement:
-                - Effect: Allow
-                  Action:
-                    - s3:PutObject
-                  Resource:
-                    - !Sub "arn:aws:s3:::${UploadBucket}/*"
-          - !Ref AWS::NoValue
-
   CognitoAuthRoleV2:
-    Condition: IsLexV2
     Type: AWS::IAM::Role
     Properties:
       Path: /

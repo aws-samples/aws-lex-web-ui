@@ -12,8 +12,6 @@
     "v2BotId": "",
     "v2BotAliasId": "",
     "v2BotLocaleId": "",
-    "botName": "",
-    "botAlias": "$LATEST",
     "initialText": "Type 'Buy Flowers' to get started.",
     "initialSpeechInstruction": "Say 'Buy Flowers' to get started.",
     "initialUtterance": "",

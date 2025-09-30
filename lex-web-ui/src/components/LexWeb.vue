@@ -74,11 +74,8 @@ import ToolbarContainer from '@/components/ToolbarContainer';
 import MessageList from '@/components/MessageList';
 import InputContainer from '@/components/InputContainer';
 // import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
-import { LexRuntimeServiceClient } from '@aws-sdk/client-lex-runtime-service';
 import { LexRuntimeV2Client } from '@aws-sdk/client-lex-runtime-v2';
 import { PollyClient } from '@aws-sdk/client-polly';
-
-
 
 export default {
   name: 'lex-web',
@@ -203,7 +200,6 @@ export default {
           credentials: this.$lexWebUi.awsConfig.credentials,
         };
 
-        this.$lexWebUi.lexRuntimeClient = new LexRuntimeServiceClient(awsConfig);
         this.$lexWebUi.lexRuntimeV2Client = new LexRuntimeV2Client(awsConfig);
         this.$lexWebUi.pollyClient = new PollyClient(awsConfig)
         /* eslint-disable no-console */
@@ -214,7 +210,7 @@ export default {
           this.$store.dispatch('initMessageList'),
           this.$store.dispatch('initPollyClient', this.$lexWebUi.pollyClient, this.$lexWebUi.awsConfig.credentials),
           this.$store.dispatch('initLexClient', {
-            v1client: this.$lexWebUi.lexRuntimeClient, v2client: this.$lexWebUi.lexRuntimeV2Client, credentials: this.$lexWebUi.awsConfig.credentials
+            v2client: this.$lexWebUi.lexRuntimeV2Client, credentials: this.$lexWebUi.awsConfig.credentials
           }),
         ];
         console.info('CONFIG : ', this.$store.state.config);
