@@ -1,0 +1,95 @@
+/* ========================================
+   DARK MODE THEME
+   Modern dark theme for tech-savvy users
+   ======================================== */
+
+/* Toolbar */
+.bg-red {
+  background-color: #1f2937 !important;
+}
+
+.toolbar__title {
+  font-family: "Inter", sans-serif !important;
+  font-size: 16px !important;
+  color: #f9fafb !important;
+}
+
+/* Minimized button */
+button.min-button {
+  background-color: #374151 !important;
+  border-color: #374151 !important;
+}
+
+/* Message container */
+.message-list-container {
+  background-color: #111827 !important;
+}
+
+/* Bot messages */
+.message-bot .message-bubble {
+  background-color: #374151 !important;
+  color: #f9fafb !important;
+}
+
+/* Human messages */
+.message-human .message-bubble {
+  background-color: #6b7280 !important;
+  color: #ffffff !important;
+}
+
+/* Message text color */
+.message-text {
+  color: #f9fafb !important;
+}
+
+/* Response card buttons */
+.v-card-actions .v-btn {
+  background-color: #4b5563 !important;
+  color: #ffffff !important;
+}
+
+/* Common styling */
+.message-bubble {
+  border-radius: 12px !important;
+  padding: 8px 16px !important;
+}
+
+.message-bubble p {
+  margin-bottom: 8px;
+}
+
+.message-bubble p:last-child {
+  margin-bottom: 0px;
+}
+
+.message-bubble .message-text {
+  padding-left: 0;
+  padding-right: 0;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.input-group--text-field input,
+.input-group--text-field textarea,
+.input-group--text-field label {
+  font-size: 14px !important;
+}
+
+.v-card-actions .v-btn {
+  margin: 4px 4px !important;
+  font-size: 1em !important;
+  min-width: 44px !important;
+  border-radius: 8px !important;
+}
+
+button.end-live-chat-button.btn {
+  color: white !important;
+  background-color: #dc2626 !important;
+}
+
+.lex-web-ui-iframe {
+  min-width: 25vw !important;
+  max-height: 315px !important;
+  margin-right: 10vw !important;
+  margin-bottom: 10px !important;
+}
