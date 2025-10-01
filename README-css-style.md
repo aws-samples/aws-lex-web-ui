@@ -221,6 +221,6 @@ button.end-live-chat-button.btn {
 Other CSS can be applied to the classes above in addition to what is listed. Be creative and
 create a compelling style for your site.
 
-## Lex Web Ui Example CSS Files
-some examples for custom css styles are available [here](#example-css) 
+#### Lex Web Ui Example CSS Files
+some examples for custom css styles are available [here](example-css)
 ![Sample CSS Files LexWebUi](./img/example-css.png)
