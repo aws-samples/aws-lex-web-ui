@@ -16,7 +16,8 @@ import {
   RecognizeTextCommand,
   DeleteSessionCommand,
   PutSessionCommand,
-  RecognizeUtteranceCommand
+  RecognizeUtteranceCommand,
+  LexRuntimeV2Client
 } from "@aws-sdk/client-lex-runtime-v2";
 
 const zlib = require('zlib');
