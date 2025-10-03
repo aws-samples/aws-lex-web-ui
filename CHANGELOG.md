@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.23.0] - 2025-10-3
+- Remove all reference to Lex v1 as it has been deprecated
+- Revamp how token refreshes work to resolve some issues that were introduced when migrating to SDKv3
+- Add example CSS files to repo for users who want an easier starting point.
+
 ## [0.22.5] - 2025-09-10
 - Update live chat text transcription applying redaction when required.
 - Fix issue with live chat not closing on browser or window closing.

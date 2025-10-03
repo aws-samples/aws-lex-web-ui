@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.22.5)
+    Master Lex Web UI CloudFormation template (v0.23.0)
     The Lex Web Ui can be deployed to operate against a Lex V2 Bot
     It deploys:
         - S3 buckets to host the web application
@@ -709,7 +709,7 @@ Resources:
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 ParentStackName: !Ref "AWS::StackName"
                 SourceBucket: !Ref BootstrapBucket
-                QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-lambda-v0.22.5.zip"
+                QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-lambda-v0.23.0.zip"
                 AmazonQAppId: !Ref AmazonQAppId
                 IDCApplicationARN: !Ref IDCApplicationARN
                 VpcSubnetId: !Ref VpcSubnetId
@@ -752,10 +752,10 @@ Resources:
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
                 StreamingWebSocketEndpoint: !Ref StreamingWebSocketEndpoint
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.22.5.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.22.5.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.22.5.zip"
-                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.22.5.zip"
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.23.0.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.23.0.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.23.0.zip"
+                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.23.0.zip"
                 CleanupBuckets: !Ref CleanupBuckets
                 LexV2BotId:
                     !If
@@ -843,7 +843,7 @@ Resources:
                 UploadBucket: !Ref UploadBucket
                 VpcSubnetId: !Ref VpcSubnetId
                 VpcSecurityGroupId: !Ref VpcSecurityGroupId
-                Timestamp: 1757519732
+                Timestamp: 1759507380
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -859,7 +859,7 @@ Resources:
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
                 VpcSubnetId: !Ref VpcSubnetId
                 VpcSecurityGroupId: !Ref VpcSecurityGroupId
-                Timestamp: 1757519732
+                Timestamp: 1759507380
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment
