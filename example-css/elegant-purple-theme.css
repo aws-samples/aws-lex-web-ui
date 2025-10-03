@@ -1,0 +1,89 @@
+/* ========================================
+   ELEGANT PURPLE THEME
+   Sophisticated purple theme for premium services
+   ======================================== */
+
+/* Toolbar */
+.bg-red {
+  background-color: #7c3aed !important;
+}
+
+.toolbar__title {
+  font-family: "Georgia", serif !important;
+  font-size: 16px !important;
+  color: #ffffff !important;
+}
+
+/* Minimized button */
+button.min-button {
+  background-color: #7c3aed !important;
+  border-color: #7c3aed !important;
+}
+
+/* Message container */
+.message-list-container {
+  background-color: #faf5ff !important;
+}
+
+/* Bot messages */
+.message-bot .message-bubble {
+  background-color: #ede9fe !important;
+}
+
+/* Human messages */
+.message-human .message-bubble {
+  background-color: #7c3aed !important;
+  color: #ffffff !important;
+}
+
+/* Response card buttons */
+.v-card-actions .v-btn {
+  background-color: #8b5cf6 !important;
+  color: #ffffff !important;
+}
+
+/* Common styling */
+.message-bubble {
+  border-radius: 12px !important;
+  padding: 8px 16px !important;
+}
+
+.message-bubble p {
+  margin-bottom: 8px;
+}
+
+.message-bubble p:last-child {
+  margin-bottom: 0px;
+}
+
+.message-bubble .message-text {
+  padding-left: 0;
+  padding-right: 0;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.input-group--text-field input,
+.input-group--text-field textarea,
+.input-group--text-field label {
+  font-size: 14px !important;
+}
+
+.v-card-actions .v-btn {
+  margin: 4px 4px !important;
+  font-size: 1em !important;
+  min-width: 44px !important;
+  border-radius: 8px !important;
+}
+
+button.end-live-chat-button.btn {
+  color: white !important;
+  background-color: #dc2626 !important;
+}
+
+.lex-web-ui-iframe {
+  min-width: 25vw !important;
+  max-height: 315px !important;
+  margin-right: 10vw !important;
+  margin-bottom: 10px !important;
+}

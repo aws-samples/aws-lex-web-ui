@@ -14,7 +14,7 @@ This feature supports integration with file attachments, enable both to allow QB
 ### Deploy the Web UI
 1. A deployment of the Lex Web UI with login enabled is required for Q Business integration. To launch a new deployment of the Web UI, go to the main [README](https://github.com/aws-samples/aws-lex-web-ui/blob/master/README.md) and select `Launch` for the region where your Q Business app is deployed.
 
-2. The other bot fields for both V1 & V2 bots must be empty for the template to create the Q Business integration bot, please ensure that `Lex V1 Bot Configuration Parameters` and `Lex V2 Bot Configuration Parameters` are blank.
+2. The other bot fields for both V2 bots must be empty for the template to create the Q Business integration bot, please ensure that the `Lex V2 Bot Configuration Parameters` are blank.
 
 3. To enable login, set `EnableCognitoLogin` to true. To force users to login to your bot, set `ForceCognitoLogin` to true. The ForceCognitoLogin setting will automatically redirect users to the login page if they are not logged in to the bot. 
 

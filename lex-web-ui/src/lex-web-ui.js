@@ -18,7 +18,6 @@ License for the specific language governing permissions and limitations under th
  * Exports Loader as the plugin constructor
  * and Store as store that can be used with Vuex.Store()
  */
-import { LexRuntimeServiceClient } from '@aws-sdk/client-lex-runtime-service';
 import { LexRuntimeV2Client } from '@aws-sdk/client-lex-runtime-v2';
 import { PollyClient } from '@aws-sdk/client-polly';
 import LexWeb from '@/components/LexWeb';
@@ -169,7 +168,6 @@ export class Loader {
       credentials,
     };
 
-    const lexRuntimeClient = new LexRuntimeServiceClient(awsConfig);
     const lexRuntimeV2Client = new LexRuntimeV2Client(awsConfig);
     const pollyClient = new PollyClient(awsConfig);
 
@@ -177,7 +175,6 @@ export class Loader {
     app.use(Plugin, {
         config: mergedConfig,
         awsConfig,
-        lexRuntimeClient,
         lexRuntimeV2Client,
         pollyClient
     });

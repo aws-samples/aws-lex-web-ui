@@ -13,16 +13,11 @@
 
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 import {
-  PostTextCommand,
-  DeleteSessionCommand as DeleteSessionCommandV1,
-  PutSessionCommand as PutSessionCommandV1,
-  PostContentCommand
-} from "@aws-sdk/client-lex-runtime-service";
-import {
   RecognizeTextCommand,
-  DeleteSessionCommand as DeleteSessionCommandV2,
-  PutSessionCommand as PutSessionCommandV2,
-  RecognizeUtteranceCommand
+  DeleteSessionCommand,
+  PutSessionCommand,
+  RecognizeUtteranceCommand,
+  LexRuntimeV2Client
 } from "@aws-sdk/client-lex-runtime-v2";
 
 const zlib = require('zlib');
@@ -46,30 +41,23 @@ export default class {
   botV2Id;
   botV2AliasId;
   botV2LocaleId;
-  isV2Bot;
   constructor({
-    botName,
-    botAlias = '$LATEST',
     userId,
-    lexRuntimeClient,
     botV2Id,
     botV2AliasId,
     botV2LocaleId,
     lexRuntimeV2Client,
   }) {
-    if (!botName || !lexRuntimeClient || !lexRuntimeV2Client ||
+    if (!lexRuntimeV2Client ||
       typeof botV2Id === 'undefined' ||
       typeof botV2AliasId === 'undefined' ||
       typeof botV2LocaleId === 'undefined'
     ) {
-      console.error(`botName: ${botName} botV2Id: ${botV2Id} botV2AliasId ${botV2AliasId} ` +
-        `botV2LocaleId ${botV2LocaleId} lexRuntimeClient ${lexRuntimeClient} ` +
-        `lexRuntimeV2Client ${lexRuntimeV2Client}`);
+      console.error(`botV2Id: ${botV2Id} botV2AliasId ${botV2AliasId} ` +
+        `botV2LocaleId ${botV2LocaleId} lexRuntimeV2Client ${lexRuntimeV2Client}`);
       throw new Error('invalid lex client constructor arguments');
     }
 
-    this.botName = botName;
-    this.botAlias = botAlias;
     this.userId = userId ||
       'lex-web-ui-' +
       `${Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)}`;
@@ -77,8 +65,7 @@ export default class {
     this.botV2Id = botV2Id;
     this.botV2AliasId = botV2AliasId;
     this.botV2LocaleId = botV2LocaleId;
-    this.isV2Bot = (this.botV2Id.length > 0);
-    this.lexRuntimeClient = this.isV2Bot ? lexRuntimeV2Client : lexRuntimeClient;
+    this.lexRuntimeClient = lexRuntimeV2Client;
     this.credentials = this.lexRuntimeClient.config.credentials;
   }
 
@@ -90,22 +77,23 @@ export default class {
       this.userId;
   }
 
+  refreshClient(region, credentials) {
+    const awsConfig = {
+      region: region,
+      credentials,
+    };
+
+    this.lexRuntimeClient = new LexRuntimeV2Client(awsConfig);
+  }
+
   async deleteSession() {
-    let command;
-    if (this.isV2Bot) {
-      command = new DeleteSessionCommandV2({
-        botAliasId: this.botV2AliasId,
-        botId: this.botV2Id,
-        localeId: this.botV2LocaleId,
-        sessionId: this.userId,
-      });
-    } else {
-      command = new DeleteSessionCommandV1({
-        botAlias: this.botAlias,
-        botName: this.botName,
-        userId: this.userId,
-      });
-    }
+    const command = new DeleteSessionCommand({
+      botAliasId: this.botV2AliasId,
+      botId: this.botV2Id,
+      localeId: this.botV2LocaleId,
+      sessionId: this.userId,
+    });
+
     try {
       const res = await this.lexRuntimeClient.send(command);
       return res;
@@ -115,61 +103,36 @@ export default class {
   }
 
   async startNewSession() {
-    let command, res;
     try {
-      if (this.isV2Bot) {
-        command = new PutSessionCommandV2({
-          botAliasId: this.botV2AliasId,
-          botId: this.botV2Id,
-          localeId: this.botV2LocaleId,
-          sessionId: this.userId,
-          sessionState: {
-            dialogAction: {
-              type: 'ElicitIntent',
-            },
-          },
-        });
-        const res = await this.lexRuntimeV2Client.send(command);
-        return res;
-      } else {
-        command = new PutSessionCommandV1({
-          botAlias: this.botAlias,
-          botName: this.botName,
-          userId: this.userId,
+      const command = new PutSessionCommand({
+        botAliasId: this.botV2AliasId,
+        botId: this.botV2Id,
+        localeId: this.botV2LocaleId,
+        sessionId: this.userId,
+        sessionState: {
           dialogAction: {
             type: 'ElicitIntent',
           },
-        });
-        const res = await this.lexRuntimeClient.send(command);
-        return res;
-      }
+        },
+      });
+      const res = await this.lexRuntimeV2Client.send(command);
+      return res;
     } catch(err) {
       console.log(err)
     }
   }
 
   async postText(inputText, localeId, sessionAttributes = {}) {
-    let command;
-    if (this.isV2Bot) {
-      command = new RecognizeTextCommand({
-        botAliasId: this.botV2AliasId,
-        botId: this.botV2Id,
-        localeId: localeId ? localeId : 'en_US',
-        sessionId: this.userId,
-        text: inputText,
-        sessionState: {
-          sessionAttributes,
-        },
-      })
-    } else {
-      command = new PostTextCommand({
-        botAlias: this.botAlias,
-        botName: this.botName,
-        userId: this.userId,
-        inputText,
+    const command = new RecognizeTextCommand({
+      botAliasId: this.botV2AliasId,
+      botId: this.botV2Id,
+      localeId: localeId ? localeId : 'en_US',
+      sessionId: this.userId,
+      text: inputText,
+      sessionState: {
         sessionAttributes,
-      });
-    }
+      },
+    })
 
     try {
       const res = await this.lexRuntimeClient.send(command);
@@ -247,30 +210,18 @@ export default class {
     } else {
       console.warn('unknown media type in lex client');
     }
-    let command;
-    if (this.isV2Bot) {
-      const sessionState = { sessionAttributes };
-      command = new RecognizeUtteranceCommand({
-        botAliasId: this.botV2AliasId,
-        botId: this.botV2Id,
-        localeId: localeId ? localeId : 'en_US',
-        sessionId: this.userId,
-        responseContentType: acceptFormat,
-        requestContentType: contentType,
-        inputStream: blob,
-        sessionState: compressAndB64Encode(sessionState),
-      });
-    } else {
-      command = new PostContentCommand({
-        accept: acceptFormat,
-        botAlias: this.botAlias,
-        botName: this.botName,
-        userId: this.userId,
-        contentType,
-        inputStream: blob,
-        sessionAttributes,
-      });
-    }
+
+    const sessionState = { sessionAttributes };
+    const command = new RecognizeUtteranceCommand({
+      botAliasId: this.botV2AliasId,
+      botId: this.botV2Id,
+      localeId: localeId ? localeId : 'en_US',
+      sessionId: this.userId,
+      responseContentType: acceptFormat,
+      requestContentType: contentType,
+      inputStream: blob,
+      sessionState: compressAndB64Encode(sessionState),
+    });
     
     try {
       const res = await this.lexRuntimeClient.send(command);

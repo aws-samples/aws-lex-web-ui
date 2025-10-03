@@ -46,7 +46,7 @@ Set the Cognito Pool Id and Lex Bot name in the file:
     "poolId": "<my cognito pool id>"
 ...
   "lex": {
-    "botName": "<my bot name>"
+    "v2BotId": "<botId>"
 ...
 ```
 
@@ -419,7 +419,7 @@ and configuration to the chatbot UI component:
      },
      lex: {
         initialText: 'How can I help you?',
-        botName: 'helpBot'
+        v2BotId: 'XYZ123'
       },
       ui: {
         toolbarTitle: 'Help Bot',

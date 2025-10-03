@@ -99,16 +99,9 @@ of all the CloudFormation parameters when you want to quickly test the
 sample application. If you are deploying your own bot and/or integrating
 with an existing page, you may want to modify the following parameters:
 
-- `BotName`: Name of pre-existing Lex bot. This is an optional parameter.
-  If left empty, a sample bot will be created based on the
-  [OrderFlowers](http://docs.aws.amazon.com/lex/latest/dg/gs-bp.html)
-  bot in the Lex
-  [Getting Started](http://docs.aws.amazon.com/lex/latest/dg/gs-console.html)
-  documentation.
-- `BotAlias`: Lex Bot Alias to use. This parameter defines the alias
-  to be used by the Lex Web UI. It defaults to a value of '$LATEST'. You can set 
-  this attribute to values which have been defined for the bot and are visible in the 
-  Amazon Lex Console. Typical values might be 'PROD' or 'DEV'.
+- `v2BotId`: Id of pre-existing Lex bot. This is an optional parameter.
+- `v2BotAliasId`: Lex Bot Alias to use. This parameter defines the alias
+  to be used by the Lex Web UI.
 - `CognitoIdentityPoolId`: Id of an existing Cognito Identity Pool.
   This is an optional parameter. If left empty, a Cognito Identity Pool
   will be automatically created. The pool ID is used by the web ui to
@@ -171,7 +164,7 @@ UI in an iframe based on the config
 by the stack. This is an optional output that is returned only when the
 stack creates a Cognito Identity Pool. It is not returned if an existing
 pool ID was passed as a parameter to the stack during creation.
-- `BotName`: Name of the Lex bot created by the stack. This is an
+- `BotId`: Id of the Lex bot created by the stack. This is an
 optional output that is returned only when the stack creates the sample
 Lex bot. It is not returned if an existing Bot was passed as a parameter
 to the stack during creation
@@ -231,50 +224,11 @@ The following files and directories are relevant to the CloudFormation setup:
 # How do I ...?
 
 ## Use or deploy my own bot?
-The `BotName` CloudFormation parameter can be used to point
+The `v2BotId` and `v2BotAliasId` CloudFormation parameter can be used to point
 the stack to an existing bot. In the application, you can also
 change the configuration files or pass parameters to it (see the
 [Configuration](/README.md#configuration) section of the main README
 for details).
-
-If you want to make changes to the sample
-bot deployed by the stack, you can edit the
-[bot-definition.json](./custom-resources/bot-definition.json)
-file. This file is used by the
-[lex-manager.py](./custom-resources/lex-manager.py) which is
-run in Lambda by a CloudFormation Custom Resource in the bot stack
-created by the
-[lexbot.yaml](./lexbot.yaml) template.
-The bot definition is in a JSON file that contains all the resources
-associated with the bot including intents and slot types.
-
-The lex-manager.py script can be also used as a stand-alone shell script.
-It allows to export existing bots (including associated resources like
-intents and slot types) into a JSON file. The same script can be
-used to import a bot definition into an account or to recursively delete
-a bot and associated resources. Here is the script usage:
-
-```
-$ python lex-manager.py  -h
-usage: lex-manager.py [-h] [-i [file] | -e [botname] | -d botname]
-
-Lex bot manager. Import, export or delete a Lex bot. Used to
-import/export/delete Lex bots and associated resources (i.e. intents, slot
-types).
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -i [file], --import [file]
-                        Import bot definition from file into account. Defaults
-                        to: bot-definition.json
-  -e [botname], --export [botname]
-                        Export bot definition as JSON to stdout Defaults to
-                        reading the botname from the definition file: bot-
-                        definition.json
-  -d botname, --delete botname
-                        Deletes the bot passed as argument and its associated
-                        resources.
-```
 
 ## Delete the CloudFormation stacks?
 The resources created by this stack can be easily removed from your

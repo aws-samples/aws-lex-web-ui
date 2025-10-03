@@ -1,10 +1,7 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-    Master Lex Web UI CloudFormation template (v0.22.5)
-    The Lex Web Ui can be deployed to operate against either a Lex V2 Bot OR a Lex V1 Bot BUT NOT BOTH.
-    Please configure either the Lex V2 bot information OR the Lex V1 bot information and leave the other
-    version input parameters as defaulted.
-    A deployment of Lex Web Ui can not be switched between V2 and V1 by updating the stack with different parameters.
+    Master Lex Web UI CloudFormation template (v0.23.0)
+    The Lex Web Ui can be deployed to operate against a Lex V2 Bot
     It deploys:
         - S3 buckets to host the web application
         - CodeBuild project to build the configuration and deploy to S3
@@ -18,8 +15,7 @@ Parameters:
     LexV2BotId:
         Description: >
             Bot ID (not bot name) of an existing Lex V2 Bot to be used by the web ui. NOTE: You must
-            also enter your Bot alias ID in the LexV2BotAliasId field below. DO NOT MODIFY this value if
-            configuring a V1 Bot.
+            also enter your Bot alias ID in the LexV2BotAliasId field below.
         Type: String
         Default: ''
         MaxLength: 50
@@ -29,8 +25,7 @@ Parameters:
 
     LexV2BotAliasId:
         Description: >
-            Use your Lex V2 Bot's alias id (not alias name) here. DO NOT MODIFY this value if
-            configuring a V1 Bot.
+            Use your Lex V2 Bot's alias id (not alias name) here.
         Type: String
         Default: ''
         MinLength: 0
@@ -46,39 +41,11 @@ Parameters:
             separated list of values can be supplied with the first value in the list being the default value. The
             remaining items can be selected in the Lex Web Ui menu.
             See "https://docs.aws.amazon.com/lexv2/latest/dg/lex2.0.pdf"
-            for details on supported languages and locales. DO NOT MODIFY this value if
-            configuring a V1 Bot.
+            for details on supported languages and locales.
         Type: String
         Default: 'en_US'
         MinLength: 2
         MaxLength: 50
-
-    BotName:
-        Description: >
-            Name of an existing Lex Bot to be used by the web ui. NOTE: You must
-            also enter your published bot alias in the BotAlias field below. DO NOT MODIFY this value if
-            configuring a V2 Bot.
-        Type: String
-        Default: ''
-        MinLength: 0
-        MaxLength: 50
-        AllowedPattern: '(^$|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_))'
-        ConstraintDescription: >
-            Must conform with the permitted Lex Bot name pattern.
-
-    BotAlias:
-        Description: >
-            WARNING: For production deployments, use your bot's published alias here.
-            The $LATEST alias should only be used for manual testing. Amazon Lex limits
-            the number of runtime requests that you can make to the $LATEST version of
-            the bot. DO NOT MODIFY this value if configuring a V2 Bot.
-        Type: String
-        Default: '$LATEST'
-        MinLength: 2
-        MaxLength: 50
-        AllowedPattern: '(^$|^[$a-zA-Z]+((_[$a-zA-Z]+)*|([$a-zA-Z]+_)*|_))'
-        ConstraintDescription: >
-            Must conform with the permitted Lex Alias name pattern.
 
     ShouldDeleteBot:
         Type: String
@@ -596,7 +563,7 @@ Parameters:
     AmazonQAppId:
         Type: String
         Default: ''
-        Description: Amazon Q Application ID. This option will automatically create a bot and the V1/V2 bot fields should be left blank.
+        Description: Amazon Q Application ID. This option will automatically create a bot and the V2 bot fields should be left blank.
 
     IDCApplicationARN:
         Type: String
@@ -617,19 +584,6 @@ Parameters:
         Default: ''
         Description: ID of a security group where all Lambda functions will run, only used if you need Lambda to run in a VPC
 
-    
-Rules:
-  ValidateEitherV1orV2:
-    RuleCondition: !Not 
-        - !Equals
-            - !Ref BotName
-            - ''
-    Assertions:
-      - Assert: !Equals 
-            - !Ref LexV2BotId
-            - ''
-        AssertDescription: 'Template cannot contain both Lex V1 and Lex V2 information'
-
 Metadata:
     AWS::CloudFormation::Interface:
         ParameterGroups:
@@ -641,12 +595,7 @@ Metadata:
                   - BootstrapBucket
                   - BootstrapPrefix
             - Label:
-                default: Lex V1 Bot Configuration Parameters
-              Parameters:
-                  - BotName
-                  - BotAlias
-            - Label:
-                default: Lex V2 Bot Configuration Parameters
+                default: Lex Bot Configuration Parameters
               Parameters:
                   - LexV2BotId
                   - LexV2BotAliasId
@@ -742,7 +691,7 @@ Metadata:
 
 Conditions:
     IsLexV2: !Not [ !Equals [!Ref LexV2BotId, ''] ]
-    NeedsBot:  !And [ !Equals [!Ref BotName, ''], !Equals [!Ref LexV2BotId, ''] ]
+    NeedsBot:  !Equals [!Ref LexV2BotId, '']
     NeedsVpc:  !And [ !Not [ !Equals [!Ref VpcSubnetId, ''] ], !Not [ !Equals [!Ref VpcSecurityGroupId, ''] ] ] 
     NeedsCognito: !Equals [!Ref CognitoIdentityPoolId, '']
     NeedsParentOrigin: !Equals [!Ref WebAppParentOrigin, '']
@@ -760,7 +709,7 @@ Resources:
                 ShouldDeleteBot: !Ref ShouldDeleteBot
                 ParentStackName: !Ref "AWS::StackName"
                 SourceBucket: !Ref BootstrapBucket
-                QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-lambda-v0.22.5.zip"
+                QBusinessLambdaCodeObject: !Sub "${BootstrapPrefix}/qbusiness-lambda-v0.23.0.zip"
                 AmazonQAppId: !Ref AmazonQAppId
                 IDCApplicationARN: !Ref IDCApplicationARN
                 VpcSubnetId: !Ref VpcSubnetId
@@ -774,7 +723,6 @@ Resources:
             Parameters:
                 CognitoIdentityPoolName: !Ref CognitoIdentityPoolName
                 ForceCognitoLogin: !Ref ForceCognitoLogin
-                LexBotName: !Ref BotName
                 LexV2BotId:
                     !If
                       - NeedsBot
@@ -804,20 +752,11 @@ Resources:
                 SourceBucket: !Ref BootstrapBucket
                 SourcePrefix: !Ref BootstrapPrefix
                 StreamingWebSocketEndpoint: !Ref StreamingWebSocketEndpoint
-                SourceObject: !Sub "${BootstrapPrefix}/src-v0.22.5.zip"
-                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.22.5.zip"
-                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.22.5.zip"
-                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.22.5.zip"
+                SourceObject: !Sub "${BootstrapPrefix}/src-v0.23.0.zip"
+                CustomResourceCodeObject: !Sub "${BootstrapPrefix}/custom-resources-v0.23.0.zip"
+                InitiateChatLambdaCodeObject: !Sub "${BootstrapPrefix}/initiate-chat-lambda-v0.23.0.zip"
+                StreamingLambdaCodeObject: !Sub "${BootstrapPrefix}/streaming-lambda-v0.23.0.zip"
                 CleanupBuckets: !Ref CleanupBuckets
-                BotName:
-                    !If
-                      - IsLexV2
-                      - !Ref LexV2BotId
-                      - !If
-                          - NeedsBot
-                          - !GetAtt Bot.Outputs.BotId
-                          - !Ref BotName
-                BotAlias: !Ref BotAlias
                 LexV2BotId:
                     !If
                       - NeedsBot
@@ -904,7 +843,7 @@ Resources:
                 UploadBucket: !Ref UploadBucket
                 VpcSubnetId: !Ref VpcSubnetId
                 VpcSecurityGroupId: !Ref VpcSecurityGroupId
-                Timestamp: 1757519732
+                Timestamp: 1759507380
 
     CognitoIdentityPoolConfig:
         Type: AWS::CloudFormation::Stack
@@ -920,7 +859,7 @@ Resources:
                 CognitoUserPoolClient: !GetAtt CognitoIdentityPool.Outputs.CognitoUserPoolClientId
                 VpcSubnetId: !Ref VpcSubnetId
                 VpcSecurityGroupId: !Ref VpcSecurityGroupId
-                Timestamp: 1757519732
+                Timestamp: 1759507380
 
     ##########################################################################
     # Lambda that will validate if user has put in an invalid CSS color/Hex string and fail deployment
@@ -1027,7 +966,7 @@ Resources:
             MinimizedButtonColor: !Ref MinimizedButtonColor
             
 Outputs:
-    BotName:
+    BotId:
         Condition: NeedsBot
         Description: >
             Name of the Lex bot created by the stack

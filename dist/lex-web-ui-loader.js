@@ -44266,9 +44266,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const configBase = {
   region: '',
-  lex: {
-    botName: ''
-  },
+  lex: {},
   cognito: {
     poolId: ''
   },
@@ -45769,11 +45767,16 @@ class IframeComponentLoader {
       },
       // requests credentials from the parent
       getCredentials(evt) {
-        const tcreds = JSON.parse(JSON.stringify(this.credentials));
-        return evt.ports[0].postMessage({
-          event: 'resolve',
-          type: evt.data.event,
-          data: tcreds
+        const {
+          poolId: cognitoPoolId
+        } = this.config.cognito;
+        const region = this.config.cognito.region;
+        this.getCredentials(cognitoPoolId, region).then(creds => {
+          return evt.ports[0].postMessage({
+            event: 'resolve',
+            type: evt.data.event,
+            data: creds
+          });
         });
       },
       // requests chatbot UI config

@@ -1,0 +1,89 @@
+/* ========================================
+   FOREST GREEN THEME
+   Natural forest green theme for eco-friendly environments
+   ======================================== */
+
+/* Toolbar */
+.bg-red {
+  background-color: #166534 !important;
+}
+
+.toolbar__title {
+  font-family: "Arial", sans-serif !important;
+  font-size: 16px !important;
+  color: #ffffff !important;
+}
+
+/* Minimized button */
+button.min-button {
+  background-color: #166534 !important;
+  border-color: #166534 !important;
+}
+
+/* Message container */
+.message-list-container {
+  background-color: #f0fdf4 !important;
+}
+
+/* Bot messages */
+.message-bot .message-bubble {
+  background-color: #bbf7d0 !important;
+}
+
+/* Human messages */
+.message-human .message-bubble {
+  background-color: #166534 !important;
+  color: #ffffff !important;
+}
+
+/* Response card buttons */
+.v-card-actions .v-btn {
+  background-color: #22c55e !important;
+  color: #ffffff !important;
+}
+
+/* Common styling */
+.message-bubble {
+  border-radius: 12px !important;
+  padding: 8px 16px !important;
+}
+
+.message-bubble p {
+  margin-bottom: 8px;
+}
+
+.message-bubble p:last-child {
+  margin-bottom: 0px;
+}
+
+.message-bubble .message-text {
+  padding-left: 0;
+  padding-right: 0;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.input-group--text-field input,
+.input-group--text-field textarea,
+.input-group--text-field label {
+  font-size: 14px !important;
+}
+
+.v-card-actions .v-btn {
+  margin: 4px 4px !important;
+  font-size: 1em !important;
+  min-width: 44px !important;
+  border-radius: 8px !important;
+}
+
+button.end-live-chat-button.btn {
+  color: white !important;
+  background-color: #dc2626 !important;
+}
+
+.lex-web-ui-iframe {
+  min-width: 25vw !important;
+  max-height: 315px !important;
+  margin-right: 10vw !important;
+  margin-bottom: 10px !important;
+}
