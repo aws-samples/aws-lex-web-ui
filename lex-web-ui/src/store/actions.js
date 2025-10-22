@@ -430,10 +430,10 @@ export default {
    **********************************************************************/
 
   pollyGetBlob(context, text, format = 'text') {
-    return context.dispatch('refreshAuthTokens')
+    return context.dispatch('checkCredentialsForRefresh')
       .then(() => context.dispatch('getCredentials', context.state.config))
-      .then((creds) => {
-        pollyClient.config.credentials = creds;
+      .then(() => {
+        pollyClient.config.credentials = awsCredentials;
         const synthReq = pollyClient.synthesizeSpeech({
           Text: text,
           VoiceId: context.state.polly.voiceId,
@@ -933,70 +933,72 @@ export default {
         InstanceId: context.state.config.connect.instanceId,
       };
 
-      context.dispatch('refreshAuthTokens')
+      context.dispatch('checkCredentialsForRefresh')
         .then(() => context.dispatch('getCredentials', context.state.config))
-        .then((credentials) => {
+        .then(() => {
           const bodyText = JSON.stringify(initiateChatRequest);
           const serviceInfo = { 
             region: context.state.config.region, 
             service: 'execute-api' 
           };
-      
-          const accessInfo = {
-            access_key: credentials.accessKeyId,
-            secret_key: credentials.secretAccessKey,
-            session_token: credentials.sessionToken,
-          }
-
-          var request = {
-            url: context.state.config.connect.apiGatewayEndpoint,
-            method: 'POST',
-            mode: 'cors',
-            data: bodyText
-          }
-
-          const signedRequest = Signer.sign(request, accessInfo, serviceInfo);
-
-          return fetch(signedRequest.url, signedRequest)
-          .then(response => response.json())
-          .then(json => json.data)
-          .then((result) => {
-            console.info('Live Chat Config Success:', result);
-            context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
-            function waitMessage(context, type, message) {
-              context.commit('pushLiveChatMessage', {
-                type,
-                text: message,
-              });
-            };
-            if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
-              const intervalID = setInterval(waitMessage,
-                1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
-                context,
-                'bot',
-                context.state.config.connect.waitingForAgentMessage);
-              console.info(`interval now set: ${intervalID}`);
-              context.commit('setLiveChatIntervalId', intervalID);
+          
+          Promise.resolve(awsCredentials).then((credentials) => {
+            const accessInfo = {
+              access_key: credentials.accessKeyId,
+              secret_key: credentials.secretAccessKey,
+              session_token: credentials.sessionToken,
             }
-            liveChatSession = createLiveChatSession(result);
-            console.info('Live Chat Session Created:', liveChatSession);
-            initLiveChatHandlers(context, liveChatSession);
-            console.info('Live Chat Handlers initialised:');
-            return connectLiveChatSession(liveChatSession);
-          })
-          .then((response) => {
-            console.info('live Chat session connection response', response);
-            console.info('Live Chat Session CONNECTED:', liveChatSession);
-            context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
-            // context.commit('setLiveChatbotSession', liveChatSession);
-            return Promise.resolve();
-          })
-          .catch((error) => {
-            console.error("Error esablishing live chat");
-            context.commit('setLiveChatStatus', liveChatStatus.ENDED);
-            return Promise.resolve();
+
+            var request = {
+              url: context.state.config.connect.apiGatewayEndpoint,
+              method: 'POST',
+              mode: 'cors',
+              data: bodyText
+            }
+
+            const signedRequest = Signer.sign(request, accessInfo, serviceInfo);
+
+            return fetch(signedRequest.url, signedRequest)
+            .then(response => response.json())
+            .then(json => json.data)
+            .then((result) => {
+              console.info('Live Chat Config Success:', result);
+              context.commit('setLiveChatStatus', liveChatStatus.CONNECTING);
+              function waitMessage(context, type, message) {
+                context.commit('pushLiveChatMessage', {
+                  type,
+                  text: message,
+                });
+              };
+              if (context.state.config.connect.waitingForAgentMessageIntervalSeconds > 0) {
+                const intervalID = setInterval(waitMessage,
+                  1000 * context.state.config.connect.waitingForAgentMessageIntervalSeconds,
+                  context,
+                  'bot',
+                  context.state.config.connect.waitingForAgentMessage);
+                console.info(`interval now set: ${intervalID}`);
+                context.commit('setLiveChatIntervalId', intervalID);
+              }
+              liveChatSession = createLiveChatSession(result);
+              console.info('Live Chat Session Created:', liveChatSession);
+              initLiveChatHandlers(context, liveChatSession);
+              console.info('Live Chat Handlers initialised:');
+              return connectLiveChatSession(liveChatSession);
+            })
+            .then((response) => {
+              console.info('live Chat session connection response', response);
+              console.info('Live Chat Session CONNECTED:', liveChatSession);
+              context.commit('setLiveChatStatus', liveChatStatus.ESTABLISHED);
+              // context.commit('setLiveChatbotSession', liveChatSession);
+              return Promise.resolve();
+            })
+            .catch((error) => {
+              console.error("Error esablishing live chat");
+              context.commit('setLiveChatStatus', liveChatStatus.ENDED);
+              return Promise.resolve();
+            });
           });
-        });
+      });
     }
     // If TalkDesk endpoint is available use
     else if (context.state.config.connect.talkDeskWebsocketEndpoint) {
@@ -1182,6 +1184,7 @@ export default {
             sessionToken: creds.SessionToken,
             expiration: creds.Expiration,
           };
+          awsCredentials = credentials;
           if (lexClient) {
             lexClient.refreshClient(region, credentials);
           }
@@ -1204,7 +1207,7 @@ export default {
   },
   checkCredentialsForRefresh() {
     if (awsCredentials) {
-      awsCredentials.then((res) => {
+      Promise.resolve(awsCredentials).then((res) => {
         if (res.expiration) {
           const expiration = new Date(res.expiration).getTime();
           const now = Date.now();
@@ -1379,56 +1382,58 @@ export default {
  *
  **********************************************************************/
   InitWebSocketConnect(context){
-    context.dispatch('getCredentials', context.state.config).then((credentials) => {
+    context.dispatch('getCredentials', context.state.config).then(() => {
       const sessionId = lexClient.userId;
       const serviceInfo = { 
         region: context.state.config.region, 
         service: 'execute-api' 
       };
 
-      const accessInfo = {
-        access_key: credentials.accessKeyId,
-        secret_key: credentials.secretAccessKey,
-        session_token: credentials.sessionToken,
-      }
+      Promise.resolve(awsCredentials).then((credentials) => {
+        const accessInfo = {
+          access_key: credentials.accessKeyId,
+          secret_key: credentials.secretAccessKey,
+          session_token: credentials.sessionToken,
+        }
 
-      const signedUrl = Signer.signUrl(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId, accessInfo, serviceInfo);
-      wsClient = new WebSocket(signedUrl);
+        const signedUrl = Signer.signUrl(context.state.config.lex.streamingWebSocketEndpoint+'?sessionId='+sessionId, accessInfo, serviceInfo);
+        wsClient = new WebSocket(signedUrl);
 
-      // Add heartbeat logic
-      const HEARTBEAT_INTERVAL = 540000; // 9 minutes
-      const MAX_DURATION = 7200000; // 2 hours
-      const startTime = Date.now();
-      let heartbeatTimer = null;
+        // Add heartbeat logic
+        const HEARTBEAT_INTERVAL = 540000; // 9 minutes
+        const MAX_DURATION = 7200000; // 2 hours
+        const startTime = Date.now();
+        let heartbeatTimer = null;
 
-      function startHeartbeat() {
-        if (wsClient.readyState === WebSocket.OPEN) {
-          const elapsedTime = Date.now() - startTime;
-          if (elapsedTime < MAX_DURATION) {
-            const pingMessage = JSON.stringify({ action: 'ping' });
-            wsClient.send(pingMessage);
-            console.log('Sending Ping:', new Date().toISOString());
-            heartbeatTimer = setTimeout(startHeartbeat, HEARTBEAT_INTERVAL);
-          } else {
-            console.log('Stopped sending pings after reaching 2-hour limit.');
-            clearTimeout(heartbeatTimer);
+        function startHeartbeat() {
+          if (wsClient.readyState === WebSocket.OPEN) {
+            const elapsedTime = Date.now() - startTime;
+            if (elapsedTime < MAX_DURATION) {
+              const pingMessage = JSON.stringify({ action: 'ping' });
+              wsClient.send(pingMessage);
+              console.log('Sending Ping:', new Date().toISOString());
+              heartbeatTimer = setTimeout(startHeartbeat, HEARTBEAT_INTERVAL);
+            } else {
+              console.log('Stopped sending pings after reaching 2-hour limit.');
+              clearTimeout(heartbeatTimer);
+            }
           }
         }
-      }
-      wsClient.onopen = () => {
-        console.log('WebSocket Connected');
-        startHeartbeat();
-      };
+        wsClient.onopen = () => {
+          console.log('WebSocket Connected');
+          startHeartbeat();
+        };
 
-      wsClient.onclose = () => {
-          console.log('WebSocket Closed');
-          clearTimeout(heartbeatTimer);
-      };
+        wsClient.onclose = () => {
+            console.log('WebSocket Closed');
+            clearTimeout(heartbeatTimer);
+        };
 
-      wsClient.onerror = (error) => {
-          console.log('WebSocket Error', error.message);
-          clearTimeout(heartbeatTimer);
-      };
+        wsClient.onerror = (error) => {
+            console.log('WebSocket Error', error.message);
+            clearTimeout(heartbeatTimer);
+        };
+      });
     });
   },
   typingWsMessages(context){
