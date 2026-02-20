@@ -27,7 +27,7 @@
     "@aws-sdk/client-s3": "^3.965.0",
     "@aws-sdk/credential-providers": "^3.965.0",
     "amazon-connect-chatjs": "^2.3.0",
-    "aws-amplify": "^5.3.26",
+    "aws-amplify": "^6.16.2",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
     "core-js": "^3.6.5",
