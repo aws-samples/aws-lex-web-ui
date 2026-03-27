@@ -75,4 +75,3 @@ export const requestTalkDeskLiveChatEnd = (context, liveChatSession, requester) 
   liveChatSession.close(4000, `conversationId:${context.state.lex.sessionAttributes.talkdesk_conversation_id}`);
   context.commit('setLiveChatStatus', liveChatStatus.ENDED);  
 };
-

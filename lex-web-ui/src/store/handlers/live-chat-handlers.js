@@ -18,7 +18,7 @@
 /* eslint no-console: ["error", { allow: ["info", "warn", "error", "time", "timeEnd"] }] */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
-import {liveChatStatus} from "./state";
+import { liveChatStatus } from '@/store/state';
 
 export const createLiveChatSession = result =>
   (window.connect.ChatSession.create({
@@ -53,10 +53,6 @@ export const initLiveChatHandlers = (context, session) => {
     if (data && data.chatDetails) {
       recordSessionAttributes(context, data.chatDetails);
     }
-    // context.dispatch('pushLiveChatMessage', {
-    //   type: 'agent',
-    //   text: 'Live Chat Connection Established',
-    // });
   });
 
   session.onMessage((event) => {
@@ -96,9 +92,9 @@ export const initLiveChatHandlers = (context, session) => {
               var textFile = context.getters.liveChatTranscriptFile();
               session.controller.sendAttachment({
                 attachment: textFile
-              }).then(response => {
+              }).then(() => {
                 console.info("Transcript sent.");
-              }, reason => {
+              }, () => {
                 console.info("Error sending transcript.");
               });
             }
@@ -172,14 +168,6 @@ export const initLiveChatHandlers = (context, session) => {
     console.info('Connection broken', data);
     context.dispatch('liveChatSessionReconnectRequest');
   });
-
-  /*
-  NOT WORKING
-  session.onEnded((data) => {
-    console.info('Connection ended', data);
-    context.dispatch('liveChatSessionEnded');
-  });
-  */
 };
 
 export const sendChatMessage = async (liveChatSession, message) => {
