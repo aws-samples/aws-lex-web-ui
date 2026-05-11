@@ -205,11 +205,13 @@ Resources:
           - StatusCode: "200"
             ResponseParameters:
               method.response.header.Access-Control-Allow-Origin: true
+              method.response.header.Access-Control-Allow-Headers: true
             ResponseModels:
               application/json: Empty
           - StatusCode: "500"
             ResponseParameters:
               method.response.header.Access-Control-Allow-Origin: true
+              method.response.header.Access-Control-Allow-Headers: true
             ResponseModels:
               application/json: Empty
 
