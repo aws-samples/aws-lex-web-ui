@@ -451,7 +451,7 @@ Resources:
       FunctionName: !Join ["-", [!Ref ParentStackName, "Fulfillment-Lambda"]]
       Handler: index.lambda_handler
       Role: !GetAtt 'LambdaFunctionRole.Arn'
-      Runtime: python3.12
+      Runtime: python3.13
       Timeout: 60
       MemorySize: 128
       Code:

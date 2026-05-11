@@ -163,7 +163,7 @@ export class Loader {
     }
 
     const awsConfig = {
-      region: mergedConfig.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1',
+      region: mergedConfig.lex.region || mergedConfig.region || mergedConfig.cognito.poolId.split(':')[0] || 'us-east-1',
       credentials,
     };
 

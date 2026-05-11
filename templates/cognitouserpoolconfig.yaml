@@ -70,7 +70,7 @@ Resources:
                 - !Ref "AWS::NoValue"
             Handler: index.handler
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
-            Runtime: python3.10
+            Runtime: python3.13
             Timeout: 300
             TracingConfig:
                 Mode: Active
@@ -265,7 +265,7 @@ Resources:
                 - !Ref "AWS::NoValue"
             Handler: index.handler
             Role: !GetAtt CognitoUserPoolDomainExecutionRole.Arn
-            Runtime: python3.10
+            Runtime: python3.13
             Timeout: 300
             Environment:
                 Variables:
@@ -420,7 +420,7 @@ Resources:
                 - !Ref "AWS::NoValue"
             Handler: index.handler
             Role: !GetAtt CleanStackNameExecutionRole.Arn
-            Runtime: python3.10
+            Runtime: python3.13
             Timeout: 300
             TracingConfig:
                 Mode: Active
