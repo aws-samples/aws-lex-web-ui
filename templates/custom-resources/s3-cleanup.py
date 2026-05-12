@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.13
 
 ##########################################################################
 # Copyright 2017-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -40,7 +40,7 @@ def get_buckets_from_properties(resource_properties):
         raise ValueError('empty Buckets property')
     for bucket in buckets:
         bucket_type = type(bucket)
-        if not (bucket_type == str or bucket_type == unicode):
+        if not isinstance(bucket, str):
             raise ValueError(
                 'invalid bucket name type in Buckets property: {}'.format(
                     bucket_type

@@ -1,6 +1,6 @@
 {
   "name": "aws-lex-web-ui",
-  "version": "0.24.0",
+  "version": "0.24.1",
   "type": "module",
   "description": "Sample Amazon Lex Web Interface",
   "main": "lex-web-ui/dist/bundle/lex-web-ui.js",

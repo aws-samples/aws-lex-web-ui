@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.24.1] - 2026-05-12
+- Updated Python scripts to 3.13 and removed some unneeded dependencies to simplify deployment
+- Fixed cross-region deployments where Cognito & Lex region were not being isolated properly
+- Fixed issue with live chat Lambda caused by new headers used in the sigv4 implementation
+
 ## [0.24.0] - 2026-02-20
 - POTENTIAL BREAKING CHANGE: Solutions has been migrated to Vite and will no longer use Webpack. If your solution uses custom Webpack builds it, use caution before pulling in this change.
 - Modified postTextMessage action to set previous question and answer as Lex session attributes

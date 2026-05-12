@@ -1,3 +1,0 @@
-# Example requirements.txt
-requests==2.32.4
-boto3==1.16.18

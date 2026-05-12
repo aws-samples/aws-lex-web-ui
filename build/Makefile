@@ -44,19 +44,11 @@ upload-templates: $(TEMPLATES) | $(OUT)
 CUSTOM_RESOURCES_DIR := $(TEMPLATES_DIR)/custom-resources
 
 # zip cfn custom resource lambda files
-PY_MODULES := $(CUSTOM_RESOURCES_DIR)/py_modules
 CUSTOM_RESOURCES_ZIP := custom-resources-$(VERSION).zip
 CUSTOM_RESOURCES_FILES := $(wildcard $(CUSTOM_RESOURCES_DIR)/*.py)
-CUSTOM_RESOURCES_FILES += $(PY_MODULES)
-$(PY_MODULES):
-	cd $(CUSTOM_RESOURCES_DIR) && \
-	[ -f requirements.txt ] && \
-    	python3 -m pip install --upgrade -r requirements.txt -t ./py_modules || true
 $(CUSTOM_RESOURCES_ZIP): $(CUSTOM_RESOURCES_FILES) | $(OUT)
 	@echo "[INFO] Creating custom resource Lambda zip file"
-	zip -u -j "$(OUT)/$(@)" $(?) && \
-	cd $(CUSTOM_RESOURCES_DIR)/py_modules && \
-	zip -r -q "../../../build/$(OUT)/$(@)" .
+	zip -j "$(OUT)/$(@)" $(CUSTOM_RESOURCES_FILES)
 upload-custom-resources-zip: $(CUSTOM_RESOURCES_ZIP) | $(OUT)
 	@echo "[INFO] Uploading custom resources Lambda zip file"
 	aws s3 cp --acl public-read \

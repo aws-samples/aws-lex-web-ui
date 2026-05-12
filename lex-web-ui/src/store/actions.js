@@ -124,6 +124,9 @@ export default {
         context.commit('pushMessage', {
           type: 'bot',
           text: context.state.config.lex.initialText,
+          alts: {
+            markdown: context.state.config.lex.initialText,
+          },
         });
     }
   },
@@ -239,8 +242,8 @@ export default {
         type: 'bot',
         text: context.state.config.lex.initialText,
         alts: {
-          markdown: context.state.config.lex.initialText,
-        },
+          markdown: context.state.config.lex.initialText
+        }
       });
     }
     return Promise.resolve();
@@ -946,11 +949,11 @@ export default {
         .then(() => context.dispatch('getCredentials', context.state.config))
         .then(() => {
           const bodyText = JSON.stringify(initiateChatRequest);
-          const serviceInfo = { 
-            region: context.state.config.region, 
-            service: 'execute-api' 
+          const serviceInfo = {
+            region: context.state.config.region,
+            service: 'execute-api'
           };
-          
+
           Promise.resolve(awsCredentials).then(async (credentials) => {
             const accessInfo = {
               access_key: credentials.accessKeyId,
@@ -1145,7 +1148,7 @@ export default {
           identityId: identityId,
           expiration: expiration,
         });
-        
+
         if (lexClient) {
           lexClient.refreshClient(region, awsCredentials);
         }
@@ -1155,12 +1158,13 @@ export default {
   },
   async getCredentials(context, config) {
     if (refreshCredentials) {
-      const region = config.cognito.region || config.region || 'us-east-1';
-      
+      const cognitoRegion = config.cognito.region || config.region || 'us-east-1';
+      const lexRegion = config.lex.region || config.region || cognitoRegion;
+
       if (context.state.awsCreds.provider === 'parentWindow') {
-        return context.dispatch('getCredentialsFromParent', region);
+        return context.dispatch('getCredentialsFromParent', lexRegion);
       }
-      
+
       const poolId = config.cognito.poolId || localStorage.getItem('poolId');
       const appUserPoolName = config.cognito.appUserPoolName || localStorage.getItem('appUserPoolName');
       const appUserPoolClientId = config.cognito.appUserPoolClientId || localStorage.getItem('appUserPoolClientId');
@@ -1168,8 +1172,8 @@ export default {
 
       if (idToken) {
         logins = {};
-        logins[`cognito-idp.${region}.amazonaws.com/${appUserPoolName}`] = idToken;
-        const client = new CognitoIdentityClient({ region });
+        logins[`cognito-idp.${cognitoRegion}.amazonaws.com/${appUserPoolName}`] = idToken;
+        const client = new CognitoIdentityClient({ region: cognitoRegion });
         const getIdentityId = new GetIdCommand({
           IdentityPoolId: poolId,
           Logins: logins ? logins : {}
@@ -1195,7 +1199,7 @@ export default {
           };
           awsCredentials = credentials;
           if (lexClient) {
-            lexClient.refreshClient(region, credentials);
+            lexClient.refreshClient(lexRegion, credentials);
           }
           return credentials;
         } catch (err) {
@@ -1204,11 +1208,11 @@ export default {
       } else {
         const credentialProvider = fromCognitoIdentityPool({
           identityPoolId: poolId,
-          clientConfig: { region },
+          clientConfig: { region: cognitoRegion },
         })
         awsCredentials = credentialProvider();
         if (lexClient) {
-          lexClient.refreshClient(region, awsCredentials);
+          lexClient.refreshClient(lexRegion, awsCredentials);
         }
         return awsCredentials;
       }
@@ -1393,9 +1397,9 @@ export default {
   InitWebSocketConnect(context){
     context.dispatch('getCredentials', context.state.config).then(() => {
       const sessionId = lexClient.userId;
-      const serviceInfo = { 
-        region: context.state.config.region, 
-        service: 'execute-api' 
+      const serviceInfo = {
+        region: context.state.config.region,
+        service: 'execute-api'
       };
 
       Promise.resolve(awsCredentials).then(async (credentials) => {

@@ -181,7 +181,7 @@ export default {
         if (!this.$store.state || !this.$store.state.config) {
           return Promise.reject(new Error('no config found'))
         }
-        const region = this.$store.state.config.region ? this.$store.state.config.region : this.$store.state.config.cognito.region;
+        const region = this.$store.state.config.lex.region || this.$store.state.config.region || this.$store.state.config.cognito.region;
         if (!region) {
           return Promise.reject(new Error('no region found in config or config.cognito'))
         }
