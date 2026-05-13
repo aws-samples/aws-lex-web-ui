@@ -270,7 +270,7 @@ const libraryConfig = {
       fileName: () => buildConfig.isProd ? `lex-web-ui.min.js` : `lex-web-ui.js`
     },
     outDir: path.join(buildConfig.outputDir, buildConfig.bundleDir),
-    emptyOutDir: true, // Clean the bundle directory for library builds
+    emptyOutDir: !buildConfig.isProd, // Only clean on first (dev) build; prod build preserves dev output
     rollupOptions: {
       // External dependencies that should not be bundled in library mode
       external: [
