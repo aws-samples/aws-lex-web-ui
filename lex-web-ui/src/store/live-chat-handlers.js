@@ -24,6 +24,11 @@ export const createLiveChatSession = result =>
   (window.connect.ChatSession.create({
     chatDetails: result.startChatResult,
     type: 'CUSTOMER',
+    // Disable Connect Client-Side Metrics (CSM). For CUSTOMER sessions ChatJS
+    // otherwise calls loadCsmScriptAndExecute(), which injects and runs an
+    // inline <script>. That violates our CSP (script-src 'self') and blocks
+    // live chat. CSM is optional telemetry, so disabling it is safe.
+    disableCSM: true,
   }));
 
 export const connectLiveChatSession = session =>

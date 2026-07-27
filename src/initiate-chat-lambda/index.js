@@ -70,7 +70,11 @@ async function startChatContact(body) {
     } catch (error) {
         console.log("Error starting the chat.");
         console.log(error, error.stack);
-        return response;
+        // Re-throw so the handler's .catch receives the real error. Previously
+        // this returned `response`, which is scoped to the try block and thus
+        // undefined here, producing a misleading "ReferenceError: response is
+        // not defined" that masked the actual Connect error.
+        throw error;
     }
 }
 
