@@ -274,7 +274,7 @@ const libraryConfig = {
       fileName: () => buildConfig.isProd ? `lex-web-ui.min.js` : `lex-web-ui.js`
     },
     outDir: path.join(buildConfig.outputDir, buildConfig.bundleDir),
-    emptyOutDir: true, // Clean the bundle directory for library builds
+    emptyOutDir: buildConfig.isDev, // Clean the bundle directory for library builds
     rolldownOptions: {
       // External dependencies that should not be bundled in library mode
       external: [
@@ -292,7 +292,7 @@ const libraryConfig = {
         },
         // Ensure CSS files are named consistently
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'style.css') {
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
             return buildConfig.isProd ? `lex-web-ui.min.css` : `lex-web-ui.css`
           }
           return `${assetInfo.name}`
