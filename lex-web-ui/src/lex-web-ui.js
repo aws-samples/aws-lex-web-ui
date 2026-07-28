@@ -24,7 +24,7 @@ import LexWeb from '@/components/LexWeb.vue';
 import VuexStore from '@/store';
 
 import { config as defaultConfig, mergeConfig } from '@/config';
-import { createApp, defineAsyncComponent } from 'vue';
+import { createApp, defineAsyncComponent, h, resolveComponent } from 'vue';
 import { aliases, md } from 'vuetify/iconsets/md';
 import { createStore } from 'vuex';
 
@@ -41,18 +41,18 @@ const defineAsyncComponentInstance = (window.Vue) ? window.Vue.defineAsyncCompon
  */
 const Component = {
   name: 'lex-web-ui',
-  template: '<lex-web></lex-web>',
   components: { LexWeb },
+  render: () => h(LexWeb),
 };
 
 export const testComponent = {
-  template: '<div>I am async!</div>',
+  render: () => h('div', 'I am async!'),
 };
 const loadingComponent = {
-  template: '<p>Loading. Please wait...</p>',
+  render: () => h('p', 'Loading. Please wait...'),
 };
 const errorComponent = {
-  template: '<p>An error ocurred...</p>',
+  render: () => h('p', 'An error ocurred...'),
 };
 
 /**
@@ -145,7 +145,12 @@ export class Loader {
     })
     
     const app = createAppInstance({
-      template: '<div id="lex-web-ui"><lex-web-ui/></div>',
+      // Render function instead of a string template so that the runtime
+      // template compiler (which relies on Function()/eval and requires the
+      // CSP 'unsafe-eval' directive) is not needed. The 'lex-web-ui'
+      // component is registered globally via the Plugin below and resolved
+      // at render time.
+      render: () => h('div', { id: 'lex-web-ui' }, [h(resolveComponent('lex-web-ui'))]),
     })
 
     app.use(vuetify)

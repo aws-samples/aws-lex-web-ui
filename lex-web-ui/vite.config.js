@@ -177,8 +177,12 @@ const baseConfig = {
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      // Use the full build of Vue that includes the template compiler
-      'vue': 'vue/dist/vue.esm-bundler.js',
+      // Use the runtime-only build of Vue (no template compiler). All
+      // templates are precompiled at build time by @vitejs/plugin-vue (SFCs)
+      // or expressed as render functions, so the runtime compiler is not
+      // needed. This avoids Function()/eval at runtime and lets the CSP drop
+      // the 'unsafe-eval' directive.
+      'vue': 'vue/dist/vue.runtime.esm-bundler.js',
       // Explicitly alias zlib to browserify-zlib for browser compatibility
       'zlib': 'browserify-zlib'
     },
@@ -206,8 +210,8 @@ const baseConfig = {
     sourcemap: buildConfig.isDev,
     // Configure worker format - use 'es' for modern browsers, 'iife' for fallback
     format: 'es',
-    // Configure worker rollup options for external dependencies
-    rollupOptions: {
+    // Configure worker bundler options for external dependencies
+    rolldownOptions: {
       // Workers should be self-contained, but we can externalize if needed
       external: [],
       output: {
@@ -270,8 +274,8 @@ const libraryConfig = {
       fileName: () => buildConfig.isProd ? `lex-web-ui.min.js` : `lex-web-ui.js`
     },
     outDir: path.join(buildConfig.outputDir, buildConfig.bundleDir),
-    emptyOutDir: true, // Clean the bundle directory for library builds
-    rollupOptions: {
+    emptyOutDir: buildConfig.isDev, // Clean the bundle directory for library builds
+    rolldownOptions: {
       // External dependencies that should not be bundled in library mode
       external: [
         'vue', 
@@ -288,7 +292,7 @@ const libraryConfig = {
         },
         // Ensure CSS files are named consistently
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'style.css') {
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
             return buildConfig.isProd ? `lex-web-ui.min.css` : `lex-web-ui.css`
           }
           return `${assetInfo.name}`
@@ -309,7 +313,7 @@ const appConfig = {
     outDir: buildConfig.outputDir,
     sourcemap: buildConfig.isDev,
     minify: buildConfig.isProd,
-    rollupOptions: {
+    rolldownOptions: {
       // Configure consistent naming for app builds
       output: {
         entryFileNames: buildConfig.isProd ? 'lex-web-ui.min.js' : 'lex-web-ui.js',
@@ -367,15 +371,18 @@ const appConfig = {
       interval: 100
     }
   },
-  // Enhanced development configuration
-  esbuild: {
-    // Enable source map generation for better debugging
-    sourcemap: buildConfig.isDev,
-    // Keep function names for better debugging experience
-    keepNames: buildConfig.isDev,
-    // Enable JSX support if needed
-    jsxFactory: 'h',
-    jsxFragment: 'Fragment'
+  // Enhanced development configuration.
+  // Migrated from the deprecated `esbuild` option to `oxc` (Vite 8 uses the
+  // Oxc transformer instead of esbuild). Only the JSX pragma settings have an
+  // Oxc equivalent; the previous `sourcemap`/`keepNames` transform options had
+  // no effect here (build sourcemaps are controlled by `build.sourcemap`).
+  oxc: {
+    // Enable classic-runtime JSX support if needed
+    jsx: {
+      runtime: 'classic',
+      pragma: 'h',
+      pragmaFrag: 'Fragment'
+    }
   },
   // CSS configuration for development
   css: {
@@ -441,15 +448,24 @@ const appConfig = {
     ],
     // Force optimization of specific dependencies
     force: buildConfig.isDev,
-    // Configure ESBuild options for better compatibility
-    esbuildOptions: {
-      // Handle mixed CommonJS/ES modules
-      mainFields: ['module', 'main'],
-      // Resolve extensions in order
-      resolveExtensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
-      // Define global variables for Node.js compatibility
-      define: {
-        global: 'globalThis'
+    // Configure Rolldown options for better compatibility.
+    // Migrated from the deprecated `esbuildOptions` (Vite 8 pre-bundles deps
+    // with Rolldown instead of esbuild). Field mapping per Vite migration guide:
+    //   mainFields       -> resolve.mainFields
+    //   resolveExtensions -> resolve.extensions
+    //   define           -> transform.define
+    rolldownOptions: {
+      resolve: {
+        // Handle mixed CommonJS/ES modules
+        mainFields: ['module', 'main'],
+        // Resolve extensions in order
+        extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json']
+      },
+      transform: {
+        // Define global variables for Node.js compatibility
+        define: {
+          global: 'globalThis'
+        }
       }
     }
   }

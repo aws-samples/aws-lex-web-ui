@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.24.2] - 2026-07-28
+- Move to Vue runtime, which also required moving to render function instead of a string templates
+- Disable CSM from Connect live chat, which should have no impact on chat itself. This combined with Vue runtime allow us to remove unsafe-eval entirely from the CSP
+- Upgrade jQuery to latest version (this is not actually used in the solution but the sample parent pages use it)
+
 ## [0.24.1] - 2026-05-12
 - Updated Python scripts to 3.13 and removed some unneeded dependencies to simplify deployment
 - Fixed cross-region deployments where Cognito & Lex region were not being isolated properly

@@ -2,13 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <!-- Frame and Image source CSP is controlled by Cloudfront headers to allow customization via Cloudformation -->
     <meta http-equiv="Content-Security-Policy" 
       content="default-src 'self' blob: data:; 
         worker-src 'self' blob: data:;
         img-src * data:;
         frame-src *;
-        script-src 'self' 'unsafe-eval';
+        script-src 'self';
         style-src 'self' 'unsafe-inline';
         connect-src 'self' wss://*.amazonaws.com  *.amazonaws.com *.amazoncognito.com;
         font-src 'self' fonts.gstatic.com; 
