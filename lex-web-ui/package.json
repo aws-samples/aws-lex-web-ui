@@ -38,7 +38,7 @@
     "material-design-icons": "^3.0.1",
     "roboto-fontface": "^0.10.0",
     "stream-browserify": "^3.0.0",
-    "vue": "^3.5.13",
+    "vue": "^3.5.44",
     "vue-router": "^4.2.5",
     "vuetify": "^3.8.3",
     "vuex": "^4.1.0"
