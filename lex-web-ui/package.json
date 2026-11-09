@@ -61,6 +61,10 @@
     "npm": ">=10.0.0"
   },
   "overrides": {
-    "postcss": "8.4.32"
+    "postcss": "8.5.32",
+    "glob@>=9.0.0 <=14.0.1": "14.0.4",
+    "jest-config": { "glob": "14.0.4" },
+    "jest-runtime": { "glob": "14.0.4" },
+    "minimatch@>=7.0.0 <11.0.1": "11.0.5"
   }
 }
