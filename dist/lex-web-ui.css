@@ -1,11 +1,11 @@
 /*!
- * lex-web-ui v0.24.2
+ * lex-web-ui v0.24.3
  * Amazon Lex Web Interface
  * 
  * Copyright (c) 2026 AWS
  * Licensed under Amazon Software License
  * 
- * Built on: 2026-07-28
+ * Built on: 2026-11-10
  */
 @charset "UTF-8";
 .min-button-content {
@@ -811,7 +811,9 @@
   top: 0;
   width: 100%;
   transition-property: width, left, right;
-  transition: inherit;
+  transition-duration: inherit;
+  transition-timing-function: inherit;
+  transition-delay: inherit;
 }
 
 @media (forced-colors: active) {
@@ -850,8 +852,10 @@
   height: inherit;
   left: 0;
   position: absolute;
-  transition: inherit;
   transition-property: width, left, right;
+  transition-duration: inherit;
+  transition-timing-function: inherit;
+  transition-delay: inherit;
 }
 
 .v-progress-linear__indeterminate .long, .v-progress-linear__indeterminate .short {
@@ -881,8 +885,10 @@
   opacity: 0.3;
   pointer-events: none;
   position: absolute;
-  transition: inherit;
   transition-property: width, left, right;
+  transition-duration: inherit;
+  transition-timing-function: inherit;
+  transition-delay: inherit;
 }
 
 .v-progress-linear--reverse .v-progress-linear__background,
@@ -2120,8 +2126,10 @@
   display: flex;
   align-items: center;
   flex: none;
-  transition: inherit;
   transition-property: height, width;
+  transition-duration: inherit;
+  transition-timing-function: inherit;
+  transition-delay: inherit;
 }
 .v-list-item-action--start {
   margin-inline-end: 8px;
@@ -23870,7 +23878,7 @@ html.overflow-y-hidden {
 }
 
 .v-banner--density-compact .v-banner-actions {
-  margin-bottom: 0px;
+  margin-bottom: -0px;
 }
 .v-banner--density-compact.v-banner--one-line {
   padding-top: 0px;
@@ -24697,8 +24705,10 @@ html.overflow-y-hidden {
   align-items: center;
   justify-content: center;
   display: inline-flex;
-  transition: inherit;
   transition-property: transform;
+  transition-duration: inherit;
+  transition-timing-function: inherit;
+  transition-delay: inherit;
   transform: rotate(var(--v-icon-btn-rotate, 0deg));
 }
 .v-icon-btn--loading .v-icon-btn__content {
@@ -27386,7 +27396,9 @@ html.overflow-y-hidden {
   transition-property: transform;
 }
 .v-rating__item .v-btn .v-icon {
-  transition: inherit;
+  transition-property: inherit;
+  transition-duration: inherit;
+  transition-delay: inherit;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 .v-rating--hover .v-rating__item:hover:not(.v-rating__item--focused) .v-btn {

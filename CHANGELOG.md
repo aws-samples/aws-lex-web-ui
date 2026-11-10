@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.24.3] - 2026-11-10
+- Vulnerability patches
+
 ## [0.24.2] - 2026-07-28
 - Move to Vue runtime, which also required moving to render function instead of a string templates
 - Disable CSM from Connect live chat, which should have no impact on chat itself. This combined with Vue runtime allow us to remove unsafe-eval entirely from the CSP

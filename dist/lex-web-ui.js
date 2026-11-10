@@ -1,11 +1,11 @@
 /*!
- * lex-web-ui v0.24.2
+ * lex-web-ui v0.24.3
  * Amazon Lex Web Interface
  * 
  * Copyright (c) 2026 AWS
  * Licensed under Amazon Software License
  * 
- * Built on: 2026-07-28
+ * Built on: 2026-11-10
  */
 (function(global, factory) {
 	typeof exports === "object" && typeof module !== "undefined" ? factory(exports, require("vue"), require("vuex"), require("vuetify")) : typeof define === "function" && define.amd ? define([
@@ -16,7 +16,7 @@
 	], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.LexWebUi = {}, global.Vue, global.Vuex, global.Vuetify));
 })(this, function(exports, vue, vuex, vuetify) {
 	Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-	//#region \0rolldown/runtime.js
+	// \0rolldown/runtime.js
 	var __defProp = Object.defineProperty;
 	var __esmMin = (fn, res, err) => () => {
 		if (err) throw err[0];
@@ -26,7 +26,7 @@
 			throw err = [e], e;
 		}
 	};
-	var __commonJSMin = (cb, mod) => () => (mod || (cb((mod = { exports: {} }).exports, mod), cb = null), mod.exports);
+	var __commonJSMin = (cb, mod) => () => (mod || (cb((mod = { exports: {} }).exports, mod, mod.exports), cb = null), mod.exports);
 	var __exportAll = (all, no_symbols) => {
 		let target = {};
 		for (var name in all) __defProp(target, name, {
@@ -36,8 +36,7 @@
 		if (!no_symbols) __defProp(target, Symbol.toStringTag, { value: "Module" });
 		return target;
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-eventstream/dist-es/eventStreamConfiguration.js
+	// node_modules/@aws-sdk/middleware-eventstream/dist-es/eventStreamConfiguration.js
 	function resolveEventStreamConfig(input) {
 		const eventSigner = input.signer;
 		const messageSigner = input.signer;
@@ -48,8 +47,7 @@
 		const eventStreamPayloadHandler = newInput.eventStreamPayloadHandlerProvider(newInput);
 		return Object.assign(newInput, { eventStreamPayloadHandler });
 	}
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-base64/constants-for-browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-base64/constants-for-browser.js
 	var chars, alphabetByEncoding, alphabetByValue;
 	var init_constants_for_browser = __esmMin((() => {
 		chars = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/`;
@@ -59,8 +57,7 @@
 		}, {});
 		alphabetByValue = chars.split("");
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-base64/fromBase64.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-base64/fromBase64.browser.js
 	var fromBase64;
 	var init_fromBase64_browser = __esmMin((() => {
 		init_constants_for_browser();
@@ -89,14 +86,12 @@
 			return new Uint8Array(out);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/fromUtf8.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/fromUtf8.browser.js
 	var fromUtf8$2;
 	var init_fromUtf8_browser = __esmMin((() => {
 		fromUtf8$2 = (input) => new TextEncoder().encode(input);
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-base64/toBase64.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-base64/toBase64.browser.js
 	function toBase64(_input) {
 		let input;
 		if (typeof _input === "string") input = fromUtf8$2(_input);
@@ -126,8 +121,7 @@
 		init_fromUtf8_browser();
 		init_constants_for_browser();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-stream/blob/Uint8ArrayBlobAdapter.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/blob/Uint8ArrayBlobAdapter.js
 	function bindUint8ArrayBlobAdapter(toUtf8, fromUtf8, toBase64, fromBase64) {
 		return class Uint8ArrayBlobAdapter extends Uint8Array {
 			static fromString(source, encoding = "utf-8") {
@@ -148,8 +142,7 @@
 		};
 	}
 	var init_Uint8ArrayBlobAdapter = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUtf8.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUtf8.browser.js
 	var toUtf8;
 	var init_toUtf8_browser = __esmMin((() => {
 		toUtf8 = (input) => {
@@ -158,8 +151,7 @@
 			return new TextDecoder("utf-8").decode(input);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/uuid/v4.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/uuid/v4.js
 	function bindV4(getRandomValues) {
 		if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") return () => crypto.randomUUID();
 		return () => {
@@ -174,8 +166,221 @@
 	var init_v4 = __esmMin((() => {
 		decimalToHex = Array.from({ length: 256 }, (_, i) => i.toString(16).padStart(2, "0"));
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/parse-utils.js
+	// node_modules/@smithy/types/dist-es/endpoint.js
+	var EndpointURLScheme;
+	var init_endpoint = __esmMin((() => {
+		(function(EndpointURLScheme) {
+			EndpointURLScheme["HTTP"] = "http";
+			EndpointURLScheme["HTTPS"] = "https";
+		})(EndpointURLScheme || (EndpointURLScheme = {}));
+	}));
+	// node_modules/@smithy/types/dist-es/extensions/checksum.js
+	var AlgorithmId;
+	var init_checksum$1 = __esmMin((() => {
+		(function(AlgorithmId) {
+			AlgorithmId["MD5"] = "md5";
+			AlgorithmId["CRC32"] = "crc32";
+			AlgorithmId["CRC32C"] = "crc32c";
+			AlgorithmId["SHA1"] = "sha1";
+			AlgorithmId["SHA256"] = "sha256";
+		})(AlgorithmId || (AlgorithmId = {}));
+	}));
+	// node_modules/@smithy/types/dist-es/extensions/index.js
+	var init_extensions$1 = __esmMin((() => {
+		init_checksum$1();
+	}));
+	// node_modules/@smithy/types/dist-es/middleware.js
+	var SMITHY_CONTEXT_KEY;
+	var init_middleware = __esmMin((() => {
+		SMITHY_CONTEXT_KEY = "__smithy_context";
+	}));
+	// node_modules/@smithy/types/dist-es/index.js
+	var init_dist_es$5 = __esmMin((() => {
+		init_endpoint();
+		init_extensions$1();
+		init_middleware();
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/transport/getSmithyContext.js
+	var getSmithyContext;
+	var init_getSmithyContext = __esmMin((() => {
+		init_dist_es$5();
+		getSmithyContext = (context) => context["__smithy_context"] || (context["__smithy_context"] = {});
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/transport/hasOwn.js
+	function hasOwn(o, k) {
+		return Object.prototype.hasOwnProperty.call(o, k);
+	}
+	var init_hasOwn = __esmMin((() => {}));
+	// node_modules/@smithy/core/dist-es/submodules/transport/httpRequest.js
+	function cloneQuery(query) {
+		return Object.keys(query).reduce((carry, paramName) => {
+			const param = query[paramName];
+			return {
+				...carry,
+				[paramName]: Array.isArray(param) ? [...param] : param
+			};
+		}, {});
+	}
+	var HttpRequest;
+	var init_httpRequest = __esmMin((() => {
+		HttpRequest = class HttpRequest {
+			method;
+			protocol;
+			hostname;
+			port;
+			path;
+			query;
+			headers;
+			username;
+			password;
+			fragment;
+			body;
+			constructor(options) {
+				this.method = options.method || "GET";
+				this.hostname = options.hostname || "localhost";
+				this.port = options.port;
+				this.query = options.query || {};
+				this.headers = options.headers || {};
+				this.body = options.body;
+				this.protocol = options.protocol ? options.protocol.slice(-1) !== ":" ? `${options.protocol}:` : options.protocol : "https:";
+				this.path = options.path ? options.path.charAt(0) !== "/" ? `/${options.path}` : options.path : "/";
+				this.username = options.username;
+				this.password = options.password;
+				this.fragment = options.fragment;
+			}
+			static clone(request) {
+				const cloned = new HttpRequest({
+					...request,
+					headers: { ...request.headers }
+				});
+				if (cloned.query) cloned.query = cloneQuery(cloned.query);
+				return cloned;
+			}
+			static isInstance(request) {
+				if (!request) return false;
+				const req = request;
+				return "method" in req && "protocol" in req && "hostname" in req && "path" in req && typeof req["query"] === "object" && typeof req["headers"] === "object";
+			}
+			clone() {
+				return HttpRequest.clone(this);
+			}
+		};
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/transport/httpResponse.js
+	var HttpResponse;
+	var init_httpResponse = __esmMin((() => {
+		HttpResponse = class {
+			statusCode;
+			reason;
+			headers;
+			body;
+			constructor(options) {
+				this.statusCode = options.statusCode;
+				this.reason = options.reason;
+				this.headers = options.headers || {};
+				this.body = options.body;
+			}
+			static isInstance(response) {
+				if (!response) return false;
+				const resp = response;
+				return typeof resp.statusCode === "number" && typeof resp.headers === "object";
+			}
+		};
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/transport/isValidHostLabel.js
+	var VALID_HOST_LABEL_REGEX, isValidHostLabel;
+	var init_isValidHostLabel = __esmMin((() => {
+		VALID_HOST_LABEL_REGEX = new RegExp(`^(?!.*-$)(?!-)[a-zA-Z0-9-]{1,63}$`);
+		isValidHostLabel = (value, allowSubDomains = false) => {
+			if (!allowSubDomains) return VALID_HOST_LABEL_REGEX.test(value);
+			const labels = value.split(".");
+			for (const label of labels) if (!isValidHostLabel(label)) return false;
+			return true;
+		};
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/transport/isValidHostname.js
+	function isValidHostname(hostname) {
+		return /^[a-z0-9][a-z0-9.-]*[a-z0-9]$/.test(hostname);
+	}
+	var init_isValidHostname = __esmMin((() => {}));
+	// node_modules/@smithy/core/dist-es/submodules/transport/normalizeProvider.js
+	var normalizeProvider$1;
+	var init_normalizeProvider$1 = __esmMin((() => {
+		normalizeProvider$1 = (input) => {
+			if (typeof input === "function") return input;
+			const promisified = Promise.resolve(input);
+			return () => promisified;
+		};
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/transport/parseQueryString.js
+	function parseQueryString(querystring) {
+		const query = {};
+		querystring = querystring.replace(/^\?/, "");
+		if (querystring) for (const pair of querystring.split("&")) {
+			let [key, value = null] = pair.split("=");
+			key = decodeURIComponent(key);
+			if (value) value = decodeURIComponent(value);
+			if (!(key in query)) query[key] = value;
+			else if (Array.isArray(query[key])) query[key].push(value);
+			else query[key] = [query[key], value];
+		}
+		return query;
+	}
+	var init_parseQueryString = __esmMin((() => {}));
+	// node_modules/@smithy/core/dist-es/submodules/transport/parseUrl.js
+	var parseUrl;
+	var init_parseUrl = __esmMin((() => {
+		init_parseQueryString();
+		parseUrl = (url) => {
+			if (typeof url === "string") return parseUrl(new URL(url));
+			const { hostname, pathname, port, protocol, search } = url;
+			let query;
+			if (search) query = parseQueryString(search);
+			return {
+				hostname,
+				port: port ? parseInt(port) : void 0,
+				protocol,
+				path: pathname,
+				query
+			};
+		};
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/transport/toEndpointV1.js
+	var toEndpointV1;
+	var init_toEndpointV1$1 = __esmMin((() => {
+		init_hasOwn();
+		init_parseUrl();
+		toEndpointV1 = (endpoint) => {
+			if (typeof endpoint === "object") {
+				if ("url" in endpoint) {
+					const v1Endpoint = parseUrl(endpoint.url);
+					if (endpoint.headers) {
+						v1Endpoint.headers = {};
+						for (const name in endpoint.headers) {
+							if (!hasOwn(endpoint.headers, name)) continue;
+							v1Endpoint.headers[name.toLowerCase()] = endpoint.headers[name].join(", ");
+						}
+					}
+					return v1Endpoint;
+				}
+				return endpoint;
+			}
+			return parseUrl(endpoint);
+		};
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/transport/index.js
+	var init_transport = __esmMin((() => {
+		init_getSmithyContext();
+		init_hasOwn();
+		init_httpRequest();
+		init_httpResponse();
+		init_isValidHostLabel();
+		init_isValidHostname();
+		init_normalizeProvider$1();
+		init_parseUrl();
+		init_toEndpointV1$1();
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/serde/parse-utils.js
 	var expectNumber, MAX_FLOAT, expectFloat32, expectLong, expectShort, expectByte, expectSizedInt, castInt, strictParseDouble, strictParseFloat32, NUMBER_REGEX, parseNumber, strictParseShort, strictParseByte, stackTraceWarning, logger;
 	var init_parse_utils = __esmMin((() => {
 		expectNumber = (value) => {
@@ -244,8 +449,7 @@
 		};
 		logger = { warn: console.warn };
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/date-utils.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/date-utils.js
 	function dateToUtcString(date) {
 		const year = date.getUTCFullYear();
 		const month = date.getUTCMonth();
@@ -364,7 +568,7 @@
 			if (valueInThisCentury < thisYear) return valueInThisCentury + 100;
 			return valueInThisCentury;
 		};
-		FIFTY_YEARS_IN_MILLIS = 50 * 365 * 24 * 60 * 60 * 1e3;
+		FIFTY_YEARS_IN_MILLIS = 15768e8;
 		adjustRfc850Year = (input) => {
 			if (input.getTime() - (/* @__PURE__ */ new Date()).getTime() > FIFTY_YEARS_IN_MILLIS) return new Date(Date.UTC(input.getUTCFullYear() - 100, input.getUTCMonth(), input.getUTCDate(), input.getUTCHours(), input.getUTCMinutes(), input.getUTCSeconds(), input.getUTCMilliseconds()));
 			return input;
@@ -422,8 +626,7 @@
 			return value.slice(idx);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/lazy-json.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/lazy-json.js
 	var LazyJsonString;
 	var init_lazy_json = __esmMin((() => {
 		LazyJsonString = function LazyJsonString(val) {
@@ -446,15 +649,13 @@
 		};
 		LazyJsonString.fromObject = LazyJsonString.from;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/quote-header.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/quote-header.js
 	function quoteHeader(part) {
 		if (part.includes(",") || part.includes("\"")) part = `"${part.replace(/"/g, "\\\"")}"`;
 		return part;
 	}
 	var init_quote_header = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/schema-serde-lib/schema-date-utils.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/schema-serde-lib/schema-date-utils.js
 	function range(v, min, max) {
 		const _v = Number(v);
 		if (_v < min || _v > max) throw new Error(`Value ${_v} out of range [${min}, ${max}]`);
@@ -549,8 +750,7 @@
 			throw new TypeError(`Invalid RFC7231 date-time value ${value}.`);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/split-every.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/split-every.js
 	function splitEvery(value, delimiter, numDelimiters) {
 		if (numDelimiters <= 0 || !Number.isInteger(numDelimiters)) throw new Error("Invalid number of delimiters (" + numDelimiters + ") for splitEvery.");
 		const segments = value.split(delimiter);
@@ -569,8 +769,7 @@
 		return compoundSegments;
 	}
 	var init_split_every = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/split-header.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/split-header.js
 	var splitHeader;
 	var init_split_header = __esmMin((() => {
 		splitHeader = (value) => {
@@ -585,13 +784,10 @@
 					case `"`:
 						if (prevChar !== "\\") withinQuotes = !withinQuotes;
 						break;
-					case ",":
-						if (!withinQuotes) {
-							values.push(value.slice(anchor, i));
-							anchor = i + 1;
-						}
-						break;
-					default:
+					case ",": if (!withinQuotes) {
+						values.push(value.slice(anchor, i));
+						anchor = i + 1;
+					}
 				}
 				prevChar = char;
 			}
@@ -605,8 +801,7 @@
 			});
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/value/NumericValue.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/value/NumericValue.js
 	var format, NumericValue;
 	var init_NumericValue = __esmMin((() => {
 		format = /^-?((0|[1-9]\d*)(\.\d+)?|\.\d+)([eE][+-]?\d+)?$/;
@@ -628,8 +823,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-hex-encoding/hex-encoding.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-hex-encoding/hex-encoding.js
 	function fromHex(encoded) {
 		if (encoded.length % 2 !== 0) throw new Error("Hex encoded strings must have an even number length");
 		const out = new Uint8Array(encoded.length / 2);
@@ -656,8 +850,7 @@
 			HEX_TO_SHORT[encodedByte] = i;
 		}
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-body-length/calculateBodyLength.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-body-length/calculateBodyLength.browser.js
 	var TEXT_ENCODER, calculateBodyLength;
 	var init_calculateBodyLength_browser = __esmMin((() => {
 		TEXT_ENCODER = typeof TextEncoder == "function" ? new TextEncoder() : null;
@@ -677,8 +870,7 @@
 			throw new Error(`Body Length computation failed for ${body}`);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUint8Array.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-utf8/toUint8Array.browser.js
 	var toUint8Array;
 	var init_toUint8Array_browser = __esmMin((() => {
 		init_fromUtf8_browser();
@@ -689,8 +881,7 @@
 			return new Uint8Array(data);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/concatBytes.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/concatBytes.js
 	function concatBytes(arrays, length) {
 		if (length === void 0) {
 			length = 0;
@@ -705,239 +896,17 @@
 		return result;
 	}
 	var init_concatBytes = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/is-array-buffer/is-array-buffer.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/is-array-buffer/is-array-buffer.js
 	var isArrayBuffer;
 	var init_is_array_buffer = __esmMin((() => {
 		isArrayBuffer = (arg) => typeof ArrayBuffer === "function" && arg instanceof ArrayBuffer || Object.prototype.toString.call(arg) === "[object ArrayBuffer]";
 	}));
-	//#endregion
-	//#region node_modules/@smithy/types/dist-es/endpoint.js
-	var EndpointURLScheme;
-	var init_endpoint = __esmMin((() => {
-		(function(EndpointURLScheme) {
-			EndpointURLScheme["HTTP"] = "http";
-			EndpointURLScheme["HTTPS"] = "https";
-		})(EndpointURLScheme || (EndpointURLScheme = {}));
-	}));
-	//#endregion
-	//#region node_modules/@smithy/types/dist-es/extensions/checksum.js
-	var AlgorithmId;
-	var init_checksum$1 = __esmMin((() => {
-		(function(AlgorithmId) {
-			AlgorithmId["MD5"] = "md5";
-			AlgorithmId["CRC32"] = "crc32";
-			AlgorithmId["CRC32C"] = "crc32c";
-			AlgorithmId["SHA1"] = "sha1";
-			AlgorithmId["SHA256"] = "sha256";
-		})(AlgorithmId || (AlgorithmId = {}));
-	}));
-	//#endregion
-	//#region node_modules/@smithy/types/dist-es/extensions/index.js
-	var init_extensions$1 = __esmMin((() => {
-		init_checksum$1();
-	}));
-	//#endregion
-	//#region node_modules/@smithy/types/dist-es/middleware.js
-	var SMITHY_CONTEXT_KEY;
-	var init_middleware = __esmMin((() => {
-		SMITHY_CONTEXT_KEY = "__smithy_context";
-	}));
-	//#endregion
-	//#region node_modules/@smithy/types/dist-es/index.js
-	var init_dist_es$5 = __esmMin((() => {
-		init_endpoint();
-		init_extensions$1();
-		init_middleware();
-	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/transport/getSmithyContext.js
-	var getSmithyContext;
-	var init_getSmithyContext = __esmMin((() => {
-		init_dist_es$5();
-		getSmithyContext = (context) => context["__smithy_context"] || (context["__smithy_context"] = {});
-	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/transport/httpRequest.js
-	function cloneQuery(query) {
-		return Object.keys(query).reduce((carry, paramName) => {
-			const param = query[paramName];
-			return {
-				...carry,
-				[paramName]: Array.isArray(param) ? [...param] : param
-			};
-		}, {});
-	}
-	var HttpRequest;
-	var init_httpRequest = __esmMin((() => {
-		HttpRequest = class HttpRequest {
-			method;
-			protocol;
-			hostname;
-			port;
-			path;
-			query;
-			headers;
-			username;
-			password;
-			fragment;
-			body;
-			constructor(options) {
-				this.method = options.method || "GET";
-				this.hostname = options.hostname || "localhost";
-				this.port = options.port;
-				this.query = options.query || {};
-				this.headers = options.headers || {};
-				this.body = options.body;
-				this.protocol = options.protocol ? options.protocol.slice(-1) !== ":" ? `${options.protocol}:` : options.protocol : "https:";
-				this.path = options.path ? options.path.charAt(0) !== "/" ? `/${options.path}` : options.path : "/";
-				this.username = options.username;
-				this.password = options.password;
-				this.fragment = options.fragment;
-			}
-			static clone(request) {
-				const cloned = new HttpRequest({
-					...request,
-					headers: { ...request.headers }
-				});
-				if (cloned.query) cloned.query = cloneQuery(cloned.query);
-				return cloned;
-			}
-			static isInstance(request) {
-				if (!request) return false;
-				const req = request;
-				return "method" in req && "protocol" in req && "hostname" in req && "path" in req && typeof req["query"] === "object" && typeof req["headers"] === "object";
-			}
-			clone() {
-				return HttpRequest.clone(this);
-			}
-		};
-	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/transport/httpResponse.js
-	var HttpResponse;
-	var init_httpResponse = __esmMin((() => {
-		HttpResponse = class {
-			statusCode;
-			reason;
-			headers;
-			body;
-			constructor(options) {
-				this.statusCode = options.statusCode;
-				this.reason = options.reason;
-				this.headers = options.headers || {};
-				this.body = options.body;
-			}
-			static isInstance(response) {
-				if (!response) return false;
-				const resp = response;
-				return typeof resp.statusCode === "number" && typeof resp.headers === "object";
-			}
-		};
-	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/transport/isValidHostLabel.js
-	var VALID_HOST_LABEL_REGEX, isValidHostLabel;
-	var init_isValidHostLabel = __esmMin((() => {
-		VALID_HOST_LABEL_REGEX = new RegExp(`^(?!.*-$)(?!-)[a-zA-Z0-9-]{1,63}$`);
-		isValidHostLabel = (value, allowSubDomains = false) => {
-			if (!allowSubDomains) return VALID_HOST_LABEL_REGEX.test(value);
-			const labels = value.split(".");
-			for (const label of labels) if (!isValidHostLabel(label)) return false;
-			return true;
-		};
-	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/transport/isValidHostname.js
-	function isValidHostname(hostname) {
-		return /^[a-z0-9][a-z0-9.-]*[a-z0-9]$/.test(hostname);
-	}
-	var init_isValidHostname = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/transport/normalizeProvider.js
-	var normalizeProvider$1;
-	var init_normalizeProvider$1 = __esmMin((() => {
-		normalizeProvider$1 = (input) => {
-			if (typeof input === "function") return input;
-			const promisified = Promise.resolve(input);
-			return () => promisified;
-		};
-	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/transport/parseQueryString.js
-	function parseQueryString(querystring) {
-		const query = {};
-		querystring = querystring.replace(/^\?/, "");
-		if (querystring) for (const pair of querystring.split("&")) {
-			let [key, value = null] = pair.split("=");
-			key = decodeURIComponent(key);
-			if (value) value = decodeURIComponent(value);
-			if (!(key in query)) query[key] = value;
-			else if (Array.isArray(query[key])) query[key].push(value);
-			else query[key] = [query[key], value];
-		}
-		return query;
-	}
-	var init_parseQueryString = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/transport/parseUrl.js
-	var parseUrl;
-	var init_parseUrl = __esmMin((() => {
-		init_parseQueryString();
-		parseUrl = (url) => {
-			if (typeof url === "string") return parseUrl(new URL(url));
-			const { hostname, pathname, port, protocol, search } = url;
-			let query;
-			if (search) query = parseQueryString(search);
-			return {
-				hostname,
-				port: port ? parseInt(port) : void 0,
-				protocol,
-				path: pathname,
-				query
-			};
-		};
-	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/transport/toEndpointV1.js
-	var toEndpointV1;
-	var init_toEndpointV1$1 = __esmMin((() => {
-		init_parseUrl();
-		toEndpointV1 = (endpoint) => {
-			if (typeof endpoint === "object") {
-				if ("url" in endpoint) {
-					const v1Endpoint = parseUrl(endpoint.url);
-					if (endpoint.headers) {
-						v1Endpoint.headers = {};
-						for (const name in endpoint.headers) v1Endpoint.headers[name.toLowerCase()] = endpoint.headers[name].join(", ");
-					}
-					return v1Endpoint;
-				}
-				return endpoint;
-			}
-			return parseUrl(endpoint);
-		};
-	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/transport/index.js
-	var init_transport = __esmMin((() => {
-		init_getSmithyContext();
-		init_httpRequest();
-		init_httpResponse();
-		init_isValidHostLabel();
-		init_isValidHostname();
-		init_normalizeProvider$1();
-		init_parseUrl();
-		init_toEndpointV1$1();
-	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromConfig.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromConfig.browser.js
 	var getEndpointFromConfig;
 	var init_getEndpointFromConfig_browser = __esmMin((() => {
 		getEndpointFromConfig = async (serviceId) => void 0;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/service-customizations/s3.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/service-customizations/s3.js
 	var resolveParamsForS3, DOMAIN_PATTERN, IP_ADDRESS_PATTERN, DOTS_PATTERN, isDnsCompatibleBucketName, isArnBucketName;
 	var init_s3 = __esmMin((() => {
 		resolveParamsForS3 = async (endpointParams) => {
@@ -964,13 +933,11 @@
 			return isValidArn;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/service-customizations/index.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/service-customizations/index.js
 	var init_service_customizations = __esmMin((() => {
 		init_s3();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/createConfigValueProvider.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/createConfigValueProvider.js
 	var createConfigValueProvider;
 	var init_createConfigValueProvider = __esmMin((() => {
 		createConfigValueProvider = (configKey, canonicalEndpointParamKey, config, isClientContextParam = false) => {
@@ -1004,13 +971,11 @@
 			return configProvider;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/toEndpointV1.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/toEndpointV1.js
 	var init_toEndpointV1 = __esmMin((() => {
 		init_transport();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromInstructions.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromInstructions.js
 	function bindGetEndpointFromInstructions(getEndpointFromConfig) {
 		return async (commandInput, instructionsSupplier, clientConfig, context) => {
 			if (!clientConfig.isCustomEndpoint && !clientConfig.ignoreConfiguredEndpointUrls) {
@@ -1065,8 +1030,7 @@
 			return endpointParams;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/endpointMiddleware.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/endpointMiddleware.js
 	function setFeature$1(context, feature, value) {
 		if (!context.__smithy_context) context.__smithy_context = { features: {} };
 		else if (!context.__smithy_context.features) context.__smithy_context.features = {};
@@ -1103,8 +1067,7 @@
 		init_transport();
 		init_getEndpointFromInstructions();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/getEndpointPlugin.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/getEndpointPlugin.js
 	function bindGetEndpointPlugin(getEndpointFromConfig) {
 		const endpointMiddleware = bindEndpointMiddleware(getEndpointFromConfig);
 		return (config, instructions) => ({ applyToStack: (clientStack) => {
@@ -1136,8 +1099,7 @@
 			toMiddleware: serializerMiddlewareOption$1.name
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/resolveEndpointConfig.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/resolveEndpointConfig.js
 	function bindResolveEndpointConfig(getEndpointFromConfig) {
 		return (input) => {
 			const tls = input.tls ?? true;
@@ -1162,8 +1124,7 @@
 		init_transport();
 		init_toEndpointV1();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/bdd/BinaryDecisionDiagram.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/bdd/BinaryDecisionDiagram.js
 	var BinaryDecisionDiagram;
 	var init_BinaryDecisionDiagram = __esmMin((() => {
 		BinaryDecisionDiagram = class BinaryDecisionDiagram {
@@ -1182,8 +1143,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/cache/EndpointCache.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/cache/EndpointCache.js
 	var EndpointCache;
 	var init_EndpointCache = __esmMin((() => {
 		EndpointCache = class {
@@ -1219,7 +1179,8 @@
 				const { parameters } = this;
 				if (parameters.length === 0) return false;
 				for (const param of parameters) {
-					const val = String(endpointParams[param] ?? "");
+					const raw = endpointParams[param];
+					const val = raw == null ? "\0" : String(raw);
 					if (val.includes("|;")) return false;
 					buffer += val + "|;";
 				}
@@ -1227,8 +1188,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointError.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/EndpointError.js
 	var EndpointError;
 	var init_EndpointError = __esmMin((() => {
 		EndpointError = class extends Error {
@@ -1238,19 +1198,16 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/index.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/types/index.js
 	var init_types = __esmMin((() => {
 		init_EndpointError();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/debugId.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/debugId.js
 	var debugId;
 	var init_debugId = __esmMin((() => {
 		debugId = "endpoints";
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/toDebugString.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/toDebugString.js
 	function toDebugString(input) {
 		if (typeof input !== "object" || input == null) return input;
 		if ("ref" in input) return `$${toDebugString(input.ref)}`;
@@ -1258,32 +1215,27 @@
 		return JSON.stringify(input, null, 2);
 	}
 	var init_toDebugString = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/index.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/debug/index.js
 	var init_debug = __esmMin((() => {
 		init_debugId();
 		init_toDebugString();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/customEndpointFunctions.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/customEndpointFunctions.js
 	var customEndpointFunctions;
 	var init_customEndpointFunctions = __esmMin((() => {
 		customEndpointFunctions = {};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/booleanEquals.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/booleanEquals.js
 	var booleanEquals;
 	var init_booleanEquals = __esmMin((() => {
 		booleanEquals = (value1, value2) => value1 === value2;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/coalesce.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/coalesce.js
 	function coalesce(...args) {
 		for (const arg of args) if (arg != null) return arg;
 	}
 	var init_coalesce = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/getAttrPathList.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/getAttrPathList.js
 	var getAttrPathList;
 	var init_getAttrPathList = __esmMin((() => {
 		init_types();
@@ -1303,8 +1255,7 @@
 			return pathList;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/getAttr.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/getAttr.js
 	var getAttr;
 	var init_getAttr = __esmMin((() => {
 		init_types();
@@ -1318,33 +1269,28 @@
 			return acc[index];
 		}, value);
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/isSet.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/isSet.js
 	var isSet;
 	var init_isSet = __esmMin((() => {
 		isSet = (value) => value != null;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/ite.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/ite.js
 	function ite(condition, trueValue, falseValue) {
 		return condition ? trueValue : falseValue;
 	}
 	var init_ite = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/not.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/not.js
 	var not;
 	var init_not = __esmMin((() => {
 		not = (value) => !value;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/isIpAddress.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/isIpAddress.js
 	var IP_V4_REGEX, isIpAddress;
 	var init_isIpAddress$1 = __esmMin((() => {
 		IP_V4_REGEX = new RegExp(`^(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}$`);
 		isIpAddress = (value) => IP_V4_REGEX.test(value) || value.startsWith("[") && value.endsWith("]");
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/parseURL.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/parseURL.js
 	var DEFAULT_PORTS, parseURL;
 	var init_parseURL = __esmMin((() => {
 		init_dist_es$5();
@@ -1387,8 +1333,7 @@
 			};
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/split.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/split.js
 	function split(value, delimiter, limit) {
 		if (limit === 1) return [value];
 		if (value === "") return [""];
@@ -1397,14 +1342,12 @@
 		return parts.slice(0, limit - 1).concat(parts.slice(1).join(delimiter));
 	}
 	var init_split = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/stringEquals.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/stringEquals.js
 	var stringEquals;
 	var init_stringEquals = __esmMin((() => {
 		stringEquals = (value1, value2) => value1 === value2;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/substring.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/substring.js
 	var substring;
 	var init_substring = __esmMin((() => {
 		substring = (input, start, stop, reverse) => {
@@ -1413,14 +1356,12 @@
 			return input.substring(input.length - stop, input.length - start);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/uriEncode.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/uriEncode.js
 	var uriEncode;
 	var init_uriEncode = __esmMin((() => {
 		uriEncode = (value) => encodeURIComponent(value).replace(/[!*'()]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/index.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/lib/index.js
 	var init_lib = __esmMin((() => {
 		init_booleanEquals();
 		init_coalesce();
@@ -1435,8 +1376,7 @@
 		init_substring();
 		init_uriEncode();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/endpointFunctions.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/endpointFunctions.js
 	var endpointFunctions;
 	var init_endpointFunctions = __esmMin((() => {
 		init_lib();
@@ -1455,8 +1395,7 @@
 			uriEncode
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateTemplate.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateTemplate.js
 	var evaluateTemplate;
 	var init_evaluateTemplate = __esmMin((() => {
 		init_lib();
@@ -1490,16 +1429,14 @@
 			return evaluatedTemplateArr.join("");
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getReferenceValue.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getReferenceValue.js
 	var getReferenceValue;
 	var init_getReferenceValue = __esmMin((() => {
 		getReferenceValue = ({ ref }, options) => {
 			return options.referenceRecord[ref] ?? options.endpointParams[ref];
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateExpression.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateExpression.js
 	var evaluateExpression, callFunction, group$2;
 	var init_evaluateExpression = __esmMin((() => {
 		init_types();
@@ -1534,13 +1471,11 @@
 			callFunction
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/callFunction.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/callFunction.js
 	var init_callFunction = __esmMin((() => {
 		init_evaluateExpression();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateCondition.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateCondition.js
 	var evaluateCondition;
 	var init_evaluateCondition = __esmMin((() => {
 		init_debug();
@@ -1562,8 +1497,7 @@
 			return { result };
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointHeaders.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointHeaders.js
 	var getEndpointHeaders;
 	var init_getEndpointHeaders = __esmMin((() => {
 		init_types();
@@ -1577,8 +1511,7 @@
 			return acc;
 		}, {});
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointProperties.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointProperties.js
 	var getEndpointProperties, getEndpointProperty, group$1;
 	var init_getEndpointProperties = __esmMin((() => {
 		init_types();
@@ -1603,8 +1536,7 @@
 			getEndpointProperties
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointUrl.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/getEndpointUrl.js
 	var getEndpointUrl;
 	var init_getEndpointUrl = __esmMin((() => {
 		init_types();
@@ -1620,8 +1552,7 @@
 			throw new EndpointError(`Endpoint URL must be a string, got ${typeof expression}`);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/decideEndpoint.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/decideEndpoint.js
 	var RESULT, decideEndpoint;
 	var init_decideEndpoint = __esmMin((() => {
 		init_types();
@@ -1675,8 +1606,7 @@
 			throw new EndpointError(`No matching endpoint.`);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateConditions.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateConditions.js
 	var evaluateConditions;
 	var init_evaluateConditions = __esmMin((() => {
 		init_debug();
@@ -1705,8 +1635,7 @@
 			return { result: true };
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateEndpointRule.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateEndpointRule.js
 	var evaluateEndpointRule;
 	var init_evaluateEndpointRule = __esmMin((() => {
 		init_debug();
@@ -1733,8 +1662,7 @@
 			return endpointToReturn;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateErrorRule.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateErrorRule.js
 	var evaluateErrorRule;
 	var init_evaluateErrorRule = __esmMin((() => {
 		init_types();
@@ -1744,17 +1672,17 @@
 			const { conditions, error } = errorRule;
 			const { result, referenceRecord } = evaluateConditions(conditions, options);
 			if (!result) return;
-			throw new EndpointError(evaluateExpression(error, "Error", referenceRecord ? {
+			const errorRuleOptions = referenceRecord ? {
 				...options,
 				referenceRecord: {
 					...options.referenceRecord,
 					...referenceRecord
 				}
-			} : options));
+			} : options;
+			throw new EndpointError(evaluateExpression(error, "Error", errorRuleOptions));
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateRules.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/evaluateRules.js
 	var evaluateRules, evaluateTreeRule, group;
 	var init_evaluateRules = __esmMin((() => {
 		init_types();
@@ -1790,16 +1718,15 @@
 			evaluateTreeRule
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/index.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/utils/index.js
 	var init_utils$2 = __esmMin((() => {
 		init_customEndpointFunctions();
 		init_evaluateRules();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/resolveEndpoint.js
+	// node_modules/@smithy/core/dist-es/submodules/endpoints/util-endpoints/resolveEndpoint.js
 	var resolveEndpoint;
 	var init_resolveEndpoint = __esmMin((() => {
+		init_transport();
 		init_debug();
 		init_types();
 		init_utils$2();
@@ -1808,6 +1735,7 @@
 			const { parameters, rules } = ruleSetObject;
 			options.logger?.debug?.(`${debugId} Initial EndpointParams: ${toDebugString(endpointParams)}`);
 			for (const paramKey in parameters) {
+				if (!hasOwn(parameters, paramKey)) continue;
 				const parameter = parameters[paramKey];
 				const endpointParam = endpointParams[paramKey];
 				if (endpointParam == null && parameter.default != null) {
@@ -1844,15 +1772,13 @@
 		bindEndpointMiddleware(getEndpointFromConfig);
 		getEndpointPlugin = bindGetEndpointPlugin(getEndpointFromConfig);
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/ChecksumStream.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/ChecksumStream.browser.js
 	var ReadableStreamRef, ChecksumStream;
 	var init_ChecksumStream_browser = __esmMin((() => {
 		ReadableStreamRef = typeof ReadableStream === "function" ? ReadableStream : function() {};
 		ChecksumStream = class extends ReadableStreamRef {};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-type-check.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-type-check.js
 	var isReadableStream$1, isBlob;
 	var init_stream_type_check = __esmMin((() => {
 		isReadableStream$1 = (stream) => typeof ReadableStream === "function" && (stream?.constructor?.name === ReadableStream.name || stream instanceof ReadableStream);
@@ -1860,8 +1786,7 @@
 			return typeof Blob === "function" && (blob?.constructor?.name === Blob.name || blob instanceof Blob);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/createChecksumStream.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/checksum/createChecksumStream.browser.js
 	var createChecksumStream;
 	var init_createChecksumStream_browser = __esmMin((() => {
 		init_toBase64_browser();
@@ -1892,8 +1817,7 @@
 			return readable;
 		};
 	}));
-	//#endregion
-	//#region node_modules/vite-plugin-node-polyfills/shims/buffer/dist/index.js
+	// node_modules/vite-plugin-node-polyfills/shims/buffer/dist/index.js
 	function getLens(b64) {
 		var len = b64.length;
 		if (len % 4 > 0) throw new Error("Invalid string. Length must be a multiple of 4");
@@ -1919,8 +1843,8 @@
 		var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen));
 		var curByte = 0;
 		var len = placeHoldersLen > 0 ? validLen - 4 : validLen;
-		var i;
-		for (i = 0; i < len; i += 4) {
+		var i = 0;
+		for (; i < len; i += 4) {
 			tmp = revLookup[b64.charCodeAt(i)] << 18 | revLookup[b64.charCodeAt(i + 1)] << 12 | revLookup[b64.charCodeAt(i + 2)] << 6 | revLookup[b64.charCodeAt(i + 3)];
 			arr[curByte++] = tmp >> 16 & 255;
 			arr[curByte++] = tmp >> 8 & 255;
@@ -1965,7 +1889,7 @@
 		}
 		return parts.join("");
 	}
-	var buffer, base64Js, lookup, revLookup, Arr, code, i$5, len, ieee754, Buffer$1;
+	var buffer, base64Js, lookup, revLookup, Arr, code, i$5, len, ieee754, Buffer$2;
 	var init_dist$2 = __esmMin((() => {
 		buffer = {};
 		base64Js = {};
@@ -2295,11 +2219,12 @@
 				let pos = 0;
 				for (i = 0; i < list.length; ++i) {
 					let buf = list[i];
-					if (isInstance(buf, GlobalUint8Array)) if (pos + buf.length > buffer.length) {
-						if (!Buffer.isBuffer(buf)) buf = Buffer.from(buf);
-						buf.copy(buffer, pos);
-					} else GlobalUint8Array.prototype.set.call(buffer, buf, pos);
-					else if (!Buffer.isBuffer(buf)) throw new TypeError("\"list\" argument must be an Array of Buffers");
+					if (isInstance(buf, GlobalUint8Array)) {
+						if (pos + buf.length > buffer.length) {
+							if (!Buffer.isBuffer(buf)) buf = Buffer.from(buf);
+							buf.copy(buffer, pos);
+						} else GlobalUint8Array.prototype.set.call(buffer, buf, pos);
+					} else if (!Buffer.isBuffer(buf)) throw new TypeError("\"list\" argument must be an Array of Buffers");
 					else buf.copy(buffer, pos);
 					pos += buf.length;
 				}
@@ -2452,18 +2377,23 @@
 				byteOffset = +byteOffset;
 				if (numberIsNaN(byteOffset)) byteOffset = dir ? 0 : buffer.length - 1;
 				if (byteOffset < 0) byteOffset = buffer.length + byteOffset;
-				if (byteOffset >= buffer.length) if (dir) return -1;
-				else byteOffset = buffer.length - 1;
-				else if (byteOffset < 0) if (dir) byteOffset = 0;
-				else return -1;
+				if (byteOffset >= buffer.length) {
+					if (dir) return -1;
+					else byteOffset = buffer.length - 1;
+				} else if (byteOffset < 0) {
+					if (dir) byteOffset = 0;
+					else return -1;
+				}
 				if (typeof val === "string") val = Buffer.from(val, encoding);
 				if (Buffer.isBuffer(val)) {
 					if (val.length === 0) return -1;
 					return arrayIndexOf(buffer, val, byteOffset, encoding, dir);
 				} else if (typeof val === "number") {
 					val = val & 255;
-					if (typeof GlobalUint8Array.prototype.indexOf === "function") if (dir) return GlobalUint8Array.prototype.indexOf.call(buffer, val, byteOffset);
-					else return GlobalUint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset);
+					if (typeof GlobalUint8Array.prototype.indexOf === "function") {
+						if (dir) return GlobalUint8Array.prototype.indexOf.call(buffer, val, byteOffset);
+						else return GlobalUint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset);
+					}
 					return arrayIndexOf(buffer, [val], byteOffset, encoding, dir);
 				}
 				throw new TypeError("val must be string, number or Buffer");
@@ -2528,8 +2458,8 @@
 				}
 				const strLen = string.length;
 				if (length > strLen / 2) length = strLen / 2;
-				let i;
-				for (i = 0; i < length; ++i) {
+				let i = 0;
+				for (; i < length; ++i) {
 					const parsed = parseInt(string.substr(i * 2, 2), 16);
 					if (numberIsNaN(parsed)) return i;
 					buf[offset + i] = parsed;
@@ -2758,8 +2688,8 @@
 				const first = this[offset];
 				const last = this[offset + 7];
 				if (first === void 0 || last === void 0) boundsError(offset, this.length - 8);
-				const lo = first + this[++offset] * 2 ** 8 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 24;
-				const hi = this[++offset] + this[++offset] * 2 ** 8 + this[++offset] * 2 ** 16 + last * 2 ** 24;
+				const lo = first + this[++offset] * 256 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 24;
+				const hi = this[++offset] + this[++offset] * 256 + this[++offset] * 2 ** 16 + last * 2 ** 24;
 				return BigInt(lo) + (BigInt(hi) << BigInt(32));
 			});
 			Buffer.prototype.readBigUInt64BE = defineBigIntMethod(function readBigUInt64BE(offset) {
@@ -2768,8 +2698,8 @@
 				const first = this[offset];
 				const last = this[offset + 7];
 				if (first === void 0 || last === void 0) boundsError(offset, this.length - 8);
-				const hi = first * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + this[++offset];
-				const lo = this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + last;
+				const hi = first * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 256 + this[++offset];
+				const lo = this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 256 + last;
 				return (BigInt(hi) << BigInt(32)) + BigInt(lo);
 			});
 			Buffer.prototype.readIntLE = function readIntLE(offset, byteLength, noAssert) {
@@ -2830,8 +2760,8 @@
 				const first = this[offset];
 				const last = this[offset + 7];
 				if (first === void 0 || last === void 0) boundsError(offset, this.length - 8);
-				const val = this[offset + 4] + this[offset + 5] * 2 ** 8 + this[offset + 6] * 2 ** 16 + (last << 24);
-				return (BigInt(val) << BigInt(32)) + BigInt(first + this[++offset] * 2 ** 8 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 24);
+				const val = this[offset + 4] + this[offset + 5] * 256 + this[offset + 6] * 2 ** 16 + (last << 24);
+				return (BigInt(val) << BigInt(32)) + BigInt(first + this[++offset] * 256 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 24);
 			});
 			Buffer.prototype.readBigInt64BE = defineBigIntMethod(function readBigInt64BE(offset) {
 				offset = offset >>> 0;
@@ -2839,8 +2769,8 @@
 				const first = this[offset];
 				const last = this[offset + 7];
 				if (first === void 0 || last === void 0) boundsError(offset, this.length - 8);
-				const val = (first << 24) + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + this[++offset];
-				return (BigInt(val) << BigInt(32)) + BigInt(this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + last);
+				const val = (first << 24) + this[++offset] * 2 ** 16 + this[++offset] * 256 + this[++offset];
+				return (BigInt(val) << BigInt(32)) + BigInt(this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 256 + last);
 			});
 			Buffer.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
 				offset = offset >>> 0;
@@ -3215,9 +3145,10 @@
 				if (value > max || value < min) {
 					const n = typeof min === "bigint" ? "n" : "";
 					let range;
-					if (byteLength > 3) if (min === 0 || min === BigInt(0)) range = `>= 0${n} and < 2${n} ** ${(byteLength + 1) * 8}${n}`;
-					else range = `>= -(2${n} ** ${(byteLength + 1) * 8 - 1}${n}) and < 2 ** ${(byteLength + 1) * 8 - 1}${n}`;
-					else range = `>= ${min}${n} and <= ${max}${n}`;
+					if (byteLength > 3) {
+						if (min === 0 || min === BigInt(0)) range = `>= 0${n} and < 2${n} ** ${(byteLength + 1) * 8}${n}`;
+						else range = `>= -(2${n} ** ${(byteLength + 1) * 8 - 1}${n}) and < 2 ** ${(byteLength + 1) * 8 - 1}${n}`;
+					} else range = `>= ${min}${n} and <= ${max}${n}`;
 					throw new errors.ERR_OUT_OF_RANGE("value", range, value);
 				}
 				checkBounds(buf, offset, byteLength);
@@ -3309,8 +3240,8 @@
 				return base64.toByteArray(base64clean(str));
 			}
 			function blitBuffer(src, dst, offset, length) {
-				let i;
-				for (i = 0; i < length; ++i) {
+				let i = 0;
+				for (; i < length; ++i) {
 					if (i + offset >= dst.length || i >= src.length) break;
 					dst[i + offset] = src[i];
 				}
@@ -3338,7 +3269,7 @@
 				throw new Error("BigInt not supported");
 			}
 		})(buffer);
-		Buffer$1 = buffer.Buffer;
+		Buffer$2 = buffer.Buffer;
 		buffer.Blob;
 		buffer.BlobOptions;
 		buffer.Buffer;
@@ -3357,8 +3288,7 @@
 		buffer.resolveObjectURL;
 		buffer.transcode;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-stream/ByteArrayCollector.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/ByteArrayCollector.js
 	var ByteArrayCollector;
 	var init_ByteArrayCollector = __esmMin((() => {
 		ByteArrayCollector = class {
@@ -3394,8 +3324,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-stream/createBufferedReadable.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/createBufferedReadable.browser.js
 	function createBufferedReadableStream(upstream, size, logger) {
 		const reader = upstream.getReader();
 		let streamBufferingLoggedWarning = false;
@@ -3464,7 +3393,7 @@
 		return chunk?.byteLength ?? chunk?.length ?? 0;
 	}
 	function modeOf(chunk, allowBuffer = true) {
-		if (allowBuffer && typeof Buffer$1 !== "undefined" && chunk instanceof Buffer$1) return 2;
+		if (allowBuffer && typeof Buffer$2 !== "undefined" && chunk instanceof Buffer$2) return 2;
 		if (chunk instanceof Uint8Array) return 1;
 		if (typeof chunk === "string") return 0;
 		return -1;
@@ -3475,14 +3404,14 @@
 		init_ByteArrayCollector();
 		createBufferedReadable = createBufferedReadableStream;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-stream/getAwsChunkedEncodingStream.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/getAwsChunkedEncodingStream.browser.js
 	var getAwsChunkedEncodingStream;
 	var init_getAwsChunkedEncodingStream_browser = __esmMin((() => {
 		getAwsChunkedEncodingStream = (readableStream, options) => {
 			const { base64Encoder, bodyLengthChecker, checksumAlgorithmFn, checksumLocationName, streamHasher } = options;
 			const checksumRequired = base64Encoder !== void 0 && bodyLengthChecker !== void 0 && checksumAlgorithmFn !== void 0 && checksumLocationName !== void 0 && streamHasher !== void 0;
 			const digest = checksumRequired ? streamHasher(checksumAlgorithmFn, readableStream) : void 0;
+			Promise.resolve(digest).catch(() => {});
 			const reader = readableStream.getReader();
 			return new ReadableStream({ async pull(controller) {
 				const { value, done } = await reader.read();
@@ -3498,8 +3427,7 @@
 			} });
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-collector.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/stream-collector.browser.js
 	async function collectBlob(blob) {
 		return blob.arrayBuffer().then((ab) => new Uint8Array(ab));
 	}
@@ -3526,8 +3454,7 @@
 			return collectReadableStream(stream);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/util-stream/sdk-stream-mixin.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/util-stream/sdk-stream-mixin.browser.js
 	var ERR_MSG_STREAM_HAS_BEEN_TRANSFORMED, sdkStreamMixin, isBlobInstance;
 	var init_sdk_stream_mixin_browser = __esmMin((() => {
 		init_toBase64_browser();
@@ -3572,8 +3499,17 @@
 		};
 		isBlobInstance = (stream) => typeof Blob === "function" && stream instanceof Blob;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/serde/index.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/serde/writeKey.js
+	function writeKey$1(obj) {
+		Object.defineProperty(obj, "__proto__", {
+			value: void 0,
+			writable: true,
+			enumerable: true,
+			configurable: true
+		});
+	}
+	var init_writeKey$1 = __esmMin((() => {}));
+	// node_modules/@smithy/core/dist-es/submodules/serde/index.browser.js
 	var Uint8ArrayBlobAdapter, _getRandomValues, v4, generateIdempotencyToken;
 	var init_index_browser$6 = __esmMin((() => {
 		init_fromBase64_browser();
@@ -3604,13 +3540,13 @@
 		init_sdk_stream_mixin_browser();
 		init_stream_type_check();
 		init_stream_collector_browser();
+		init_writeKey$1();
 		Uint8ArrayBlobAdapter = class extends bindUint8ArrayBlobAdapter(toUtf8, fromUtf8$2, toBase64, fromBase64) {};
 		_getRandomValues = (array) => crypto.getRandomValues(array);
 		v4 = bindV4(_getRandomValues);
 		generateIdempotencyToken = v4;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/collect-stream-body.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/collect-stream-body.js
 	var collectBody$1;
 	var init_collect_stream_body = __esmMin((() => {
 		init_index_browser$6();
@@ -3621,16 +3557,14 @@
 			return Uint8ArrayBlobAdapter.mutate(await fromContext);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/extended-encode-uri-component.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/extended-encode-uri-component.js
 	function extendedEncodeURIComponent(str) {
 		return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
 			return "%" + c.charCodeAt(0).toString(16).toUpperCase();
 		});
 	}
 	var init_extended_encode_uri_component = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/schema/deref.js
+	// node_modules/@smithy/core/dist-es/submodules/schema/deref.js
 	var deref;
 	var init_deref = __esmMin((() => {
 		deref = (schemaRef) => {
@@ -3638,8 +3572,7 @@
 			return schemaRef;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/schema/schemas/operation.js
+	// node_modules/@smithy/core/dist-es/submodules/schema/schemas/operation.js
 	var operation;
 	var init_operation = __esmMin((() => {
 		operation = (namespace, name, traits, input, output) => ({
@@ -3650,8 +3583,7 @@
 			output
 		});
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaDeserializationMiddleware.js
+	// node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaDeserializationMiddleware.js
 	var schemaDeserializationMiddleware, findHeader;
 	var init_schemaDeserializationMiddleware = __esmMin((() => {
 		init_transport();
@@ -3708,8 +3640,7 @@
 			}) || [void 0, void 0])[1];
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaSerializationMiddleware.js
+	// node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaSerializationMiddleware.js
 	var schemaSerializationMiddleware;
 	var init_schemaSerializationMiddleware = __esmMin((() => {
 		init_transport();
@@ -3729,8 +3660,7 @@
 			});
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/schema/middleware/getSchemaSerdePlugin.js
+	// node_modules/@smithy/core/dist-es/submodules/schema/middleware/getSchemaSerdePlugin.js
 	function getSchemaSerdePlugin(config) {
 		return { applyToStack: (commandStack) => {
 			commandStack.add(schemaSerializationMiddleware(config), serializerMiddlewareOption);
@@ -3755,8 +3685,7 @@
 			override: true
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/schema/schemas/translateTraits.js
+	// node_modules/@smithy/core/dist-es/submodules/schema/schemas/translateTraits.js
 	function translateTraits(indicator) {
 		if (typeof indicator === "object") return indicator;
 		indicator = indicator | 0;
@@ -3778,8 +3707,7 @@
 	var init_translateTraits = __esmMin((() => {
 		traitsCache = [];
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/schema/schemas/NormalizedSchema.js
+	// node_modules/@smithy/core/dist-es/submodules/schema/schemas/NormalizedSchema.js
 	function member(memberSchema, memberName) {
 		if (memberSchema instanceof NormalizedSchema) return Object.assign(memberSchema, {
 			memberName,
@@ -4016,15 +3944,11 @@
 				}
 				struct[anno.it] = it;
 			}
-			structIteratorCbor() {
-				throw new Error("@smithy/core/schema - structIteratorCbor not loaded.");
-			}
 		};
 		isMemberSchema = (sc) => Array.isArray(sc) && sc.length === 2;
 		isStaticSchema = (sc) => Array.isArray(sc) && sc.length >= 5;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/schema/TypeRegistry.js
+	// node_modules/@smithy/core/dist-es/submodules/schema/TypeRegistry.js
 	var TypeRegistry;
 	var init_TypeRegistry = __esmMin((() => {
 		TypeRegistry = class TypeRegistry {
@@ -4036,10 +3960,10 @@
 				this.namespace = namespace;
 				this.schemas = schemas;
 				this.exceptions = exceptions;
+				if (!TypeRegistry.registries.has(namespace)) TypeRegistry.registries.set(namespace, this);
 			}
 			static for(namespace) {
-				if (!TypeRegistry.registries.has(namespace)) TypeRegistry.registries.set(namespace, new TypeRegistry(namespace));
-				return TypeRegistry.registries.get(namespace);
+				return TypeRegistry.registries.get(namespace) ?? new TypeRegistry(namespace);
 			}
 			copyFrom(other) {
 				const { schemas, exceptions } = this;
@@ -4048,7 +3972,7 @@
 			}
 			register(shapeId, schema) {
 				const qualifiedName = this.normalizeShapeId(shapeId);
-				for (const r of [this, TypeRegistry.for(qualifiedName.split("#")[0])]) r.schemas.set(qualifiedName, schema);
+				for (const r of [this, TypeRegistry.for(qualifiedName.split("#")[0])]) if (!r.schemas.has(qualifiedName)) r.schemas.set(qualifiedName, schema);
 			}
 			getSchema(shapeId) {
 				const id = this.normalizeShapeId(shapeId);
@@ -4066,8 +3990,10 @@
 			registerError(es, ctor) {
 				const $error = es;
 				const ns = $error[1];
-				for (const r of [this, TypeRegistry.for(ns)]) {
-					r.schemas.set(ns + "#" + $error[2], $error);
+				const qualifiedName = ns + "#" + $error[2];
+				if (!ctor.hasOwnProperty?.("shapeId")) ctor.shapeId = qualifiedName;
+				for (const r of [this, TypeRegistry.for(ns)]) if (!r.schemas.has(qualifiedName) && !r.exceptions.has($error)) {
+					r.schemas.set(qualifiedName, $error);
 					r.exceptions.set($error, ctor);
 				}
 			}
@@ -4096,8 +4022,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/schema/index.js
+	// node_modules/@smithy/core/dist-es/submodules/schema/index.js
 	var init_schema = __esmMin((() => {
 		init_deref();
 		init_getSchemaSerdePlugin();
@@ -4106,8 +4031,7 @@
 		init_translateTraits();
 		init_TypeRegistry();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/SerdeContext.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/SerdeContext.js
 	var SerdeContext;
 	var init_SerdeContext = __esmMin((() => {
 		SerdeContext = class {
@@ -4117,9 +4041,8 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/checksum/chunked-blob-reader/chunked-blob-reader.js
-	async function blobReader(blob, onChunk, chunkSize = 1024 * 1024) {
+	// node_modules/@smithy/core/dist-es/submodules/checksum/chunked-blob-reader/chunked-blob-reader.js
+	async function blobReader(blob, onChunk, chunkSize = 1048576) {
 		const size = blob.size;
 		let totalBytesRead = 0;
 		while (totalBytesRead < size) {
@@ -4129,8 +4052,7 @@
 		}
 	}
 	var init_chunked_blob_reader = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/checksum/hash-blob-browser/blobHasher.js
+	// node_modules/@smithy/core/dist-es/submodules/checksum/hash-blob-browser/blobHasher.js
 	var blobHasher;
 	var init_blobHasher = __esmMin((() => {
 		init_chunked_blob_reader();
@@ -4142,8 +4064,7 @@
 			return hash.digest();
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/checksum/md5/Md5Js.js
+	// node_modules/@smithy/core/dist-es/submodules/checksum/md5/Md5Js.js
 	function compress(state, block) {
 		let a = state[0], b = state[1], c = state[2], d = state[3];
 		for (let i = 0; i < 64; ++i) {
@@ -4235,8 +4156,7 @@
 		S$1 = Uint8Array.of(7, 12, 17, 22, 5, 9, 14, 20, 4, 11, 16, 23, 6, 10, 15, 21);
 		T$2 = Array.from({ length: 64 }, (_, i) => Math.abs(Math.sin(i + 1)) * 2 ** 32 >>> 0);
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/checksum/crc32/Crc32Js.js
+	// node_modules/@smithy/core/dist-es/submodules/checksum/crc32/Crc32Js.js
 	var CRC32_TABLE, ONES, Crc32Js;
 	var init_Crc32Js = __esmMin((() => {
 		CRC32_TABLE = /* @__PURE__ */ new Uint32Array(256);
@@ -4266,8 +4186,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/checksum/sha256/Sha256Js.js
+	// node_modules/@smithy/core/dist-es/submodules/checksum/sha256/Sha256Js.js
 	var BLOCK, DIGEST_LENGTH, MAX_HASHABLE_LENGTH$1, Sha256Js, INIT$1, K$1;
 	var init_Sha256Js = __esmMin((() => {
 		init_index_browser$6();
@@ -4290,7 +4209,7 @@
 					this.inner = new Sha256Js();
 					this.outer = new Sha256Js();
 					const { inner, outer } = this;
-					const pad = new Uint8Array(BLOCK * 2);
+					const pad = /* @__PURE__ */ new Uint8Array(128);
 					for (let i = 0; i < BLOCK; ++i) {
 						pad[i] = 54 ^ key[i];
 						pad[i + BLOCK] = 92 ^ key[i];
@@ -4343,14 +4262,14 @@
 				const bitsHashed = this.bytesHashed * 8;
 				const bufferView = new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength);
 				bufferView.setUint8(bufferLength++, 128);
-				if ((bufferLength - 1) % BLOCK >= BLOCK - 8) {
+				if ((bufferLength - 1) % BLOCK >= 56) {
 					for (let i = bufferLength; i < BLOCK; ++i) bufferView.setUint8(i, 0);
 					this.hashBufferWith(state, buffer);
 					bufferLength = 0;
 				}
-				for (let i = bufferLength; i < BLOCK - 8; ++i) bufferView.setUint8(i, 0);
-				bufferView.setUint32(BLOCK - 8, Math.floor(bitsHashed / 4294967296), false);
-				bufferView.setUint32(BLOCK - 4, bitsHashed, false);
+				for (let i = bufferLength; i < 56; ++i) bufferView.setUint8(i, 0);
+				bufferView.setUint32(56, Math.floor(bitsHashed / 4294967296), false);
+				bufferView.setUint32(60, bitsHashed, false);
 				this.hashBufferWith(state, buffer);
 				const out = new Uint8Array(DIGEST_LENGTH);
 				for (let i = 0; i < 8; ++i) {
@@ -4491,15 +4410,14 @@
 			3329325298
 		]);
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/checksum/sha256/Sha256WebCrypto.js
+	// node_modules/@smithy/core/dist-es/submodules/checksum/sha256/Sha256WebCrypto.js
 	var digest, sign, importKey, subtle, MAX_PENDING_BYTES, Sha256WebCrypto;
 	var init_Sha256WebCrypto = __esmMin((() => {
 		init_index_browser$6();
 		init_Sha256Js();
 		({digest, sign, importKey} = globalThis?.crypto?.subtle ?? {});
 		subtle = typeof digest === "function" && typeof sign === "function" && typeof importKey === "function" ? globalThis.crypto.subtle : void 0;
-		MAX_PENDING_BYTES = 8 * 1024 * 1024;
+		MAX_PENDING_BYTES = 8388608;
 		Sha256WebCrypto = class {
 			digestLength = 32;
 			secret;
@@ -4556,8 +4474,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/checksum/index.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/checksum/index.browser.js
 	var init_index_browser$5 = __esmMin((() => {
 		init_blobHasher();
 		init_Md5Js();
@@ -4565,8 +4482,7 @@
 		init_Sha256Js();
 		init_Sha256WebCrypto();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/Int64.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/Int64.js
 	function negate$1(bytes) {
 		for (let i = 0; i < 8; i++) bytes[i] ^= 255;
 		for (let i = 7; i > -1; i--) {
@@ -4601,10 +4517,10 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/HeaderMarshaller.js
-	var HeaderMarshaller, HEADER_VALUE_TYPE$1, BOOLEAN_TAG, BYTE_TAG, SHORT_TAG, INT_TAG, LONG_TAG, BINARY_TAG, STRING_TAG, TIMESTAMP_TAG, UUID_TAG, UUID_PATTERN$1;
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/HeaderMarshaller.js
+	var HeaderMarshaller, HEADER_VALUE_TYPE$1, BOOLEAN_TAG, BYTE_TAG, SHORT_TAG, INT_TAG, LONG_TAG, BINARY_TAG, STRING_TAG, TIMESTAMP_TAG, UUID_TAG, UUID_PATTERN$1, MAX_HEADER_VALUE_BYTES;
 	var init_HeaderMarshaller = __esmMin((() => {
+		init_transport();
 		init_index_browser$6();
 		init_Int64();
 		HeaderMarshaller = class {
@@ -4616,8 +4532,10 @@
 			}
 			format(headers) {
 				const chunks = [];
-				for (const headerName of Object.keys(headers)) {
+				for (const headerName in headers) {
+					if (!hasOwn(headers, headerName)) continue;
 					const bytes = this.fromUtf8(headerName);
+					if (bytes.byteLength > 255) throw new Error(`@smithy/core/event-streams - header name exceeds 255 bytes: ${bytes.byteLength}`);
 					chunks.push(Uint8Array.from([bytes.byteLength]), bytes, this.formatHeaderValue(headers[headerName]));
 				}
 				const out = new Uint8Array(chunks.reduce((carry, bytes) => carry + bytes.byteLength, 0));
@@ -4630,47 +4548,49 @@
 			}
 			formatHeaderValue(header) {
 				switch (header.type) {
-					case "boolean": return Uint8Array.from([header.value ? HEADER_VALUE_TYPE$1.boolTrue : HEADER_VALUE_TYPE$1.boolFalse]);
-					case "byte": return Uint8Array.from([HEADER_VALUE_TYPE$1.byte, header.value]);
+					case "boolean": return Uint8Array.from([header.value ? 0 : 1]);
+					case "byte": return Uint8Array.from([2, header.value]);
 					case "short":
 						const shortView = /* @__PURE__ */ new DataView(/* @__PURE__ */ new ArrayBuffer(3));
-						shortView.setUint8(0, HEADER_VALUE_TYPE$1.short);
+						shortView.setUint8(0, 3);
 						shortView.setInt16(1, header.value, false);
 						return new Uint8Array(shortView.buffer);
 					case "integer":
 						const intView = /* @__PURE__ */ new DataView(/* @__PURE__ */ new ArrayBuffer(5));
-						intView.setUint8(0, HEADER_VALUE_TYPE$1.integer);
+						intView.setUint8(0, 4);
 						intView.setInt32(1, header.value, false);
 						return new Uint8Array(intView.buffer);
 					case "long":
 						const longBytes = /* @__PURE__ */ new Uint8Array(9);
-						longBytes[0] = HEADER_VALUE_TYPE$1.long;
+						longBytes[0] = 5;
 						longBytes.set(header.value.bytes, 1);
 						return longBytes;
 					case "binary":
+						if (header.value.byteLength > MAX_HEADER_VALUE_BYTES) throw new Error(`@smithy/core/event-streams - header value (binary) exceeds ${MAX_HEADER_VALUE_BYTES} bytes: ${header.value.byteLength}`);
 						const binView = new DataView(new ArrayBuffer(3 + header.value.byteLength));
-						binView.setUint8(0, HEADER_VALUE_TYPE$1.byteArray);
+						binView.setUint8(0, 6);
 						binView.setUint16(1, header.value.byteLength, false);
 						const binBytes = new Uint8Array(binView.buffer);
 						binBytes.set(header.value, 3);
 						return binBytes;
 					case "string":
 						const utf8Bytes = this.fromUtf8(header.value);
+						if (utf8Bytes.byteLength > MAX_HEADER_VALUE_BYTES) throw new Error(`@smithy/core/event-streams - header value (string) exceeds ${MAX_HEADER_VALUE_BYTES} bytes: ${utf8Bytes.byteLength}`);
 						const strView = new DataView(new ArrayBuffer(3 + utf8Bytes.byteLength));
-						strView.setUint8(0, HEADER_VALUE_TYPE$1.string);
+						strView.setUint8(0, 7);
 						strView.setUint16(1, utf8Bytes.byteLength, false);
 						const strBytes = new Uint8Array(strView.buffer);
 						strBytes.set(utf8Bytes, 3);
 						return strBytes;
 					case "timestamp":
 						const tsBytes = /* @__PURE__ */ new Uint8Array(9);
-						tsBytes[0] = HEADER_VALUE_TYPE$1.timestamp;
+						tsBytes[0] = 8;
 						tsBytes.set(Int64$1.fromNumber(header.value.valueOf()).bytes, 1);
 						return tsBytes;
 					case "uuid":
 						if (!UUID_PATTERN$1.test(header.value)) throw new Error(`Invalid UUID received: ${header.value}`);
 						const uuidBytes = /* @__PURE__ */ new Uint8Array(17);
-						uuidBytes[0] = HEADER_VALUE_TYPE$1.uuid;
+						uuidBytes[0] = 9;
 						uuidBytes.set(fromHex(header.value.replace(/-/g, "")), 1);
 						return uuidBytes;
 				}
@@ -4683,46 +4603,46 @@
 					const name = this.toUtf8(new Uint8Array(headers.buffer, headers.byteOffset + position, nameLength));
 					position += nameLength;
 					switch (headers.getUint8(position++)) {
-						case HEADER_VALUE_TYPE$1.boolTrue:
+						case 0:
 							out[name] = {
 								type: BOOLEAN_TAG,
 								value: true
 							};
 							break;
-						case HEADER_VALUE_TYPE$1.boolFalse:
+						case 1:
 							out[name] = {
 								type: BOOLEAN_TAG,
 								value: false
 							};
 							break;
-						case HEADER_VALUE_TYPE$1.byte:
+						case 2:
 							out[name] = {
 								type: BYTE_TAG,
 								value: headers.getInt8(position++)
 							};
 							break;
-						case HEADER_VALUE_TYPE$1.short:
+						case 3:
 							out[name] = {
 								type: SHORT_TAG,
 								value: headers.getInt16(position, false)
 							};
 							position += 2;
 							break;
-						case HEADER_VALUE_TYPE$1.integer:
+						case 4:
 							out[name] = {
 								type: INT_TAG,
 								value: headers.getInt32(position, false)
 							};
 							position += 4;
 							break;
-						case HEADER_VALUE_TYPE$1.long:
+						case 5:
 							out[name] = {
 								type: LONG_TAG,
 								value: new Int64$1(new Uint8Array(headers.buffer, headers.byteOffset + position, 8))
 							};
 							position += 8;
 							break;
-						case HEADER_VALUE_TYPE$1.byteArray:
+						case 6:
 							const binaryLength = headers.getUint16(position, false);
 							position += 2;
 							out[name] = {
@@ -4731,7 +4651,7 @@
 							};
 							position += binaryLength;
 							break;
-						case HEADER_VALUE_TYPE$1.string:
+						case 7:
 							const stringLength = headers.getUint16(position, false);
 							position += 2;
 							out[name] = {
@@ -4740,14 +4660,14 @@
 							};
 							position += stringLength;
 							break;
-						case HEADER_VALUE_TYPE$1.timestamp:
+						case 8:
 							out[name] = {
 								type: TIMESTAMP_TAG,
 								value: new Date(new Int64$1(new Uint8Array(headers.buffer, headers.byteOffset + position, 8)).valueOf())
 							};
 							position += 8;
 							break;
-						case HEADER_VALUE_TYPE$1.uuid:
+						case 9:
 							const uuidBytes = new Uint8Array(headers.buffer, headers.byteOffset + position, 16);
 							position += 16;
 							out[name] = {
@@ -4783,9 +4703,9 @@
 		TIMESTAMP_TAG = "timestamp";
 		UUID_TAG = "uuid";
 		UUID_PATTERN$1 = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
+		MAX_HEADER_VALUE_BYTES = 32767;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/splitMessage.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/splitMessage.js
 	function splitMessage({ byteLength, byteOffset, buffer }) {
 		if (byteLength < MINIMUM_MESSAGE_LENGTH) throw new Error("Provided message too short to accommodate event stream message overhead");
 		const view = new DataView(buffer, byteOffset, byteLength);
@@ -4808,12 +4728,11 @@
 	var init_splitMessage = __esmMin((() => {
 		init_index_browser$5();
 		PRELUDE_MEMBER_LENGTH = 4;
-		PRELUDE_LENGTH = PRELUDE_MEMBER_LENGTH * 2;
+		PRELUDE_LENGTH = 8;
 		CHECKSUM_LENGTH = 4;
 		MINIMUM_MESSAGE_LENGTH = 16;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/EventStreamCodec.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/EventStreamCodec.js
 	var EventStreamCodec;
 	var init_EventStreamCodec = __esmMin((() => {
 		init_index_browser$5();
@@ -4887,8 +4806,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/MessageDecoderStream.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/MessageDecoderStream.js
 	var MessageDecoderStream;
 	var init_MessageDecoderStream = __esmMin((() => {
 		MessageDecoderStream = class {
@@ -4904,8 +4822,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/MessageEncoderStream.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/MessageEncoderStream.js
 	var MessageEncoderStream;
 	var init_MessageEncoderStream = __esmMin((() => {
 		MessageEncoderStream = class {
@@ -4922,8 +4839,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/SmithyMessageDecoderStream.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/SmithyMessageDecoderStream.js
 	var SmithyMessageDecoderStream;
 	var init_SmithyMessageDecoderStream = __esmMin((() => {
 		SmithyMessageDecoderStream = class {
@@ -4943,8 +4859,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/SmithyMessageEncoderStream.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-codec/SmithyMessageEncoderStream.js
 	var SmithyMessageEncoderStream;
 	var init_SmithyMessageEncoderStream = __esmMin((() => {
 		SmithyMessageEncoderStream = class {
@@ -4960,8 +4875,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/getChunkedStream.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/getChunkedStream.js
 	function getChunkedStream(source) {
 		let currentMessageTotalLength = 0;
 		let currentMessagePendingLength = 0;
@@ -5014,8 +4928,7 @@
 		return { [Symbol.asyncIterator]: iterator };
 	}
 	var init_getChunkedStream = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/getUnmarshalledStream.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/getUnmarshalledStream.js
 	function getUnmarshalledStream(source, options) {
 		const messageUnmarshaller = getMessageUnmarshaller(options.deserializer, options.toUtf8);
 		return { [Symbol.asyncIterator]: async function* () {
@@ -5051,8 +4964,7 @@
 		};
 	}
 	var init_getUnmarshalledStream = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/EventStreamMarshaller.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-universal/EventStreamMarshaller.js
 	var EventStreamMarshaller$1, eventStreamSerdeProvider$1;
 	var init_EventStreamMarshaller = __esmMin((() => {
 		init_EventStreamCodec();
@@ -5070,9 +4982,10 @@
 				this.utfEncoder = utf8Encoder;
 			}
 			deserialize(body, deserializer) {
+				const inputStream = getChunkedStream(body);
 				return new SmithyMessageDecoderStream({
 					messageStream: new MessageDecoderStream({
-						inputStream: getChunkedStream(body),
+						inputStream,
 						decoder: this.eventStreamCodec
 					}),
 					deserializer: getMessageUnmarshaller(deserializer, this.utfEncoder)
@@ -5091,8 +5004,7 @@
 		};
 		eventStreamSerdeProvider$1 = (options) => new EventStreamMarshaller$1(options);
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde/utils.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde/utils.js
 	var readableStreamToIterable, iterableToReadableStream;
 	var init_utils$1 = __esmMin((() => {
 		readableStreamToIterable = (readableStream) => ({ [Symbol.asyncIterator]: async function* () {
@@ -5116,8 +5028,7 @@
 			} });
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde/EventStreamMarshaller.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde/EventStreamMarshaller.browser.js
 	var EventStreamMarshaller, isReadableStream, eventStreamSerdeProvider;
 	var init_EventStreamMarshaller_browser = __esmMin((() => {
 		init_EventStreamMarshaller();
@@ -5142,16 +5053,15 @@
 		isReadableStream = (body) => typeof ReadableStream === "function" && body instanceof ReadableStream;
 		eventStreamSerdeProvider = (options) => new EventStreamMarshaller(options);
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-config-resolver/EventStreamSerdeConfig.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/eventstream-serde-config-resolver/EventStreamSerdeConfig.js
 	var resolveEventStreamSerdeConfig;
 	var init_EventStreamSerdeConfig = __esmMin((() => {
 		resolveEventStreamSerdeConfig = (input) => Object.assign(input, { eventStreamMarshaller: input.eventStreamSerdeProvider(input) });
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/EventStreamSerde.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/EventStreamSerde.js
 	var EventStreamSerde;
 	var init_EventStreamSerde = __esmMin((() => {
+		init_transport();
 		init_schema();
 		init_index_browser$6();
 		EventStreamSerde = class {
@@ -5169,7 +5079,7 @@
 				this.defaultContentType = defaultContentType;
 				this.compositeErrorRegistry = compositeErrorRegistry;
 			}
-			async serializeEventStream({ eventStream, requestSchema, initialRequest }) {
+			async serializeEventStream({ eventStream, requestSchema, initialRequest, initialMessageType }) {
 				const marshaller = this.marshaller;
 				const eventStreamMember = requestSchema.getEventStreamMember();
 				const unionSchema = requestSchema.getMemberSchema(eventStreamMember);
@@ -5181,7 +5091,7 @@
 						const headers = {
 							":event-type": {
 								type: "string",
-								value: "initial-request"
+								value: initialMessageType ?? "initial-request"
 							},
 							":message-type": {
 								type: "string",
@@ -5208,9 +5118,12 @@
 						body: event.body
 					};
 					let unionMember = "";
-					for (const key in event) if (key !== "__type") {
-						unionMember = key;
-						break;
+					for (const key in event) {
+						if (!hasOwn(event, key)) continue;
+						if (key !== "__type") {
+							unionMember = key;
+							break;
+						}
 					}
 					const { additionalHeaders, body, eventType, explicitPayloadContentType } = this.writeEventBody(unionMember, unionSchema, event);
 					return {
@@ -5233,19 +5146,22 @@
 					};
 				});
 			}
-			async deserializeEventStream({ response, responseSchema, initialResponseContainer }) {
+			async deserializeEventStream({ response, responseSchema, initialResponseContainer, initialMessageType }) {
 				const marshaller = this.marshaller;
 				const eventStreamMember = responseSchema.getEventStreamMember();
 				const memberSchemas = responseSchema.getMemberSchema(eventStreamMember).getMemberSchemas();
 				const initialResponseMarker = Symbol("initialResponseMarker");
 				const asyncIterable = marshaller.deserialize(response.body, async (event) => {
 					let unionMember = "";
-					for (const key in event) if (key !== "__type") {
-						unionMember = key;
-						break;
+					for (const key in event) {
+						if (!hasOwn(event, key)) continue;
+						if (key !== "__type") {
+							unionMember = key;
+							break;
+						}
 					}
 					const body = event[unionMember].body;
-					if (unionMember === "initial-response") {
+					if (unionMember === (initialMessageType ?? "initial-response")) {
 						const dataObject = await this.deserializer.read(responseSchema, body);
 						delete dataObject[eventStreamMember];
 						return {
@@ -5266,9 +5182,12 @@
 									else if (member.isStructSchema()) out[name] = await this.deserializer.read(member, body);
 								} else if (eventHeader) {
 									const value = event[unionMember].headers[name]?.value;
-									if (value != null) if (member.isNumericSchema()) if (value && typeof value === "object" && "bytes" in value) out[name] = BigInt(value.toString());
-									else out[name] = Number(value);
-									else out[name] = value;
+									if (value != null) {
+										if (member.isNumericSchema()) {
+											if (value && typeof value === "object" && "bytes" in value) out[name] = BigInt(value.toString());
+											else out[name] = Number(value);
+										} else out[name] = value;
+									}
 								}
 							}
 							return { [unionMember]: await this.readEventMember(eventStreamSchema, body, hasBindings, out) };
@@ -5281,7 +5200,10 @@
 				if (firstEvent.done) return asyncIterable;
 				if (firstEvent.value?.[initialResponseMarker]) {
 					if (!responseSchema) throw new Error("@smithy::core/protocols - initial-response event encountered in event stream but no response schema given.");
-					for (const key in firstEvent.value) initialResponseContainer[key] = firstEvent.value[key];
+					for (const key in firstEvent.value) {
+						if (!hasOwn(firstEvent.value, key)) continue;
+						initialResponseContainer[key] = firstEvent.value[key];
+					}
 				}
 				return { async *[Symbol.asyncIterator]() {
 					if (!firstEvent?.value?.[initialResponseMarker]) yield firstEvent.value;
@@ -5333,9 +5255,10 @@
 							else if (eventHeader) {
 								const value = event[unionMember][memberName];
 								let type = "binary";
-								if (memberSchema.isNumericSchema()) if ((-2) ** 31 <= value && value <= 2 ** 31 - 1) type = "integer";
-								else type = "long";
-								else if (memberSchema.isTimestampSchema()) type = "timestamp";
+								if (memberSchema.isNumericSchema()) {
+									if ((-2) ** 31 <= value && value <= 2 ** 31 - 1) type = "integer";
+									else type = "long";
+								} else if (memberSchema.isTimestampSchema()) type = "timestamp";
 								else if (memberSchema.isStringSchema()) type = "string";
 								else if (memberSchema.isBooleanSchema()) type = "boolean";
 								if (value != null) {
@@ -5366,8 +5289,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/event-streams/index.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/event-streams/index.browser.js
 	var index_browser_exports = /* @__PURE__ */ __exportAll({
 		EventStreamCodec: () => EventStreamCodec,
 		EventStreamMarshaller: () => EventStreamMarshaller,
@@ -5404,12 +5326,11 @@
 		init_EventStreamSerdeConfig();
 		init_EventStreamSerde();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/HttpProtocol.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/HttpProtocol.js
 	var HttpProtocol;
 	var init_HttpProtocol = __esmMin((() => {
-		init_schema();
 		init_transport();
+		init_schema();
 		init_SerdeContext();
 		HttpProtocol = class extends SerdeContext {
 			options;
@@ -5417,7 +5338,7 @@
 			constructor(options) {
 				super();
 				this.options = options;
-				this.compositeErrorRegistry = TypeRegistry.for(options.defaultNamespace);
+				this.compositeErrorRegistry = new TypeRegistry(options.defaultNamespace);
 				for (const etr of options.errorTypeRegistries ?? []) this.compositeErrorRegistry.copyFrom(etr);
 			}
 			getRequestType() {
@@ -5443,7 +5364,10 @@
 					request.password = endpoint.url.password || void 0;
 					if (!request.query) request.query = {};
 					for (const [k, v] of endpoint.url.searchParams.entries()) request.query[k] = v;
-					if (endpoint.headers) for (const name in endpoint.headers) request.headers[name] = endpoint.headers[name].join(", ");
+					if (endpoint.headers) for (const name in endpoint.headers) {
+						if (!hasOwn(endpoint.headers, name)) continue;
+						request.headers[name] = endpoint.headers[name].join(", ");
+					}
 					return request;
 				} else {
 					request.protocol = endpoint.protocol;
@@ -5451,7 +5375,10 @@
 					request.port = endpoint.port ? Number(endpoint.port) : void 0;
 					request.path = endpoint.path;
 					request.query = { ...endpoint.query };
-					if (endpoint.headers) for (const name in endpoint.headers) request.headers[name] = endpoint.headers[name];
+					if (endpoint.headers) for (const name in endpoint.headers) {
+						if (!hasOwn(endpoint.headers, name)) continue;
+						request.headers[name] = endpoint.headers[name];
+					}
 					return request;
 				}
 			}
@@ -5481,6 +5408,55 @@
 					cfId: output.headers["x-amz-cf-id"]
 				};
 			}
+			resolveError(name, namespaces, registries) {
+				const defaultErrorSchema = [
+					-3,
+					"",
+					"Error",
+					0,
+					[],
+					[],
+					0
+				];
+				let schema;
+				for (const registry of registries) for (const ns of namespaces) try {
+					if (ns === "*") schema = registry.getSchema(name);
+					else schema = registry.getSchema(ns + "#" + name);
+					const errorCtor = registry.getErrorCtor(schema);
+					if (errorCtor) return [
+						schema,
+						errorCtor,
+						"modeled"
+					];
+					else {
+						const syntheticErrorSchema = registry.getBaseException();
+						if (syntheticErrorSchema) {
+							const syntheticErrorCtor = registry.getErrorCtor(syntheticErrorSchema);
+							if (syntheticErrorCtor) return [
+								schema,
+								syntheticErrorCtor,
+								"synthetic"
+							];
+						}
+					}
+				} catch (ignored) {}
+				for (const registry of registries) {
+					const syntheticErrorSchema = registry.getBaseException();
+					if (syntheticErrorSchema) {
+						const syntheticErrorCtor = registry.getErrorCtor(syntheticErrorSchema);
+						if (syntheticErrorCtor) return [
+							syntheticErrorSchema,
+							syntheticErrorCtor,
+							"synthetic"
+						];
+					}
+				}
+				return [
+					defaultErrorSchema,
+					Error,
+					"native"
+				];
+			}
 			async serializeEventStream({ eventStream, requestSchema, initialRequest }) {
 				return (await this.loadEventStreamCapability()).serializeEventStream({
 					eventStream,
@@ -5506,11 +5482,6 @@
 					compositeErrorRegistry: this.compositeErrorRegistry
 				});
 			}
-			resolveEventStreamMarshaller(importedProvider) {
-				const context = this.serdeContext;
-				if (context.eventStreamMarshaller) return context.eventStreamMarshaller;
-				return importedProvider(this.serdeContext);
-			}
 			getDefaultContentType() {
 				throw new Error(`@smithy/core/protocols - ${this.constructor.name} getDefaultContentType() implementation missing.`);
 			}
@@ -5522,15 +5493,19 @@
 				if (!context.eventStreamMarshaller) throw new Error("@smithy/core - HttpProtocol: eventStreamMarshaller missing in serdeContext.");
 				return context.eventStreamMarshaller;
 			}
+			resolveEventStreamMarshaller(importedProvider) {
+				const context = this.serdeContext;
+				if (context.eventStreamMarshaller) return context.eventStreamMarshaller;
+				return importedProvider(this.serdeContext);
+			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/HttpBindingProtocol.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/HttpBindingProtocol.js
 	var HttpBindingProtocol;
 	var init_HttpBindingProtocol = __esmMin((() => {
+		init_transport();
 		init_schema();
 		init_index_browser$6();
-		init_transport();
 		init_HttpProtocol();
 		init_collect_stream_body();
 		init_extended_encode_uri_component();
@@ -5578,17 +5553,19 @@
 						}
 						continue;
 					}
-					if (memberTraits.httpPayload) if (memberNs.isStreaming()) if (memberNs.isStructSchema()) {
-						if (input[memberName]) payload = await this.serializeEventStream({
-							eventStream: input[memberName],
-							requestSchema: ns
-						});
-					} else payload = inputMemberValue;
-					else {
-						serializer.write(memberNs, inputMemberValue);
-						payload = serializer.flush();
-					}
-					else if (memberTraits.httpLabel) {
+					if (memberTraits.httpPayload) {
+						if (memberNs.isStreaming()) {
+							if (memberNs.isStructSchema()) {
+								if (input[memberName]) payload = await this.serializeEventStream({
+									eventStream: input[memberName],
+									requestSchema: ns
+								});
+							} else payload = inputMemberValue;
+						} else {
+							serializer.write(memberNs, inputMemberValue);
+							payload = serializer.flush();
+						}
+					} else if (memberTraits.httpLabel) {
 						serializer.write(memberNs, inputMemberValue);
 						const replacement = serializer.flush();
 						if (request.path.includes(`{${memberName}+}`)) request.path = request.path.replace(`{${memberName}+}`, replacement.split("/").map(extendedEncodeURIComponent).join("/"));
@@ -5597,6 +5574,7 @@
 						serializer.write(memberNs, inputMemberValue);
 						headers[memberTraits.httpHeader.toLowerCase()] = String(serializer.flush());
 					} else if (typeof memberTraits.httpPrefixHeaders === "string") for (const key in inputMemberValue) {
+						if (!hasOwn(inputMemberValue, key)) continue;
 						const val = inputMemberValue[key];
 						const amalgam = memberTraits.httpPrefixHeaders + key;
 						serializer.write([memberNs.getValueSchema(), { httpHeader: amalgam }], val);
@@ -5635,15 +5613,18 @@
 				const serializer = this.serializer;
 				const traits = ns.getMergedTraits();
 				if (traits.httpQueryParams) {
-					for (const key in data) if (!(key in query)) {
-						const val = data[key];
-						const valueSchema = ns.getValueSchema();
-						Object.assign(valueSchema.getMergedTraits(), {
-							...traits,
-							httpQuery: key,
-							httpQueryParams: void 0
-						});
-						this.serializeQuery(valueSchema, val, query);
+					for (const key in data) {
+						if (!hasOwn(data, key)) continue;
+						if (!(key in query)) {
+							const val = data[key];
+							const valueSchema = ns.getValueSchema();
+							Object.assign(valueSchema.getMergedTraits(), {
+								...traits,
+								httpQuery: key,
+								httpQueryParams: void 0
+							});
+							this.serializeQuery(valueSchema, val, query);
+						}
 					}
 					return;
 				}
@@ -5672,6 +5653,7 @@
 					throw new Error("@smithy/core/protocols - HTTP Protocol error handler failed to throw.");
 				}
 				for (const header in response.headers) {
+					if (!hasOwn(response.headers, header)) continue;
 					const value = response.headers[header];
 					delete response.headers[header];
 					response.headers[header.toLowerCase()] = value;
@@ -5699,35 +5681,41 @@
 					const memberTraits = memberSchema.getMemberTraits();
 					if (memberTraits.httpPayload) {
 						discardResponseBody = false;
-						if (memberSchema.isStreaming()) if (memberSchema.isStructSchema()) dataObject[memberName] = await this.deserializeEventStream({
-							response,
-							responseSchema: ns
-						});
-						else dataObject[memberName] = sdkStreamMixin(response.body);
-						else if (response.body) {
+						if (memberSchema.isStreaming()) {
+							if (memberSchema.isStructSchema()) dataObject[memberName] = await this.deserializeEventStream({
+								response,
+								responseSchema: ns
+							});
+							else dataObject[memberName] = sdkStreamMixin(response.body);
+						} else if (response.body) {
 							const bytes = await collectBody$1(response.body, context);
 							if (bytes.byteLength > 0) dataObject[memberName] = await deserializer.read(memberSchema, bytes);
 						}
 					} else if (memberTraits.httpHeader) {
 						const key = String(memberTraits.httpHeader).toLowerCase();
 						const value = response.headers[key];
-						if (null != value) if (memberSchema.isListSchema()) {
-							const headerListValueSchema = memberSchema.getValueSchema();
-							headerListValueSchema.getMergedTraits().httpHeader = key;
-							let sections;
-							if (headerListValueSchema.isTimestampSchema() && headerListValueSchema.getSchema() === 4) sections = splitEvery(value, ",", 2);
-							else sections = splitHeader(value);
-							const list = [];
-							for (const section of sections) list.push(await deserializer.read(headerListValueSchema, section.trim()));
-							dataObject[memberName] = list;
-						} else dataObject[memberName] = await deserializer.read(memberSchema, value);
+						if (null != value) {
+							if (memberSchema.isListSchema()) {
+								const headerListValueSchema = memberSchema.getValueSchema();
+								headerListValueSchema.getMergedTraits().httpHeader = key;
+								let sections;
+								if (headerListValueSchema.isTimestampSchema() && headerListValueSchema.getSchema() === 4) sections = splitEvery(value, ",", 2);
+								else sections = splitHeader(value);
+								const list = [];
+								for (const section of sections) list.push(await deserializer.read(headerListValueSchema, section.trim()));
+								dataObject[memberName] = list;
+							} else dataObject[memberName] = await deserializer.read(memberSchema, value);
+						}
 					} else if (memberTraits.httpPrefixHeaders !== void 0) {
 						dataObject[memberName] = {};
-						for (const header in response.headers) if (header.startsWith(memberTraits.httpPrefixHeaders)) {
-							const value = response.headers[header];
-							const valueSchema = memberSchema.getValueSchema();
-							valueSchema.getMergedTraits().httpHeader = header;
-							dataObject[memberName][header.slice(memberTraits.httpPrefixHeaders.length)] = await deserializer.read(valueSchema, value);
+						for (const header in response.headers) {
+							if (!hasOwn(response.headers, header)) continue;
+							if (header.startsWith(memberTraits.httpPrefixHeaders)) {
+								const value = response.headers[header];
+								const valueSchema = memberSchema.getValueSchema();
+								valueSchema.getMergedTraits().httpHeader = header;
+								dataObject[memberName][header.slice(memberTraits.httpPrefixHeaders.length)] = await deserializer.read(valueSchema, value);
+							}
 						}
 					} else if (memberTraits.httpResponseCode) dataObject[memberName] = response.statusCode;
 					else nonHttpBindingMembers.push(memberName);
@@ -5737,12 +5725,11 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/RpcProtocol.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/RpcProtocol.js
 	var RpcProtocol;
 	var init_RpcProtocol = __esmMin((() => {
-		init_schema();
 		init_transport();
+		init_schema();
 		init_HttpProtocol();
 		init_collect_stream_body();
 		RpcProtocol = class extends HttpProtocol {
@@ -5774,10 +5761,7 @@
 					if (eventStreamMember) {
 						if (input[eventStreamMember]) {
 							const initialRequest = {};
-							for (const [memberName, memberSchema] of ns.structIterator()) if (memberName !== eventStreamMember && input[memberName]) {
-								serializer.write(memberSchema, input[memberName]);
-								initialRequest[memberName] = serializer.flush();
-							}
+							for (const [memberName] of ns.structIterator()) if (memberName !== eventStreamMember && input[memberName] != null) initialRequest[memberName] = input[memberName];
 							payload = await this.serializeEventStream({
 								eventStream: input[eventStreamMember],
 								requestSchema: ns,
@@ -5799,13 +5783,14 @@
 				const deserializer = this.deserializer;
 				const ns = NormalizedSchema.of(operationSchema.output);
 				const dataObject = {};
-				if (response.statusCode >= 300) {
+				if (this.isErrorResponse(response.statusCode)) {
 					const bytes = await collectBody$1(response.body, context);
 					if (bytes.byteLength > 0) Object.assign(dataObject, await deserializer.read(15, bytes));
 					await this.handleError(operationSchema, context, response, dataObject, this.deserializeMetadata(response));
 					throw new Error("@smithy/core/protocols - RPC Protocol error handler failed to throw.");
 				}
 				for (const header in response.headers) {
+					if (!hasOwn(response.headers, header)) continue;
 					const value = response.headers[header];
 					delete response.headers[header];
 					response.headers[header.toLowerCase()] = value;
@@ -5823,10 +5808,12 @@
 				dataObject.$metadata = this.deserializeMetadata(response);
 				return dataObject;
 			}
+			isErrorResponse(statusCode) {
+				return statusCode >= 300;
+			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/serde/determineTimestampFormat.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/serde/determineTimestampFormat.js
 	function determineTimestampFormat(ns, settings) {
 		if (settings.timestampFormat.useTrait) {
 			if (ns.isTimestampSchema() && (ns.getSchema() === 5 || ns.getSchema() === 6 || ns.getSchema() === 7)) return ns.getSchema();
@@ -5835,8 +5822,7 @@
 		return (settings.httpBindings ? typeof httpPrefixHeaders === "string" || Boolean(httpHeader) ? 6 : Boolean(httpQuery) || Boolean(httpLabel) ? 5 : void 0 : void 0) ?? settings.timestampFormat.default;
 	}
 	var init_determineTimestampFormat = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/serde/FromStringShapeDeserializer.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/serde/FromStringShapeDeserializer.js
 	var FromStringShapeDeserializer;
 	var init_FromStringShapeDeserializer = __esmMin((() => {
 		init_schema();
@@ -5881,8 +5867,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeDeserializer.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeDeserializer.js
 	var HttpInterceptingShapeDeserializer;
 	var init_HttpInterceptingShapeDeserializer = __esmMin((() => {
 		init_schema();
@@ -5921,8 +5906,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/serde/ToStringShapeSerializer.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/serde/ToStringShapeSerializer.js
 	var ToStringShapeSerializer;
 	var init_ToStringShapeSerializer = __esmMin((() => {
 		init_schema();
@@ -6003,8 +5987,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeSerializer.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeSerializer.js
 	var HttpInterceptingShapeSerializer;
 	var init_HttpInterceptingShapeSerializer = __esmMin((() => {
 		init_schema();
@@ -6041,32 +6024,32 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/extensions/httpExtensionConfiguration.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/protocol-http/extensions/httpExtensionConfiguration.js
 	var getHttpHandlerExtensionConfiguration, resolveHttpHandlerRuntimeConfig;
 	var init_httpExtensionConfiguration = __esmMin((() => {
 		getHttpHandlerExtensionConfiguration = (runtimeConfig) => {
+			if (runtimeConfig.logger && runtimeConfig.logger.constructor?.name !== "NoOpLogger") runtimeConfig.requestHandler?.updateHttpClientConfig?.(Symbol.for("logger"), runtimeConfig.logger);
+			if (runtimeConfig.defaultSocketTimeout) runtimeConfig.requestHandler?.updateHttpClientConfig?.(Symbol.for("@smithy/defaultSocketTimeout"), runtimeConfig.defaultSocketTimeout);
 			return {
 				setHttpHandler(handler) {
-					runtimeConfig.httpHandler = handler;
+					runtimeConfig.requestHandler = handler;
 				},
 				httpHandler() {
-					return runtimeConfig.httpHandler;
+					return runtimeConfig.requestHandler;
 				},
 				updateHttpClientConfig(key, value) {
-					runtimeConfig.httpHandler?.updateHttpClientConfig(key, value);
+					runtimeConfig.requestHandler?.updateHttpClientConfig(key, value);
 				},
 				httpHandlerConfigs() {
-					return runtimeConfig.httpHandler.httpHandlerConfigs();
+					return runtimeConfig.requestHandler.httpHandlerConfigs();
 				}
 			};
 		};
 		resolveHttpHandlerRuntimeConfig = (httpHandlerExtensionConfiguration) => {
-			return { httpHandler: httpHandlerExtensionConfiguration.httpHandler() };
+			return { requestHandler: httpHandlerExtensionConfiguration.httpHandler() };
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/middleware-content-length/contentLengthMiddleware.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/middleware-content-length/contentLengthMiddleware.js
 	function contentLengthMiddleware(bodyLengthChecker) {
 		return (next) => async (args) => {
 			const request = args.request;
@@ -6074,7 +6057,7 @@
 				const { body, headers } = request;
 				if (body && Object.keys(headers).map((str) => str.toLowerCase()).indexOf(CONTENT_LENGTH_HEADER$1) === -1) try {
 					const length = bodyLengthChecker(body);
-					request.headers = {
+					if (length != null) request.headers = {
 						...request.headers,
 						[CONTENT_LENGTH_HEADER$1]: String(length)
 					};
@@ -6100,15 +6083,13 @@
 			clientStack.add(contentLengthMiddleware(options.bodyLengthChecker), contentLengthMiddlewareOptions);
 		} });
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/util-uri-escape/escape-uri.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/util-uri-escape/escape-uri.js
 	var escapeUri, hexEncode;
 	var init_escape_uri = __esmMin((() => {
 		escapeUri = (uri) => encodeURIComponent(uri).replace(/[!'()*]/g, hexEncode);
 		hexEncode = (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/querystring-builder/buildQueryString.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/querystring-builder/buildQueryString.js
 	function buildQueryString(query) {
 		const parts = [];
 		for (let key of Object.keys(query).sort()) {
@@ -6126,13 +6107,1007 @@
 	var init_buildQueryString = __esmMin((() => {
 		init_escape_uri();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/protocols/index.js
+	// node_modules/@smithy/core/dist-es/submodules/protocols/ConfigurableSerdeContext.js
+	var SerdeContextConfig$1;
+	var init_ConfigurableSerdeContext$1 = __esmMin((() => {
+		SerdeContextConfig$1 = class {
+			serdeContext;
+			setSerdeContext(serdeContext) {
+				this.serdeContext = serdeContext;
+			}
+		};
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/protocols/UnionSerde.js
+	var UnionSerde$1;
+	var init_UnionSerde$1 = __esmMin((() => {
+		UnionSerde$1 = class {
+			from;
+			to;
+			keys;
+			constructor(from, to) {
+				this.from = from;
+				this.to = to;
+				const keys = Object.keys(this.from);
+				const set = new Set(keys);
+				set.delete("__type");
+				this.keys = set;
+			}
+			mark(key) {
+				this.keys.delete(key);
+			}
+			hasUnknown() {
+				return this.keys.size === 1 && Object.keys(this.to).length === 0;
+			}
+			writeUnknown() {
+				if (this.hasUnknown()) {
+					const k = this.keys.values().next().value;
+					const v = this.from[k];
+					this.to.$unknown = [k, v];
+				}
+			}
+		};
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/protocols/json/detectBufferParsing.js
+	function detectBufferParsing() {
+		if (canParseBuffer === void 0) try {
+			if (typeof Buffer$2 !== "function") canParseBuffer = false;
+			else {
+				const result = JSON.parse(Buffer$2.from([123, 125]));
+				canParseBuffer = result !== null && typeof result === "object";
+			}
+		} catch {
+			canParseBuffer = false;
+		}
+		return canParseBuffer;
+	}
+	var canParseBuffer;
+	var init_detectBufferParsing = __esmMin((() => {
+		init_dist$2();
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/protocols/json/jsonReviver.js
+	function jsonReviver(key, value, context) {
+		if (context?.source) {
+			const numericString = context.source;
+			if (typeof value === "number") {
+				if (value <= Number.MAX_SAFE_INTEGER && value >= Number.MIN_SAFE_INTEGER) {
+					if (isRepresentable(numericString, value)) return value;
+					return new NumericValue(numericString, "bigDecimal");
+				} else {
+					if (isFractionalBigNumeric(numericString)) return new NumericValue(numericString, "bigDecimal");
+					if (/[eE]/.test(numericString)) return expandExponentToBigInt(numericString);
+					return BigInt(numericString);
+				}
+			}
+		}
+		return value;
+	}
+	function isFractionalBigNumeric(s) {
+		const dotIndex = s.indexOf(".");
+		if (dotIndex === -1) return false;
+		const eIndex = s.search(/[eE]/);
+		if (eIndex === -1) return true;
+		const fracDigits = eIndex - dotIndex - 1;
+		return parseInt(s.slice(eIndex + 1), 10) < fracDigits;
+	}
+	function isRepresentable(numericString, value) {
+		if (numericString === String(value)) return true;
+		if (Object.is(value, -0)) return true;
+		if (/[eE]/.test(numericString)) return expandToDecimal(numericString) === expandToDecimal(String(value));
+		const normalized = numericString.replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "");
+		const canonical = String(value);
+		if (normalized === canonical) return true;
+		if (/[eE]/.test(canonical)) return normalized === expandToDecimal(canonical);
+		return false;
+	}
+	function expandToDecimal(s) {
+		const negative = s.startsWith("-");
+		const abs = negative ? s.slice(1) : s;
+		const eIndex = abs.search(/[eE]/);
+		let result;
+		if (eIndex === -1) result = abs;
+		else {
+			const exp = parseInt(abs.slice(eIndex + 1), 10);
+			const mantissa = abs.slice(0, eIndex);
+			const dotIndex = mantissa.indexOf(".");
+			let digits;
+			let intLen;
+			if (dotIndex === -1) {
+				digits = mantissa;
+				intLen = mantissa.length;
+			} else {
+				digits = mantissa.slice(0, dotIndex) + mantissa.slice(dotIndex + 1);
+				intLen = dotIndex;
+			}
+			digits = digits.replace(/0+$/, "") || "0";
+			const newDotPos = intLen + exp;
+			if (digits === "0") result = "0";
+			else if (newDotPos <= 0) result = "0." + "0".repeat(-newDotPos) + digits;
+			else if (newDotPos >= digits.length) result = digits + "0".repeat(newDotPos - digits.length);
+			else result = digits.slice(0, newDotPos) + "." + digits.slice(newDotPos);
+		}
+		if (result.includes(".")) result = result.replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "");
+		return (negative ? "-" : "") + result;
+	}
+	function expandExponentToBigInt(s) {
+		const eIndex = s.search(/[eE]/);
+		const exp = parseInt(s.slice(eIndex + 1), 10);
+		const negative = s.startsWith("-");
+		const mantissa = s.slice(negative ? 1 : 0, eIndex);
+		const dotIndex = mantissa.indexOf(".");
+		let digits;
+		let shift;
+		if (dotIndex === -1) {
+			digits = mantissa;
+			shift = exp;
+		} else {
+			digits = mantissa.slice(0, dotIndex) + mantissa.slice(dotIndex + 1);
+			shift = exp - (mantissa.length - dotIndex - 1);
+		}
+		digits = digits.replace(/0+$/, "") || "0";
+		const result = BigInt(digits) * 10n ** BigInt(shift + (mantissa.replace(".", "").length - digits.length));
+		return negative ? -result : result;
+	}
+	var init_jsonReviver = __esmMin((() => {
+		init_index_browser$6();
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/protocols/json/needsReviver.js
+	function needsReviver(schema) {
+		const ns = NormalizedSchema.of(schema);
+		const raw = ns.getSchema();
+		if (Array.isArray(raw) && ns.isStructSchema()) {
+			if (REVIVER_SYMBOL in raw) return raw[REVIVER_SYMBOL];
+			const result = _check(ns, /* @__PURE__ */ new Set());
+			raw[REVIVER_SYMBOL] = result;
+			return result;
+		}
+		return _check(ns, /* @__PURE__ */ new Set());
+	}
+	function _check(ns, seen) {
+		const raw = ns.getSchema();
+		if (seen.has(raw)) return false;
+		seen.add(raw);
+		if (ns.isBigIntegerSchema() || ns.isBigDecimalSchema()) return true;
+		if (ns.isStructSchema()) {
+			for (const [, memberSchema] of ns.structIterator()) if (_check(memberSchema, seen)) return true;
+		} else if (ns.isListSchema() || ns.isMapSchema()) {
+			if (_check(ns.getValueSchema(), seen)) return true;
+		} else if (ns.isDocumentSchema()) return true;
+		return false;
+	}
+	var REVIVER_SYMBOL;
+	var init_needsReviver = __esmMin((() => {
+		init_schema();
+		REVIVER_SYMBOL = Symbol.for("@aws-sdk/reviver");
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/protocols/common.js
+	var collectBodyString;
+	var init_common = __esmMin((() => {
+		init_collect_stream_body();
+		init_index_browser$6();
+		collectBodyString = (streamBody, context) => collectBody$1(streamBody, context).then((body) => (context?.utf8Encoder ?? toUtf8)(body));
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/protocols/json/parseJsonBody.js
+	async function parseJsonBody(streamBody, context, schema) {
+		let parsingInput;
+		if (detectBufferParsing() && typeof streamBody?.[Symbol.asyncIterator] === "function") {
+			const buffer = await collectBody$1(streamBody, context);
+			if (typeof Buffer$2 === "function") {
+				if (Buffer$2.isBuffer(buffer)) parsingInput = buffer;
+				else parsingInput = Buffer$2.from(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+			}
+		}
+		if (!parsingInput) parsingInput = await collectBodyString(streamBody, context);
+		if (parsingInput.length === 0) return {};
+		const reviver = schema && needsReviver(schema) ? jsonReviver : void 0;
+		try {
+			return JSON.parse(parsingInput, reviver);
+		} catch (e) {
+			if (e?.name === "SyntaxError") Object.defineProperty(e, "$responseBodyText", { value: typeof parsingInput === "string" ? parsingInput : parsingInput.toString("utf8") });
+			throw e;
+		}
+	}
+	var findKey, sanitizeErrorCode, loadRestJsonErrorCode, loadJsonRpcErrorCode, loadErrorCode;
+	var init_parseJsonBody = __esmMin((() => {
+		init_dist$2();
+		init_collect_stream_body();
+		init_common();
+		init_detectBufferParsing();
+		init_jsonReviver();
+		init_needsReviver();
+		findKey = (object, key) => Object.keys(object).find((k) => k.toLowerCase() === key.toLowerCase());
+		sanitizeErrorCode = (rawValue) => {
+			let cleanValue = rawValue;
+			if (typeof cleanValue === "number") cleanValue = cleanValue.toString();
+			if (cleanValue.indexOf(",") >= 0) cleanValue = cleanValue.split(",")[0];
+			if (cleanValue.indexOf(":") >= 0) cleanValue = cleanValue.split(":")[0];
+			if (cleanValue.indexOf("#") >= 0) cleanValue = cleanValue.split("#")[1];
+			return cleanValue;
+		};
+		loadRestJsonErrorCode = (output, data) => {
+			return loadErrorCode(output, data, [
+				"header",
+				"code",
+				"type"
+			]);
+		};
+		loadJsonRpcErrorCode = (output, data, queryCompat = false) => {
+			return loadErrorCode(output, data, queryCompat ? [
+				"code",
+				"header",
+				"type"
+			] : [
+				"type",
+				"code",
+				"header"
+			]);
+		};
+		loadErrorCode = ({ headers }, data, order) => {
+			while (order.length > 0) switch (order.shift()) {
+				case "header":
+					const headerKey = findKey(headers ?? {}, "x-amzn-errortype");
+					if (headerKey !== void 0) return sanitizeErrorCode(headers[headerKey]);
+					break;
+				case "code":
+					const codeKey = findKey(data ?? {}, "code");
+					if (codeKey && data[codeKey] !== void 0) return sanitizeErrorCode(data[codeKey]);
+					break;
+				case "type": if (data?.__type !== void 0) return sanitizeErrorCode(data.__type);
+			}
+		};
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/protocols/json/codec-v2/JsonShapeDeserializer2.js
+	var JsonShapeDeserializer2;
+	var init_JsonShapeDeserializer2 = __esmMin((() => {
+		init_dist$2();
+		init_determineTimestampFormat();
+		init_schema();
+		init_index_browser$6();
+		init_ConfigurableSerdeContext$1();
+		init_UnionSerde$1();
+		init_detectBufferParsing();
+		init_jsonReviver();
+		init_needsReviver();
+		init_parseJsonBody();
+		init_transport();
+		JsonShapeDeserializer2 = class extends SerdeContextConfig$1 {
+			settings;
+			constructor(settings) {
+				super();
+				this.settings = settings;
+			}
+			async read(schema, data) {
+				const reviver = needsReviver(schema) ? jsonReviver : void 0;
+				let parsed;
+				if (typeof data === "string") {
+					if (data.length === 0) return {};
+					parsed = JSON.parse(data, reviver);
+				} else if (data instanceof Uint8Array && detectBufferParsing()) {
+					if (data.byteLength === 0) return {};
+					const buf = Buffer$2.isBuffer(data) ? data : Buffer$2.from(data.buffer, data.byteOffset, data.byteLength);
+					parsed = JSON.parse(buf, reviver);
+				} else parsed = await parseJsonBody(data, this.serdeContext, schema);
+				return this._read(schema, parsed);
+			}
+			readObject(schema, data) {
+				return this._read(schema, data);
+			}
+			_read(schema, value) {
+				const isObject = value !== null && typeof value === "object";
+				const ns = NormalizedSchema.of(schema);
+				if (isObject) {
+					if (ns.isStructSchema()) return this._readStruct(ns, value);
+					if (Array.isArray(value) && ns.isListSchema()) {
+						const listMember = ns.getValueSchema();
+						if (this.needsTransform(listMember)) for (let i = 0; i < value.length; ++i) value[i] = this._read(listMember, value[i]);
+						return value;
+					}
+					if (ns.isMapSchema()) {
+						const mapMember = ns.getValueSchema();
+						const map = value;
+						if (this.needsTransform(mapMember)) for (const k in map) {
+							if (!hasOwn(map, k)) continue;
+							if (k === "__proto__") writeKey$1(map);
+							map[k] = this._read(mapMember, map[k]);
+						}
+						return map;
+					}
+				}
+				if (ns.isBlobSchema() && typeof value === "string") return fromBase64(value);
+				const mediaType = ns.getMergedTraits().mediaType;
+				if (ns.isStringSchema() && typeof value === "string" && mediaType) {
+					if (mediaType === "application/json" || mediaType.endsWith("+json")) return LazyJsonString.from(value);
+					return value;
+				}
+				if (ns.isTimestampSchema() && value != null) switch (determineTimestampFormat(ns, this.settings)) {
+					case 5: return parseRfc3339DateTimeWithOffset(value);
+					case 6: return parseRfc7231DateTime(value);
+					case 7: return parseEpochTimestamp(value);
+					default:
+						console.warn("Missing timestamp format, parsing value with Date constructor:", value);
+						return new Date(value);
+				}
+				if (ns.isBigIntegerSchema() && (typeof value === "number" || typeof value === "string")) return BigInt(value);
+				if (ns.isBigDecimalSchema() && value != void 0) {
+					if (value instanceof NumericValue) return value;
+					const untyped = value;
+					if (untyped.type === "bigDecimal" && "string" in untyped) return new NumericValue(untyped.string, untyped.type);
+					return new NumericValue(String(value), "bigDecimal");
+				}
+				if (ns.isNumericSchema() && typeof value === "string") {
+					switch (value) {
+						case "Infinity": return Infinity;
+						case "-Infinity": return -Infinity;
+						case "NaN": return NaN;
+					}
+					return value;
+				}
+				if (ns.isDocumentSchema()) {
+					if (isObject) {
+						if (Array.isArray(value)) for (let i = 0; i < value.length; ++i) {
+							const v = value[i];
+							if (!(v instanceof NumericValue)) value[i] = this._read(ns, v);
+						}
+						else {
+							const doc = value;
+							for (const k in doc) {
+								if (!hasOwn(doc, k)) continue;
+								if (k === "__proto__") writeKey$1(doc);
+								const v = doc[k];
+								if (!(v instanceof NumericValue)) doc[k] = this._read(ns, v);
+							}
+						}
+					}
+				}
+				return value;
+			}
+			_readStruct(ns, record) {
+				const union = ns.isUnionSchema();
+				const out = {};
+				let nameMap;
+				const hasType = typeof record.__type === "string";
+				const { jsonName } = this.settings;
+				if (jsonName && hasType) nameMap = {};
+				let unionSerde;
+				if (union) unionSerde = new UnionSerde$1(record, out);
+				for (const [memberName, memberSchema] of ns.structIterator()) {
+					let fromKey = memberName;
+					if (jsonName) {
+						fromKey = memberSchema.getMergedTraits().jsonName ?? fromKey;
+						if (hasType) nameMap[fromKey] = memberName;
+					}
+					if (union) unionSerde.mark(fromKey);
+					if (record[fromKey] != null) out[memberName] = this._read(memberSchema, record[fromKey]);
+				}
+				if (union) unionSerde.writeUnknown();
+				else if (hasType) for (const k in record) {
+					if (!hasOwn(record, k)) continue;
+					const v = record[k];
+					const t = jsonName ? nameMap[k] ?? k : k;
+					if (!(t in out)) out[t] = v;
+				}
+				return out;
+			}
+			needsTransform(ns) {
+				if (ns.isBlobSchema() || ns.isTimestampSchema() || ns.isBigIntegerSchema() || ns.isBigDecimalSchema() || ns.isNumericSchema()) return true;
+				if (ns.isDocumentSchema() || ns.isStructSchema() || ns.isListSchema() || ns.isMapSchema()) return true;
+				if (ns.isStringSchema() && ns.getMergedTraits().mediaType) return true;
+				return false;
+			}
+		};
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/protocols/json/codec-v2/JsonBytesStringAdapter.js
+	var JsonBytesStringAdapter, warned;
+	var init_JsonBytesStringAdapter = __esmMin((() => {
+		init_dist$2();
+		init_index_browser$6();
+		JsonBytesStringAdapter = class JsonBytesStringAdapter extends Uint8Array {
+			string = null;
+			static allocUnsafe(bytes) {
+				if (typeof Buffer$2 === "function") {
+					const buffer = Buffer$2.allocUnsafe(bytes);
+					return new JsonBytesStringAdapter(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+				}
+				return new JsonBytesStringAdapter(bytes);
+			}
+			toString() {
+				return this.s();
+			}
+			valueOf() {
+				return this.s();
+			}
+			includes(searchString, position) {
+				if (typeof searchString === "string") return this.s().includes(searchString, position);
+				return Uint8Array.prototype.includes.call(this, searchString, position);
+			}
+			indexOf(searchString, position) {
+				if (typeof searchString === "string") return this.s().indexOf(searchString, position);
+				return Uint8Array.prototype.indexOf.call(this, searchString, position);
+			}
+			lastIndexOf(searchString, position) {
+				if (typeof searchString === "string") return this.s().lastIndexOf(searchString, position);
+				const fn = Uint8Array.prototype.lastIndexOf;
+				if (position !== void 0) return fn.call(this, searchString, position);
+				return fn.call(this, searchString);
+			}
+			startsWith(searchString, position) {
+				return this.s().startsWith(searchString, position);
+			}
+			endsWith(searchString, endPosition) {
+				return this.s().endsWith(searchString, endPosition);
+			}
+			match(regexp) {
+				return this.s().match(regexp);
+			}
+			replace(searchValue, replaceValue) {
+				return this.s().replace(searchValue, replaceValue);
+			}
+			search(regexp) {
+				return this.s().search(regexp);
+			}
+			split(separator, limit) {
+				return this.s().split(separator, limit);
+			}
+			substring(start, end) {
+				return this.s().substring(start, end);
+			}
+			trim() {
+				return this.s().trim();
+			}
+			trimStart() {
+				return this.s().trimStart();
+			}
+			trimEnd() {
+				return this.s().trimEnd();
+			}
+			charAt(pos) {
+				return this.s().charAt(pos);
+			}
+			charCodeAt(index) {
+				return this.s().charCodeAt(index);
+			}
+			padStart(maxLength, fillString) {
+				return this.s().padStart(maxLength, fillString);
+			}
+			padEnd(maxLength, fillString) {
+				return this.s().padEnd(maxLength, fillString);
+			}
+			repeat(count) {
+				return this.s().repeat(count);
+			}
+			toUpperCase() {
+				return this.s().toUpperCase();
+			}
+			toLowerCase() {
+				return this.s().toLowerCase();
+			}
+			s() {
+				if (this.string == null) {
+					const n = Date.now();
+					if (n > warned + 6e4) {
+						console.warn("@aws-sdk/core/protocols - WARN - JsonCodec2: you have called a string method on a Uint8Array request body. It has been automatically converted to string. In a future version this will throw an error.");
+						warned = n;
+					}
+					this.string = toUtf8(this);
+				}
+				return this.string;
+			}
+		};
+		warned = 0;
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/protocols/json/codec-v2/JsonShapeSerializer2.js
+	function alloc(size) {
+		return JsonBytesStringAdapter.allocUnsafe(size);
+	}
+	var encoder, OPEN_BRACE, CLOSE_BRACE, OPEN_BRACKET, CLOSE_BRACKET, QUOTE, COLON, COMMA, BACKSLASH, TRUE, FALSE, NULL, ESCAPE_TABLE, INITIAL_BUFFER_SIZE, JsonShapeSerializer2;
+	var init_JsonShapeSerializer2 = __esmMin((() => {
+		init_determineTimestampFormat();
+		init_schema();
+		init_index_browser$6();
+		init_ConfigurableSerdeContext$1();
+		init_transport();
+		init_JsonBytesStringAdapter();
+		encoder = new TextEncoder();
+		OPEN_BRACE = 123;
+		CLOSE_BRACE = 125;
+		OPEN_BRACKET = 91;
+		CLOSE_BRACKET = 93;
+		QUOTE = 34;
+		COLON = 58;
+		COMMA = 44;
+		BACKSLASH = 92;
+		TRUE = new Uint8Array([
+			116,
+			114,
+			117,
+			101
+		]);
+		FALSE = new Uint8Array([
+			102,
+			97,
+			108,
+			115,
+			101
+		]);
+		NULL = new Uint8Array([
+			110,
+			117,
+			108,
+			108
+		]);
+		ESCAPE_TABLE = new Array(128).fill(null);
+		ESCAPE_TABLE[8] = "b";
+		ESCAPE_TABLE[9] = "t";
+		ESCAPE_TABLE[10] = "n";
+		ESCAPE_TABLE[12] = "f";
+		ESCAPE_TABLE[13] = "r";
+		ESCAPE_TABLE[34] = "\"";
+		ESCAPE_TABLE[92] = "\\";
+		for (let i = 0; i < 32; i++) if (ESCAPE_TABLE[i] === null) ESCAPE_TABLE[i] = "u00" + i.toString(16).padStart(2, "0");
+		INITIAL_BUFFER_SIZE = 2048;
+		JsonShapeSerializer2 = class JsonShapeSerializer2 extends SerdeContextConfig$1 {
+			settings;
+			json;
+			i = 0;
+			rootSchema;
+			rawValue;
+			passthrough = false;
+			constructor(settings) {
+				super();
+				this.settings = settings;
+				this.json = alloc(INITIAL_BUFFER_SIZE);
+			}
+			write(schema, value) {
+				this.i = 0;
+				this.rawValue = value;
+				this.rootSchema = NormalizedSchema.of(schema);
+				this.passthrough = this.rootSchema.isBlobSchema() || this.rootSchema.isStringSchema();
+				if (!this.passthrough) this.writeValue(this.rootSchema, value, void 0);
+			}
+			writeDiscriminatedDocument(schema, value) {
+				this.i = 0;
+				this.rootSchema = NormalizedSchema.of(schema);
+				const ns = this.rootSchema;
+				if (ns.isStructSchema() && value != null && typeof value === "object") {
+					this.writeValue(ns, value, void 0);
+					const prefix = `"__type":"${ns.getName(true) ?? "Unknown"}",`;
+					const z = prefix.length;
+					this.ensure(z);
+					this.json.copyWithin(1 + z, 1, this.i);
+					encoder.encodeInto(prefix, this.json.subarray(1));
+					this.i += z;
+				} else this.writeValue(ns, value, void 0);
+			}
+			flush() {
+				this.rootSchema = void 0;
+				const finalPosition = this.i;
+				this.i = 0;
+				const raw = this.rawValue;
+				this.rawValue = void 0;
+				if (finalPosition === 0) return raw;
+				const result = this.json.subarray(0, finalPosition);
+				this.json = alloc(INITIAL_BUFFER_SIZE);
+				return result;
+			}
+			ensure(byteCount) {
+				const { i, json } = this;
+				if (i + byteCount > json.length) {
+					let newSize = json.length * 2;
+					while (newSize < i + byteCount) newSize *= 2;
+					const next = alloc(newSize);
+					next.set(this.json);
+					this.json = next;
+				}
+			}
+			writeAscii(s) {
+				const z = s.length;
+				this.ensure(z);
+				let { i, json } = this;
+				for (let j = 0; j < z; ++j) {
+					json[i] = s.charCodeAt(j);
+					i += 1;
+				}
+				this.i = i;
+			}
+			writeAsciiQuoted(s) {
+				const z = s.length;
+				this.ensure(z + 4);
+				let { json, i } = this;
+				json[i++] = QUOTE;
+				for (let j = 0; j < z; ++j) json[i++] = s.charCodeAt(j);
+				json[i++] = QUOTE;
+				this.i = i;
+			}
+			writeJsonString(s) {
+				const z = s.length;
+				this.ensure(z * 3 + 2);
+				this.json[this.i++] = QUOTE;
+				for (let j = 0; j < z; ++j) {
+					const c = s.charCodeAt(j);
+					if (c > 34 && c < 92) this.json[this.i++] = c;
+					else if (c < 128) {
+						const esc = ESCAPE_TABLE[c];
+						if (esc !== null) {
+							this.ensure(esc.length + 1 + (z - j - 1) * 3 + 1);
+							this.json[this.i++] = BACKSLASH;
+							for (let k = 0; k < esc.length; k++) this.json[this.i++] = esc.charCodeAt(k);
+						} else this.json[this.i++] = c;
+					} else if (c >= 55296 && c <= 56319) {
+						const next = j + 1 < z ? s.charCodeAt(j + 1) : 0;
+						if (next >= 56320 && next <= 57343) {
+							this.ensure(4);
+							const { written } = encoder.encodeInto(s.substring(j, j + 2), this.json.subarray(this.i));
+							this.i += written;
+							++j;
+						} else {
+							this.ensure(6 + (z - j - 1) * 3 + 1);
+							this.writeUnicodeEscape(c);
+						}
+					} else if (c >= 56320 && c <= 57343) {
+						this.ensure(6 + (z - j - 1) * 3 + 1);
+						this.writeUnicodeEscape(c);
+					} else {
+						let { i, json } = this;
+						if (c < 2048) {
+							json[i++] = 192 | c >> 6;
+							json[i++] = 128 | c & 63;
+						} else {
+							json[i++] = 224 | c >> 12;
+							json[i++] = 128 | c >> 6 & 63;
+							json[i++] = 128 | c & 63;
+						}
+						this.i = i;
+					}
+				}
+				this.json[this.i++] = QUOTE;
+			}
+			writeUnicodeEscape(code) {
+				let { json, i } = this;
+				json[i++] = BACKSLASH;
+				json[i++] = 117;
+				const hex = code.toString(16).padStart(4, "0");
+				for (let j = 0; j < 4; ++j) json[i++] = hex.charCodeAt(j);
+				this.i = i;
+			}
+			static B64 = (() => {
+				const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+				const table = /* @__PURE__ */ new Uint8Array(64);
+				for (let i = 0; i < 64; ++i) table[i] = chars.charCodeAt(i);
+				return table;
+			})();
+			writeBase64(data) {
+				const b64Len = Math.ceil(data.length / 3) * 4;
+				this.ensure(b64Len + 2);
+				const json = this.json;
+				const B64 = JsonShapeSerializer2.B64;
+				let i = this.i;
+				json[i++] = QUOTE;
+				const len = data.length;
+				const remainder = len % 3;
+				const mainLen = len - remainder;
+				for (let j = 0; j < mainLen; j += 3) {
+					const a = data[j];
+					const b = data[j + 1];
+					const c = data[j + 2];
+					json[i++] = B64[a >> 2];
+					json[i++] = B64[(a & 3) << 4 | b >> 4];
+					json[i++] = B64[(b & 15) << 2 | c >> 6];
+					json[i++] = B64[c & 63];
+				}
+				if (remainder === 2) {
+					const a = data[mainLen];
+					const b = data[mainLen + 1];
+					json[i++] = B64[a >> 2];
+					json[i++] = B64[(a & 3) << 4 | b >> 4];
+					json[i++] = B64[(b & 15) << 2];
+					json[i++] = 61;
+				} else if (remainder === 1) {
+					const a = data[mainLen];
+					json[i++] = B64[a >> 2];
+					json[i++] = B64[(a & 3) << 4];
+					json[i++] = 61;
+					json[i++] = 61;
+				}
+				json[i++] = QUOTE;
+				this.i = i;
+			}
+			writeValue(schema, value, container) {
+				if (value == null) {
+					if (container?.isStructSchema()) {
+						if (value === void 0) {
+							if (NormalizedSchema.of(schema).isIdempotencyToken()) {
+								this.writeAsciiQuoted(generateIdempotencyToken());
+								return;
+							}
+						}
+						return;
+					}
+					this.ensure(4);
+					this.json.set(NULL, this.i);
+					this.i += 4;
+					return;
+				}
+				const ns = NormalizedSchema.of(schema);
+				const isObject = typeof value === "object";
+				if (ns.isStringSchema()) {
+					const mediaType = ns.getMergedTraits().mediaType;
+					if (mediaType) {
+						if (mediaType === "application/json" || mediaType.endsWith("+json")) {
+							this.writeJsonString(LazyJsonString.from(value).toString());
+							return;
+						}
+					}
+				}
+				if (this.settings.bigNumberAsString && value != null && (ns.isBigIntegerSchema() || ns.isBigDecimalSchema())) {
+					const asString = value instanceof NumericValue ? value.string : String(value);
+					this.writeAsciiQuoted(asString);
+					return;
+				}
+				if (isObject) {
+					if (ns.isStructSchema()) {
+						this.writeStruct(ns, value);
+						return;
+					}
+					if (Array.isArray(value) && (ns.isListSchema() || ns.isDocumentSchema())) {
+						this.writeList(ns, value, ns.isDocumentSchema());
+						return;
+					}
+					if (ns.isMapSchema()) {
+						this.writeMap(ns, value, false);
+						return;
+					}
+					if (value instanceof Uint8Array && (ns.isBlobSchema() || ns.isDocumentSchema())) {
+						this.writeBase64(value);
+						return;
+					}
+					if (value instanceof Date && (ns.isTimestampSchema() || ns.isDocumentSchema())) {
+						this.writeTimestamp(ns, value);
+						return;
+					}
+					if (value instanceof NumericValue) {
+						this.writeAscii(value.string);
+						return;
+					}
+					if (ns.isDocumentSchema()) {
+						if (Array.isArray(value)) this.writeList(ns, value, true);
+						else this.writeMap(ns, value, true);
+						return;
+					}
+					const json = JSON.stringify(value);
+					this.writeAscii(json);
+					return;
+				}
+				if (typeof value === "string") {
+					if (ns.isBlobSchema()) {
+						const b64 = (this.serdeContext?.base64Encoder ?? toBase64)(value);
+						this.writeAsciiQuoted(b64);
+						return;
+					}
+					this.writeJsonString(value);
+					return;
+				}
+				if (typeof value === "number") {
+					if (Math.abs(value) === Infinity || Number.isNaN(value)) {
+						this.writeAsciiQuoted(String(value));
+						return;
+					}
+					const numStr = String(value);
+					this.writeAscii(numStr);
+					return;
+				}
+				if (typeof value === "boolean") {
+					this.ensure(5);
+					let { i, json } = this;
+					if (value) {
+						json.set(TRUE, i);
+						i += 4;
+					} else {
+						json.set(FALSE, i);
+						i += 5;
+					}
+					this.i = i;
+					return;
+				}
+				if (typeof value === "bigint") {
+					this.writeAscii(value.toString());
+					return;
+				}
+				this.writeAscii(String(value));
+			}
+			writeStruct(ns, value) {
+				this.ensure(2);
+				this.json[this.i++] = OPEN_BRACE;
+				let wroteAny = false;
+				const hasType = typeof value.__type === "string";
+				let writtenKeys;
+				if (hasType) writtenKeys = /* @__PURE__ */ new Set();
+				for (const [memberName, memberSchema] of ns.structIterator()) {
+					const item = value[memberName];
+					if (item == null && !memberSchema.isIdempotencyToken()) continue;
+					if (wroteAny) {
+						this.ensure(1);
+						this.json[this.i++] = COMMA;
+					}
+					wroteAny = true;
+					const targetKey = this.settings.jsonName ? memberSchema.getMergedTraits().jsonName ?? memberName : memberName;
+					if (writtenKeys) {
+						writtenKeys.add(memberName);
+						writtenKeys.add(targetKey);
+					}
+					this.writeAsciiQuoted(targetKey);
+					this.json[this.i++] = COLON;
+					this.writeValue(memberSchema, item, ns);
+				}
+				if (!wroteAny && ns.isUnionSchema()) {
+					const { $unknown } = value;
+					if (Array.isArray($unknown)) {
+						const [k, v] = $unknown;
+						this.writeAsciiQuoted(k);
+						this.ensure(1);
+						this.json[this.i++] = COLON;
+						this.writeValue(15, v, ns);
+					}
+				} else if (hasType) for (const k in value) {
+					if (writtenKeys.has(k)) continue;
+					writtenKeys.add(k);
+					const v = value[k];
+					if (wroteAny) {
+						this.ensure(1);
+						this.json[this.i++] = COMMA;
+					}
+					wroteAny = true;
+					this.writeAsciiQuoted(k);
+					this.ensure(1);
+					this.json[this.i++] = COLON;
+					this.writeValue(15, v, void 0);
+				}
+				this.ensure(1);
+				this.json[this.i++] = CLOSE_BRACE;
+			}
+			writeList(ns, value, isDocument) {
+				const sparse = !!ns.getMergedTraits().sparse;
+				const valueSchema = ns.getValueSchema();
+				if (!isDocument) {
+					if (valueSchema.isStringSchema() || valueSchema.isNumericSchema() || valueSchema.isBooleanSchema()) {
+						let hasSpecials = false;
+						for (let i = 0; i < value.length; ++i) {
+							const v = value[i];
+							if (Number.isNaN(v) || v === Infinity || v === -Infinity || v == null && !sparse) {
+								hasSpecials = true;
+								break;
+							}
+						}
+						let json;
+						if (!hasSpecials) json = JSON.stringify(value);
+						else {
+							const out = [];
+							for (let i = 0; i < value.length; ++i) {
+								const v = value[i];
+								if (v == null && !sparse) continue;
+								if (Number.isNaN(v) || v === Infinity || v === -Infinity) out.push(String(v));
+								else out.push(v);
+							}
+							json = JSON.stringify(out);
+						}
+						this.ensure(json.length * 3);
+						this.i += encoder.encodeInto(json, this.json.subarray(this.i)).written;
+						return;
+					}
+				}
+				this.ensure(2);
+				this.json[this.i++] = OPEN_BRACKET;
+				let wroteFirstItem = false;
+				for (let i = 0; i < value.length; ++i) {
+					const item = value[i];
+					if (isDocument ? item === void 0 : item == null && !sparse) continue;
+					if (wroteFirstItem) {
+						this.ensure(1);
+						this.json[this.i++] = COMMA;
+					}
+					this.writeValue(valueSchema, item, void 0);
+					wroteFirstItem = true;
+				}
+				this.ensure(1);
+				this.json[this.i++] = CLOSE_BRACKET;
+			}
+			writeMap(ns, value, isDocument) {
+				const sparse = !!ns.getMergedTraits().sparse;
+				const valueSchema = ns.getValueSchema();
+				if (!isDocument) {
+					if (valueSchema.isStringSchema() || valueSchema.isNumericSchema() || valueSchema.isBooleanSchema()) {
+						let modifications;
+						for (const k in value) {
+							if (!hasOwn(value, k)) continue;
+							const v = value[k];
+							if (Number.isNaN(v) || v === Infinity || v === -Infinity) {
+								(modifications ??= {})[k] = v;
+								value[k] = String(v);
+							} else if (v === null && !sparse) {
+								(modifications ??= {})[k] = null;
+								value[k] = void 0;
+							}
+						}
+						const json = JSON.stringify(value);
+						if (modifications) Object.assign(value, modifications);
+						this.ensure(json.length * 3);
+						this.i += encoder.encodeInto(json, this.json.subarray(this.i)).written;
+						return;
+					}
+				}
+				this.ensure(2);
+				this.json[this.i++] = OPEN_BRACE;
+				let first = true;
+				for (const k in value) {
+					if (!hasOwn(value, k)) continue;
+					const v = value[k];
+					if (isDocument ? v === void 0 : v == null && !sparse) continue;
+					if (!first) {
+						this.ensure(1);
+						this.json[this.i++] = COMMA;
+					}
+					first = false;
+					this.writeJsonString(k);
+					this.ensure(1);
+					this.json[this.i++] = COLON;
+					this.writeValue(valueSchema, v, void 0);
+				}
+				this.ensure(1);
+				this.json[this.i++] = CLOSE_BRACE;
+			}
+			writeTimestamp(ns, value) {
+				switch (determineTimestampFormat(ns, this.settings)) {
+					case 5: {
+						const iso = value.toISOString().replace(".000Z", "Z");
+						this.writeAsciiQuoted(iso);
+						return;
+					}
+					case 6:
+						this.writeAsciiQuoted(dateToUtcString(value));
+						return;
+					case 7: {
+						const epochSecs = String(value.getTime() / 1e3);
+						this.writeAscii(epochSecs);
+						return;
+					}
+					default: {
+						const epochSecs = String(value.getTime() / 1e3);
+						this.writeAscii(epochSecs);
+						return;
+					}
+				}
+			}
+		};
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/protocols/json/codec-v2/JsonCodec2.js
+	var JsonCodec2;
+	var init_JsonCodec2 = __esmMin((() => {
+		init_ConfigurableSerdeContext$1();
+		init_JsonShapeDeserializer2();
+		init_JsonShapeSerializer2();
+		JsonCodec2 = class extends SerdeContextConfig$1 {
+			settings;
+			constructor(settings) {
+				super();
+				this.settings = settings;
+			}
+			createSerializer() {
+				const serializer = new JsonShapeSerializer2(this.settings);
+				serializer.setSerdeContext(this.serdeContext);
+				return serializer;
+			}
+			createDeserializer() {
+				const deserializer = new JsonShapeDeserializer2(this.settings);
+				deserializer.setSerdeContext(this.serdeContext);
+				return deserializer;
+			}
+		};
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/protocols/index.js
 	var init_protocols$1 = __esmMin((() => {
 		init_collect_stream_body();
 		init_HttpBindingProtocol();
 		init_HttpProtocol();
 		init_RpcProtocol();
+		init_schema();
 		init_transport();
 		init_FromStringShapeDeserializer();
 		init_HttpInterceptingShapeDeserializer();
@@ -6145,17 +7120,24 @@
 		init_contentLengthMiddleware();
 		init_escape_uri();
 		init_buildQueryString();
+		init_JsonCodec2();
+		init_parseJsonBody();
+		init_ConfigurableSerdeContext$1();
+		init_index_browser$6();
+		init_UnionSerde$1();
+		init_jsonReviver();
+		init_needsReviver();
+		init_JsonShapeSerializer2();
+		init_JsonShapeDeserializer2();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/setCredentialFeature.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/setCredentialFeature.js
 	function setCredentialFeature(credentials, feature, value) {
 		if (!credentials.$source) credentials.$source = {};
 		credentials.$source[feature] = value;
 		return credentials;
 	}
 	var init_setCredentialFeature = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/vite-plugin-node-polyfills/shims/process/dist/index.js
+	// node_modules/vite-plugin-node-polyfills/shims/process/dist/index.js
 	function getDefaultExportFromCjs(x) {
 		return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
 	}
@@ -6288,14 +7270,12 @@
 		browserExports = browser$5.exports;
 		process$1 = /*@__PURE__*/ getDefaultExportFromCjs(browserExports);
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/isStreamingPayload/isStreamingPayload.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/isStreamingPayload/isStreamingPayload.browser.js
 	var isStreamingPayload;
 	var init_isStreamingPayload_browser = __esmMin((() => {
 		isStreamingPayload = (request) => request?.body instanceof ReadableStream;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/middleware-stack/MiddlewareStack.js
+	// node_modules/@smithy/core/dist-es/submodules/client/middleware-stack/MiddlewareStack.js
 	var getAllAliases, getMiddlewareNameWithAliases, constructStack, stepWeights, priorityWeights;
 	var init_MiddlewareStack = __esmMin((() => {
 		getAllAliases = (name, aliases) => {
@@ -6512,22 +7492,19 @@
 			low: 1
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/invalid-dependency/invalidFunction.js
+	// node_modules/@smithy/core/dist-es/submodules/client/invalid-dependency/invalidFunction.js
 	var invalidFunction;
 	var init_invalidFunction = __esmMin((() => {
 		invalidFunction = (message) => () => {
 			throw new Error(message);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/invalid-dependency/invalidProvider.js
+	// node_modules/@smithy/core/dist-es/submodules/client/invalid-dependency/invalidProvider.js
 	var invalidProvider;
 	var init_invalidProvider = __esmMin((() => {
 		invalidProvider = (message) => () => Promise.reject(message);
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/smithy-client/client.js
+	// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/client.js
 	var Client;
 	var init_client$1 = __esmMin((() => {
 		init_MiddlewareStack();
@@ -6569,16 +7546,19 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/smithy-client/schemaLogFilter.js
+	// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/schemaLogFilter.js
 	function schemaLogFilter(schema, data) {
 		if (data == null) return data;
 		const ns = NormalizedSchema.of(schema);
 		if (ns.getMergedTraits().sensitive) return SENSITIVE_STRING;
 		if (ns.isListSchema()) {
-			if (!!ns.getValueSchema().getMergedTraits().sensitive) return SENSITIVE_STRING;
+			const valueSchema = ns.getValueSchema();
+			if (valueSchema.getMergedTraits().sensitive) return SENSITIVE_STRING;
+			if (Array.isArray(data)) return data.map((value) => schemaLogFilter(valueSchema, value));
 		} else if (ns.isMapSchema()) {
-			if (!!ns.getKeySchema().getMergedTraits().sensitive || !!ns.getValueSchema().getMergedTraits().sensitive) return SENSITIVE_STRING;
+			const valueSchema = ns.getValueSchema();
+			if (ns.getKeySchema().getMergedTraits().sensitive || valueSchema.getMergedTraits().sensitive) return SENSITIVE_STRING;
+			if (typeof data === "object") return Object.fromEntries(Object.entries(data).map(([key, value]) => [key, schemaLogFilter(valueSchema, value)]));
 		} else if (ns.isStructSchema() && typeof data === "object") {
 			const object = data;
 			const newObject = {};
@@ -6592,13 +7572,14 @@
 		init_schema();
 		SENSITIVE_STRING = "***SensitiveInformation***";
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/smithy-client/command.js
-	var Command, ClassBuilder;
+	// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/command.js
+	var operationEventStreamMarker, Command, ClassBuilder;
 	var init_command = __esmMin((() => {
 		init_dist_es$5();
 		init_MiddlewareStack();
 		init_schemaLogFilter();
+		init_schema();
+		operationEventStreamMarker = Symbol.for("@smithy/op-event-stream");
 		Command = class {
 			middlewareStack = constructStack();
 			schema;
@@ -6609,22 +7590,40 @@
 				for (const mw of middlewareFn.bind(this)(CommandCtor, clientStack, configuration, options)) this.middlewareStack.use(mw);
 				const stack = clientStack.concat(this.middlewareStack);
 				const { logger } = configuration;
+				const additionalSmithyContext = additionalContext[SMITHY_CONTEXT_KEY];
 				const handlerExecutionContext = {
 					logger,
 					clientName,
 					commandName,
 					inputFilterSensitiveLog,
 					outputFilterSensitiveLog,
+					...additionalContext,
 					[SMITHY_CONTEXT_KEY]: {
+						...additionalSmithyContext,
 						commandInstance: this,
-						...smithyContext
-					},
-					...additionalContext
+						...smithyContext,
+						...options?.metricsRecorder === void 0 ? {} : { metricsRecorder: options.metricsRecorder },
+						...options?.abortSignal === void 0 ? {} : { abortSignal: options.abortSignal }
+					}
 				};
 				const { requestHandler } = configuration;
 				let requestOptions = options ?? {};
-				if (smithyContext.eventStream) requestOptions = {
-					isEventStream: true,
+				if (requestOptions.metricsRecorder) {
+					requestOptions = { ...requestOptions };
+					delete requestOptions.metricsRecorder;
+				}
+				let isEventStream;
+				const schema = this.schema;
+				const marker = schema?.[operationEventStreamMarker];
+				if (marker !== void 0) isEventStream = marker;
+				else if (schema) {
+					if (Array.isArray(schema) && schema[0] === 9) {
+						const [, , , , input$, output$] = schema;
+						isEventStream = schema[operationEventStreamMarker] = Boolean(NormalizedSchema.of(input$).getEventStreamMember() || NormalizedSchema.of(output$).getEventStreamMember());
+					}
+				}
+				if (isEventStream) requestOptions = {
+					isEventStream,
 					...requestOptions
 				};
 				return stack.resolve((request) => requestHandler.handle(request.request, requestOptions), handlerExecutionContext);
@@ -6724,11 +7723,11 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/smithy-client/exceptions.js
+	// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/exceptions.js
 	var ServiceException, decorateServiceException;
 	var init_exceptions = __esmMin((() => {
 		ServiceException = class ServiceException extends Error {
+			static shapeId = "smithy.ts.sdk.synthetic.nonamespace.client#ServiceException";
 			$fault;
 			$response;
 			$retryable;
@@ -6750,8 +7749,32 @@
 				const candidate = instance;
 				if (this === ServiceException) return ServiceException.isInstance(instance);
 				if (ServiceException.isInstance(instance)) {
-					if (candidate.name && this.name) return this.prototype.isPrototypeOf(instance) || candidate.name === this.name;
-					return this.prototype.isPrototypeOf(instance);
+					if (this.prototype.isPrototypeOf(instance)) return true;
+					const targetId = Object.prototype.hasOwnProperty.call(this, "shapeId") ? this.shapeId : void 0;
+					let candidateHasShapeId = false;
+					if (targetId) {
+						let proto = Object.getPrototypeOf(candidate);
+						while (proto && proto !== Object.prototype) {
+							const ctor = proto.constructor;
+							const candidateId = ctor !== ServiceException && Object.prototype.hasOwnProperty.call(ctor, "shapeId") ? ctor?.shapeId : void 0;
+							if (candidateId) {
+								candidateHasShapeId = true;
+								if (candidateId === targetId) return true;
+							}
+							proto = Object.getPrototypeOf(proto);
+						}
+					}
+					if (targetId && candidateHasShapeId) return false;
+					const targetName = this.name;
+					if (targetName && targetName.length >= 6) {
+						if (candidate.name === targetName) return true;
+						let proto = Object.getPrototypeOf(candidate);
+						while (proto && proto !== Object.prototype) {
+							const ctorName = proto.constructor?.name;
+							if (ctorName && ctorName !== "Error" && ctorName === targetName) return true;
+							proto = Object.getPrototypeOf(proto);
+						}
+					}
 				}
 				return false;
 			}
@@ -6765,8 +7788,7 @@
 			return exception;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/smithy-client/defaults-mode.js
+	// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/defaults-mode.js
 	var loadConfigsForDefaultMode;
 	var init_defaults_mode = __esmMin((() => {
 		loadConfigsForDefaultMode = (mode) => {
@@ -6791,15 +7813,16 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/checksum.js
+	// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/checksum.js
 	var knownAlgorithms, getChecksumConfiguration, resolveChecksumRuntimeConfig;
 	var init_checksum = __esmMin((() => {
+		init_transport();
 		init_dist_es$5();
 		knownAlgorithms = Object.values(AlgorithmId);
 		getChecksumConfiguration = (runtimeConfig) => {
 			const checksumAlgorithms = [];
 			for (const id in AlgorithmId) {
+				if (!hasOwn(AlgorithmId, id)) continue;
 				const algorithmId = AlgorithmId[id];
 				if (runtimeConfig[algorithmId] === void 0) continue;
 				checksumAlgorithms.push({
@@ -6834,8 +7857,7 @@
 			return runtimeConfig;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/retry.js
+	// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/retry.js
 	var getRetryConfiguration, resolveRetryRuntimeConfig;
 	var init_retry = __esmMin((() => {
 		getRetryConfiguration = (runtimeConfig) => {
@@ -6854,8 +7876,7 @@
 			return runtimeConfig;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/defaultExtensionConfiguration.js
+	// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/extensions/defaultExtensionConfiguration.js
 	var getDefaultExtensionConfiguration, resolveDefaultRuntimeConfig;
 	var init_defaultExtensionConfiguration = __esmMin((() => {
 		init_checksum();
@@ -6867,19 +7888,21 @@
 			return Object.assign(resolveChecksumRuntimeConfig(config), resolveRetryRuntimeConfig(config));
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/smithy-client/get-value-from-text-node.js
+	// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/get-value-from-text-node.js
 	var getValueFromTextNode;
 	var init_get_value_from_text_node = __esmMin((() => {
+		init_transport();
 		getValueFromTextNode = (obj) => {
 			const textNodeName = "#text";
-			for (const key in obj) if (Object.prototype.hasOwnProperty.call(obj, key) && obj[key][textNodeName] !== void 0) obj[key] = obj[key][textNodeName];
-			else if (typeof obj[key] === "object" && obj[key] !== null) obj[key] = getValueFromTextNode(obj[key]);
+			for (const key in obj) {
+				if (!hasOwn(obj, key)) continue;
+				if (obj[key][textNodeName] !== void 0) obj[key] = obj[key][textNodeName];
+				else if (typeof obj[key] === "object" && obj[key] !== null) obj[key] = getValueFromTextNode(obj[key]);
+			}
 			return obj;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/smithy-client/NoOpLogger.js
+	// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/NoOpLogger.js
 	var NoOpLogger;
 	var init_NoOpLogger = __esmMin((() => {
 		NoOpLogger = class {
@@ -6890,8 +7913,7 @@
 			error() {}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/smithy-client/client-command-builder.js
+	// node_modules/@smithy/core/dist-es/submodules/client/smithy-client/client-command-builder.js
 	function makeBuilder(common, service, name, ep) {
 		return function makeCommand(added, plugins, op, $, smithyContext = {}) {
 			const epMerged = Object.assign({}, common, added);
@@ -6905,8 +7927,7 @@
 	var init_client_command_builder = __esmMin((() => {
 		init_command();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/client/index.js
+	// node_modules/@smithy/core/dist-es/submodules/client/index.js
 	var init_client = __esmMin((() => {
 		init_MiddlewareStack();
 		init_transport();
@@ -6924,8 +7945,7 @@
 		init_schemaLogFilter();
 		init_client_command_builder();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/service-error-classification/constants.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/service-error-classification/constants.js
 	var THROTTLING_ERROR_CODES, TRANSIENT_ERROR_CODES, TRANSIENT_ERROR_STATUS_CODES, NODEJS_TIMEOUT_ERROR_CODES, NODEJS_NETWORK_ERROR_CODES;
 	var init_constants$4 = __esmMin((() => {
 		THROTTLING_ERROR_CODES = [
@@ -6968,8 +7988,7 @@
 			"EAI_AGAIN"
 		];
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/service-error-classification/service-error-classification.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/service-error-classification/service-error-classification.js
 	function isNodeJsHttp2TransientError(error) {
 		return error.code === "ERR_HTTP2_STREAM_ERROR" && error.message.includes("NGHTTP2_REFUSED_STREAM");
 	}
@@ -6990,7 +8009,7 @@
 			return errorMessages.has(error.message);
 		};
 		isThrottlingError = (error) => error.$metadata?.httpStatusCode === 429 || THROTTLING_ERROR_CODES.includes(error.name) || error.$retryable?.throttling == true;
-		isTransientError = (error, depth = 0) => isRetryableByTrait(error) || isClockSkewCorrectedError(error) || error.name === "InvalidSignatureException" && error.message?.includes("Signature expired") || TRANSIENT_ERROR_CODES.includes(error.name) || NODEJS_TIMEOUT_ERROR_CODES.includes(error?.code || "") || NODEJS_NETWORK_ERROR_CODES.includes(error?.code || "") || TRANSIENT_ERROR_STATUS_CODES.includes(error.$metadata?.httpStatusCode || 0) || isBrowserNetworkError(error) || isNodeJsHttp2TransientError(error) || error.cause !== void 0 && depth <= 10 && isTransientError(error.cause, depth + 1);
+		isTransientError = (error, depth = 0) => error?.name !== "AbortError" && (isRetryableByTrait(error) || isClockSkewCorrectedError(error) || error.name === "InvalidSignatureException" && error.message?.includes("Signature expired") || TRANSIENT_ERROR_CODES.includes(error.name) || NODEJS_TIMEOUT_ERROR_CODES.includes(error?.code || "") || NODEJS_NETWORK_ERROR_CODES.includes(error?.code || "") || TRANSIENT_ERROR_STATUS_CODES.includes(error.$metadata?.httpStatusCode || 0) || isBrowserNetworkError(error) || isNodeJsHttp2TransientError(error) || error.cause !== void 0 && depth <= 10 && isTransientError(error.cause, depth + 1));
 		isServerError = (error) => {
 			if (error.$metadata?.httpStatusCode !== void 0) {
 				const statusCode = error.$metadata.httpStatusCode;
@@ -7000,19 +8019,37 @@
 			return false;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/util-retry/constants.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/race.js
+	var race, createAbortError, isAbortError;
+	var init_race = __esmMin((() => {
+		race = (promise, signal) => {
+			if (!signal) return promise;
+			let cleanup = () => {};
+			const aborted = new Promise((_, reject) => {
+				const handler = () => reject(createAbortError());
+				if (signal.aborted) handler();
+				else if (typeof signal.addEventListener === "function") {
+					signal.addEventListener("abort", handler, { once: true });
+					cleanup = () => signal.removeEventListener("abort", handler);
+				} else signal.onabort = handler;
+			});
+			return Promise.race([promise, aborted]).finally(cleanup);
+		};
+		createAbortError = () => Object.assign(/* @__PURE__ */ new Error("Request aborted"), { name: "AbortError" });
+		isAbortError = (error) => typeof error === "object" && error !== null && "name" in error && error.name === "AbortError";
+	}));
+	// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/constants.js
 	var MAXIMUM_RETRY_DELAY, INVOCATION_ID_HEADER, REQUEST_HEADER;
 	var init_constants$3 = __esmMin((() => {
-		MAXIMUM_RETRY_DELAY = 20 * 1e3;
+		MAXIMUM_RETRY_DELAY = 2e4;
 		INVOCATION_ID_HEADER = "amz-sdk-invocation-id";
 		REQUEST_HEADER = "amz-sdk-request";
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/parseRetryAfterHeader.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/parseRetryAfterHeader.js
 	function parseRetryAfterHeader(response, logger) {
 		if (!HttpResponse.isInstance(response)) return;
-		for (const header of Object.keys(response.headers)) {
+		for (const header in response.headers) {
+			if (!hasOwn(response.headers, header)) continue;
 			const h = header.toLowerCase();
 			if (h === "retry-after") {
 				const retryAfter = response.headers[header];
@@ -7040,11 +8077,11 @@
 		}
 	}
 	var init_parseRetryAfterHeader = __esmMin((() => {
+		init_transport();
 		init_protocols$1();
 		init_index_browser$6();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/util.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/util.js
 	var asSdkError;
 	var init_util = __esmMin((() => {
 		asSdkError = (error) => {
@@ -7054,15 +8091,16 @@
 			return /* @__PURE__ */ new Error(`AWS SDK error wrapper for ${error}`);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retryMiddleware.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/retryMiddleware.js
 	function bindRetryMiddleware(isStreamingPayload) {
 		return (options) => (next, context) => async (args) => {
 			let retryStrategy = await options.retryStrategy();
 			const maxAttempts = await options.maxAttempts();
+			const abortSignal = context[SMITHY_CONTEXT_KEY]?.abortSignal;
 			if (isRetryStrategyV2(retryStrategy)) {
 				retryStrategy = retryStrategy;
-				let retryToken = await retryStrategy.acquireInitialRetryToken((context["partition_id"] ?? "") + (context.__retryLongPoll ? ":longpoll" : ""));
+				const retryTokenScope = (context["partition_id"] ?? "") + (context.__retryLongPoll ? ":longpoll" : "");
+				let retryToken = await race(retryStrategy.acquireInitialRetryToken(retryTokenScope), abortSignal);
 				let lastError = /* @__PURE__ */ new Error();
 				let attempts = 0;
 				let totalRetryDelay = 0;
@@ -7087,8 +8125,9 @@
 						throw lastError;
 					}
 					try {
-						retryToken = await retryStrategy.refreshRetryTokenForRetry(retryToken, retryErrorInfo);
-					} catch (ignoredRefreshError) {
+						retryToken = await race(retryStrategy.refreshRetryTokenForRetry(retryToken, retryErrorInfo), abortSignal);
+					} catch (refreshError) {
+						if (abortSignal?.aborted && isAbortError(refreshError)) throw refreshError;
 						if (!lastError.$metadata) lastError.$metadata = {};
 						lastError.$metadata.attempts = attempts + 1;
 						lastError.$metadata.totalRetryDelay = totalRetryDelay;
@@ -7097,7 +8136,7 @@
 					attempts = retryToken.getRetryCount();
 					const delay = retryToken.getRetryDelay();
 					totalRetryDelay += (retryToken?.$retryLog?.acquisitionDelay ?? 0) + delay;
-					if (delay > 0) await cooldown(delay);
+					if (delay > 0) await race(new Promise((resolve) => setTimeout(resolve, delay)), abortSignal);
 				}
 			} else {
 				retryStrategy = retryStrategy;
@@ -7112,16 +8151,17 @@
 			clientStack.add(retryMiddleware(options), retryMiddlewareOptions);
 		} });
 	}
-	var cooldown, isRetryStrategyV2, getRetryErrorInfo, getRetryErrorType, retryMiddlewareOptions;
+	var isRetryStrategyV2, getRetryErrorInfo, getRetryErrorType, retryMiddlewareOptions;
 	var init_retryMiddleware = __esmMin((() => {
 		init_client();
 		init_protocols$1();
 		init_index_browser$6();
+		init_dist_es$5();
 		init_service_error_classification();
+		init_race();
 		init_constants$3();
 		init_parseRetryAfterHeader();
 		init_util();
-		cooldown = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 		isRetryStrategyV2 = (retryStrategy) => typeof retryStrategy.acquireInitialRetryToken !== "undefined" && typeof retryStrategy.refreshRetryTokenForRetry !== "undefined" && typeof retryStrategy.recordSuccess !== "undefined";
 		getRetryErrorInfo = (error, logger) => {
 			const errorInfo = {
@@ -7146,8 +8186,7 @@
 			override: true
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRateLimiter.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRateLimiter.js
 	var DefaultRateLimiter;
 	var init_DefaultRateLimiter = __esmMin((() => {
 		init_service_error_classification();
@@ -7258,8 +8297,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/util-retry/retries-2026-config.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/retries-2026-config.js
 	var Retry;
 	var init_retries_2026_config = __esmMin((() => {
 		init_dist$1();
@@ -7282,8 +8320,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRetryBackoffStrategy.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRetryBackoffStrategy.js
 	var DefaultRetryBackoffStrategy;
 	var init_DefaultRetryBackoffStrategy = __esmMin((() => {
 		init_constants$3();
@@ -7299,8 +8336,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRetryToken.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/DefaultRetryToken.js
 	var DefaultRetryToken;
 	var init_DefaultRetryToken = __esmMin((() => {
 		init_constants$3();
@@ -7330,8 +8366,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/util-retry/config.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/config.js
 	var RETRY_MODES, DEFAULT_RETRY_MODE;
 	var init_config = __esmMin((() => {
 		(function(RETRY_MODES) {
@@ -7340,8 +8375,7 @@
 		})(RETRY_MODES || (RETRY_MODES = {}));
 		DEFAULT_RETRY_MODE = RETRY_MODES.STANDARD;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/util-retry/StandardRetryStrategy.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/StandardRetryStrategy.js
 	var refusal, StandardRetryStrategy;
 	var init_StandardRetryStrategy = __esmMin((() => {
 		init_DefaultRetryBackoffStrategy();
@@ -7432,8 +8466,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/util-retry/AdaptiveRetryStrategy.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/util-retry/AdaptiveRetryStrategy.js
 	var AdaptiveRetryStrategy;
 	var init_AdaptiveRetryStrategy = __esmMin((() => {
 		init_DefaultRateLimiter();
@@ -7471,8 +8504,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/configurations.js
+	// node_modules/@smithy/core/dist-es/submodules/retry/middleware-retry/configurations.js
 	var resolveRetryConfig;
 	var init_configurations$1 = __esmMin((() => {
 		init_client();
@@ -7519,8 +8551,7 @@
 		init_parseRetryAfterHeader();
 		getRetryPlugin = bindGetRetryPlugin(isStreamingPayload);
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/setFeature.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/setFeature.js
 	function setFeature(context, feature, value) {
 		if (!context.__aws_sdk_context) context.__aws_sdk_context = { features: {} };
 		else if (!context.__aws_sdk_context.features) context.__aws_sdk_context.features = {};
@@ -7531,8 +8562,7 @@
 		init_index_browser$3();
 		Retry.v2026 ||= typeof process$1 === "object" && process$1.env?.AWS_NEW_RETRIES_2026 === "true";
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-host-header/hostHeaderMiddleware.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-host-header/hostHeaderMiddleware.js
 	function resolveHostHeaderConfig(input) {
 		return input;
 	}
@@ -7564,8 +8594,7 @@
 			clientStack.add(hostHeaderMiddleware(options), hostHeaderMiddlewareOptions);
 		} });
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-logger/loggerMiddleware.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-logger/loggerMiddleware.js
 	var loggerMiddleware, loggerMiddlewareOptions, getLoggerPlugin;
 	var init_loggerMiddleware = __esmMin((() => {
 		loggerMiddleware = () => (next, context) => async (args) => {
@@ -7608,14 +8637,12 @@
 			clientStack.add(loggerMiddleware(), loggerMiddlewareOptions);
 		} });
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/getRecursionDetectionPlugin.browser.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-recursion-detection/getRecursionDetectionPlugin.browser.js
 	var getRecursionDetectionPlugin;
 	var init_getRecursionDetectionPlugin_browser = __esmMin((() => {
 		getRecursionDetectionPlugin = (options) => ({ applyToStack: (clientStack) => {} });
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/resolveAuthOptions.js
+	// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/resolveAuthOptions.js
 	var resolveAuthOptions;
 	var init_resolveAuthOptions = __esmMin((() => {
 		resolveAuthOptions = (candidateAuthOptions, authSchemePreference) => {
@@ -7626,8 +8653,7 @@
 			return preferredAuthOptions;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js
+	// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js
 	function convertHttpAuthSchemesToMap(httpAuthSchemes) {
 		const map = /* @__PURE__ */ new Map();
 		for (const scheme of httpAuthSchemes) map.set(scheme.schemeId, scheme);
@@ -7638,7 +8664,9 @@
 		init_transport();
 		init_resolveAuthOptions();
 		httpAuthSchemeMiddleware = (config, mwOptions) => (next, context) => async (args) => {
-			const resolvedOptions = resolveAuthOptions(config.httpAuthSchemeProvider(await mwOptions.httpAuthSchemeParametersProvider(config, context, args.input)), config.authSchemePreference ? await config.authSchemePreference() : []);
+			const options = config.httpAuthSchemeProvider(await mwOptions.httpAuthSchemeParametersProvider(config, context, args.input));
+			const authSchemePreference = config.authSchemePreference ? await config.authSchemePreference() : [];
+			const resolvedOptions = resolveAuthOptions(options, authSchemePreference);
 			const authSchemes = convertHttpAuthSchemesToMap(config.httpAuthSchemes);
 			const smithyContext = getSmithyContext(context);
 			const failureReasons = [];
@@ -7667,8 +8695,7 @@
 			return next(args);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/getHttpAuthSchemeEndpointRuleSetPlugin.js
+	// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/getHttpAuthSchemeEndpointRuleSetPlugin.js
 	var httpAuthSchemeEndpointRuleSetMiddlewareOptions, getHttpAuthSchemeEndpointRuleSetPlugin;
 	var init_getHttpAuthSchemeEndpointRuleSetPlugin = __esmMin((() => {
 		init_httpAuthSchemeMiddleware();
@@ -7687,14 +8714,12 @@
 			}), httpAuthSchemeEndpointRuleSetMiddlewareOptions);
 		} });
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/index.js
+	// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-auth-scheme/index.js
 	var init_middleware_http_auth_scheme = __esmMin((() => {
 		init_httpAuthSchemeMiddleware();
 		init_getHttpAuthSchemeEndpointRuleSetPlugin();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/httpSigningMiddleware.js
+	// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/httpSigningMiddleware.js
 	var defaultErrorHandler$1, defaultSuccessHandler$1, httpSigningMiddleware;
 	var init_httpSigningMiddleware = __esmMin((() => {
 		init_protocols$1();
@@ -7716,8 +8741,7 @@
 			return output;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/getHttpSigningMiddleware.js
+	// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/getHttpSigningMiddleware.js
 	var httpSigningMiddlewareOptions, getHttpSigningPlugin;
 	var init_getHttpSigningMiddleware = __esmMin((() => {
 		init_httpSigningMiddleware();
@@ -7738,14 +8762,12 @@
 			clientStack.addRelativeTo(httpSigningMiddleware(config), httpSigningMiddlewareOptions);
 		} });
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/index.js
+	// node_modules/@smithy/core/dist-es/legacy-root-exports/middleware-http-signing/index.js
 	var init_middleware_http_signing = __esmMin((() => {
 		init_httpSigningMiddleware();
 		init_getHttpSigningMiddleware();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/normalizeProvider.js
+	// node_modules/@smithy/core/dist-es/normalizeProvider.js
 	var normalizeProvider;
 	var init_normalizeProvider = __esmMin((() => {
 		normalizeProvider = (input) => {
@@ -7754,14 +8776,15 @@
 			return () => promisified;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/DefaultIdentityProviderConfig.js
+	// node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/DefaultIdentityProviderConfig.js
 	var DefaultIdentityProviderConfig;
 	var init_DefaultIdentityProviderConfig = __esmMin((() => {
+		init_transport();
 		DefaultIdentityProviderConfig = class {
 			authSchemes = /* @__PURE__ */ new Map();
 			constructor(config) {
 				for (const key in config) {
+					if (!hasOwn(config, key)) continue;
 					const value = config[key];
 					if (value !== void 0) this.authSchemes.set(key, value);
 				}
@@ -7771,8 +8794,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/noAuth.js
+	// node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/noAuth.js
 	var NoAuthSigner;
 	var init_noAuth = __esmMin((() => {
 		NoAuthSigner = class {
@@ -7781,15 +8803,13 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/index.js
+	// node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/httpAuthSchemes/index.js
 	var init_httpAuthSchemes = __esmMin((() => {
 		init_protocols$1();
 		init_dist_es$5();
 		init_noAuth();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/memoizeIdentityProvider.js
+	// node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/memoizeIdentityProvider.js
 	var createIsIdentityExpiredFunction, EXPIRATION_MS, isIdentityExpired, doesIdentityRequireRefresh, memoizeIdentityProvider;
 	var init_memoizeIdentityProvider = __esmMin((() => {
 		createIsIdentityExpiredFunction = (expirationMs) => function isIdentityExpired(identity) {
@@ -7835,15 +8855,13 @@
 			};
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/index.js
+	// node_modules/@smithy/core/dist-es/legacy-root-exports/util-identity-and-auth/index.js
 	var init_util_identity_and_auth = __esmMin((() => {
 		init_DefaultIdentityProviderConfig();
 		init_httpAuthSchemes();
 		init_memoizeIdentityProvider();
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/index.js
+	// node_modules/@smithy/core/dist-es/index.js
 	var init_dist_es$4 = __esmMin((() => {
 		init_transport();
 		init_middleware_http_auth_scheme();
@@ -7852,8 +8870,7 @@
 		init_protocols$1();
 		init_util_identity_and_auth();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/configurations.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/configurations.js
 	function isValidUserAgentAppId(appId) {
 		if (appId === void 0) return true;
 		return typeof appId === "string" && appId.length <= 50;
@@ -7877,8 +8894,7 @@
 	var init_configurations = __esmMin((() => {
 		init_dist_es$4();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/partitions.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/partitions.js
 	var partitionsInfo;
 	var init_partitions = __esmMin((() => {
 		partitionsInfo = {
@@ -8050,8 +9066,7 @@
 			"version": "1.1"
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/partition.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/partition.js
 	var selectedPartitionsInfo, selectedUserAgentPrefix, partition, getUserAgentPrefix;
 	var init_partition = __esmMin((() => {
 		init_partitions();
@@ -8076,8 +9091,7 @@
 		};
 		getUserAgentPrefix = () => selectedUserAgentPrefix;
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/check-features.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/check-features.js
 	async function checkFeatures(context, config, args) {
 		if (args.request?.headers?.["smithy-protocol"] === "rpc-v2-cbor") setFeature(context, "PROTOCOL_RPC_V2_CBOR", "M");
 		if (typeof config.retryStrategy === "function") {
@@ -8086,9 +9100,7 @@
 				case RETRY_MODES.ADAPTIVE:
 					setFeature(context, "RETRY_MODE_ADAPTIVE", "F");
 					break;
-				case RETRY_MODES.STANDARD:
-					setFeature(context, "RETRY_MODE_STANDARD", "E");
-					break;
+				case RETRY_MODES.STANDARD: setFeature(context, "RETRY_MODE_STANDARD", "E");
 			}
 		}
 		if (typeof config.accountIdEndpointMode === "function") {
@@ -8101,9 +9113,7 @@
 				case "preferred":
 					setFeature(context, "ACCOUNT_ID_MODE_PREFERRED", "P");
 					break;
-				case "required":
-					setFeature(context, "ACCOUNT_ID_MODE_REQUIRED", "R");
-					break;
+				case "required": setFeature(context, "ACCOUNT_ID_MODE_REQUIRED", "R");
 			}
 		}
 		const identity = context.__smithy_context?.selectedHttpAuthScheme?.identity;
@@ -8119,8 +9129,7 @@
 		init_setFeature();
 		ACCOUNT_ID_ENDPOINT_REGEX = /\d{12}\.ddb/;
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/constants.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/constants.js
 	var USER_AGENT, X_AMZ_USER_AGENT, UA_NAME_ESCAPE_REGEX, UA_VALUE_ESCAPE_REGEX;
 	var init_constants$2 = __esmMin((() => {
 		USER_AGENT = "user-agent";
@@ -8128,8 +9137,7 @@
 		UA_NAME_ESCAPE_REGEX = /[^!$%&'*+\-.^_`|~\w]/g;
 		UA_VALUE_ESCAPE_REGEX = /[^!$%&'*+\-.^_`|~\w#]/g;
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/encode-features.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/encode-features.js
 	function encodeFeatures(features) {
 		let buffer = "";
 		for (const key in features) {
@@ -8147,8 +9155,7 @@
 	var init_encode_features = __esmMin((() => {
 		BYTE_LIMIT = 1024;
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/user-agent-middleware.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/middleware-user-agent/user-agent-middleware.js
 	var userAgentMiddleware, escapeUserAgent, getUserAgentMiddlewareOptions, getUserAgentPlugin;
 	var init_user_agent_middleware = __esmMin((() => {
 		init_protocols$1();
@@ -8214,8 +9221,7 @@
 			clientStack.add(userAgentMiddleware(config), getUserAgentMiddlewareOptions);
 		} });
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-browser/defaultUserAgent.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/util-user-agent-browser/defaultUserAgent.js
 	var createDefaultUserAgentProvider, fallback;
 	var init_defaultUserAgent = __esmMin((() => {
 		createDefaultUserAgentProvider = ({ serviceId, clientVersion }) => async (config) => {
@@ -8255,13 +9261,11 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/isIpAddress.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/isIpAddress.js
 	var init_isIpAddress = __esmMin((() => {
 		init_index_browser$7();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/isVirtualHostableS3Bucket.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/isVirtualHostableS3Bucket.js
 	var isVirtualHostableS3Bucket;
 	var init_isVirtualHostableS3Bucket = __esmMin((() => {
 		init_index_browser$7();
@@ -8278,8 +9282,7 @@
 			return true;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/parseArn.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/lib/aws/parseArn.js
 	var ARN_DELIMITER, RESOURCE_DELIMITER, parseArn;
 	var init_parseArn = __esmMin((() => {
 		ARN_DELIMITER = ":";
@@ -8298,8 +9301,7 @@
 			};
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/aws.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/util-endpoints/aws.js
 	var awsEndpointFunctions;
 	var init_aws = __esmMin((() => {
 		init_index_browser$7();
@@ -8313,8 +9315,7 @@
 		};
 		customEndpointFunctions.aws = awsEndpointFunctions;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/config/property-provider/ProviderError.js
+	// node_modules/@smithy/core/dist-es/submodules/config/property-provider/ProviderError.js
 	var ProviderError;
 	var init_ProviderError = __esmMin((() => {
 		ProviderError = class ProviderError extends Error {
@@ -8340,8 +9341,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/config/property-provider/CredentialsProviderError.js
+	// node_modules/@smithy/core/dist-es/submodules/config/property-provider/CredentialsProviderError.js
 	var CredentialsProviderError;
 	var init_CredentialsProviderError = __esmMin((() => {
 		init_ProviderError();
@@ -8353,8 +9353,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/config/property-provider/memoize.js
+	// node_modules/@smithy/core/dist-es/submodules/config/property-provider/memoize.js
 	var memoize;
 	var init_memoize = __esmMin((() => {
 		memoize = (provider, isExpired, requiresRefresh) => {
@@ -8392,33 +9391,30 @@
 			};
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/checkRegion.js
+	// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/checkRegion.js
 	var validRegions, checkRegion;
 	var init_checkRegion = __esmMin((() => {
 		init_transport();
 		validRegions = /* @__PURE__ */ new Set();
 		checkRegion = (region, check = isValidHostLabel) => {
-			if (!validRegions.has(region) && !check(region)) if (region === "*") console.warn(`@smithy/config-resolver WARN - Please use the caller region instead of "*". See "sigv4a" in https://github.com/aws/aws-sdk-js-v3/blob/main/supplemental-docs/CLIENTS.md.`);
-			else throw new Error(`Region not accepted: region="${region}" is not a valid hostname component.`);
-			else validRegions.add(region);
+			if (!validRegions.has(region) && !check(region)) {
+				if (region === "*") console.warn(`@smithy/config-resolver WARN - Please use the caller region instead of "*". See "sigv4a" in https://github.com/aws/aws-sdk-js-v3/blob/main/supplemental-docs/CLIENTS.md.`);
+				else throw new Error(`Region not accepted: region="${region}" is not a valid hostname component.`);
+			} else validRegions.add(region);
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/isFipsRegion.js
+	// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/isFipsRegion.js
 	var isFipsRegion;
 	var init_isFipsRegion = __esmMin((() => {
 		isFipsRegion = (region) => typeof region === "string" && (region.startsWith("fips-") || region.endsWith("-fips"));
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/getRealRegion.js
+	// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/getRealRegion.js
 	var getRealRegion;
 	var init_getRealRegion = __esmMin((() => {
 		init_isFipsRegion();
 		getRealRegion = (region) => isFipsRegion(region) ? ["fips-aws-global", "aws-fips"].includes(region) ? "us-east-1" : region.replace(/fips-(dkr-|prod-)?|-fips/, "") : region;
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/resolveRegionConfig.js
+	// node_modules/@smithy/core/dist-es/submodules/config/config-resolver/regionConfig/resolveRegionConfig.js
 	var resolveRegionConfig;
 	var init_resolveRegionConfig = __esmMin((() => {
 		init_checkRegion();
@@ -8429,19 +9425,20 @@
 			if (!region) throw new Error("Region is missing");
 			return Object.assign(input, {
 				region: async () => {
-					const realRegion = getRealRegion(typeof region === "function" ? await region() : region);
+					const providedRegion = typeof region === "function" ? await region() : region;
+					const realRegion = getRealRegion(providedRegion);
 					checkRegion(realRegion);
 					return realRegion;
 				},
 				useFipsEndpoint: async () => {
-					if (isFipsRegion(typeof region === "string" ? region : await region())) return true;
+					const providedRegion = typeof region === "string" ? region : await region();
+					if (isFipsRegion(providedRegion)) return true;
 					return typeof useFipsEndpoint !== "function" ? Promise.resolve(!!useFipsEndpoint) : useFipsEndpoint();
 				}
 			});
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/constants.js
+	// node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/constants.js
 	var DEFAULTS_MODE_OPTIONS;
 	var init_constants$1 = __esmMin((() => {
 		DEFAULTS_MODE_OPTIONS = [
@@ -8452,8 +9449,7 @@
 			"legacy"
 		];
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/resolveDefaultsModeConfig.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/config/defaults-mode/resolveDefaultsModeConfig.browser.js
 	var resolveDefaultsModeConfig, useMobileConfiguration;
 	var init_resolveDefaultsModeConfig_browser = __esmMin((() => {
 		init_memoize();
@@ -8480,8 +9476,7 @@
 			return navigator?.userAgentData?.mobile || typeof navigator?.maxTouchPoints === "number" && navigator?.maxTouchPoints > 1;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/core/dist-es/submodules/config/index.browser.js
+	// node_modules/@smithy/core/dist-es/submodules/config/index.browser.js
 	var init_index_browser$2 = __esmMin((() => {
 		init_ProviderError();
 		init_CredentialsProviderError();
@@ -8490,8 +9485,7 @@
 		init_resolveRegionConfig();
 		init_resolveDefaultsModeConfig_browser();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/extensions.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/region-config-resolver/extensions.js
 	var getAwsRegionExtensionConfiguration, resolveAwsRegionExtensionConfiguration;
 	var init_extensions = __esmMin((() => {
 		getAwsRegionExtensionConfiguration = (runtimeConfig) => {
@@ -8508,8 +9502,7 @@
 			return { region: awsRegionExtensionConfiguration.region() };
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/client/index.browser.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/client/index.browser.js
 	var init_index_browser$1 = __esmMin((() => {
 		init_setCredentialFeature();
 		init_setFeature();
@@ -8529,22 +9522,19 @@
 		init_index_browser$2();
 		init_extensions();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js
 	var getDateHeader, getAgeHeader;
 	var init_getDateHeader = __esmMin((() => {
 		init_protocols$1();
 		getDateHeader = (response) => HttpResponse.isInstance(response) ? response.headers?.date ?? response.headers?.Date : void 0;
 		getAgeHeader = (response) => HttpResponse.isInstance(response) ? response.headers?.age ?? response.headers?.Age : void 0;
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getSkewCorrectedDate.js
 	var getSkewCorrectedDate;
 	var init_getSkewCorrectedDate = __esmMin((() => {
 		getSkewCorrectedDate = (systemClockOffset) => new Date(Date.now() + systemClockOffset);
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getUpdatedSystemClockOffset.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getUpdatedSystemClockOffset.js
 	var getUpdatedSystemClockOffset;
 	var init_getUpdatedSystemClockOffset = __esmMin((() => {
 		getUpdatedSystemClockOffset = (clockTime, currentSystemClockOffset, timeRequestSent, ageHeader) => {
@@ -8552,25 +9542,27 @@
 			const serverTime = Date.parse(clockTime);
 			const timeResponseReceived = Date.now();
 			if (timeRequestSent !== void 0 && timeResponseReceived - timeRequestSent > 9e5) return currentSystemClockOffset;
-			return timeRequestSent !== void 0 ? serverTime - (timeRequestSent + timeResponseReceived) / 2 : serverTime - timeResponseReceived;
+			return serverTime - timeResponseReceived;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/index.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/index.js
 	var init_utils = __esmMin((() => {
 		init_getDateHeader();
 		init_getSkewCorrectedDate();
 		init_getUpdatedSystemClockOffset();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js
-	var throwSigningPropertyError, validateSigningProperties, AwsSdkSigV4Signer;
+	// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js
+	var throwSigningPropertyError, hasEventStreamOutput, validateSigningProperties, AwsSdkSigV4Signer;
 	var init_AwsSdkSigV4Signer = __esmMin((() => {
 		init_protocols$1();
+		init_dist_es$5();
 		init_utils();
 		throwSigningPropertyError = (name, property) => {
 			if (!property) throw new Error(`Property \`${name}\` is not resolved for AWS SDK SigV4Auth`);
 			return property;
+		};
+		hasEventStreamOutput = (signingProperties) => {
+			return (signingProperties.context?.[SMITHY_CONTEXT_KEY]?.eventStream)?.output === true;
 		};
 		validateSigningProperties = async (signingProperties) => {
 			const context = throwSigningPropertyError("context", signingProperties.context);
@@ -8600,7 +9592,9 @@
 				}
 				const noSkewCorrection = await config.disableClockSkewCorrection?.() === true;
 				signingProperties._disableClockSkewCorrection = noSkewCorrection;
-				if (!noSkewCorrection) {
+				const skipSkewSampling = noSkewCorrection || hasEventStreamOutput(signingProperties);
+				signingProperties._skipClockSkewSampling = skipSkewSampling;
+				if (!skipSkewSampling) {
 					signingProperties._preRequestSystemClockOffset = config.systemClockOffset;
 					signingProperties._requestSentAt = Date.now();
 				}
@@ -8613,7 +9607,7 @@
 			errorHandler(signingProperties) {
 				return (error) => {
 					const errorException = error;
-					if (!signingProperties._disableClockSkewCorrection) {
+					if (!signingProperties._skipClockSkewSampling && !signingProperties._disableClockSkewCorrection) {
 						const serverTime = errorException.ServerTime ?? getDateHeader(errorException.$response);
 						if (serverTime) {
 							const config = throwSigningPropertyError("config", signingProperties.config);
@@ -8629,7 +9623,7 @@
 				};
 			}
 			successHandler(httpResponse, signingProperties) {
-				if (signingProperties._disableClockSkewCorrection) return;
+				if (signingProperties._skipClockSkewSampling || signingProperties._disableClockSkewCorrection) return;
 				const dateHeader = getDateHeader(httpResponse);
 				if (dateHeader) {
 					const config = throwSigningPropertyError("config", signingProperties.config);
@@ -8640,8 +9634,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4ASigner.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4ASigner.js
 	var AwsSdkSigV4ASigner;
 	var init_AwsSdkSigV4ASigner = __esmMin((() => {
 		init_protocols$1();
@@ -8666,8 +9659,7 @@
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4AConfig.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4AConfig.js
 	var resolveAwsSdkSigV4AConfig;
 	var init_resolveAwsSdkSigV4AConfig = __esmMin((() => {
 		init_dist_es$4();
@@ -8676,8 +9668,7 @@
 			return config;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/HeaderFormatter.js
+	// node_modules/@smithy/signature-v4/dist-es/HeaderFormatter.js
 	function negate(bytes) {
 		for (let i = 0; i < 8; i++) bytes[i] ^= 255;
 		for (let i = 7; i > -1; i--) {
@@ -8691,7 +9682,8 @@
 		HeaderFormatter = class {
 			format(headers) {
 				const chunks = [];
-				for (const headerName of Object.keys(headers)) {
+				for (const headerName in headers) {
+					if (!hasOwn(headers, headerName)) continue;
 					const bytes = fromUtf8$2(headerName);
 					chunks.push(Uint8Array.from([bytes.byteLength]), bytes, this.formatHeaderValue(headers[headerName]));
 				}
@@ -8705,26 +9697,26 @@
 			}
 			formatHeaderValue(header) {
 				switch (header.type) {
-					case "boolean": return Uint8Array.from([header.value ? HEADER_VALUE_TYPE.boolTrue : HEADER_VALUE_TYPE.boolFalse]);
-					case "byte": return Uint8Array.from([HEADER_VALUE_TYPE.byte, header.value]);
+					case "boolean": return Uint8Array.from([header.value ? 0 : 1]);
+					case "byte": return Uint8Array.from([2, header.value]);
 					case "short":
 						const shortView = /* @__PURE__ */ new DataView(/* @__PURE__ */ new ArrayBuffer(3));
-						shortView.setUint8(0, HEADER_VALUE_TYPE.short);
+						shortView.setUint8(0, 3);
 						shortView.setInt16(1, header.value, false);
 						return new Uint8Array(shortView.buffer);
 					case "integer":
 						const intView = /* @__PURE__ */ new DataView(/* @__PURE__ */ new ArrayBuffer(5));
-						intView.setUint8(0, HEADER_VALUE_TYPE.integer);
+						intView.setUint8(0, 4);
 						intView.setInt32(1, header.value, false);
 						return new Uint8Array(intView.buffer);
 					case "long":
 						const longBytes = /* @__PURE__ */ new Uint8Array(9);
-						longBytes[0] = HEADER_VALUE_TYPE.long;
+						longBytes[0] = 5;
 						longBytes.set(header.value.bytes, 1);
 						return longBytes;
 					case "binary":
 						const binView = new DataView(new ArrayBuffer(3 + header.value.byteLength));
-						binView.setUint8(0, HEADER_VALUE_TYPE.byteArray);
+						binView.setUint8(0, 6);
 						binView.setUint16(1, header.value.byteLength, false);
 						const binBytes = new Uint8Array(binView.buffer);
 						binBytes.set(header.value, 3);
@@ -8732,20 +9724,20 @@
 					case "string":
 						const utf8Bytes = fromUtf8$2(header.value);
 						const strView = new DataView(new ArrayBuffer(3 + utf8Bytes.byteLength));
-						strView.setUint8(0, HEADER_VALUE_TYPE.string);
+						strView.setUint8(0, 7);
 						strView.setUint16(1, utf8Bytes.byteLength, false);
 						const strBytes = new Uint8Array(strView.buffer);
 						strBytes.set(utf8Bytes, 3);
 						return strBytes;
 					case "timestamp":
 						const tsBytes = /* @__PURE__ */ new Uint8Array(9);
-						tsBytes[0] = HEADER_VALUE_TYPE.timestamp;
+						tsBytes[0] = 8;
 						tsBytes.set(Int64.fromNumber(header.value.valueOf()).bytes, 1);
 						return tsBytes;
 					case "uuid":
 						if (!UUID_PATTERN.test(header.value)) throw new Error(`Invalid UUID received: ${header.value}`);
 						const uuidBytes = /* @__PURE__ */ new Uint8Array(17);
-						uuidBytes[0] = HEADER_VALUE_TYPE.uuid;
+						uuidBytes[0] = 9;
 						uuidBytes.set(fromHex(header.value.replace(/-/g, "")), 1);
 						return uuidBytes;
 				}
@@ -8831,16 +9823,17 @@
 		UNSIGNED_PAYLOAD = "UNSIGNED-PAYLOAD";
 		KEY_TYPE_IDENTIFIER = "aws4_request";
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/getCanonicalQuery.js
+	// node_modules/@smithy/signature-v4/dist-es/getCanonicalQuery.js
 	var getCanonicalQuery;
 	var init_getCanonicalQuery = __esmMin((() => {
+		init_index_browser$6();
 		init_protocols$1();
 		init_constants();
 		getCanonicalQuery = ({ query = {} }) => {
 			const keys = [];
 			const serialized = {};
-			for (const key of Object.keys(query)) {
+			for (const key in query) {
+				if (!hasOwn(query, key)) continue;
 				if (key.toLowerCase() === "x-amz-signature") continue;
 				const encodedKey = escapeUri(key);
 				keys.push(encodedKey);
@@ -8851,8 +9844,7 @@
 			return keys.sort().map((key) => serialized[key]).filter((serialized) => serialized).join("&");
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/utilDate.js
+	// node_modules/@smithy/signature-v4/dist-es/utilDate.js
 	var iso8601, toDate;
 	var init_utilDate = __esmMin((() => {
 		iso8601 = (time) => toDate(time).toISOString().replace(/\.\d{3}Z$/, "Z");
@@ -8865,8 +9857,7 @@
 			return time;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/SignatureV4Base.js
+	// node_modules/@smithy/signature-v4/dist-es/SignatureV4Base.js
 	var SignatureV4Base;
 	var init_SignatureV4Base = __esmMin((() => {
 		init_client();
@@ -8916,7 +9907,8 @@ ${toHex$1(await hash.digest())}`;
 						if (pathSegment === "..") normalizedPathSegments.pop();
 						else normalizedPathSegments.push(pathSegment);
 					}
-					return escapeUri(`${path?.startsWith("/") ? "/" : ""}${normalizedPathSegments.join("/")}${normalizedPathSegments.length > 0 && path?.endsWith("/") ? "/" : ""}`).replace(/%2F/g, "/");
+					const normalizedPath = `${path?.startsWith("/") ? "/" : ""}${normalizedPathSegments.join("/")}${normalizedPathSegments.length > 0 && path?.endsWith("/") ? "/" : ""}`;
+					return escapeUri(normalizedPath).replace(/%2F/g, "/");
 				}
 				return path;
 			}
@@ -8935,8 +9927,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/credentialDerivation.js
+	// node_modules/@smithy/signature-v4/dist-es/credentialDerivation.js
 	var signingKeyCache, cacheQueue, createScope, getSigningKey, hmac;
 	var init_credentialDerivation = __esmMin((() => {
 		init_index_browser$6();
@@ -8964,32 +9955,35 @@ ${toHex$1(await hash.digest())}`;
 			return hash.digest();
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/getCanonicalHeaders.js
+	// node_modules/@smithy/signature-v4/dist-es/getCanonicalHeaders.js
 	var getCanonicalHeaders;
 	var init_getCanonicalHeaders = __esmMin((() => {
+		init_index_browser$6();
 		init_constants();
 		getCanonicalHeaders = ({ headers }, unsignableHeaders, signableHeaders) => {
 			const canonical = {};
 			for (const headerName of Object.keys(headers).sort()) {
 				if (headers[headerName] == void 0) continue;
 				const canonicalHeaderName = headerName.toLowerCase();
-				if (canonicalHeaderName in ALWAYS_UNSIGNABLE_HEADERS || unsignableHeaders?.has(canonicalHeaderName) || PROXY_HEADER_PATTERN.test(canonicalHeaderName) || SEC_HEADER_PATTERN.test(canonicalHeaderName)) {
+				if (hasOwn(ALWAYS_UNSIGNABLE_HEADERS, canonicalHeaderName) || unsignableHeaders?.has(canonicalHeaderName) || PROXY_HEADER_PATTERN.test(canonicalHeaderName) || SEC_HEADER_PATTERN.test(canonicalHeaderName)) {
 					if (!signableHeaders || signableHeaders && !signableHeaders.has(canonicalHeaderName)) continue;
 				}
-				canonical[canonicalHeaderName] = headers[headerName].trim().replace(/\s+/g, " ");
+				if (canonicalHeaderName === "__proto__") writeKey$1(canonical);
+				canonical[canonicalHeaderName] = headers[headerName].replace(/[\r\n]/g, " ").replace(/[ \t]+/g, " ").replace(/^ | $/g, "");
 			}
 			return canonical;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/getPayloadHash.js
+	// node_modules/@smithy/signature-v4/dist-es/getPayloadHash.js
 	var getPayloadHash;
 	var init_getPayloadHash = __esmMin((() => {
 		init_index_browser$6();
 		init_constants();
 		getPayloadHash = async ({ headers, body }, hashConstructor) => {
-			for (const headerName of Object.keys(headers)) if (headerName.toLowerCase() === "x-amz-content-sha256") return headers[headerName];
+			for (const headerName in headers) {
+				if (!hasOwn(headers, headerName)) continue;
+				if (headerName.toLowerCase() === "x-amz-content-sha256") return headers[headerName];
+			}
 			if (body == void 0) return "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
 			else if (typeof body === "string" || ArrayBuffer.isView(body) || isArrayBuffer(body)) {
 				const hashCtor = new hashConstructor();
@@ -8999,24 +9993,28 @@ ${toHex$1(await hash.digest())}`;
 			return UNSIGNED_PAYLOAD;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/headerUtil.js
+	// node_modules/@smithy/signature-v4/dist-es/headerUtil.js
 	var hasHeader$1;
 	var init_headerUtil = __esmMin((() => {
+		init_index_browser$6();
 		hasHeader$1 = (soughtHeader, headers) => {
 			soughtHeader = soughtHeader.toLowerCase();
-			for (const headerName of Object.keys(headers)) if (soughtHeader === headerName.toLowerCase()) return true;
+			for (const headerName in headers) {
+				if (!hasOwn(headers, headerName)) continue;
+				if (soughtHeader === headerName.toLowerCase()) return true;
+			}
 			return false;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/moveHeadersToQuery.js
+	// node_modules/@smithy/signature-v4/dist-es/moveHeadersToQuery.js
 	var moveHeadersToQuery;
 	var init_moveHeadersToQuery = __esmMin((() => {
+		init_index_browser$6();
 		init_protocols$1();
 		moveHeadersToQuery = (request, options = {}) => {
 			const { headers, query = {} } = HttpRequest.clone(request);
-			for (const name of Object.keys(headers)) {
+			for (const name in headers) {
+				if (!hasOwn(headers, name)) continue;
 				const lname = name.toLowerCase();
 				if (lname.slice(0, 6) === "x-amz-" && !options.unhoistableHeaders?.has(lname) || options.hoistableHeaders?.has(lname)) {
 					query[name] = headers[name];
@@ -9030,20 +10028,22 @@ ${toHex$1(await hash.digest())}`;
 			};
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/prepareRequest.js
+	// node_modules/@smithy/signature-v4/dist-es/prepareRequest.js
 	var prepareRequest;
 	var init_prepareRequest = __esmMin((() => {
+		init_index_browser$6();
 		init_protocols$1();
 		init_constants();
 		prepareRequest = (request) => {
 			request = HttpRequest.clone(request);
-			for (const headerName of Object.keys(request.headers)) if (GENERATED_HEADERS.indexOf(headerName.toLowerCase()) > -1) delete request.headers[headerName];
+			for (const headerName in request.headers) {
+				if (!hasOwn(request.headers, headerName)) continue;
+				if (GENERATED_HEADERS.indexOf(headerName.toLowerCase()) > -1) delete request.headers[headerName];
+			}
 			return request;
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/SignatureV4.js
+	// node_modules/@smithy/signature-v4/dist-es/SignatureV4.js
 	var SignatureV4;
 	var init_SignatureV4 = __esmMin((() => {
 		init_index_browser$6();
@@ -9106,12 +10106,13 @@ ${toHex$1(await hash.digest())}`;
 				}, this.sha256);
 				const hash = new this.sha256();
 				hash.update(headers);
+				const hashedHeaders = toHex$1(await hash.digest());
 				const stringToSign = [
 					EVENT_ALGORITHM_IDENTIFIER,
 					longDate,
 					scope,
 					priorSignature,
-					toHex$1(await hash.digest()),
+					hashedHeaders,
 					hashedPayload
 				].join("\n");
 				return this.signString(stringToSign, {
@@ -9174,14 +10175,12 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/signature-v4a-container.js
+	// node_modules/@smithy/signature-v4/dist-es/signature-v4a-container.js
 	var signatureV4aContainer;
 	var init_signature_v4a_container = __esmMin((() => {
 		signatureV4aContainer = { SignatureV4a: null };
 	}));
-	//#endregion
-	//#region node_modules/@smithy/signature-v4/dist-es/index.js
+	// node_modules/@smithy/signature-v4/dist-es/index.js
 	var init_dist_es$3 = __esmMin((() => {
 		init_SignatureV4();
 		init_constants();
@@ -9195,13 +10194,13 @@ ${toHex$1(await hash.digest())}`;
 		init_headerUtil();
 		init_signature_v4a_container();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js
 	function normalizeCredentialProvider(config, { credentials, credentialDefaultProvider }) {
 		let credentialsProvider;
-		if (credentials) if (!credentials?.memoized) credentialsProvider = memoizeIdentityProvider(credentials, isIdentityExpired, doesIdentityRequireRefresh);
-		else credentialsProvider = credentials;
-		else if (credentialDefaultProvider) credentialsProvider = normalizeProvider(credentialDefaultProvider(Object.assign({}, config, { parentClientConfig: config })));
+		if (credentials) {
+			if (!credentials?.memoized) credentialsProvider = memoizeIdentityProvider(credentials, isIdentityExpired, doesIdentityRequireRefresh);
+			else credentialsProvider = credentials;
+		} else if (credentialDefaultProvider) credentialsProvider = normalizeProvider(credentialDefaultProvider(Object.assign({}, config, { parentClientConfig: config })));
 		else credentialsProvider = async () => {
 			throw new Error("@aws-sdk/core::resolveAwsSdkSigV4Config - `credentials` not provided and no credentialDefaultProvider was configured.");
 		};
@@ -9303,27 +10302,23 @@ ${toHex$1(await hash.digest())}`;
 			});
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/index.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/index.js
 	var init_aws_sdk = __esmMin((() => {
 		init_AwsSdkSigV4Signer();
 		init_AwsSdkSigV4ASigner();
 		init_resolveAwsSdkSigV4AConfig();
 		init_resolveAwsSdkSigV4Config();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/clock-skew-defaults.browser.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/clock-skew-defaults.browser.js
 	var init_clock_skew_defaults_browser = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/index.browser.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/index.browser.js
 	var resolveAwsSdkSigV4Config;
 	var init_index_browser = __esmMin((() => {
 		init_aws_sdk();
 		init_clock_skew_defaults_browser();
 		resolveAwsSdkSigV4Config = bindResolveAwsSdkSigV4Config(false);
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/ProtocolLib.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/ProtocolLib.js
 	var ProtocolLib;
 	var init_ProtocolLib = __esmMin((() => {
 		init_client();
@@ -9436,545 +10431,12 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/ConfigurableSerdeContext.js
-	var SerdeContextConfig;
-	var init_ConfigurableSerdeContext = __esmMin((() => {
-		SerdeContextConfig = class {
-			serdeContext;
-			setSerdeContext(serdeContext) {
-				this.serdeContext = serdeContext;
-			}
-		};
-	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/UnionSerde.js
-	var UnionSerde;
-	var init_UnionSerde = __esmMin((() => {
-		UnionSerde = class {
-			from;
-			to;
-			keys;
-			constructor(from, to) {
-				this.from = from;
-				this.to = to;
-				const keys = Object.keys(this.from);
-				const set = new Set(keys);
-				set.delete("__type");
-				this.keys = set;
-			}
-			mark(key) {
-				this.keys.delete(key);
-			}
-			hasUnknown() {
-				return this.keys.size === 1 && Object.keys(this.to).length === 0;
-			}
-			writeUnknown() {
-				if (this.hasUnknown()) {
-					const k = this.keys.values().next().value;
-					const v = this.from[k];
-					this.to.$unknown = [k, v];
-				}
-			}
-		};
-	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/jsonReviver.js
-	function jsonReviver(key, value, context) {
-		if (context?.source) {
-			const numericString = context.source;
-			if (typeof value === "number") {
-				const inSafeRange = value <= Number.MAX_SAFE_INTEGER && value >= Number.MIN_SAFE_INTEGER;
-				if (!inSafeRange || numericString !== String(value)) {
-					if (inSafeRange && /[eE]/.test(numericString) && String(Number(numericString)) === String(value)) return value;
-					if (isFractionalNumeric(numericString)) return new NumericValue(numericString, "bigDecimal");
-					else {
-						if (/[eE]/.test(numericString)) return BigInt(Number(numericString));
-						return BigInt(numericString);
-					}
-				}
-			}
-		}
-		return value;
-	}
-	function isFractionalNumeric(s) {
-		const dotIndex = s.indexOf(".");
-		if (dotIndex === -1) return false;
-		const eIndex = s.search(/[eE]/);
-		if (eIndex === -1) return true;
-		const fracDigits = eIndex - dotIndex - 1;
-		return parseInt(s.slice(eIndex + 1), 10) < fracDigits;
-	}
-	var init_jsonReviver = __esmMin((() => {
-		init_index_browser$6();
-	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/needsReviver.js
-	function needsReviver(schema) {
-		const ns = NormalizedSchema.of(schema);
-		const raw = ns.getSchema();
-		if (Array.isArray(raw) && ns.isStructSchema()) {
-			if (REVIVER_SYMBOL in raw) return raw[REVIVER_SYMBOL];
-			const result = _check(ns, /* @__PURE__ */ new Set());
-			raw[REVIVER_SYMBOL] = result;
-			return result;
-		}
-		return _check(ns, /* @__PURE__ */ new Set());
-	}
-	function _check(ns, seen) {
-		const raw = ns.getSchema();
-		if (seen.has(raw)) return false;
-		seen.add(raw);
-		if (ns.isBigIntegerSchema() || ns.isBigDecimalSchema()) return true;
-		if (ns.isStructSchema()) {
-			for (const [, memberSchema] of ns.structIterator()) if (_check(memberSchema, seen)) return true;
-		} else if (ns.isListSchema() || ns.isMapSchema()) {
-			if (_check(ns.getValueSchema(), seen)) return true;
-		} else if (ns.isDocumentSchema()) return true;
-		return false;
-	}
-	var REVIVER_SYMBOL;
-	var init_needsReviver = __esmMin((() => {
-		init_schema();
-		REVIVER_SYMBOL = Symbol.for("@aws-sdk/reviver");
-	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js
-	var collectBodyString;
-	var init_common = __esmMin((() => {
-		init_protocols$1();
-		init_index_browser$6();
-		collectBodyString = (streamBody, context) => collectBody$1(streamBody, context).then((body) => (context?.utf8Encoder ?? toUtf8)(body));
-	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/detectBufferParsing.js
-	function detectBufferParsing() {
-		if (canParseBuffer === void 0) try {
-			if (typeof Buffer$1 !== "function") canParseBuffer = false;
-			else {
-				const result = JSON.parse(Buffer$1.from([123, 125]));
-				canParseBuffer = result !== null && typeof result === "object";
-			}
-		} catch {
-			canParseBuffer = false;
-		}
-		return canParseBuffer;
-	}
-	var canParseBuffer;
-	var init_detectBufferParsing = __esmMin((() => {
-		init_dist$2();
-	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/parseJsonBody.js
-	async function parseJsonBody(streamBody, context, schema) {
-		let parsingInput;
-		if (detectBufferParsing() && typeof streamBody?.[Symbol.asyncIterator] === "function") {
-			const buffer = await collectBody$1(streamBody, context);
-			if (typeof Buffer$1 === "function") if (Buffer$1.isBuffer(buffer)) parsingInput = buffer;
-			else parsingInput = Buffer$1.from(buffer.buffer, buffer.byteOffset, buffer.byteLength);
-		}
-		if (!parsingInput) parsingInput = await collectBodyString(streamBody, context);
-		if (parsingInput.length === 0) return {};
-		const reviver = schema && needsReviver(schema) ? jsonReviver : void 0;
-		try {
-			return JSON.parse(parsingInput, reviver);
-		} catch (e) {
-			if (e?.name === "SyntaxError") Object.defineProperty(e, "$responseBodyText", { value: typeof parsingInput === "string" ? parsingInput : parsingInput.toString("utf8") });
-			throw e;
-		}
-	}
-	var findKey, sanitizeErrorCode, loadRestJsonErrorCode, loadJsonRpcErrorCode, loadErrorCode;
-	var init_parseJsonBody = __esmMin((() => {
-		init_dist$2();
-		init_protocols$1();
-		init_common();
-		init_detectBufferParsing();
-		init_jsonReviver();
-		init_needsReviver();
-		findKey = (object, key) => Object.keys(object).find((k) => k.toLowerCase() === key.toLowerCase());
-		sanitizeErrorCode = (rawValue) => {
-			let cleanValue = rawValue;
-			if (typeof cleanValue === "number") cleanValue = cleanValue.toString();
-			if (cleanValue.indexOf(",") >= 0) cleanValue = cleanValue.split(",")[0];
-			if (cleanValue.indexOf(":") >= 0) cleanValue = cleanValue.split(":")[0];
-			if (cleanValue.indexOf("#") >= 0) cleanValue = cleanValue.split("#")[1];
-			return cleanValue;
-		};
-		loadRestJsonErrorCode = (output, data) => {
-			return loadErrorCode(output, data, [
-				"header",
-				"code",
-				"type"
-			]);
-		};
-		loadJsonRpcErrorCode = (output, data, queryCompat = false) => {
-			return loadErrorCode(output, data, queryCompat ? [
-				"code",
-				"header",
-				"type"
-			] : [
-				"type",
-				"code",
-				"header"
-			]);
-		};
-		loadErrorCode = ({ headers }, data, order) => {
-			while (order.length > 0) switch (order.shift()) {
-				case "header":
-					const headerKey = findKey(headers ?? {}, "x-amzn-errortype");
-					if (headerKey !== void 0) return sanitizeErrorCode(headers[headerKey]);
-					break;
-				case "code":
-					const codeKey = findKey(data ?? {}, "code");
-					if (codeKey && data[codeKey] !== void 0) return sanitizeErrorCode(data[codeKey]);
-					break;
-				case "type":
-					if (data?.__type !== void 0) return sanitizeErrorCode(data.__type);
-					break;
-			}
-		};
-	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/writeKey.js
-	function writeKey(obj) {
-		Object.defineProperty(obj, "__proto__", {
-			value: void 0,
-			writable: true,
-			enumerable: true,
-			configurable: true
-		});
-	}
-	var init_writeKey = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonShapeDeserializer.js
-	var JsonShapeDeserializer;
-	var init_JsonShapeDeserializer = __esmMin((() => {
-		init_protocols$1();
-		init_schema();
-		init_index_browser$6();
-		init_ConfigurableSerdeContext();
-		init_UnionSerde();
-		init_jsonReviver();
-		init_needsReviver();
-		init_parseJsonBody();
-		init_writeKey();
-		JsonShapeDeserializer = class extends SerdeContextConfig {
-			settings;
-			constructor(settings) {
-				super();
-				this.settings = settings;
-			}
-			async read(schema, data) {
-				const reviver = needsReviver(schema) ? jsonReviver : void 0;
-				return this._read(schema, typeof data === "string" ? JSON.parse(data, reviver) : await parseJsonBody(data, this.serdeContext, schema));
-			}
-			readObject(schema, data) {
-				return this._read(schema, data);
-			}
-			_read(schema, value) {
-				const isObject = value !== null && typeof value === "object";
-				const ns = NormalizedSchema.of(schema);
-				if (isObject) {
-					if (ns.isStructSchema()) {
-						const record = value;
-						const union = ns.isUnionSchema();
-						const out = {};
-						let nameMap = void 0;
-						const { jsonName } = this.settings;
-						if (jsonName) nameMap = {};
-						let unionSerde;
-						if (union) unionSerde = new UnionSerde(record, out);
-						for (const [memberName, memberSchema] of ns.structIterator()) {
-							let fromKey = memberName;
-							if (jsonName) {
-								fromKey = memberSchema.getMergedTraits().jsonName ?? fromKey;
-								nameMap[fromKey] = memberName;
-							}
-							if (union) unionSerde.mark(fromKey);
-							if (record[fromKey] != null) out[memberName] = this._read(memberSchema, record[fromKey]);
-						}
-						if (union) unionSerde.writeUnknown();
-						else if (typeof record.__type === "string") for (const k in record) {
-							const v = record[k];
-							const t = jsonName ? nameMap[k] ?? k : k;
-							if (!(t in out)) out[t] = v;
-						}
-						return out;
-					}
-					if (Array.isArray(value) && ns.isListSchema()) {
-						const listMember = ns.getValueSchema();
-						const out = [];
-						for (const item of value) out.push(this._read(listMember, item));
-						return out;
-					}
-					if (ns.isMapSchema()) {
-						const mapMember = ns.getValueSchema();
-						const out = {};
-						for (const _k in value) {
-							if (_k === "__proto__") writeKey(out);
-							out[_k] = this._read(mapMember, value[_k]);
-						}
-						return out;
-					}
-				}
-				if (ns.isBlobSchema() && typeof value === "string") return fromBase64(value);
-				const mediaType = ns.getMergedTraits().mediaType;
-				if (ns.isStringSchema() && typeof value === "string" && mediaType) {
-					if (mediaType === "application/json" || mediaType.endsWith("+json")) return LazyJsonString.from(value);
-					return value;
-				}
-				if (ns.isTimestampSchema() && value != null) switch (determineTimestampFormat(ns, this.settings)) {
-					case 5: return parseRfc3339DateTimeWithOffset(value);
-					case 6: return parseRfc7231DateTime(value);
-					case 7: return parseEpochTimestamp(value);
-					default:
-						console.warn("Missing timestamp format, parsing value with Date constructor:", value);
-						return new Date(value);
-				}
-				if (ns.isBigIntegerSchema() && (typeof value === "number" || typeof value === "string")) return BigInt(value);
-				if (ns.isBigDecimalSchema() && value != void 0) {
-					if (value instanceof NumericValue) return value;
-					const untyped = value;
-					if (untyped.type === "bigDecimal" && "string" in untyped) return new NumericValue(untyped.string, untyped.type);
-					return new NumericValue(String(value), "bigDecimal");
-				}
-				if (ns.isNumericSchema() && typeof value === "string") {
-					switch (value) {
-						case "Infinity": return Infinity;
-						case "-Infinity": return -Infinity;
-						case "NaN": return NaN;
-					}
-					return value;
-				}
-				if (ns.isDocumentSchema()) if (isObject) {
-					const out = Array.isArray(value) ? [] : {};
-					for (const k in value) {
-						if (k === "__proto__") writeKey(out);
-						const v = value[k];
-						if (v instanceof NumericValue) out[k] = v;
-						else out[k] = this._read(ns, v);
-					}
-					return out;
-				} else return structuredClone(value);
-				return value;
-			}
-		};
-	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/jsonReplacer.js
-	var JsonReplacer;
-	var init_jsonReplacer = __esmMin((() => {
-		init_index_browser$6();
-		JsonReplacer = class {
-			values = /* @__PURE__ */ new Map();
-			counter = 0;
-			stage = 0;
-			createReplacer() {
-				if (this.stage === 1) throw new Error("@aws-sdk/core/protocols - JsonReplacer already created.");
-				if (this.stage === 2) throw new Error("@aws-sdk/core/protocols - JsonReplacer exhausted.");
-				this.stage = 1;
-				return (key, value) => {
-					if (value instanceof NumericValue) {
-						const v = `${"Νnv" + this.counter++}_` + value.string;
-						this.values.set(`"${v}"`, value.string);
-						return v;
-					}
-					if (typeof value === "bigint") {
-						const s = value.toString();
-						const v = `${"Νb" + this.counter++}_` + s;
-						this.values.set(`"${v}"`, s);
-						return v;
-					}
-					return value;
-				};
-			}
-			replaceInJson(json) {
-				if (this.stage === 0) throw new Error("@aws-sdk/core/protocols - JsonReplacer not created yet.");
-				if (this.stage === 2) throw new Error("@aws-sdk/core/protocols - JsonReplacer exhausted.");
-				this.stage = 2;
-				if (this.counter === 0) return json;
-				for (const [key, value] of this.values) json = json.replace(key, value);
-				return json;
-			}
-		};
-	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonShapeSerializer.js
-	var JsonShapeSerializer;
-	var init_JsonShapeSerializer = __esmMin((() => {
-		init_protocols$1();
-		init_schema();
-		init_index_browser$6();
-		init_ConfigurableSerdeContext();
-		init_jsonReplacer();
-		init_writeKey();
-		JsonShapeSerializer = class extends SerdeContextConfig {
-			settings;
-			buffer;
-			useReplacer = false;
-			rootSchema;
-			constructor(settings) {
-				super();
-				this.settings = settings;
-			}
-			write(schema, value) {
-				this.rootSchema = NormalizedSchema.of(schema);
-				this.buffer = this._write(this.rootSchema, value);
-			}
-			flush() {
-				const { rootSchema, useReplacer } = this;
-				this.rootSchema = void 0;
-				this.useReplacer = false;
-				if (rootSchema?.isStructSchema() || rootSchema?.isDocumentSchema()) {
-					if (!useReplacer) return JSON.stringify(this.buffer);
-					const replacer = new JsonReplacer();
-					return replacer.replaceInJson(JSON.stringify(this.buffer, replacer.createReplacer(), 0));
-				}
-				return this.buffer;
-			}
-			writeDiscriminatedDocument(schema, value) {
-				this.write(schema, value);
-				if (typeof this.buffer === "object") this.buffer.__type = NormalizedSchema.of(schema).getName(true);
-			}
-			_write(schema, value, container) {
-				const isObject = value !== null && typeof value === "object";
-				const ns = NormalizedSchema.of(schema);
-				if (isObject) {
-					if (ns.isStructSchema()) {
-						const record = value;
-						const out = {};
-						const { jsonName } = this.settings;
-						let nameMap = void 0;
-						if (jsonName) nameMap = {};
-						let outCount = 0;
-						for (const [memberName, memberSchema] of ns.structIterator()) {
-							const serializableValue = this._write(memberSchema, record[memberName], ns);
-							if (serializableValue !== void 0) {
-								let targetKey = memberName;
-								if (jsonName) {
-									targetKey = memberSchema.getMergedTraits().jsonName ?? memberName;
-									nameMap[memberName] = targetKey;
-								}
-								out[targetKey] = serializableValue;
-								outCount++;
-							}
-						}
-						if (ns.isUnionSchema() && outCount === 0) {
-							const { $unknown } = record;
-							if (Array.isArray($unknown)) {
-								const [k, v] = $unknown;
-								if (k === "__proto__") writeKey(out);
-								out[k] = this._write(15, v);
-							}
-						} else if (typeof record.__type === "string") for (const k in record) {
-							const v = record[k];
-							const targetKey = jsonName ? nameMap[k] ?? k : k;
-							if (!(targetKey in out)) out[targetKey] = this._write(15, v);
-						}
-						return out;
-					}
-					if (Array.isArray(value) && ns.isListSchema()) {
-						const listMember = ns.getValueSchema();
-						const out = [];
-						const sparse = !!ns.getMergedTraits().sparse;
-						for (const item of value) if (sparse || item != null) out.push(this._write(listMember, item));
-						return out;
-					}
-					if (ns.isMapSchema()) {
-						const mapMember = ns.getValueSchema();
-						const out = {};
-						const sparse = !!ns.getMergedTraits().sparse;
-						for (const _k in value) {
-							const _v = value[_k];
-							if (sparse || _v != null) {
-								if (_k === "__proto__") writeKey(out);
-								out[_k] = this._write(mapMember, _v);
-							}
-						}
-						return out;
-					}
-					if (value instanceof Uint8Array && (ns.isBlobSchema() || ns.isDocumentSchema())) {
-						if (ns === this.rootSchema) return value;
-						return (this.serdeContext?.base64Encoder ?? toBase64)(value);
-					}
-					if (value instanceof Date && (ns.isTimestampSchema() || ns.isDocumentSchema())) switch (determineTimestampFormat(ns, this.settings)) {
-						case 5: return value.toISOString().replace(".000Z", "Z");
-						case 6: return dateToUtcString(value);
-						case 7: return value.getTime() / 1e3;
-						default:
-							console.warn("Missing timestamp format, using epoch seconds", value);
-							return value.getTime() / 1e3;
-					}
-					if (value instanceof NumericValue) this.useReplacer = true;
-				}
-				if (value === null && container?.isStructSchema()) return;
-				if (ns.isStringSchema()) {
-					if (typeof value === "undefined" && ns.isIdempotencyToken()) return generateIdempotencyToken();
-					const mediaType = ns.getMergedTraits().mediaType;
-					if (value != null && mediaType) {
-						if (mediaType === "application/json" || mediaType.endsWith("+json")) return LazyJsonString.from(value);
-					}
-					return value;
-				}
-				if (typeof value === "number" && ns.isNumericSchema()) {
-					if (Math.abs(value) === Infinity || isNaN(value)) return String(value);
-					return value;
-				}
-				if (typeof value === "string" && ns.isBlobSchema()) {
-					if (ns === this.rootSchema) return value;
-					return (this.serdeContext?.base64Encoder ?? toBase64)(value);
-				}
-				if (typeof value === "bigint") this.useReplacer = true;
-				if (ns.isDocumentSchema()) if (isObject) {
-					const out = Array.isArray(value) ? [] : {};
-					for (const k in value) {
-						const v = value[k];
-						if (k === "__proto__") writeKey(out);
-						if (v instanceof NumericValue) {
-							this.useReplacer = true;
-							out[k] = v;
-						} else out[k] = this._write(ns, v);
-					}
-					return out;
-				} else return structuredClone(value);
-				return value;
-			}
-		};
-	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/JsonCodec.js
-	var JsonCodec;
-	var init_JsonCodec = __esmMin((() => {
-		init_ConfigurableSerdeContext();
-		init_JsonShapeDeserializer();
-		init_JsonShapeSerializer();
-		JsonCodec = class extends SerdeContextConfig {
-			settings;
-			constructor(settings) {
-				super();
-				this.settings = settings;
-			}
-			createSerializer() {
-				const serializer = new JsonShapeSerializer(this.settings);
-				serializer.setSerdeContext(this.serdeContext);
-				return serializer;
-			}
-			createDeserializer() {
-				const deserializer = new JsonShapeDeserializer(this.settings);
-				deserializer.setSerdeContext(this.serdeContext);
-				return deserializer;
-			}
-		};
-	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJsonRpcProtocol.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJsonRpcProtocol.js
 	var AwsJsonRpcProtocol;
 	var init_AwsJsonRpcProtocol = __esmMin((() => {
 		init_protocols$1();
 		init_schema();
 		init_ProtocolLib();
-		init_JsonCodec();
-		init_parseJsonBody();
 		AwsJsonRpcProtocol = class extends RpcProtocol {
 			serializer;
 			deserializer;
@@ -9988,7 +10450,7 @@ ${toHex$1(await hash.digest())}`;
 					errorTypeRegistries
 				});
 				this.serviceTarget = serviceTarget;
-				this.codec = jsonCodec ?? new JsonCodec({
+				this.codec = jsonCodec ?? new JsonCodec2({
 					timestampFormat: {
 						useTrait: true,
 						default: 7
@@ -10032,8 +10494,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJson1_1Protocol.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsJson1_1Protocol.js
 	var AwsJson1_1Protocol;
 	var init_AwsJson1_1Protocol = __esmMin((() => {
 		init_AwsJsonRpcProtocol();
@@ -10058,21 +10519,18 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsRestJsonProtocol.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/AwsRestJsonProtocol.js
 	var AwsRestJsonProtocol;
 	var init_AwsRestJsonProtocol = __esmMin((() => {
 		init_protocols$1();
 		init_schema();
 		init_ProtocolLib();
-		init_JsonCodec();
-		init_parseJsonBody();
 		AwsRestJsonProtocol = class extends HttpBindingProtocol {
 			serializer;
 			deserializer;
 			codec;
 			mixin = new ProtocolLib();
-			constructor({ defaultNamespace, errorTypeRegistries }) {
+			constructor({ defaultNamespace, errorTypeRegistries, jsonCodec }) {
 				super({
 					defaultNamespace,
 					errorTypeRegistries
@@ -10085,7 +10543,7 @@ ${toHex$1(await hash.digest())}`;
 					httpBindings: true,
 					jsonName: true
 				};
-				this.codec = new JsonCodec(settings);
+				this.codec = jsonCodec ?? new JsonCodec2(settings);
 				this.serializer = new HttpInterceptingShapeSerializer(this.codec.createSerializer(), settings);
 				this.deserializer = new HttpInterceptingShapeDeserializer(this.codec.createDeserializer(), settings);
 			}
@@ -10139,8 +10597,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/xml-builder/dist-es/escape-attribute.js
+	// node_modules/@aws-sdk/xml-builder/dist-es/escape-attribute.js
 	function escapeAttribute(value) {
 		return value.replace(ATTR_ESCAPE_RE, (ch) => ATTR_ESCAPE_MAP[ch]);
 	}
@@ -10154,8 +10611,7 @@ ${toHex$1(await hash.digest())}`;
 			"\"": "&quot;"
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/xml-builder/dist-es/escape-element.js
+	// node_modules/@aws-sdk/xml-builder/dist-es/escape-element.js
 	function escapeElement(value) {
 		return value.replace(ELEMENT_ESCAPE_RE, (ch) => ELEMENT_ESCAPE_MAP[ch]);
 	}
@@ -10174,8 +10630,7 @@ ${toHex$1(await hash.digest())}`;
 			"\u2028": "&#x2028;"
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/xml-builder/dist-es/XmlText.js
+	// node_modules/@aws-sdk/xml-builder/dist-es/XmlText.js
 	var XmlText;
 	var init_XmlText = __esmMin((() => {
 		init_escape_element();
@@ -10189,8 +10644,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/xml-builder/dist-es/XmlNode.js
+	// node_modules/@aws-sdk/xml-builder/dist-es/XmlNode.js
 	var XmlNode;
 	var init_XmlNode = __esmMin((() => {
 		init_escape_attribute();
@@ -10271,8 +10725,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/xml-builder/dist-es/xml-parser.browser.js
+	// node_modules/@aws-sdk/xml-builder/dist-es/xml-parser.browser.js
 	function parseXML(xmlString) {
 		if (!parser$1) parser$1 = new DOMParser();
 		const xmlDocument = parser$1.parseFromString(xmlString, "application/xml");
@@ -10293,9 +10746,10 @@ ${toHex$1(await hash.digest())}`;
 					if (childResult != null) {
 						const childName = child.nodeName;
 						if (childNodes.length === 1 && attributes.length === 0 && childName === "#text") return childResult;
-						if (childName in obj) if (Array.isArray(obj[childName])) obj[childName].push(childResult);
-						else obj[childName] = [obj[childName], childResult];
-						else obj[childName] = childResult;
+						if (childName in obj) {
+							if (Array.isArray(obj[childName])) obj[childName].push(childResult);
+							else obj[childName] = [obj[childName], childResult];
+						} else obj[childName] = childResult;
 					} else if (childNodes.length === 1 && attributes.length === 0) return element.textContent;
 				}
 				return obj;
@@ -10306,15 +10760,63 @@ ${toHex$1(await hash.digest())}`;
 	}
 	var parser$1;
 	var init_xml_parser_browser = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@aws-sdk/xml-builder/dist-es/index.js
+	// node_modules/@aws-sdk/xml-builder/dist-es/index.js
 	var init_dist_es$2 = __esmMin((() => {
 		init_XmlNode();
 		init_XmlText();
 		init_xml_parser_browser();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeDeserializer.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/ConfigurableSerdeContext.js
+	var SerdeContextConfig;
+	var init_ConfigurableSerdeContext = __esmMin((() => {
+		SerdeContextConfig = class {
+			serdeContext;
+			setSerdeContext(serdeContext) {
+				this.serdeContext = serdeContext;
+			}
+		};
+	}));
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/UnionSerde.js
+	var UnionSerde;
+	var init_UnionSerde = __esmMin((() => {
+		UnionSerde = class {
+			from;
+			to;
+			keys;
+			constructor(from, to) {
+				this.from = from;
+				this.to = to;
+				const keys = Object.keys(this.from);
+				const set = new Set(keys);
+				set.delete("__type");
+				this.keys = set;
+			}
+			mark(key) {
+				this.keys.delete(key);
+			}
+			hasUnknown() {
+				return this.keys.size === 1 && Object.keys(this.to).length === 0;
+			}
+			writeUnknown() {
+				if (this.hasUnknown()) {
+					const k = this.keys.values().next().value;
+					const v = this.from[k];
+					this.to.$unknown = [k, v];
+				}
+			}
+		};
+	}));
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/writeKey.js
+	function writeKey(obj) {
+		Object.defineProperty(obj, "__proto__", {
+			value: void 0,
+			writable: true,
+			enumerable: true,
+			configurable: true
+		});
+	}
+	var init_writeKey = __esmMin((() => {}));
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeDeserializer.js
 	var XmlShapeDeserializer;
 	var init_XmlShapeDeserializer = __esmMin((() => {
 		init_dist_es$2();
@@ -10430,8 +10932,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/parseXmlBody.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/parseXmlBody.js
 	var loadRestXmlErrorCode;
 	var init_parseXmlBody = __esmMin((() => {
 		loadRestXmlErrorCode = (output, data) => {
@@ -10440,8 +10941,7 @@ ${toHex$1(await hash.digest())}`;
 			if (output.statusCode == 404) return "NotFound";
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeSerializer.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeSerializer.js
 	var XmlShapeSerializer;
 	var init_XmlShapeSerializer = __esmMin((() => {
 		init_dist_es$2();
@@ -10513,8 +11013,10 @@ ${toHex$1(await hash.digest())}`;
 				if ($unknown && ns.isUnionSchema() && Array.isArray($unknown) && Object.keys(value).length === 1) {
 					const [k, v] = $unknown;
 					const node = XmlNode.of(k);
-					if (typeof v !== "string") if (value instanceof XmlNode || value instanceof XmlText) structXmlNode.addChildNode(value);
-					else throw new Error("@aws-sdk - $unknown union member in XML requires value of type string, @aws-sdk/xml-builder::XmlNode or XmlText.");
+					if (typeof v !== "string") {
+						if (value instanceof XmlNode || value instanceof XmlText) structXmlNode.addChildNode(value);
+						else throw new Error("@aws-sdk - $unknown union member in XML requires value of type string, @aws-sdk/xml-builder::XmlNode or XmlText.");
+					}
 					this.writeSimpleInto(0, v, node, xmlns);
 					structXmlNode.addChildNode(node);
 				}
@@ -10602,30 +11104,33 @@ ${toHex$1(await hash.digest())}`;
 				if (null === value) throw new Error("@aws-sdk/core/protocols - (XML serializer) cannot write null value.");
 				const ns = NormalizedSchema.of(_schema);
 				let nodeContents = null;
-				if (value && typeof value === "object") if (ns.isBlobSchema()) nodeContents = (this.serdeContext?.base64Encoder ?? toBase64)(value);
-				else if (ns.isTimestampSchema() && value instanceof Date) switch (determineTimestampFormat(ns, this.settings)) {
-					case 5:
-						nodeContents = value.toISOString().replace(".000Z", "Z");
-						break;
-					case 6:
-						nodeContents = dateToUtcString(value);
-						break;
-					case 7:
-						nodeContents = String(value.getTime() / 1e3);
-						break;
-					default:
-						console.warn("Missing timestamp format, using http date", value);
-						nodeContents = dateToUtcString(value);
-						break;
+				if (value && typeof value === "object") {
+					if (ns.isBlobSchema()) nodeContents = (this.serdeContext?.base64Encoder ?? toBase64)(value);
+					else if (ns.isTimestampSchema() && value instanceof Date) switch (determineTimestampFormat(ns, this.settings)) {
+						case 5:
+							nodeContents = value.toISOString().replace(".000Z", "Z");
+							break;
+						case 6:
+							nodeContents = dateToUtcString(value);
+							break;
+						case 7:
+							nodeContents = String(value.getTime() / 1e3);
+							break;
+						default:
+							console.warn("Missing timestamp format, using http date", value);
+							nodeContents = dateToUtcString(value);
+					}
+					else if (ns.isBigDecimalSchema() && value) {
+						if (value instanceof NumericValue) return value.string;
+						return String(value);
+					} else if (ns.isMapSchema() || ns.isListSchema()) throw new Error("@aws-sdk/core/protocols - xml serializer, cannot call _write() on List/Map schema, call writeList or writeMap() instead.");
+					else throw new Error(`@aws-sdk/core/protocols - xml serializer, unhandled schema type for object value and schema: ${ns.getName(true)}`);
 				}
-				else if (ns.isBigDecimalSchema() && value) {
-					if (value instanceof NumericValue) return value.string;
-					return String(value);
-				} else if (ns.isMapSchema() || ns.isListSchema()) throw new Error("@aws-sdk/core/protocols - xml serializer, cannot call _write() on List/Map schema, call writeList or writeMap() instead.");
-				else throw new Error(`@aws-sdk/core/protocols - xml serializer, unhandled schema type for object value and schema: ${ns.getName(true)}`);
 				if (ns.isBooleanSchema() || ns.isNumericSchema() || ns.isBigIntegerSchema() || ns.isBigDecimalSchema()) nodeContents = String(value);
-				if (ns.isStringSchema()) if (value === void 0 && ns.isIdempotencyToken()) nodeContents = generateIdempotencyToken();
-				else nodeContents = String(value);
+				if (ns.isStringSchema()) {
+					if (value === void 0 && ns.isIdempotencyToken()) nodeContents = generateIdempotencyToken();
+					else nodeContents = String(value);
+				}
 				if (nodeContents === null) throw new Error(`Unhandled schema-value pair ${ns.getName(true)}=${value}`);
 				return nodeContents;
 			}
@@ -10644,8 +11149,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlCodec.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlCodec.js
 	var XmlCodec;
 	var init_XmlCodec = __esmMin((() => {
 		init_ConfigurableSerdeContext();
@@ -10669,8 +11173,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/AwsRestXmlProtocol.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/AwsRestXmlProtocol.js
 	var AwsRestXmlProtocol;
 	var init_AwsRestXmlProtocol = __esmMin((() => {
 		init_protocols$1();
@@ -10751,22 +11254,17 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/index.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/protocols/index.js
 	var init_protocols = __esmMin((() => {
 		init_dist$2();
 		init_index_browser$6();
+		init_transport();
 		init_protocols$1();
 		init_schema();
-		init_transport();
 		init_ProtocolLib();
 		init_AwsJsonRpcProtocol();
 		init_AwsJson1_1Protocol();
 		init_AwsRestJsonProtocol();
-		init_JsonCodec();
-		init_JsonShapeDeserializer();
-		init_JsonShapeSerializer();
-		init_parseJsonBody();
 		init_XmlShapeDeserializer();
 		init_ConfigurableSerdeContext();
 		init_AwsRestXmlProtocol();
@@ -10774,8 +11272,7 @@ ${toHex$1(await hash.digest())}`;
 		init_XmlShapeSerializer();
 		init_parseXmlBody();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/auth/httpAuthSchemeProvider.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/auth/httpAuthSchemeProvider.js
 	init_index_browser();
 	init_getSmithyContext(), init_normalizeProvider$1();
 	var defaultLexRuntimeV2HttpAuthSchemeParametersProvider = async (config, context, input) => {
@@ -10810,8 +11307,7 @@ ${toHex$1(await hash.digest())}`;
 		const config_0 = resolveAwsSdkSigV4Config(config);
 		return Object.assign(config_0, { authSchemePreference: normalizeProvider$1(config.authSchemePreference ?? []) });
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/endpoint/EndpointParameters.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/endpoint/EndpointParameters.js
 	var resolveClientEndpointParameters$4 = (options) => {
 		return Object.assign(options, {
 			useDualstackEndpoint: options.useDualstackEndpoint ?? false,
@@ -10929,14 +11425,12 @@ ${toHex$1(await hash.digest())}`;
 			"directory": "clients/client-lex-runtime-v2"
 		}
 	};
-	//#endregion
-	//#region node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js
+	// node_modules/@smithy/util-utf8/dist-es/fromUtf8.browser.js
 	var fromUtf8$1 = (input) => new TextEncoder().encode(input);
-	//#endregion
-	//#region node_modules/@aws-crypto/util/build/module/convertToBuffer.js
+	// node_modules/@aws-crypto/util/build/module/convertToBuffer.js
 	init_dist$2();
-	var fromUtf8 = typeof Buffer$1 !== "undefined" && Buffer$1.from ? function(input) {
-		return Buffer$1.from(input, "utf8");
+	var fromUtf8 = typeof Buffer$2 !== "undefined" && Buffer$2.from ? function(input) {
+		return Buffer$2.from(input, "utf8");
 	} : fromUtf8$1;
 	function convertToBuffer$1(data) {
 		if (data instanceof Uint8Array) return data;
@@ -10944,14 +11438,12 @@ ${toHex$1(await hash.digest())}`;
 		if (ArrayBuffer.isView(data)) return new Uint8Array(data.buffer, data.byteOffset, data.byteLength / Uint8Array.BYTES_PER_ELEMENT);
 		return new Uint8Array(data);
 	}
-	//#endregion
-	//#region node_modules/@aws-crypto/util/build/module/isEmptyData.js
+	// node_modules/@aws-crypto/util/build/module/isEmptyData.js
 	function isEmptyData$1(data) {
 		if (typeof data === "string") return data.length === 0;
 		return data.byteLength === 0;
 	}
-	//#endregion
-	//#region node_modules/@aws-crypto/sha256-browser/build/module/constants.js
+	// node_modules/@aws-crypto/sha256-browser/build/module/constants.js
 	var SHA_256_HASH = { name: "SHA-256" };
 	var SHA_256_HMAC_ALGO = {
 		name: "HMAC",
@@ -10991,16 +11483,14 @@ ${toHex$1(await hash.digest())}`;
 		184,
 		85
 	]);
-	//#endregion
-	//#region node_modules/@aws-sdk/util-locate-window/dist-es/index.js
+	// node_modules/@aws-sdk/util-locate-window/dist-es/index.js
 	var fallbackWindow = {};
 	function locateWindow() {
 		if (typeof window !== "undefined") return window;
 		else if (typeof self !== "undefined") return self;
 		return fallbackWindow;
 	}
-	//#endregion
-	//#region node_modules/@aws-crypto/sha256-browser/build/module/webCryptoSha256.js
+	// node_modules/@aws-crypto/sha256-browser/build/module/webCryptoSha256.js
 	var Sha256$2 = function() {
 		function Sha256(secret) {
 			this.toHash = /* @__PURE__ */ new Uint8Array(0);
@@ -11041,8 +11531,7 @@ ${toHex$1(await hash.digest())}`;
 		};
 		return Sha256;
 	}();
-	//#endregion
-	//#region node_modules/tslib/tslib.es6.mjs
+	// node_modules/tslib/tslib.es6.mjs
 	function __awaiter(thisArg, _arguments, P, generator) {
 		function adopt(value) {
 			return value instanceof P ? value : new P(function(resolve) {
@@ -11150,8 +11639,7 @@ ${toHex$1(await hash.digest())}`;
 			};
 		}
 	}
-	//#endregion
-	//#region node_modules/@aws-crypto/sha256-js/build/module/constants.js
+	// node_modules/@aws-crypto/sha256-js/build/module/constants.js
 	/**
 	* @internal
 	*/
@@ -11238,8 +11726,7 @@ ${toHex$1(await hash.digest())}`;
 	* @internal
 	*/
 	var MAX_HASHABLE_LENGTH = Math.pow(2, 53) - 1;
-	//#endregion
-	//#region node_modules/@aws-crypto/sha256-js/build/module/RawSha256.js
+	// node_modules/@aws-crypto/sha256-js/build/module/RawSha256.js
 	/**
 	* @internal
 	*/
@@ -11330,8 +11817,7 @@ ${toHex$1(await hash.digest())}`;
 		};
 		return RawSha256;
 	}();
-	//#endregion
-	//#region node_modules/@aws-crypto/sha256-js/build/module/jsSha256.js
+	// node_modules/@aws-crypto/sha256-js/build/module/jsSha256.js
 	var Sha256$1 = function() {
 		function Sha256(secret) {
 			this.secret = secret;
@@ -11390,8 +11876,7 @@ ${toHex$1(await hash.digest())}`;
 		buffer.set(input);
 		return buffer;
 	}
-	//#endregion
-	//#region node_modules/@aws-crypto/supports-web-crypto/build/module/supportsWebCrypto.js
+	// node_modules/@aws-crypto/supports-web-crypto/build/module/supportsWebCrypto.js
 	var subtleCryptoMethods = [
 		"decrypt",
 		"digest",
@@ -11418,8 +11903,7 @@ ${toHex$1(await hash.digest())}`;
 			return typeof subtle[methodName] === "function";
 		});
 	}
-	//#endregion
-	//#region node_modules/@aws-crypto/sha256-browser/build/module/crossPlatformSha256.js
+	// node_modules/@aws-crypto/sha256-browser/build/module/crossPlatformSha256.js
 	var Sha256 = function() {
 		function Sha256(secret) {
 			if (supportsWebCrypto(locateWindow())) this.hash = new Sha256$2(secret);
@@ -11436,26 +11920,27 @@ ${toHex$1(await hash.digest())}`;
 		};
 		return Sha256;
 	}();
-	//#endregion
-	//#region node_modules/@smithy/fetch-http-handler/dist-es/create-request.js
+	// node_modules/@smithy/fetch-http-handler/dist-es/create-request.js
 	function createRequest(url, requestOptions) {
 		return new Request(url, requestOptions);
 	}
 	var init_create_request = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/fetch-http-handler/dist-es/request-timeout.js
+	// node_modules/@smithy/fetch-http-handler/dist-es/request-timeout.js
 	function requestTimeout(timeoutInMs = 0) {
-		return new Promise((resolve, reject) => {
-			if (timeoutInMs) setTimeout(() => {
-				const timeoutError = /* @__PURE__ */ new Error(`Request did not complete within ${timeoutInMs} ms`);
-				timeoutError.name = "TimeoutError";
-				reject(timeoutError);
-			}, timeoutInMs);
-		});
+		let timeoutId;
+		return {
+			promise: new Promise((resolve, reject) => {
+				if (timeoutInMs) timeoutId = setTimeout(() => {
+					const timeoutError = /* @__PURE__ */ new Error(`Request did not complete within ${timeoutInMs} ms`);
+					timeoutError.name = "TimeoutError";
+					reject(timeoutError);
+				}, timeoutInMs);
+			}),
+			cancel: () => clearTimeout(timeoutId)
+		};
 	}
 	var init_request_timeout = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@smithy/fetch-http-handler/dist-es/fetch-http-handler.js
+	// node_modules/@smithy/fetch-http-handler/dist-es/fetch-http-handler.js
 	function buildAbortError(abortSignal) {
 		const reason = abortSignal && typeof abortSignal === "object" && "reason" in abortSignal ? abortSignal.reason : void 0;
 		if (reason) {
@@ -11500,6 +11985,7 @@ ${toHex$1(await hash.digest())}`;
 				const requestTimeoutInMs = requestTimeout$1 ?? this.config.requestTimeout;
 				const keepAlive = this.config.keepAlive === true;
 				const credentials = this.config.credentials;
+				const fetchFn = this.config.customFetch ?? fetch;
 				if (abortSignal?.aborted) {
 					const abortError = buildAbortError(abortSignal);
 					return Promise.reject(abortError);
@@ -11525,8 +12011,8 @@ ${toHex$1(await hash.digest())}`;
 				if (keepAliveSupport.supported) requestOptions.keepalive = keepAlive;
 				if (typeof this.config.requestInit === "function") Object.assign(requestOptions, this.config.requestInit(request));
 				let removeSignalEventListener = () => {};
-				const fetchRequest = createRequest(url, requestOptions);
-				const raceOfPromises = [fetch(fetchRequest).then((response) => {
+				const timeout = requestTimeout(requestTimeoutInMs);
+				const raceOfPromises = [fetchFn(createRequest(url, requestOptions)).then((response) => {
 					const fetchHeaders = response.headers;
 					const transformedHeaders = {};
 					for (const pair of fetchHeaders.entries()) transformedHeaders[pair[0]] = pair[1];
@@ -11542,7 +12028,7 @@ ${toHex$1(await hash.digest())}`;
 						statusCode: response.status,
 						body: response.body
 					}) };
-				}), requestTimeout(requestTimeoutInMs)];
+				}), timeout.promise];
 				if (abortSignal) raceOfPromises.push(new Promise((resolve, reject) => {
 					const onAbort = () => {
 						reject(buildAbortError(abortSignal));
@@ -11553,7 +12039,10 @@ ${toHex$1(await hash.digest())}`;
 						removeSignalEventListener = () => signal.removeEventListener("abort", onAbort);
 					} else abortSignal.onabort = onAbort;
 				}));
-				return Promise.race(raceOfPromises).finally(removeSignalEventListener);
+				return Promise.race(raceOfPromises).finally(() => {
+					timeout.cancel();
+					removeSignalEventListener();
+				});
 			}
 			updateHttpClientConfig(key, value) {
 				this.config = void 0;
@@ -11567,14 +12056,12 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@smithy/fetch-http-handler/dist-es/index.js
+	// node_modules/@smithy/fetch-http-handler/dist-es/index.js
 	var init_dist_es$1 = __esmMin((() => {
 		init_fetch_http_handler();
 		init_index_browser$6();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/endpoint/ruleset.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/endpoint/ruleset.js
 	var s$3 = "required";
 	var t$3 = "fn";
 	var u$3 = "argv";
@@ -11749,8 +12236,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		]
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/endpoint/endpointResolver.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/endpoint/endpointResolver.js
 	init_aws();
 	init_customEndpointFunctions(), init_EndpointCache(), init_resolveEndpoint();
 	var cache$4 = new EndpointCache({
@@ -11769,8 +12255,7 @@ ${toHex$1(await hash.digest())}`;
 		}));
 	};
 	customEndpointFunctions.aws = awsEndpointFunctions;
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/models/LexRuntimeV2ServiceException.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/models/LexRuntimeV2ServiceException.js
 	init_exceptions();
 	var LexRuntimeV2ServiceException = class LexRuntimeV2ServiceException extends ServiceException {
 		constructor(options) {
@@ -11778,8 +12263,7 @@ ${toHex$1(await hash.digest())}`;
 			Object.setPrototypeOf(this, LexRuntimeV2ServiceException.prototype);
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/models/errors.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/models/errors.js
 	var AccessDeniedException = class AccessDeniedException extends LexRuntimeV2ServiceException {
 		name = "AccessDeniedException";
 		$fault = "client";
@@ -11876,8 +12360,7 @@ ${toHex$1(await hash.digest())}`;
 			Object.setPrototypeOf(this, DependencyFailedException.prototype);
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/schemas/schemas_0.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/schemas/schemas_0.js
 	init_schema();
 	var _AC = "ActiveContext";
 	var _ACL = "ActiveContextsList";
@@ -12727,8 +13210,7 @@ ${toHex$1(await hash.digest())}`;
 		() => RecognizeUtteranceRequest$,
 		() => RecognizeUtteranceResponse$
 	];
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/runtimeConfig.shared.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/runtimeConfig.shared.js
 	init_AwsSdkSigV4Signer();
 	init_protocols();
 	init_NoOpLogger();
@@ -12765,8 +13247,7 @@ ${toHex$1(await hash.digest())}`;
 			utf8Encoder: config?.utf8Encoder ?? toUtf8
 		};
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/runtimeConfig.browser.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/runtimeConfig.browser.js
 	init_defaultUserAgent();
 	init_index_browser$2();
 	init_EventStreamMarshaller_browser();
@@ -12803,8 +13284,7 @@ ${toHex$1(await hash.digest())}`;
 			useFipsEndpoint: config?.useFipsEndpoint ?? (() => Promise.resolve(false))
 		};
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/auth/httpAuthExtensionConfiguration.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/auth/httpAuthExtensionConfiguration.js
 	var getHttpAuthExtensionConfiguration$4 = (runtimeConfig) => {
 		const _httpAuthSchemes = runtimeConfig.httpAuthSchemes;
 		let _httpAuthSchemeProvider = runtimeConfig.httpAuthSchemeProvider;
@@ -12839,8 +13319,7 @@ ${toHex$1(await hash.digest())}`;
 			credentials: config.credentials()
 		};
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/runtimeExtensions.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/runtimeExtensions.js
 	init_extensions();
 	init_httpExtensionConfiguration();
 	init_defaultExtensionConfiguration();
@@ -12849,8 +13328,7 @@ ${toHex$1(await hash.digest())}`;
 		extensions.forEach((extension) => extension.configure(extensionConfiguration));
 		return Object.assign(runtimeConfig, resolveAwsRegionExtensionConfiguration(extensionConfiguration), resolveDefaultRuntimeConfig(extensionConfiguration), resolveHttpHandlerRuntimeConfig(extensionConfiguration), resolveHttpAuthRuntimeConfig$4(extensionConfiguration));
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/LexRuntimeV2Client.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/LexRuntimeV2Client.js
 	init_hostHeaderMiddleware();
 	init_loggerMiddleware();
 	init_getRecursionDetectionPlugin_browser();
@@ -12869,7 +13347,11 @@ ${toHex$1(await hash.digest())}`;
 			const _config_0 = getRuntimeConfig$8(configuration || {});
 			super(_config_0);
 			this.initConfig = _config_0;
-			const _config_10 = resolveRuntimeExtensions$4(resolveEventStreamConfig(resolveHttpAuthSchemeConfig$4(resolveEventStreamSerdeConfig(resolveEndpointConfig(resolveHostHeaderConfig(resolveRegionConfig(resolveRetryConfig(resolveUserAgentConfig(resolveClientEndpointParameters$4(_config_0))))))))), configuration?.extensions || []);
+			const _config_2 = resolveUserAgentConfig(resolveClientEndpointParameters$4(_config_0));
+			const _config_3 = resolveRetryConfig(_config_2);
+			const _config_5 = resolveHostHeaderConfig(resolveRegionConfig(_config_3));
+			const _config_6 = resolveEndpointConfig(_config_5);
+			const _config_10 = resolveRuntimeExtensions$4(resolveEventStreamConfig(resolveHttpAuthSchemeConfig$4(resolveEventStreamSerdeConfig(_config_6))), configuration?.extensions || []);
 			this.config = _config_10;
 			this.middlewareStack.use(getSchemaSerdePlugin(this.config));
 			this.middlewareStack.use(getUserAgentPlugin(this.config));
@@ -12888,36 +13370,31 @@ ${toHex$1(await hash.digest())}`;
 			super.destroy();
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/commands/DeleteSessionCommand.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/commands/DeleteSessionCommand.js
 	init_index_browser$7();
 	init_command();
 	var DeleteSessionCommand = class extends Command.classBuilder().ep(commonParams$3).m(function(Command, cs, config, o) {
 		return [getEndpointPlugin(config, Command.getEndpointParameterInstructions())];
 	}).s("AWSDeepSenseRunTimeServiceApi2_0", "DeleteSession", {}).n("LexRuntimeV2Client", "DeleteSessionCommand").sc(DeleteSession$).build() {};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/commands/PutSessionCommand.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/commands/PutSessionCommand.js
 	init_index_browser$7();
 	init_command();
 	var PutSessionCommand = class extends Command.classBuilder().ep(commonParams$3).m(function(Command, cs, config, o) {
 		return [getEndpointPlugin(config, Command.getEndpointParameterInstructions())];
 	}).s("AWSDeepSenseRunTimeServiceApi2_0", "PutSession", {}).n("LexRuntimeV2Client", "PutSessionCommand").sc(PutSession$).build() {};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/commands/RecognizeTextCommand.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/commands/RecognizeTextCommand.js
 	init_index_browser$7();
 	init_command();
 	var RecognizeTextCommand = class extends Command.classBuilder().ep(commonParams$3).m(function(Command, cs, config, o) {
 		return [getEndpointPlugin(config, Command.getEndpointParameterInstructions())];
 	}).s("AWSDeepSenseRunTimeServiceApi2_0", "RecognizeText", {}).n("LexRuntimeV2Client", "RecognizeTextCommand").sc(RecognizeText$).build() {};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/commands/RecognizeUtteranceCommand.js
+	// node_modules/@aws-sdk/client-lex-runtime-v2/dist-es/commands/RecognizeUtteranceCommand.js
 	init_index_browser$7();
 	init_command();
 	var RecognizeUtteranceCommand = class extends Command.classBuilder().ep(commonParams$3).m(function(Command, cs, config, o) {
 		return [getEndpointPlugin(config, Command.getEndpointParameterInstructions())];
 	}).s("AWSDeepSenseRunTimeServiceApi2_0", "RecognizeUtterance", {}).n("LexRuntimeV2Client", "RecognizeUtteranceCommand").sc(RecognizeUtterance$).build() {};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-polly/dist-es/auth/httpAuthSchemeProvider.js
+	// node_modules/@aws-sdk/client-polly/dist-es/auth/httpAuthSchemeProvider.js
 	init_index_browser();
 	init_getSmithyContext(), init_normalizeProvider$1();
 	var defaultPollyHttpAuthSchemeParametersProvider = async (config, context, input) => {
@@ -12952,8 +13429,7 @@ ${toHex$1(await hash.digest())}`;
 		const config_0 = resolveAwsSdkSigV4Config(config);
 		return Object.assign(config_0, { authSchemePreference: normalizeProvider$1(config.authSchemePreference ?? []) });
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-polly/dist-es/endpoint/EndpointParameters.js
+	// node_modules/@aws-sdk/client-polly/dist-es/endpoint/EndpointParameters.js
 	var resolveClientEndpointParameters$3 = (options) => {
 		return Object.assign(options, {
 			useDualstackEndpoint: options.useDualstackEndpoint ?? false,
@@ -13053,8 +13529,7 @@ ${toHex$1(await hash.digest())}`;
 			"directory": "clients/client-polly"
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-polly/dist-es/endpoint/ruleset.js
+	// node_modules/@aws-sdk/client-polly/dist-es/endpoint/ruleset.js
 	var s$2 = "required";
 	var t$2 = "fn";
 	var u$2 = "argv";
@@ -13229,8 +13704,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		]
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-polly/dist-es/endpoint/endpointResolver.js
+	// node_modules/@aws-sdk/client-polly/dist-es/endpoint/endpointResolver.js
 	init_aws();
 	init_customEndpointFunctions(), init_EndpointCache(), init_resolveEndpoint();
 	var cache$3 = new EndpointCache({
@@ -13249,8 +13723,7 @@ ${toHex$1(await hash.digest())}`;
 		}));
 	};
 	customEndpointFunctions.aws = awsEndpointFunctions;
-	//#endregion
-	//#region node_modules/@aws-sdk/client-polly/dist-es/models/PollyServiceException.js
+	// node_modules/@aws-sdk/client-polly/dist-es/models/PollyServiceException.js
 	init_exceptions();
 	var PollyServiceException = class PollyServiceException extends ServiceException {
 		constructor(options) {
@@ -13258,8 +13731,7 @@ ${toHex$1(await hash.digest())}`;
 			Object.setPrototypeOf(this, PollyServiceException.prototype);
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-polly/dist-es/models/errors.js
+	// node_modules/@aws-sdk/client-polly/dist-es/models/errors.js
 	var LexiconNotFoundException = class LexiconNotFoundException extends PollyServiceException {
 		name = "LexiconNotFoundException";
 		$fault = "client";
@@ -13558,8 +14030,7 @@ ${toHex$1(await hash.digest())}`;
 			Object.setPrototypeOf(this, TextLengthExceededException.prototype);
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-polly/dist-es/schemas/schemas_0.js
+	// node_modules/@aws-sdk/client-polly/dist-es/schemas/schemas_0.js
 	init_schema();
 	var _ENSE = "EngineNotSupportedException";
 	var _ILE = "InvalidLexiconException";
@@ -13954,8 +14425,7 @@ ${toHex$1(await hash.digest())}`;
 		0,
 		() => ValidationExceptionField$
 	];
-	//#endregion
-	//#region node_modules/@aws-sdk/client-polly/dist-es/runtimeConfig.shared.js
+	// node_modules/@aws-sdk/client-polly/dist-es/runtimeConfig.shared.js
 	init_AwsSdkSigV4Signer();
 	init_protocols();
 	init_NoOpLogger();
@@ -13993,8 +14463,7 @@ ${toHex$1(await hash.digest())}`;
 			utf8Encoder: config?.utf8Encoder ?? toUtf8
 		};
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-polly/dist-es/runtimeConfig.browser.js
+	// node_modules/@aws-sdk/client-polly/dist-es/runtimeConfig.browser.js
 	init_defaultUserAgent();
 	init_index_browser$2();
 	init_EventStreamMarshaller_browser();
@@ -14031,8 +14500,7 @@ ${toHex$1(await hash.digest())}`;
 			useFipsEndpoint: config?.useFipsEndpoint ?? (() => Promise.resolve(false))
 		};
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-polly/dist-es/auth/httpAuthExtensionConfiguration.js
+	// node_modules/@aws-sdk/client-polly/dist-es/auth/httpAuthExtensionConfiguration.js
 	var getHttpAuthExtensionConfiguration$3 = (runtimeConfig) => {
 		const _httpAuthSchemes = runtimeConfig.httpAuthSchemes;
 		let _httpAuthSchemeProvider = runtimeConfig.httpAuthSchemeProvider;
@@ -14067,8 +14535,7 @@ ${toHex$1(await hash.digest())}`;
 			credentials: config.credentials()
 		};
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-polly/dist-es/runtimeExtensions.js
+	// node_modules/@aws-sdk/client-polly/dist-es/runtimeExtensions.js
 	init_extensions();
 	init_httpExtensionConfiguration();
 	init_defaultExtensionConfiguration();
@@ -14077,8 +14544,7 @@ ${toHex$1(await hash.digest())}`;
 		extensions.forEach((extension) => extension.configure(extensionConfiguration));
 		return Object.assign(runtimeConfig, resolveAwsRegionExtensionConfiguration(extensionConfiguration), resolveDefaultRuntimeConfig(extensionConfiguration), resolveHttpHandlerRuntimeConfig(extensionConfiguration), resolveHttpAuthRuntimeConfig$3(extensionConfiguration));
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-polly/dist-es/PollyClient.js
+	// node_modules/@aws-sdk/client-polly/dist-es/PollyClient.js
 	init_hostHeaderMiddleware();
 	init_loggerMiddleware();
 	init_getRecursionDetectionPlugin_browser();
@@ -14097,7 +14563,11 @@ ${toHex$1(await hash.digest())}`;
 			const _config_0 = getRuntimeConfig$6(configuration || {});
 			super(_config_0);
 			this.initConfig = _config_0;
-			const _config_10 = resolveRuntimeExtensions$3(resolveEventStreamConfig(resolveHttpAuthSchemeConfig$3(resolveEventStreamSerdeConfig(resolveEndpointConfig(resolveHostHeaderConfig(resolveRegionConfig(resolveRetryConfig(resolveUserAgentConfig(resolveClientEndpointParameters$3(_config_0))))))))), configuration?.extensions || []);
+			const _config_2 = resolveUserAgentConfig(resolveClientEndpointParameters$3(_config_0));
+			const _config_3 = resolveRetryConfig(_config_2);
+			const _config_5 = resolveHostHeaderConfig(resolveRegionConfig(_config_3));
+			const _config_6 = resolveEndpointConfig(_config_5);
+			const _config_10 = resolveRuntimeExtensions$3(resolveEventStreamConfig(resolveHttpAuthSchemeConfig$3(resolveEventStreamSerdeConfig(_config_6))), configuration?.extensions || []);
 			this.config = _config_10;
 			this.middlewareStack.use(getSchemaSerdePlugin(this.config));
 			this.middlewareStack.use(getUserAgentPlugin(this.config));
@@ -14116,15 +14586,13 @@ ${toHex$1(await hash.digest())}`;
 			super.destroy();
 		}
 	};
-	//#endregion
-	//#region \0plugin-vue:export-helper
+	// \0plugin-vue:export-helper
 	var _plugin_vue_export_helper_default = (sfc, props) => {
 		const target = sfc.__vccOpts || sfc;
 		for (const [key, val] of props) target[key] = val;
 		return target;
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/util/console.js
+	// node_modules/vuetify/lib/util/console.js
 	function consoleWarn(message) {
 		(0, vue.warn)(`Vuetify: ${message}`);
 	}
@@ -14135,16 +14603,15 @@ ${toHex$1(await hash.digest())}`;
 		replacement = Array.isArray(replacement) ? replacement.slice(0, -1).map((s) => `'${s}'`).join(", ") + ` or '${replacement.at(-1)}'` : `'${replacement}'`;
 		(0, vue.warn)(`[Vuetify UPGRADE] '${original}' is deprecated, use ${replacement} instead.`);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/globals.js
+	// node_modules/vuetify/lib/util/globals.js
 	var IN_BROWSER = typeof window !== "undefined";
 	var SUPPORTS_INTERSECTION = IN_BROWSER && "IntersectionObserver" in window;
 	IN_BROWSER && ("ontouchstart" in window || window.navigator.maxTouchPoints);
 	var SUPPORTS_EYE_DROPPER = IN_BROWSER && "EyeDropper" in window;
 	var SUPPORTS_MATCH_MEDIA = IN_BROWSER && "matchMedia" in window && typeof window.matchMedia === "function";
 	var PREFERS_REDUCED_MOTION = () => SUPPORTS_MATCH_MEDIA && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-	//#endregion
-	//#region node_modules/vuetify/lib/util/helpers.js
+	var IS_WEBKIT = IN_BROWSER && CSS?.supports?.("-webkit-backdrop-filter", "none");
+	// node_modules/vuetify/lib/util/helpers.js
 	function _classPrivateFieldInitSpec(e, t, a) {
 		_checkPrivateRedeclaration(e, t), t.set(e, a);
 	}
@@ -14564,9 +15031,14 @@ ${toHex$1(await hash.digest())}`;
 		}
 		return elements.filter((x) => !x.closest("[inert]")).filter((x) => !!x.offsetParent || x.getClientRects().length > 0).filter((x) => !x.parentElement?.closest("details:not([open])") || x.tagName === "SUMMARY" && x.parentElement?.tagName === "DETAILS");
 	}
+	function getActiveElement() {
+		let active = document.activeElement;
+		while (active?.shadowRoot?.activeElement) active = active.shadowRoot.activeElement;
+		return active;
+	}
 	function getNextElement(elements, location, condition) {
 		let _el;
-		let idx = elements.indexOf(document.activeElement);
+		let idx = elements.indexOf(getActiveElement());
 		const inc = location === "next" ? 1 : -1;
 		do {
 			idx += inc;
@@ -14577,7 +15049,8 @@ ${toHex$1(await hash.digest())}`;
 	function focusChild(el, location, options) {
 		const focusable = focusableChildren(el);
 		if (location == null) {
-			if (el === document.activeElement || !el.contains(document.activeElement)) focusable[0]?.focus(options);
+			const active = getActiveElement();
+			if (el === active || !el.contains(active)) focusable[0]?.focus(options);
 		} else if (location === "first") focusable[0]?.focus(options);
 		else if (location === "last") focusable.at(-1)?.focus(options);
 		else if (typeof location === "number") focusable[location]?.focus(options);
@@ -14690,8 +15163,7 @@ ${toHex$1(await hash.digest())}`;
 		};
 		return objectIterator(value);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/anchor.js
+	// node_modules/vuetify/lib/util/anchor.js
 	var block$1 = ["top", "bottom"];
 	var inline$1 = [
 		"start",
@@ -14746,8 +15218,7 @@ ${toHex$1(await hash.digest())}`;
 	function getAxis(anchor) {
 		return includes(block$1, anchor.side) ? "y" : "x";
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/box.js
+	// node_modules/vuetify/lib/util/box.js
 	var Box = class {
 		constructor(args) {
 			const pageScale = document.body.currentCSSZoom ?? 1;
@@ -14797,25 +15268,26 @@ ${toHex$1(await hash.digest())}`;
 		} else return new Box(target);
 	}
 	function getElementBox(el) {
-		if (el === document.documentElement) if (!visualViewport) return new Box({
-			x: 0,
-			y: 0,
-			width: document.documentElement.clientWidth,
-			height: document.documentElement.clientHeight
-		});
-		else {
-			const pageScale = document.body.currentCSSZoom ?? 1;
-			return new Box({
-				x: visualViewport.scale > 1 ? 0 : visualViewport.offsetLeft,
-				y: visualViewport.scale > 1 ? 0 : visualViewport.offsetTop,
-				width: visualViewport.width * visualViewport.scale / pageScale,
-				height: visualViewport.height * visualViewport.scale / pageScale
+		if (el === document.documentElement) {
+			if (!visualViewport) return new Box({
+				x: 0,
+				y: 0,
+				width: document.documentElement.clientWidth,
+				height: document.documentElement.clientHeight
 			});
-		}
-		else return new Box(el);
+			else {
+				const localWidth = document.body.clientWidth;
+				const pageScale = document.body.currentCSSZoom ?? (localWidth ? document.documentElement.clientWidth / localWidth : 1);
+				return new Box({
+					x: visualViewport.scale > 1 || IS_WEBKIT ? 0 : visualViewport.offsetLeft,
+					y: visualViewport.scale > 1 || IS_WEBKIT ? 0 : visualViewport.offsetTop,
+					width: document.documentElement.clientWidth / pageScale,
+					height: document.documentElement.clientHeight / pageScale
+				});
+			}
+		} else return new Box(el);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/animation.js
+	// node_modules/vuetify/lib/util/animation.js
 	/** @see https://stackoverflow.com/a/57876601/2074736 */
 	function nullifyTransforms(el) {
 		const rect = new Box(el);
@@ -14860,8 +15332,7 @@ ${toHex$1(await hash.digest())}`;
 		});
 		return animation;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/bindProps.js
+	// node_modules/vuetify/lib/util/bindProps.js
 	var handlers = /* @__PURE__ */ new WeakMap();
 	function bindProps(el, props) {
 		Object.keys(props).forEach((k) => {
@@ -14900,8 +15371,7 @@ ${toHex$1(await hash.digest())}`;
 			} else el.removeAttribute(k);
 		});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/color/APCA.js
+	// node_modules/vuetify/lib/util/color/APCA.js
 	/**
 	* WCAG 3.0 APCA perceptual contrast algorithm from https://github.com/Myndex/SAPC-APCA
 	* @licence https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
@@ -14946,8 +15416,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		return outputContrast * 100;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/color/transformSRGB.js
+	// node_modules/vuetify/lib/util/color/transformSRGB.js
 	var srgbReverseMatrix = [
 		[
 			.4124,
@@ -14981,8 +15450,7 @@ ${toHex$1(await hash.digest())}`;
 		for (let i = 0; i < 3; ++i) xyz[i] = matrix[i][0] * r + matrix[i][1] * g + matrix[i][2] * b;
 		return xyz;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/colorUtils.js
+	// node_modules/vuetify/lib/util/colorUtils.js
 	function isCssColor(color) {
 		return !!color && /^(#|var\(--|(rgb|hsl)a?\()/.test(color);
 	}
@@ -15216,8 +15684,7 @@ ${toHex$1(await hash.digest())}`;
 		const blackContrast = Math.abs(APCAcontrast(parseColor(0), parseColor(color)));
 		return Math.abs(APCAcontrast(parseColor(16777215), parseColor(color))) > Math.min(blackContrast, 50) ? "#fff" : "#000";
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/propsFactory.js
+	// node_modules/vuetify/lib/util/propsFactory.js
 	/**
 	* Creates a factory function for props definitions.
 	* This is used to define props in a composable then override
@@ -15260,8 +15727,7 @@ ${toHex$1(await hash.digest())}`;
 	/**
 	* Like `Partial<T>` but doesn't care what the value is
 	*/
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/component.js
+	// node_modules/vuetify/lib/composables/component.js
 	var makeComponentProps = propsFactory({
 		class: [
 			String,
@@ -15277,8 +15743,7 @@ ${toHex$1(await hash.digest())}`;
 			default: null
 		}
 	}, "component");
-	//#endregion
-	//#region node_modules/vuetify/lib/util/getCurrentInstance.js
+	// node_modules/vuetify/lib/util/getCurrentInstance.js
 	function getCurrentInstance(name, message) {
 		const vm = (0, vue.getCurrentInstance)();
 		if (!vm) throw new Error(`[Vuetify] ${name} ${message || "must be called from inside a setup function"}`);
@@ -15288,14 +15753,12 @@ ${toHex$1(await hash.digest())}`;
 		const vm = getCurrentInstance(arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "composables").type;
 		return toKebabCase(vm?.aliasName || vm?.name);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/injectSelf.js
+	// node_modules/vuetify/lib/util/injectSelf.js
 	function injectSelf(key) {
 		const { provides } = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : getCurrentInstance("injectSelf");
 		if (provides && key in provides) return provides[key];
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/defaults.js
+	// node_modules/vuetify/lib/composables/defaults.js
 	var DefaultsSymbol = Symbol.for("vuetify:defaults");
 	function injectDefaults() {
 		const defaults = (0, vue.inject)(DefaultsSymbol);
@@ -15369,8 +15832,7 @@ ${toHex$1(await hash.digest())}`;
 			provideSubDefaults
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/defineComponent.js
+	// node_modules/vuetify/lib/util/defineComponent.js
 	function defineComponent(options) {
 		options._setup = options._setup ?? options.setup;
 		if (!options.name) {
@@ -15403,8 +15865,7 @@ ${toHex$1(await hash.digest())}`;
 		render.props = props;
 		return render;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/createSimpleFunctional.js
+	// node_modules/vuetify/lib/util/createSimpleFunctional.js
 	function createSimpleFunctional(klass) {
 		let tag = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "div";
 		let name = arguments.length > 2 ? arguments[2] : void 0;
@@ -15428,8 +15889,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/deepEqual.js
+	// node_modules/vuetify/lib/util/deepEqual.js
 	function updateRecursionCache(a, b, cache, result) {
 		if (!cache || isPrimitive(a) || isPrimitive(b)) return;
 		const visitedObject = cache.get(a);
@@ -15460,8 +15920,7 @@ ${toHex$1(await hash.digest())}`;
 		updateRecursionCache(a, b, recursionCache, true);
 		return props.every((p) => deepEqual(a[p], b[p], recursionCache));
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/dom.js
+	// node_modules/vuetify/lib/util/dom.js
 	/**
 	* Returns:
 	*  - 'null' if the node is not attached to the DOM
@@ -15478,8 +15937,7 @@ ${toHex$1(await hash.digest())}`;
 		if (root !== document && root.getRootNode({ composed: true }) !== document) return null;
 		return root;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/easing.js
+	// node_modules/vuetify/lib/util/easing.js
 	var standardEasing = "cubic-bezier(0.4, 0, 0.2, 1)";
 	var deceleratedEasing = "cubic-bezier(0.0, 0, 0.2, 1)";
 	var acceleratedEasing = "cubic-bezier(0.4, 0, 1, 1)";
@@ -15499,16 +15957,14 @@ ${toHex$1(await hash.digest())}`;
 		easeInOutQuint: (t) => t < .5 ? 16 * t ** 5 : 1 + 16 * --t ** 5,
 		instant: (t) => 1
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/util/events.js
+	// node_modules/vuetify/lib/util/events.js
 	function getPrefixedEventHandlers(attrs, suffix, getData) {
 		return Object.keys(attrs).filter((key) => isOn(key) && key.endsWith(suffix)).reduce((acc, key) => {
 			acc[key.slice(0, -suffix.length)] = (event) => callEvent(attrs[key], event, getData(event));
 			return acc;
 		}, {});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/getScrollParent.js
+	// node_modules/vuetify/lib/util/getScrollParent.js
 	function getScrollParent(el) {
 		let includeHidden = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false;
 		while (el) {
@@ -15539,8 +15995,7 @@ ${toHex$1(await hash.digest())}`;
 		const style = window.getComputedStyle(el);
 		return ["scroll", "auto"].includes(style.overflowY);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/indentLines.js
+	// node_modules/vuetify/lib/util/indentLines.js
 	function getIndentLines(_ref) {
 		let { depth, isLast, isLastGroup, leafLinks, separateRoots, parentIndentLines, variant } = _ref;
 		const isLastLeaf = isLast && (!isLastGroup || separateRoots || depth > 1);
@@ -15571,8 +16026,7 @@ ${toHex$1(await hash.digest())}`;
 			footer: [...parentIndentLines, isLastLeaf ? "none" : "line"]
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/isFixedPosition.js
+	// node_modules/vuetify/lib/util/isFixedPosition.js
 	function isFixedPosition(el) {
 		while (el) {
 			if (window.getComputedStyle(el).position === "fixed") return true;
@@ -15580,14 +16034,12 @@ ${toHex$1(await hash.digest())}`;
 		}
 		return false;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/useRender.js
+	// node_modules/vuetify/lib/util/useRender.js
 	function useRender(render) {
 		const vm = getCurrentInstance("useRender");
 		vm.render = render;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/util/throttle.js
+	// node_modules/vuetify/lib/util/throttle.js
 	function throttle(fn, delay) {
 		let options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {
 			leading: true,
@@ -15623,8 +16075,7 @@ ${toHex$1(await hash.digest())}`;
 		wrap.immediate = fn;
 		return wrap;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/border.js
+	// node_modules/vuetify/lib/composables/border.js
 	var makeBorderProps = propsFactory({ border: [
 		Boolean,
 		Number,
@@ -15639,8 +16090,7 @@ ${toHex$1(await hash.digest())}`;
 			return [];
 		}) };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/density.js
+	// node_modules/vuetify/lib/composables/density.js
 	var allowedDensities$1 = [
 		null,
 		"default",
@@ -15658,8 +16108,7 @@ ${toHex$1(await hash.digest())}`;
 			return `${name}--density-${props.density}`;
 		}) };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/elevation.js
+	// node_modules/vuetify/lib/composables/elevation.js
 	var makeElevationProps = propsFactory({ elevation: {
 		type: [Number, String],
 		validator(v) {
@@ -15674,8 +16123,7 @@ ${toHex$1(await hash.digest())}`;
 			return [`elevation-${elevation}`];
 		}) };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/rounded.js
+	// node_modules/vuetify/lib/composables/rounded.js
 	var makeRoundedProps = propsFactory({
 		rounded: {
 			type: [
@@ -15699,8 +16147,7 @@ ${toHex$1(await hash.digest())}`;
 			return classes;
 		}) };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/size.js
+	// node_modules/vuetify/lib/composables/size.js
 	var predefinedSizes = [
 		"x-small",
 		"small",
@@ -15729,8 +16176,7 @@ ${toHex$1(await hash.digest())}`;
 			};
 		});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/tag.js
+	// node_modules/vuetify/lib/composables/tag.js
 	var makeTagProps = propsFactory({ tag: {
 		type: [
 			String,
@@ -15739,8 +16185,7 @@ ${toHex$1(await hash.digest())}`;
 		],
 		default: "div"
 	} }, "tag");
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/theme.js
+	// node_modules/vuetify/lib/composables/theme.js
 	var ThemeSymbol = Symbol.for("vuetify:theme");
 	var makeThemeProps = propsFactory({ theme: String }, "theme");
 	function provideTheme(props) {
@@ -15765,8 +16210,7 @@ ${toHex$1(await hash.digest())}`;
 		if (!theme) throw new Error("Could not find Vuetify theme injection");
 		return theme;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/color.js
+	// node_modules/vuetify/lib/composables/color.js
 	function useColor(colors) {
 		return destructComputed(() => {
 			const { class: colorClasses, style: colorStyles } = computeColor(colors);
@@ -15800,28 +16244,31 @@ ${toHex$1(await hash.digest())}`;
 		const _colors = normalizeColors((0, vue.toValue)(colors));
 		const classes = [];
 		const styles = {};
-		if (_colors.background) if (isCssColor(_colors.background)) {
-			styles.backgroundColor = _colors.background;
-			if (!_colors.text && isParsableColor(_colors.background)) {
-				const backgroundColor = parseColor(_colors.background);
-				if (backgroundColor.a == null || backgroundColor.a === 1) {
-					const textColor = getForeground(backgroundColor);
-					styles.color = textColor;
-					styles.caretColor = textColor;
+		if (_colors.background) {
+			if (isCssColor(_colors.background)) {
+				styles.backgroundColor = _colors.background;
+				if (!_colors.text && isParsableColor(_colors.background)) {
+					const backgroundColor = parseColor(_colors.background);
+					if (backgroundColor.a == null || backgroundColor.a === 1) {
+						const textColor = getForeground(backgroundColor);
+						styles.color = textColor;
+						styles.caretColor = textColor;
+					}
 				}
-			}
-		} else classes.push(`bg-${_colors.background}`);
-		if (_colors.text) if (isCssColor(_colors.text)) {
-			styles.color = _colors.text;
-			styles.caretColor = _colors.text;
-		} else classes.push(`text-${_colors.text}`);
+			} else classes.push(`bg-${_colors.background}`);
+		}
+		if (_colors.text) {
+			if (isCssColor(_colors.text)) {
+				styles.color = _colors.text;
+				styles.caretColor = _colors.text;
+			} else classes.push(`text-${_colors.text}`);
+		}
 		return {
 			class: classes,
 			style: styles
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/variant.js
+	// node_modules/vuetify/lib/composables/variant.js
 	var allowedVariants$3 = [
 		"elevated",
 		"flat",
@@ -15863,8 +16310,7 @@ ${toHex$1(await hash.digest())}`;
 			variantClasses
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VBtnGroup/VBtnGroup.js
+	// node_modules/vuetify/lib/components/VBtnGroup/VBtnGroup.js
 	var makeVBtnGroupProps = propsFactory({
 		baseColor: String,
 		divided: Boolean,
@@ -15922,8 +16368,7 @@ ${toHex$1(await hash.digest())}`;
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/toggleScope.js
+	// node_modules/vuetify/lib/composables/toggleScope.js
 	function useToggleScope(source, fn) {
 		let scope;
 		function start() {
@@ -15944,8 +16389,7 @@ ${toHex$1(await hash.digest())}`;
 			scope?.stop();
 		});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/proxiedModel.js
+	// node_modules/vuetify/lib/composables/proxiedModel.js
 	function useProxiedModel(props, prop, defaultValue) {
 		let transformIn = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : (v) => v;
 		let transformOut = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : (v) => v;
@@ -15980,8 +16424,7 @@ ${toHex$1(await hash.digest())}`;
 		Object.defineProperty(model, "externalValue", { get: () => isControlled.value ? props[prop] : internal.value });
 		return model;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/group.js
+	// node_modules/vuetify/lib/composables/group.js
 	var makeGroupProps = propsFactory({
 		modelValue: {
 			type: null,
@@ -16171,8 +16614,7 @@ ${toHex$1(await hash.digest())}`;
 		});
 		return values;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VBtnToggle/VBtnToggle.js
+	// node_modules/vuetify/lib/components/VBtnToggle/VBtnToggle.js
 	var VBtnToggleSymbol = Symbol.for("vuetify:v-btn-toggle");
 	var makeVBtnToggleProps = propsFactory({
 		...makeVBtnGroupProps(),
@@ -16202,8 +16644,7 @@ ${toHex$1(await hash.digest())}`;
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDefaultsProvider/VDefaultsProvider.js
+	// node_modules/vuetify/lib/components/VDefaultsProvider/VDefaultsProvider.js
 	var makeVDefaultsProviderProps = propsFactory({
 		defaults: Object,
 		disabled: Boolean,
@@ -16226,8 +16667,7 @@ ${toHex$1(await hash.digest())}`;
 			return () => slots.default?.();
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/icons.js
+	// node_modules/vuetify/lib/composables/icons.js
 	var IconValue = [
 		String,
 		Function,
@@ -16323,8 +16763,7 @@ ${toHex$1(await hash.digest())}`;
 			};
 		}) };
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VIcon/VIcon.js
+	// node_modules/vuetify/lib/components/VIcon/VIcon.js
 	var makeVIconProps = propsFactory({
 		color: String,
 		disabled: Boolean,
@@ -16386,8 +16825,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/intersectionObserver.js
+	// node_modules/vuetify/lib/composables/intersectionObserver.js
 	function useIntersectionObserver(callback, options) {
 		const intersectionRef = (0, vue.ref)();
 		const isIntersecting = (0, vue.shallowRef)(false);
@@ -16412,8 +16850,7 @@ ${toHex$1(await hash.digest())}`;
 			isIntersecting
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/resizeObserver.js
+	// node_modules/vuetify/lib/composables/resizeObserver.js
 	function useResizeObserver(callback) {
 		let box = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "content";
 		const resizeRef = templateRef();
@@ -16441,8 +16878,7 @@ ${toHex$1(await hash.digest())}`;
 			contentRect: (0, vue.readonly)(contentRect)
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/reveal.js
+	// node_modules/vuetify/lib/composables/reveal.js
 	var makeRevealProps = propsFactory({ reveal: {
 		type: [Boolean, Object],
 		default: false
@@ -16465,8 +16901,7 @@ ${toHex$1(await hash.digest())}`;
 			state
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
+	// node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
 	var makeVProgressCircularProps = propsFactory({
 		bgColor: String,
 		color: String,
@@ -16577,8 +17012,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/dimensions.js
+	// node_modules/vuetify/lib/composables/dimensions.js
 	var makeDimensionProps = propsFactory({
 		height: [Number, String],
 		maxHeight: [Number, String],
@@ -16605,8 +17039,7 @@ ${toHex$1(await hash.digest())}`;
 			return styles;
 		}) };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/locale.js
+	// node_modules/vuetify/lib/composables/locale.js
 	var LocaleSymbol = Symbol.for("vuetify:locale");
 	function useLocale() {
 		const locale = (0, vue.inject)(LocaleSymbol);
@@ -16641,8 +17074,7 @@ ${toHex$1(await hash.digest())}`;
 			rtlClasses: locale.rtlClasses
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/location.js
+	// node_modules/vuetify/lib/composables/location.js
 	var oppositeMap = {
 		center: "center",
 		top: "bottom",
@@ -16662,11 +17094,14 @@ ${toHex$1(await hash.digest())}`;
 				return offset ? offset(side) : 0;
 			}
 			const styles = {};
-			if (side !== "center") if (opposite) styles[oppositeMap[side]] = `calc(100% - ${getOffset(side)}px)`;
-			else styles[side] = 0;
-			if (align !== "center") if (opposite) styles[oppositeMap[align]] = `calc(100% - ${getOffset(align)}px)`;
-			else styles[align] = 0;
-			else {
+			if (side !== "center") {
+				if (opposite) styles[oppositeMap[side]] = `calc(100% - ${getOffset(side)}px)`;
+				else styles[side] = 0;
+			}
+			if (align !== "center") {
+				if (opposite) styles[oppositeMap[align]] = `calc(100% - ${getOffset(align)}px)`;
+				else styles[align] = 0;
+			} else {
 				if (side === "center") styles.top = styles.left = "50%";
 				else styles[{
 					top: "left",
@@ -16685,8 +17120,7 @@ ${toHex$1(await hash.digest())}`;
 			return styles;
 		}) };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VProgressLinear/chunks.js
+	// node_modules/vuetify/lib/components/VProgressLinear/chunks.js
 	var makeChunksProps = propsFactory({
 		chunkCount: {
 			type: [Number, String],
@@ -16734,8 +17168,7 @@ ${toHex$1(await hash.digest())}`;
 			snapValueToChunk
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VProgressLinear/VProgressLinear.js
+	// node_modules/vuetify/lib/components/VProgressLinear/VProgressLinear.js
 	var makeVProgressLinearProps = propsFactory({
 		absolute: Boolean,
 		active: {
@@ -16904,8 +17337,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/loader.js
+	// node_modules/vuetify/lib/composables/loader.js
 	var makeLoaderProps = propsFactory({ loading: [Boolean, String] }, "loader");
 	function useLoader(props) {
 		let name = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : getCurrentInstanceName();
@@ -16924,8 +17356,7 @@ ${toHex$1(await hash.digest())}`;
 			"indeterminate": true
 		}, null)]);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/position.js
+	// node_modules/vuetify/lib/composables/position.js
 	var positionValues = [
 		"static",
 		"relative",
@@ -16935,7 +17366,7 @@ ${toHex$1(await hash.digest())}`;
 	];
 	var makePositionProps = propsFactory({ position: {
 		type: String,
-		validator: (v) => positionValues.includes(v)
+		validator: /* istanbul ignore next */ (v) => positionValues.includes(v)
 	} }, "position");
 	function usePosition(props) {
 		let name = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : getCurrentInstanceName();
@@ -16943,8 +17374,7 @@ ${toHex$1(await hash.digest())}`;
 			return props.position ? `${name}--${props.position}` : void 0;
 		}) };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/router.js
+	// node_modules/vuetify/lib/composables/router.js
 	function useRoute() {
 		const vm = getCurrentInstance("useRoute");
 		return (0, vue.computed)(() => vm?.proxy?.$route);
@@ -17008,10 +17438,12 @@ ${toHex$1(await hash.digest())}`;
 	var inTransition = false;
 	function useBackButton(router, cb) {
 		let popped = false;
+		let disposed = false;
 		let removeBefore;
 		let removeAfter;
 		if (IN_BROWSER && router?.beforeEach) {
 			(0, vue.nextTick)(() => {
+				if (disposed) return;
 				window.addEventListener("popstate", onPopstate);
 				removeBefore = router.beforeEach(() => {
 					if (!inTransition) {
@@ -17027,6 +17459,7 @@ ${toHex$1(await hash.digest())}`;
 				});
 			});
 			(0, vue.onScopeDispose)(() => {
+				disposed = true;
 				window.removeEventListener("popstate", onPopstate);
 				removeBefore?.();
 				removeAfter?.();
@@ -17038,8 +17471,7 @@ ${toHex$1(await hash.digest())}`;
 			setTimeout(() => popped = false);
 		}
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/selectLink.js
+	// node_modules/vuetify/lib/composables/selectLink.js
 	function useSelectLink(link, select) {
 		(0, vue.watch)(() => link.isActive?.value, (isActive) => {
 			if (link.isLink.value && isActive != null && select) (0, vue.nextTick)(() => {
@@ -17047,8 +17479,7 @@ ${toHex$1(await hash.digest())}`;
 			});
 		}, { immediate: true });
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/directives/ripple/index.js
+	// node_modules/vuetify/lib/directives/ripple/index.js
 	var stopSymbol = Symbol("rippleStop");
 	var DELAY_RIPPLE = 80;
 	function transform(el, value) {
@@ -17278,8 +17709,7 @@ ${toHex$1(await hash.digest())}`;
 		unmounted: unmounted$5,
 		updated: updated$1
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VBtn/VBtn.js
+	// node_modules/vuetify/lib/components/VBtn/VBtn.js
 	var makeVBtnProps = propsFactory({
 		active: {
 			type: Boolean,
@@ -17477,8 +17907,7 @@ ${toHex$1(await hash.digest())}`;
 			return { group };
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VGrid/VContainer.js
+	// node_modules/vuetify/lib/components/VGrid/VContainer.js
 	var makeVContainerProps = propsFactory({
 		fluid: {
 			type: Boolean,
@@ -17507,8 +17936,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/display.js
+	// node_modules/vuetify/lib/composables/display.js
 	var breakpoints = [
 		"sm",
 		"md",
@@ -17546,8 +17974,7 @@ ${toHex$1(await hash.digest())}`;
 			mobile
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VGrid/VCol.js
+	// node_modules/vuetify/lib/components/VGrid/VCol.js
 	var breakpointProps = (() => {
 		return breakpoints.reduce((props, val) => {
 			props[val] = {
@@ -17663,8 +18090,7 @@ ${toHex$1(await hash.digest())}`;
 			}, slots.default?.());
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VGrid/VRow.js
+	// node_modules/vuetify/lib/components/VGrid/VRow.js
 	var ALIGNMENT = [
 		"start",
 		"end",
@@ -17787,11 +18213,9 @@ ${toHex$1(await hash.digest())}`;
 			}, slots.default?.());
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VGrid/VSpacer.js
+	// node_modules/vuetify/lib/components/VGrid/VSpacer.js
 	var VSpacer = createSimpleFunctional("v-spacer", "div", "VSpacer");
-	//#endregion
-	//#region node_modules/vuetify/lib/components/transitions/createTransition.js
+	// node_modules/vuetify/lib/components/transitions/createTransition.js
 	var makeTransitionProps$1 = propsFactory({
 		disabled: Boolean,
 		group: Boolean,
@@ -17844,7 +18268,8 @@ ${toHex$1(await hash.digest())}`;
 					}
 				};
 				return () => {
-					return (0, vue.h)(props.group ? vue.TransitionGroup : vue.Transition, {
+					const tag = props.group ? vue.TransitionGroup : vue.Transition;
+					return (0, vue.h)(tag, {
 						name: props.disabled ? "" : name,
 						css: !props.disabled,
 						...props.group ? void 0 : { mode: props.mode },
@@ -17889,8 +18314,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/transitions/expand-transition.js
+	// node_modules/vuetify/lib/components/transitions/expand-transition.js
 	function expand_transition_default() {
 		let expandedParentClass = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "";
 		let type = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "y";
@@ -17955,8 +18379,7 @@ ${toHex$1(await hash.digest())}`;
 			delete el._initialStyle;
 		}
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/transitions/dialog-transition.js
+	// node_modules/vuetify/lib/components/transitions/dialog-transition.js
 	var makeVDialogTransitionProps = propsFactory({ target: [Object, Array] }, "v-dialog-transition");
 	var saved = /* @__PURE__ */ new WeakMap();
 	var VDialogTransition = genericComponent()({
@@ -18083,8 +18506,7 @@ ${toHex$1(await hash.digest())}`;
 			speed
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/transitions/index.js
+	// node_modules/vuetify/lib/components/transitions/index.js
 	var VFabTransition = createCssTransition("fab-transition", "center center", "out-in");
 	var VDialogBottomTransition = createCssTransition("dialog-bottom-transition");
 	var VDialogTopTransition = createCssTransition("dialog-top-transition");
@@ -18101,8 +18523,7 @@ ${toHex$1(await hash.digest())}`;
 	var VExpandTransition = createJavascriptTransition("expand-transition", expand_transition_default());
 	var VExpandXTransition = createJavascriptTransition("expand-x-transition", expand_transition_default("", "x"));
 	var VExpandBothTransition = createJavascriptTransition("expand-both-transition", expand_transition_default("", "both"));
-	//#endregion
-	//#region src/components/MinButton.vue
+	// src/components/MinButton.vue
 	var _sfc_main$9 = {
 		name: "min-button",
 		data() {
@@ -18181,8 +18602,7 @@ ${toHex$1(await hash.digest())}`;
 		});
 	}
 	var MinButton_default = /*#__PURE__*/ _plugin_vue_export_helper_default(_sfc_main$9, [["render", _sfc_render$9], ["__file", "/home/ec2-user/environment/aws-lex-web-ui/lex-web-ui/src/components/MinButton.vue"]]);
-	//#endregion
-	//#region src/config/index.js
+	// src/config/index.js
 	var envShortName = [
 		"dev",
 		"prod",
@@ -18363,8 +18783,7 @@ ${toHex$1(await hash.digest())}`;
 		...configFromMerge,
 		urlQueryParams: queryParams
 	};
-	//#endregion
-	//#region src/store/state.js
+	// src/store/state.js
 	/**
 	* Sets up the initial state of the store
 	*/
@@ -18382,7 +18801,7 @@ ${toHex$1(await hash.digest())}`;
 		ENDED: "ended"
 	};
 	var state_default = {
-		version: "0.24.2",
+		version: "0.24.3",
 		chatMode: chatMode.BOT,
 		lex: {
 			acceptFormat: "audio/ogg",
@@ -18451,8 +18870,7 @@ ${toHex$1(await hash.digest())}`;
 			isStartingTypingWsMessages: true
 		}
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VList/list.js
+	// node_modules/vuetify/lib/components/VList/list.js
 	var ListKey = Symbol.for("vuetify:list");
 	function createList() {
 		let options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : { filterable: false };
@@ -18481,8 +18899,7 @@ ${toHex$1(await hash.digest())}`;
 	function useList() {
 		return (0, vue.inject)(ListKey, null);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/nested/activeStrategies.js
+	// node_modules/vuetify/lib/composables/nested/activeStrategies.js
 	var independentActiveStrategy = (mandatory) => {
 		const strategy = {
 			activate: (_ref) => {
@@ -18572,8 +18989,7 @@ ${toHex$1(await hash.digest())}`;
 			out: parentStrategy.out
 		};
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/nested/openStrategies.js
+	// node_modules/vuetify/lib/composables/nested/openStrategies.js
 	var singleOpenStrategy = {
 		open: (_ref) => {
 			let { id, value, opened, parents } = _ref;
@@ -18623,8 +19039,7 @@ ${toHex$1(await hash.digest())}`;
 			return new Set(path);
 		}
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/nested/selectStrategies.js
+	// node_modules/vuetify/lib/composables/nested/selectStrategies.js
 	var independentSelectStrategy = (mandatory) => {
 		const strategy = {
 			select: (_ref) => {
@@ -18818,8 +19233,7 @@ ${toHex$1(await hash.digest())}`;
 		};
 		return strategy;
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/nested/nested.js
+	// node_modules/vuetify/lib/composables/nested/nested.js
 	var VNestedSymbol = Symbol.for("vuetify:nested");
 	var emptyNested = {
 		id: (0, vue.shallowRef)(),
@@ -19138,8 +19552,7 @@ ${toHex$1(await hash.digest())}`;
 			isGroupActivator: true
 		});
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/ssrBoot.js
+	// node_modules/vuetify/lib/composables/ssrBoot.js
 	function useSsrBoot() {
 		const isBooted = (0, vue.shallowRef)(false);
 		(0, vue.onMounted)(() => {
@@ -19152,8 +19565,7 @@ ${toHex$1(await hash.digest())}`;
 			isBooted: (0, vue.readonly)(isBooted)
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/transition.js
+	// node_modules/vuetify/lib/composables/transition.js
 	var makeTransitionProps = propsFactory({ transition: {
 		type: null,
 		default: "fade-transition",
@@ -19172,8 +19584,7 @@ ${toHex$1(await hash.digest())}`;
 		else transitionProps = (0, vue.mergeProps)({ name: disabled || !transition ? "" : transition }, rest);
 		return (0, vue.h)(component, transitionProps, slots);
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VList/VListGroup.js
+	// node_modules/vuetify/lib/components/VList/VListGroup.js
 	var VListGroupActivator = defineComponent({
 		name: "VListGroupActivator",
 		setup(_, _ref) {
@@ -19265,8 +19676,7 @@ ${toHex$1(await hash.digest())}`;
 			return { isOpen };
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VList/VListItemSubtitle.js
+	// node_modules/vuetify/lib/components/VList/VListItemSubtitle.js
 	var makeVListItemSubtitleProps = propsFactory({
 		opacity: [Number, String],
 		...makeComponentProps(),
@@ -19284,11 +19694,9 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VList/VListItemTitle.js
+	// node_modules/vuetify/lib/components/VList/VListItemTitle.js
 	var VListItemTitle = createSimpleFunctional("v-list-item-title");
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VResponsive/VResponsive.js
+	// node_modules/vuetify/lib/components/VResponsive/VResponsive.js
 	function useAspectStyles(props) {
 		return { aspectStyles: (0, vue.computed)(() => {
 			const ratio = Number(props.aspectRatio);
@@ -19327,8 +19735,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/directives/intersect/index.js
+	// node_modules/vuetify/lib/directives/intersect/index.js
 	function mounted$4(el, binding) {
 		if (!SUPPORTS_INTERSECTION) return;
 		const modifiers = binding.modifiers || {};
@@ -19370,8 +19777,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		}
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VImg/VImg.js
+	// node_modules/vuetify/lib/components/VImg/VImg.js
 	var makeVImgProps = propsFactory({
 		absolute: Boolean,
 		alt: String,
@@ -19651,8 +20057,7 @@ ${toHex$1(await hash.digest())}`;
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VAvatar/VAvatar.js
+	// node_modules/vuetify/lib/components/VAvatar/VAvatar.js
 	var makeVAvatarProps = propsFactory({
 		start: Boolean,
 		end: Boolean,
@@ -19721,8 +20126,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VList/VListItem.js
+	// node_modules/vuetify/lib/components/VList/VListItem.js
 	var makeVListItemProps = propsFactory({
 		active: {
 			type: Boolean,
@@ -19989,8 +20393,7 @@ ${toHex$1(await hash.digest())}`;
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VList/VListSubheader.js
+	// node_modules/vuetify/lib/components/VList/VListSubheader.js
 	var makeVListSubheaderProps = propsFactory({
 		color: String,
 		inset: Boolean,
@@ -20023,8 +20426,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDivider/VDivider.js
+	// node_modules/vuetify/lib/components/VDivider/VDivider.js
 	var allowedVariants$2 = [
 		"dotted",
 		"dashed",
@@ -20114,8 +20516,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VList/VListChildren.js
+	// node_modules/vuetify/lib/components/VList/VListChildren.js
 	var makeVListChildrenProps = propsFactory({
 		items: Array,
 		returnObject: Boolean
@@ -20172,8 +20573,7 @@ ${toHex$1(await hash.digest())}`;
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/list-items.js
+	// node_modules/vuetify/lib/composables/list-items.js
 	var makeItemsProps = propsFactory({
 		items: {
 			type: Array,
@@ -20331,8 +20731,7 @@ ${toHex$1(await hash.digest())}`;
 			transformOut
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VList/VList.js
+	// node_modules/vuetify/lib/components/VList/VList.js
 	var itemTypes = /* @__PURE__ */ new Set([
 		"item",
 		"divider",
@@ -20596,11 +20995,9 @@ ${toHex$1(await hash.digest())}`;
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VList/VListImg.js
+	// node_modules/vuetify/lib/components/VList/VListImg.js
 	var VListImg = createSimpleFunctional("v-list-img");
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VList/VListItemAction.js
+	// node_modules/vuetify/lib/components/VList/VListItemAction.js
 	var makeVListItemActionProps = propsFactory({
 		start: Boolean,
 		end: Boolean,
@@ -20626,8 +21023,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VList/VListItemMedia.js
+	// node_modules/vuetify/lib/components/VList/VListItemMedia.js
 	var makeVListItemMediaProps = propsFactory({
 		start: Boolean,
 		end: Boolean,
@@ -20655,8 +21051,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VOverlay/util/point.js
+	// node_modules/vuetify/lib/components/VOverlay/util/point.js
 	/** Convert a point in local space to viewport space */
 	function elementToViewport(point, offset) {
 		return {
@@ -20691,8 +21086,7 @@ ${toHex$1(await hash.digest())}`;
 			y: box.height / 2
 		}, box);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VOverlay/locationStrategies.js
+	// node_modules/vuetify/lib/components/VOverlay/locationStrategies.js
 	var locationStrategies = {
 		static: staticLocationStrategy,
 		connected: connectedLocationStrategy
@@ -20890,9 +21284,7 @@ ${toHex$1(await hash.digest())}`;
 					case "left":
 						x -= offset.value[0];
 						break;
-					case "right":
-						x += offset.value[0];
-						break;
+					case "right": x += offset.value[0];
 				}
 				switch (_placement.anchor.align) {
 					case "top":
@@ -20904,9 +21296,7 @@ ${toHex$1(await hash.digest())}`;
 					case "left":
 						x -= offset.value[1];
 						break;
-					case "right":
-						x += offset.value[1];
-						break;
+					case "right": x += offset.value[1];
 				}
 				box.x += x;
 				box.y += y;
@@ -21034,8 +21424,7 @@ ${toHex$1(await hash.digest())}`;
 	function pixelCeil(val) {
 		return Math.ceil(val * devicePixelRatio) / devicePixelRatio;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VOverlay/requestNewFrame.js
+	// node_modules/vuetify/lib/components/VOverlay/requestNewFrame.js
 	var clean = true;
 	var frames = [];
 	/**
@@ -21062,8 +21451,7 @@ ${toHex$1(await hash.digest())}`;
 			else clean = true;
 		});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VOverlay/scrollStrategies.js
+	// node_modules/vuetify/lib/components/VOverlay/scrollStrategies.js
 	var scrollStrategies = {
 		none: null,
 		close: closeScrollStrategy,
@@ -21172,11 +21560,9 @@ ${toHex$1(await hash.digest())}`;
 			});
 		});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VMenu/shared.js
+	// node_modules/vuetify/lib/components/VMenu/shared.js
 	var VMenuSymbol = Symbol.for("vuetify:v-menu");
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/delay.js
+	// node_modules/vuetify/lib/composables/delay.js
 	var makeDelayProps = propsFactory({
 		closeDelay: [Number, String],
 		openDelay: [Number, String]
@@ -21206,8 +21592,7 @@ ${toHex$1(await hash.digest())}`;
 			runCloseDelay
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VOverlay/useActivator.js
+	// node_modules/vuetify/lib/components/VOverlay/useActivator.js
 	var makeActivatorProps = propsFactory({
 		target: [String, Object],
 		activator: [String, Object],
@@ -21335,7 +21720,7 @@ ${toHex$1(await hash.digest())}`;
 			return events;
 		});
 		(0, vue.watch)(isTop, (val) => {
-			if (val && (props.openOnHover && !isHovered && (!openOnFocus.value || !isFocused) || openOnFocus.value && !isFocused && (!props.openOnHover || !isHovered)) && !contentEl.value?.contains(document.activeElement)) runCloseDelay();
+			if (val && (props.openOnHover && !isHovered && (!openOnFocus.value || !isFocused) || openOnFocus.value && !isFocused && (!props.openOnHover || !isHovered)) && !contentEl.value?.contains(getActiveElement())) runCloseDelay();
 		});
 		(0, vue.watch)(isActive, (val) => {
 			if (!val) setTimeout(() => {
@@ -21432,8 +21817,7 @@ ${toHex$1(await hash.digest())}`;
 		else target = selector;
 		return target;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/focusTrap.js
+	// node_modules/vuetify/lib/composables/focusTrap.js
 	var makeFocusTrapProps = propsFactory({
 		retainFocus: Boolean,
 		captureFocus: Boolean,
@@ -21443,7 +21827,7 @@ ${toHex$1(await hash.digest())}`;
 	var registry = /* @__PURE__ */ new Map();
 	var subscribers = 0;
 	function onKeydown(e) {
-		const activeElement = document.activeElement;
+		const activeElement = getActiveElement();
 		if (e.key !== "Tab" || !activeElement) return;
 		const parentTraps = Array.from(registry.values()).filter((_ref) => {
 			let { isActive, contentEl } = _ref;
@@ -21461,18 +21845,17 @@ ${toHex$1(await hash.digest())}`;
 		if (!closestTrap) return;
 		const focusable = focusableChildren(closestTrap).filter((x) => x.tabIndex >= 0);
 		if (!focusable.length) return;
-		const active = document.activeElement;
-		if (focusable.length === 1 && focusable[0].classList.contains("v-list") && focusable[0].contains(active)) {
+		if (focusable.length === 1 && focusable[0].classList.contains("v-list") && focusable[0].contains(activeElement)) {
 			e.preventDefault();
 			return;
 		}
 		const firstElement = focusable[0];
 		const lastElement = focusable[focusable.length - 1];
-		if (e.shiftKey && (active === firstElement || firstElement.classList.contains("v-list") && firstElement.contains(active))) {
+		if (e.shiftKey && (activeElement === firstElement || firstElement.classList.contains("v-list") && firstElement.contains(activeElement))) {
 			e.preventDefault();
 			lastElement.focus();
 		}
-		if (!e.shiftKey && (active === lastElement || lastElement.classList.contains("v-list") && lastElement.contains(active))) {
+		if (!e.shiftKey && (activeElement === lastElement || lastElement.classList.contains("v-list") && lastElement.contains(activeElement))) {
 			e.preventDefault();
 			firstElement.focus();
 		}
@@ -21541,8 +21924,7 @@ ${toHex$1(await hash.digest())}`;
 			if (--subscribers < 1) document.removeEventListener("keydown", onKeydown);
 		});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/hydration.js
+	// node_modules/vuetify/lib/composables/hydration.js
 	function useHydration() {
 		if (!IN_BROWSER) return (0, vue.shallowRef)(false);
 		const { ssr } = useDisplay();
@@ -21554,8 +21936,7 @@ ${toHex$1(await hash.digest())}`;
 			return isMounted;
 		} else return (0, vue.shallowRef)(true);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/lazy.js
+	// node_modules/vuetify/lib/composables/lazy.js
 	var makeLazyProps = propsFactory({ eager: Boolean }, "lazy");
 	function useLazy(props, active) {
 		const isBooted = (0, vue.shallowRef)(false);
@@ -21570,14 +21951,12 @@ ${toHex$1(await hash.digest())}`;
 			onAfterLeave
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/scopeId.js
+	// node_modules/vuetify/lib/composables/scopeId.js
 	function useScopeId() {
 		const scopeId = getCurrentInstance("useScopeId").vnode.scopeId;
 		return { scopeId: scopeId ? { [scopeId]: "" } : void 0 };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/stack.js
+	// node_modules/vuetify/lib/composables/stack.js
 	var StackSymbol = Symbol.for("vuetify:stack");
 	var globalStack = (0, vue.reactive)([]);
 	function useStack(isActive, zIndex, disableGlobalStack) {
@@ -21612,8 +21991,7 @@ ${toHex$1(await hash.digest())}`;
 			stackStyles: (0, vue.toRef)(() => ({ zIndex: _zIndex.value }))
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/teleport.js
+	// node_modules/vuetify/lib/composables/teleport.js
 	function useTeleport(target) {
 		return { teleportTarget: (0, vue.computed)(() => {
 			const _target = target();
@@ -21632,8 +22010,7 @@ ${toHex$1(await hash.digest())}`;
 			return container;
 		}) };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/directives/click-outside/index.js
+	// node_modules/vuetify/lib/directives/click-outside/index.js
 	function defaultConditional() {
 		return true;
 	}
@@ -21688,8 +22065,7 @@ ${toHex$1(await hash.digest())}`;
 			delete el._clickOutside[binding.instance.$.uid];
 		}
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VOverlay/VOverlay.js
+	// node_modules/vuetify/lib/components/VOverlay/VOverlay.js
 	function Scrim(props) {
 		const { modelValue, color, ...rest } = props;
 		return (0, vue.createVNode)(vue.Transition, {
@@ -21828,10 +22204,10 @@ ${toHex$1(await hash.digest())}`;
 			});
 			function onKeydown(e) {
 				if (e.key === "Escape" && globalTop.value) {
-					if (!contentEl.value?.contains(document.activeElement)) emit("keydown", e);
+					if (!contentEl.value?.contains(getActiveElement())) emit("keydown", e);
 					if (!props.persistent) {
 						isActive.value = false;
-						if (contentEl.value?.contains(document.activeElement)) activatorEl.value?.focus();
+						if (contentEl.value?.contains(getActiveElement())) activatorEl.value?.focus();
 					} else animateClick();
 				}
 			}
@@ -21936,8 +22312,7 @@ ${toHex$1(await hash.digest())}`;
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/forwardRefs.js
+	// node_modules/vuetify/lib/composables/forwardRefs.js
 	var Refs = Symbol("Forwarded refs");
 	/** Omit properties starting with P */
 	/** Omit keyof $props from T */
@@ -21997,8 +22372,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VMenu/VMenu.js
+	// node_modules/vuetify/lib/components/VMenu/VMenu.js
 	var makeVMenuProps = propsFactory({
 		id: String,
 		submenu: Boolean,
@@ -22127,8 +22501,7 @@ ${toHex$1(await hash.digest())}`;
 			}, overlay);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VToolbar/VToolbarTitle.js
+	// node_modules/vuetify/lib/components/VToolbar/VToolbarTitle.js
 	var makeVToolbarTitleProps = propsFactory({
 		text: String,
 		...makeComponentProps(),
@@ -22149,8 +22522,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VToolbar/VToolbar.js
+	// node_modules/vuetify/lib/components/VToolbar/VToolbar.js
 	var allowedDensities = [
 		null,
 		"prominent",
@@ -22280,8 +22652,7 @@ ${toHex$1(await hash.digest())}`;
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VToolbar/VToolbarItems.js
+	// node_modules/vuetify/lib/components/VToolbar/VToolbarItems.js
 	var makeVToolbarItemsProps = propsFactory({
 		...makeComponentProps(),
 		...makeVariantProps({ variant: "text" })
@@ -22303,8 +22674,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTooltip/VTooltip.js
+	// node_modules/vuetify/lib/components/VTooltip/VTooltip.js
 	var makeVTooltipProps = propsFactory({
 		id: String,
 		interactive: Boolean,
@@ -22383,8 +22753,7 @@ ${toHex$1(await hash.digest())}`;
 			return forwardRefs({}, overlay);
 		}
 	});
-	//#endregion
-	//#region src/components/ToolbarContainer.vue
+	// src/components/ToolbarContainer.vue
 	var _sfc_main$8 = {
 		name: "toolbar-container",
 		data() {
@@ -22963,8 +23332,7 @@ ${toHex$1(await hash.digest())}`;
 		])) : (0, vue.createCommentVNode)("v-if", true)], 2112);
 	}
 	var ToolbarContainer_default = /*#__PURE__*/ _plugin_vue_export_helper_default(_sfc_main$8, [["render", _sfc_render$8], ["__file", "/home/ec2-user/environment/aws-lex-web-ui/lex-web-ui/src/components/ToolbarContainer.vue"]]);
-	//#endregion
-	//#region node_modules/marked/lib/marked.esm.js
+	// node_modules/marked/lib/marked.esm.js
 	/**
 	* marked v4.3.0 - a markdown parser
 	* Copyright (c) 2011-2023, Christopher Jeffrey. (MIT Licensed)
@@ -23090,8 +23458,10 @@ ${toHex$1(await hash.digest())}`;
 	* @param {string} href
 	*/
 	function resolveUrl(base, href) {
-		if (!baseUrls[" " + base]) if (justDomain.test(base)) baseUrls[" " + base] = base + "/";
-		else baseUrls[" " + base] = rtrim(base, "/", true);
+		if (!baseUrls[" " + base]) {
+			if (justDomain.test(base)) baseUrls[" " + base] = base + "/";
+			else baseUrls[" " + base] = rtrim(base, "/", true);
+		}
 		base = baseUrls[" " + base];
 		const relativeBase = base.indexOf(":") === -1;
 		if (href.substring(0, 2) === "//") {
@@ -23538,8 +23908,10 @@ ${toHex$1(await hash.digest())}`;
 					}
 				} else title = cap[3] ? cap[3].slice(1, -1) : "";
 				href = href.trim();
-				if (/^</.test(href)) if (this.options.pedantic && !/>$/.test(trimmedUrl)) href = href.slice(1);
-				else href = href.slice(1, -1);
+				if (/^</.test(href)) {
+					if (this.options.pedantic && !/>$/.test(trimmedUrl)) href = href.slice(1);
+					else href = href.slice(1, -1);
+				}
 				return outputLink(cap, {
 					href: href ? href.replace(this.rules.inline._escapes, "$1") : href,
 					title: title ? title.replace(this.rules.inline._escapes, "$1") : title
@@ -24511,14 +24883,15 @@ ${toHex$1(await hash.digest())}`;
 							itemBody = "";
 							if (item.task) {
 								checkbox = this.renderer.checkbox(checked);
-								if (loose) if (item.tokens.length > 0 && item.tokens[0].type === "paragraph") {
-									item.tokens[0].text = checkbox + " " + item.tokens[0].text;
-									if (item.tokens[0].tokens && item.tokens[0].tokens.length > 0 && item.tokens[0].tokens[0].type === "text") item.tokens[0].tokens[0].text = checkbox + " " + item.tokens[0].tokens[0].text;
-								} else item.tokens.unshift({
-									type: "text",
-									text: checkbox
-								});
-								else itemBody += checkbox;
+								if (loose) {
+									if (item.tokens.length > 0 && item.tokens[0].type === "paragraph") {
+										item.tokens[0].text = checkbox + " " + item.tokens[0].text;
+										if (item.tokens[0].tokens && item.tokens[0].tokens.length > 0 && item.tokens[0].tokens[0].type === "text") item.tokens[0].tokens[0].text = checkbox + " " + item.tokens[0].tokens[0].text;
+									} else item.tokens.unshift({
+										type: "text",
+										text: checkbox
+									});
+								} else itemBody += checkbox;
 							}
 							itemBody += this.parse(item.tokens, loose);
 							body += this.renderer.listitem(itemBody, task, checked);
@@ -24778,10 +25151,13 @@ ${toHex$1(await hash.digest())}`;
 						if (extensions[ext.level]) extensions[ext.level].unshift(ext.tokenizer);
 						else extensions[ext.level] = [ext.tokenizer];
 						if (ext.start) {
-							if (ext.level === "block") if (extensions.startBlock) extensions.startBlock.push(ext.start);
-							else extensions.startBlock = [ext.start];
-							else if (ext.level === "inline") if (extensions.startInline) extensions.startInline.push(ext.start);
-							else extensions.startInline = [ext.start];
+							if (ext.level === "block") {
+								if (extensions.startBlock) extensions.startBlock.push(ext.start);
+								else extensions.startBlock = [ext.start];
+							} else if (ext.level === "inline") {
+								if (extensions.startInline) extensions.startInline.push(ext.start);
+								else extensions.startInline = [ext.start];
+							}
 						}
 					}
 					if (ext.childTokens) extensions.childTokens[ext.name] = ext.childTokens;
@@ -24891,8 +25267,7 @@ ${toHex$1(await hash.digest())}`;
 	marked.parseInline;
 	Parser.parse;
 	Lexer.lex;
-	//#endregion
-	//#region src/components/MessageText.vue
+	// src/components/MessageText.vue
 	marked.use({ extensions: [{
 		name: "customLink",
 		level: "inline",
@@ -25020,8 +25395,7 @@ ${toHex$1(await hash.digest())}`;
 		["__scopeId", "data-v-8b878b49"],
 		["__file", "/home/ec2-user/environment/aws-lex-web-ui/lex-web-ui/src/components/MessageText.vue"]
 	]);
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCard/VCardActions.js
+	// node_modules/vuetify/lib/components/VCard/VCardActions.js
 	var makeVCardActionsProps = propsFactory({
 		...makeComponentProps(),
 		...makeTagProps()
@@ -25042,8 +25416,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCard/VCardSubtitle.js
+	// node_modules/vuetify/lib/components/VCard/VCardSubtitle.js
 	var makeVCardSubtitleProps = propsFactory({
 		opacity: [Number, String],
 		...makeComponentProps(),
@@ -25061,11 +25434,9 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCard/VCardTitle.js
+	// node_modules/vuetify/lib/components/VCard/VCardTitle.js
 	var VCardTitle = createSimpleFunctional("v-card-title");
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCard/VCardItem.js
+	// node_modules/vuetify/lib/components/VCard/VCardItem.js
 	var makeCardItemProps = propsFactory({
 		appendAvatar: String,
 		appendIcon: IconValue,
@@ -25167,8 +25538,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCard/VCardText.js
+	// node_modules/vuetify/lib/components/VCard/VCardText.js
 	var makeVCardTextProps = propsFactory({
 		opacity: [Number, String],
 		...makeComponentProps(),
@@ -25186,8 +25556,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCard/VCard.js
+	// node_modules/vuetify/lib/components/VCard/VCard.js
 	var makeVCardProps = propsFactory({
 		appendAvatar: String,
 		appendIcon: IconValue,
@@ -25350,8 +25719,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region src/components/ResponseCard.vue
+	// src/components/ResponseCard.vue
 	var _sfc_main$6 = {
 		name: "response-card",
 		props: ["response-card"],
@@ -25450,8 +25818,7 @@ ${toHex$1(await hash.digest())}`;
 		["__scopeId", "data-v-5d19d0a5"],
 		["__file", "/home/ec2-user/environment/aws-lex-web-ui/lex-web-ui/src/components/ResponseCard.vue"]
 	]);
-	//#endregion
-	//#region node_modules/vuetify/lib/directives/touch/index.js
+	// node_modules/vuetify/lib/directives/touch/index.js
 	var handleGesture = (wrapper) => {
 		const { touchstartX, touchendX, touchstartY, touchendY } = wrapper;
 		const dirRatio = .5;
@@ -25549,8 +25916,7 @@ ${toHex$1(await hash.digest())}`;
 		mounted: mounted$3,
 		unmounted: unmounted$3
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VWindow/VWindow.js
+	// node_modules/vuetify/lib/components/VWindow/VWindow.js
 	var VWindowSymbol = Symbol.for("vuetify:v-window");
 	var VWindowGroupSymbol = Symbol.for("vuetify:v-window-group");
 	var makeVWindowProps = propsFactory({
@@ -25755,8 +26121,7 @@ ${toHex$1(await hash.digest())}`;
 			return { group };
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VWindow/VWindowItem.js
+	// node_modules/vuetify/lib/components/VWindow/VWindowItem.js
 	var makeVWindowItemProps = propsFactory({
 		reverseTransition: {
 			type: [Boolean, String],
@@ -25835,8 +26200,7 @@ ${toHex$1(await hash.digest())}`;
 			return { groupItem };
 		}
 	});
-	//#endregion
-	//#region src/components/Message.vue
+	// src/components/Message.vue
 	var _sfc_main$5 = {
 		name: "message",
 		props: ["message", "feedback"],
@@ -26432,8 +26796,7 @@ ${toHex$1(await hash.digest())}`;
 		["__scopeId", "data-v-dd074dc4"],
 		["__file", "/home/ec2-user/environment/aws-lex-web-ui/lex-web-ui/src/components/Message.vue"]
 	]);
-	//#endregion
-	//#region src/components/MessageLoading.vue
+	// src/components/MessageLoading.vue
 	var _sfc_main$4 = {
 		name: "messageLoading",
 		data() {
@@ -26491,8 +26854,7 @@ ${toHex$1(await hash.digest())}`;
 			_: 1
 		});
 	}
-	//#endregion
-	//#region src/components/MessageList.vue
+	// src/components/MessageList.vue
 	var _sfc_main$3 = {
 		name: "message-list",
 		components: {
@@ -26564,8 +26926,7 @@ ${toHex$1(await hash.digest())}`;
 		["__scopeId", "data-v-2c19ee48"],
 		["__file", "/home/ec2-user/environment/aws-lex-web-ui/lex-web-ui/src/components/MessageList.vue"]
 	]);
-	//#endregion
-	//#region src/components/RecorderStatus.vue
+	// src/components/RecorderStatus.vue
 	var _sfc_main$2 = {
 		name: "recorder-status",
 		data() {
@@ -26699,8 +27060,7 @@ ${toHex$1(await hash.digest())}`;
 		["__scopeId", "data-v-5f4188cf"],
 		["__file", "/home/ec2-user/environment/aws-lex-web-ui/lex-web-ui/src/components/RecorderStatus.vue"]
 	]);
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCounter/VCounter.js
+	// node_modules/vuetify/lib/components/VCounter/VCounter.js
 	var makeVCounterProps = propsFactory({
 		active: Boolean,
 		disabled: Boolean,
@@ -26736,8 +27096,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VLabel/VLabel.js
+	// node_modules/vuetify/lib/components/VLabel/VLabel.js
 	var makeVLabelProps = propsFactory({
 		text: String,
 		onClick: EventProp(),
@@ -26761,8 +27120,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VField/VFieldLabel.js
+	// node_modules/vuetify/lib/components/VField/VFieldLabel.js
 	var makeVFieldLabelProps = propsFactory({
 		floating: Boolean,
 		...makeComponentProps()
@@ -26783,8 +27141,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VInput/InputIcon.js
+	// node_modules/vuetify/lib/components/VInput/InputIcon.js
 	function useInputIcon(props) {
 		const { t } = useLocale();
 		function InputIcon(_ref) {
@@ -26814,8 +27171,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		return { InputIcon };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/focus.js
+	// node_modules/vuetify/lib/composables/focus.js
 	var makeFocusProps = propsFactory({
 		focused: Boolean,
 		"onUpdate:focused": EventProp()
@@ -26839,8 +27195,7 @@ ${toHex$1(await hash.digest())}`;
 			blur
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VField/VField.js
+	// node_modules/vuetify/lib/components/VField/VField.js
 	var allowedVariants$1 = [
 		"underlined",
 		"outlined",
@@ -26989,7 +27344,7 @@ ${toHex$1(await hash.digest())}`;
 				};
 			});
 			function onClick(e) {
-				if (e.target !== document.activeElement) e.preventDefault();
+				if (e.target !== getActiveElement()) e.preventDefault();
 			}
 			useRender(() => {
 				const isOutlined = props.variant === "outlined";
@@ -27131,8 +27486,7 @@ ${toHex$1(await hash.digest())}`;
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VMessages/VMessages.js
+	// node_modules/vuetify/lib/components/VMessages/VMessages.js
 	var makeVMessagesProps = propsFactory({
 		active: Boolean,
 		color: String,
@@ -27170,8 +27524,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/form.js
+	// node_modules/vuetify/lib/composables/form.js
 	var FormKey = Symbol.for("vuetify:form");
 	var makeFormProps = propsFactory({
 		disabled: Boolean,
@@ -27291,8 +27644,7 @@ ${toHex$1(await hash.digest())}`;
 			isDisabled: (0, vue.computed)(() => !!(props?.disabled ?? form?.isDisabled.value))
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/labs/rules/rules.js
+	// node_modules/vuetify/lib/labs/rules/rules.js
 	var RulesSymbol = Symbol.for("vuetify:rules");
 	function useRules(fn) {
 		const rules = (0, vue.inject)(RulesSymbol, null);
@@ -27302,8 +27654,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		return rules?.resolve(fn) ?? (0, vue.toRef)(fn);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/validation.js
+	// node_modules/vuetify/lib/composables/validation.js
 	var makeValidationProps = propsFactory({
 		disabled: {
 			type: Boolean,
@@ -27366,6 +27717,7 @@ ${toHex$1(await hash.digest())}`;
 			else return !internalErrorMessages.value.length;
 		});
 		const isValidating = (0, vue.shallowRef)(false);
+		let isResetting = false;
 		const validationClasses = (0, vue.computed)(() => {
 			return {
 				[`${name}--error`]: isValid.value === false,
@@ -27394,13 +27746,7 @@ ${toHex$1(await hash.digest())}`;
 		});
 		useToggleScope(() => validateOn.value.input || validateOn.value.invalidInput && isValid.value === false, () => {
 			(0, vue.watch)(validationModel, () => {
-				if (validationModel.value != null) validate();
-				else if (props.focused) {
-					const unwatch = (0, vue.watch)(() => props.focused, (val) => {
-						if (!val) validate();
-						unwatch();
-					});
-				}
+				if (!isResetting) validate();
 			});
 		});
 		useToggleScope(() => validateOn.value.blur, () => {
@@ -27412,8 +27758,10 @@ ${toHex$1(await hash.digest())}`;
 			form.update?.(uid.value, isValid.value, errorMessages.value);
 		});
 		async function reset() {
+			isResetting = true;
 			model.value = null;
 			await (0, vue.nextTick)();
+			isResetting = false;
 			await resetValidation();
 		}
 		async function resetValidation() {
@@ -27454,8 +27802,7 @@ ${toHex$1(await hash.digest())}`;
 			validationClasses
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VInput/VInput.js
+	// node_modules/vuetify/lib/components/VInput/VInput.js
 	var makeVInputProps = propsFactory({
 		id: String,
 		appendIcon: IconValue,
@@ -27594,8 +27941,7 @@ ${toHex$1(await hash.digest())}`;
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/autocomplete.js
+	// node_modules/vuetify/lib/composables/autocomplete.js
 	var makeAutocompleteProps = propsFactory({ autocomplete: String }, "autocomplete");
 	function useAutocomplete(props) {
 		const uniqueId = (0, vue.useId)();
@@ -27614,8 +27960,7 @@ ${toHex$1(await hash.digest())}`;
 			update: () => reloadTrigger.value = (/* @__PURE__ */ new Date()).getTime()
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/autofocus.js
+	// node_modules/vuetify/lib/composables/autofocus.js
 	function useAutofocus(props) {
 		function onIntersect(isIntersecting, entries) {
 			if (!props.autofocus || !isIntersecting) return;
@@ -27624,8 +27969,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		return { onIntersect };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTextField/VTextField.js
+	// node_modules/vuetify/lib/components/VTextField/VTextField.js
 	var activeTypes = [
 		"color",
 		"file",
@@ -27695,7 +28039,7 @@ ${toHex$1(await hash.digest())}`;
 				if (autocomplete.isSuppressing.value) autocomplete.update();
 				if (!isFocused.value) focus();
 				(0, vue.nextTick)(() => {
-					if (inputRef.value !== document.activeElement) inputRef.value?.focus();
+					if (inputRef.value !== getActiveElement()) inputRef.value?.focus();
 				});
 			}
 			function onControlMousedown(e) {
@@ -27740,7 +28084,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 			useRender(() => {
 				const hasCounter = !!(slots.counter || props.counter !== false && props.counter != null);
-				const hasDetails = !!(hasCounter || slots.details);
+				const hasDetails = props.hideDetails !== true && !!(slots.details || hasCounter && (props.persistentCounter || props.hideDetails === false || isFocused.value));
 				const [rootAttrs, inputAttrs] = filterInputAttrs(attrs);
 				const { modelValue: _, ...inputProps } = VInput.filterProps(props);
 				const fieldProps = VField.filterProps(props);
@@ -27828,8 +28172,7 @@ ${toHex$1(await hash.digest())}`;
 			return forwardRefs({}, vInputRef, vFieldRef, inputRef);
 		}
 	});
-	//#endregion
-	//#region src/components/InputContainer.vue
+	// src/components/InputContainer.vue
 	var _sfc_main$1 = {
 		name: "input-container",
 		data() {
@@ -28142,8 +28485,7 @@ ${toHex$1(await hash.digest())}`;
 		}, 8, ["dense"]);
 	}
 	var InputContainer_default = /*#__PURE__*/ _plugin_vue_export_helper_default(_sfc_main$1, [["render", _sfc_render$1], ["__file", "/home/ec2-user/environment/aws-lex-web-ui/lex-web-ui/src/components/InputContainer.vue"]]);
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/layout.js
+	// node_modules/vuetify/lib/composables/layout.js
 	var VuetifyLayoutKey = Symbol.for("vuetify:layout");
 	var VuetifyLayoutItemKey = Symbol.for("vuetify:layout-item");
 	var ROOT_ZINDEX = 1e3;
@@ -28372,8 +28714,7 @@ ${toHex$1(await hash.digest())}`;
 			layoutRef: resizeRef
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VApp/VApp.js
+	// node_modules/vuetify/lib/components/VApp/VApp.js
 	var makeVAppProps = propsFactory({
 		...makeComponentProps(),
 		...omit(makeLayoutProps(), ["fullHeight"]),
@@ -28408,8 +28749,7 @@ ${toHex$1(await hash.digest())}`;
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VMain/VMain.js
+	// node_modules/vuetify/lib/components/VMain/VMain.js
 	var makeVMainProps = propsFactory({
 		scrollable: Boolean,
 		...makeComponentProps(),
@@ -28440,8 +28780,7 @@ ${toHex$1(await hash.digest())}`;
 			return {};
 		}
 	});
-	//#endregion
-	//#region src/components/LexWeb.vue
+	// src/components/LexWeb.vue
 	var _sfc_main = {
 		name: "lex-web",
 		data() {
@@ -28705,9 +29044,7 @@ ${toHex$1(await hash.digest())}`;
 					case "confirmLogout":
 						this.logoutConfirmed();
 						break;
-					default:
-						console.warn("unknown message in messageHandler", evt);
-						break;
+					default: console.warn("unknown message in messageHandler", evt);
 				}
 			},
 			componentMessageHandler(evt) {
@@ -28731,9 +29068,7 @@ ${toHex$1(await hash.digest())}`;
 					case "replaceCreds":
 						this.$store.dispatch("initCredentials", evt.detail.creds);
 						break;
-					default:
-						console.warn("unknown message in componentMessageHandler", evt);
-						break;
+					default: console.warn("unknown message in componentMessageHandler", evt);
 				}
 			},
 			userName() {
@@ -28849,8 +29184,7 @@ ${toHex$1(await hash.digest())}`;
 		}, 8, ["ui-minimized"]);
 	}
 	var LexWeb_default = /*#__PURE__*/ _plugin_vue_export_helper_default(_sfc_main, [["render", _sfc_render], ["__file", "/home/ec2-user/environment/aws-lex-web-ui/lex-web-ui/src/components/LexWeb.vue"]]);
-	//#endregion
-	//#region node_modules/jwt-decode/build/esm/index.js
+	// node_modules/jwt-decode/build/esm/index.js
 	var InvalidTokenError = class extends Error {};
 	InvalidTokenError.prototype.name = "InvalidTokenError";
 	function b64DecodeUnicode(str) {
@@ -28896,8 +29230,7 @@ ${toHex$1(await hash.digest())}`;
 			throw new InvalidTokenError(`Invalid token specified: invalid json for part #${pos + 1} (${e.message})`);
 		}
 	}
-	//#endregion
-	//#region src/store/getters.js
+	// src/store/getters.js
 	var getters_default = {
 		canInterruptBotPlayback: (state) => state.botAudio.canInterrupt,
 		isBotSpeaking: (state) => state.botAudio.isSpeaking,
@@ -28982,8 +29315,7 @@ ${toHex$1(await hash.digest())}`;
 			return state.streaming.isStartingTypingWsMessages;
 		}
 	};
-	//#endregion
-	//#region src/store/mutations.js
+	// src/store/mutations.js
 	/**
 	* Store mutations
 	*/
@@ -29216,7 +29548,6 @@ ${toHex$1(await hash.digest())}`;
 				default:
 					state.polly.outputFormat = "ogg_vorbis";
 					state.lex.acceptFormat = "audio/ogg";
-					break;
 			}
 		},
 		/**
@@ -29482,14 +29813,12 @@ ${toHex$1(await hash.digest())}`;
 			delete state.lex.sessionAttributes.userFilesUploaded;
 		}
 	};
-	//#endregion
-	//#region node_modules/vite-plugin-node-polyfills/shims/global/dist/index.js
+	// node_modules/vite-plugin-node-polyfills/shims/global/dist/index.js
 	var global;
 	var init_dist = __esmMin((() => {
 		global = globalThis || self;
 	}));
-	//#endregion
-	//#region node_modules/amazon-connect-chatjs/dist/amazon-connect-chat.js
+	// node_modules/amazon-connect-chatjs/dist/amazon-connect-chat.js
 	init_dist();
 	(() => {
 		var e = {
@@ -35926,11 +36255,11 @@ ${toHex$1(await hash.digest())}`;
 									return t;
 								},
 								_functionMaxBy: function(e) {
-									for (var t, n, r = e[1], i = e[0], o = this.createKeyFunction(r, [h, m]), s = -Infinity, a = 0; a < i.length; a++) (n = o(i[a])) > s && (s = n, t = i[a]);
+									for (var t, n, r = e[1], i = e[0], o = this.createKeyFunction(r, [h, m]), s = -1 / 0, a = 0; a < i.length; a++) (n = o(i[a])) > s && (s = n, t = i[a]);
 									return t;
 								},
 								_functionMinBy: function(e) {
-									for (var t, n, r = e[1], i = e[0], o = this.createKeyFunction(r, [h, m]), s = Infinity, a = 0; a < i.length; a++) (n = o(i[a])) < s && (s = n, t = i[a]);
+									for (var t, n, r = e[1], i = e[0], o = this.createKeyFunction(r, [h, m]), s = 1 / 0, a = 0; a < i.length; a++) (n = o(i[a])) < s && (s = n, t = i[a]);
 									return t;
 								},
 								createKeyFunction: function(e, t) {
@@ -37934,7 +38263,7 @@ ${toHex$1(await hash.digest())}`;
 									return e < 16 ? "0" + e.toString(16) : e.toString(16);
 								}
 								function P(e, t) {
-									t = t || Infinity;
+									t = t || 1 / 0;
 									for (var n, r = e.length, i = null, o = [], s = 0; s < r; ++s) {
 										if ((n = e.charCodeAt(s)) > 55295 && n < 57344) {
 											if (!i) {
@@ -38291,13 +38620,13 @@ ${toHex$1(await hash.digest())}`;
 							for (s = o & (1 << -l) - 1, o >>= -l, l += r; l > 0; s = 256 * s + e[t + p], p += d, l -= 8);
 							if (0 === o) o = 1 - u;
 							else {
-								if (o === c) return s ? NaN : Infinity * (h ? -1 : 1);
+								if (o === c) return s ? NaN : 1 / 0 * (h ? -1 : 1);
 								s += Math.pow(2, r), o -= u;
 							}
 							return (h ? -1 : 1) * s * Math.pow(2, o - r);
 						}, n.write = function(e, t, n, r, i, o) {
 							var s, a, c, u = 8 * o - i - 1, l = (1 << u) - 1, p = l >> 1, d = 23 === i ? Math.pow(2, -24) - Math.pow(2, -77) : 0, h = r ? 0 : o - 1, f = r ? 1 : -1, m = t < 0 || 0 === t && 1 / t < 0 ? 1 : 0;
-							for (t = Math.abs(t), isNaN(t) || t === Infinity ? (a = isNaN(t) ? 1 : 0, s = l) : (s = Math.floor(Math.log(t) / Math.LN2), t * (c = Math.pow(2, -s)) < 1 && (s--, c *= 2), (t += s + p >= 1 ? d / c : d * Math.pow(2, 1 - p)) * c >= 2 && (s++, c /= 2), s + p >= l ? (a = 0, s = l) : s + p >= 1 ? (a = (t * c - 1) * Math.pow(2, i), s += p) : (a = t * Math.pow(2, p - 1) * Math.pow(2, i), s = 0)); i >= 8; e[n + h] = 255 & a, h += f, a /= 256, i -= 8);
+							for (t = Math.abs(t), isNaN(t) || t === 1 / 0 ? (a = isNaN(t) ? 1 : 0, s = l) : (s = Math.floor(Math.log(t) / Math.LN2), t * (c = Math.pow(2, -s)) < 1 && (s--, c *= 2), (t += s + p >= 1 ? d / c : d * Math.pow(2, 1 - p)) * c >= 2 && (s++, c /= 2), s + p >= l ? (a = 0, s = l) : s + p >= 1 ? (a = (t * c - 1) * Math.pow(2, i), s += p) : (a = t * Math.pow(2, p - 1) * Math.pow(2, i), s = 0)); i >= 8; e[n + h] = 255 & a, h += f, a /= 256, i -= 8);
 							for (s = s << i | a, u += i; u > 0; e[n + h] = 255 & s, h += f, s /= 256, u -= 8);
 							e[n + h - f] |= 128 * m;
 						};
@@ -39315,8 +39644,8 @@ ${toHex$1(await hash.digest())}`;
 					if (!Array.isArray(e)) throw new r(t + " is not an array");
 				},
 				assertIsEnum: function(e, t, n) {
-					var i;
-					for (i = 0; i < t.length; i++) if (t[i] === e) return;
+					var i = 0;
+					for (; i < t.length; i++) if (t[i] === e) return;
 					throw new r(n + " passed (" + e + ") is not valid. Allowed values are: " + t);
 				},
 				makeEnum: function(e) {
@@ -41780,16 +42109,14 @@ ${toHex$1(await hash.digest())}`;
 			Re.connect = Re.connect || {}, connect.ChatSession = connect.ChatSession || Ie, connect.LogManager = connect.LogManager || T, connect.LogLevel = connect.LogLevel || S, connect.csmService = connect.csmService || Ie.csmService;
 		})();
 	})();
-	//#endregion
-	//#region src/lib/lex/wav-worker.js?worker
+	// src/lib/lex/wav-worker.js?worker
 	function WorkerWrapper(options) {
 		return new Worker("/wav-worker.js", {
 			type: "module",
 			name: options?.name
 		});
 	}
-	//#endregion
-	//#region src/lib/lex/recorder.js
+	// src/lib/lex/recorder.js
 	/**
 	* Lex Recorder Module
 	* Based on Recorderjs. It sort of mimics the MediaRecorder API.
@@ -42248,8 +42575,7 @@ ${toHex$1(await hash.digest())}`;
 			this._eventTarget.addEventListener("unquiet", cb);
 		}
 	};
-	//#endregion
-	//#region src/store/recorder-handlers.js
+	// src/store/recorder-handlers.js
 	/**
 	* Vuex store recorder handlers
 	*/
@@ -42354,8 +42680,7 @@ ${toHex$1(await hash.digest())}`;
 			});
 		};
 	};
-	//#endregion
-	//#region src/store/live-chat-handlers.js
+	// src/store/live-chat-handlers.js
 	/**
 	* Vuex store recorder handlers
 	*/
@@ -42424,22 +42749,15 @@ ${toHex$1(await hash.digest())}`;
 									console.info("Error sending transcript.");
 								});
 							}
-							break;
-						case "CUSTOMER": break;
-						default: break;
 					}
 					break;
 				case "application/vnd.amazonaws.connect.event.participant.left":
 					switch (data.ParticipantRole) {
 						case "SYSTEM": break;
-						case "AGENT":
-							context.dispatch("pushLiveChatMessage", {
-								type: "agent",
-								text: context.state.config.connect.agentLeftMessage.replaceAll("{Agent}", data.DisplayName)
-							});
-							break;
-						case "CUSTOMER": break;
-						default: break;
+						case "AGENT": context.dispatch("pushLiveChatMessage", {
+							type: "agent",
+							text: context.state.config.connect.agentLeftMessage.replaceAll("{Agent}", data.DisplayName)
+						});
 					}
 					break;
 				case "application/vnd.amazonaws.connect.event.chat.ended":
@@ -42459,18 +42777,13 @@ ${toHex$1(await hash.digest())}`;
 						case "AGENT":
 							type = "agent";
 							break;
-						case "CUSTOMER":
-							type = "human";
-							break;
-						default: break;
+						case "CUSTOMER": type = "human";
 					}
 					context.commit("setIsLiveChatProcessing", false);
 					if (!data.Content.startsWith("Bot Transcript")) context.dispatch("pushLiveChatMessage", {
 						type,
 						text: data.Content
 					});
-					break;
-				default: break;
 			}
 		});
 		session.onTyping((typingEvent) => {
@@ -42506,8 +42819,7 @@ ${toHex$1(await hash.digest())}`;
 		console.info("liveChatHandler: endLiveChat", liveChatSession);
 		liveChatSession.controller.disconnectParticipant();
 	};
-	//#endregion
-	//#region src/store/talkdesk-live-chat-handlers.js
+	// src/store/talkdesk-live-chat-handlers.js
 	/**
 	* Vuex store recorder handlers
 	*/
@@ -42558,14 +42870,11 @@ ${toHex$1(await hash.digest())}`;
 		liveChatSession.close(4e3, `conversationId:${context.state.lex.sessionAttributes.talkdesk_conversation_id}`);
 		context.commit("setLiveChatStatus", liveChatStatus.ENDED);
 	};
-	//#endregion
-	//#region src/assets/silent.ogg
+	// src/assets/silent.ogg
 	var silent_default$1 = "data:audio/ogg;base64,T2dnUwACAAAAAAAAAAAyzN3NAAAAAGFf2X8BM39GTEFDAQAAAWZMYUMAAAAiEgASAAAAAAAkFQrEQPAAAAAAAAAAAAAAAAAAAAAAAAAAAE9nZ1MAAAAAAAAAAAAAMszdzQEAAAD5LKCSATeEAAAzDQAAAExhdmY1NS40OC4xMDABAAAAGgAAAGVuY29kZXI9TGF2YzU1LjY5LjEwMCBmbGFjT2dnUwAEARIAAAAAAAAyzN3NAgAAAKWVljkCDAD/+GkIAAAdAAABICI=";
-	//#endregion
-	//#region src/assets/silent.mp3
+	// src/assets/silent.mp3
 	var silent_default = "data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU2LjM2LjEwMAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAEAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU2LjQxAAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV";
-	//#endregion
-	//#region src/store/sigv4-handlers.js
+	// src/store/sigv4-handlers.js
 	init_dist_es$3();
 	init_httpRequest();
 	async function signRequest(request, credentials, serviceInfo) {
@@ -42606,9 +42915,10 @@ ${toHex$1(await hash.digest())}`;
 		const { region, service } = serviceInfo;
 		const url = new URL(urlString);
 		const isWebSocket = url.protocol === "wss:" || url.protocol === "ws:";
+		const signingProtocol = isWebSocket ? "https:" : url.protocol;
 		const httpRequest = new HttpRequest({
 			method: "GET",
-			protocol: isWebSocket ? "https:" : url.protocol,
+			protocol: signingProtocol,
 			hostname: url.hostname,
 			port: url.port ? parseInt(url.port) : void 0,
 			path: url.pathname,
@@ -42632,8 +42942,7 @@ ${toHex$1(await hash.digest())}`;
 		if (isWebSocket) signedUrl.protocol = url.protocol;
 		return signedUrl.toString();
 	}
-	//#endregion
-	//#region node_modules/vite-plugin-node-polyfills/shims/buffer/dist/index.cjs
+	// node_modules/vite-plugin-node-polyfills/shims/buffer/dist/index.cjs
 	var require_dist = /* @__PURE__ */ __commonJSMin(((exports) => {
 		Object.defineProperties(exports, {
 			__esModule: { value: true },
@@ -42679,8 +42988,8 @@ ${toHex$1(await hash.digest())}`;
 			var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen));
 			var curByte = 0;
 			var len = placeHoldersLen > 0 ? validLen - 4 : validLen;
-			var i;
-			for (i = 0; i < len; i += 4) {
+			var i = 0;
+			for (; i < len; i += 4) {
 				tmp = revLookup[b64.charCodeAt(i)] << 18 | revLookup[b64.charCodeAt(i + 1)] << 12 | revLookup[b64.charCodeAt(i + 2)] << 6 | revLookup[b64.charCodeAt(i + 3)];
 				arr[curByte++] = tmp >> 16 & 255;
 				arr[curByte++] = tmp >> 8 & 255;
@@ -42801,15 +43110,15 @@ ${toHex$1(await hash.digest())}`;
 		* @author   Feross Aboukhadijeh <https://feross.org>
 		* @license  MIT
 		*/
-		(function(exports$2) {
+		(function(exports) {
 			const base64 = base64Js;
 			const ieee754$1 = ieee754;
 			const customInspectSymbol = typeof Symbol === "function" && typeof Symbol["for"] === "function" ? Symbol["for"]("nodejs.util.inspect.custom") : null;
-			exports$2.Buffer = Buffer;
-			exports$2.SlowBuffer = SlowBuffer;
-			exports$2.INSPECT_MAX_BYTES = 50;
+			exports.Buffer = Buffer;
+			exports.SlowBuffer = SlowBuffer;
+			exports.INSPECT_MAX_BYTES = 50;
 			const K_MAX_LENGTH = 2147483647;
-			exports$2.kMaxLength = K_MAX_LENGTH;
+			exports.kMaxLength = K_MAX_LENGTH;
 			const { Uint8Array: GlobalUint8Array, ArrayBuffer: GlobalArrayBuffer, SharedArrayBuffer: GlobalSharedArrayBuffer } = globalThis;
 			/**
 			* If `Buffer.TYPED_ARRAY_SUPPORT`:
@@ -43038,11 +43347,12 @@ ${toHex$1(await hash.digest())}`;
 				let pos = 0;
 				for (i = 0; i < list.length; ++i) {
 					let buf = list[i];
-					if (isInstance(buf, GlobalUint8Array)) if (pos + buf.length > buffer.length) {
-						if (!Buffer.isBuffer(buf)) buf = Buffer.from(buf);
-						buf.copy(buffer, pos);
-					} else GlobalUint8Array.prototype.set.call(buffer, buf, pos);
-					else if (!Buffer.isBuffer(buf)) throw new TypeError("\"list\" argument must be an Array of Buffers");
+					if (isInstance(buf, GlobalUint8Array)) {
+						if (pos + buf.length > buffer.length) {
+							if (!Buffer.isBuffer(buf)) buf = Buffer.from(buf);
+							buf.copy(buffer, pos);
+						} else GlobalUint8Array.prototype.set.call(buffer, buf, pos);
+					} else if (!Buffer.isBuffer(buf)) throw new TypeError("\"list\" argument must be an Array of Buffers");
 					else buf.copy(buffer, pos);
 					pos += buf.length;
 				}
@@ -43149,7 +43459,7 @@ ${toHex$1(await hash.digest())}`;
 			};
 			Buffer.prototype.inspect = function inspect() {
 				let str = "";
-				const max = exports$2.INSPECT_MAX_BYTES;
+				const max = exports.INSPECT_MAX_BYTES;
 				str = this.toString("hex", 0, max).replace(/(.{2})/g, "$1 ").trim();
 				if (this.length > max) str += " ... ";
 				return "<Buffer " + str + ">";
@@ -43195,18 +43505,23 @@ ${toHex$1(await hash.digest())}`;
 				byteOffset = +byteOffset;
 				if (numberIsNaN(byteOffset)) byteOffset = dir ? 0 : buffer.length - 1;
 				if (byteOffset < 0) byteOffset = buffer.length + byteOffset;
-				if (byteOffset >= buffer.length) if (dir) return -1;
-				else byteOffset = buffer.length - 1;
-				else if (byteOffset < 0) if (dir) byteOffset = 0;
-				else return -1;
+				if (byteOffset >= buffer.length) {
+					if (dir) return -1;
+					else byteOffset = buffer.length - 1;
+				} else if (byteOffset < 0) {
+					if (dir) byteOffset = 0;
+					else return -1;
+				}
 				if (typeof val === "string") val = Buffer.from(val, encoding);
 				if (Buffer.isBuffer(val)) {
 					if (val.length === 0) return -1;
 					return arrayIndexOf(buffer, val, byteOffset, encoding, dir);
 				} else if (typeof val === "number") {
 					val = val & 255;
-					if (typeof GlobalUint8Array.prototype.indexOf === "function") if (dir) return GlobalUint8Array.prototype.indexOf.call(buffer, val, byteOffset);
-					else return GlobalUint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset);
+					if (typeof GlobalUint8Array.prototype.indexOf === "function") {
+						if (dir) return GlobalUint8Array.prototype.indexOf.call(buffer, val, byteOffset);
+						else return GlobalUint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset);
+					}
 					return arrayIndexOf(buffer, [val], byteOffset, encoding, dir);
 				}
 				throw new TypeError("val must be string, number or Buffer");
@@ -43271,8 +43586,8 @@ ${toHex$1(await hash.digest())}`;
 				}
 				const strLen = string.length;
 				if (length > strLen / 2) length = strLen / 2;
-				let i;
-				for (i = 0; i < length; ++i) {
+				let i = 0;
+				for (; i < length; ++i) {
 					const parsed = parseInt(string.substr(i * 2, 2), 16);
 					if (numberIsNaN(parsed)) return i;
 					buf[offset + i] = parsed;
@@ -43501,8 +43816,8 @@ ${toHex$1(await hash.digest())}`;
 				const first = this[offset];
 				const last = this[offset + 7];
 				if (first === void 0 || last === void 0) boundsError(offset, this.length - 8);
-				const lo = first + this[++offset] * 2 ** 8 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 24;
-				const hi = this[++offset] + this[++offset] * 2 ** 8 + this[++offset] * 2 ** 16 + last * 2 ** 24;
+				const lo = first + this[++offset] * 256 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 24;
+				const hi = this[++offset] + this[++offset] * 256 + this[++offset] * 2 ** 16 + last * 2 ** 24;
 				return BigInt(lo) + (BigInt(hi) << BigInt(32));
 			});
 			Buffer.prototype.readBigUInt64BE = defineBigIntMethod(function readBigUInt64BE(offset) {
@@ -43511,8 +43826,8 @@ ${toHex$1(await hash.digest())}`;
 				const first = this[offset];
 				const last = this[offset + 7];
 				if (first === void 0 || last === void 0) boundsError(offset, this.length - 8);
-				const hi = first * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + this[++offset];
-				const lo = this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + last;
+				const hi = first * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 256 + this[++offset];
+				const lo = this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 256 + last;
 				return (BigInt(hi) << BigInt(32)) + BigInt(lo);
 			});
 			Buffer.prototype.readIntLE = function readIntLE(offset, byteLength, noAssert) {
@@ -43573,8 +43888,8 @@ ${toHex$1(await hash.digest())}`;
 				const first = this[offset];
 				const last = this[offset + 7];
 				if (first === void 0 || last === void 0) boundsError(offset, this.length - 8);
-				const val = this[offset + 4] + this[offset + 5] * 2 ** 8 + this[offset + 6] * 2 ** 16 + (last << 24);
-				return (BigInt(val) << BigInt(32)) + BigInt(first + this[++offset] * 2 ** 8 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 24);
+				const val = this[offset + 4] + this[offset + 5] * 256 + this[offset + 6] * 2 ** 16 + (last << 24);
+				return (BigInt(val) << BigInt(32)) + BigInt(first + this[++offset] * 256 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 24);
 			});
 			Buffer.prototype.readBigInt64BE = defineBigIntMethod(function readBigInt64BE(offset) {
 				offset = offset >>> 0;
@@ -43582,8 +43897,8 @@ ${toHex$1(await hash.digest())}`;
 				const first = this[offset];
 				const last = this[offset + 7];
 				if (first === void 0 || last === void 0) boundsError(offset, this.length - 8);
-				const val = (first << 24) + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + this[++offset];
-				return (BigInt(val) << BigInt(32)) + BigInt(this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 2 ** 8 + last);
+				const val = (first << 24) + this[++offset] * 2 ** 16 + this[++offset] * 256 + this[++offset];
+				return (BigInt(val) << BigInt(32)) + BigInt(this[++offset] * 2 ** 24 + this[++offset] * 2 ** 16 + this[++offset] * 256 + last);
 			});
 			Buffer.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
 				offset = offset >>> 0;
@@ -43958,9 +44273,10 @@ ${toHex$1(await hash.digest())}`;
 				if (value > max || value < min) {
 					const n = typeof min === "bigint" ? "n" : "";
 					let range;
-					if (byteLength > 3) if (min === 0 || min === BigInt(0)) range = `>= 0${n} and < 2${n} ** ${(byteLength + 1) * 8}${n}`;
-					else range = `>= -(2${n} ** ${(byteLength + 1) * 8 - 1}${n}) and < 2 ** ${(byteLength + 1) * 8 - 1}${n}`;
-					else range = `>= ${min}${n} and <= ${max}${n}`;
+					if (byteLength > 3) {
+						if (min === 0 || min === BigInt(0)) range = `>= 0${n} and < 2${n} ** ${(byteLength + 1) * 8}${n}`;
+						else range = `>= -(2${n} ** ${(byteLength + 1) * 8 - 1}${n}) and < 2 ** ${(byteLength + 1) * 8 - 1}${n}`;
+					} else range = `>= ${min}${n} and <= ${max}${n}`;
 					throw new errors.ERR_OUT_OF_RANGE("value", range, value);
 				}
 				checkBounds(buf, offset, byteLength);
@@ -44052,8 +44368,8 @@ ${toHex$1(await hash.digest())}`;
 				return base64.toByteArray(base64clean(str));
 			}
 			function blitBuffer(src, dst, offset, length) {
-				let i;
-				for (i = 0; i < length; ++i) {
+				let i = 0;
+				for (; i < length; ++i) {
 					if (i + offset >= dst.length || i >= src.length) break;
 					dst[i + offset] = src[i];
 				}
@@ -44101,8 +44417,7 @@ ${toHex$1(await hash.digest())}`;
 		exports.resolveObjectURL = buffer.resolveObjectURL;
 		exports.transcode = buffer.transcode;
 	}));
-	//#endregion
-	//#region node_modules/events/events.js
+	// node_modules/events/events.js
 	var require_events = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var R = typeof Reflect === "object" ? Reflect : null;
 		var ReflectApply = R && typeof R.apply === "function" ? R.apply : function ReflectApply(target, receiver, args) {
@@ -44270,12 +44585,13 @@ ${toHex$1(await hash.digest())}`;
 			if (events === void 0) return this;
 			list = events[type];
 			if (list === void 0) return this;
-			if (list === listener || list.listener === listener) if (--this._eventsCount === 0) this._events = Object.create(null);
-			else {
-				delete events[type];
-				if (events.removeListener) this.emit("removeListener", type, list.listener || listener);
-			}
-			else if (typeof list !== "function") {
+			if (list === listener || list.listener === listener) {
+				if (--this._eventsCount === 0) this._events = Object.create(null);
+				else {
+					delete events[type];
+					if (events.removeListener) this.emit("removeListener", type, list.listener || listener);
+				}
+			} else if (typeof list !== "function") {
 				position = -1;
 				for (i = list.length - 1; i >= 0; i--) if (list[i] === listener || list[i].listener === listener) {
 					originalListener = list[i].listener;
@@ -44298,8 +44614,10 @@ ${toHex$1(await hash.digest())}`;
 				if (arguments.length === 0) {
 					this._events = Object.create(null);
 					this._eventsCount = 0;
-				} else if (events[type] !== void 0) if (--this._eventsCount === 0) this._events = Object.create(null);
-				else delete events[type];
+				} else if (events[type] !== void 0) {
+					if (--this._eventsCount === 0) this._events = Object.create(null);
+					else delete events[type];
+				}
 				return this;
 			}
 			if (arguments.length === 0) {
@@ -44383,17 +44701,17 @@ ${toHex$1(await hash.digest())}`;
 			if (typeof emitter.on === "function") eventTargetAgnosticAddListener(emitter, "error", handler, flags);
 		}
 		function eventTargetAgnosticAddListener(emitter, name, listener, flags) {
-			if (typeof emitter.on === "function") if (flags.once) emitter.once(name, listener);
-			else emitter.on(name, listener);
-			else if (typeof emitter.addEventListener === "function") emitter.addEventListener(name, function wrapListener(arg) {
+			if (typeof emitter.on === "function") {
+				if (flags.once) emitter.once(name, listener);
+				else emitter.on(name, listener);
+			} else if (typeof emitter.addEventListener === "function") emitter.addEventListener(name, function wrapListener(arg) {
 				if (flags.once) emitter.removeEventListener(name, wrapListener);
 				listener(arg);
 			});
 			else throw new TypeError("The \"emitter\" argument must be of type EventEmitter. Received type " + typeof emitter);
 		}
 	}));
-	//#endregion
-	//#region node_modules/inherits/inherits_browser.js
+	// node_modules/inherits/inherits_browser.js
 	var require_inherits_browser = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		if (typeof Object.create === "function") module.exports = function inherits(ctor, superCtor) {
 			if (superCtor) {
@@ -44416,13 +44734,11 @@ ${toHex$1(await hash.digest())}`;
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/internal/streams/stream-browser.js
+	// node_modules/readable-stream/lib/internal/streams/stream-browser.js
 	var require_stream_browser = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		module.exports = require_events().EventEmitter;
 	}));
-	//#endregion
-	//#region node_modules/has-symbols/shams.js
+	// node_modules/has-symbols/shams.js
 	var require_shams$1 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./shams')} */
 		module.exports = function hasSymbols() {
@@ -44450,8 +44766,7 @@ ${toHex$1(await hash.digest())}`;
 			return true;
 		};
 	}));
-	//#endregion
-	//#region node_modules/has-tostringtag/shams.js
+	// node_modules/has-tostringtag/shams.js
 	var require_shams = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var hasSymbols = require_shams$1();
 		/** @type {import('.')} */
@@ -44459,100 +44774,84 @@ ${toHex$1(await hash.digest())}`;
 			return hasSymbols() && !!Symbol.toStringTag;
 		};
 	}));
-	//#endregion
-	//#region node_modules/es-object-atoms/index.js
+	// node_modules/es-object-atoms/index.js
 	var require_es_object_atoms = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('.')} */
 		module.exports = Object;
 	}));
-	//#endregion
-	//#region node_modules/es-errors/index.js
+	// node_modules/es-errors/index.js
 	var require_es_errors = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('.')} */
 		module.exports = Error;
 	}));
-	//#endregion
-	//#region node_modules/es-errors/eval.js
+	// node_modules/es-errors/eval.js
 	var require_eval = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./eval')} */
 		module.exports = EvalError;
 	}));
-	//#endregion
-	//#region node_modules/es-errors/range.js
+	// node_modules/es-errors/range.js
 	var require_range = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./range')} */
 		module.exports = RangeError;
 	}));
-	//#endregion
-	//#region node_modules/es-errors/ref.js
+	// node_modules/es-errors/ref.js
 	var require_ref = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./ref')} */
 		module.exports = ReferenceError;
 	}));
-	//#endregion
-	//#region node_modules/es-errors/syntax.js
+	// node_modules/es-errors/syntax.js
 	var require_syntax = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./syntax')} */
 		module.exports = SyntaxError;
 	}));
-	//#endregion
-	//#region node_modules/es-errors/type.js
+	// node_modules/es-errors/type.js
 	var require_type = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./type')} */
 		module.exports = TypeError;
 	}));
-	//#endregion
-	//#region node_modules/es-errors/uri.js
+	// node_modules/es-errors/uri.js
 	var require_uri = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./uri')} */
 		module.exports = URIError;
 	}));
-	//#endregion
-	//#region node_modules/math-intrinsics/abs.js
+	// node_modules/math-intrinsics/abs.js
 	var require_abs = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./abs')} */
 		module.exports = Math.abs;
 	}));
-	//#endregion
-	//#region node_modules/math-intrinsics/floor.js
+	// node_modules/math-intrinsics/floor.js
 	var require_floor = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./floor')} */
 		module.exports = Math.floor;
 	}));
-	//#endregion
-	//#region node_modules/math-intrinsics/max.js
+	// node_modules/math-intrinsics/max.js
 	var require_max = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./max')} */
 		module.exports = Math.max;
 	}));
-	//#endregion
-	//#region node_modules/math-intrinsics/min.js
+	// node_modules/math-intrinsics/min.js
 	var require_min = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./min')} */
 		module.exports = Math.min;
 	}));
-	//#endregion
-	//#region node_modules/math-intrinsics/pow.js
+	// node_modules/math-intrinsics/pow.js
 	var require_pow = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./pow')} */
 		module.exports = Math.pow;
 	}));
-	//#endregion
-	//#region node_modules/math-intrinsics/round.js
+	// node_modules/math-intrinsics/round.js
 	var require_round = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./round')} */
 		module.exports = Math.round;
 	}));
-	//#endregion
-	//#region node_modules/math-intrinsics/isNaN.js
+	// node_modules/math-intrinsics/isNaN.js
 	var require_isNaN = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./isNaN')} */
 		module.exports = Number.isNaN || function isNaN(a) {
 			return a !== a;
 		};
 	}));
-	//#endregion
-	//#region node_modules/math-intrinsics/sign.js
+	// node_modules/math-intrinsics/sign.js
 	var require_sign = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var $isNaN = require_isNaN();
 		/** @type {import('./sign')} */
@@ -44561,14 +44860,12 @@ ${toHex$1(await hash.digest())}`;
 			return number < 0 ? -1 : 1;
 		};
 	}));
-	//#endregion
-	//#region node_modules/gopd/gOPD.js
+	// node_modules/gopd/gOPD.js
 	var require_gOPD = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./gOPD')} */
 		module.exports = Object.getOwnPropertyDescriptor;
 	}));
-	//#endregion
-	//#region node_modules/gopd/index.js
+	// node_modules/gopd/index.js
 	var require_gopd = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('.')} */
 		var $gOPD = require_gOPD();
@@ -44579,8 +44876,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		module.exports = $gOPD;
 	}));
-	//#endregion
-	//#region node_modules/es-define-property/index.js
+	// node_modules/es-define-property/index.js
 	var require_es_define_property = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('.')} */
 		var $defineProperty = Object.defineProperty || false;
@@ -44591,8 +44887,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		module.exports = $defineProperty;
 	}));
-	//#endregion
-	//#region node_modules/has-symbols/index.js
+	// node_modules/has-symbols/index.js
 	var require_has_symbols = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var origSymbol = typeof Symbol !== "undefined" && Symbol;
 		var hasSymbolSham = require_shams$1();
@@ -44605,20 +44900,17 @@ ${toHex$1(await hash.digest())}`;
 			return hasSymbolSham();
 		};
 	}));
-	//#endregion
-	//#region node_modules/get-proto/Reflect.getPrototypeOf.js
+	// node_modules/get-proto/Reflect.getPrototypeOf.js
 	var require_Reflect_getPrototypeOf = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./Reflect.getPrototypeOf')} */
 		module.exports = typeof Reflect !== "undefined" && Reflect.getPrototypeOf || null;
 	}));
-	//#endregion
-	//#region node_modules/get-proto/Object.getPrototypeOf.js
+	// node_modules/get-proto/Object.getPrototypeOf.js
 	var require_Object_getPrototypeOf = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./Object.getPrototypeOf')} */
 		module.exports = require_es_object_atoms().getPrototypeOf || null;
 	}));
-	//#endregion
-	//#region node_modules/function-bind/implementation.js
+	// node_modules/function-bind/implementation.js
 	var require_implementation$4 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var ERROR_MESSAGE = "Function.prototype.bind called on incompatible ";
 		var toStr = Object.prototype.toString;
@@ -44669,32 +44961,27 @@ ${toHex$1(await hash.digest())}`;
 			return bound;
 		};
 	}));
-	//#endregion
-	//#region node_modules/function-bind/index.js
+	// node_modules/function-bind/index.js
 	var require_function_bind = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var implementation = require_implementation$4();
 		module.exports = Function.prototype.bind || implementation;
 	}));
-	//#endregion
-	//#region node_modules/call-bind-apply-helpers/functionCall.js
+	// node_modules/call-bind-apply-helpers/functionCall.js
 	var require_functionCall = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./functionCall')} */
 		module.exports = Function.prototype.call;
 	}));
-	//#endregion
-	//#region node_modules/call-bind-apply-helpers/functionApply.js
+	// node_modules/call-bind-apply-helpers/functionApply.js
 	var require_functionApply = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./functionApply')} */
 		module.exports = Function.prototype.apply;
 	}));
-	//#endregion
-	//#region node_modules/call-bind-apply-helpers/reflectApply.js
+	// node_modules/call-bind-apply-helpers/reflectApply.js
 	var require_reflectApply = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('./reflectApply')} */
 		module.exports = typeof Reflect !== "undefined" && Reflect && Reflect.apply;
 	}));
-	//#endregion
-	//#region node_modules/call-bind-apply-helpers/actualApply.js
+	// node_modules/call-bind-apply-helpers/actualApply.js
 	var require_actualApply = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var bind = require_function_bind();
 		var $apply = require_functionApply();
@@ -44702,8 +44989,7 @@ ${toHex$1(await hash.digest())}`;
 		/** @type {import('./actualApply')} */
 		module.exports = require_reflectApply() || bind.call($call, $apply);
 	}));
-	//#endregion
-	//#region node_modules/call-bind-apply-helpers/index.js
+	// node_modules/call-bind-apply-helpers/index.js
 	var require_call_bind_apply_helpers = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var bind = require_function_bind();
 		var $TypeError = require_type();
@@ -44715,8 +45001,7 @@ ${toHex$1(await hash.digest())}`;
 			return $actualApply(bind, $call, args);
 		};
 	}));
-	//#endregion
-	//#region node_modules/dunder-proto/get.js
+	// node_modules/dunder-proto/get.js
 	var require_get = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var callBind = require_call_bind_apply_helpers();
 		var gOPD = require_gopd();
@@ -44734,8 +45019,7 @@ ${toHex$1(await hash.digest())}`;
 			return $getPrototypeOf(value == null ? value : $Object(value));
 		} : false;
 	}));
-	//#endregion
-	//#region node_modules/get-proto/index.js
+	// node_modules/get-proto/index.js
 	var require_get_proto = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var reflectGetProto = require_Reflect_getPrototypeOf();
 		var originalGetProto = require_Object_getPrototypeOf();
@@ -44750,16 +45034,14 @@ ${toHex$1(await hash.digest())}`;
 			return getDunderProto(O);
 		} : null;
 	}));
-	//#endregion
-	//#region node_modules/hasown/index.js
+	// node_modules/hasown/index.js
 	var require_hasown = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var call = Function.prototype.call;
 		var $hasOwn = Object.prototype.hasOwnProperty;
 		/** @type {import('.')} */
 		module.exports = require_function_bind().call(call, $hasOwn);
 	}));
-	//#endregion
-	//#region node_modules/get-intrinsic/index.js
+	// node_modules/get-intrinsic/index.js
 	var require_get_intrinsic = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var undefined;
 		var $Object = require_es_object_atoms();
@@ -45084,8 +45366,7 @@ ${toHex$1(await hash.digest())}`;
 			return value;
 		};
 	}));
-	//#endregion
-	//#region node_modules/call-bound/index.js
+	// node_modules/call-bound/index.js
 	var require_call_bound = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var GetIntrinsic = require_get_intrinsic();
 		var callBindBasic = require_call_bind_apply_helpers();
@@ -45098,8 +45379,7 @@ ${toHex$1(await hash.digest())}`;
 			return intrinsic;
 		};
 	}));
-	//#endregion
-	//#region node_modules/is-arguments/index.js
+	// node_modules/is-arguments/index.js
 	var require_is_arguments = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var hasToStringTag = require_shams()();
 		var $toString = require_call_bound()("Object.prototype.toString");
@@ -45120,8 +45400,7 @@ ${toHex$1(await hash.digest())}`;
 		/** @type {import('.')} */
 		module.exports = supportsStandardArguments ? isStandardArguments : isLegacyArguments;
 	}));
-	//#endregion
-	//#region node_modules/is-regex/index.js
+	// node_modules/is-regex/index.js
 	var require_is_regex = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var callBound = require_call_bound();
 		var hasToStringTag = require_shams()();
@@ -45167,8 +45446,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		module.exports = fn;
 	}));
-	//#endregion
-	//#region node_modules/safe-regex-test/index.js
+	// node_modules/safe-regex-test/index.js
 	var require_safe_regex_test = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var callBound = require_call_bound();
 		var isRegex = require_is_regex();
@@ -45182,15 +45460,13 @@ ${toHex$1(await hash.digest())}`;
 			};
 		};
 	}));
-	//#endregion
-	//#region node_modules/generator-function/index.js
+	// node_modules/generator-function/index.js
 	var require_generator_function = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var cached = function* () {}.constructor;
 		/** @type {import('.')} */
 		module.exports = () => cached;
 	}));
-	//#endregion
-	//#region node_modules/is-generator-function/index.js
+	// node_modules/is-generator-function/index.js
 	var require_is_generator_function = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var callBound = require_call_bound();
 		var isFnRegex = require_safe_regex_test()(/^\s*(?:function)?\*/);
@@ -45209,8 +45485,7 @@ ${toHex$1(await hash.digest())}`;
 			return GeneratorFunction && getProto(fn) === GeneratorFunction.prototype;
 		};
 	}));
-	//#endregion
-	//#region node_modules/is-callable/index.js
+	// node_modules/is-callable/index.js
 	var require_is_callable = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var fnToStr = Function.prototype.toString;
 		var reflectApply = typeof Reflect === "object" && Reflect !== null && Reflect.apply;
@@ -45289,16 +45564,17 @@ ${toHex$1(await hash.digest())}`;
 			return tryFunctionObject(value);
 		};
 	}));
-	//#endregion
-	//#region node_modules/for-each/index.js
+	// node_modules/for-each/index.js
 	var require_for_each = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var isCallable = require_is_callable();
 		var toStr = Object.prototype.toString;
 		var hasOwnProperty = Object.prototype.hasOwnProperty;
 		/** @type {<This, A extends readonly unknown[]>(arr: A, iterator: (this: This | void, value: A[number], index: number, arr: A) => void, receiver: This | undefined) => void} */
 		var forEachArray = function forEachArray(array, iterator, receiver) {
-			for (var i = 0, len = array.length; i < len; i++) if (hasOwnProperty.call(array, i)) if (receiver == null) iterator(array[i], i, array);
-			else iterator.call(receiver, array[i], i, array);
+			for (var i = 0, len = array.length; i < len; i++) if (hasOwnProperty.call(array, i)) {
+				if (receiver == null) iterator(array[i], i, array);
+				else iterator.call(receiver, array[i], i, array);
+			}
 		};
 		/** @type {<This, S extends string>(string: S, iterator: (this: This | void, value: S[number], index: number, string: S) => void, receiver: This | undefined) => void} */
 		var forEachString = function forEachString(string, iterator, receiver) {
@@ -45307,8 +45583,10 @@ ${toHex$1(await hash.digest())}`;
 		};
 		/** @type {<This, O>(obj: O, iterator: (this: This | void, value: O[keyof O], index: keyof O, obj: O) => void, receiver: This | undefined) => void} */
 		var forEachObject = function forEachObject(object, iterator, receiver) {
-			for (var k in object) if (hasOwnProperty.call(object, k)) if (receiver == null) iterator(object[k], k, object);
-			else iterator.call(receiver, object[k], k, object);
+			for (var k in object) if (hasOwnProperty.call(object, k)) {
+				if (receiver == null) iterator(object[k], k, object);
+				else iterator.call(receiver, object[k], k, object);
+			}
 		};
 		/** @type {(x: unknown) => x is readonly unknown[]} */
 		function isArray(x) {
@@ -45324,8 +45602,7 @@ ${toHex$1(await hash.digest())}`;
 			else forEachObject(list, iterator, receiver);
 		};
 	}));
-	//#endregion
-	//#region node_modules/possible-typed-array-names/index.js
+	// node_modules/possible-typed-array-names/index.js
 	var require_possible_typed_array_names = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/** @type {import('.')} */
 		module.exports = [
@@ -45343,8 +45620,7 @@ ${toHex$1(await hash.digest())}`;
 			"BigUint64Array"
 		];
 	}));
-	//#endregion
-	//#region node_modules/available-typed-arrays/index.js
+	// node_modules/available-typed-arrays/index.js
 	var require_available_typed_arrays = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		init_dist();
 		var possibleNames = require_possible_typed_array_names();
@@ -45356,8 +45632,7 @@ ${toHex$1(await hash.digest())}`;
 			return out;
 		};
 	}));
-	//#endregion
-	//#region node_modules/define-data-property/index.js
+	// node_modules/define-data-property/index.js
 	var require_define_data_property = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var $defineProperty = require_es_define_property();
 		var $SyntaxError = require_syntax();
@@ -45386,8 +45661,7 @@ ${toHex$1(await hash.digest())}`;
 			else throw new $SyntaxError("This environment does not support defining a property as non-configurable, non-writable, or non-enumerable.");
 		};
 	}));
-	//#endregion
-	//#region node_modules/has-property-descriptors/index.js
+	// node_modules/has-property-descriptors/index.js
 	var require_has_property_descriptors = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var $defineProperty = require_es_define_property();
 		var hasPropertyDescriptors = function hasPropertyDescriptors() {
@@ -45403,8 +45677,7 @@ ${toHex$1(await hash.digest())}`;
 		};
 		module.exports = hasPropertyDescriptors;
 	}));
-	//#endregion
-	//#region node_modules/set-function-length/index.js
+	// node_modules/set-function-length/index.js
 	var require_set_function_length = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var GetIntrinsic = require_get_intrinsic();
 		var define = require_define_data_property();
@@ -45424,13 +45697,14 @@ ${toHex$1(await hash.digest())}`;
 				if (desc && !desc.configurable) functionLengthIsConfigurable = false;
 				if (desc && !desc.writable) functionLengthIsWritable = false;
 			}
-			if (functionLengthIsConfigurable || functionLengthIsWritable || !loose) if (hasDescriptors) define(fn, "length", length, true, true);
-			else define(fn, "length", length);
+			if (functionLengthIsConfigurable || functionLengthIsWritable || !loose) {
+				if (hasDescriptors) define(fn, "length", length, true, true);
+				else define(fn, "length", length);
+			}
 			return fn;
 		};
 	}));
-	//#endregion
-	//#region node_modules/call-bind-apply-helpers/applyBind.js
+	// node_modules/call-bind-apply-helpers/applyBind.js
 	var require_applyBind = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var bind = require_function_bind();
 		var $apply = require_functionApply();
@@ -45440,8 +45714,7 @@ ${toHex$1(await hash.digest())}`;
 			return actualApply(bind, $apply, arguments);
 		};
 	}));
-	//#endregion
-	//#region node_modules/call-bind/index.js
+	// node_modules/call-bind/index.js
 	var require_call_bind = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var setFunctionLength = require_set_function_length();
 		var $defineProperty = require_es_define_property();
@@ -45455,8 +45728,7 @@ ${toHex$1(await hash.digest())}`;
 		if ($defineProperty) $defineProperty(module.exports, "apply", { value: applyBind });
 		else module.exports.apply = applyBind;
 	}));
-	//#endregion
-	//#region node_modules/which-typed-array/index.js
+	// node_modules/which-typed-array/index.js
 	var require_which_typed_array = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		init_dist();
 		var forEach = require_for_each();
@@ -45532,11 +45804,8 @@ ${toHex$1(await hash.digest())}`;
 		function isTATag(tag) {
 			return $indexOf(typedArrays, tag) > -1;
 		}
-		/**
-		* @type {import('.')}
-		* @param {unknown} value
-		*/
-		module.exports = function whichTypedArray(value) {
+		/** @type {(value: unknown) => ReturnType<typeof import('.')>} */
+		function whichTypedArray(value) {
 			if (!value || typeof value !== "object") return false;
 			if (!hasToStringTag) {
 				var tag = $slice($toString(value), 8, -1);
@@ -45546,10 +45815,10 @@ ${toHex$1(await hash.digest())}`;
 			}
 			if (!gOPD) return null;
 			return tryTypedArrays(value);
-		};
+		}
+		module.exports = whichTypedArray;
 	}));
-	//#endregion
-	//#region node_modules/is-typed-array/index.js
+	// node_modules/is-typed-array/index.js
 	var require_is_typed_array = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var whichTypedArray = require_which_typed_array();
 		/** @type {import('.')} */
@@ -45557,8 +45826,7 @@ ${toHex$1(await hash.digest())}`;
 			return !!whichTypedArray(value);
 		};
 	}));
-	//#endregion
-	//#region node_modules/util/support/types.js
+	// node_modules/util/support/types.js
 	var require_types = /* @__PURE__ */ __commonJSMin(((exports) => {
 		var isArgumentsObject = require_is_arguments();
 		var isGeneratorFunction = require_is_generator_function();
@@ -45764,15 +46032,13 @@ ${toHex$1(await hash.digest())}`;
 			});
 		});
 	}));
-	//#endregion
-	//#region node_modules/util/support/isBufferBrowser.js
+	// node_modules/util/support/isBufferBrowser.js
 	var require_isBufferBrowser = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		module.exports = function isBuffer(arg) {
 			return arg && typeof arg === "object" && typeof arg.copy === "function" && typeof arg.fill === "function" && typeof arg.readUInt8 === "function";
 		};
 	}));
-	//#endregion
-	//#region node_modules/util/util.js
+	// node_modules/util/util.js
 	var require_util = /* @__PURE__ */ __commonJSMin(((exports) => {
 		init_dist$1();
 		var getOwnPropertyDescriptors = Object.getOwnPropertyDescriptors || function getOwnPropertyDescriptors(obj) {
@@ -45835,13 +46101,15 @@ ${toHex$1(await hash.digest())}`;
 		}
 		exports.debuglog = function(set) {
 			set = set.toUpperCase();
-			if (!debugs[set]) if (debugEnvRegex.test(set)) {
-				var pid = process$1.pid;
-				debugs[set] = function() {
-					var msg = exports.format.apply(exports, arguments);
-					console.error("%s %d: %s", set, pid, msg);
-				};
-			} else debugs[set] = function() {};
+			if (!debugs[set]) {
+				if (debugEnvRegex.test(set)) {
+					var pid = process$1.pid;
+					debugs[set] = function() {
+						var msg = exports.format.apply(exports, arguments);
+						console.error("%s %d: %s", set, pid, msg);
+					};
+				} else debugs[set] = function() {};
+			}
 			return debugs[set];
 		};
 		/**
@@ -45939,8 +46207,10 @@ ${toHex$1(await hash.digest())}`;
 			if (isDate(value)) base = " " + Date.prototype.toUTCString.call(value);
 			if (isError(value)) base = " " + formatError(value);
 			if (keys.length === 0 && (!array || value.length == 0)) return braces[0] + base + braces[1];
-			if (recurseTimes < 0) if (isRegExp(value)) return ctx.stylize(RegExp.prototype.toString.call(value), "regexp");
-			else return ctx.stylize("[Object]", "special");
+			if (recurseTimes < 0) {
+				if (isRegExp(value)) return ctx.stylize(RegExp.prototype.toString.call(value), "regexp");
+				else return ctx.stylize("[Object]", "special");
+			}
 			ctx.seen.push(value);
 			var output;
 			if (array) output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
@@ -45974,20 +46244,25 @@ ${toHex$1(await hash.digest())}`;
 		}
 		function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
 			var name, str, desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
-			if (desc.get) if (desc.set) str = ctx.stylize("[Getter/Setter]", "special");
-			else str = ctx.stylize("[Getter]", "special");
-			else if (desc.set) str = ctx.stylize("[Setter]", "special");
+			if (desc.get) {
+				if (desc.set) str = ctx.stylize("[Getter/Setter]", "special");
+				else str = ctx.stylize("[Getter]", "special");
+			} else if (desc.set) str = ctx.stylize("[Setter]", "special");
 			if (!hasOwnProperty(visibleKeys, key)) name = "[" + key + "]";
-			if (!str) if (ctx.seen.indexOf(desc.value) < 0) {
-				if (isNull(recurseTimes)) str = formatValue(ctx, desc.value, null);
-				else str = formatValue(ctx, desc.value, recurseTimes - 1);
-				if (str.indexOf("\n") > -1) if (array) str = str.split("\n").map(function(line) {
-					return "  " + line;
-				}).join("\n").slice(2);
-				else str = "\n" + str.split("\n").map(function(line) {
-					return "   " + line;
-				}).join("\n");
-			} else str = ctx.stylize("[Circular]", "special");
+			if (!str) {
+				if (ctx.seen.indexOf(desc.value) < 0) {
+					if (isNull(recurseTimes)) str = formatValue(ctx, desc.value, null);
+					else str = formatValue(ctx, desc.value, recurseTimes - 1);
+					if (str.indexOf("\n") > -1) {
+						if (array) str = str.split("\n").map(function(line) {
+							return "  " + line;
+						}).join("\n").slice(2);
+						else str = "\n" + str.split("\n").map(function(line) {
+							return "   " + line;
+						}).join("\n");
+					}
+				} else str = ctx.stylize("[Circular]", "special");
+			}
 			if (isUndefined(name)) {
 				if (array && key.match(/^\d+$/)) return str;
 				name = JSON.stringify("" + key);
@@ -46205,8 +46480,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		exports.callbackify = callbackify;
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/internal/streams/buffer_list.js
+	// node_modules/readable-stream/lib/internal/streams/buffer_list.js
 	var require_buffer_list = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		function ownKeys(object, enumerableOnly) {
 			var keys = Object.keys(object);
@@ -46445,8 +46719,7 @@ ${toHex$1(await hash.digest())}`;
 			return BufferList;
 		}();
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/internal/streams/destroy.js
+	// node_modules/readable-stream/lib/internal/streams/destroy.js
 	var require_destroy = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		init_dist$1();
 		function destroy(err, cb) {
@@ -46467,12 +46740,13 @@ ${toHex$1(await hash.digest())}`;
 			if (this._readableState) this._readableState.destroyed = true;
 			if (this._writableState) this._writableState.destroyed = true;
 			this._destroy(err || null, function(err) {
-				if (!cb && err) if (!_this._writableState) process$1.nextTick(emitErrorAndCloseNT, _this, err);
-				else if (!_this._writableState.errorEmitted) {
-					_this._writableState.errorEmitted = true;
-					process$1.nextTick(emitErrorAndCloseNT, _this, err);
-				} else process$1.nextTick(emitCloseNT, _this);
-				else if (cb) {
+				if (!cb && err) {
+					if (!_this._writableState) process$1.nextTick(emitErrorAndCloseNT, _this, err);
+					else if (!_this._writableState.errorEmitted) {
+						_this._writableState.errorEmitted = true;
+						process$1.nextTick(emitErrorAndCloseNT, _this, err);
+					} else process$1.nextTick(emitCloseNT, _this);
+				} else if (cb) {
 					process$1.nextTick(emitCloseNT, _this);
 					cb(err);
 				} else process$1.nextTick(emitCloseNT, _this);
@@ -46520,8 +46794,7 @@ ${toHex$1(await hash.digest())}`;
 			errorOrDestroy
 		};
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/errors-browser.js
+	// node_modules/readable-stream/errors-browser.js
 	var require_errors_browser = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		function _inheritsLoose(subClass, superClass) {
 			subClass.prototype = Object.create(superClass.prototype);
@@ -46605,8 +46878,7 @@ ${toHex$1(await hash.digest())}`;
 		createErrorType("ERR_STREAM_UNSHIFT_AFTER_END_EVENT", "stream.unshift() after end event");
 		module.exports.codes = codes;
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/internal/streams/state.js
+	// node_modules/readable-stream/lib/internal/streams/state.js
 	var require_state = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var ERR_INVALID_OPT_VALUE = require_errors_browser().codes.ERR_INVALID_OPT_VALUE;
 		function highWaterMarkFrom(options, isDuplex, duplexKey) {
@@ -46618,12 +46890,11 @@ ${toHex$1(await hash.digest())}`;
 				if (!(isFinite(hwm) && Math.floor(hwm) === hwm) || hwm < 0) throw new ERR_INVALID_OPT_VALUE(isDuplex ? duplexKey : "highWaterMark", hwm);
 				return Math.floor(hwm);
 			}
-			return state.objectMode ? 16 : 16 * 1024;
+			return state.objectMode ? 16 : 16384;
 		}
 		module.exports = { getHighWaterMark };
 	}));
-	//#endregion
-	//#region node_modules/util-deprecate/browser.js
+	// node_modules/util-deprecate/browser.js
 	var require_browser = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		init_dist();
 		/**
@@ -46679,8 +46950,7 @@ ${toHex$1(await hash.digest())}`;
 			return String(val).toLowerCase() === "true";
 		}
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/_stream_writable.js
+	// node_modules/readable-stream/lib/_stream_writable.js
 	var require__stream_writable = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		init_dist();
 		init_dist$1();
@@ -47043,13 +47313,15 @@ ${toHex$1(await hash.digest())}`;
 			});
 		}
 		function prefinish(stream, state) {
-			if (!state.prefinished && !state.finalCalled) if (typeof stream._final === "function" && !state.destroyed) {
-				state.pendingcb++;
-				state.finalCalled = true;
-				process$1.nextTick(callFinal, stream, state);
-			} else {
-				state.prefinished = true;
-				stream.emit("prefinish");
+			if (!state.prefinished && !state.finalCalled) {
+				if (typeof stream._final === "function" && !state.destroyed) {
+					state.pendingcb++;
+					state.finalCalled = true;
+					process$1.nextTick(callFinal, stream, state);
+				} else {
+					state.prefinished = true;
+					stream.emit("prefinish");
+				}
 			}
 		}
 		function finishMaybe(stream, state) {
@@ -47070,8 +47342,10 @@ ${toHex$1(await hash.digest())}`;
 		function endWritable(stream, state, cb) {
 			state.ending = true;
 			finishMaybe(stream, state);
-			if (cb) if (state.finished) process$1.nextTick(cb);
-			else stream.once("finish", cb);
+			if (cb) {
+				if (state.finished) process$1.nextTick(cb);
+				else stream.once("finish", cb);
+			}
 			state.ended = true;
 			stream.writable = false;
 		}
@@ -47103,8 +47377,7 @@ ${toHex$1(await hash.digest())}`;
 			cb(err);
 		};
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/_stream_duplex.js
+	// node_modules/readable-stream/lib/_stream_duplex.js
 	var require__stream_duplex = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		init_dist$1();
 		var objectKeys = Object.keys || function(obj) {
@@ -47173,8 +47446,7 @@ ${toHex$1(await hash.digest())}`;
 			}
 		});
 	}));
-	//#endregion
-	//#region node_modules/safe-buffer/index.js
+	// node_modules/safe-buffer/index.js
 	var require_safe_buffer = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 		var buffer = require_dist();
@@ -47199,9 +47471,10 @@ ${toHex$1(await hash.digest())}`;
 		SafeBuffer.alloc = function(size, fill, encoding) {
 			if (typeof size !== "number") throw new TypeError("Argument must be a number");
 			var buf = Buffer(size);
-			if (fill !== void 0) if (typeof encoding === "string") buf.fill(fill, encoding);
-			else buf.fill(fill);
-			else buf.fill(0);
+			if (fill !== void 0) {
+				if (typeof encoding === "string") buf.fill(fill, encoding);
+				else buf.fill(fill);
+			} else buf.fill(0);
 			return buf;
 		};
 		SafeBuffer.allocUnsafe = function(size) {
@@ -47213,8 +47486,7 @@ ${toHex$1(await hash.digest())}`;
 			return buffer.SlowBuffer(size);
 		};
 	}));
-	//#endregion
-	//#region node_modules/string_decoder/lib/string_decoder.js
+	// node_modules/string_decoder/lib/string_decoder.js
 	var require_string_decoder = /* @__PURE__ */ __commonJSMin(((exports) => {
 		var Buffer = require_safe_buffer().Buffer;
 		var isEncoding = Buffer.isEncoding || function(encoding) {
@@ -47335,8 +47607,10 @@ ${toHex$1(await hash.digest())}`;
 			if (--j < i || nb === -2) return 0;
 			nb = utf8CheckByte(buf[j]);
 			if (nb >= 0) {
-				if (nb > 0) if (nb === 2) nb = 0;
-				else self.lastNeed = nb - 3;
+				if (nb > 0) {
+					if (nb === 2) nb = 0;
+					else self.lastNeed = nb - 3;
+				}
 				return nb;
 			}
 			return 0;
@@ -47435,8 +47709,7 @@ ${toHex$1(await hash.digest())}`;
 			return buf && buf.length ? this.write(buf) : "";
 		}
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/internal/streams/end-of-stream.js
+	// node_modules/readable-stream/lib/internal/streams/end-of-stream.js
 	var require_end_of_stream = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var ERR_STREAM_PREMATURE_CLOSE = require_errors_browser().codes.ERR_STREAM_PREMATURE_CLOSE;
 		function once(callback) {
@@ -47518,8 +47791,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		module.exports = eos;
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/internal/streams/async_iterator.js
+	// node_modules/readable-stream/lib/internal/streams/async_iterator.js
 	var require_async_iterator = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		init_dist$1();
 		var _Object$setPrototypeO;
@@ -47687,15 +47959,13 @@ ${toHex$1(await hash.digest())}`;
 			return iterator;
 		};
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/internal/streams/from-browser.js
+	// node_modules/readable-stream/lib/internal/streams/from-browser.js
 	var require_from_browser = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		module.exports = function() {
 			throw new Error("Readable.from is not available in the browser");
 		};
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/_stream_readable.js
+	// node_modules/readable-stream/lib/_stream_readable.js
 	var require__stream_readable = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		init_dist();
 		init_dist$1();
@@ -47838,9 +48108,10 @@ ${toHex$1(await hash.digest())}`;
 				if (er) errorOrDestroy(stream, er);
 				else if (state.objectMode || chunk && chunk.length > 0) {
 					if (typeof chunk !== "string" && !state.objectMode && Object.getPrototypeOf(chunk) !== Buffer.prototype) chunk = _uint8ArrayToBuffer(chunk);
-					if (addToFront) if (state.endEmitted) errorOrDestroy(stream, new ERR_STREAM_UNSHIFT_AFTER_END_EVENT());
-					else addChunk(stream, state, chunk, true);
-					else if (state.ended) errorOrDestroy(stream, new ERR_STREAM_PUSH_AFTER_EOF());
+					if (addToFront) {
+						if (state.endEmitted) errorOrDestroy(stream, new ERR_STREAM_UNSHIFT_AFTER_END_EVENT());
+						else addChunk(stream, state, chunk, true);
+					} else if (state.ended) errorOrDestroy(stream, new ERR_STREAM_PUSH_AFTER_EOF());
 					else if (state.destroyed) return false;
 					else {
 						state.reading = false;
@@ -47914,8 +48185,10 @@ ${toHex$1(await hash.digest())}`;
 		function howMuchToRead(n, state) {
 			if (n <= 0 || state.length === 0 && state.ended) return 0;
 			if (state.objectMode) return 1;
-			if (n !== n) if (state.flowing && state.length) return state.buffer.head.data.length;
-			else return state.length;
+			if (n !== n) {
+				if (state.flowing && state.length) return state.buffer.head.data.length;
+				else return state.length;
+			}
 			if (n > state.highWaterMark) state.highWaterMark = computeNewHighWaterMark(n);
 			if (n <= state.length) return n;
 			if (!state.ended) {
@@ -48044,9 +48317,7 @@ ${toHex$1(await hash.digest())}`;
 				case 1:
 					state.pipes = [state.pipes, dest];
 					break;
-				default:
-					state.pipes.push(dest);
-					break;
+				default: state.pipes.push(dest);
 			}
 			state.pipesCount += 1;
 			debug("pipe count=%d opts=%j", state.pipesCount, pipeOpts);
@@ -48354,8 +48625,7 @@ ${toHex$1(await hash.digest())}`;
 			return -1;
 		}
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/_stream_transform.js
+	// node_modules/readable-stream/lib/_stream_transform.js
 	var require__stream_transform = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		module.exports = Transform;
 		var _require$codes = require_errors_browser().codes;
@@ -48441,8 +48711,7 @@ ${toHex$1(await hash.digest())}`;
 			return stream.push(null);
 		}
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/_stream_passthrough.js
+	// node_modules/readable-stream/lib/_stream_passthrough.js
 	var require__stream_passthrough = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		module.exports = PassThrough;
 		var Transform = require__stream_transform();
@@ -48455,8 +48724,7 @@ ${toHex$1(await hash.digest())}`;
 			cb(null, chunk);
 		};
 	}));
-	//#endregion
-	//#region node_modules/readable-stream/lib/internal/streams/pipeline.js
+	// node_modules/readable-stream/lib/internal/streams/pipeline.js
 	var require_pipeline = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var eos;
 		function once(callback) {
@@ -48532,8 +48800,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		module.exports = pipeline;
 	}));
-	//#endregion
-	//#region node_modules/stream-browserify/index.js
+	// node_modules/stream-browserify/index.js
 	var require_stream_browserify = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		module.exports = Stream;
 		var EE = require_events().EventEmitter;
@@ -48600,8 +48867,7 @@ ${toHex$1(await hash.digest())}`;
 			return dest;
 		};
 	}));
-	//#endregion
-	//#region node_modules/assert/build/internal/errors.js
+	// node_modules/assert/build/internal/errors.js
 	var require_errors = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		function _typeof(o) {
 			"@babel/helpers - typeof";
@@ -48792,14 +49058,12 @@ ${toHex$1(await hash.digest())}`;
 				default:
 					msg += args.slice(0, len - 1).join(", ");
 					msg += ", and ".concat(args[len - 1], " arguments");
-					break;
 			}
 			return "".concat(msg, " must be specified");
 		}, TypeError);
 		module.exports.codes = codes;
 	}));
-	//#endregion
-	//#region node_modules/assert/build/internal/assert/assertion_error.js
+	// node_modules/assert/build/internal/assert/assertion_error.js
 	var require_assertion_error = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		init_dist$1();
 		function ownKeys(e, r) {
@@ -49161,16 +49425,18 @@ ${toHex$1(await hash.digest())}`;
 				Error.stackTraceLimit = 0;
 				if (message != null) _this = _super.call(this, String(message));
 				else {
-					if (process$1.stderr && process$1.stderr.isTTY) if (process$1.stderr && process$1.stderr.getColorDepth && process$1.stderr.getColorDepth() !== 1) {
-						blue = "\x1B[34m";
-						green = "\x1B[32m";
-						white = "\x1B[39m";
-						red = "\x1B[31m";
-					} else {
-						blue = "";
-						green = "";
-						white = "";
-						red = "";
+					if (process$1.stderr && process$1.stderr.isTTY) {
+						if (process$1.stderr && process$1.stderr.getColorDepth && process$1.stderr.getColorDepth() !== 1) {
+							blue = "\x1B[34m";
+							green = "\x1B[32m";
+							white = "\x1B[39m";
+							red = "\x1B[31m";
+						} else {
+							blue = "";
+							green = "";
+							white = "";
+							red = "";
+						}
 					}
 					if (_typeof(actual) === "object" && actual !== null && _typeof(expected) === "object" && expected !== null && "stack" in actual && actual instanceof Error && "stack" in expected && expected instanceof Error) {
 						actual = copyError(actual);
@@ -49238,8 +49504,7 @@ ${toHex$1(await hash.digest())}`;
 			return AssertionError;
 		}(/*#__PURE__*/ _wrapNativeSuper(Error), inspect.custom);
 	}));
-	//#endregion
-	//#region node_modules/object-keys/isArguments.js
+	// node_modules/object-keys/isArguments.js
 	var require_isArguments = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var toStr = Object.prototype.toString;
 		module.exports = function isArguments(value) {
@@ -49249,8 +49514,7 @@ ${toHex$1(await hash.digest())}`;
 			return isArgs;
 		};
 	}));
-	//#endregion
-	//#region node_modules/object-keys/implementation.js
+	// node_modules/object-keys/implementation.js
 	var require_implementation$3 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var keysShim;
 		if (!Object.keys) {
@@ -49339,8 +49603,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		module.exports = keysShim;
 	}));
-	//#endregion
-	//#region node_modules/object-keys/index.js
+	// node_modules/object-keys/index.js
 	var require_object_keys = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var slice = Array.prototype.slice;
 		var isArgs = require_isArguments();
@@ -49363,8 +49626,7 @@ ${toHex$1(await hash.digest())}`;
 		};
 		module.exports = keysShim;
 	}));
-	//#endregion
-	//#region node_modules/object.assign/implementation.js
+	// node_modules/object.assign/implementation.js
 	var require_implementation$2 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var objectKeys = require_object_keys();
 		var hasSymbols = require_shams$1()();
@@ -49396,8 +49658,7 @@ ${toHex$1(await hash.digest())}`;
 			return to;
 		};
 	}));
-	//#endregion
-	//#region node_modules/object.assign/polyfill.js
+	// node_modules/object.assign/polyfill.js
 	var require_polyfill$2 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var implementation = require_implementation$2();
 		var lacksProperEnumerationOrder = function() {
@@ -49428,8 +49689,7 @@ ${toHex$1(await hash.digest())}`;
 			return Object.assign;
 		};
 	}));
-	//#endregion
-	//#region node_modules/object-is/implementation.js
+	// node_modules/object-is/implementation.js
 	var require_implementation$1 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var numberIsNaN = function(value) {
 			return value !== value;
@@ -49441,16 +49701,14 @@ ${toHex$1(await hash.digest())}`;
 			return false;
 		};
 	}));
-	//#endregion
-	//#region node_modules/object-is/polyfill.js
+	// node_modules/object-is/polyfill.js
 	var require_polyfill$1 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var implementation = require_implementation$1();
 		module.exports = function getPolyfill() {
 			return typeof Object.is === "function" ? Object.is : implementation;
 		};
 	}));
-	//#endregion
-	//#region node_modules/call-bind/callBound.js
+	// node_modules/call-bind/callBound.js
 	var require_callBound = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var GetIntrinsic = require_get_intrinsic();
 		var callBind = require_call_bind();
@@ -49461,8 +49719,7 @@ ${toHex$1(await hash.digest())}`;
 			return intrinsic;
 		};
 	}));
-	//#endregion
-	//#region node_modules/define-properties/index.js
+	// node_modules/define-properties/index.js
 	var require_define_properties = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var keys = require_object_keys();
 		var hasSymbols = typeof Symbol === "function" && typeof Symbol("foo") === "symbol";
@@ -49491,8 +49748,7 @@ ${toHex$1(await hash.digest())}`;
 		defineProperties.supportsDescriptors = !!supportsDescriptors;
 		module.exports = defineProperties;
 	}));
-	//#endregion
-	//#region node_modules/object-is/shim.js
+	// node_modules/object-is/shim.js
 	var require_shim$1 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var getPolyfill = require_polyfill$1();
 		var define = require_define_properties();
@@ -49504,8 +49760,7 @@ ${toHex$1(await hash.digest())}`;
 			return polyfill;
 		};
 	}));
-	//#endregion
-	//#region node_modules/object-is/index.js
+	// node_modules/object-is/index.js
 	var require_object_is = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var define = require_define_properties();
 		var callBind = require_call_bind();
@@ -49520,15 +49775,13 @@ ${toHex$1(await hash.digest())}`;
 		});
 		module.exports = polyfill;
 	}));
-	//#endregion
-	//#region node_modules/is-nan/implementation.js
+	// node_modules/is-nan/implementation.js
 	var require_implementation = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		module.exports = function isNaN(value) {
 			return value !== value;
 		};
 	}));
-	//#endregion
-	//#region node_modules/is-nan/polyfill.js
+	// node_modules/is-nan/polyfill.js
 	var require_polyfill = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var implementation = require_implementation();
 		module.exports = function getPolyfill() {
@@ -49536,8 +49789,7 @@ ${toHex$1(await hash.digest())}`;
 			return implementation;
 		};
 	}));
-	//#endregion
-	//#region node_modules/is-nan/shim.js
+	// node_modules/is-nan/shim.js
 	var require_shim = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var define = require_define_properties();
 		var getPolyfill = require_polyfill();
@@ -49549,8 +49801,7 @@ ${toHex$1(await hash.digest())}`;
 			return polyfill;
 		};
 	}));
-	//#endregion
-	//#region node_modules/is-nan/index.js
+	// node_modules/is-nan/index.js
 	var require_is_nan = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var callBind = require_call_bind();
 		var define = require_define_properties();
@@ -49565,8 +49816,7 @@ ${toHex$1(await hash.digest())}`;
 		});
 		module.exports = polyfill;
 	}));
-	//#endregion
-	//#region node_modules/assert/build/internal/util/comparisons.js
+	// node_modules/assert/build/internal/util/comparisons.js
 	var require_comparisons = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		function _slicedToArray(arr, i) {
 			return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
@@ -49962,8 +50212,7 @@ ${toHex$1(await hash.digest())}`;
 			isDeepStrictEqual
 		};
 	}));
-	//#endregion
-	//#region node_modules/assert/build/assert.js
+	// node_modules/assert/build/assert.js
 	var require_assert = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		init_dist$1();
 		function _typeof(o) {
@@ -50177,8 +50426,10 @@ ${toHex$1(await hash.digest())}`;
 			var _this = this;
 			_classCallCheck(this, Comparison);
 			keys.forEach(function(key) {
-				if (key in obj) if (actual !== void 0 && typeof actual[key] === "string" && isRegExp(obj[key]) && RegExpPrototypeTest(obj[key], actual[key])) _this[key] = actual[key];
-				else _this[key] = obj[key];
+				if (key in obj) {
+					if (actual !== void 0 && typeof actual[key] === "string" && isRegExp(obj[key]) && RegExpPrototypeTest(obj[key], actual[key])) _this[key] = actual[key];
+					else _this[key] = obj[key];
+				}
 			});
 		});
 		function compareExceptionKey(actual, expected, key, message, keys, fn) {
@@ -50338,9 +50589,10 @@ ${toHex$1(await hash.digest())}`;
 		assert.ifError = function ifError(err) {
 			if (err !== null && err !== void 0) {
 				var message = "ifError got unwanted exception: ";
-				if (_typeof(err) === "object" && typeof err.message === "string") if (err.message.length === 0 && err.constructor) message += err.constructor.name;
-				else message += err.message;
-				else message += inspect(err);
+				if (_typeof(err) === "object" && typeof err.message === "string") {
+					if (err.message.length === 0 && err.constructor) message += err.constructor.name;
+					else message += err.message;
+				} else message += inspect(err);
 				var newErr = new AssertionError({
 					actual: err,
 					expected: null,
@@ -50401,8 +50653,7 @@ ${toHex$1(await hash.digest())}`;
 		});
 		assert.strict.strict = assert.strict;
 	}));
-	//#endregion
-	//#region node_modules/pako/lib/zlib/zstream.js
+	// node_modules/pako/lib/zlib/zstream.js
 	var require_zstream = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		function ZStream() {
 			this.input = null;
@@ -50420,8 +50671,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		module.exports = ZStream;
 	}));
-	//#endregion
-	//#region node_modules/pako/lib/utils/common.js
+	// node_modules/pako/lib/utils/common.js
 	var require_common = /* @__PURE__ */ __commonJSMin(((exports) => {
 		var TYPED_OK = typeof Uint8Array !== "undefined" && typeof Uint16Array !== "undefined" && typeof Int32Array !== "undefined";
 		function _has(obj, key) {
@@ -50487,8 +50737,7 @@ ${toHex$1(await hash.digest())}`;
 		};
 		exports.setTyped(TYPED_OK);
 	}));
-	//#endregion
-	//#region node_modules/pako/lib/zlib/trees.js
+	// node_modules/pako/lib/zlib/trees.js
 	var require_trees = /* @__PURE__ */ __commonJSMin(((exports) => {
 		var utils = require_common();
 		var Z_FIXED = 4;
@@ -50813,8 +51062,8 @@ ${toHex$1(await hash.digest())}`;
 			static_bl_desc = new StaticTreeDesc(new Array(0), extra_blbits, 0, BL_CODES, MAX_BL_BITS);
 		}
 		function init_block(s) {
-			var n;
-			for (n = 0; n < L_CODES; n++) s.dyn_ltree[n * 2] = 0;
+			var n = 0;
+			for (; n < L_CODES; n++) s.dyn_ltree[n * 2] = 0;
 			for (n = 0; n < D_CODES; n++) s.dyn_dtree[n * 2] = 0;
 			for (n = 0; n < BL_CODES; n++) s.bl_tree[n * 2] = 0;
 			s.dyn_ltree[END_BLOCK * 2] = 1;
@@ -51030,8 +51279,8 @@ ${toHex$1(await hash.digest())}`;
 		}
 		function detect_data_type(s) {
 			var black_mask = 4093624447;
-			var n;
-			for (n = 0; n <= 31; n++, black_mask >>>= 1) if (black_mask & 1 && s.dyn_ltree[n * 2] !== 0) return Z_BINARY;
+			var n = 0;
+			for (; n <= 31; n++, black_mask >>>= 1) if (black_mask & 1 && s.dyn_ltree[n * 2] !== 0) return Z_BINARY;
 			if (s.dyn_ltree[18] !== 0 || s.dyn_ltree[20] !== 0 || s.dyn_ltree[26] !== 0) return Z_TEXT;
 			for (n = 32; n < LITERALS; n++) if (s.dyn_ltree[n * 2] !== 0) return Z_TEXT;
 			return Z_BINARY;
@@ -51102,8 +51351,7 @@ ${toHex$1(await hash.digest())}`;
 		exports._tr_tally = _tr_tally;
 		exports._tr_align = _tr_align;
 	}));
-	//#endregion
-	//#region node_modules/pako/lib/zlib/adler32.js
+	// node_modules/pako/lib/zlib/adler32.js
 	var require_adler32 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		function adler32(adler, buf, len, pos) {
 			var s1 = adler & 65535 | 0, s2 = adler >>> 16 & 65535 | 0, n = 0;
@@ -51121,8 +51369,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		module.exports = adler32;
 	}));
-	//#endregion
-	//#region node_modules/pako/lib/zlib/crc32.js
+	// node_modules/pako/lib/zlib/crc32.js
 	var require_crc32 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		function makeTable() {
 			var c, table = [];
@@ -51142,8 +51389,7 @@ ${toHex$1(await hash.digest())}`;
 		}
 		module.exports = crc32;
 	}));
-	//#endregion
-	//#region node_modules/pako/lib/zlib/messages.js
+	// node_modules/pako/lib/zlib/messages.js
 	var require_messages = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		module.exports = {
 			2: "need dictionary",
@@ -51157,8 +51403,7 @@ ${toHex$1(await hash.digest())}`;
 			"-6": "incompatible version"
 		};
 	}));
-	//#endregion
-	//#region node_modules/pako/lib/zlib/deflate.js
+	// node_modules/pako/lib/zlib/deflate.js
 	var require_deflate = /* @__PURE__ */ __commonJSMin(((exports) => {
 		var utils = require_common();
 		var trees = require_trees();
@@ -51276,8 +51521,8 @@ ${toHex$1(await hash.digest())}`;
 				if (_win[match + best_len] !== scan_end || _win[match + best_len - 1] !== scan_end1 || _win[match] !== _win[scan] || _win[++match] !== _win[scan + 1]) continue;
 				scan += 2;
 				match++;
-				do				;
-while (_win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && scan < strend);
+				do;
+				while (_win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && scan < strend);
 				len = MAX_MATCH - (strend - scan);
 				scan = strend - MAX_MATCH;
 				if (len > best_len) {
@@ -51534,8 +51779,8 @@ while (_win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[
 					prev = _win[scan];
 					if (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan]) {
 						strend = s.strstart + MAX_MATCH;
-						do						;
-while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && scan < strend);
+						do;
+						while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && scan < strend);
 						s.match_length = MAX_MATCH - (strend - scan);
 						if (s.match_length > s.lookahead) s.match_length = s.lookahead;
 					}
@@ -51783,122 +52028,132 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			s.strm = strm;
 			old_flush = s.last_flush;
 			s.last_flush = flush;
-			if (s.status === INIT_STATE) if (s.wrap === 2) {
-				strm.adler = 0;
-				put_byte(s, 31);
-				put_byte(s, 139);
-				put_byte(s, 8);
-				if (!s.gzhead) {
-					put_byte(s, 0);
-					put_byte(s, 0);
-					put_byte(s, 0);
-					put_byte(s, 0);
-					put_byte(s, 0);
-					put_byte(s, s.level === 9 ? 2 : s.strategy >= Z_HUFFMAN_ONLY || s.level < 2 ? 4 : 0);
-					put_byte(s, OS_CODE);
-					s.status = BUSY_STATE;
-				} else {
-					put_byte(s, (s.gzhead.text ? 1 : 0) + (s.gzhead.hcrc ? 2 : 0) + (!s.gzhead.extra ? 0 : 4) + (!s.gzhead.name ? 0 : 8) + (!s.gzhead.comment ? 0 : 16));
-					put_byte(s, s.gzhead.time & 255);
-					put_byte(s, s.gzhead.time >> 8 & 255);
-					put_byte(s, s.gzhead.time >> 16 & 255);
-					put_byte(s, s.gzhead.time >> 24 & 255);
-					put_byte(s, s.level === 9 ? 2 : s.strategy >= Z_HUFFMAN_ONLY || s.level < 2 ? 4 : 0);
-					put_byte(s, s.gzhead.os & 255);
-					if (s.gzhead.extra && s.gzhead.extra.length) {
-						put_byte(s, s.gzhead.extra.length & 255);
-						put_byte(s, s.gzhead.extra.length >> 8 & 255);
-					}
-					if (s.gzhead.hcrc) strm.adler = crc32(strm.adler, s.pending_buf, s.pending, 0);
-					s.gzindex = 0;
-					s.status = EXTRA_STATE;
-				}
-			} else {
-				var header = Z_DEFLATED + (s.w_bits - 8 << 4) << 8;
-				var level_flags = -1;
-				if (s.strategy >= Z_HUFFMAN_ONLY || s.level < 2) level_flags = 0;
-				else if (s.level < 6) level_flags = 1;
-				else if (s.level === 6) level_flags = 2;
-				else level_flags = 3;
-				header |= level_flags << 6;
-				if (s.strstart !== 0) header |= PRESET_DICT;
-				header += 31 - header % 31;
-				s.status = BUSY_STATE;
-				putShortMSB(s, header);
-				if (s.strstart !== 0) {
-					putShortMSB(s, strm.adler >>> 16);
-					putShortMSB(s, strm.adler & 65535);
-				}
-				strm.adler = 1;
-			}
-			if (s.status === EXTRA_STATE) if (s.gzhead.extra) {
-				beg = s.pending;
-				while (s.gzindex < (s.gzhead.extra.length & 65535)) {
-					if (s.pending === s.pending_buf_size) {
-						if (s.gzhead.hcrc && s.pending > beg) strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
-						flush_pending(strm);
-						beg = s.pending;
-						if (s.pending === s.pending_buf_size) break;
-					}
-					put_byte(s, s.gzhead.extra[s.gzindex] & 255);
-					s.gzindex++;
-				}
-				if (s.gzhead.hcrc && s.pending > beg) strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
-				if (s.gzindex === s.gzhead.extra.length) {
-					s.gzindex = 0;
-					s.status = NAME_STATE;
-				}
-			} else s.status = NAME_STATE;
-			if (s.status === NAME_STATE) if (s.gzhead.name) {
-				beg = s.pending;
-				do {
-					if (s.pending === s.pending_buf_size) {
-						if (s.gzhead.hcrc && s.pending > beg) strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
-						flush_pending(strm);
-						beg = s.pending;
-						if (s.pending === s.pending_buf_size) {
-							val = 1;
-							break;
-						}
-					}
-					if (s.gzindex < s.gzhead.name.length) val = s.gzhead.name.charCodeAt(s.gzindex++) & 255;
-					else val = 0;
-					put_byte(s, val);
-				} while (val !== 0);
-				if (s.gzhead.hcrc && s.pending > beg) strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
-				if (val === 0) {
-					s.gzindex = 0;
-					s.status = COMMENT_STATE;
-				}
-			} else s.status = COMMENT_STATE;
-			if (s.status === COMMENT_STATE) if (s.gzhead.comment) {
-				beg = s.pending;
-				do {
-					if (s.pending === s.pending_buf_size) {
-						if (s.gzhead.hcrc && s.pending > beg) strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
-						flush_pending(strm);
-						beg = s.pending;
-						if (s.pending === s.pending_buf_size) {
-							val = 1;
-							break;
-						}
-					}
-					if (s.gzindex < s.gzhead.comment.length) val = s.gzhead.comment.charCodeAt(s.gzindex++) & 255;
-					else val = 0;
-					put_byte(s, val);
-				} while (val !== 0);
-				if (s.gzhead.hcrc && s.pending > beg) strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
-				if (val === 0) s.status = HCRC_STATE;
-			} else s.status = HCRC_STATE;
-			if (s.status === HCRC_STATE) if (s.gzhead.hcrc) {
-				if (s.pending + 2 > s.pending_buf_size) flush_pending(strm);
-				if (s.pending + 2 <= s.pending_buf_size) {
-					put_byte(s, strm.adler & 255);
-					put_byte(s, strm.adler >> 8 & 255);
+			if (s.status === INIT_STATE) {
+				if (s.wrap === 2) {
 					strm.adler = 0;
+					put_byte(s, 31);
+					put_byte(s, 139);
+					put_byte(s, 8);
+					if (!s.gzhead) {
+						put_byte(s, 0);
+						put_byte(s, 0);
+						put_byte(s, 0);
+						put_byte(s, 0);
+						put_byte(s, 0);
+						put_byte(s, s.level === 9 ? 2 : s.strategy >= Z_HUFFMAN_ONLY || s.level < 2 ? 4 : 0);
+						put_byte(s, OS_CODE);
+						s.status = BUSY_STATE;
+					} else {
+						put_byte(s, (s.gzhead.text ? 1 : 0) + (s.gzhead.hcrc ? 2 : 0) + (!s.gzhead.extra ? 0 : 4) + (!s.gzhead.name ? 0 : 8) + (!s.gzhead.comment ? 0 : 16));
+						put_byte(s, s.gzhead.time & 255);
+						put_byte(s, s.gzhead.time >> 8 & 255);
+						put_byte(s, s.gzhead.time >> 16 & 255);
+						put_byte(s, s.gzhead.time >> 24 & 255);
+						put_byte(s, s.level === 9 ? 2 : s.strategy >= Z_HUFFMAN_ONLY || s.level < 2 ? 4 : 0);
+						put_byte(s, s.gzhead.os & 255);
+						if (s.gzhead.extra && s.gzhead.extra.length) {
+							put_byte(s, s.gzhead.extra.length & 255);
+							put_byte(s, s.gzhead.extra.length >> 8 & 255);
+						}
+						if (s.gzhead.hcrc) strm.adler = crc32(strm.adler, s.pending_buf, s.pending, 0);
+						s.gzindex = 0;
+						s.status = EXTRA_STATE;
+					}
+				} else {
+					var header = Z_DEFLATED + (s.w_bits - 8 << 4) << 8;
+					var level_flags = -1;
+					if (s.strategy >= Z_HUFFMAN_ONLY || s.level < 2) level_flags = 0;
+					else if (s.level < 6) level_flags = 1;
+					else if (s.level === 6) level_flags = 2;
+					else level_flags = 3;
+					header |= level_flags << 6;
+					if (s.strstart !== 0) header |= PRESET_DICT;
+					header += 31 - header % 31;
 					s.status = BUSY_STATE;
+					putShortMSB(s, header);
+					if (s.strstart !== 0) {
+						putShortMSB(s, strm.adler >>> 16);
+						putShortMSB(s, strm.adler & 65535);
+					}
+					strm.adler = 1;
 				}
-			} else s.status = BUSY_STATE;
+			}
+			if (s.status === EXTRA_STATE) {
+				if (s.gzhead.extra) {
+					beg = s.pending;
+					while (s.gzindex < (s.gzhead.extra.length & 65535)) {
+						if (s.pending === s.pending_buf_size) {
+							if (s.gzhead.hcrc && s.pending > beg) strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
+							flush_pending(strm);
+							beg = s.pending;
+							if (s.pending === s.pending_buf_size) break;
+						}
+						put_byte(s, s.gzhead.extra[s.gzindex] & 255);
+						s.gzindex++;
+					}
+					if (s.gzhead.hcrc && s.pending > beg) strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
+					if (s.gzindex === s.gzhead.extra.length) {
+						s.gzindex = 0;
+						s.status = NAME_STATE;
+					}
+				} else s.status = NAME_STATE;
+			}
+			if (s.status === NAME_STATE) {
+				if (s.gzhead.name) {
+					beg = s.pending;
+					do {
+						if (s.pending === s.pending_buf_size) {
+							if (s.gzhead.hcrc && s.pending > beg) strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
+							flush_pending(strm);
+							beg = s.pending;
+							if (s.pending === s.pending_buf_size) {
+								val = 1;
+								break;
+							}
+						}
+						if (s.gzindex < s.gzhead.name.length) val = s.gzhead.name.charCodeAt(s.gzindex++) & 255;
+						else val = 0;
+						put_byte(s, val);
+					} while (val !== 0);
+					if (s.gzhead.hcrc && s.pending > beg) strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
+					if (val === 0) {
+						s.gzindex = 0;
+						s.status = COMMENT_STATE;
+					}
+				} else s.status = COMMENT_STATE;
+			}
+			if (s.status === COMMENT_STATE) {
+				if (s.gzhead.comment) {
+					beg = s.pending;
+					do {
+						if (s.pending === s.pending_buf_size) {
+							if (s.gzhead.hcrc && s.pending > beg) strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
+							flush_pending(strm);
+							beg = s.pending;
+							if (s.pending === s.pending_buf_size) {
+								val = 1;
+								break;
+							}
+						}
+						if (s.gzindex < s.gzhead.comment.length) val = s.gzhead.comment.charCodeAt(s.gzindex++) & 255;
+						else val = 0;
+						put_byte(s, val);
+					} while (val !== 0);
+					if (s.gzhead.hcrc && s.pending > beg) strm.adler = crc32(strm.adler, s.pending_buf, s.pending - beg, beg);
+					if (val === 0) s.status = HCRC_STATE;
+				} else s.status = HCRC_STATE;
+			}
+			if (s.status === HCRC_STATE) {
+				if (s.gzhead.hcrc) {
+					if (s.pending + 2 > s.pending_buf_size) flush_pending(strm);
+					if (s.pending + 2 <= s.pending_buf_size) {
+						put_byte(s, strm.adler & 255);
+						put_byte(s, strm.adler >> 8 & 255);
+						strm.adler = 0;
+						s.status = BUSY_STATE;
+					}
+				} else s.status = BUSY_STATE;
+			}
 			if (s.pending !== 0) {
 				flush_pending(strm);
 				if (strm.avail_out === 0) {
@@ -52031,8 +52286,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		exports.deflateSetDictionary = deflateSetDictionary;
 		exports.deflateInfo = "pako deflate (from Nodeca project)";
 	}));
-	//#endregion
-	//#region node_modules/pako/lib/zlib/inffast.js
+	// node_modules/pako/lib/zlib/inffast.js
 	var require_inffast = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var BAD = 30;
 		var TYPE = 12;
@@ -52248,8 +52502,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			state.bits = bits;
 		};
 	}));
-	//#endregion
-	//#region node_modules/pako/lib/zlib/inftrees.js
+	// node_modules/pako/lib/zlib/inftrees.js
 	var require_inftrees = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		var utils = require_common();
 		var MAXBITS = 15;
@@ -52515,8 +52768,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return 0;
 		};
 	}));
-	//#endregion
-	//#region node_modules/pako/lib/zlib/inflate.js
+	// node_modules/pako/lib/zlib/inflate.js
 	var require_inflate = /* @__PURE__ */ __commonJSMin(((exports) => {
 		var utils = require_common();
 		var adler32 = require_adler32();
@@ -53539,8 +53791,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		exports.inflateSetDictionary = inflateSetDictionary;
 		exports.inflateInfo = "pako inflate (from Nodeca project)";
 	}));
-	//#endregion
-	//#region node_modules/pako/lib/zlib/constants.js
+	// node_modules/pako/lib/zlib/constants.js
 	var require_constants = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		module.exports = {
 			Z_NO_FLUSH: 0,
@@ -53572,8 +53823,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			Z_DEFLATED: 8
 		};
 	}));
-	//#endregion
-	//#region node_modules/browserify-zlib/lib/binding.js
+	// node_modules/browserify-zlib/lib/binding.js
 	var require_binding = /* @__PURE__ */ __commonJSMin(((exports) => {
 		init_dist$2();
 		init_dist$1();
@@ -53641,7 +53891,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			this.write_in_progress = true;
 			if (flush !== exports.Z_NO_FLUSH && flush !== exports.Z_PARTIAL_FLUSH && flush !== exports.Z_SYNC_FLUSH && flush !== exports.Z_FULL_FLUSH && flush !== exports.Z_FINISH && flush !== exports.Z_BLOCK) throw new Error("Invalid flush value");
 			if (input == null) {
-				input = Buffer$1.alloc(0);
+				input = Buffer$2.alloc(0);
 				in_len = 0;
 				in_off = 0;
 			}
@@ -53802,10 +54052,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			this.err = exports.Z_OK;
 			switch (this.mode) {
 				case exports.DEFLATE:
-				case exports.DEFLATERAW:
-					this.err = zlib_deflate.deflateSetDictionary(this.strm, this.dictionary);
-					break;
-				default: break;
+				case exports.DEFLATERAW: this.err = zlib_deflate.deflateSetDictionary(this.strm, this.dictionary);
 			}
 			if (this.err !== exports.Z_OK) this._error("Failed to set dictionary");
 		};
@@ -53819,17 +54066,13 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 					break;
 				case exports.INFLATE:
 				case exports.INFLATERAW:
-				case exports.GUNZIP:
-					this.err = zlib_inflate.inflateReset(this.strm);
-					break;
-				default: break;
+				case exports.GUNZIP: this.err = zlib_inflate.inflateReset(this.strm);
 			}
 			if (this.err !== exports.Z_OK) this._error("Failed to reset stream");
 		};
 		exports.Zlib = Zlib;
 	}));
-	//#endregion
-	//#region node_modules/browserify-zlib/lib/index.js
+	// node_modules/browserify-zlib/lib/index.js
 	var require_lib = /* @__PURE__ */ __commonJSMin(((exports) => {
 		init_dist$1();
 		var Buffer = require_dist().Buffer;
@@ -53844,7 +54087,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		binding.Z_DEFAULT_WINDOWBITS = 15;
 		binding.Z_MIN_CHUNK = 64;
 		binding.Z_MAX_CHUNK = Infinity;
-		binding.Z_DEFAULT_CHUNK = 16 * 1024;
+		binding.Z_DEFAULT_CHUNK = 16384;
 		binding.Z_MIN_MEMLEVEL = 1;
 		binding.Z_MAX_MEMLEVEL = 9;
 		binding.Z_DEFAULT_MEMLEVEL = 8;
@@ -54245,18 +54488,17 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		util.inherits(InflateRaw, Zlib);
 		util.inherits(Unzip, Zlib);
 	}));
-	//#endregion
-	//#region src/lib/lex/client.js
+	// src/lib/lex/client.js
 	init_dist$2();
 	var import_lib = require_lib();
 	function b64CompressedToObject(src) {
-		return JSON.parse((0, import_lib.unzipSync)(Buffer$1.from(src, "base64")).toString("utf-8"));
+		return JSON.parse((0, import_lib.unzipSync)(Buffer$2.from(src, "base64")).toString("utf-8"));
 	}
 	function b64CompressedToString(src) {
-		return (0, import_lib.unzipSync)(Buffer$1.from(src, "base64")).toString("utf-8").replaceAll("\"", "");
+		return (0, import_lib.unzipSync)(Buffer$2.from(src, "base64")).toString("utf-8").replaceAll("\"", "");
 	}
 	function compressAndB64Encode(src) {
-		return (0, import_lib.gzipSync)(Buffer$1.from(JSON.stringify(src))).toString("base64");
+		return (0, import_lib.gzipSync)(Buffer$2.from(JSON.stringify(src))).toString("base64");
 	}
 	var client_default = class {
 		botV2Id;
@@ -54392,7 +54634,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			try {
 				const res = await this.lexRuntimeClient.send(command);
 				const byteArray = await res.audioStream.transformToByteArray();
-				res.audioStream = Buffer$1.from(byteArray);
+				res.audioStream = Buffer$2.from(byteArray);
 				if (res.sessionState) {
 					const oState = b64CompressedToObject(res.sessionState);
 					res.sessionAttributes = oState.sessionAttributes ? oState.sessionAttributes : {};
@@ -54445,8 +54687,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js
+	// node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/resolveLogins.js
 	function resolveLogins(logins) {
 		return Promise.all(Object.keys(logins).reduce((arr, name) => {
 			const tokenOrProvider = logins[name];
@@ -54458,8 +54699,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return logins;
 		}, {}));
 	}
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/auth/httpAuthSchemeProvider.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/auth/httpAuthSchemeProvider.js
 	function createAwsAuthSigv4HttpAuthOption$2(authParameters) {
 		return {
 			schemeId: "aws.auth#sigv4",
@@ -54506,8 +54746,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return Object.assign(config_0, { authSchemePreference: normalizeProvider$1(config.authSchemePreference ?? []) });
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/endpoint/EndpointParameters.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/endpoint/EndpointParameters.js
 	var resolveClientEndpointParameters$2, commonParams$2;
 	var init_EndpointParameters = __esmMin((() => {
 		resolveClientEndpointParameters$2 = (options) => {
@@ -54538,7 +54777,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	})), name$2, version$2, description$2, homepage$2, license$2, author$2, repository$2, files$2, main$2, module$3, browser$2, types$2, typesVersions$2, exports$1, scripts$2, dependencies$2, devDependencies$2, engines$2, package_default$2;
 	var init_package = __esmMin((() => {
 		name$2 = "@aws-sdk/nested-clients";
-		version$2 = "3.997.36";
+		version$2 = "3.998.1";
 		description$2 = "Nested clients for AWS SDK packages.";
 		homepage$2 = "https://github.com/aws/aws-sdk-js-v3/tree/main/packages/nested-clients";
 		license$2 = "Apache-2.0";
@@ -54630,20 +54869,20 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			"test:watch": "yarn g:vitest watch"
 		};
 		dependencies$2 = {
-			"@aws-sdk/core": "^3.977.1",
-			"@aws-sdk/signature-v4-multi-region": "^3.996.42",
-			"@aws-sdk/types": "^3.974.2",
-			"@smithy/core": "^3.29.8",
-			"@smithy/fetch-http-handler": "^5.6.10",
-			"@smithy/node-http-handler": "^4.9.10",
-			"@smithy/types": "^4.16.1",
+			"@aws-sdk/core": "^3.980.1",
+			"@aws-sdk/signature-v4-multi-region": "^3.996.51",
+			"@aws-sdk/types": "^3.975.0",
+			"@smithy/core": "^3.38.0",
+			"@smithy/fetch-http-handler": "^5.8.0",
+			"@smithy/node-http-handler": "^4.14.0",
+			"@smithy/types": "^4.19.0",
 			"tslib": "^2.6.2"
 		};
 		devDependencies$2 = {
 			"concurrently": "7.0.0",
 			"downlevel-dts": "0.10.1",
 			"premove": "4.0.0",
-			"typescript": "~5.8.3"
+			"typescript": "~7.0.2"
 		};
 		engines$2 = { "node": ">=20.0.0" };
 		package_default$2 = {
@@ -54669,8 +54908,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			engines: engines$2
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/endpoint/bdd.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/endpoint/bdd.js
 	var m$2, a$2, b$2, c$2, d$2, e$2, f$2, g$2, h$5, i$2, j$2, k$2, l$2, _data$2, root, nodes, bdd;
 	var init_bdd = __esmMin((() => {
 		init_index_browser$7();
@@ -54794,8 +55032,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		]);
 		bdd = BinaryDecisionDiagram.from(nodes, root, _data$2.conditions, _data$2.results);
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/endpoint/endpointResolver.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/endpoint/endpointResolver.js
 	var cache$2, defaultEndpointResolver$2;
 	var init_endpointResolver = __esmMin((() => {
 		init_index_browser$1();
@@ -54818,24 +55055,24 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		};
 		customEndpointFunctions.aws = awsEndpointFunctions;
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/models/CognitoIdentityServiceException.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/models/CognitoIdentityServiceException.js
 	var CognitoIdentityServiceException$1;
 	var init_CognitoIdentityServiceException = __esmMin((() => {
 		init_client();
 		CognitoIdentityServiceException$1 = class CognitoIdentityServiceException$1 extends ServiceException {
+			static shapeId = "smithy.ts.sdk.synthetic.com.amazonaws.cognitoidentity#CognitoIdentityServiceException";
 			constructor(options) {
 				super(options);
 				Object.setPrototypeOf(this, CognitoIdentityServiceException$1.prototype);
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/models/errors.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/models/errors.js
 	var ExternalServiceException$1, InternalErrorException$1, InvalidIdentityPoolConfigurationException$1, InvalidParameterException$1, NotAuthorizedException$1, ResourceConflictException$1, ResourceNotFoundException$1, TooManyRequestsException$1, LimitExceededException$1;
 	var init_errors = __esmMin((() => {
 		init_CognitoIdentityServiceException();
 		ExternalServiceException$1 = class ExternalServiceException$1 extends CognitoIdentityServiceException$1 {
+			static shapeId = "com.amazonaws.cognitoidentity#ExternalServiceException";
 			name = "ExternalServiceException";
 			$fault = "client";
 			constructor(opts) {
@@ -54848,6 +55085,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		};
 		InternalErrorException$1 = class InternalErrorException$1 extends CognitoIdentityServiceException$1 {
+			static shapeId = "com.amazonaws.cognitoidentity#InternalErrorException";
 			name = "InternalErrorException";
 			$fault = "server";
 			constructor(opts) {
@@ -54860,6 +55098,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		};
 		InvalidIdentityPoolConfigurationException$1 = class InvalidIdentityPoolConfigurationException$1 extends CognitoIdentityServiceException$1 {
+			static shapeId = "com.amazonaws.cognitoidentity#InvalidIdentityPoolConfigurationException";
 			name = "InvalidIdentityPoolConfigurationException";
 			$fault = "client";
 			constructor(opts) {
@@ -54872,6 +55111,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		};
 		InvalidParameterException$1 = class InvalidParameterException$1 extends CognitoIdentityServiceException$1 {
+			static shapeId = "com.amazonaws.cognitoidentity#InvalidParameterException";
 			name = "InvalidParameterException";
 			$fault = "client";
 			constructor(opts) {
@@ -54884,6 +55124,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		};
 		NotAuthorizedException$1 = class NotAuthorizedException$1 extends CognitoIdentityServiceException$1 {
+			static shapeId = "com.amazonaws.cognitoidentity#NotAuthorizedException";
 			name = "NotAuthorizedException";
 			$fault = "client";
 			constructor(opts) {
@@ -54896,6 +55137,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		};
 		ResourceConflictException$1 = class ResourceConflictException$1 extends CognitoIdentityServiceException$1 {
+			static shapeId = "com.amazonaws.cognitoidentity#ResourceConflictException";
 			name = "ResourceConflictException";
 			$fault = "client";
 			constructor(opts) {
@@ -54908,6 +55150,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		};
 		ResourceNotFoundException$1 = class ResourceNotFoundException$1 extends CognitoIdentityServiceException$1 {
+			static shapeId = "com.amazonaws.cognitoidentity#ResourceNotFoundException";
 			name = "ResourceNotFoundException";
 			$fault = "client";
 			constructor(opts) {
@@ -54920,6 +55163,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		};
 		TooManyRequestsException$1 = class TooManyRequestsException$1 extends CognitoIdentityServiceException$1 {
+			static shapeId = "com.amazonaws.cognitoidentity#TooManyRequestsException";
 			name = "TooManyRequestsException";
 			$fault = "client";
 			constructor(opts) {
@@ -54932,6 +55176,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		};
 		LimitExceededException$1 = class LimitExceededException$1 extends CognitoIdentityServiceException$1 {
+			static shapeId = "com.amazonaws.cognitoidentity#LimitExceededException";
 			name = "LimitExceededException";
 			$fault = "client";
 			constructor(opts) {
@@ -54944,8 +55189,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/schemas/schemas_0.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/schemas/schemas_0.js
 	var _AI$1, _AKI$2, _C$1, _CRA$1, _E$2, _ESE$1, _GCFI$1, _GCFII$1, _GCFIR$1, _GI$1, _GII$1, _GIR$1, _IEE$1, _II$1, _IIPCE$1, _IPE$1, _IPI$1, _IPT$1, _L$1, _LEE$1, _LM$1, _NAE$1, _RCE$1, _RNFE$1, _SK$1, _SKS$1, _ST$2, _TMRE$1, _c$2, _e$2, _hE$2, _m$1, _s$2, _se$1, n0$2, _s_registry$2, CognitoIdentityServiceException$$1, n0_registry$2, ExternalServiceException$$1, InternalErrorException$$1, InvalidIdentityPoolConfigurationException$$1, InvalidParameterException$$1, LimitExceededException$$1, NotAuthorizedException$$1, ResourceConflictException$$1, ResourceNotFoundException$$1, TooManyRequestsException$$1, errorTypeRegistries$2, IdentityProviderToken$1, SecretKeyString$1, Credentials$$1, GetCredentialsForIdentityInput$$1, GetCredentialsForIdentityResponse$$1, GetIdInput$$1, GetIdResponse$$1, LoginsMap$1, GetCredentialsForIdentity$$1, GetId$$1;
 	var init_schemas_0 = __esmMin((() => {
 		init_schema();
@@ -54986,7 +55230,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		_s$2 = "smithy.ts.sdk.synthetic.com.amazonaws.cognitoidentity";
 		_se$1 = "server";
 		n0$2 = "com.amazonaws.cognitoidentity";
-		_s_registry$2 = TypeRegistry.for(_s$2);
+		_s_registry$2 = new TypeRegistry(_s$2);
 		CognitoIdentityServiceException$$1 = [
 			-3,
 			_s$2,
@@ -54996,7 +55240,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			[]
 		];
 		_s_registry$2.registerError(CognitoIdentityServiceException$$1, CognitoIdentityServiceException$1);
-		n0_registry$2 = TypeRegistry.for(n0$2);
+		n0_registry$2 = new TypeRegistry(n0$2);
 		ExternalServiceException$$1 = [
 			-3,
 			n0$2,
@@ -55210,8 +55454,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			() => GetIdResponse$$1
 		];
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/runtimeConfig.shared.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/runtimeConfig.shared.js
 	var getRuntimeConfig$5;
 	var init_runtimeConfig_shared = __esmMin((() => {
 		init_index_browser();
@@ -55259,8 +55502,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/runtimeConfig.browser.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/runtimeConfig.browser.js
 	var getRuntimeConfig$4;
 	var init_runtimeConfig_browser = __esmMin((() => {
 		init_package();
@@ -55295,8 +55537,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/auth/httpAuthExtensionConfiguration.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/auth/httpAuthExtensionConfiguration.js
 	var getHttpAuthExtensionConfiguration$2, resolveHttpAuthRuntimeConfig$2;
 	var init_httpAuthExtensionConfiguration = __esmMin((() => {
 		getHttpAuthExtensionConfiguration$2 = (runtimeConfig) => {
@@ -55334,8 +55575,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/runtimeExtensions.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/runtimeExtensions.js
 	var resolveRuntimeExtensions$2;
 	var init_runtimeExtensions = __esmMin((() => {
 		init_index_browser$1();
@@ -55348,8 +55588,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return Object.assign(runtimeConfig, resolveAwsRegionExtensionConfiguration(extensionConfiguration), resolveDefaultRuntimeConfig(extensionConfiguration), resolveHttpHandlerRuntimeConfig(extensionConfiguration), resolveHttpAuthRuntimeConfig$2(extensionConfiguration));
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/CognitoIdentityClient.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/CognitoIdentityClient.js
 	var CognitoIdentityClient$1;
 	var init_CognitoIdentityClient = __esmMin((() => {
 		init_index_browser$1();
@@ -55370,7 +55609,12 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				const _config_0 = getRuntimeConfig$4(configuration || {});
 				super(_config_0);
 				this.initConfig = _config_0;
-				const _config_8 = resolveRuntimeExtensions$2(resolveHttpAuthSchemeConfig$2(resolveEndpointConfig(resolveHostHeaderConfig(resolveRegionConfig(resolveRetryConfig(resolveUserAgentConfig(resolveClientEndpointParameters$2(_config_0))))))), configuration?.extensions || []);
+				const _config_2 = resolveUserAgentConfig(resolveClientEndpointParameters$2(_config_0));
+				const _config_3 = resolveRetryConfig(_config_2);
+				const _config_5 = resolveHostHeaderConfig(resolveRegionConfig(_config_3));
+				const _config_6 = resolveEndpointConfig(_config_5);
+				const _config_7 = resolveHttpAuthSchemeConfig$2(_config_6);
+				const _config_8 = resolveRuntimeExtensions$2(_config_7, configuration?.extensions || []);
 				this.config = _config_8;
 				this.middlewareStack.use(getSchemaSerdePlugin(this.config));
 				this.middlewareStack.use(getUserAgentPlugin(this.config));
@@ -55390,8 +55634,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/commandBuilder.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/commandBuilder.js
 	var command, _ep0, _mw0;
 	var init_commandBuilder = __esmMin((() => {
 		init_client();
@@ -55401,36 +55644,30 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		_ep0 = {};
 		_mw0 = (Command, cs, config, o) => [];
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/commands/GetCredentialsForIdentityCommand.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/commands/GetCredentialsForIdentityCommand.js
 	var GetCredentialsForIdentityCommand$1;
 	var init_GetCredentialsForIdentityCommand = __esmMin((() => {
 		init_commandBuilder();
 		init_schemas_0();
 		GetCredentialsForIdentityCommand$1 = class extends command(_ep0, _mw0, "GetCredentialsForIdentity", GetCredentialsForIdentity$$1) {};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/commands/GetIdCommand.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/commands/GetIdCommand.js
 	var GetIdCommand$1;
 	var init_GetIdCommand = __esmMin((() => {
 		init_commandBuilder();
 		init_schemas_0();
 		GetIdCommand$1 = class extends command(_ep0, _mw0, "GetId", GetId$$1) {};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/CognitoIdentity.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/CognitoIdentity.js
 	var init_CognitoIdentity = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/commands/index.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/commands/index.js
 	var init_commands = __esmMin((() => {
 		init_GetCredentialsForIdentityCommand();
 		init_GetIdCommand();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/models/models_0.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/models/models_0.js
 	var init_models_0 = __esmMin((() => {}));
-	//#endregion
-	//#region node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/index.js
+	// node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/index.js
 	var init_cognito_identity = __esmMin((() => {
 		init_CognitoIdentityClient();
 		init_CognitoIdentity();
@@ -55441,8 +55678,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		init_models_0();
 		init_CognitoIdentityServiceException();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/loadCognitoIdentity.js
+	// node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/loadCognitoIdentity.js
 	var loadCognitoIdentity_exports = /* @__PURE__ */ __exportAll({
 		CognitoIdentityClient: () => CognitoIdentityClient$1,
 		GetCredentialsForIdentityCommand: () => GetCredentialsForIdentityCommand$1,
@@ -55451,8 +55687,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	var init_loadCognitoIdentity = __esmMin((() => {
 		init_cognito_identity();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentity.js
+	// node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentity.js
 	init_index_browser$2();
 	function fromCognitoIdentity(parameters) {
 		return async (awsIdentityProperties) => {
@@ -55486,8 +55721,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	function throwOnMissingSecretKey(logger) {
 		throw new CredentialsProviderError("Response from Amazon Cognito contained no secret key", { logger });
 	}
-	//#endregion
-	//#region node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/IndexedDbStorage.js
+	// node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/IndexedDbStorage.js
 	var STORE_NAME = "IdentityIds";
 	var IndexedDbStorage = class {
 		dbName;
@@ -55559,8 +55793,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/InMemoryStorage.js
+	// node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/InMemoryStorage.js
 	var InMemoryStorage = class {
 		store;
 		constructor(store = {}) {
@@ -55577,16 +55810,14 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			this.store[key] = value;
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/localStorage.js
+	// node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/localStorage.js
 	var inMemoryStorage = new InMemoryStorage();
 	function localStorage$1() {
 		if (typeof self === "object" && self.indexedDB) return new IndexedDbStorage();
 		if (typeof window === "object" && window.localStorage) return window.localStorage;
 		return inMemoryStorage;
 	}
-	//#endregion
-	//#region node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentityPool.js
+	// node_modules/@aws-sdk/credential-provider-cognito-identity/dist-es/fromCognitoIdentityPool.js
 	init_index_browser$2();
 	function fromCognitoIdentityPool$1({ accountId, cache = localStorage$1(), client, clientConfig, customRoleArn, identityPoolId, logins, userIdentifier = !logins || Object.keys(logins).length === 0 ? "ANONYMOUS" : void 0, logger, parentClientConfig }) {
 		logger?.debug("@aws-sdk/credential-provider-cognito-identity - fromCognitoIdentity");
@@ -55625,17 +55856,14 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	function throwOnMissingId(logger) {
 		throw new CredentialsProviderError("Response from Amazon Cognito contained no identity ID", { logger });
 	}
-	//#endregion
-	//#region node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js
+	// node_modules/@aws-sdk/credential-providers/dist-es/fromCognitoIdentityPool.js
 	var fromCognitoIdentityPool = (options) => fromCognitoIdentityPool$1({ ...options });
-	//#endregion
-	//#region node_modules/@aws-sdk/signature-v4-multi-region/dist-es/signature-v4-crt-container.js
+	// node_modules/@aws-sdk/signature-v4-multi-region/dist-es/signature-v4-crt-container.js
 	var signatureV4CrtContainer;
 	var init_signature_v4_crt_container = __esmMin((() => {
 		signatureV4CrtContainer = { CrtSignerV4: null };
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/signature-v4-multi-region/dist-es/SignatureV4SignWithCredentials.js
+	// node_modules/@aws-sdk/signature-v4-multi-region/dist-es/SignatureV4SignWithCredentials.js
 	function getCredentialsWithoutSessionToken(credentials) {
 		return {
 			accessKeyId: credentials.accessKeyId,
@@ -55674,8 +55902,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/signature-v4-multi-region/dist-es/SignatureV4MultiRegion.js
+	// node_modules/@aws-sdk/signature-v4-multi-region/dist-es/SignatureV4MultiRegion.js
 	var SignatureV4MultiRegion;
 	var init_SignatureV4MultiRegion = __esmMin((() => {
 		init_dist_es$3();
@@ -55741,15 +55968,13 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		};
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/signature-v4-multi-region/dist-es/index.js
+	// node_modules/@aws-sdk/signature-v4-multi-region/dist-es/index.js
 	var init_dist_es = __esmMin((() => {
 		init_SignatureV4MultiRegion();
 		init_signature_v4_crt_container();
 		init_SignatureV4SignWithCredentials();
 	}));
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthSchemeProvider.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthSchemeProvider.js
 	init_index_browser();
 	init_getSmithyContext(), init_normalizeProvider$1();
 	var defaultCognitoIdentityHttpAuthSchemeParametersProvider = async (config, context, input) => {
@@ -55799,8 +56024,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		const config_0 = resolveAwsSdkSigV4Config(config);
 		return Object.assign(config_0, { authSchemePreference: normalizeProvider$1(config.authSchemePreference ?? []) });
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/EndpointParameters.js
 	var resolveClientEndpointParameters$1 = (options) => {
 		return Object.assign(options, {
 			useDualstackEndpoint: options.useDualstackEndpoint ?? false,
@@ -55922,8 +56146,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			"directory": "clients/client-cognito-identity"
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/ruleset.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/ruleset.js
 	var w$1 = "required";
 	var x$1 = "fn";
 	var y$1 = "argv";
@@ -56166,8 +56389,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		]
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/endpointResolver.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/endpoint/endpointResolver.js
 	init_aws();
 	init_customEndpointFunctions(), init_EndpointCache(), init_resolveEndpoint();
 	var cache$1 = new EndpointCache({
@@ -56186,8 +56408,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		}));
 	};
 	customEndpointFunctions.aws = awsEndpointFunctions;
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/models/CognitoIdentityServiceException.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/models/CognitoIdentityServiceException.js
 	init_exceptions();
 	var CognitoIdentityServiceException = class CognitoIdentityServiceException extends ServiceException {
 		constructor(options) {
@@ -56195,8 +56416,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			Object.setPrototypeOf(this, CognitoIdentityServiceException.prototype);
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/models/errors.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/models/errors.js
 	var InternalErrorException = class InternalErrorException extends CognitoIdentityServiceException {
 		name = "InternalErrorException";
 		$fault = "server";
@@ -56329,8 +56549,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			Object.setPrototypeOf(this, ConcurrentModificationException.prototype);
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/schemas/schemas_0.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/schemas/schemas_0.js
 	init_schema();
 	var _AI = "AccountId";
 	var _AKI$1 = "AccessKeyId";
@@ -56616,8 +56835,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		() => GetIdInput$,
 		() => GetIdResponse$
 	];
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.shared.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.shared.js
 	init_AwsSdkSigV4Signer();
 	init_protocols();
 	init_dist_es$4();
@@ -56658,8 +56876,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			utf8Encoder: config?.utf8Encoder ?? toUtf8
 		};
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.browser.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.browser.js
 	init_defaultUserAgent();
 	init_index_browser$2();
 	init_dist_es$1();
@@ -56693,8 +56910,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			useFipsEndpoint: config?.useFipsEndpoint ?? (() => Promise.resolve(false))
 		};
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthExtensionConfiguration.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthExtensionConfiguration.js
 	var getHttpAuthExtensionConfiguration$1 = (runtimeConfig) => {
 		const _httpAuthSchemes = runtimeConfig.httpAuthSchemes;
 		let _httpAuthSchemeProvider = runtimeConfig.httpAuthSchemeProvider;
@@ -56729,8 +56945,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			credentials: config.credentials()
 		};
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeExtensions.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeExtensions.js
 	init_extensions();
 	init_httpExtensionConfiguration();
 	init_defaultExtensionConfiguration();
@@ -56739,8 +56954,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		extensions.forEach((extension) => extension.configure(extensionConfiguration));
 		return Object.assign(runtimeConfig, resolveAwsRegionExtensionConfiguration(extensionConfiguration), resolveDefaultRuntimeConfig(extensionConfiguration), resolveHttpHandlerRuntimeConfig(extensionConfiguration), resolveHttpAuthRuntimeConfig$1(extensionConfiguration));
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/CognitoIdentityClient.js
 	init_hostHeaderMiddleware();
 	init_loggerMiddleware();
 	init_getRecursionDetectionPlugin_browser();
@@ -56758,7 +56972,10 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			const _config_0 = getRuntimeConfig$2(configuration || {});
 			super(_config_0);
 			this.initConfig = _config_0;
-			const _config_8 = resolveRuntimeExtensions$1(resolveHttpAuthSchemeConfig$1(resolveEndpointConfig(resolveHostHeaderConfig(resolveRegionConfig(resolveRetryConfig(resolveUserAgentConfig(resolveClientEndpointParameters$1(_config_0))))))), configuration?.extensions || []);
+			const _config_2 = resolveUserAgentConfig(resolveClientEndpointParameters$1(_config_0));
+			const _config_3 = resolveRetryConfig(_config_2);
+			const _config_5 = resolveHostHeaderConfig(resolveRegionConfig(_config_3));
+			const _config_8 = resolveRuntimeExtensions$1(resolveHttpAuthSchemeConfig$1(resolveEndpointConfig(_config_5)), configuration?.extensions || []);
 			this.config = _config_8;
 			this.middlewareStack.use(getSchemaSerdePlugin(this.config));
 			this.middlewareStack.use(getUserAgentPlugin(this.config));
@@ -56777,22 +56994,19 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			super.destroy();
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetCredentialsForIdentityCommand.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetCredentialsForIdentityCommand.js
 	init_index_browser$7();
 	init_command();
 	var GetCredentialsForIdentityCommand = class extends Command.classBuilder().ep(commonParams$1).m(function(Command, cs, config, o) {
 		return [getEndpointPlugin(config, Command.getEndpointParameterInstructions())];
 	}).s("AWSCognitoIdentityService", "GetCredentialsForIdentity", {}).n("CognitoIdentityClient", "GetCredentialsForIdentityCommand").sc(GetCredentialsForIdentity$).build() {};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdCommand.js
+	// node_modules/@aws-sdk/client-cognito-identity/dist-es/commands/GetIdCommand.js
 	init_index_browser$7();
 	init_command();
 	var GetIdCommand = class extends Command.classBuilder().ep(commonParams$1).m(function(Command, cs, config, o) {
 		return [getEndpointPlugin(config, Command.getEndpointParameterInstructions())];
 	}).s("AWSCognitoIdentityService", "GetId", {}).n("CognitoIdentityClient", "GetIdCommand").sc(GetId$).build() {};
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-check-content-length-header/check-content-length-header.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-check-content-length-header/check-content-length-header.js
 	init_client();
 	init_protocols$1();
 	var CONTENT_LENGTH_HEADER = "content-length";
@@ -56819,8 +57033,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	var getCheckContentLengthHeaderPlugin = (unused) => ({ applyToStack: (clientStack) => {
 		clientStack.add(checkContentLengthHeader(), checkContentLengthHeaderMiddlewareOptions);
 	} });
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/region-redirect-endpoint-middleware.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/region-redirect-endpoint-middleware.js
 	var regionRedirectEndpointMiddleware = (config) => {
 		return (next, context) => async (args) => {
 			const originalRegion = await config.region();
@@ -56858,8 +57071,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		relation: "before",
 		toMiddleware: "endpointV2Middleware"
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/region-redirect-middleware.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/region-redirect-middleware.js
+	init_index_browser$1();
 	function regionRedirectMiddleware(clientConfig) {
 		return (next, context) => async (args) => {
 			try {
@@ -56875,6 +57088,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 								const actualRegion = bucketRegionHeader;
 								context.logger?.debug(`Redirecting from ${await clientConfig.region()} to ${actualRegion}`);
 								context.__s3RegionRedirect = actualRegion;
+								setFeature(context, "S3_REGION_REDIRECT", "Ah");
 							} catch (e) {
 								throw new Error("Region redirect failed: " + e);
 							}
@@ -56896,8 +57110,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		clientStack.add(regionRedirectMiddleware(clientConfig), regionRedirectMiddlewareOptions);
 		clientStack.addRelativeTo(regionRedirectEndpointMiddleware(clientConfig), regionRedirectEndpointMiddlewareOptions);
 	} });
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityCache.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityCache.js
 	var S3ExpressIdentityCache = class S3ExpressIdentityCache {
 		data;
 		lastPurgeTime = Date.now();
@@ -56917,22 +57130,25 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		delete(key) {
 			delete this.data[key];
 		}
+		clear() {
+			this.data = {};
+		}
 		async purgeExpired() {
 			const now = Date.now();
 			if (this.lastPurgeTime + S3ExpressIdentityCache.EXPIRED_CREDENTIAL_PURGE_INTERVAL_MS > now) return;
-			for (const key in this.data) {
-				const entry = this.data[key];
+			const data = this.data;
+			for (const key in data) {
+				const entry = data[key];
 				if (!entry.isRefreshing) {
 					const credential = await entry.identity;
 					if (credential.expiration) {
-						if (credential.expiration.getTime() < now) delete this.data[key];
+						if (credential.expiration.getTime() < now && data[key] === entry) delete data[key];
 					}
 				}
 			}
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityCacheEntry.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityCacheEntry.js
 	var S3ExpressIdentityCacheEntry = class {
 		_identity;
 		isRefreshing;
@@ -56947,37 +57163,44 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return this._identity;
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityProviderImpl.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/classes/S3ExpressIdentityProviderImpl.js
 	var S3ExpressIdentityProviderImpl = class S3ExpressIdentityProviderImpl {
 		createSessionFn;
 		cache;
 		static REFRESH_WINDOW_MS = 6e4;
+		accessKeyId;
+		cacheGeneration = 0;
 		constructor(createSessionFn, cache = new S3ExpressIdentityCache()) {
 			this.createSessionFn = createSessionFn;
 			this.cache = cache;
 		}
 		async getS3ExpressIdentity(awsIdentity, identityProperties) {
-			const key = identityProperties.Bucket;
+			const bucket = identityProperties.Bucket;
 			const { cache } = this;
-			const entry = cache.get(key);
+			if (awsIdentity.accessKeyId !== this.accessKeyId) {
+				this.accessKeyId = awsIdentity.accessKeyId;
+				this.cacheGeneration++;
+				cache.clear();
+			}
+			const cacheGeneration = this.cacheGeneration;
+			const entry = cache.get(bucket);
 			if (entry) return entry.identity.then((identity) => {
-				if ((identity.expiration?.getTime() ?? 0) < Date.now()) return cache.set(key, new S3ExpressIdentityCacheEntry(this.getIdentity(key))).identity;
+				if ((identity.expiration?.getTime() ?? 0) < Date.now()) return cache.set(bucket, new S3ExpressIdentityCacheEntry(this.getIdentity(bucket))).identity;
 				if ((identity.expiration?.getTime() ?? 0) < Date.now() + S3ExpressIdentityProviderImpl.REFRESH_WINDOW_MS && !entry.isRefreshing) {
 					entry.isRefreshing = true;
-					this.getIdentity(key).then((id) => {
-						cache.set(key, new S3ExpressIdentityCacheEntry(Promise.resolve(id)));
+					this.getIdentity(bucket).then((id) => {
+						if (cacheGeneration === this.cacheGeneration) cache.set(bucket, new S3ExpressIdentityCacheEntry(Promise.resolve(id)));
 					});
 				}
 				return identity;
 			});
-			return cache.set(key, new S3ExpressIdentityCacheEntry(this.getIdentity(key))).identity;
+			return cache.set(bucket, new S3ExpressIdentityCacheEntry(this.getIdentity(bucket))).identity;
 		}
-		async getIdentity(key) {
+		async getIdentity(bucket) {
 			await this.cache.purgeExpired().catch((error) => {
 				console.warn("Error while clearing expired entries in S3ExpressIdentityCache: \n" + error);
 			});
-			const session = await this.createSessionFn(key);
+			const session = await this.createSessionFn(bucket);
 			if (!session.Credentials?.AccessKeyId || !session.Credentials?.SecretAccessKey) throw new Error("s3#createSession response credential missing AccessKeyId or SecretAccessKey.");
 			return {
 				accessKeyId: session.Credentials.AccessKeyId,
@@ -56987,8 +57210,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-configuration/s3Configuration.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-configuration/s3Configuration.js
 	var resolveS3Config = (input, { session }) => {
 		const [s3ClientProvider, CreateSessionCommandCtor] = session;
 		const { forcePathStyle, useAccelerateEndpoint, disableMultiregionAccessPoints, followRegionRedirects, s3ExpressIdentityProvider, bucketEndpoint, expectContinueHeader } = input;
@@ -57004,8 +57226,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	};
 	var S3_EXPRESS_AUTH_SCHEME = "sigv4-s3express";
 	var SESSION_TOKEN_HEADER = "X-Amz-S3session-Token".toLowerCase();
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/s3ExpressMiddleware.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/s3ExpressMiddleware.js
 	init_index_browser$1();
 	init_protocols$1();
 	var s3ExpressMiddleware = (options) => {
@@ -57038,15 +57259,13 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	var getS3ExpressPlugin = (options) => ({ applyToStack: (clientStack) => {
 		clientStack.add(s3ExpressMiddleware(options), s3ExpressMiddlewareOptions);
 	} });
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/signS3Express.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/signS3Express.js
 	var signS3Express = async (s3ExpressIdentity, signingOptions, request, sigV4MultiRegionSigner) => {
 		const signedRequest = await sigV4MultiRegionSigner.signWithCredentials(request, s3ExpressIdentity, {});
 		if (signedRequest.headers["X-Amz-Security-Token"] || signedRequest.headers["x-amz-security-token"]) throw new Error("X-Amz-Security-Token must not be set for s3-express requests.");
 		return signedRequest;
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/s3ExpressHttpSigningMiddleware.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-s3-express/functions/s3ExpressHttpSigningMiddleware.js
 	init_dist_es$4();
 	init_client();
 	init_protocols$1();
@@ -57072,16 +57291,14 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	var getS3ExpressHttpSigningPlugin = (config) => ({ applyToStack: (clientStack) => {
 		clientStack.addRelativeTo(s3ExpressHttpSigningMiddleware(config), httpSigningMiddlewareOptions);
 	} });
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/to-stream/toStream.browser.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/to-stream/toStream.browser.js
 	function toStream(bytes) {
 		return new ReadableStream({ start(controller) {
 			controller.enqueue(bytes);
 			controller.close();
 		} });
 	}
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-throw-200-exceptions/throw-200-exceptions.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-throw-200-exceptions/throw-200-exceptions.js
 	init_protocols$1();
 	var THROW_IF_EMPTY_BODY = {
 		CopyObjectCommand: true,
@@ -57120,11 +57337,9 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	var getThrow200ExceptionsPlugin = (config) => ({ applyToStack: (clientStack) => {
 		clientStack.addRelativeTo(throw200ExceptionsMiddleware(config), throw200ExceptionsMiddlewareOptions);
 	} });
-	//#endregion
-	//#region node_modules/@aws-sdk/core/dist-es/submodules/util/util-arn-parser/arn.js
+	// node_modules/@aws-sdk/core/dist-es/submodules/util/util-arn-parser/arn.js
 	var validate = (str) => typeof str === "string" && str.indexOf("arn:") === 0 && str.split(":").length >= 6;
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/bucket-endpoint-middleware.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-region-redirect/bucket-endpoint-middleware.js
 	function bucketEndpointMiddleware(options) {
 		return (next, context) => async (args) => {
 			if (options.bucketEndpoint) {
@@ -57154,8 +57369,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		relation: "after",
 		toMiddleware: "endpointV2Middleware"
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-validate-bucket-name/validate-bucket-name.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-validate-bucket-name/validate-bucket-name.js
 	function validateBucketNameMiddleware({ bucketEndpoint }) {
 		return (next) => async (args) => {
 			const { input: { Bucket } } = args;
@@ -57177,8 +57391,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		clientStack.add(validateBucketNameMiddleware(options), validateBucketNameMiddlewareOptions);
 		clientStack.addRelativeTo(bucketEndpointMiddleware(options), bucketEndpointMiddlewareOptions);
 	} });
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-expect-continue/middleware-expect-continue.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-expect-continue/middleware-expect-continue.js
 	init_protocols$1();
 	function addExpectContinueMiddleware(options) {
 		return (next) => async (args) => {
@@ -57206,8 +57419,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	var getAddExpectContinuePlugin = (options) => ({ applyToStack: (clientStack) => {
 		clientStack.add(addExpectContinueMiddleware(options), addExpectContinueMiddlewareOptions);
 	} });
-	//#endregion
-	//#region node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-ssec/middleware-ssec.js
+	// node_modules/@aws-sdk/middleware-sdk-s3/dist-es/submodules/s3/middleware-ssec/middleware-ssec.js
 	function ssecMiddleware(options) {
 		return (next) => async (args) => {
 			const input = { ...args.input };
@@ -57221,12 +57433,13 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				const value = input[prop.target];
 				if (value) {
 					let valueForHash;
-					if (typeof value === "string") if (isValidBase64EncodedSSECustomerKey(value, options)) valueForHash = options.base64Decoder(value);
-					else {
-						valueForHash = options.utf8Decoder(value);
-						input[prop.target] = options.base64Encoder(valueForHash);
-					}
-					else {
+					if (typeof value === "string") {
+						if (isValidBase64EncodedSSECustomerKey(value, options)) valueForHash = options.base64Decoder(value);
+						else {
+							valueForHash = options.utf8Decoder(value);
+							input[prop.target] = options.base64Encoder(valueForHash);
+						}
+					} else {
 						valueForHash = ArrayBuffer.isView(value) ? new Uint8Array(value.buffer, value.byteOffset, value.byteLength) : new Uint8Array(value);
 						input[prop.target] = options.base64Encoder(valueForHash);
 					}
@@ -57258,8 +57471,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return false;
 		}
 	}
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/constants.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/constants.js
 	var RequestChecksumCalculation = {
 		WHEN_SUPPORTED: "WHEN_SUPPORTED",
 		WHEN_REQUIRED: "WHEN_REQUIRED"
@@ -57285,36 +57497,30 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		ChecksumLocation["TRAILER"] = "trailer";
 	})(ChecksumLocation || (ChecksumLocation = {}));
 	var DEFAULT_CHECKSUM_ALGORITHM = ChecksumAlgorithm.CRC32;
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/getChecksumAlgorithmForRequest.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/getChecksumAlgorithmForRequest.js
 	var getChecksumAlgorithmForRequest = (input, { requestChecksumRequired, requestAlgorithmMember, requestChecksumCalculation }) => {
 		if (!requestAlgorithmMember) return requestChecksumCalculation === RequestChecksumCalculation.WHEN_SUPPORTED || requestChecksumRequired ? DEFAULT_CHECKSUM_ALGORITHM : void 0;
 		if (!input[requestAlgorithmMember]) return;
 		return input[requestAlgorithmMember];
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/getChecksumLocationName.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/getChecksumLocationName.js
 	var getChecksumLocationName = (algorithm) => algorithm === ChecksumAlgorithm.MD5 ? "content-md5" : `x-amz-checksum-${algorithm.toLowerCase()}`;
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/hasHeader.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/hasHeader.js
 	var hasHeader = (header, headers) => {
 		const soughtHeader = header.toLowerCase();
 		for (const headerName of Object.keys(headers)) if (soughtHeader === headerName.toLowerCase()) return true;
 		return false;
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/hasHeaderWithPrefix.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/hasHeaderWithPrefix.js
 	var hasHeaderWithPrefix = (headerPrefix, headers) => {
 		const soughtHeaderPrefix = headerPrefix.toLowerCase();
 		for (const headerName of Object.keys(headers)) if (headerName.toLowerCase().startsWith(soughtHeaderPrefix)) return true;
 		return false;
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/isStreaming.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/isStreaming.js
 	init_index_browser$6();
 	var isStreaming = (body) => body !== void 0 && typeof body !== "string" && !ArrayBuffer.isView(body) && !isArrayBuffer(body);
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/crc/crc32c/Crc32cJs.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/crc/crc32c/Crc32cJs.js
 	var T$1 = /* @__PURE__ */ new Uint32Array(256);
 	for (let i = 0; i < 256; ++i) {
 		let c = i;
@@ -57342,8 +57548,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			this.crc = 4294967295;
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/crc/crc64-nvme/Crc64NvmeJs.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/crc/crc64-nvme/Crc64NvmeJs.js
 	var generateCRC64NVMETable = () => {
 		const sliceLength = 8;
 		const tables = new Array(sliceLength);
@@ -57428,8 +57633,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			this.c2 = 4294967295;
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/types.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/types.js
 	var CLIENT_SUPPORTED_ALGORITHMS = [
 		ChecksumAlgorithm.CRC32,
 		ChecksumAlgorithm.CRC32C,
@@ -57444,8 +57648,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		ChecksumAlgorithm.CRC32C,
 		ChecksumAlgorithm.CRC64NVME
 	];
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/selectChecksumAlgorithmFunction.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/selectChecksumAlgorithmFunction.js
 	init_Crc32Js();
 	var selectChecksumAlgorithmFunction = (checksumAlgorithm, config) => {
 		const { checksumAlgorithms = {} } = config;
@@ -57461,16 +57664,14 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				throw new Error(`The checksum algorithm "${checksumAlgorithm}" is not supported by the client. Select one of ${CLIENT_SUPPORTED_ALGORITHMS}, or provide an implementation to  the client constructor checksums field.`);
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/stringHasher.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/stringHasher.js
 	init_index_browser$6();
 	var stringHasher = (checksumAlgorithmFn, body) => {
 		const hash = new checksumAlgorithmFn();
 		hash.update(toUint8Array(body || ""));
 		return hash.digest();
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/flexibleChecksumsMiddleware.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/flexibleChecksumsMiddleware.js
 	init_index_browser$1();
 	init_protocols$1();
 	init_index_browser$6();
@@ -57517,15 +57718,13 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				case ChecksumAlgorithm.SHA1:
 					setFeature(context, "FLEXIBLE_CHECKSUMS_REQ_SHA1", "X");
 					break;
-				case ChecksumAlgorithm.SHA256:
-					setFeature(context, "FLEXIBLE_CHECKSUMS_REQ_SHA256", "Y");
-					break;
+				case ChecksumAlgorithm.SHA256: setFeature(context, "FLEXIBLE_CHECKSUMS_REQ_SHA256", "Y");
 			}
 			const checksumLocationName = getChecksumLocationName(checksumAlgorithm);
 			const checksumAlgorithmFn = selectChecksumAlgorithmFunction(checksumAlgorithm, config);
 			if (isStreaming(requestBody)) {
 				const { getAwsChunkedEncodingStream, bodyLengthChecker } = config;
-				updatedBody = getAwsChunkedEncodingStream(typeof config.requestStreamBufferSize === "number" && config.requestStreamBufferSize >= 8 * 1024 ? createBufferedReadable(requestBody, config.requestStreamBufferSize, context.logger) : requestBody, {
+				updatedBody = getAwsChunkedEncodingStream(typeof config.requestStreamBufferSize === "number" && config.requestStreamBufferSize >= 8192 ? createBufferedReadable(requestBody, config.requestStreamBufferSize, context.logger) : requestBody, {
 					base64Encoder,
 					bodyLengthChecker,
 					checksumLocationName,
@@ -57566,8 +57765,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			throw e;
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/flexibleChecksumsInputMiddleware.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/flexibleChecksumsInputMiddleware.js
 	init_index_browser$1();
 	var flexibleChecksumsInputMiddlewareOptions = {
 		name: "flexibleChecksumsInputMiddleware",
@@ -57585,25 +57783,20 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			case RequestChecksumCalculation.WHEN_REQUIRED:
 				setFeature(context, "FLEXIBLE_CHECKSUMS_REQ_WHEN_REQUIRED", "a");
 				break;
-			case RequestChecksumCalculation.WHEN_SUPPORTED:
-				setFeature(context, "FLEXIBLE_CHECKSUMS_REQ_WHEN_SUPPORTED", "Z");
-				break;
+			case RequestChecksumCalculation.WHEN_SUPPORTED: setFeature(context, "FLEXIBLE_CHECKSUMS_REQ_WHEN_SUPPORTED", "Z");
 		}
 		switch (responseChecksumValidation) {
 			case ResponseChecksumValidation.WHEN_REQUIRED:
 				setFeature(context, "FLEXIBLE_CHECKSUMS_RES_WHEN_REQUIRED", "c");
 				break;
-			case ResponseChecksumValidation.WHEN_SUPPORTED:
-				setFeature(context, "FLEXIBLE_CHECKSUMS_RES_WHEN_SUPPORTED", "b");
-				break;
+			case ResponseChecksumValidation.WHEN_SUPPORTED: setFeature(context, "FLEXIBLE_CHECKSUMS_RES_WHEN_SUPPORTED", "b");
 		}
 		if (requestValidationModeMember && !input[requestValidationModeMember]) {
 			if (responseChecksumValidation === ResponseChecksumValidation.WHEN_SUPPORTED) input[requestValidationModeMember] = "ENABLED";
 		}
 		return next(args);
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/getChecksumAlgorithmListForResponse.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/getChecksumAlgorithmListForResponse.js
 	var getChecksumAlgorithmListForResponse = (responseAlgorithms = []) => {
 		const validChecksumAlgorithms = [];
 		let i = PRIORITY_ORDER_ALGORITHMS.length;
@@ -57614,8 +57807,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		}
 		return validChecksumAlgorithms.filter(Boolean);
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/isChecksumWithPartNumber.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/isChecksumWithPartNumber.js
 	var isChecksumWithPartNumber = (checksum) => {
 		const lastHyphenIndex = checksum.lastIndexOf("-");
 		if (lastHyphenIndex !== -1) {
@@ -57627,11 +57819,9 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		}
 		return false;
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/getChecksum.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/getChecksum.js
 	var getChecksum = async (body, { checksumAlgorithmFn, base64Encoder }) => base64Encoder(await stringHasher(checksumAlgorithmFn, body));
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/validateChecksumFromResponse.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/validateChecksumFromResponse.js
 	init_index_browser$6();
 	var validateChecksumFromResponse = async (response, { config, responseAlgorithms, logger }) => {
 		const checksumAlgorithms = getChecksumAlgorithmListForResponse(responseAlgorithms);
@@ -57670,8 +57860,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/flexibleChecksumsResponseMiddleware.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/flexibleChecksumsResponseMiddleware.js
 	init_protocols$1();
 	var flexibleChecksumsResponseMiddlewareOptions = {
 		name: "flexibleChecksumsResponseMiddleware",
@@ -57706,15 +57895,13 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		}
 		return result;
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/getFlexibleChecksumsPlugin.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/getFlexibleChecksumsPlugin.js
 	var getFlexibleChecksumsPlugin = (config, middlewareConfig) => ({ applyToStack: (clientStack) => {
 		clientStack.add(flexibleChecksumsMiddleware(config, middlewareConfig), flexibleChecksumsMiddlewareOptions);
 		clientStack.addRelativeTo(flexibleChecksumsInputMiddleware(config, middlewareConfig), flexibleChecksumsInputMiddlewareOptions);
 		clientStack.addRelativeTo(flexibleChecksumsResponseMiddleware(config, middlewareConfig), flexibleChecksumsResponseMiddlewareOptions);
 	} });
-	//#endregion
-	//#region node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/resolveFlexibleChecksumsConfig.js
+	// node_modules/@aws-sdk/checksums/dist-es/submodules/flexible-checksums/resolveFlexibleChecksumsConfig.js
 	init_client();
 	var resolveFlexibleChecksumsConfig = (input) => {
 		const { requestChecksumCalculation, responseChecksumValidation, requestStreamBufferSize } = input;
@@ -57725,8 +57912,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			checksumAlgorithms: input.checksumAlgorithms ?? {}
 		});
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/endpoint/ruleset.js
+	// node_modules/@aws-sdk/client-s3/dist-es/endpoint/ruleset.js
 	var cs = "required";
 	var ct = "type";
 	var cu = "rules";
@@ -60711,8 +60897,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			[ct]: f
 		}]
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/endpoint/endpointResolver.js
+	// node_modules/@aws-sdk/client-s3/dist-es/endpoint/endpointResolver.js
 	init_aws();
 	init_customEndpointFunctions(), init_EndpointCache(), init_resolveEndpoint();
 	var cache = new EndpointCache({
@@ -60741,8 +60926,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		}));
 	};
 	customEndpointFunctions.aws = awsEndpointFunctions;
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/auth/httpAuthSchemeProvider.js
+	// node_modules/@aws-sdk/client-s3/dist-es/auth/httpAuthSchemeProvider.js
 	init_resolveAwsSdkSigV4AConfig(), init_index_browser();
 	init_dist_es();
 	init_getEndpointFromInstructions();
@@ -60838,11 +61022,11 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		"aws.auth#sigv4a": createAwsAuthSigv4aHttpAuthOption
 	});
 	var resolveHttpAuthSchemeConfig = (config) => {
-		const config_1 = resolveAwsSdkSigV4AConfig(resolveAwsSdkSigV4Config(config));
+		const config_0 = resolveAwsSdkSigV4Config(config);
+		const config_1 = resolveAwsSdkSigV4AConfig(config_0);
 		return Object.assign(config_1, { authSchemePreference: normalizeProvider$1(config.authSchemePreference ?? []) });
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/endpoint/EndpointParameters.js
+	// node_modules/@aws-sdk/client-s3/dist-es/endpoint/EndpointParameters.js
 	var resolveClientEndpointParameters = (options) => {
 		return Object.assign(options, {
 			useFipsEndpoint: options.useFipsEndpoint ?? false,
@@ -60897,8 +61081,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			name: "useDualstackEndpoint"
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/models/S3ServiceException.js
+	// node_modules/@aws-sdk/client-s3/dist-es/models/S3ServiceException.js
 	init_exceptions();
 	var S3ServiceException = class S3ServiceException extends ServiceException {
 		constructor(options) {
@@ -60906,8 +61089,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			Object.setPrototypeOf(this, S3ServiceException.prototype);
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/models/errors.js
+	// node_modules/@aws-sdk/client-s3/dist-es/models/errors.js
 	var NoSuchUpload = class NoSuchUpload extends S3ServiceException {
 		name = "NoSuchUpload";
 		$fault = "client";
@@ -61092,8 +61274,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			Object.setPrototypeOf(this, ObjectAlreadyInActiveTierError.prototype);
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/schemas/schemas_0.js
+	// node_modules/@aws-sdk/client-s3/dist-es/schemas/schemas_0.js
 	init_schema();
 	var _ACL_ = "ACL";
 	var _AD = "AccessDenied";
@@ -61678,8 +61859,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		() => PutObjectRequest$,
 		() => PutObjectOutput$
 	];
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/commands/CreateSessionCommand.js
+	// node_modules/@aws-sdk/client-s3/dist-es/commands/CreateSessionCommand.js
 	init_index_browser$7();
 	init_command();
 	var CreateSessionCommand = class extends Command.classBuilder().ep({
@@ -61808,14 +61988,12 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			"directory": "clients/client-s3"
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-crypto/sha1-browser/build/module/isEmptyData.js
+	// node_modules/@aws-crypto/sha1-browser/build/module/isEmptyData.js
 	function isEmptyData(data) {
 		if (typeof data === "string") return data.length === 0;
 		return data.byteLength === 0;
 	}
-	//#endregion
-	//#region node_modules/@aws-crypto/sha1-browser/build/module/constants.js
+	// node_modules/@aws-crypto/sha1-browser/build/module/constants.js
 	var SHA_1_HASH = { name: "SHA-1" };
 	var SHA_1_HMAC_ALGO = {
 		name: "HMAC",
@@ -61843,8 +62021,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		7,
 		9
 	]);
-	//#endregion
-	//#region node_modules/@aws-crypto/sha1-browser/build/module/webCryptoSha1.js
+	// node_modules/@aws-crypto/sha1-browser/build/module/webCryptoSha1.js
 	var Sha1$1 = function() {
 		function Sha1(secret) {
 			this.toHash = /* @__PURE__ */ new Uint8Array(0);
@@ -61887,8 +62064,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		if (ArrayBuffer.isView(data)) return new Uint8Array(data.buffer, data.byteOffset, data.byteLength / Uint8Array.BYTES_PER_ELEMENT);
 		return new Uint8Array(data);
 	}
-	//#endregion
-	//#region node_modules/@aws-crypto/sha1-browser/build/module/crossPlatformSha1.js
+	// node_modules/@aws-crypto/sha1-browser/build/module/crossPlatformSha1.js
 	var Sha1 = function() {
 		function Sha1(secret) {
 			if (supportsWebCrypto(locateWindow())) this.hash = new Sha1$1(secret);
@@ -61905,8 +62081,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		};
 		return Sha1;
 	}();
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/runtimeConfig.shared.js
+	// node_modules/@aws-sdk/client-s3/dist-es/runtimeConfig.shared.js
 	init_AwsSdkSigV4ASigner(), init_AwsSdkSigV4Signer();
 	init_protocols();
 	init_dist_es();
@@ -61953,8 +62128,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			utf8Encoder: config?.utf8Encoder ?? toUtf8
 		};
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/runtimeConfig.browser.js
+	// node_modules/@aws-sdk/client-s3/dist-es/runtimeConfig.browser.js
 	init_defaultUserAgent();
 	init_index_browser$2();
 	init_EventStreamMarshaller_browser();
@@ -61995,8 +62169,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			useFipsEndpoint: config?.useFipsEndpoint ?? (() => Promise.resolve(false))
 		};
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/auth/httpAuthExtensionConfiguration.js
+	// node_modules/@aws-sdk/client-s3/dist-es/auth/httpAuthExtensionConfiguration.js
 	var getHttpAuthExtensionConfiguration = (runtimeConfig) => {
 		const _httpAuthSchemes = runtimeConfig.httpAuthSchemes;
 		let _httpAuthSchemeProvider = runtimeConfig.httpAuthSchemeProvider;
@@ -62031,8 +62204,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			credentials: config.credentials()
 		};
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/runtimeExtensions.js
+	// node_modules/@aws-sdk/client-s3/dist-es/runtimeExtensions.js
 	init_extensions();
 	init_httpExtensionConfiguration();
 	init_defaultExtensionConfiguration();
@@ -62041,8 +62213,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		extensions.forEach((extension) => extension.configure(extensionConfiguration));
 		return Object.assign(runtimeConfig, resolveAwsRegionExtensionConfiguration(extensionConfiguration), resolveDefaultRuntimeConfig(extensionConfiguration), resolveHttpHandlerRuntimeConfig(extensionConfiguration), resolveHttpAuthRuntimeConfig(extensionConfiguration));
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/S3Client.js
+	// node_modules/@aws-sdk/client-s3/dist-es/S3Client.js
 	init_hostHeaderMiddleware();
 	init_loggerMiddleware();
 	init_getRecursionDetectionPlugin_browser();
@@ -62061,7 +62232,11 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			const _config_0 = getRuntimeConfig(configuration || {});
 			super(_config_0);
 			this.initConfig = _config_0;
-			const _config_11 = resolveRuntimeExtensions(resolveS3Config(resolveHttpAuthSchemeConfig(resolveEventStreamSerdeConfig(resolveEndpointConfig(resolveHostHeaderConfig(resolveRegionConfig(resolveRetryConfig(resolveFlexibleChecksumsConfig(resolveUserAgentConfig(resolveClientEndpointParameters(_config_0))))))))), { session: [() => this, CreateSessionCommand] }), configuration?.extensions || []);
+			const _config_3 = resolveFlexibleChecksumsConfig(resolveUserAgentConfig(resolveClientEndpointParameters(_config_0)));
+			const _config_4 = resolveRetryConfig(_config_3);
+			const _config_6 = resolveHostHeaderConfig(resolveRegionConfig(_config_4));
+			const _config_7 = resolveEndpointConfig(_config_6);
+			const _config_11 = resolveRuntimeExtensions(resolveS3Config(resolveHttpAuthSchemeConfig(resolveEventStreamSerdeConfig(_config_7)), { session: [() => this, CreateSessionCommand] }), configuration?.extensions || []);
 			this.config = _config_11;
 			this.middlewareStack.use(getSchemaSerdePlugin(this.config));
 			this.middlewareStack.use(getUserAgentPlugin(this.config));
@@ -62088,8 +62263,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			super.destroy();
 		}
 	};
-	//#endregion
-	//#region node_modules/@aws-sdk/client-s3/dist-es/commands/PutObjectCommand.js
+	// node_modules/@aws-sdk/client-s3/dist-es/commands/PutObjectCommand.js
 	init_index_browser$7();
 	init_command();
 	var PutObjectCommand = class extends Command.classBuilder().ep({
@@ -62117,8 +62291,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			getSsecPlugin(config)
 		];
 	}).s("AmazonS3", "PutObject", {}).n("S3Client", "PutObjectCommand").sc(PutObject$).build() {};
-	//#endregion
-	//#region src/store/actions.js
+	// src/store/actions.js
 	var awsCredentials;
 	var refreshCredentials = true;
 	var pollyClient;
@@ -62132,8 +62305,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	var pollyThereWasAnErrorBlob = {};
 	var identityId;
 	var logins;
-	//#endregion
-	//#region src/store/index.js
+	// src/store/index.js
 	var store_default = {
 		strict: true,
 		state: state_default,
@@ -62623,9 +62795,10 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			processLexContentResponse(context, lexData) {
 				const { audioStream, contentType, dialogState } = lexData;
 				return Promise.resolve().then(() => {
-					if (!audioStream || !audioStream.length) if (dialogState === "ReadyForFulfillment") return context.dispatch("pollySynthesizeAllDone");
-					else return context.dispatch("pollySynthesizeThereWasAnError");
-					else return Promise.resolve(new Blob([audioStream], { type: contentType }));
+					if (!audioStream || !audioStream.length) {
+						if (dialogState === "ReadyForFulfillment") return context.dispatch("pollySynthesizeAllDone");
+						else return context.dispatch("pollySynthesizeThereWasAnError");
+					} else return Promise.resolve(new Blob([audioStream], { type: contentType }));
 				});
 			},
 			updateLexState(context, lexState) {
@@ -62928,7 +63101,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				if (awsCredentials) Promise.resolve(awsCredentials).then((res) => {
 					if (res.expiration) {
 						const expiration = new Date(res.expiration).getTime();
-						if (Date.now() > expiration - 300 * 1e3) {
+						if (Date.now() > expiration - 3e5) {
 							refreshCredentials = true;
 							return Promise.resolve();
 						}
@@ -63076,14 +63249,16 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 						const startTime = Date.now();
 						let heartbeatTimer = null;
 						function startHeartbeat() {
-							if (wsClient.readyState === WebSocket.OPEN) if (Date.now() - startTime < MAX_DURATION) {
-								const pingMessage = JSON.stringify({ action: "ping" });
-								wsClient.send(pingMessage);
-								console.log("Sending Ping:", (/* @__PURE__ */ new Date()).toISOString());
-								heartbeatTimer = setTimeout(startHeartbeat, HEARTBEAT_INTERVAL);
-							} else {
-								console.log("Stopped sending pings after reaching 2-hour limit.");
-								clearTimeout(heartbeatTimer);
+							if (wsClient.readyState === WebSocket.OPEN) {
+								if (Date.now() - startTime < MAX_DURATION) {
+									const pingMessage = JSON.stringify({ action: "ping" });
+									wsClient.send(pingMessage);
+									console.log("Sending Ping:", (/* @__PURE__ */ new Date()).toISOString());
+									heartbeatTimer = setTimeout(startHeartbeat, HEARTBEAT_INTERVAL);
+								} else {
+									console.log("Stopped sending pings after reaching 2-hour limit.");
+									clearTimeout(heartbeatTimer);
+								}
 							}
 						}
 						wsClient.onopen = () => {
@@ -63154,8 +63329,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		}
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/iconsets/md.js
+	// node_modules/vuetify/lib/iconsets/md.js
 	var aliases = {
 		collapse: "keyboard_arrow_up",
 		complete: "check",
@@ -63225,8 +63399,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		...props,
 		class: "material-icons"
 	}) };
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/scroll.js
+	// node_modules/vuetify/lib/composables/scroll.js
 	var makeScrollProps = propsFactory({
 		scrollTarget: { type: String },
 		scrollThreshold: {
@@ -63336,8 +63509,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			hasEnoughScrollableSpace
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VAppBar/VAppBar.js
+	// node_modules/vuetify/lib/components/VAppBar/VAppBar.js
 	var makeVAppBarProps = propsFactory({
 		scrollBehavior: String,
 		modelValue: {
@@ -63450,8 +63622,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VAppBar/VAppBarNavIcon.js
+	// node_modules/vuetify/lib/components/VAppBar/VAppBarNavIcon.js
 	var makeVAppBarNavIconProps = propsFactory({ ...omit(makeVBtnProps({
 		icon: "$menu",
 		variant: "text"
@@ -63465,8 +63636,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VAppBar/VAppBarTitle.js
+	// node_modules/vuetify/lib/components/VAppBar/VAppBarTitle.js
 	var VAppBarTitle = genericComponent()({
 		name: "VAppBarTitle",
 		props: makeVToolbarTitleProps(),
@@ -63476,11 +63646,9 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VAlert/VAlertTitle.js
+	// node_modules/vuetify/lib/components/VAlert/VAlertTitle.js
 	var VAlertTitle = createSimpleFunctional("v-alert-title");
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/iconSizes.js
+	// node_modules/vuetify/lib/composables/iconSizes.js
 	var makeIconSizeProps = propsFactory({
 		iconSize: [Number, String],
 		iconSizes: {
@@ -63501,8 +63669,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return iconSizeMap.has(_iconSize) ? iconSizeMap.get(_iconSize) : _iconSize;
 		}) };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VAlert/VAlert.js
+	// node_modules/vuetify/lib/components/VAlert/VAlert.js
 	var allowedTypes = [
 		"success",
 		"info",
@@ -63676,8 +63843,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSelectionControlGroup/VSelectionControlGroup.js
+	// node_modules/vuetify/lib/components/VSelectionControlGroup/VSelectionControlGroup.js
 	var VSelectionControlGroupSymbol = Symbol.for("vuetify:selection-control-group");
 	var makeSelectionControlGroupProps = propsFactory({
 		color: String,
@@ -63766,8 +63932,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSelectionControl/VSelectionControl.js
+	// node_modules/vuetify/lib/components/VSelectionControl/VSelectionControl.js
 	var makeVSelectionControlProps = propsFactory({
 		label: String,
 		baseColor: String,
@@ -63930,8 +64095,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCheckbox/VCheckboxBtn.js
+	// node_modules/vuetify/lib/components/VCheckbox/VCheckboxBtn.js
 	var makeVCheckboxBtnProps = propsFactory({
 		indeterminate: Boolean,
 		indeterminateIcon: {
@@ -63964,7 +64128,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				return indeterminate.value ? props.indeterminateIcon : props.trueIcon;
 			});
 			useRender(() => {
-				return (0, vue.createVNode)(VSelectionControl, (0, vue.mergeProps)(omit(VSelectionControl.filterProps(props), ["modelValue"]), {
+				const controlProps = omit(VSelectionControl.filterProps(props), ["modelValue"]);
+				return (0, vue.createVNode)(VSelectionControl, (0, vue.mergeProps)(controlProps, {
 					"modelValue": model.value,
 					"onUpdate:modelValue": [($event) => model.value = $event, onChange],
 					"class": ["v-checkbox-btn", props.class],
@@ -63978,8 +64143,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
+	// node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
 	var makeVCheckboxProps = propsFactory({
 		...omit(makeVInputProps(), ["direction"]),
 		...omit(makeVCheckboxBtnProps(), ["inline"])
@@ -64033,8 +64197,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({}, inputRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/goto.js
+	// node_modules/vuetify/lib/composables/goto.js
 	var GoToSymbol = Symbol.for("vuetify:goto");
 	function genDefaults() {
 		return {
@@ -64122,21 +64285,21 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		const [containerWidth, containerHeight] = container === document.scrollingElement ? [window.innerWidth, window.innerHeight] : [container.offsetWidth, container.offsetHeight];
 		let min;
 		let max;
-		if (horizontal) if (rtl) {
-			min = -(scrollWidth - containerWidth);
-			max = 0;
+		if (horizontal) {
+			if (rtl) {
+				min = -(scrollWidth - containerWidth);
+				max = 0;
+			} else {
+				min = 0;
+				max = scrollWidth - containerWidth;
+			}
 		} else {
-			min = 0;
-			max = scrollWidth - containerWidth;
-		}
-		else {
 			min = 0;
 			max = scrollHeight + -containerHeight;
 		}
 		return clamp(value, min, max);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSlideGroup/helpers.js
+	// node_modules/vuetify/lib/components/VSlideGroup/helpers.js
 	function calculateUpdatedTarget(_ref) {
 		let { selectedElement, containerElement, isRtl, isHorizontal } = _ref;
 		const containerSize = getOffsetSize(isHorizontal, containerElement);
@@ -64173,8 +64336,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	function getOffsetPosition(isHorizontal, element) {
 		return element?.[isHorizontal ? "offsetLeft" : "offsetTop"] || 0;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSlideGroup/VSlideGroup.js
+	// node_modules/vuetify/lib/components/VSlideGroup/VSlideGroup.js
 	var VSlideGroupSymbol = Symbol.for("vuetify:v-slide-group");
 	var makeVSlideGroupProps = propsFactory({
 		centerActive: Boolean,
@@ -64444,8 +64606,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VChipGroup/VChipGroup.js
+	// node_modules/vuetify/lib/components/VChipGroup/VChipGroup.js
 	var VChipGroupSymbol = Symbol.for("vuetify:v-chip-group");
 	var makeVChipGroupProps = propsFactory({
 		baseColor: String,
@@ -64478,7 +64639,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				variant: (0, vue.toRef)(() => props.variant)
 			} });
 			useRender(() => {
-				return (0, vue.createVNode)(VSlideGroup, (0, vue.mergeProps)(VSlideGroup.filterProps(props), {
+				const slideGroupProps = VSlideGroup.filterProps(props);
+				return (0, vue.createVNode)(VSlideGroup, (0, vue.mergeProps)(slideGroupProps, {
 					"class": [
 						"v-chip-group",
 						{ "v-chip-group--column": props.column },
@@ -64497,8 +64659,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VChip/VChip.js
+	// node_modules/vuetify/lib/components/VChip/VChip.js
 	var makeVChipProps = propsFactory({
 		activeClass: String,
 		appendAvatar: String,
@@ -64750,8 +64911,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSheet/VSheet.js
+	// node_modules/vuetify/lib/components/VSheet/VSheet.js
 	var makeVSheetProps = propsFactory({
 		color: String,
 		...makeBorderProps(),
@@ -64798,8 +64958,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VVirtualScroll/VVirtualScrollItem.js
+	// node_modules/vuetify/lib/components/VVirtualScroll/VVirtualScrollItem.js
 	var makeVVirtualScrollItemProps = propsFactory({
 		renderless: Boolean,
 		...makeComponentProps()
@@ -64822,8 +64981,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}, attrs), [slots.default?.()]));
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/virtual.js
+	// node_modules/vuetify/lib/composables/virtual.js
 	var UP = -1;
 	var DOWN = 1;
 	/** Determines how large each batch of items should be */
@@ -65036,8 +65194,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		}
 		return target;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VVirtualScroll/VVirtualScroll.js
+	// node_modules/vuetify/lib/components/VVirtualScroll/VVirtualScroll.js
 	var makeVVirtualScrollProps = propsFactory({
 		items: {
 			type: Array,
@@ -65115,8 +65272,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSelect/useFocusRepair.js
+	// node_modules/vuetify/lib/components/VSelect/useFocusRepair.js
 	function useFocusRepair(active, content, fallback) {
 		return function repairOrphanedFocus(e) {
 			if (!e.relatedTarget && document.activeElement === document.body && active.value) {
@@ -65130,8 +65286,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return false;
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSelect/useScrolling.js
+	// node_modules/vuetify/lib/components/VSelect/useScrolling.js
 	function useScrolling(listRef, textFieldRef) {
 		const isScrolling = (0, vue.shallowRef)(false);
 		let scrollTimeout;
@@ -65192,8 +65347,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			onKeydown: onListKeydown
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/focusGroups.js
+	// node_modules/vuetify/lib/composables/focusGroups.js
 	function useFocusGroups(_ref) {
 		let { groups, onLeave } = _ref;
 		function getContentRef(group) {
@@ -65239,8 +65393,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		}
 		return { onTabKeydown };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/filter.js
+	// node_modules/vuetify/lib/composables/filter.js
 	/**
 	* - boolean: match without highlight
 	* - number: single match (index), length already known
@@ -65306,9 +65459,10 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 						const value = getPropertyFromItem(transformed, key);
 						const keyFilter = options?.customKeyFilter?.[key];
 						match = keyFilter ? keyFilter(value, query, item) : filter(value, query, item);
-						if (match !== -1 && match !== false) if (keyFilter) customMatches[key] = normaliseMatch(match, query);
-						else defaultMatches[key] = normaliseMatch(match, query);
-						else if (options?.filterMode === "every") continue loop;
+						if (match !== -1 && match !== false) {
+							if (keyFilter) customMatches[key] = normaliseMatch(match, query);
+							else defaultMatches[key] = normaliseMatch(match, query);
+						} else if (options?.filterMode === "every") continue loop;
 					}
 				} else {
 					match = filter(item, query, item);
@@ -65381,8 +65535,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return (0, vue.createElementVNode)(vue.Fragment, null, [result]);
 		});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/menuActivator.js
+	// node_modules/vuetify/lib/composables/menuActivator.js
 	var makeMenuActivatorProps = propsFactory({
 		closeText: {
 			type: String,
@@ -65402,8 +65555,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			ariaControls: (0, vue.toRef)(() => menuId.value)
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSelect/VSelect.js
+	// node_modules/vuetify/lib/components/VSelect/VSelect.js
 	var makeSelectProps = propsFactory({
 		chips: Boolean,
 		closableChips: Boolean,
@@ -65672,8 +65824,10 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 			function onAfterLeave() {
 				search.value = "";
-				if (isFocused.value) if (vMenuRef.value?.contentEl?._clickOutside?.lastMousedownWasOutside) isFocused.value = false;
-				else vTextFieldRef.value?.focus();
+				if (isFocused.value) {
+					if (vMenuRef.value?.contentEl?._clickOutside?.lastMousedownWasOutside) isFocused.value = false;
+					else vTextFieldRef.value?.focus();
+				}
 			}
 			function onFocusin(e) {
 				isFocused.value = true;
@@ -65928,8 +66082,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}, vTextFieldRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
+	// node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
 	var makeVAutocompleteProps = propsFactory({
 		autoSelectFirst: { type: [Boolean, String] },
 		clearOnSelect: Boolean,
@@ -66418,8 +66571,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}, vTextFieldRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VBadge/VBadge.js
+	// node_modules/vuetify/lib/components/VBadge/VBadge.js
 	var makeVBadgeProps = propsFactory({
 		bordered: Boolean,
 		color: String,
@@ -66504,8 +66656,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VBanner/VBannerActions.js
+	// node_modules/vuetify/lib/components/VBanner/VBannerActions.js
 	var makeVBannerActionsProps = propsFactory({
 		color: String,
 		density: String,
@@ -66529,11 +66680,9 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VBanner/VBannerText.js
+	// node_modules/vuetify/lib/components/VBanner/VBannerText.js
 	var VBannerText = createSimpleFunctional("v-banner-text");
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VBanner/VBanner.js
+	// node_modules/vuetify/lib/components/VBanner/VBanner.js
 	var makeVBannerProps = propsFactory({
 		avatar: String,
 		bgColor: String,
@@ -66631,8 +66780,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VBottomNavigation/VBottomNavigation.js
+	// node_modules/vuetify/lib/components/VBottomNavigation/VBottomNavigation.js
 	var makeVBottomNavigationProps = propsFactory({
 		baseColor: String,
 		bgColor: String,
@@ -66724,8 +66872,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDialog/VDialog.js
+	// node_modules/vuetify/lib/components/VDialog/VDialog.js
 	var makeVDialogProps = propsFactory({
 		fullscreen: Boolean,
 		scrollable: Boolean,
@@ -66753,7 +66900,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			const overlay = (0, vue.ref)();
 			function onAfterEnter() {
 				emit("afterEnter");
-				if ((props.scrim || props.retainFocus) && overlay.value?.contentEl && !overlay.value.contentEl.contains(document.activeElement)) overlay.value.contentEl.focus({ preventScroll: true });
+				if ((props.scrim || props.retainFocus) && overlay.value?.contentEl && !overlay.value.contentEl.contains(getActiveElement())) overlay.value.contentEl.focus({ preventScroll: true });
 			}
 			function onAfterLeave() {
 				emit("afterLeave");
@@ -66761,7 +66908,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			(0, vue.watch)(isActive, async (val) => {
 				if (!val) {
 					await (0, vue.nextTick)();
-					overlay.value.activatorEl?.focus({ preventScroll: true });
+					overlay.value?.activatorEl?.focus({ preventScroll: true });
 				}
 			});
 			useRender(() => {
@@ -66803,8 +66950,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({}, overlay);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VBottomSheet/VBottomSheet.js
+	// node_modules/vuetify/lib/components/VBottomSheet/VBottomSheet.js
 	var makeVBottomSheetProps = propsFactory({
 		inset: Boolean,
 		...makeVDialogProps({ transition: "bottom-sheet-transition" })
@@ -66817,7 +66963,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			let { slots } = _ref;
 			const isActive = useProxiedModel(props, "modelValue");
 			useRender(() => {
-				return (0, vue.createVNode)(VDialog, (0, vue.mergeProps)(VDialog.filterProps(props), {
+				const dialogProps = VDialog.filterProps(props);
+				return (0, vue.createVNode)(VDialog, (0, vue.mergeProps)(dialogProps, {
 					"contentClass": ["v-bottom-sheet__content", props.contentClass],
 					"modelValue": isActive.value,
 					"onUpdate:modelValue": ($event) => isActive.value = $event,
@@ -66832,8 +66979,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VBreadcrumbs/VBreadcrumbsDivider.js
+	// node_modules/vuetify/lib/components/VBreadcrumbs/VBreadcrumbsDivider.js
 	var makeVBreadcrumbsDividerProps = propsFactory({
 		divider: [Number, String],
 		...makeComponentProps()
@@ -66851,8 +66997,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VBreadcrumbs/VBreadcrumbsItem.js
+	// node_modules/vuetify/lib/components/VBreadcrumbs/VBreadcrumbsItem.js
 	var makeVBreadcrumbsItemProps = propsFactory({
 		active: Boolean,
 		activeClass: String,
@@ -66900,8 +67045,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VBreadcrumbs/VBreadcrumbs.js
+	// node_modules/vuetify/lib/components/VBreadcrumbs/VBreadcrumbs.js
 	var makeVBreadcrumbsProps = propsFactory({
 		activeClass: String,
 		activeColor: String,
@@ -66997,8 +67141,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/labs/VIconBtn/VIconBtn.js
+	// node_modules/vuetify/lib/labs/VIconBtn/VIconBtn.js
 	var makeVIconBtnProps = propsFactory({
 		active: {
 			type: Boolean,
@@ -67155,13 +67298,11 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/util/dateTimeUtils.js
+	// node_modules/vuetify/lib/components/VCalendar/util/dateTimeUtils.js
 	function isLeapYear(year) {
 		return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/util/timestamp.js
+	// node_modules/vuetify/lib/components/VCalendar/util/timestamp.js
 	var PARSE_REGEX = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?([^\d]+(\d{1,2}))?(:(\d{1,2}))?(:(\d{1,2}))?$/;
 	var PARSE_TIME = /(\d\d?)(:(\d\d?)|)(:(\d\d?)|)/;
 	var DAYS_IN_MONTH = [
@@ -67566,8 +67707,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		}
 		return false;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/composables/times.js
+	// node_modules/vuetify/lib/components/VCalendar/composables/times.js
 	function useTimes(props) {
 		const times = (0, vue.reactive)({
 			now: parseTimestamp("0000-00-00 00:00", true),
@@ -67619,8 +67759,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			updateTime
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/date/date.js
+	// node_modules/vuetify/lib/composables/date/date.js
 	var DateOptionsSymbol = Symbol.for("vuetify:date-options");
 	function createDateRange(adapter, start, stop) {
 		const diff = daysDiff(adapter, start, stop);
@@ -67651,8 +67790,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		if (!options) throw new Error("[Vuetify] Could not find injected date options");
 		return createInstance(options, useLocale());
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/composables/calendarBase.js
+	// node_modules/vuetify/lib/components/VCalendar/composables/calendarBase.js
 	var makeCalendarBaseProps = propsFactory({
 		start: {
 			type: [
@@ -67807,8 +67945,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			updateTimes
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/composables/calendarWithIntervals.js
+	// node_modules/vuetify/lib/components/VCalendar/composables/calendarWithIntervals.js
 	var makeCalendarWithIntervalsProps = propsFactory({
 		maxDays: {
 			type: Number,
@@ -67998,8 +68135,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			timeDelta
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/directives/resize/index.js
+	// node_modules/vuetify/lib/directives/resize/index.js
 	function mounted$2(el, binding) {
 		const handler = binding.value;
 		const options = { passive: !binding.modifiers?.active };
@@ -68021,8 +68157,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		mounted: mounted$2,
 		unmounted: unmounted$2
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/VCalendarDaily.js
+	// node_modules/vuetify/lib/components/VCalendar/VCalendarDaily.js
 	var VCalendarDaily = defineComponent({
 		name: "VCalendarDaily",
 		directives: { vResize: Resize },
@@ -68061,9 +68196,10 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				}, [genHeadIntervals(), genHeadDays()]);
 			}
 			function genHeadIntervals() {
+				const width = convertToUnit(props.intervalWidth);
 				return (0, vue.createElementVNode)("div", {
 					"class": "v-calendar-daily__intervals-head",
-					"style": { width: convertToUnit(props.intervalWidth) }
+					"style": { width }
 				}, [slots["interval-header"]?.()]);
 			}
 			function genHeadDays() {
@@ -68201,8 +68337,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/util/parser.js
+	// node_modules/vuetify/lib/components/VCalendar/util/parser.js
 	function parsedCategoryText(category, categoryText) {
 		return typeof categoryText === "function" ? categoryText(category) : typeof categoryText === "string" && typeof category === "object" && category ? category[categoryText] : typeof category === "string" ? category : "";
 	}
@@ -68218,8 +68353,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		});
 		return [];
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/VCalendarCategory.js
+	// node_modules/vuetify/lib/components/VCalendar/VCalendarCategory.js
 	var VCalendarCategory = defineComponent({
 		name: "VCalendarCategory",
 		props: {
@@ -68255,9 +68389,10 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 			function genDayHeaderCategory(day, scope) {
 				const headerTitle = typeof scope.category === "object" ? scope.category.categoryName : scope.category;
-				return (0, vue.createElementVNode)("div", (0, vue.mergeProps)({ "class": "v-calendar-category__column-header" }, getPrefixedEventHandlers(attrs, ":dayCategory", () => {
+				const events = getPrefixedEventHandlers(attrs, ":dayCategory", () => {
 					return getCategoryScope(base.getSlotScope(day) || day, scope.category);
-				})), [slots.category?.(scope) ?? genDayHeaderCategoryTitle(headerTitle), slots["day-header"]?.(scope)]);
+				});
+				return (0, vue.createElementVNode)("div", (0, vue.mergeProps)({ "class": "v-calendar-category__column-header" }, events), [slots.category?.(scope) ?? genDayHeaderCategoryTitle(headerTitle), slots["day-header"]?.(scope)]);
 			}
 			function genDayHeaderCategoryTitle(categoryName) {
 				return (0, vue.createElementVNode)("div", { "class": "v-calendar-category__category" }, [categoryName === null ? props.categoryForInvalid : categoryName]);
@@ -68300,9 +68435,10 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				return (0, vue.createElementVNode)("div", { "class": "v-calendar-category__columns" }, [genDayBodyCategory(day, category)]);
 			}
 			function genDayBodyCategory(day, category) {
-				return (0, vue.createElementVNode)("div", (0, vue.mergeProps)({ "class": "v-calendar-category__column" }, getPrefixedEventHandlers(attrs, ":timeCategory", (e) => {
+				const events = getPrefixedEventHandlers(attrs, ":timeCategory", (e) => {
 					return getCategoryScope(base.getSlotScope(base.getTimestampAtEvent(e, day)), category);
-				})), [slots["day-body"]?.(getCategoryScope(base.getSlotScope(day), category))]);
+				});
+				return (0, vue.createElementVNode)("div", (0, vue.mergeProps)({ "class": "v-calendar-category__column" }, events), [slots["day-body"]?.(getCategoryScope(base.getSlotScope(day), category))]);
 			}
 			useRender(() => (0, vue.createVNode)(VCalendarDaily, (0, vue.mergeProps)({ "class": ["v-calendar-daily", "v-calendar-category"] }, props), {
 				...slots,
@@ -68315,8 +68451,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/hotkey/key-aliases.js
+	// node_modules/vuetify/lib/composables/hotkey/key-aliases.js
 	/**
 	* Centralized key alias mapping for consistent key normalization across the hotkey system.
 	*
@@ -68352,8 +68487,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		const lowerKey = key.toLowerCase();
 		return keyAliasMap[lowerKey] || lowerKey;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/hotkey/hotkey-parsing.js
+	// node_modules/vuetify/lib/composables/hotkey/hotkey-parsing.js
 	/**
 	* Splits a single combination string into individual key parts.
 	*
@@ -68400,17 +68534,18 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				"/",
 				"_",
 				"-"
-			].includes(char)) if (char === nextChar) {
-				flushBuffer(char);
-				keys.push(char);
-				i++;
-			} else if ([
-				"+",
-				"/",
-				"_"
-			].includes(char)) flushBuffer(char);
-			else buffer += char;
-			else buffer += char;
+			].includes(char)) {
+				if (char === nextChar) {
+					flushBuffer(char);
+					keys.push(char);
+					i++;
+				} else if ([
+					"+",
+					"/",
+					"_"
+				].includes(char)) flushBuffer(char);
+				else buffer += char;
+			} else buffer += char;
 		}
 		flushBuffer();
 		if (keys.some((key) => key.length > 1 && key.includes("-") && key !== "--")) {
@@ -68482,8 +68617,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		}
 		return collapsed;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/VCalendarWeekly.js
+	// node_modules/vuetify/lib/components/VCalendar/VCalendarWeekly.js
 	var VCalendarWeekly = defineComponent({
 		name: "VCalendarWeekly",
 		props: {
@@ -68626,8 +68760,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/modes/common.js
+	// node_modules/vuetify/lib/components/VCalendar/modes/common.js
 	var MILLIS_IN_DAY = 864e5;
 	function getVisuals(events) {
 		let minStart = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
@@ -68726,8 +68859,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		};
 		return handler;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/modes/column.js
+	// node_modules/vuetify/lib/components/VCalendar/modes/column.js
 	var FULL_WIDTH$1 = 100;
 	var column = (events, firstWeekday, overlapThreshold) => {
 		const handler = getOverlapGroupHandler(firstWeekday);
@@ -68740,8 +68872,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return visuals;
 		};
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/modes/stack.js
+	// node_modules/vuetify/lib/components/VCalendar/modes/stack.js
 	var FULL_WIDTH = 100;
 	var DEFAULT_OFFSET = 5;
 	var WIDTH_MULTIPLIER = 1.7;
@@ -68896,14 +69027,12 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		const addMinutes = totalMinutes % 60;
 		return identifier - removeMinutes + addHours * 100 + addMinutes;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/modes/index.js
+	// node_modules/vuetify/lib/components/VCalendar/modes/index.js
 	var CalendarEventOverlapModes = {
 		stack,
 		column
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/util/events.js
+	// node_modules/vuetify/lib/components/VCalendar/util/events.js
 	function parseEvent(input, index, startProperty, endProperty) {
 		let timed = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : false;
 		let category = arguments.length > 5 && arguments[5] !== void 0 ? arguments[5] : false;
@@ -68952,8 +69081,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	function isEventOverlapping(event, startIdentifier, endIdentifier) {
 		return startIdentifier <= event.endIdentifier && endIdentifier >= event.startIdentifier;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/composables/calendarWithEvents.js
+	// node_modules/vuetify/lib/components/VCalendar/composables/calendarWithEvents.js
 	var WIDTH_FULL = 100;
 	var WIDTH_START = 95;
 	var makeCalendarWithEventsProps = propsFactory({
@@ -69182,19 +69310,24 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			const timeSummary = () => formatTime(event.start, overlapsNoon) + " - " + formatTime(event.end, true);
 			const eventSummary = () => {
 				const name = eventNameFunction.value(event, timedEvent);
-				if (event.start.hasTime) if (timedEvent) {
-					const time = timeSummary();
-					const delimiter = singline ? ", " : (0, vue.createElementVNode)("br", null, null);
-					return (0, vue.createElementVNode)("span", { "class": "v-event-summary" }, [
-						(0, vue.createElementVNode)("strong", null, [name]),
-						delimiter,
-						time
-					]);
-				} else return (0, vue.createElementVNode)("span", { "class": "v-event-summary" }, [
-					(0, vue.createElementVNode)("strong", null, [formatTime(event.start, true)]),
-					(0, vue.createTextVNode)(" "),
-					name
-				]);
+				if (event.start.hasTime) {
+					if (timedEvent) {
+						const time = timeSummary();
+						const delimiter = singline ? ", " : (0, vue.createElementVNode)("br", null, null);
+						return (0, vue.createElementVNode)("span", { "class": "v-event-summary" }, [
+							(0, vue.createElementVNode)("strong", null, [name]),
+							delimiter,
+							time
+						]);
+					} else {
+						const time = formatTime(event.start, true);
+						return (0, vue.createElementVNode)("span", { "class": "v-event-summary" }, [
+							(0, vue.createElementVNode)("strong", null, [time]),
+							(0, vue.createTextVNode)(" "),
+							name
+						]);
+					}
+				}
 				return (0, vue.createElementVNode)("span", { "class": "v-event-summary" }, [name]);
 			};
 			const scope = {
@@ -69223,8 +69356,9 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return (0, vue.createElementVNode)("div", { "class": "pl-1" }, [eventSummary()]);
 		}
 		function genPlaceholder(day) {
+			const height = (props.eventHeight || 0) + (props.eventMarginBottom || 0);
 			return (0, vue.createElementVNode)("div", {
-				"style": { height: `${(props.eventHeight || 0) + (props.eventMarginBottom || 0)}px` },
+				"style": { height: `${height}px` },
 				"data-date": day.date,
 				"ref_for": true,
 				"ref": eventsRef
@@ -69308,7 +69442,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 					return children;
 				},
 				"day-body": (day) => {
-					let children = [(0, vue.createElementVNode)("div", { "class": "v-event-timed-container" }, [getSlotChildren(day, getEventsForDayTimed, genTimedEvent, true)])];
+					const events = getSlotChildren(day, getEventsForDayTimed, genTimedEvent, true);
+					let children = [(0, vue.createElementVNode)("div", { "class": "v-event-timed-container" }, [events])];
 					if (slots["day-body"]) {
 						const slot = slots["day-body"](day);
 						if (slot) children = children.concat(slot);
@@ -69347,8 +69482,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			getScopedSlots
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCalendar/VCalendar.js
+	// node_modules/vuetify/lib/components/VCalendar/VCalendar.js
 	var VCalendar = genericComponent()({
 		name: "VCalendar",
 		directives: { vResize: Resize },
@@ -69510,9 +69644,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 					case "4day":
 						relativeDays(moved, mover, 4);
 						break;
-					case "category":
-						relativeDays(moved, mover, parsedCategoryDays.value);
-						break;
+					case "category": relativeDays(moved, mover, parsedCategoryDays.value);
 				}
 				updateWeekday(moved);
 				updateFormatted(moved);
@@ -69615,8 +69747,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}, root);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCarousel/VCarousel.js
+	// node_modules/vuetify/lib/components/VCarousel/VCarousel.js
 	var makeVCarouselProps = propsFactory({
 		color: String,
 		cycle: Boolean,
@@ -69738,8 +69869,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCarousel/VCarouselItem.js
+	// node_modules/vuetify/lib/components/VCarousel/VCarouselItem.js
 	var makeVCarouselItemProps = propsFactory({
 		...makeVImgProps(),
 		...makeVWindowItemProps()
@@ -69757,8 +69887,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCode/index.js
+	// node_modules/vuetify/lib/components/VCode/index.js
 	var VCode = createSimpleFunctional("v-code", "code");
 	var VColorPickerCanvas = defineComponent({
 		name: "VColorPickerCanvas",
@@ -69911,8 +70040,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VColorPicker/util/index.js
+	// node_modules/vuetify/lib/components/VColorPicker/util/index.js
 	function stripAlpha(color, stripAlpha) {
 		if (stripAlpha) {
 			const { a, ...rest } = color;
@@ -70110,8 +70238,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		},
 		hexa
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VColorPicker/VColorPickerEdit.js
+	// node_modules/vuetify/lib/components/VColorPicker/VColorPickerEdit.js
 	var VColorPickerInput = (_ref) => {
 		let { label, ...rest } = _ref;
 		return (0, vue.createElementVNode)("div", { "class": "v-color-picker-edit__input" }, [(0, vue.createElementVNode)("input", (0, vue.normalizeProps)((0, vue.guardReactiveProps)(rest)), null), (0, vue.createElementVNode)("span", null, [label])]);
@@ -70184,8 +70311,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSlider/slider.js
+	// node_modules/vuetify/lib/components/VSlider/slider.js
 	var VSliderSymbol = Symbol.for("vuetify:v-slider");
 	function getOffset(e, el, direction) {
 		const vertical = direction === "vertical";
@@ -70441,8 +70567,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		(0, vue.provide)(VSliderSymbol, data);
 		return data;
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSlider/VSliderThumb.js
+	// node_modules/vuetify/lib/components/VSlider/VSliderThumb.js
 	var makeVSliderThumbProps = propsFactory({
 		focused: Boolean,
 		max: {
@@ -70605,8 +70730,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSlider/VSliderTrack.js
+	// node_modules/vuetify/lib/components/VSlider/VSliderTrack.js
 	var makeVSliderTrackProps = propsFactory({
 		start: {
 			type: Number,
@@ -70699,8 +70823,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSlider/VSlider.js
+	// node_modules/vuetify/lib/components/VSlider/VSlider.js
 	var makeVSliderProps = propsFactory({
 		...makeFocusProps(),
 		...makeSliderProps(),
@@ -70817,8 +70940,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({ focus: () => thumbContainerRef.value?.$el.focus() }, inputRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VColorPicker/VColorPickerPreview.js
+	// node_modules/vuetify/lib/components/VColorPicker/VColorPickerPreview.js
 	var makeVColorPickerPreviewProps = propsFactory({
 		color: { type: Object },
 		disabled: Boolean,
@@ -71211,8 +71333,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			transparent: "#ffffff00"
 		}
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VColorPicker/VColorPickerSwatches.js
+	// node_modules/vuetify/lib/components/VColorPicker/VColorPickerSwatches.js
 	var makeVColorPickerSwatchesProps = propsFactory({
 		swatches: {
 			type: Array,
@@ -71275,11 +71396,9 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/labs/VPicker/VPickerTitle.js
+	// node_modules/vuetify/lib/labs/VPicker/VPickerTitle.js
 	var VPickerTitle = createSimpleFunctional("v-picker-title");
-	//#endregion
-	//#region node_modules/vuetify/lib/labs/VPicker/VPicker.js
+	// node_modules/vuetify/lib/labs/VPicker/VPicker.js
 	var makeVPickerProps = propsFactory({
 		bgColor: String,
 		divided: Boolean,
@@ -71414,7 +71533,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				trackFillColor: void 0
 			} });
 			useRender(() => {
-				return (0, vue.createVNode)(VPicker, (0, vue.mergeProps)(VPicker.filterProps(props), {
+				const pickerProps = VPicker.filterProps(props);
+				return (0, vue.createVNode)(VPicker, (0, vue.mergeProps)(pickerProps, {
 					"class": [
 						"v-color-picker",
 						rtlClasses.value,
@@ -71474,8 +71594,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VCombobox/VCombobox.js
+	// node_modules/vuetify/lib/components/VCombobox/VCombobox.js
 	var makeVComboboxProps = propsFactory({
 		alwaysFilter: Boolean,
 		autoSelectFirst: { type: [Boolean, String] },
@@ -72019,8 +72138,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}, vTextFieldRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VConfirmEdit/VConfirmEdit.js
+	// node_modules/vuetify/lib/components/VConfirmEdit/VConfirmEdit.js
 	var makeVConfirmEditProps = propsFactory({
 		modelValue: null,
 		color: String,
@@ -72107,8 +72225,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/composables/expand.js
+	// node_modules/vuetify/lib/components/VDataTable/composables/expand.js
 	var makeDataTableExpandProps = propsFactory({
 		expandOnClick: Boolean,
 		showExpand: Boolean,
@@ -72156,8 +72273,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		if (!data) throw new Error("foo");
 		return data;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/composables/group.js
+	// node_modules/vuetify/lib/components/VDataTable/composables/group.js
 	var makeDataTableGroupProps = propsFactory({ groupBy: {
 		type: Array,
 		default: () => []
@@ -72274,8 +72390,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			})
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/composables/options.js
+	// node_modules/vuetify/lib/components/VDataTable/composables/options.js
 	function useOptions(_ref) {
 		let { page, itemsPerPage, sortBy, groupBy, search } = _ref;
 		const vm = getCurrentInstance("VDataTable");
@@ -72297,8 +72412,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			immediate: true
 		});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/composables/paginate.js
+	// node_modules/vuetify/lib/components/VDataTable/composables/paginate.js
 	var makeDataTablePaginateProps = propsFactory({
 		page: {
 			type: [Number, String],
@@ -72422,8 +72536,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		}
 		throw new Error(`Unrecognized pagination target ${pageBy}`);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/composables/select.js
+	// node_modules/vuetify/lib/components/VDataTable/composables/select.js
 	var singleSelectStrategy = {
 		showSelectAll: false,
 		allSelected: () => [],
@@ -72573,8 +72686,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		if (!data) throw new Error("Missing selection!");
 		return data;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/composables/sort.js
+	// node_modules/vuetify/lib/components/VDataTable/composables/sort.js
 	var makeDataTableSortProps = propsFactory({
 		initialSortOrder: {
 			type: String,
@@ -72624,21 +72736,23 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			const secondaryOrder = initialSortOrder.value === "desc" ? "asc" : "desc";
 			if (!item) {
 				const { active, mode } = resolveMultiSort(multiSort.value, event);
-				if (active) if (mode === "prepend") newSortBy.unshift({
-					key: column.key,
-					order: initialOrder
-				});
-				else newSortBy.push({
-					key: column.key,
-					order: initialOrder
-				});
-				else newSortBy = [{
+				if (active) {
+					if (mode === "prepend") newSortBy.unshift({
+						key: column.key,
+						order: initialOrder
+					});
+					else newSortBy.push({
+						key: column.key,
+						order: initialOrder
+					});
+				} else newSortBy = [{
 					key: column.key,
 					order: initialOrder
 				}];
-			} else if (item.order === secondaryOrder) if (mandatory || mustSort.value && newSortBy.length === 1) item.order = initialSortOrder.value;
-			else newSortBy = newSortBy.filter((x) => x.key !== column.key);
-			else item.order = secondaryOrder;
+			} else if (item.order === secondaryOrder) {
+				if (mandatory || mustSort.value && newSortBy.length === 1) item.order = initialSortOrder.value;
+				else newSortBy = newSortBy.filter((x) => x.key !== column.key);
+			} else item.order = secondaryOrder;
 			sortBy.value = newSortBy;
 			if (page) page.value = 1;
 		};
@@ -72723,8 +72837,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return item;
 		});
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataIterator/composables/items.js
+	// node_modules/vuetify/lib/components/VDataIterator/composables/items.js
 	var makeDataIteratorItemsProps = propsFactory({
 		items: {
 			type: Array,
@@ -72764,8 +72877,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	function useDataIteratorItems(props) {
 		return { items: (0, vue.computed)(() => transformItems$1(props, props.items)) };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataIterator/VDataIterator.js
+	// node_modules/vuetify/lib/components/VDataIterator/VDataIterator.js
 	var makeVDataIteratorProps = propsFactory({
 		search: String,
 		loading: Boolean,
@@ -72891,8 +73003,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/refs.js
+	// node_modules/vuetify/lib/composables/refs.js
 	function useRefs() {
 		const refs = (0, vue.ref)([]);
 		(0, vue.onBeforeUpdate)(() => refs.value = []);
@@ -72904,8 +73015,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			updateRef
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VPagination/VPagination.js
+	// node_modules/vuetify/lib/components/VPagination/VPagination.js
 	var makeVPaginationProps = propsFactory({
 		activeColor: String,
 		start: {
@@ -73194,8 +73304,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/VDataTableFooter.js
+	// node_modules/vuetify/lib/components/VDataTable/VDataTableFooter.js
 	var makeVDataTableFooterProps = propsFactory({
 		color: String,
 		prevIcon: {
@@ -73316,8 +73425,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/VDataTableColumn.js
+	// node_modules/vuetify/lib/components/VDataTable/VDataTableColumn.js
 	var VDataTableColumn = defineFunctionalComponent({
 		align: {
 			type: String,
@@ -73367,8 +73475,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 		}, { default: () => [slots.default?.()] });
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/composables/headers.js
+	// node_modules/vuetify/lib/components/VDataTable/composables/headers.js
 	var makeDataTableHeaderProps = propsFactory({ headers: Array }, "DataTable-header");
 	var VDataTableHeadersSymbol = Symbol.for("vuetify:data-table-headers");
 	var defaultHeader = {
@@ -73444,18 +73551,21 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			if (!item) return;
 			if (parentFixedSide !== "none") item.fixed = parentFixedSide;
 			if (item.fixed === true) item.fixed = "start";
-			if (item.fixed === side) if (item.children) if (side === "start") for (let i = item.children.length - 1; i >= 0; i--) setFixed(item.children[i], side, side);
-			else for (let i = 0; i < item.children.length; i++) setFixed(item.children[i], side, side);
-			else {
-				if (!seenFixed && side === "start") item.lastFixed = true;
-				else if (!seenFixed && side === "end") item.firstFixedEnd = true;
-				else if (isNaN(Number(item.width))) consoleError(`Multiple fixed columns should have a static width (key: ${item.key})`);
-				else item.minWidth = Math.max(Number(item.width) || 0, Number(item.minWidth) || 0);
-				seenFixed = true;
-			}
-			else if (item.children) if (side === "start") for (let i = item.children.length - 1; i >= 0; i--) setFixed(item.children[i], side);
-			else for (let i = 0; i < item.children.length; i++) setFixed(item.children[i], side);
-			else seenFixed = false;
+			if (item.fixed === side) {
+				if (item.children) {
+					if (side === "start") for (let i = item.children.length - 1; i >= 0; i--) setFixed(item.children[i], side, side);
+					else for (let i = 0; i < item.children.length; i++) setFixed(item.children[i], side, side);
+				} else {
+					if (!seenFixed && side === "start") item.lastFixed = true;
+					else if (!seenFixed && side === "end") item.firstFixedEnd = true;
+					else if (isNaN(Number(item.width))) consoleError(`Multiple fixed columns should have a static width (key: ${item.key})`);
+					else item.minWidth = Math.max(Number(item.width) || 0, Number(item.minWidth) || 0);
+					seenFixed = true;
+				}
+			} else if (item.children) {
+				if (side === "start") for (let i = item.children.length - 1; i >= 0; i--) setFixed(item.children[i], side);
+				else for (let i = 0; i < item.children.length; i++) setFixed(item.children[i], side);
+			} else seenFixed = false;
 		}
 		for (let i = items.length - 1; i >= 0; i--) setFixed(items[i], "start");
 		for (let i = 0; i < items.length; i++) setFixed(items[i], "end");
@@ -73590,8 +73700,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		if (!data) throw new Error("Missing headers!");
 		return data;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/VDataTableHeaders.js
+	// node_modules/vuetify/lib/components/VDataTable/VDataTableHeaders.js
 	var makeVDataTableHeadersProps = propsFactory({
 		color: String,
 		disableSort: Boolean,
@@ -73674,9 +73783,10 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				const headerProps = (0, vue.mergeProps)(props.headerProps ?? {}, column.headerProps ?? {});
 				const isSortable = column.sortable && !props.disableSort;
 				const sortItem = isSortable ? sortBy.value.find((item) => item.key === column.key) : void 0;
+				const ariaSort = sortItem?.order === "asc" ? "ascending" : sortItem?.order === "desc" ? "descending" : void 0;
 				return (0, vue.createVNode)(VDataTableColumn, (0, vue.mergeProps)({
 					"tag": "th",
-					"aria-sort": sortItem?.order === "asc" ? "ascending" : sortItem?.order === "desc" ? "descending" : void 0,
+					"aria-sort": ariaSort,
 					"align": column.align,
 					"class": [{
 						"v-data-table__th--sortable": isSortable,
@@ -73815,6 +73925,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 			useRender(() => {
 				return mobile.value ? (0, vue.createElementVNode)(vue.Fragment, null, [showMobileHeader.value && (0, vue.createElementVNode)("tr", null, [(0, vue.createVNode)(VDataTableMobileHeaderCell, null, null)])]) : (0, vue.createElementVNode)(vue.Fragment, null, [slots.headers ? slots.headers(slotProps.value) : headers.value.map((row, y) => (0, vue.createElementVNode)("tr", null, [row.map((column, x) => (0, vue.createVNode)(VDataTableHeaderCell, {
+					"key": column.key ?? x,
 					"column": column,
 					"x": x,
 					"y": y
@@ -73828,8 +73939,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/VDataTableGroupHeaderRow.js
+	// node_modules/vuetify/lib/components/VDataTable/VDataTableGroupHeaderRow.js
 	var makeVDataTableGroupHeaderRowProps = propsFactory({
 		item: {
 			type: Object,
@@ -73918,8 +74028,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			})]);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/VDataTableRow.js
+	// node_modules/vuetify/lib/components/VDataTable/VDataTableRow.js
 	var makeVDataTableRowProps = propsFactory({
 		color: String,
 		index: Number,
@@ -74004,6 +74113,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				const noPadding = column.key === "data-table-select" || column.key === "data-table-expand";
 				const isEmpty = column.key === "data-table-group" && column.width === 0 && !column.title;
 				return (0, vue.createVNode)(VDataTableColumn, (0, vue.mergeProps)({
+					"key": column.key ?? i,
 					"align": column.align,
 					"indent": column.indent,
 					"class": {
@@ -74058,8 +74168,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			})]));
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/VDataTableRows.js
+	// node_modules/vuetify/lib/components/VDataTable/VDataTableRows.js
 	var makeVDataTableRowsProps = propsFactory({
 		color: String,
 		loading: [Boolean, String],
@@ -74180,8 +74289,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTable/VTable.js
+	// node_modules/vuetify/lib/components/VTable/VTable.js
 	var makeVTableProps = propsFactory({
 		fixedHeader: Boolean,
 		fixedFooter: Boolean,
@@ -74233,8 +74341,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/composables/items.js
+	// node_modules/vuetify/lib/components/VDataTable/composables/items.js
 	var makeDataTableItemsProps = propsFactory({
 		items: {
 			type: Array,
@@ -74283,8 +74390,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	function useDataTableItems(props, columns) {
 		return { items: (0, vue.computed)(() => transformItems(props, props.items, columns.value)) };
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/VDataTable.js
+	// node_modules/vuetify/lib/components/VDataTable/VDataTable.js
 	var makeDataTableProps = propsFactory({
 		...makeVDataTableRowsProps(),
 		hideDefaultBody: Boolean,
@@ -74461,14 +74567,16 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/VDataTableVirtual.js
+	// node_modules/vuetify/lib/components/VDataTable/VDataTableVirtual.js
 	var makeVDataTableVirtualProps = propsFactory({
 		...omit(makeDataTableProps(), ["hideDefaultFooter"]),
 		...makeDataTableGroupProps(),
 		...makeVirtualProps(),
 		...makeFilterProps()
 	}, "VDataTableVirtual");
+	function elementNodes(nodes) {
+		return (nodes ?? []).flatMap((node) => Array.isArray(node) ? elementNodes(node) : !(0, vue.isVNode)(node) ? [] : node.type === vue.Fragment ? elementNodes(node.children) : typeof node.type === "symbol" ? [] : [node]);
+	}
 	var VDataTableVirtual = genericComponent()({
 		name: "VDataTableVirtual",
 		props: makeVDataTableVirtualProps(),
@@ -74520,12 +74628,47 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				allItems,
 				currentPage: allItems
 			});
-			const { isExpanded, toggleExpand } = provideExpanded(props);
+			const { expanded, isExpanded, toggleExpand } = provideExpanded(props);
 			const { containerRef, markerRef, paddingTop, paddingBottom, computedItems, handleItemResize, handleScroll, handleScrollend, calculateVisibleItems, scrollToIndex } = useVirtual(props, flatItems);
 			const displayItems = (0, vue.computed)(() => computedItems.value.map((item) => ({
 				...item.raw,
 				virtualIndex: item.index
 			})));
+			const rowHeights = /* @__PURE__ */ new Map();
+			const expandedHeights = /* @__PURE__ */ new Map();
+			function updateSize(index) {
+				const expanded = expandedHeights.get(index)?.reduce((sum, height) => sum + (height || 0), 0) ?? 0;
+				handleItemResize(index, (rowHeights.get(index) ?? 0) + expanded);
+			}
+			function setRowHeight(index, height) {
+				rowHeights.set(index, height);
+				updateSize(index);
+			}
+			function setExpandedHeight(index, row, height) {
+				const heights = expandedHeights.get(index) ?? [];
+				heights[row] = height;
+				expandedHeights.set(index, heights);
+				updateSize(index);
+			}
+			function trimExpandedHeights(index, count) {
+				const heights = expandedHeights.get(index);
+				if (!heights || heights.length <= count) return;
+				heights.length = count;
+				updateSize(index);
+			}
+			(0, vue.watch)(expanded, () => {
+				if (!slots["expanded-row"]) return;
+				for (const index of [...expandedHeights.keys()]) {
+					const item = flatItems.value[index];
+					if (item?.type === "item" && isExpanded(item)) continue;
+					expandedHeights.delete(index);
+					updateSize(index);
+				}
+			});
+			(0, vue.watch)(flatItems, () => {
+				rowHeights.clear();
+				expandedHeights.clear();
+			});
 			useOptions({
 				sortBy,
 				page: (0, vue.shallowRef)(1),
@@ -74597,22 +74740,34 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 							}, null)]),
 							slots["body.prepend"]?.(slotProps.value),
 							(0, vue.createVNode)(VDataTableRows, (0, vue.mergeProps)(attrs, dataTableRowsProps, { "items": displayItems.value }), {
-								...slots,
-								item: (itemSlotProps) => (0, vue.createVNode)(VVirtualScrollItem, {
-									"key": itemSlotProps.internalItem.index,
-									"renderless": true,
-									"onUpdate:height": (height) => handleItemResize(itemSlotProps.internalItem.index, height)
-								}, { default: (_ref2) => {
-									let { itemRef } = _ref2;
-									return slots.item?.({
-										...itemSlotProps,
-										itemRef
-									}) ?? (0, vue.createVNode)(VDataTableRow, (0, vue.mergeProps)(itemSlotProps.props, {
-										"ref": itemRef,
-										"key": itemSlotProps.internalItem.index,
-										"index": itemSlotProps.index
-									}), slots);
-								} })
+								...omit(slots, ["expanded-row"]),
+								item: (itemSlotProps) => {
+									const { props: rowProps, ...itemSlot } = itemSlotProps;
+									const index = itemSlotProps.internalItem.virtualIndex ?? itemSlotProps.internalItem.index;
+									const expandedRows = isExpanded(itemSlotProps.internalItem) && slots["expanded-row"] ? elementNodes(slots["expanded-row"](itemSlot)) : [];
+									if (slots["expanded-row"] && (expandedHeights.get(index)?.length ?? 0) > expandedRows.length) (0, vue.nextTick)(() => trimExpandedHeights(index, expandedRows.length));
+									return (0, vue.createElementVNode)(vue.Fragment, null, [(0, vue.createVNode)(VVirtualScrollItem, {
+										"key": index,
+										"renderless": true,
+										"onUpdate:height": (height) => setRowHeight(index, height)
+									}, { default: (_ref2) => {
+										let { itemRef } = _ref2;
+										return slots.item?.({
+											...itemSlotProps,
+											itemRef
+										}) ?? (0, vue.createVNode)(VDataTableRow, (0, vue.mergeProps)(rowProps, {
+											"ref": itemRef,
+											"index": itemSlotProps.index
+										}), slots);
+									} }), slots["expanded-row"] && expandedRows.map((node, row) => (0, vue.createVNode)(VVirtualScrollItem, {
+										"key": `${index}-expanded-${row}`,
+										"renderless": true,
+										"onUpdate:height": (height) => setExpandedHeight(index, row, height)
+									}, { default: (_ref3) => {
+										let { itemRef } = _ref3;
+										return (0, vue.cloneVNode)(node, { ref: itemRef }, true);
+									} }))]);
+								}
 							}),
 							slots["body.append"]?.(slotProps.value),
 							(0, vue.createElementVNode)("tr", { "style": {
@@ -74638,8 +74793,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDataTable/VDataTableServer.js
+	// node_modules/vuetify/lib/components/VDataTable/VDataTableServer.js
 	var makeVDataTableServerProps = propsFactory({
 		itemsLength: {
 			type: [Number, String],
@@ -74776,8 +74930,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDatePicker/VDatePickerControls.js
+	// node_modules/vuetify/lib/components/VDatePicker/VDatePickerControls.js
 	var makeVDatePickerControlsProps = propsFactory({
 		active: {
 			type: [String, Array],
@@ -74989,8 +75142,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDatePicker/VDatePickerHeader.js
+	// node_modules/vuetify/lib/components/VDatePicker/VDatePickerHeader.js
 	var makeVDatePickerHeaderProps = propsFactory({
 		appendIcon: IconValue,
 		color: String,
@@ -75055,8 +75207,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/calendar.js
+	// node_modules/vuetify/lib/composables/calendar.js
 	var makeCalendarProps = propsFactory({
 		allowedDates: [Array, Function],
 		disabled: {
@@ -75228,8 +75379,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			isInAllowedRange
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDatePicker/VDatePickerMonth.js
+	// node_modules/vuetify/lib/components/VDatePicker/VDatePickerMonth.js
 	var makeVDatePickerMonthProps = propsFactory({
 		color: String,
 		hideWeekdays: Boolean,
@@ -75412,8 +75562,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			})])] })]));
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDatePicker/VDatePickerMonths.js
+	// node_modules/vuetify/lib/components/VDatePicker/VDatePickerMonths.js
 	var makeVDatePickerMonthsProps = propsFactory({
 		color: String,
 		height: [String, Number],
@@ -75485,8 +75634,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDatePicker/VDatePickerYears.js
+	// node_modules/vuetify/lib/components/VDatePicker/VDatePickerYears.js
 	var makeVDatePickerYearsProps = propsFactory({
 		color: String,
 		height: [String, Number],
@@ -75582,8 +75730,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js
+	// node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js
 	var makeVDatePickerProps = propsFactory({
 		header: {
 			type: String,
@@ -75860,8 +76007,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VEmptyState/VEmptyState.js
+	// node_modules/vuetify/lib/components/VEmptyState/VEmptyState.js
 	var makeVEmptyStateProps = propsFactory({
 		actionText: String,
 		bgColor: String,
@@ -75978,11 +76124,9 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VExpansionPanel/shared.js
+	// node_modules/vuetify/lib/components/VExpansionPanel/shared.js
 	var VExpansionPanelSymbol = Symbol.for("vuetify:v-expansion-panel");
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelText.js
+	// node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelText.js
 	var makeVExpansionPanelTextProps = propsFactory({
 		...makeComponentProps(),
 		...makeLazyProps()
@@ -76002,8 +76146,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelTitle.js
+	// node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanelTitle.js
 	var makeVExpansionPanelTitleProps = propsFactory({
 		color: String,
 		expandIcon: {
@@ -76072,8 +76215,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanel.js
+	// node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanel.js
 	var makeVExpansionPanelProps = propsFactory({
 		title: String,
 		text: String,
@@ -76140,8 +76282,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return { groupItem };
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanels.js
+	// node_modules/vuetify/lib/components/VExpansionPanel/VExpansionPanels.js
 	var allowedVariants = [
 		"default",
 		"accordion",
@@ -76220,8 +76361,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VFab/VFab.js
+	// node_modules/vuetify/lib/components/VFab/VFab.js
 	var makeVFabProps = propsFactory({
 		app: Boolean,
 		appear: Boolean,
@@ -76302,8 +76442,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/fileDrop.js
+	// node_modules/vuetify/lib/composables/fileDrop.js
 	function useFileDrop() {
 		function hasFilesOrFolders(e) {
 			return [...e.dataTransfer?.items ?? []].filter((x) => x.kind === "file").map((x) => x.webkitGetAsEntry()).filter(Boolean).length > 0 || [...e.dataTransfer?.files ?? []].length > 0;
@@ -76340,8 +76479,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	function appendIfDirectory(path, item) {
 		return item.isDirectory ? `${path}/${item.name}` : path;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/fileFilter.js
+	// node_modules/vuetify/lib/composables/fileFilter.js
 	var makeFileFilterProps = propsFactory({ filterByType: String }, "file-accept");
 	function useFileFilter(props) {
 		const fileFilter = (0, vue.computed)(() => props.filterByType ? createFilter(props.filterByType) : null);
@@ -76371,8 +76509,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return typesToMatch.includes(file.type) || extensionsToMatch.includes(`.${extension}`) || wildcards.includes(`${typeGroup}/*`);
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VFileInput/VFileInput.js
+	// node_modules/vuetify/lib/components/VFileInput/VFileInput.js
 	var makeVFileInputProps = propsFactory({
 		chips: Boolean,
 		counter: Boolean,
@@ -76453,7 +76590,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			const isDragging = (0, vue.shallowRef)(false);
 			const { handleDrop, hasFilesOrFolders } = useFileDrop();
 			function onFocus() {
-				if (inputRef.value !== document.activeElement) inputRef.value?.focus();
+				if (inputRef.value !== getActiveElement()) inputRef.value?.focus();
 				if (!isFocused.value) focus();
 			}
 			function onClickPrepend(e) {
@@ -76518,7 +76655,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 			useRender(() => {
 				const hasCounter = !!(slots.counter || props.counter);
-				const hasDetails = !!(hasCounter || slots.details);
+				const hasDetails = props.hideDetails !== true && !!(slots.details || hasCounter && (props.hideDetails === false || model.value?.length));
 				const [rootAttrs, inputAttrs] = filterInputAttrs(attrs);
 				const { modelValue: _, ...inputProps } = VInput.filterProps(props);
 				const fieldProps = {
@@ -76610,8 +76747,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({}, vInputRef, vFieldRef, inputRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VFooter/VFooter.js
+	// node_modules/vuetify/lib/components/VFooter/VFooter.js
 	var makeVFooterProps = propsFactory({
 		app: Boolean,
 		color: String,
@@ -76678,8 +76814,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VForm/VForm.js
+	// node_modules/vuetify/lib/components/VForm/VForm.js
 	var makeVFormProps = propsFactory({
 		...makeComponentProps(),
 		...makeFormProps()
@@ -76723,8 +76858,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs(form, formRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VKbd/VKbd.js
+	// node_modules/vuetify/lib/components/VKbd/VKbd.js
 	var makeVKbdProps = propsFactory({
 		color: String,
 		...makeBorderProps(),
@@ -76759,8 +76893,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VHotkey/VHotkey.js
+	// node_modules/vuetify/lib/components/VHotkey/VHotkey.js
 	function processKey(config, requestedMode, isMac) {
 		const keyCfg = isMac && config.mac ? config.mac : config.default;
 		const mode = (() => {
@@ -76977,18 +77110,20 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}
 			function renderKey(key, keyIndex) {
 				const isContained = props.variant === "contained";
-				return (0, vue.createVNode)(isContained ? "kbd" : VKbd, {
+				const KeyComponent = isContained ? "kbd" : VKbd;
+				const keyClasses = [
+					"v-hotkey__key",
+					`v-hotkey__key-${key[0]}`,
+					...isContained ? ["v-hotkey__key--nested"] : [
+						borderClasses.value,
+						roundedClasses.value,
+						elevationClasses.value,
+						colorClasses.value
+					]
+				];
+				return (0, vue.createVNode)(KeyComponent, {
 					"key": keyIndex,
-					"class": (0, vue.normalizeClass)([
-						"v-hotkey__key",
-						`v-hotkey__key-${key[0]}`,
-						...isContained ? ["v-hotkey__key--nested"] : [
-							borderClasses.value,
-							roundedClasses.value,
-							elevationClasses.value,
-							colorClasses.value
-						]
-					]),
+					"class": (0, vue.normalizeClass)(keyClasses),
 					"style": (0, vue.normalizeStyle)(isContained ? void 0 : colorStyles.value),
 					"aria-hidden": "true",
 					"title": getKeyTooltip(key)
@@ -77050,8 +77185,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VHover/VHover.js
+	// node_modules/vuetify/lib/components/VHover/VHover.js
 	var makeVHoverProps = propsFactory({
 		disabled: Boolean,
 		modelValue: {
@@ -77077,8 +77211,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VInfiniteScroll/VInfiniteScroll.js
+	// node_modules/vuetify/lib/components/VInfiniteScroll/VInfiniteScroll.js
 	var makeVInfiniteScrollProps = propsFactory({
 		color: String,
 		direction: {
@@ -77301,8 +77434,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return { reset };
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VItemGroup/VItemGroup.js
+	// node_modules/vuetify/lib/components/VItemGroup/VItemGroup.js
 	var VItemGroupSymbol = Symbol.for("vuetify:v-item-group");
 	var makeVItemGroupProps = propsFactory({
 		...makeComponentProps(),
@@ -77334,8 +77466,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			})] });
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VItemGroup/VItem.js
+	// node_modules/vuetify/lib/components/VItemGroup/VItem.js
 	var VItem = genericComponent()({
 		name: "VItem",
 		props: makeGroupItemProps(),
@@ -77353,8 +77484,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VLayout/VLayout.js
+	// node_modules/vuetify/lib/components/VLayout/VLayout.js
 	var makeVLayoutProps = propsFactory({
 		...makeComponentProps(),
 		...makeDimensionProps(),
@@ -77382,8 +77512,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VLayout/VLayoutItem.js
+	// node_modules/vuetify/lib/components/VLayout/VLayoutItem.js
 	var makeVLayoutItemProps = propsFactory({
 		position: {
 			type: String,
@@ -77417,8 +77546,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			}, [slots.default?.()]);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VLazy/VLazy.js
+	// node_modules/vuetify/lib/components/VLazy/VLazy.js
 	var makeVLazyProps = propsFactory({
 		modelValue: Boolean,
 		options: {
@@ -77464,8 +77592,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VLocaleProvider/VLocaleProvider.js
+	// node_modules/vuetify/lib/components/VLocaleProvider/VLocaleProvider.js
 	var makeVLocaleProviderProps = propsFactory({
 		locale: String,
 		fallbackLocale: String,
@@ -77493,8 +77620,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VNavigationDrawer/sticky.js
+	// node_modules/vuetify/lib/components/VNavigationDrawer/sticky.js
 	function useSticky(_ref) {
 		let { rootEl, isSticky, layoutItemStyles } = _ref;
 		const isStuck = (0, vue.shallowRef)(false);
@@ -77549,8 +77675,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			stickyStyles
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/touch.js
+	// node_modules/vuetify/lib/composables/touch.js
 	var HORIZON = 100;
 	var HISTORY = 20;
 	/** @see https://android.googlesource.com/platform/frameworks/native/+/master/libs/input/VelocityTracker.cpp */
@@ -77624,8 +77749,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	function oops$1() {
 		throw new Error();
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VNavigationDrawer/touch.js
+	// node_modules/vuetify/lib/components/VNavigationDrawer/touch.js
 	function useTouch(_ref) {
 		let { el, isActive, isTemporary, width, touchless, position } = _ref;
 		(0, vue.onMounted)(() => {
@@ -77735,8 +77859,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 	function oops() {
 		throw new Error();
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VNavigationDrawer/VNavigationDrawer.js
+	// node_modules/vuetify/lib/components/VNavigationDrawer/VNavigationDrawer.js
 	var locations = [
 		"start",
 		"end",
@@ -77953,8 +78076,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return { isStuck };
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VNoSsr/VNoSsr.js
+	// node_modules/vuetify/lib/components/VNoSsr/VNoSsr.js
 	var VNoSsr = defineComponent({
 		name: "VNoSsr",
 		setup(_, _ref) {
@@ -77963,8 +78085,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return () => show.value && slots.default?.();
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VNumberInput/hold.js
+	// node_modules/vuetify/lib/components/VNumberInput/hold.js
 	var HOLD_REPEAT = 50;
 	var HOLD_DELAY = 500;
 	function useHold(_ref) {
@@ -77996,8 +78117,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			holdStop
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VNumberInput/VNumberInput.js
+	// node_modules/vuetify/lib/components/VNumberInput/VNumberInput.js
 	var makeVNumberInputProps = propsFactory({
 		controlVariant: {
 			type: String,
@@ -78346,8 +78466,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({}, vTextFieldRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VOtpInput/VOtpInput.js
+	// node_modules/vuetify/lib/components/VOtpInput/VOtpInput.js
 	var makeVOtpInputProps = propsFactory({
 		autofocus: Boolean,
 		divider: String,
@@ -78583,8 +78702,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VParallax/VParallax.js
+	// node_modules/vuetify/lib/components/VParallax/VParallax.js
 	function floor(val) {
 		return Math.floor(Math.abs(val)) * Math.sign(val);
 	}
@@ -78655,8 +78773,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VRadio/VRadio.js
+	// node_modules/vuetify/lib/components/VRadio/VRadio.js
 	var makeVRadioProps = propsFactory({ ...makeVSelectionControlProps({
 		falseIcon: "$radioOff",
 		trueIcon: "$radioOn"
@@ -78667,7 +78784,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		setup(props, _ref) {
 			let { slots } = _ref;
 			useRender(() => {
-				return (0, vue.createVNode)(VSelectionControl, (0, vue.mergeProps)(VSelectionControl.filterProps(props), {
+				const controlProps = VSelectionControl.filterProps(props);
+				return (0, vue.createVNode)(VSelectionControl, (0, vue.mergeProps)(controlProps, {
 					"class": ["v-radio", props.class],
 					"style": props.style,
 					"type": "radio"
@@ -78676,8 +78794,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VRadioGroup/VRadioGroup.js
+	// node_modules/vuetify/lib/components/VRadioGroup/VRadioGroup.js
 	var makeVRadioGroupProps = propsFactory({
 		height: {
 			type: [Number, String],
@@ -78750,8 +78867,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({}, inputRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VRangeSlider/VRangeSlider.js
+	// node_modules/vuetify/lib/components/VRangeSlider/VRangeSlider.js
 	var makeVRangeSliderProps = propsFactory({
 		...makeFocusProps(),
 		...makeVInputProps(),
@@ -78935,8 +79051,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({ focus: () => startThumbRef.value?.$el.focus() }, inputRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VRating/VRating.js
+	// node_modules/vuetify/lib/components/VRating/VRating.js
 	var makeVRatingProps = propsFactory({
 		name: String,
 		itemAriaLabel: {
@@ -79138,8 +79253,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSkeletonLoader/VSkeletonLoader.js
+	// node_modules/vuetify/lib/components/VSkeletonLoader/VSkeletonLoader.js
 	var rootTypes = {
 		actions: "button@2",
 		article: "heading, paragraph",
@@ -79254,8 +79368,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSlideGroup/VSlideGroupItem.js
+	// node_modules/vuetify/lib/components/VSlideGroup/VSlideGroupItem.js
 	var VSlideGroupItem = genericComponent()({
 		name: "VSlideGroupItem",
 		props: makeGroupItemProps(),
@@ -79271,8 +79384,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js
+	// node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js
 	function useCountdown(milliseconds) {
 		const time = (0, vue.shallowRef)(milliseconds());
 		let timer = -1;
@@ -79469,8 +79581,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({}, overlay);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSnackbarQueue/VSnackbarQueue.js
+	// node_modules/vuetify/lib/components/VSnackbarQueue/VSnackbarQueue.js
 	var makeVSnackbarQueueProps = propsFactory({
 		closable: [Boolean, String],
 		closeText: {
@@ -79538,8 +79649,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSparkline/util/line.js
+	// node_modules/vuetify/lib/components/VSparkline/util/line.js
 	var makeLineProps = propsFactory({
 		autoDraw: Boolean,
 		autoDrawDuration: [Number, String],
@@ -79604,8 +79714,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			default: 300
 		}
 	}, "Line");
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSparkline/VBarline.js
+	// node_modules/vuetify/lib/components/VSparkline/VBarline.js
 	var makeVBarlineProps = propsFactory({
 		autoLineWidth: Boolean,
 		...makeLineProps()
@@ -79713,7 +79822,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 						}
 					}, [parsedLabels.value.map((item, i) => (0, vue.createElementVNode)("text", {
 						"x": item.x + offsetX.value + lineWidth.value / 2,
-						"y": parseInt(props.height, 10) - 2 + (parseInt(props.labelSize, 10) || 7 * .75),
+						"y": parseInt(props.height, 10) - 2 + (parseInt(props.labelSize, 10) || 5.25),
 						"font-size": Number(props.labelSize) || 7
 					}, [slots.label?.({
 						index: i,
@@ -79732,8 +79841,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSparkline/util/path.js
+	// node_modules/vuetify/lib/components/VSparkline/util/path.js
 	/**
 	* From https://github.com/unsplash/react-trend/blob/master/src/helpers/DOM.helpers.js#L18
 	*/
@@ -79784,8 +79892,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			y: from.y + unitVector.y * radius
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSparkline/VTrendline.js
+	// node_modules/vuetify/lib/components/VSparkline/VTrendline.js
 	var makeVTrendlineProps = propsFactory({
 		fill: Boolean,
 		...makeLineProps()
@@ -79899,7 +80006,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 						}
 					}, [parsedLabels.value.map((item, i) => (0, vue.createElementVNode)("text", {
 						"x": item.x + lineWidth.value / 2 + lineWidth.value / 2,
-						"y": parseInt(props.height, 10) - 4 + (parseInt(props.labelSize, 10) || 7 * .75),
+						"y": parseInt(props.height, 10) - 4 + (parseInt(props.labelSize, 10) || 5.25),
 						"font-size": Number(props.labelSize) || 7
 					}, [slots.label?.({
 						index: i,
@@ -79920,8 +80027,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSparkline/VSparkline.js
+	// node_modules/vuetify/lib/components/VSparkline/VSparkline.js
 	var makeVSparklineProps = propsFactory({
 		type: {
 			type: String,
@@ -79956,8 +80062,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSpeedDial/VSpeedDial.js
+	// node_modules/vuetify/lib/components/VSpeedDial/VSpeedDial.js
 	var makeVSpeedDialProps = propsFactory({
 		...makeComponentProps(),
 		...makeVMenuProps({
@@ -79983,7 +80088,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 			const locationClasses = (0, vue.computed)(() => ({ [`v-speed-dial__content--${location.value.replace(" ", "-")}`]: true }));
 			useRender(() => {
-				return (0, vue.createVNode)(VMenu, (0, vue.mergeProps)(VMenu.filterProps(props), {
+				const menuProps = VMenu.filterProps(props);
+				return (0, vue.createVNode)(VMenu, (0, vue.mergeProps)(menuProps, {
 					"modelValue": model.value,
 					"onUpdate:modelValue": ($event) => model.value = $event,
 					"class": props.class,
@@ -80008,11 +80114,9 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VStepper/shared.js
+	// node_modules/vuetify/lib/components/VStepper/shared.js
 	var VStepperSymbol = Symbol.for("vuetify:v-stepper");
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VStepper/VStepperActions.js
+	// node_modules/vuetify/lib/components/VStepper/VStepperActions.js
 	var makeVStepperActionsProps = propsFactory({
 		color: String,
 		disabled: {
@@ -80061,8 +80165,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VStepper/VStepperHeader.js
+	// node_modules/vuetify/lib/components/VStepper/VStepperHeader.js
 	var VStepperHeader = createSimpleFunctional("v-stepper-header");
 	var makeVStepperItemProps = propsFactory({
 		...propsFactory({
@@ -80173,8 +80276,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VStepper/VStepperWindow.js
+	// node_modules/vuetify/lib/components/VStepper/VStepperWindow.js
 	var makeVStepperWindowProps = propsFactory({ ...omit(makeVWindowProps(), [
 		"continuous",
 		"nextIcon",
@@ -80201,7 +80303,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				}
 			});
 			useRender(() => {
-				return (0, vue.createVNode)(VWindow, (0, vue.mergeProps)({ "_as": "VStepperWindow" }, VWindow.filterProps(props), {
+				const windowProps = VWindow.filterProps(props);
+				return (0, vue.createVNode)(VWindow, (0, vue.mergeProps)({ "_as": "VStepperWindow" }, windowProps, {
 					"modelValue": model.value,
 					"onUpdate:modelValue": ($event) => model.value = $event,
 					"class": ["v-stepper-window", props.class],
@@ -80213,8 +80316,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VStepper/VStepperWindowItem.js
+	// node_modules/vuetify/lib/components/VStepper/VStepperWindowItem.js
 	var makeVStepperWindowItemProps = propsFactory({ ...makeVWindowItemProps() }, "VStepperWindowItem");
 	var VStepperWindowItem = genericComponent()({
 		name: "VStepperWindowItem",
@@ -80222,7 +80324,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		setup(props, _ref) {
 			let { slots } = _ref;
 			useRender(() => {
-				return (0, vue.createVNode)(VWindowItem, (0, vue.mergeProps)({ "_as": "VStepperWindowItem" }, VWindowItem.filterProps(props), {
+				const windowItemProps = VWindowItem.filterProps(props);
+				return (0, vue.createVNode)(VWindowItem, (0, vue.mergeProps)({ "_as": "VStepperWindowItem" }, windowItemProps, {
 					"class": ["v-stepper-window-item", props.class],
 					"style": props.style
 				}), slots);
@@ -80376,8 +80479,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSwitch/VSwitch.js
+	// node_modules/vuetify/lib/components/VSwitch/VSwitch.js
 	var makeVSwitchProps = propsFactory({
 		indeterminate: Boolean,
 		inset: Boolean,
@@ -80513,8 +80615,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({}, inputRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VSystemBar/VSystemBar.js
+	// node_modules/vuetify/lib/components/VSystemBar/VSystemBar.js
 	var makeVSystemBarProps = propsFactory({
 		color: String,
 		height: [Number, String],
@@ -80566,11 +80667,9 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTabs/shared.js
+	// node_modules/vuetify/lib/components/VTabs/shared.js
 	var VTabsSymbol = Symbol.for("vuetify:v-tabs");
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTabs/VTab.js
+	// node_modules/vuetify/lib/components/VTabs/VTab.js
 	var makeVTabProps = propsFactory({
 		fixed: Boolean,
 		sliderColor: String,
@@ -80693,8 +80792,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({}, rootEl);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTabs/VTabsWindow.js
+	// node_modules/vuetify/lib/components/VTabs/VTabsWindow.js
 	var makeVTabsWindowProps = propsFactory({ ...omit(makeVWindowProps(), [
 		"continuous",
 		"nextIcon",
@@ -80721,7 +80819,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				}
 			});
 			useRender(() => {
-				return (0, vue.createVNode)(VWindow, (0, vue.mergeProps)({ "_as": "VTabsWindow" }, VWindow.filterProps(props), {
+				const windowProps = VWindow.filterProps(props);
+				return (0, vue.createVNode)(VWindow, (0, vue.mergeProps)({ "_as": "VTabsWindow" }, windowProps, {
 					"modelValue": model.value,
 					"onUpdate:modelValue": ($event) => model.value = $event,
 					"class": ["v-tabs-window", props.class],
@@ -80733,8 +80832,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTabs/VTabsWindowItem.js
+	// node_modules/vuetify/lib/components/VTabs/VTabsWindowItem.js
 	var makeVTabsWindowItemProps = propsFactory({ ...makeVWindowItemProps() }, "VTabsWindowItem");
 	var VTabsWindowItem = genericComponent()({
 		name: "VTabsWindowItem",
@@ -80742,7 +80840,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		setup(props, _ref) {
 			let { slots } = _ref;
 			useRender(() => {
-				return (0, vue.createVNode)(VWindowItem, (0, vue.mergeProps)({ "_as": "VTabsWindowItem" }, VWindowItem.filterProps(props), {
+				const windowItemProps = VWindowItem.filterProps(props);
+				return (0, vue.createVNode)(VWindowItem, (0, vue.mergeProps)({ "_as": "VTabsWindowItem" }, windowItemProps, {
 					"class": ["v-tabs-window-item", props.class],
 					"style": props.style
 				}), slots);
@@ -80750,8 +80849,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTabs/VTabs.js
+	// node_modules/vuetify/lib/components/VTabs/VTabs.js
 	function parseItems(items) {
 		if (!items) return [];
 		return items.map((item) => {
@@ -80867,8 +80965,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTextarea/VTextarea.js
+	// node_modules/vuetify/lib/components/VTextarea/VTextarea.js
 	var makeVTextareaProps = propsFactory({
 		autoGrow: Boolean,
 		autofocus: Boolean,
@@ -80937,7 +81034,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			const isActive = (0, vue.computed)(() => props.persistentPlaceholder || isFocused.value || props.active);
 			function onFocus() {
 				if (autocomplete.isSuppressing.value) autocomplete.update();
-				if (textareaRef.value !== document.activeElement) textareaRef.value?.focus();
+				if (textareaRef.value !== getActiveElement()) textareaRef.value?.focus();
 				if (!isFocused.value) focus();
 			}
 			function onControlClick(e) {
@@ -81024,7 +81121,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 			useRender(() => {
 				const hasCounter = !!(slots.counter || props.counter || props.counterValue);
-				const hasDetails = !!(hasCounter || slots.details);
+				const hasDetails = props.hideDetails !== true && !!(slots.details || hasCounter && (props.persistentCounter || props.hideDetails === false || isFocused.value));
 				const [rootAttrs, inputAttrs] = filterInputAttrs(attrs);
 				const { modelValue: _, ...inputProps } = VInput.filterProps(props);
 				const fieldProps = {
@@ -81127,8 +81224,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({}, vInputRef, vFieldRef, textareaRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VThemeProvider/VThemeProvider.js
+	// node_modules/vuetify/lib/components/VThemeProvider/VThemeProvider.js
 	var makeVThemeProviderProps = propsFactory({
 		withBackground: Boolean,
 		...makeComponentProps(),
@@ -81154,8 +81250,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTimeline/VTimelineDivider.js
+	// node_modules/vuetify/lib/components/VTimeline/VTimelineDivider.js
 	var makeVTimelineDividerProps = propsFactory({
 		dotColor: String,
 		fillDot: Boolean,
@@ -81228,8 +81323,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTimeline/VTimelineItem.js
+	// node_modules/vuetify/lib/components/VTimeline/VTimelineItem.js
 	var makeVTimelineItemProps = propsFactory({
 		density: String,
 		dotColor: String,
@@ -81300,8 +81394,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTimeline/VTimeline.js
+	// node_modules/vuetify/lib/components/VTimeline/VTimeline.js
 	var makeVTimelineProps = propsFactory({
 		align: {
 			type: String,
@@ -81401,8 +81494,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTimePicker/VTimePickerClock.js
+	// node_modules/vuetify/lib/components/VTimePicker/VTimePickerClock.js
 	var makeVTimePickerClockProps = propsFactory({
 		allowedValues: Function,
 		ampm: Boolean,
@@ -81608,8 +81700,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTimePicker/VTimePickerField.js
+	// node_modules/vuetify/lib/components/VTimePicker/VTimePickerField.js
 	var makeVTimePickerFieldProps = propsFactory({
 		active: Boolean,
 		color: String,
@@ -81669,8 +81760,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({}, vTextInputRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTimePicker/util.js
+	// node_modules/vuetify/lib/components/VTimePicker/util.js
 	function pad(n) {
 		let length = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 2;
 		return String(n).padStart(length, "0");
@@ -81708,8 +81798,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		if (val === 0 && !increment) return 59;
 		return val + (increment ? 1 : -1);
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTimePicker/useTimeValidation.js
+	// node_modules/vuetify/lib/components/VTimePicker/useTimeValidation.js
 	var makeTimeValidationProps = propsFactory({
 		allowedHours: [Function, Array],
 		allowedMinutes: [Function, Array],
@@ -81788,8 +81877,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			findNextAllowed
 		};
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTimePicker/VTimePickerControls.js
+	// node_modules/vuetify/lib/components/VTimePicker/VTimePickerControls.js
 	var makeVTimePickerControlsProps = propsFactory({
 		ampm: Boolean,
 		color: String,
@@ -81935,9 +82023,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 					case "minute":
 						minuteInputRef.value.blur();
 						break;
-					case "second":
-						secondInputRef.value.blur();
-						break;
+					case "second": secondInputRef.value.blur();
 				}
 			});
 			const hourInputFilter = createInputInterceptor(transformHours.out, (v) => transformHours.in(v) === hour.value, (v) => hour.value = v);
@@ -82027,8 +82113,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTimePicker/VTimePicker.js
+	// node_modules/vuetify/lib/components/VTimePicker/VTimePicker.js
 	var makeVTimePickerProps = propsFactory({
 		disabled: Boolean,
 		format: {
@@ -82143,10 +82228,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 					case "minute":
 						emit("update:minute", value);
 						break;
-					case "second":
-						emit("update:second", value);
-						break;
-					default: break;
+					case "second": emit("update:second", value);
 				}
 				const emitChange = inputHour.value !== null && inputMinute.value !== null && (props.useSeconds ? inputSecond.value !== null : true);
 				if (viewMode.value === "hour") viewMode.value = "minute";
@@ -82213,8 +82295,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTreeview/VTreeviewGroup.js
+	// node_modules/vuetify/lib/components/VTreeview/VTreeviewGroup.js
 	var makeVTreeviewGroupProps = propsFactory({ ...omit(makeVListGroupProps({
 		collapseIcon: "$treeviewCollapse",
 		expandIcon: "$treeviewExpand"
@@ -82232,7 +82313,8 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 				toggleIcon: toggleIcon.value
 			} }));
 			useRender(() => {
-				return (0, vue.createVNode)(VListGroup, (0, vue.mergeProps)(VListGroup.filterProps(props), {
+				const listGroupProps = VListGroup.filterProps(props);
+				return (0, vue.createVNode)(VListGroup, (0, vue.mergeProps)(listGroupProps, {
 					"ref": vListGroupRef,
 					"class": ["v-treeview-group", props.class],
 					"subgroup": true
@@ -82244,11 +82326,9 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTreeview/shared.js
+	// node_modules/vuetify/lib/components/VTreeview/shared.js
 	var VTreeviewSymbol = Symbol.for("vuetify:v-treeview");
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTreeview/VTreeviewItem.js
+	// node_modules/vuetify/lib/components/VTreeview/VTreeviewItem.js
 	var makeVTreeviewItemProps = propsFactory({
 		loading: Boolean,
 		hideActions: Boolean,
@@ -82366,8 +82446,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return forwardRefs({}, vListItemRef);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTreeview/VTreeviewChildren.js
+	// node_modules/vuetify/lib/components/VTreeview/VTreeviewChildren.js
 	var makeVTreeviewChildrenProps = propsFactory({
 		fluid: Boolean,
 		disabled: Boolean,
@@ -82567,8 +82646,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			});
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VTreeview/VTreeview.js
+	// node_modules/vuetify/lib/components/VTreeview/VTreeview.js
 	function flatten(items) {
 		let flat = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : [];
 		for (const item of items) {
@@ -82719,8 +82797,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return {};
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/VValidation/VValidation.js
+	// node_modules/vuetify/lib/components/VValidation/VValidation.js
 	var VValidation = genericComponent()({
 		name: "VValidation",
 		props: makeValidationProps(),
@@ -82731,8 +82808,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			return () => slots.default?.(validation);
 		}
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/components/index.js
+	// node_modules/vuetify/lib/components/index.js
 	var components_exports = /* @__PURE__ */ __exportAll({
 		VAlert: () => VAlert,
 		VAlertTitle: () => VAlertTitle,
@@ -82910,8 +82986,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		VWindow: () => VWindow,
 		VWindowItem: () => VWindowItem
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/directives/mutate/index.js
+	// node_modules/vuetify/lib/directives/mutate/index.js
 	function mounted$1(el, binding) {
 		const modifiers = binding.modifiers || {};
 		const value = binding.value;
@@ -82946,8 +83021,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		mounted: mounted$1,
 		unmounted: unmounted$1
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/directives/scroll/index.js
+	// node_modules/vuetify/lib/directives/scroll/index.js
 	function mounted(el, binding) {
 		const { self = false } = binding.modifiers ?? {};
 		const value = binding.value;
@@ -82979,8 +83053,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		unmounted,
 		updated
 	};
-	//#endregion
-	//#region node_modules/vuetify/lib/composables/directiveComponent.js
+	// node_modules/vuetify/lib/composables/directiveComponent.js
 	function useDirectiveComponent(component, props) {
 		const hook = mountComponent(typeof component === "string" ? (0, vue.resolveComponent)(component) : component, props);
 		return {
@@ -83027,8 +83100,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		for (const child of result) if (child.component) return child.component;
 		return root;
 	}
-	//#endregion
-	//#region node_modules/vuetify/lib/directives/tooltip/index.js
+	// node_modules/vuetify/lib/directives/tooltip/index.js
 	var Tooltip = useDirectiveComponent(VTooltip, (binding) => {
 		return {
 			activator: (isObject(binding.value) ? !binding.value.text : [
@@ -83041,8 +83113,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 			text: typeof binding.value === "boolean" ? void 0 : binding.value
 		};
 	});
-	//#endregion
-	//#region node_modules/vuetify/lib/directives/index.js
+	// node_modules/vuetify/lib/directives/index.js
 	var directives_exports = /* @__PURE__ */ __exportAll({
 		ClickOutside: () => ClickOutside,
 		Intersect: () => Intersect,
@@ -83053,8 +83124,7 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		Tooltip: () => Tooltip,
 		Touch: () => Touch
 	});
-	//#endregion
-	//#region src/lex-web-ui.js
+	// src/lex-web-ui.js
 	/**
 	* Entry point to the lex-web-ui Vue plugin
 	* Exports Loader as the plugin constructor
@@ -83158,7 +83228,6 @@ while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] &
 		}
 	};
 	new Loader().app.mount("#lex-app");
-	//#endregion
 	exports.AsyncComponent = AsyncComponent;
 	exports.Loader = Loader;
 	exports.Plugin = Plugin;
