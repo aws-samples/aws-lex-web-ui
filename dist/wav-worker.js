@@ -1,4 +1,4 @@
-//#region src/lib/lex/wav-worker.js
+// src/lib/lex/wav-worker.js
 const bitDepth = 16;
 const bytesPerSample = bitDepth / 8;
 const outSampleRate = 16e3;
@@ -30,10 +30,7 @@ self.onmessage = (evt) => {
 		case "clear":
 			clear();
 			break;
-		case "close":
-			self.close();
-			break;
-		default: break;
+		case "close": self.close();
 	}
 };
 function init(config) {
@@ -98,7 +95,7 @@ function addHeader(view, length) {
 	view.setUint16(22, outNumChannels, true);
 	view.setUint32(24, outSampleRate, true);
 	view.setUint32(28, outSampleRate * bytesPerSample * outNumChannels, true);
-	view.setUint16(32, bytesPerSample * outNumChannels, true);
+	view.setUint16(32, 2, true);
 	view.setUint16(34, bitDepth, true);
 	view.setUint32(36, 1684108385, false);
 }
@@ -137,6 +134,5 @@ function downsampleTrimBuffer(buffer, rate) {
 	}
 	return options.useTrim ? result.slice(Math.max(0, firstNonQuiet - options.quietTrimSlackBack), Math.min(newLength, lastNonQuiet + options.quietTrimSlackBack)) : result;
 }
-//#endregion
 
 //# sourceMappingURL=wav-worker.js.map
